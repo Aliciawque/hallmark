@@ -5,7 +5,7 @@ The three diversification axes for every catalog theme, derived from the canonic
 - **As a lookup (catalog route).** The Rotation block in [`SKILL.md`](../SKILL.md) reads it to pick the next theme; two consecutive themes must differ on at least one axis.
 - **As a rejection table (custom route).** A constructed system declares its own axes per [`direction.md`](direction.md) § D, and this table is the list of triples it must not land on. See § The rejection reading below.
 
-The second reading is what the 24 themes are *for* on a derived run, where nothing picks a catalog theme. They stop being destinations and become the twenty-four most-worn coordinates in Hallmark's own space: precisely what [`direction.md`](direction.md) § R.2 means by house defaults, with values attached.
+The second reading is what the 23 themes are *for* on a derived run, where nothing picks a catalog theme. They stop being destinations and become the twenty-three most-worn coordinates in Hallmark's own space: precisely what [`direction.md`](direction.md) § R.2 means by house defaults, with values attached.
 
 Bands: paper **dark** < 30% L · **mid** 30-85% · **light** > 85%. Accent: **warm** 10-60° · **cool** 200-300° · **neutral** chroma < 0.05 · **chromatic-other** anything else (sub-tag the hue).
 
@@ -31,12 +31,11 @@ Bands: paper **dark** < 30% L · **mid** 30-85% · **light** > 85%. Accent: **wa
 | Carnival | light (92%, warm) | display-heavy (Big Shoulders) | chromatic-amber (~95°) |
 | Lumen | dark (13%, indigo; day drop flips light) | classical-serif (Instrument Serif) | warm (~50°) |
 | Hum | light (97%, warm) | rounded-sans (Chillax) | chromatic-amber (~95°) |
-| Grid | light (near-white 99%) | grotesk-heavy (Archivo 800) | warm (signal red ~28) |
-| Field | light (cream 96.5%) | roman-serif (Literata) | chromatic-marigold (~80) |
-| Ledger | dark (navy 20%) | grotesk-sans + tabular mono (Hanken) | chromatic-teal (~185) |
-| Arcade | dark (violet-black 16%) | pixel display (Silkscreen) | chromatic-magenta (~340) + cyan |
+| Grid | light (near-white 99%) | grotesk-heavy (Archivo 800) | one signal ink per page: warm (red ~28, default), cool (ultramarine ~264), or chromatic-yellow (~95, surface-only) |
+| Ledger | dark, one of three bindings (navy 20% ~255 / bordeaux ~15 / cloth ~168), ruled: banded / columnar / journal | grotesk-sans + tabular mono (Instrument Sans + IBM Plex Mono) | two inks by side of the book, one of three pairs: teal+brass (default, ~185 / ~82), sage+clay (~150 / ~45), ice+oxide (~215 / ~38) |
+| Arcade | dark (aubergine-black ~15%, hue shifts with the colourway; CRT stack: grille / mask / damper) | pixel display + marquee lettering (Silkscreen HUD + Bungee) | two neon inks, one of three colourways: ember+acid (default, ~40 / ~115), sodium+petrol (~72 / ~242), gold+oxblood (~90 / ~25) |
 
-When two candidate themes match on two of the three axes, pick a more distant one. Known close pairs that rule arbitrates: Aurora ~172° vs Ledger ~185° (same teal family), Sport vs Editorial (both light/display-condensed/warm; scoreboard vs magazine register), Studio vs Atelier and Studio vs Field (all three light/roman-serif; accent hue separates green from umber from marigold, and the faces are a chipped Erode against a bold Sentient against a warm Literata). Display is roman by default; a single italicised word inside a roman heading is banned outright (gate 38a-i), and an italic display *system* is a Reflex gate a theme can carry if it declares one (38a-ii).
+When two candidate themes match on two of the three axes, pick a more distant one. Known close pairs that rule arbitrates: Aurora ~172° vs Ledger ~185° (same teal family), Sport vs Editorial (both light/display-condensed/warm; scoreboard vs magazine register), Studio vs Atelier (both light/roman-serif; accent hue separates green from umber, and the faces are a chipped Erode against a bold Sentient). Display is roman by default; a single italicised word inside a roman heading is banned outright (gate 38a-i), and an italic display *system* is a Reflex gate a theme can carry if it declares one (38a-ii).
 
 ---
 

@@ -69,7 +69,7 @@ If the input does not clearly map to a verb, treat it as default. If the user at
 
 **Implementation safety rail.** Hallmark is a design skill, not a license to bulldoze a codebase. In any existing project: never delete production files, route trees, or component directories unless the user explicitly approves a file-level plan that lists the deletions; default to in-place edits or additive components wired through existing routes; treat PDFs, READMEs, briefs, and decks as reference material, never copied verbatim without instruction; before editing, state the exact files you expect to modify, create, or delete.
 
-**Direction, in one breath.** Every build **derives its own visual world** from the brief, by the ritual in [`references/direction.md`](references/direction.md): name the category's reflex, list seven grounded directions from the audience's own world, and let an outside draw pick which one gets built. The model's favourite is deterministic, so letting it choose is letting it repeat itself. The **24 named themes** are a fast path, taken only when the user names one, `--fast` is passed, a `design.md` or real brand already exists, or the scope is a single component. Silence derives.
+**Direction, in one breath.** Every build **derives its own visual world** from the brief, by the ritual in [`references/direction.md`](references/direction.md): name the category's reflex, list seven grounded directions from the audience's own world, and let an outside draw pick which one gets built. The model's favourite is deterministic, so letting it choose is letting it repeat itself. The **23 named themes** are a fast path, taken only when the user names one, `--fast` is passed, a `design.md` or real brand already exists, or the scope is a single component. Silence derives.
 
 ---
 
@@ -232,12 +232,12 @@ The `axes` and `fingerprint` fields are how Rotation and gate 32 become checkabl
 **Derive, unless one of the fast-path conditions holds.** Check them in order; the first match wins.
 
 0. **A `study` diagnosis emitted earlier and the user says build with it** → route **studied-DNA**: the diagnosis's paper OKLCH, accent OKLCH, type roles, macrostructure, and archetypes become the locked system. Diversification is suspended. Stamp `theme: studied-DNA (source: <URL or image>)` with the values inline. The user pivoting ("use Newsprint instead", "ignore the DNA") re-enters the dispatch.
-1. **The catalog fast path**, on any one of four conditions and no others: the user **names a theme**; `--fast` was passed; a `design.md` or a real brand already exists (Step 0 caught it, and that branch never reached here); or the scope is a **single component**. Then pick per Rotation from Specimen, Atelier, Brutal, Newsprint, Studio, Manifesto, Terminal, Midnight, Almanac, Garden, Riso, Sport, Bloom, Coral, Cobalt, Aurora, Editorial, Carnival, Lumen, Hum, Grid, Field, Ledger, Arcade, and load that theme's file.
+1. **The catalog fast path**, on any one of four conditions and no others: the user **names a theme**; `--fast` was passed; a `design.md` or a real brand already exists (Step 0 caught it, and that branch never reached here); or the scope is a **single component**. Then pick per Rotation from Specimen, Atelier, Brutal, Newsprint, Studio, Manifesto, Terminal, Midnight, Almanac, Garden, Riso, Sport, Bloom, Coral, Cobalt, Aurora, Editorial, Carnival, Lumen, Hum, Grid, Ledger, Arcade, and load that theme's file.
 2. **Everything else derives.** Load [`references/direction.md`](references/direction.md) and run the ritual: reflex check → spent defaults → slate → draw → scene sentence → colour posture → direction contract → build → finish review. Tuned keeps Hallmark's structures; bespoke (the structure itself is the ask) designs from first principles. Do not ask which route; do not mention the catalog.
 
 A derived system is complete (palette + pairing + axes), never a colour swap; its diversification axes are recorded exactly like a catalog theme's. All 58 slop-test gates fire unchanged, at their usual tiers, and the Step 5 Picks block surfaces everything before code.
 
-**Two consequences, stated once.** Every derived run stamps `posture:`, so gate 23 reads its posture-aware branch as the normal path rather than the occasional one; nothing about the gate changed. And the 24 themes stay fully employed even when nothing picks them: [`references/theme-axes.md`](references/theme-axes.md) § The rejection reading turns them into the coordinates a derived system must not land on.
+**Two consequences, stated once.** Every derived run stamps `posture:`, so gate 23 reads its posture-aware branch as the normal path rather than the occasional one; nothing about the gate changed. And the 23 themes stay fully employed even when nothing picks them: [`references/theme-axes.md`](references/theme-axes.md) § The rejection reading turns them into the coordinates a derived system must not land on.
 
 ### 3. Load the visual ruleset
 
@@ -280,7 +280,7 @@ Then run the image-need table at [`references/hero-enrichment.md` § Image-need 
 
 - **Structure** · Workbench (last 3: Bento, Long Document, Manifesto) — genre modern-minimal
 - **Direction** · Line-printer output (draw 4/7, wildcard no) · posture committed
-- **System** · dark greenbar paper · marigold accent ~80 · Archivo over IBM Plex Mono (clears Ledger and Terminal on display class)
+- **System** · pale greenbar paper · rust accent ~35 · Syne over IBM Plex Mono (clears Ledger on paper band, Grid on display face, Terminal on display class)
 - **Chrome** · nav N13 (prev N5) · footer: a single justified colophon line
 - **Hero** · Stage/H2 (prev Settled)
 - **Section entry** · a hairline rule, repeated, plus one change of paper

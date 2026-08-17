@@ -106,7 +106,6 @@ The table below is alphabetical by theme to neutralise any "first row = default"
 | Carnival | Centered | Full-bleed reset | Double rule | Oversized solid | Inline | Horizontal sweep | N12 Banner + retract | Ft8 Marquee scroll |
 | Cobalt | Hanging | Asymmetric spans | Hairline | Outlined | Inline | Typewriter | N13 Inline ⌘K pill | Ft1 Mast-headed |
 | Coral | Centered | Single column | Hairline | Outlined | Margin-aligned | Fade-up | N5 Floating pill | Ft1 Mast-headed |
-| Field | Hanging | Two-column asymmetric | Negative space | Solid (ink-filled) | None | None | N1b SaaS three-section | Ft6 Letter close |
 | Garden | Hanging | Marginalia | Negative space | Unstyled link | Margin-aligned | None | N9 Edge-min | Ft6 Letter close |
 | Grid | Bottom-aligned | Asymmetric spans | Hairline | Unstyled link | None | None | N7 Brutal slab | Ft2 Inline single line |
 | Hum | Centered | Single column | Bleed-colour | Solid pill (soft) | Inline | Number-tick | N1b SaaS three-section | Ft5 Statement |

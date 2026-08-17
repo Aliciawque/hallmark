@@ -83,11 +83,12 @@ One edge, one element class per page (a ticket edge, a stamp perforation). Never
 | --- | --- |
 | Riso | grain (page <= 0.08) + misregistration (its signature) |
 | Carnival | halftone plates + hard-offset kit (its own, see spec) |
-| Arcade | scanline + starfield (gate-47 carve-out) |
+| Arcade | the CRT stack: aperture grille + scanline + vignette + tight bloom (gate-47 carve-out). Applied once at page level, never per component. The starfield is banned. |
+| Ledger | the sheet's own ruling: banded, columnar, or journal (its own, see spec) |
 | Newsprint | the faintest fibre grain, card-scoped, off by default |
 | Custom draws with print lineage | pick ONE artifact that the drawn direction historically used |
 
-**Banned regardless:** Specimen, Atelier, Cobalt, and the modern-minimal cluster (their specs ban texture explicitly); atmospheric's canvas is blooms, not grain. When a theme spec and this file disagree, the spec wins.
+**Banned regardless:** Specimen, Atelier, Cobalt, and the rest of the modern-minimal cluster (their specs ban texture explicitly); atmospheric's canvas is blooms, not grain. **Ledger is the cluster's one exception**, and only for its own ruling: a flat tonal band structure that carries no grain, no chroma, and no noise. When a theme spec and this file disagree, the spec wins.
 
 ## Reduced motion and accessibility
 
