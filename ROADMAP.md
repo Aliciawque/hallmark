@@ -1,6 +1,6 @@
 # Roadmap
 
-What's next. (v1.2 shipped: four new themes with the image hook, spec files for all 24 themes, the edit-time lint hook, the Tier A conformance harness, variants v2 with progressive reveal + grafts + thumbnails + scoped injection and the corner dock, and the harness pivot - one core with per-harness adapters for Claude Code / Codex / OpenCode plus the multi-harness installer.)
+What's next. (v1.2 shipped: four new themes with the image hook, spec files for every theme, the edit-time lint hook, the Tier A conformance harness, variants v2 with progressive reveal + grafts + thumbnails + scoped injection and the corner dock, and the harness pivot - one core with per-harness adapters for Claude Code / Codex / OpenCode plus the multi-harness installer.)
 
 **Since v1.2: the floor / library split.** The eyebrow is banned outright, in every geometry, with a DOM-shape detector behind it and twelve replacement openings in `section-entry.md`. The 58 gates gained tiers: 34 carry a Floor clause that nothing ships through, 18 are Reflex gates a build can waive on the record with a mechanically re-derived guard and no cap, 6 never block. `FAIL` and `REFLEX` are separate grades, so "0 FAIL" is a true claim about the floor even while a build still owes an argument above it. Themes were cut to a written contract and are material rather than page plans, which took them from 4,070 lines to 2,861. The catalogs stopped being a mandatory pick and became a place to look.
 

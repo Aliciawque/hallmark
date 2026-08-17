@@ -8,14 +8,14 @@ Derivation is the default because **the model's own taste is an attractor**. Lef
 
 ## The catalog fast path
 
-The 24 named themes are still here, and they are the right answer four times:
+The 23 named themes are still here, and they are the right answer four times:
 
 1. **The user names one.** "Use Newsprint", "give me that Ledger feel" is an instruction.
 2. **`--fast`.** Speed is the ask; the catalog is the pre-built answer.
 3. **A `design.md` or a real brand already exists.** Pre-flight found the system; inherit it. That branch never reaches this file.
 4. **Component scope.** One button does not need a derived world.
 
-Anything else derives. Do not ask which; do not mention the catalog. A brief that says nothing gets a world of its own, and the 24 coordinates it must not land on are in [`theme-axes.md`](theme-axes.md) § The rejection reading.
+Anything else derives. Do not ask which; do not mention the catalog. A brief that says nothing gets a world of its own, and the coordinates it must not land on are in § D § The worn coordinates below; the catalog itself stays shut on a derived run.
 
 ---
 
@@ -30,7 +30,7 @@ Name the category's obvious aesthetic AND the second-order trap, then reject bot
 - First order: the aesthetic anyone would guess. Tea brand: sage, cream, forest green. Fintech: navy and emerald trust palette. AI tool: near-black with a glowing gradient.
 - Second order: the "tasteful" fallback a design-literate model reaches for after dodging the first. Tea: editorial serif on bone paper. Fintech: monochrome Swiss restraint. AI tool: mono type and terminal green.
 
-Format: *"Reflex check: rejecting <first-order> (the category default) and <second-order> (the tasteful fallback)."* Landing on either after writing this line means the self-check failed; redirect before continuing.
+Format: *"Reflex check: rejecting <first-order> (the category default) and <second-order> (the tasteful fallback)."* Landing on either after writing this line means the self-check failed; redirect before continuing. The default and its predictable opposite are both the rut: dodging navy fintech by shipping anti-navy fintech is still steering by the default, just in reverse.
 
 Third altitude, **the mirror**: if the slate you are about to write would fit the category's OTHER products unchanged, it is category gravity wearing a slate's clothes. Sharpen entries until at least three are only defensible for THIS product.
 
@@ -64,7 +64,7 @@ The spent look can still be *earned* if the draw lands on a direction that genui
 
 A pinned world pins the world, not its softest rendition: the pinned world's full material range stays in play, and a rendition that matches what any model ships for that world failed at execution, not selection.
 
-Note that the catalog's own twenty-four coordinates are spent too, on every derived run. [`theme-axes.md`](theme-axes.md) § The rejection reading carries that list and the tolerance that defines a collision.
+Note that the axis triples Hallmark's own catalog occupies are spent too, on every derived run. § D § The worn coordinates carries that list and the tolerance that defines a collision; the catalog files themselves are never opened for this.
 
 ### R.3 · The slate
 
@@ -76,19 +76,25 @@ Two questions that pull the list away from the obvious: what would this thing lo
 
 **Spread across material families.** If more than three of the seven share one material family (all paper goods, all screens, all signage), the derivation stopped at the subject's most obvious artifact. Dig until the list spans at least three families.
 
-### R.4 · The draw
+**The literal metaphor gets one seat.** The brief's own noun is allowed at most one slate entry: a coffee brand may seat one coffee-bag direction, not three. The audience's world is larger than the product's object.
+
+### R.4 · The draw, and the challengers
 
 The model never hand-picks from its own slate; its favourite is deterministic, and refusing that argmax is the whole point. An outside pick decides:
 
 ```
-node <skill-dir>/scripts/seed.mjs "<brief-slug>" --n 7 --wild 2
+node <skill-dir>/scripts/seed.mjs "<brief-slug>" --n 7
 ```
 
-The script prints a reproducible line: `draw: n/7 (seed <slug>·<date>·r0) · wildcards: <name>, <name>`. Paste it into the Picks block. Re-roll (only when the user asks): rerun with `--reroll 1`, `--reroll 2`, and so on; it usually lands elsewhere (there is no exclusion; roll again if it repeats), and the seed key keeps every roll reproducible.
+The script prints a reproducible line: `draw: n/7 (seed <slug>·<date>·r0) · challengers: <name> · <name> · <name>`. Paste it into the Picks block. Re-roll (only when the user asks): rerun with `--reroll 1`, `--reroll 2`, and so on; it usually lands elsewhere (there is no exclusion; roll again if it repeats), and the seed key keeps every roll reproducible.
 
-**Wildcards.** The two dealt entries come from [`direction-atlas.json`](direction-atlas.json), a curated deck of real design-history lineages. A wildcard **replaces the drawn slate entry only if it beats it on both axes: audience identification and product clarity.** Weigh in one written line each; discard losers without ceremony. Wildcards exist to break category gravity, not to win by novelty.
+**Challengers.** The three dealt entries come from [`direction-atlas.json`](direction-atlas.json), a curated deck of complete design systems from real lineages, one from each tier: a **graphic system**, an **instrument language**, an **atmosphere world**. Each arrives with a five-line system grammar and one named browser technique. Judge each against the drawn slate entry on exactly two axes, **audience identification** and **product clarity**, in one written line per challenger with the verdict at the end: **wins** (it replaces the drawn entry), **competitive** (loses, but narrowly), **declined**. Challengers exist to break category gravity, never to win by novelty.
 
-**Script-less fallback** (no Node, no shell): N = (letter count of the brief, spaces and punctuation excluded) mod 7, pick slate entry N + 1; each re-roll adds 3 (mod 7). Print the arithmetic so the pick is reproducible: *"draw fallback: 142 letters mod 7 = 2, entry 3."* Skip wildcards, and stamp the seed as `seed: fallback-<letters>·<date>·r<n>`.
+**Fusion, not costume.** A winning challenger supplies the form and its system grammar; the product supplies every fact, name, number, and claim; clarity wins every conflict. The page is the product wearing the challenger's system, never the challenger with the product's logo pasted on.
+
+**The raise.** A challenger that loses does not just vanish: the strongest loser donates the one discipline of its system grammar the drawn direction lacks (a state language, a navigation topology, a material rule), named in one line: *"raise: the meter bridge's stepped state ladder for the pricing tiers."* Every derived run ships either a winning challenger or one named raise; a run with neither treated the deal as ceremony.
+
+**Script-less fallback** (no Node, no shell): N = (letter count of the brief, spaces and punctuation excluded) mod 7, pick slate entry N + 1; each re-roll adds 3 (mod 7). Print the arithmetic so the pick is reproducible: *"draw fallback: 142 letters mod 7 = 2, entry 3."* Skip challengers, and stamp the seed as `seed: fallback-<letters>·<date>·r<n>`.
 
 ### R.5 · The scene sentence
 
@@ -130,11 +136,12 @@ The base stamp and the base log entry are specified in [`SKILL.md`](../SKILL.md)
  * theme: custom · direction: "<drawn direction>" · vibe: "<4-8 words>"
  * paper: oklch(<L>% <C> <H>) · accent: oklch(<L>% <C> <H>) · display: <font> · body: <font>
  * axes: <paper-band> / <display-style> / <accent-hue> · posture: <posture>
- * seed: <slug>·<date>·r<n> · contract: kept (5/5) · studied: no · v1.2.0
+ * seed: <slug>·<date>·r<n> · challenger: <name> (<wins | raise: one line | declined>)
+ * contract: kept (5/5) · studied: no · v1.2.0
  */
 ```
 
-`contract: kept (5/5)` is written only after the finish review below confirms it. The log entry adds the same values as fields: `"theme": "custom"`, `"direction"`, `"posture"`, `"seed"`, `"wildcard"`, `"vibe"`, and the `"axes"` triple (one key, the same one a catalog entry uses; Rotation reads it either way).
+`contract: kept (5/5)` is written only after the finish review below confirms it. The log entry adds the same values as fields: `"theme": "custom"`, `"direction"`, `"posture"`, `"seed"`, `"challenger"` (name plus verdict, and the raise when one was taken), `"vibe"`, and the `"axes"` triple (one key, the same one a catalog entry uses; Rotation reads it either way).
 
 ---
 
@@ -231,7 +238,23 @@ A derived system declares its diversification values explicitly so the Rotation 
 - **Accent hue band:** warm 10-60° · cool 200-300° · neutral (chroma < 0.05) · chromatic-other (sub-tag the anchor: `chromatic-moss ~140°`).
 - **Posture** (fourth logged value): restrained · committed · full-palette · drenched.
 
-Before the triple is final, check it against the rejection table in [`theme-axes.md`](theme-axes.md) § The rejection reading: the catalog's twenty-four coordinates, live on every derived run. A triple that survives it is the thing the route was built to produce.
+Before the triple is final, check it against the digest below. A triple that survives it is the thing the route was built to produce.
+
+### The worn coordinates
+
+The axis triples Hallmark's own catalog already occupies, deduplicated, with no theme names attached. **A constructed system that lands within tolerance of one has failed the reflex check** - not "is unoriginal", not "should be reconsidered": failed, the same way R.1 fails when the slate lands on the category default. **Within tolerance** means all three at once: same paper band; same display class at this digest's grain (`grotesk-sans` and `grotesk-heavy` are different classes, and `roman-serif`, `high-contrast-serif` and `slab-serif` are three); same accent band, or hues within **20°** of each other for two `chromatic-other` entries. Matching two of three is fine and common; it is the full triple that means you re-derived something that already exists.
+
+Occupied triples, grouped by paper band:
+
+- **Light** (the most worn band by far; a derived light-paper system has the least room, which is itself a nudge): high-contrast-serif / warm · roman-serif / warm · roman-serif / chromatic-green ~140 · slab-serif / warm · display-heavy / warm · display-heavy / chromatic-amber ~95 · display-condensed / warm · geometric-sans / warm · grotesk-sans / warm · grotesk-sans / cool · grotesk-heavy / warm and cool ~264 and chromatic-yellow ~95 · rounded-sans / chromatic-amber ~95
+- **Mid**: grotesk-sans / cool · grotesk-heavy / cool
+- **Dark**: display-condensed-bold / warm · mono / chromatic-phosphor ~138 · geometric-sans / cool · geometric-sans / chromatic-teal ~172 · classical-serif / warm · grotesk-sans / chromatic-teal ~185 · pixel-display / every neon it has worn
+
+**When you land there.** Move one axis, and prefer the one the brief cares least about - usually accent hue, occasionally paper band, rarely display class (the display carries the direction and is the most expensive thing to trade away). Then say it happened in one line: *"Landed on an occupied triple (light / grotesk-sans / cool); moved accent to chromatic-moss ~145."* Silence here is the failure mode, not the collision.
+
+**Two exceptions, both narrow.** The user asking for a named theme's look is the catalog fast path, not a collision. And the draw can earn a coordinate: a direction that genuinely demands it (a line-printer draw wanting dark paper and a mono display) may keep it, with the same one-line argument R.2 requires for landing on a spent default; a draw that "happens to" land on an occupied triple twice in one project is not a draw, it is a preference.
+
+This is not as tight a constraint as it looks: three paper bands times a display class times an accent band leaves a derived system nearly the whole space, minus the couple dozen places Hallmark has already been. Maintenance: this digest is edited by hand whenever a theme enters or leaves `references/themes/`; the reminder lives in [`themes/README.md`](themes/README.md).
 
 ---
 

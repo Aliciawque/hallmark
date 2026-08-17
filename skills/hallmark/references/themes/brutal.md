@@ -45,7 +45,7 @@ All-sans. No serif anywhere.
 
 ## Motion
 
-Mechanical and abrupt. Reveals snap or step (a hard `opacity` cut, or a 1-step translate over ~120ms), they do not ease-glide. Hover flips state instantly: a block inverts to `--color-ink` (or `--color-accent`) with paper text, a border thickens to red. No bounce, no parallax, no blur transition, no autoplay. Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static and fully visible.
+**Motion character: severe (0.75×).** Mechanical and abrupt. Reveals snap or step (a hard `opacity` cut, or a 1-step translate over ~120ms), they do not ease-glide. Hover flips state instantly: a block inverts to `--color-ink` (or `--color-accent`) with paper text, a border thickens to red. No bounce, no parallax, no blur transition, no autoplay. Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static and fully visible.
 
 ## Voice range
 

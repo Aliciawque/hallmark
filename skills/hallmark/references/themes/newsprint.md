@@ -47,7 +47,7 @@ Every value is warm (hue 25-50); no neutral grey anywhere. Brick stays under 5% 
 
 ## Motion
 
-Quiet and singular. One orchestrated reveal (fade plus ~10px rise) as sections enter. Hover: a brick underline-grow on links. **No parallax, no type-in, no counters, no autoplay.** Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static and fully visible.
+**Motion character: calm (1.2×); one reveal and link underlines, nothing else moves.** Quiet and singular. One orchestrated reveal (fade plus ~10px rise) as sections enter. Hover: a brick underline-grow on links. **No parallax, no type-in, no counters, no autoplay.** Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static and fully visible.
 
 ## Do-nots (this theme's own failure modes)
 

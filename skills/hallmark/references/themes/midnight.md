@@ -47,7 +47,7 @@ Accent stays under 5% of any viewport: a link hover, the one primary button, foc
 
 ## Motion
 
-Fade only, composed and slow. Reveals fade and rise ~10px, once. Hover: an azure underline-grow on links, a 1px border shift to `--color-accent` on focusable surfaces. No slide, no bounce, no parallax, no autoplay; the atmosphere carries it. Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static and fully visible.
+**Motion character: brisk (0.9×).** Fade only, composed and slow. Reveals fade and rise ~10px, once. Hover: an azure underline-grow on links, a 1px border shift to `--color-accent` on focusable surfaces. No slide, no bounce, no parallax, no autoplay; the atmosphere carries it. Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static and fully visible.
 
 ## Do-nots (this theme's own failure modes)
 

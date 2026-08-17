@@ -1,11 +1,8 @@
-# Theme axes - the Rotation lookup, and the rejection table
+# Theme axes - the catalog Rotation lookup
 
-The three diversification axes for every catalog theme, derived from the canonical token values. This table is read two ways depending on the route, and both readings are live:
+The three diversification axes for every catalog theme, derived from the canonical token values. **This file is read on the catalog fast path only.** The Rotation block in [`SKILL.md`](../SKILL.md) reads it to pick the next theme: two consecutive themes must differ on at least one axis, and two candidates matching on two of three means pick a more distant one.
 
-- **As a lookup (catalog route).** The Rotation block in [`SKILL.md`](../SKILL.md) reads it to pick the next theme; two consecutive themes must differ on at least one axis.
-- **As a rejection table (custom route).** A constructed system declares its own axes per [`direction.md`](direction.md) § D, and this table is the list of triples it must not land on. See § The rejection reading below.
-
-The second reading is what the 23 themes are *for* on a derived run, where nothing picks a catalog theme. They stop being destinations and become the twenty-three most-worn coordinates in Hallmark's own space: precisely what [`direction.md`](direction.md) § R.2 means by house defaults, with values attached.
+A derived run never opens this file. The anonymous digest of these coordinates lives in [`direction.md`](direction.md) § D § The worn coordinates; the two are maintained together by hand whenever a theme enters or leaves the catalog.
 
 Bands: paper **dark** < 30% L · **mid** 30-85% · **light** > 85%. Accent: **warm** 10-60° · **cool** 200-300° · **neutral** chroma < 0.05 · **chromatic-other** anything else (sub-tag the hue).
 
@@ -36,31 +33,6 @@ Bands: paper **dark** < 30% L · **mid** 30-85% · **light** > 85%. Accent: **wa
 | Arcade | dark (aubergine-black ~15%, hue shifts with the colourway; CRT stack: grille / mask / damper) | pixel display + marquee lettering (Silkscreen HUD + Bungee) | two neon inks, one of three colourways: ember+acid (default, ~40 / ~115), sodium+petrol (~72 / ~242), gold+oxblood (~90 / ~25) |
 
 When two candidate themes match on two of the three axes, pick a more distant one. Known close pairs that rule arbitrates: Aurora ~172° vs Ledger ~185° (same teal family), Sport vs Editorial (both light/display-condensed/warm; scoreboard vs magazine register), Studio vs Atelier (both light/roman-serif; accent hue separates green from umber, and the faces are a chipped Erode against a bold Sentient). Display is roman by default; a single italicised word inside a roman heading is banned outright (gate 38a-i), and an italic display *system* is a Reflex gate a theme can carry if it declares one (38a-ii).
-
----
-
-## The rejection reading
-
-**A constructed system that lands within tolerance of a catalog row has failed the reflex check.** Not "is unoriginal", not "should be reconsidered": failed, the same way R.1 fails when the slate lands on the category default. The whole point of the custom route is that it goes somewhere the catalog does not already stand.
-
-**Within tolerance** means all three of these at once:
-
-1. **Same paper band** (dark / mid / light), and
-2. **Same display class** at the table's grain - `grotesk-sans` and `grotesk-heavy` are different classes, and `roman-serif`, `high-contrast-serif` and `slab-serif` are three, and
-3. **Same accent band**, or for two `chromatic-other` entries, hues within **20°** of each other.
-
-Matching two of the three is fine and common: a light paper with a roman serif and a teal accent collides with nothing. It is the full triple that means you re-derived a theme that already exists.
-
-**When you land there.** Move one axis, and prefer the one the brief cares least about - usually accent hue, occasionally paper band, rarely display class (the display carries the direction and is the most expensive thing to trade away). Then say it happened in one line: *"Landed on Cobalt's triple (light / grotesk-sans / cool ~250); moved accent to chromatic-moss ~145."* Silence here is the failure mode, not the collision.
-
-**Two exceptions, both narrow.**
-
-- **The user asked for it.** "Make it look like Terminal", "we want that Ledger feel" is an instruction, not a reflex. Build it, and record `axes: <triple> (Terminal, by request)` in the stamp so a later audit does not read it as drift.
-- **The draw earned it.** A direction from R.4 that genuinely demands the coordinate - a line-printer draw wanting a dark paper with a mono display - may keep it, but only with the same one-line argument R.2 requires for landing on a spent default. A draw that "happens to" land on a catalog triple twice in a project is not a draw, it is a preference.
-
-**This is not as tight a constraint as it looks.** Three paper bands times a display class times an accent band leaves a derived system nearly the whole space, minus the two dozen places Hallmark has already been.
-
----
 
 ---
 

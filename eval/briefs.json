@@ -59,7 +59,7 @@
     "brief": "--fast Build a landing page for a two-person bookbinding workshop that takes commissions.",
     "expect": {
       "scope": "page",
-      "notes": "Route coverage for the catalog fast path after derivation became the default. --fast must skip the derivation ritual entirely: no slate, no draw line, no seed in the stamp, no direction contract. The stamp must name one of the 24 catalog themes rather than 'custom'. Its twin is b1, which names no theme and must therefore derive."
+      "notes": "Route coverage for the catalog fast path after derivation became the default. --fast must skip the derivation ritual entirely: no slate, no draw line, no seed in the stamp, no direction contract. The stamp must name one of the 23 catalog themes rather than 'custom'. Its twin is b1, which names no theme and must therefore derive."
     }
   }
 ]

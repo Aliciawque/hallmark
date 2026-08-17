@@ -49,7 +49,7 @@ All-sans. No serif anywhere.
 
 ## Motion
 
-Kinetic but disciplined. Section reveals fade and rise ~10px, ease-out ~600ms, from one `IntersectionObserver`. Numerals count up once on reveal (the scoreboard flip) and then hold. Hover: an orange underline grows on links, a 2px border shifts to orange on focusable rows. No parallax, no autoplay, no bounce. Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships final numbers, full visibility, static.
+**Motion character: severe (0.7×, quick).** Kinetic but disciplined. Section reveals fade and rise ~10px, ease-out ~600ms, from one `IntersectionObserver`. Numerals count up once on reveal (the scoreboard flip) and then hold. Hover: an orange underline grows on links, a 2px border shifts to orange on focusable rows. No parallax, no autoplay, no bounce. Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships final numbers, full visibility, static.
 
 ## Voice range
 

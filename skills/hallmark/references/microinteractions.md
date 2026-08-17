@@ -193,7 +193,7 @@ Trigger: ⌘K or `/`. Open: instant, no animation. Arrow-keys move selection —
 
 ### Page-load reveals
 
-One orchestrated entrance. Stagger by DOM index, capped at ~500ms total. Use `IntersectionObserver`, never scroll listeners. After first reveal, no more on-scroll animations — let the page just *be there*. Theme-specific themes (Atelier, Newsprint) skip reveals entirely; that is correct, not a bug.
+One orchestrated entrance. Stagger by DOM index, capped at ~500ms total. Use `IntersectionObserver`, never scroll listeners. After first reveal, no more on-scroll animations — let the page just *be there*. A system whose motion character is **still** skips reveals entirely; that is correct, not a bug.
 
 ## The named tells (what AI defaults produce)
 
@@ -220,24 +220,18 @@ These are the microinteraction signatures of generated code. The slop test in [`
 19. **Toasts that move existing content.** New toast pushes the page down; dismissed toast lets it spring back. Stack toasts; don't shift layout.
 20. **Hover delays on touch.** A `:hover` state that the touch user can never reach because there's no equivalent focus / tap behaviour.
 
-## Theme-aware microinteractions
+## Motion character
 
-Microinteractions adapt to the theme. The same button press is louder in Brutal than in Atelier. Apply a multiplier per theme:
+Microinteractions adapt to the system's declared **motion character**. Every system declares exactly one: a catalog theme in its file, a derived direction in its contract (the character should be audible in the FORM block). The same button press is louder in a severe system than in a calm one.
 
-| Theme | Duration scale | Easing flavour | Notes |
+| Character | Duration scale | Easing flavour | Feels like |
 | --- | --- | --- | --- |
-| Specimen | 1.0× | `--ease-out` | Default. Restrained. |
-| Midnight | 0.9× | `--ease-out` | Snappy, technical. |
-| Brutal | 0.75× | `--ease-out` (sharper) | Fast, decisive. No spring. |
-| Garden | 1.2× | `--ease-out` | Calm. Springs welcome. |
-| Atelier | 1.3× | `--ease-out` (very gentle) | Generous; almost no movement. |
-| Newsprint | 0× | none | Static. Print metaphor. |
-| Terminal | 0× | none, except caret blink *inside* a typed command (N8 nav, install code) | Print + monospace metaphor. **No standalone blinking cursor** — see the Caret blink row above. The caret only blinks where the user would type. |
-| Manifesto | 0.7× | `--ease-out` (sharp) | Snap into place. |
-| Almanac | 0.85× | `--ease-out` | Functional, like a reference book. |
-| Sport | 0.7× | `--ease-out` (sharp) | Quick, italic-energy. |
+| **still** | 0× | none | Print. The page does not move. Exception: a caret may blink *inside* a typed command where the user would type; never standalone (see the Caret blink row above). |
+| **severe** | 0.7-0.75× | `--ease-out` (sharp) | Fast, decisive, snaps into place. No spring anywhere. |
+| **brisk** | 0.85-0.9× | `--ease-out` | Snappy, technical, functional; a reference book or an instrument panel. |
+| **calm** | 1.0-1.3× | `--ease-out` (gentle at the high end) | Restrained through generous; springs only where the genre allows them. |
 
-If the theme has duration scale `0×`, you do not animate. The page does not move. That is a deliberate design choice; it is not broken.
+If the character is **still**, you do not animate. The page does not move. That is a deliberate design choice; it is not broken.
 
 ## Accessibility ground truth
 

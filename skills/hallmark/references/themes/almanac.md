@@ -50,7 +50,7 @@ Three families.
 
 ## Motion
 
-Functional and sparse, like turning a reference page. Section reveals fade and rise ~8px at `0.85×` ease-out, functional rather than showy. Number-tick counters run `0 → final` once on reveal for stats, dates, and prices, then hold. **No bounce, no parallax, no autoplay, no marquee.** Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static, counters at final value, fully visible.
+**Motion character: brisk (0.85×).** Functional and sparse, like turning a reference page. Section reveals fade and rise ~8px at `0.85×` ease-out, functional rather than showy. Number-tick counters run `0 → final` once on reveal for stats, dates, and prices, then hold. **No bounce, no parallax, no autoplay, no marquee.** Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static, counters at final value, fully visible.
 
 ## Voice range
 

@@ -48,7 +48,7 @@ The whole drama is scale contrast: the gap between `9rem` caps and `1rem` grotes
 
 ## Motion
 
-Hard and staccato, not soft. Display blocks clip-reveal upward once (a `clip-path: inset()` mask, not a soft fade and drift) via one `IntersectionObserver`, on a snappy cubic-bezier, playing once. Lines can enter one after another with the same snap. No bounce, no parallax, no autoplay, no red pulsing. Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static and fully visible.
+**Motion character: severe (0.7×).** Hard and staccato, not soft. Display blocks clip-reveal upward once (a `clip-path: inset()` mask, not a soft fade and drift) via one `IntersectionObserver`, on a snappy cubic-bezier, playing once. Lines can enter one after another with the same snap. No bounce, no parallax, no autoplay, no red pulsing. Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static and fully visible.
 
 ## Voice range
 

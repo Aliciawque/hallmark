@@ -45,7 +45,7 @@ Everything is tinted warm (hue 60-80). Orange stays under 5% of any viewport: a 
 
 ## Motion
 
-Quiet and composed. One orchestrated entrance: reveals fade and rise (`--ease-out`, ~600ms). Optionally one weight or optical ladder that settles once, then holds static. Hover: an orange underline-grow on links, a 1px rule shift toward accent on focusable surfaces. No bounce, no parallax, no autoplay. Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static and fully visible.
+**Motion character: calm (1.0×).** Quiet and composed. One orchestrated entrance: reveals fade and rise (`--ease-out`, ~600ms). Optionally one weight or optical ladder that settles once, then holds static. Hover: an orange underline-grow on links, a 1px rule shift toward accent on focusable surfaces. No bounce, no parallax, no autoplay. Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static and fully visible.
 
 ## Do-nots (this theme's own failure modes)
 

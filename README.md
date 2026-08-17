@@ -2,7 +2,7 @@
 
 **A design skill for Claude Code, Cursor, and Codex that refuses to look AI-generated.**
 
-[Live demo →](https://www.usehallmark.com) &nbsp;·&nbsp; twenty-four themes &nbsp;·&nbsp; five verbs &nbsp;·&nbsp; press `T` to cycle.
+[Live demo →](https://www.usehallmark.com) &nbsp;·&nbsp; a derived world per brief &nbsp;·&nbsp; twenty-three themes &nbsp;·&nbsp; five verbs &nbsp;·&nbsp; press `T` to cycle.
 
 Made by Together AI.
 
@@ -10,7 +10,7 @@ Made by Together AI.
   <img src="site/OG-hallmark.png" alt="Hallmark, a design skill that refuses to look AI-generated" />
 </p>
 
-Hallmark holds a hard floor and then gets out of the way. It dresses the brief in one of twenty-four themes, runs a fifty-eight-gate slop test plus a pre-emit self-critique, and refuses the on-distribution defaults every LLM was trained into.
+Hallmark holds a hard floor and then gets out of the way. It derives a visual world made-to-measure for each brief (an outside draw picks among grounded directions, so the model cannot repeat its favourite), keeps twenty-three named themes as a fast path, runs a fifty-eight-gate slop test plus a pre-emit self-critique, and refuses the on-distribution defaults every LLM was trained into.
 
 Thirty-four of those gates are a **floor**: contrast, focus order, reduced motion, invented metrics, layout that breaks on a phone, and the eyebrow above the heading. Nothing ships through them. Eighteen are **reflex** gates, the defaults a language model falls into rather than laws, and a build with an argument can overrule one on the record, with the reason named in the CSS stamp and the guard re-derived by the checker. There is no cap on how many: a colour-field poster that wants a black stage, achromatic neutrals and one face doing everything is allowed to say so and ship. The last six are polish and bookkeeping and never block a ship.
 
@@ -94,7 +94,7 @@ In v1.2 the custom route runs a full art-direction ritual: it names and rejects 
   </tr>
 </table>
 
-It stays a quiet branch; vanilla briefs never see it. The protocol lives in [`custom-theme.md`](skills/hallmark/references/custom-theme.md).
+It stays a quiet branch; vanilla briefs never see it. The protocol lives in [`direction.md`](skills/hallmark/references/direction.md).
 
 ---
 

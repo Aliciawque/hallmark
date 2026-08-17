@@ -47,7 +47,7 @@ Numerals run tabular wherever a figure appears. Labels are uppercase mono for ca
 
 ## Motion
 
-A live command types itself in once, then the block cursor blinks on a steady 1s `step-end` loop. Section reveals **fade only**, ~500ms, no rise: the screen does not slide its content in. An optional one-time boot flicker on load is allowed. No parallax, no bounce, no autoplay. Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static, cursor solid, scanlines still or absent.
+**Motion character: brisk (0.9×), fade-only; the only loop is the caret.** A live command types itself in once, then the block cursor blinks on a steady 1s `step-end` loop. Section reveals **fade only**, ~500ms, no rise: the screen does not slide its content in. An optional one-time boot flicker on load is allowed. No parallax, no bounce, no autoplay. Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static, cursor solid, scanlines still or absent.
 
 ## Voice range
 

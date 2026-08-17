@@ -38,7 +38,7 @@ Four sample Step 5 Picks blocks for the model to imitate, varied across page typ
 > **Hallmark · v1.2.0**
 >
 > - **Structure** · Long Document
-> - **Direction** · the postal frank (draw 6/7, wildcard no)
+> - **Direction** · the postal frank (draw 6/7 · challengers declined · raise: the timetable's column discipline)
 > - **Posture** · Full palette (kraft field · frank red · ink · airmail-blue seal)
 > - **Theme** · custom (vibe: "archival warmth, hand-set, no varnish" · paper oklch(95% 0.015 80) · accent oklch(55% 0.17 30) frank-red · Bricolage Grotesque display + Literata body, both roman)
 > - **Enrichment** · pure-CSS frank mark (craft tier-a)

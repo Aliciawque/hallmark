@@ -111,11 +111,11 @@ function analyzeTranscript(lines, runDir) {
   return { cost, model, sessionInit, resultText, isError, refReads, filesWritten, earlyStop, usage, numTurns, stop };
 }
 
-// Reference-read budget. Was 10, which predated derivation becoming the default:
-// a derived run reads direction.md AND theme-axes.md where a catalog run read one
-// theme file, so the floor moved up by one, and a measured clean derived build
-// lands at 12 (ritual, genre, hero-discipline, rejection table, then the eight
-// universal files). 14 leaves room for two legitimate conditionals and still
+// Reference-read budget. Was 10, which predated derivation becoming the default.
+// A derived run now reads direction.md only (the worn-coordinates digest lives
+// inside it; theme-axes.md is catalog-route-only), and a measured clean derived
+// build lands at 11 (ritual, genre, hero-discipline, then the eight
+// universal files). 14 leaves room for legitimate conditionals and still
 // catches the failure this check exists for, which is defensive pre-loading of a
 // forty-file reference tree.
 const REF_BUDGET = 14;

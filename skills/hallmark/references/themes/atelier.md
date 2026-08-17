@@ -48,7 +48,7 @@ The triad - bold humanist-serif display, neutral grotesk body, wide mono labels 
 
 ## Motion
 
-Quiet and orchestrated. One entrance: a masked curtain-wipe (`clip-path`) or a plain fade on the display line, then static. Section reveals fade and rise ~10px, ease-out ~600ms, via a single `IntersectionObserver`. An amber underline grows on link hover. **No bounce, no parallax, no autoplay, no marquee.** Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static and fully visible.
+**Motion character: calm (1.3×, very gentle).** Quiet and orchestrated. One entrance: a masked curtain-wipe (`clip-path`) or a plain fade on the display line, then static. Section reveals fade and rise ~10px, ease-out ~600ms, via a single `IntersectionObserver`. An amber underline grows on link hover. **No bounce, no parallax, no autoplay, no marquee.** Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static and fully visible.
 
 ## Voice range
 

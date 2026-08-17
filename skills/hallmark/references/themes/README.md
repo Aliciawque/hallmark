@@ -25,4 +25,6 @@ A theme file **may not** carry:
 - an eyebrow, in any form (gate 54)
 - counts that fix a layout ("always three cells, never two, never four")
 
+**When a theme enters or leaves this directory**, two lookups are edited by hand in the same change: the axes table in [`../theme-axes.md`](../theme-axes.md) (the catalog Rotation lookup) and the worn-coordinates digest in [`../direction.md`](../direction.md) § D (the anonymous triples a derived run must clear). Neither updates itself.
+
 Where a theme genuinely invented something structural worth keeping, it belongs in the Library as an **optional** entry any brief can reach for, never as a thing this theme's builds must contain. The `## Build hint` block in each file is a token sketch, not a page: `:root` values and the two or three face rules that make the theme recognisable, and nothing that names a page part.

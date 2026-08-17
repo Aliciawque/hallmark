@@ -46,7 +46,7 @@ Every neutral carries a green cast (hue 90-152); no pure grey anywhere. Leaf-gre
 
 ## Motion
 
-Quiet and seasonal. One orchestrated entrance: staggered reveal (fade plus <=10px rise, `--i` stagger, <=500ms, reveal-once). An optional single hover behaviour on a piece of craft (a jar-fill rise). Transform and opacity only: no bounce, no parallax, no autoplay. Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static and fully visible.
+**Motion character: calm (1.2×).** Quiet and seasonal. One orchestrated entrance: staggered reveal (fade plus <=10px rise, `--i` stagger, <=500ms, reveal-once). An optional single hover behaviour on a piece of craft (a jar-fill rise). Transform and opacity only: no bounce, no parallax, no autoplay. Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static and fully visible.
 
 ## Do-nots (this theme's own failure modes)
 

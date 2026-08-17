@@ -61,7 +61,6 @@ const THEMES = {
   lumen: "Lumen",
   cobalt: "Cobalt",
   grid: "Grid",
-  field: "Field",
   ledger: "Ledger",
   arcade: "Arcade",
 };
@@ -93,7 +92,6 @@ const ARCHETYPES = {
   hum: { hero: "hum", footer: "colophon" },
   cobalt: { hero: "cobalt", footer: "colophon" },
   grid: { hero: "marquee", footer: "colophon" },
-  field: { hero: "split", footer: "colophon" },
   ledger: { hero: "stat-led", footer: "colophon" },
   arcade: { hero: "marquee", footer: "colophon" },
 };
@@ -131,7 +129,6 @@ const THEME_GENRES = {
   // v1.2 themes
   grid:      "editorial",       // the Swiss / grotesque exception in the editorial cluster
   ledger:    "modern-minimal",  // the cluster's one dark option, next to light Coral / Cobalt
-  field:     "playful",
   arcade:    "playful",
 };
 
@@ -241,7 +238,7 @@ const COPY = {
     quote: "An almanac is a book that knows where to look.",
     attrib: "Almanac, frontispiece",
     salutation: "Reference note,",
-    letterBody: "This page is a reference, not an argument. The numbers are the point: 21 macrostructures, 50 archetypes, 24 themes, 58 slop-test gates. Cross-referenced so the next page Hallmark builds is genuinely different from the last.",
+    letterBody: "This page is a reference, not an argument. The numbers are the point: 21 macrostructures, 50 archetypes, 23 themes, 58 slop-test gates. Cross-referenced so the next page Hallmark builds is genuinely different from the last.",
     signoff: "— editor",
     captionA: "Vol. III",
     captionB: "Plate 12",
@@ -349,7 +346,7 @@ const COPY = {
   studio: {
     colophon: "Studio · 2026",
     title: HERO_TITLE,
-    lede: "We design and build distinctive products for ambitious teams. Hallmark is our typography opinion, codified — twenty-four themes, twenty-one shapes, no defaults.",
+    lede: "We design and build distinctive products for ambitious teams. Hallmark is our typography opinion, codified — twenty-three themes, twenty-one shapes, no defaults.",
     ctaLabel: "Engage",
     proofLabel: "Selected work",
     proofA: "01 — A foundry rebrand",
@@ -473,7 +470,7 @@ const COPY = {
   carnival: {
     colophon: "NO TEMPLATES · NO DEFAULTS",
     title: HERO_TITLE,
-    lede: "24 themes that refuse to blend in. Pick one and the whole page changes — the bones, not the paint.",
+    lede: "23 themes that refuse to blend in. Pick one and the whole page changes — the bones, not the paint.",
     ctaLabel: "Install",
     proofLabel: "ON THE BILL",
     proofA: "21 page-shapes, 50 archetypes",
@@ -485,7 +482,7 @@ const COPY = {
     quote: "A PAGE THAT HEDGES IS A PAGE THAT FAILS.",
     attrib: "CARNIVAL",
     salutation: "WE PRINT POSTERS, NOT TEMPLATES.",
-    letterBody: "Every model was trained on the same page. Carnival refuses it — loud type, duo-tone ink, ornaments that mean it. 24 themes in the catalog, and not one of them whispers.",
+    letterBody: "Every model was trained on the same page. Carnival refuses it — loud type, duo-tone ink, ornaments that mean it. 23 themes in the catalog, and not one of them whispers.",
     signoff: "— CARNIVAL",
     captionA: "BILL 01",
     captionB: "OUT NOW",
@@ -493,7 +490,7 @@ const COPY = {
   lumen: {
     colophon: "00 · DESIGN SKILL",
     title: HERO_TITLE,
-    lede: "a design skill that refuses the defaults every model was trained on. twenty-four themes, twenty-one page-shapes, and one slop test that gates every build before it ships.",
+    lede: "a design skill that refuses the defaults every model was trained on. twenty-three themes, twenty-one page-shapes, and one slop test that gates every build before it ships.",
     ctaLabel: "install",
     proofLabel: "00 · SPEC",
     proofA: "21 page-shapes · 50 archetypes",
@@ -505,7 +502,7 @@ const COPY = {
     quote: "two briefs, two pages — not one template, recoloured.",
     attrib: "lumen",
     salutation: "built to refuse the default.",
-    letterBody: "every model emits the same page. lumen is the part that refuses — lowercase classical serif, one accent verb, a hand-built apparatus where the orb used to be. twenty-four themes in the catalog, and the numbers hold under load.",
+    letterBody: "every model emits the same page. lumen is the part that refuses — lowercase classical serif, one accent verb, a hand-built apparatus where the orb used to be. twenty-three themes in the catalog, and the numbers hold under load.",
     signoff: "— lumen",
     captionA: "00 · spec",
     captionB: "night foundry",
@@ -570,27 +567,6 @@ const COPY = {
     letterBody: "Swiss International, executed straight: the grid is not scaffolding you hide, it is the design. Content snaps to twelve columns, asymmetric spans make the rhythm, and a single red mark does all the emotional work.",
     signoff: "Flush left,",
     captionA: "Grid",
-    captionB: "v1.2",
-  },
-  field: {
-    colophon: "Warm productivity",
-    title: HERO_TITLE,
-    lede: "The serious tool that feels hand-made. Cream paper, a Source Serif headline over humanist Public Sans, one marigold highlighter behind the phrase that matters, and hand-drawn ink where a diagram helps.",
-    ctaLabel: "Start free",
-    proofLabel: "Made, not generated",
-    proofA: "Cream paper · Source Serif + Public Sans",
-    proofB: "Marigold highlighter, one phrase",
-    proofC: "Hand-drawn ink accents",
-    cta: "See how it works",
-    stat: "1",
-    qualifier: "highlighter, on the phrase that matters.",
-    mockStat: "1",
-    quote: "Credible, warm, a little hand-made. Software that reads like a good notebook.",
-    attrib: "Field note",
-    salutation: "A plan, by the time you stand up.",
-    letterBody: "Warm-productivity SaaS without the cute: a serif display for weight, a humanist sans for the work, one marigold band on the phrase that carries the promise, and ink doodles that behave like margin notes rather than decoration.",
-    signoff: "Noted,",
-    captionA: "Field",
     captionB: "v1.2",
   },
   ledger: {
