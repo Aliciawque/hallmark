@@ -3,7 +3,7 @@
  * make-pack.mjs - compile the Hallmark skill text into a single system prompt.
  *
  * Two packs:
- *   --pack floor  SKILL.md "Critical floor" + "Flow at a glance" sections only,
+ *   --pack floor  SKILL.md "The Floor" + "Flow at a glance" sections only,
  *                 behind a 3-line one-shot preamble. The cheapest prompt that
  *                 should still hold the non-negotiables.
  *   --pack full   The entire SKILL.md plus references/typography.md, color.md,
@@ -68,11 +68,11 @@ function extractSection(markdown, headingText) {
 
 /** The gate-list portion of slop-test.md: from "## Core-15 sweep" to the end
  *  of the file (drops only the title block and intro above it). This keeps the
- *  Core-15 component subset, the gate classes, the pre-emit self-critique, and
+ *  component-sweep subset, the gate classes, the pre-emit self-critique, and
  *  every named gate section. */
 function gatePortion(slopText) {
-  const idx = slopText.search(/^## Core-15 sweep/m);
-  if (idx < 0) throw new Error('slop-test.md: "## Core-15 sweep" heading not found');
+  const idx = slopText.search(/^## Component sweep/m);
+  if (idx < 0) throw new Error('slop-test.md: "## Component sweep" heading not found');
   return slopText.slice(idx).trimEnd();
 }
 
@@ -84,12 +84,12 @@ function buildFloor() {
   const skill = readFileSync(SKILL_MD, "utf8");
   const parts = [
     { label: "preamble (3 lines)", text: PREAMBLE },
-    { label: 'SKILL.md :: "Critical floor"', text: extractSection(skill, "Critical floor") },
+    { label: 'SKILL.md :: "The Floor"', text: extractSection(skill, "The Floor") },
     { label: 'SKILL.md :: "Flow at a glance"', text: extractSection(skill, "Flow at a glance") },
   ];
   const text =
     PREAMBLE +
-    sep("skills/hallmark/SKILL.md (Critical floor + Flow at a glance)") +
+    sep("skills/hallmark/SKILL.md (The Floor + Flow at a glance)") +
     parts[1].text +
     "\n\n" +
     parts[2].text +
