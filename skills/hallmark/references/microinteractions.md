@@ -193,7 +193,7 @@ Trigger: ⌘K or `/`. Open: instant, no animation. Arrow-keys move selection —
 
 ### Page-load reveals
 
-One orchestrated entrance. Stagger by DOM index, capped at ~500ms total. Use `IntersectionObserver`, never scroll listeners. After first reveal, no more on-scroll animations — let the page just *be there*. A system whose motion character is **still** skips reveals entirely; that is correct, not a bug.
+One orchestrated entrance. Stagger by DOM index, capped at ~500ms total. Use `IntersectionObserver`, never scroll listeners. After first reveal, no more on-scroll animations; let the page just *be there*. A system whose motion character is **still** skips reveals entirely; that is correct, not a bug.
 
 ## The named tells (what AI defaults produce)
 

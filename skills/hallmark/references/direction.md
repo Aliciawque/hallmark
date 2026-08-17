@@ -92,7 +92,7 @@ The script prints a reproducible line: `draw: n/7 (seed <slug>·<date>·r0) · c
 
 **Fusion, not costume.** A winning challenger supplies the form and its system grammar; the product supplies every fact, name, number, and claim; clarity wins every conflict. The page is the product wearing the challenger's system, never the challenger with the product's logo pasted on.
 
-**The raise.** A challenger that loses does not just vanish: the strongest loser donates the one discipline of its system grammar the drawn direction lacks (a state language, a navigation topology, a material rule), named in one line: *"raise: the meter bridge's stepped state ladder for the pricing tiers."* Every derived run ships either a winning challenger or one named raise; a run with neither treated the deal as ceremony.
+**The raise.** A challenger that loses does not just vanish: the strongest loser donates the one discipline of its system grammar the drawn direction lacks (a state language, a navigation topology, a material rule), named in one line: *"raise: the mixing desk's per-function control colouring, applied to the pricing tiers."* Every derived run ships either a winning challenger or one named raise; a run with neither treated the deal as ceremony.
 
 **Script-less fallback** (no Node, no shell): N = (letter count of the brief, spaces and punctuation excluded) mod 7, pick slate entry N + 1; each re-roll adds 3 (mod 7). Print the arithmetic so the pick is reproducible: *"draw fallback: 142 letters mod 7 = 2, entry 3."* Skip challengers, and stamp the seed as `seed: fallback-<letters>·<date>·r<n>`.
 
@@ -246,9 +246,11 @@ The axis triples Hallmark's own catalog already occupies, deduplicated, with no 
 
 Occupied triples, grouped by paper band:
 
-- **Light** (the most worn band by far; a derived light-paper system has the least room, which is itself a nudge): high-contrast-serif / warm · roman-serif / warm · roman-serif / chromatic-green ~140 · slab-serif / warm · display-heavy / warm · display-heavy / chromatic-amber ~95 · display-condensed / warm · geometric-sans / warm · grotesk-sans / warm · grotesk-sans / cool · grotesk-heavy / warm and cool ~264 and chromatic-yellow ~95 · rounded-sans / chromatic-amber ~95
+- **Light** (the most worn band by far; a derived light-paper system has the least room, which is itself a nudge): high-contrast-serif / warm · roman-serif / warm · roman-serif / chromatic-green ~140-145 · slab-serif / warm · display-heavy / warm · display-heavy / chromatic-amber ~95 · display-condensed / warm · geometric-sans / warm · grotesk-sans / warm · grotesk-sans / cool · grotesk-heavy / warm ~28 and cool ~264 and chromatic-yellow ~95 · rounded-sans / chromatic-amber ~95 · classical-serif / cool ~265
 - **Mid**: grotesk-sans / cool · grotesk-heavy / cool
-- **Dark**: display-condensed-bold / warm · mono / chromatic-phosphor ~138 · geometric-sans / cool · geometric-sans / chromatic-teal ~172 · classical-serif / warm · grotesk-sans / chromatic-teal ~185 · pixel-display / every neon it has worn
+- **Dark**: display-condensed-bold / warm · mono / chromatic-phosphor ~138 · geometric-sans / cool · geometric-sans / chromatic-teal ~172 · classical-serif / warm · grotesk-sans / chromatic-teal ~185, chromatic-sage ~150, and cool ~215 · pixel-display / warm ~25-72, cool ~242, chromatic ~90-115
+
+Three of those rows are multi-dial themes that occupy several accent bands at one paper-and-display coordinate, so check the whole row rather than its first value.
 
 **When you land there.** Move one axis, and prefer the one the brief cares least about - usually accent hue, occasionally paper band, rarely display class (the display carries the direction and is the most expensive thing to trade away). Then say it happened in one line: *"Landed on an occupied triple (light / grotesk-sans / cool); moved accent to chromatic-moss ~145."* Silence here is the failure mode, not the collision.
 
