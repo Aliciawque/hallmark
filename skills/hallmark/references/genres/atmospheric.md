@@ -6,6 +6,11 @@ For the AI-creative product page. Dark canvas with warm radial blooms, confident
 
 Brief mentions any of: *AI tool, generative, music, video, image, voice, late-night, atmospheric, dark mode, expressive, creative tool, model playground, vibe-coded, dreamlike, nocturnal*. Also pick when the user names a *mood* that requires darkness (e.g. "moody", "cinematic", "after hours").
 
+## Themes that belong
+
+`Bloom` (canonical light-paper), `Midnight`, `Terminal`, `Aurora`, `Lumen`. Five themes; the rotation walks them when atmospheric is active.
+
+`Lumen` is the premium AI-tool register — Modal / Anthropic / Together / ElevenLabs / Cluely / Adept / Granola. One focal CSS artefact and a classical serif headline set upright and all-lowercase (Lumen ships no italic anywhere). **Two palette drops** (Night Foundry — dark amber-gold, emits; Day Foundry — light indigo, refracts). The only atmospheric theme with a serif display and the only one whose canvas treatment is one *built* artefact rather than two diffuse blooms.
 
 ## Voice
 

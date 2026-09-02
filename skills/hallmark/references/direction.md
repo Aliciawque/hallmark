@@ -1,27 +1,28 @@
 # Direction - deriving the world
 
-**This is the default path.** Loaded on every build that is not on the catalog fast path (see below). The direction is **made-to-measure for one brief**, written inline into the page's `:root`, never a permanent catalog entry. It spans two depths: **tuned** (a complete OKLCH palette + free-font pairing on Hallmark's structures) and **bespoke** (structure and composition designed from first principles too). One route, chosen depth.
+**This is the opt-in path.** A build takes it only when the user asks for one, most often by saying **custom** (or "derive it", "something bespoke", "no theme", "make me a world"). Everything else takes the catalog, which is Hallmark's default and its main road: see [`SKILL.md`](../SKILL.md) § 2.6. When this file does run, the direction is **made-to-measure for one brief**, written inline into the page's `:root`, never a permanent catalog entry. It spans two depths: **tuned** (a complete OKLCH palette + free-font pairing on Hallmark's structures) and **bespoke** (structure and composition designed from first principles too). One route, chosen depth.
 
 **The freedom is the combination, never the floor.** Every constraint in [`color.md`](color.md), [`typography.md`](typography.md), and [`anti-patterns.md`](anti-patterns.md) still applies, and **every slop-test gate fires unchanged at every depth** (unpicked variants drafts alone defer the sweep to promotion, per [`verbs/variants.md`](verbs/variants.md)). The Step 5 Picks block surfaces the direction, posture, palette, and pairing in plain text before any code is emitted, so the user can redirect.
 
-Derivation is the default because **the model's own taste is an attractor**. Left alone, a model asked for "something unique" ships the same two or three looks per category, every time; its favourite is deterministic, so asking it to choose is asking it to repeat itself. The ritual below is a set of outside interventions that break that pull: named rejections, a deterministic draw, a scene the palette must obey, and a contract the build is audited against.
+The ritual exists because **the model's own taste is an attractor**. Left alone, a model asked for "something unique" ships the same two or three looks per category, every time; its favourite is deterministic, so asking it to choose is asking it to repeat itself. A user who asks for custom is asking to escape the catalog, and handing them the model's argmax instead is the same repetition wearing a different label. The steps below are outside interventions that break that pull: named rejections, a deterministic draw, a scene the palette must obey, and a contract the build is audited against.
 
-## The catalog fast path
+## When the catalog takes it back
 
-The 23 named themes are still here, and they are the right answer four times:
+Even after a custom ask, three things still route to the catalog, because they are stronger instructions:
 
-1. **The user names one.** "Use Newsprint", "give me that Ledger feel" is an instruction.
-2. **`--fast`.** Speed is the ask; the catalog is the pre-built answer.
-3. **A `design.md` or a real brand already exists.** Pre-flight found the system; inherit it. That branch never reaches this file.
-4. **Component scope.** One button does not need a derived world.
+1. **The user names a theme.** "Custom, something like Newsprint" is a theme pick with a mood note, not a derivation.
+2. **A `design.md` or a real brand already exists.** Pre-flight found the system; inherit it. That branch never reaches this file.
+3. **Component scope.** One button does not need a derived world.
 
-Anything else derives. Do not ask which; do not mention the catalog. A brief that says nothing gets a world of its own, and the coordinates it must not land on are in § D § The worn coordinates below; the catalog itself stays shut on a derived run.
+`--fast` on a custom ask is a contradiction; take the catalog and say so in one line.
+
+The coordinates a custom system must not land on are the catalog's own, in [`theme-axes.md`](theme-axes.md) § The rejection reading.
 
 ---
 
 ## § The ritual
 
-Runs on every derived build, both depths, in order, before any palette work. Each step produces one or two written lines in the reply; the whole ritual reads as a short paragraph of decisions, not a form.
+Runs on every custom build, both depths, in order, before any palette work. Each step produces one or two written lines in the reply; the whole ritual reads as a short paragraph of decisions, not a form.
 
 ### R.1 · Reflex check
 
@@ -64,7 +65,7 @@ The spent look can still be *earned* if the draw lands on a direction that genui
 
 A pinned world pins the world, not its softest rendition: the pinned world's full material range stays in play, and a rendition that matches what any model ships for that world failed at execution, not selection.
 
-Note that the axis triples Hallmark's own catalog occupies are spent too, on every derived run. § D § The worn coordinates carries that list and the tolerance that defines a collision; the catalog files themselves are never opened for this.
+Note that the catalog's own twenty-three coordinates are spent too, on every custom run. [`theme-axes.md`](theme-axes.md) § The rejection reading carries that list and the tolerance that defines a collision.
 
 ### R.3 · The slate
 
@@ -92,7 +93,7 @@ The script prints a reproducible line: `draw: n/7 (seed <slug>·<date>·r0) · c
 
 **Fusion, not costume.** A winning challenger supplies the form and its system grammar; the product supplies every fact, name, number, and claim; clarity wins every conflict. The page is the product wearing the challenger's system, never the challenger with the product's logo pasted on.
 
-**The raise.** A challenger that loses does not just vanish: the strongest loser donates the one discipline of its system grammar the drawn direction lacks (a state language, a navigation topology, a material rule), named in one line: *"raise: the mixing desk's per-function control colouring, applied to the pricing tiers."* Every derived run ships either a winning challenger or one named raise; a run with neither treated the deal as ceremony.
+**The raise.** A challenger that loses does not just vanish: the strongest loser donates the one discipline of its system grammar the drawn direction lacks (a state language, a navigation topology, a material rule), named in one line: *"raise: the mixing desk's per-function control colouring, applied to the pricing tiers."* Every custom run ships either a winning challenger or one named raise; a run with neither treated the deal as ceremony.
 
 **Script-less fallback** (no Node, no shell): N = (letter count of the brief, spaces and punctuation excluded) mod 7, pick slate entry N + 1; each re-roll adds 3 (mod 7). Print the arithmetic so the pick is reproducible: *"draw fallback: 142 letters mod 7 = 2, entry 3."* Skip challengers, and stamp the seed as `seed: fallback-<letters>·<date>·r<n>`.
 
@@ -129,7 +130,7 @@ If a block reads like a mood ("elegant, premium feel"), the direction is not dec
 
 ### R.7b · What the stamp and the log carry
 
-The base stamp and the base log entry are specified in [`SKILL.md`](../SKILL.md) § 6 and § 2. A derived run extends both:
+The base stamp and the base log entry are specified in [`SKILL.md`](../SKILL.md) § 6 and § 2. A custom run extends both:
 
 ```css
 /* Hallmark · macrostructure: <name or "bespoke: <one-line shape>"> · <hero archetype + knobs>
@@ -147,7 +148,7 @@ The base stamp and the base log entry are specified in [`SKILL.md`](../SKILL.md)
 
 ## § Bespoke depth
 
-Most derived runs are tuned. **Bespoke** is the deep end: the brief's structure itself is the ask and no catalog shape fits. The ritual runs identically (R.1 through R.7); bespoke changes what the build may drop:
+Most custom runs are tuned. **Bespoke** is the deep end: the brief's structure itself is the ask and no catalog shape fits. The ritual runs identically (R.1 through R.7); bespoke changes what the build may drop:
 
 **It drops:** the fixed macrostructure + archetype catalog (compose the structure for the idea; a novel hero, nav, or section is encouraged when it serves the FORM block); the genre cluster routing; the diversification rotation (bespoke is a one-off, though it must not clone a recent bespoke run).
 
@@ -238,27 +239,7 @@ A derived system declares its diversification values explicitly so the Rotation 
 - **Accent hue band:** warm 10-60° · cool 200-300° · neutral (chroma < 0.05) · chromatic-other (sub-tag the anchor: `chromatic-moss ~140°`).
 - **Posture** (fourth logged value): restrained · committed · full-palette · drenched.
 
-Before the triple is final, check it against the digest below. A triple that survives it is the thing the route was built to produce.
-
-### The worn coordinates
-
-The axis triples Hallmark's own catalog already occupies, deduplicated, with no theme names attached. **A constructed system that lands within tolerance of one has failed the reflex check** - not "is unoriginal", not "should be reconsidered": failed, the same way R.1 fails when the slate lands on the category default. **Within tolerance** means all three at once: same paper band; same display class at this digest's grain (`grotesk-sans` and `grotesk-heavy` are different classes, and `roman-serif`, `high-contrast-serif` and `slab-serif` are three); same accent band, or hues within **20°** of each other for two `chromatic-other` entries. Matching two of three is fine and common; it is the full triple that means you re-derived something that already exists.
-
-Occupied triples, grouped by paper band:
-
-- **Light** (the most worn band by far; a derived light-paper system has the least room, which is itself a nudge): high-contrast-serif / warm · roman-serif / warm · roman-serif / chromatic-green ~140-145 · slab-serif / warm · display-heavy / warm · display-heavy / chromatic-amber ~95 · display-condensed / warm · geometric-sans / warm · grotesk-sans / warm · grotesk-sans / cool · grotesk-heavy / warm ~28 and cool ~264 and chromatic-yellow ~95 · rounded-sans / chromatic-amber ~95 · classical-serif / cool ~265
-- **Mid**: grotesk-sans / cool · grotesk-heavy / cool
-- **Dark**: display-condensed-bold / warm · mono / chromatic-phosphor ~138 · geometric-sans / cool · geometric-sans / chromatic-teal ~172 · classical-serif / warm · grotesk-sans / chromatic-teal ~185, chromatic-sage ~150, and cool ~215 · pixel-display / warm ~25-72, cool ~242, chromatic ~90-115
-
-Three of those rows are multi-dial themes that occupy several accent bands at one paper-and-display coordinate, so check the whole row rather than its first value.
-
-**When you land there.** Move one axis, and prefer the one the brief cares least about - usually accent hue, occasionally paper band, rarely display class (the display carries the direction and is the most expensive thing to trade away). Then say it happened in one line: *"Landed on an occupied triple (light / grotesk-sans / cool); moved accent to chromatic-moss ~145."* Silence here is the failure mode, not the collision.
-
-**Siblings count as occupied too.** Rotation reads one project's `.hallmark/log.json`, so builds made side by side in separate projects (a batch of pages, a showcase, several briefs answered in one session) are blind to each other and converge without either noticing. When a run is one of several, treat the siblings' triples as occupied on top of this digest, and check the display *face* as well as the class: two pages sharing a paper band, a display family, and an accent family read as relatives even when their briefs have nothing in common.
-
-**Two exceptions, both narrow.** The user asking for a named theme's look is the catalog fast path, not a collision. And the draw can earn a coordinate: a direction that genuinely demands it (a line-printer draw wanting dark paper and a mono display) may keep it, with the same one-line argument R.2 requires for landing on a spent default; a draw that "happens to" land on an occupied triple twice in one project is not a draw, it is a preference.
-
-This is not as tight a constraint as it looks: three paper bands times a display class times an accent band leaves a derived system nearly the whole space, minus the couple dozen places Hallmark has already been. Maintenance: this digest is edited by hand whenever a theme enters or leaves `references/themes/`; the reminder lives in [`themes/README.md`](themes/README.md).
+Before the triple is final, check it against the rejection table in [`theme-axes.md`](theme-axes.md) § The rejection reading: the catalog's twenty-three coordinates, live on every custom run. A triple that survives it is the thing this route was built to produce.
 
 ---
 

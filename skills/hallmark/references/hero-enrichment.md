@@ -68,7 +68,7 @@ If the brief contains explicit visual cues, pick from this map:
   • "bakery", "kitchen", "café", "atelier" + craft brief  → E5 custom illustration (Tier B SVG)
   • "agency", "studio", "portfolio"                       → E8 photography or no enrichment
   • "manifesto", "essay", "book", "letter"                → no enrichment (typography only)
-  • a restraint-led system (quiet-minimal direction/theme) → no enrichment (the restraint IS the design)
+  • Coral theme picked                                    → no enrichment (the theme IS restraint)
 
 Else if the brief is genuinely ambiguous, ask one question:
   "Want me to add a demo video, an illustration, or keep it

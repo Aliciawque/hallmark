@@ -6,6 +6,15 @@ For the consumer / friendly / onboarding-led page. Soft surfaces, mild colour, m
 
 Brief mentions any of: *fun, consumer, casual, family, kids, friendly, approachable, onboarding-heavy, community, social, tactile-but-soft, post-Linear-soft*. Pick playful sparingly — most consumer briefs still belong to editorial (warm-paper, hand-set) unless the user explicitly asks for *softer* and *friendlier*.
 
+## Themes that belong
+
+`Hum` (vibrant, alive) is the genre's canonical theme — the post-Brilliant-alive register: multi-accent cream + pear + cyan + coral, mandatory motion, a single character moment. Pick it when the brief wants "feels alive in the room with you." For the quieter, more restrained end of friendly — "friendly but soft" rather than "alive" — reach instead for modern-minimal (Coral): a single low-chroma accent on warm paper, smooth easings, motion optional.
+
+`Arcade` joins the cluster as the retro-nostalgia end: an aubergine-black sheet under a real CRT stack (aperture grille, scanline, vignette, tight phosphor bloom), marquee lettering over a readable Chivo body, an ember + acid duo, and pixel type kept to the HUD. Playful and loud, but the re-drawn-chrome ban still holds (no fake OS windows, title bars, or monitor bezels; the retro comes from the screen texture and the lettering, not from furniture). Every Arcade page also carries one deliberately quiet, unbloomed instruction card, which is what makes the loud parts land. The two give the genre range: alive (Hum) and retro-loud (Arcade).
+
+For a warm, credible, friendly-but-quiet brief, reach for modern-minimal (Coral) or editorial (Garden, Almanac) rather than stretching playful to cover it.
+
+`Hum` is the catalog's only **rounded-sans-multi-accent** theme — it relaxes several playful defaults: bouncy spring easings are allowed (and canonical) on its primary CTA, accent chroma goes higher than 0.16, and motion is mandatory not optional. It answers a specific brief: a learning platform for curious adults, a daily-curiosity app, a habit tracker with character — products that should feel warm and alive, not merely tidy.
 
 ## Voice
 

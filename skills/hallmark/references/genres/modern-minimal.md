@@ -6,6 +6,13 @@ For the polished enterprise / dev-tool / API page. Stripe / Linear / ElevenLabs 
 
 Brief mentions any of: *SaaS, enterprise, API, platform, developer tool, infra, B2B, dashboard, billing, Stripe-like, Linear-like, ElevenLabs-like, dev experience, ship fast*. Also pick when the user names a brand colour but the rest of the brief is restrained.
 
+## Themes that belong
+
+`Coral` (canonical) — warm-grey paper, single warm coral accent, Geist throughout, soft pill CTAs. The "Stripe-not-Linear" warmth.
+
+`Cobalt` — the cool dev-tool / API / docs register (the GitBook + Firecrawl school, executed **cobalt-on-light, not orange**). Cool engineered near-white paper, one electric cobalt signal accent, Space Grotesk display + Inter body + JetBrains Mono code, ruler-drawn hairlines, tight 6 px radii, a bordered ⌘K nav, and a live code/API request–response hero. The technical, instrument-panel sibling to Coral's warmth — the rotation walks Coral ⇄ Cobalt when modern-minimal is active.
+
+The two differ on every axis a glance registers: Coral is warm-grey + coral + Geist + pills; Cobalt is cool-white + electric blue + Space Grotesk/mono + tight-radius bordered controls. `Ledger` joins as the cluster's one dark option: a ruled navy account book (banded, columnar, or journal), Instrument Sans over tabular IBM Plex Mono, and two inks with one job each - teal for credits and matched rows, brass for debits and pending ones, never red. Totals close under a double rule and every figure states its as-of. Data-as-hero, the same restraint executed dark, which also gives the rotation a dark-vs-light lever inside the genre. It is a book, not a dashboard: no KPI card grids. Future themes can join too - anything monochrome or near-monochrome with an Inter-class sans display and a single restrained accent.
 
 ## Voice
 

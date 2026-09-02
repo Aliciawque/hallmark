@@ -41,7 +41,7 @@ These bind on every output, in every verb, on every model, and **none of them is
 0.5. Signal 8 only (a reference archive is connected): the archive builds, Hallmark skips Steps 1-6 and enters at Step 7.
 1. Ask Audience / Use case / Tone plus the vibe, once; detect genre.
 2. Design the page's shape, nav, footer, hero, and section entry; run the Rotation rules. (Catalogs available, never required.)
-2.6. Direction: derive the world (the default, ritual in [`references/direction.md`](references/direction.md)), or take the catalog fast path when one of its four conditions holds.
+2.6. Direction: pick a theme from the catalog (the default), or run the derivation ritual in [`references/direction.md`](references/direction.md) when the user asked for **custom**.
 3. Load ONLY the listed reference files.
 4. Enrichment decision (scene sentence first; most pages are typography-only).
 5. The Picks block (the run's only prose recital), then pause a beat before code.
@@ -69,7 +69,7 @@ If the input does not clearly map to a verb, treat it as default. If the user at
 
 **Implementation safety rail.** Hallmark is a design skill, not a license to bulldoze a codebase. In any existing project: never delete production files, route trees, or component directories unless the user explicitly approves a file-level plan that lists the deletions; default to in-place edits or additive components wired through existing routes; treat PDFs, READMEs, briefs, and decks as reference material, never copied verbatim without instruction; before editing, state the exact files you expect to modify, create, or delete.
 
-**Direction, in one breath.** Every build **derives its own visual world** from the brief, by the ritual in [`references/direction.md`](references/direction.md): name the category's reflex, list seven grounded directions from the audience's own world, and let an outside draw pick which one gets built. The model's favourite is deterministic, so letting it choose is letting it repeat itself. The **23 named themes** are a fast path, taken only when the user names one, `--fast` is passed, a `design.md` or real brand already exists, or the scope is a single component. Silence derives.
+**Direction, in one breath.** Every build dresses the brief in one of the **23 named themes**, picked per Rotation so consecutive builds move: the catalog is Hallmark's main road and its default. A user who wants a world of their own says **custom** (or "derive it", "bespoke", "no theme"), and that build runs the ritual in [`references/direction.md`](references/direction.md) instead: name the category's reflex, list seven grounded directions from the audience's own world, and let an outside draw pick which one gets built, because the model's favourite is deterministic and letting it choose is letting it repeat itself. Silence takes a theme.
 
 ---
 
@@ -204,7 +204,7 @@ Two things the catalogs are not: a checklist you owe, and a rotation you must wa
 **Rotation (the canonical block - every other file defers here):**
 
 - **Structure:** the page's shape must differ from the last three Hallmark outputs for this project (read `.hallmark/log.json`, newest first; a CSS stamp counts when the log is missing). Whether you named a catalog shape or invented one, the log records what you built and the next run has to move.
-- **Theme:** two consecutive systems must differ on at least one of three axes: **paper band** (dark < 30% L · mid 30-85% · light > 85%), **display style**, **accent hue** (warm 10-60° · cool 200-300° · neutral · chromatic-other). A derived system declares its own triple ([`references/direction.md`](references/direction.md) § D) and must additionally clear the worn-coordinates digest carried in that same section; it never opens the catalog to do so. On the fast path, the table in [`references/theme-axes.md`](references/theme-axes.md) is the lookup: two of three matching means pick a more distant theme.
+- **Theme:** two consecutive systems must differ on at least one of three axes: **paper band** (dark < 30% L · mid 30-85% · light > 85%), **display style**, **accent hue** (warm 10-60° · cool 200-300° · neutral · chromatic-other). The catalog table in [`references/theme-axes.md`](references/theme-axes.md) is the lookup: two of three matching means pick a more distant theme. A custom system declares its own triple ([`references/direction.md`](references/direction.md) § D) and must additionally clear all 23 catalog coordinates ([`references/theme-axes.md`](references/theme-axes.md) § The rejection reading).
 - **Chrome:** the nav and the footer must not be the same shape as the last three runs, across consecutive runs and across test builds of the same theme. This is the single most-violated rule. If you reach for the default nav, the stamp has to name it (gate 42) — the default is allowed, arriving at it by reflex is not.
 - **Hero:** vary the hero's stance run to run. Nothing but the fold-fit floor (gate 44b) constrains how tall or how anchored it is.
 - **Enrichment:** do not repeat the previous run's enrichment approach back-to-back.
@@ -229,21 +229,22 @@ The `axes` and `fingerprint` fields are how Rotation and gate 32 become checkabl
 
 ### 2.6. Direction
 
-**Derive, unless one of the fast-path conditions holds.** Check them in order; the first match wins.
+**Take a theme, unless the user asked for a custom world.** Check in order; the first match wins.
 
 0. **A `study` diagnosis emitted earlier and the user says build with it** → route **studied-DNA**: the diagnosis's paper OKLCH, accent OKLCH, type roles, macrostructure, and archetypes become the locked system. Diversification is suspended. Stamp `theme: studied-DNA (source: <URL or image>)` with the values inline. The user pivoting ("use Newsprint instead", "ignore the DNA") re-enters the dispatch.
-1. **The catalog fast path**, on any one of four conditions and no others: the user **names a theme**; `--fast` was passed; a `design.md` or a real brand already exists (Step 0 caught it, and that branch never reached here); or the scope is a **single component**. Then pick per Rotation from the catalog (the lookup table in [`references/theme-axes.md`](references/theme-axes.md) lists every theme with its axes and arbitrates distance) and load that one theme's file from `references/themes/`. Do not enumerate or browse the catalog on any other route.
-2. **Everything else derives.** Load [`references/direction.md`](references/direction.md) and run the ritual: reflex check → spent defaults → slate → draw → scene sentence → colour posture → direction contract → build → finish review. Tuned keeps Hallmark's structures; bespoke (the structure itself is the ask) designs from first principles. Do not ask which route; do not mention the catalog.
+1. **The user named a theme** → build it. An explicit pick beats everything below.
+2. **The user asked for custom** → load [`references/direction.md`](references/direction.md) and run the ritual: reflex check → spent defaults → slate → draw → challengers → scene sentence → colour posture → direction contract → build → finish review. The ask is any of **custom**, "derive it", "bespoke", "no theme", "something of its own", or an explicit refusal of the catalog. Tuned keeps Hallmark's structures; bespoke (the structure itself is the ask) designs from first principles.
+3. **Everything else takes the catalog.** Pick per Rotation from the 23 themes; the lookup table in [`references/theme-axes.md`](references/theme-axes.md) carries every theme's axes and arbitrates distance. Load that one theme's file from `references/themes/` and nothing else from the catalog. Do not ask which route, and do not offer the custom path unprompted: silence is a theme.
 
-A derived system is complete (palette + pairing + axes), never a colour swap; its diversification axes are recorded exactly like a catalog theme's. All 58 slop-test gates fire unchanged, at their usual tiers, and the Step 5 Picks block surfaces everything before code.
+A custom system is complete (palette + pairing + axes), never a colour swap; its diversification axes are recorded exactly like a catalog theme's. All 58 slop-test gates fire unchanged on both routes, at their usual tiers, and the Step 5 Picks block surfaces everything before code.
 
-**Two consequences, stated once.** Every derived run stamps `posture:`, so gate 23 reads its posture-aware branch as the normal path rather than the occasional one; nothing about the gate changed. And a derived triple still has somewhere it may not land: the worn-coordinates digest in [`references/direction.md`](references/direction.md) § D lists the axis triples Hallmark has already worn out, with no theme names attached.
+**Two consequences, stated once.** A custom run stamps `posture:`, so gate 23 reads its posture-aware branch; nothing about the gate changed. And a custom triple still has somewhere it may not land: [`references/theme-axes.md`](references/theme-axes.md) § The rejection reading is the list of coordinates the catalog already occupies.
 
 ### 3. Load the visual ruleset
 
 **Do:** load exactly what this build needs; over-eager loading is the largest avoidable cost of running Hallmark.
 
-**Always (2-3 files):** the genre file from Step 1; [`references/enrichment/hero-discipline.md`](references/enrichment/hero-discipline.md) (the hero rules bind on every page hero, enriched or not); plus, **on the catalog fast path only**, `references/themes/<theme>.md` for the picked theme (every theme has one). A derived run loads [`references/direction.md`](references/direction.md) instead and touches nothing under the catalog.
+**Always (2-3 files):** the genre file from Step 1; [`references/enrichment/hero-discipline.md`](references/enrichment/hero-discipline.md) (the hero rules bind on every page hero, enriched or not); plus `references/themes/<theme>.md` for the picked theme (every theme has one). A custom run loads [`references/direction.md`](references/direction.md) instead, and reads [`references/theme-axes.md`](references/theme-axes.md) § The rejection reading rather than the whole file.
 
 **Index-then-pick (only when you are taking a named starting point; skip entirely when you are not):**
 - [`references/macrostructures.md`](references/macrostructures.md) → one file from `references/macrostructures/`.
@@ -255,7 +256,7 @@ A derived system is complete (palette + pairing + axes), never a colour swap; it
 
 Two of those carry sections you should skip rather than read whole: `typography.md` § The font catalog is dead weight when a catalog theme has already named the faces, and `copy.md` § Voice samples per tone is seven blocks of which six are not your tone. Skipping both saves roughly 200 lines a build.
 
-**Conditionally (be honest, no defensive pre-loads):** [`references/microinteractions.md`](references/microinteractions.md) when anything is interactive (most pages); [`references/interaction-and-states.md`](references/interaction-and-states.md) for stateful UI; [`references/responsive.md`](references/responsive.md) when mobile is in scope; [`references/structure.md`](references/structure.md) only when deviating from a named macrostructure; [`references/assets.md`](references/assets.md) only when an enrichment needs an external asset; [`references/texture.md`](references/texture.md) only when the picked theme earns texture (Riso, Carnival, Arcade, faint Newsprint) or a custom draw has print lineage; [`references/scroll-choreography.md`](references/scroll-choreography.md) only when the brief asks for scroll story / cinematic pacing or the macro is Feature-stack / Narrative Workflow; [`references/dark-mode.md`](references/dark-mode.md) only when the user asks for both modes; [`references/data-viz.md`](references/data-viz.md) when the brief involves charts / data / dashboards or the macro is Stat-Led / Workbench; [`references/brand-truth.md`](references/brand-truth.md) when the brief names a real brand or company to build for; [`references/theme-axes.md`](references/theme-axes.md) only when picking from the catalog, never on a derived run; [`references/comp.md`](references/comp.md) only when signal 9 fired, at Step 5.5, never earlier; [`references/design-md.md`](references/design-md.md) only when the user asks to lock the system; [`references/preview-examples.md`](references/preview-examples.md) only if the Step 5 spec is not scaffolding enough.
+**Conditionally (be honest, no defensive pre-loads):** [`references/microinteractions.md`](references/microinteractions.md) when anything is interactive (most pages); [`references/interaction-and-states.md`](references/interaction-and-states.md) for stateful UI; [`references/responsive.md`](references/responsive.md) when mobile is in scope; [`references/structure.md`](references/structure.md) only when deviating from a named macrostructure; [`references/assets.md`](references/assets.md) only when an enrichment needs an external asset; [`references/texture.md`](references/texture.md) only when the picked theme earns texture (Riso, Carnival, Arcade, faint Newsprint) or a custom draw has print lineage; [`references/scroll-choreography.md`](references/scroll-choreography.md) only when the brief asks for scroll story / cinematic pacing or the macro is Feature-stack / Narrative Workflow; [`references/dark-mode.md`](references/dark-mode.md) only when the user asks for both modes; [`references/data-viz.md`](references/data-viz.md) when the brief involves charts / data / dashboards or the macro is Stat-Led / Workbench; [`references/brand-truth.md`](references/brand-truth.md) when the brief names a real brand or company to build for; [`references/theme-axes.md`](references/theme-axes.md) § The rejection reading on every custom run, and in full when picking from the catalog; [`references/comp.md`](references/comp.md) only when signal 9 fired, at Step 5.5, never earlier; [`references/design-md.md`](references/design-md.md) only when the user asks to lock the system; [`references/preview-examples.md`](references/preview-examples.md) only if the Step 5 spec is not scaffolding enough.
 
 **At the end only:** [`references/slop-test.md`](references/slop-test.md) strictly at Step 7 (pre-loading it costs thousands of tokens for nothing; `anti-patterns.md` is the pre-emit list); [`references/contract.md`](references/contract.md) at handoff; [`references/export-formats.md`](references/export-formats.md) only on `design.md` projects.
 
@@ -280,7 +281,7 @@ Then run the image-need table at [`references/hero-enrichment.md` § Image-need 
 
 - **Structure** · Workbench (last 3: Bento, Long Document, Manifesto) — genre modern-minimal
 - **Direction** · Line-printer output (draw 4/7 · challengers declined · raise: tabular state discipline from the dealt instrument) · posture committed
-- **System** · pale greenbar paper · rust accent ~35 · Syne over IBM Plex Mono (worn coordinates clear; nearest occupied triple differs on display class)
+- **System** · pale greenbar paper · rust accent ~35 · Syne over IBM Plex Mono (clears Ledger on paper band, Grid on display face, Terminal on display class)
 - **Chrome** · nav N13 (prev N5) · footer: a single justified colophon line
 - **Hero** · Stage/H2 (prev Settled)
 - **Section entry** · a hairline rule, repeated, plus one change of paper
@@ -290,7 +291,7 @@ Then run the image-need table at [`references/hero-enrichment.md` § Image-need 
 - **Slop test** · Floor 34/34 ✓ · Reflex 18 · Finish clean (run after Build)
 ```
 
-Name a catalog code where you took one, plain words where you designed it. **Direction** carries the draw plus the challenger verdicts and any raise; **System** carries the derived palette and pairing plus confirmation that the worn coordinates were cleared. SaaS deck runs add `**Deck** · -logos +worked-example`. Any page may add `**Signature** · <the one move>`.
+Name a catalog code where you took one, plain words where you designed it. **Direction** carries the draw plus the challenger verdicts and any raise; **System** carries the custom palette and pairing plus which catalog coordinates it cleared. SaaS deck runs add `**Deck** · -logos +worked-example`. Any page may add `**Signature** · <the one move>`.
 
 **On the catalog fast path**, the two rows collapse into one, because the theme name already says the system: `- **Theme** · Coral (near-white paper · quiet neutrals · coral accent; differs from Newsprint on paper band + display style)`.
 

@@ -8,6 +8,11 @@ This is what Hallmark looks like when no other genre signal fires. It is the sil
 
 Default. Pick editorial when the brief does not name a specialised aesthetic — when the user said "a landing page for X" without telling you whether X is enterprise, atmospheric, or playful. Most briefs land here.
 
+## Themes that belong
+
+`Specimen`, `Newsprint`, `Atelier`, `Garden`, `Almanac`, `Studio`, `Riso`, `Sport`, `Brutal`, `Manifesto`, `Editorial`, `Carnival`, `Grid`. Thirteen themes - plenty of variety inside the genre. `Grid` is the Swiss / neo-grotesque exception here: rational, exposed-grid, near-monochrome with one signal ink spent on geometry, where the rest are serif-led.
+
+`Carnival` is the loud-maximalist editorial register — Dropout TV / Fly.io / Stones Throw / Third Man Records. Duo-tone accent system (mustard + oxblood), chunky variable display, decorative ornaments, hard-offset shadows. The loud sibling to Riso / Manifesto / Brutal.
 
 ## Voice
 

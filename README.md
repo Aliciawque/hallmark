@@ -2,7 +2,7 @@
 
 **A design skill for Claude Code, Cursor, and Codex that refuses to look AI-generated.**
 
-[Live demo →](https://www.usehallmark.com) &nbsp;·&nbsp; a derived world per brief &nbsp;·&nbsp; twenty-three themes &nbsp;·&nbsp; five verbs &nbsp;·&nbsp; press `T` to cycle.
+[Live demo →](https://www.usehallmark.com) &nbsp;·&nbsp; twenty-three themes &nbsp;·&nbsp; a custom world on request &nbsp;·&nbsp; five verbs &nbsp;·&nbsp; press `T` to cycle.
 
 Made by Together AI.
 
@@ -10,7 +10,7 @@ Made by Together AI.
   <img src="site/OG-hallmark.png" alt="Hallmark, a design skill that refuses to look AI-generated" />
 </p>
 
-Hallmark holds a hard floor and then gets out of the way. It derives a visual world made-to-measure for each brief (an outside draw picks among grounded directions, so the model cannot repeat its favourite), keeps twenty-three named themes as a fast path, runs a fifty-eight-gate slop test plus a pre-emit self-critique, and refuses the on-distribution defaults every LLM was trained into.
+Hallmark holds a hard floor and then gets out of the way. It dresses the brief in one of twenty-three themes, derives a world made-to-measure when the user asks for **custom** (an outside draw picks among grounded directions, so the model cannot repeat its favourite), runs a fifty-eight-gate slop test plus a pre-emit self-critique, and refuses the on-distribution defaults every LLM was trained into.
 
 Thirty-four of those gates are a **floor**: contrast, focus order, reduced motion, invented metrics, layout that breaks on a phone, and the eyebrow above the heading. Nothing ships through them. Eighteen are **reflex** gates, the defaults a language model falls into rather than laws, and a build with an argument can overrule one on the record, with the reason named in the CSS stamp and the guard re-derived by the checker. There is no cap on how many: a colour-field poster that wants a black stage, achromatic neutrals and one face doing everything is allowed to say so and ship. The last six are polish and bookkeeping and never block a ship.
 
@@ -79,9 +79,9 @@ Each page is self-contained HTML + CSS, stamped with its macrostructure in the C
 
 ## Custom
 
-When a brief carries creative intent that no catalog theme fits, Hallmark switches to **Custom** and designs the page from scratch: a made-to-measure palette, type, and layout. Same fifty-eight gates at the same tiers, no template underneath.
+When the user asks for **custom** (or "derive it", "bespoke", "no theme"), Hallmark leaves the catalog and designs the page from scratch: a made-to-measure palette, type, and layout. Same fifty-eight gates at the same tiers, no template underneath.
 
-In v1.2 the custom route runs a full art-direction ritual: it names and rejects the category's reflex aesthetics, writes a slate of seven grounded directions, and a deterministic **draw** (`scripts/seed.mjs`) picks which one gets built, dealing three **challengers** from a curated atlas of complete design systems (a graphic system, an instrument language, an atmosphere world), each judged against the drawn direction on audience identification and product clarity; even a losing challenger donates one discipline it does best. A scene sentence sets the light, a colour posture (Restrained · Committed · Full palette · Drenched) sets how far the palette commits, and a five-block direction contract written into the artifact gets audited promise by promise before shipping.
+The custom route, taken when the user asks for it by name, runs a full art-direction ritual: it names and rejects the category's reflex aesthetics, writes a slate of seven grounded directions, and a deterministic **draw** (`scripts/seed.mjs`) picks which one gets built, dealing three **challengers** from a curated atlas of complete design systems (a graphic system, an instrument language, an atmosphere world), each judged against the drawn direction on audience identification and product clarity; even a losing challenger donates one discipline it does best. A scene sentence sets the light, a colour posture (Restrained · Committed · Full palette · Drenched) sets how far the palette commits, and a five-block direction contract written into the artifact gets audited promise by promise before shipping.
 
 <table>
   <tr>
