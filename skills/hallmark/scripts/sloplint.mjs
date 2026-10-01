@@ -1965,9 +1965,9 @@ function check48(ctx) {
     if (n <= 6) report(48, 'WARN', file, line, evidence, 'Lift the value into the token block');
   };
   for (const [prop, val] of Object.entries(ctx.tokens)) {
-    if (/^--font-/.test(prop) && /FILL ME/i.test(val)) {
+    if (/^--(font|color)-/.test(prop) && /FILL ME/i.test(val)) {
       const tr = ctx.rules.find((r) => isTokenRule(r) && r.decls.some((d) => d.prop === prop));
-      report(48, 'FAIL', tr ? tr.file : ctx.cssFiles[0]?.file || ctx.docs[0]?.file, tr ? tr.decls.find((d) => d.prop === prop)?.line : 1, `${prop} is still the scaffold placeholder "FILL ME"`, 'Fill the face from direction.md § C before building');
+      report(48, 'FAIL', tr ? tr.file : ctx.cssFiles[0]?.file || ctx.docs[0]?.file, tr ? tr.decls.find((d) => d.prop === prop)?.line : 1, `${prop} is still the scaffold placeholder "FILL ME"`, /^--font-/.test(prop) ? 'Fill the face from direction.md § C before building' : 'Fill the colour from direction.md § B before building');
     }
   }
   for (const r of ctx.rules) {

@@ -212,10 +212,10 @@ const SCALE = `  --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm
   --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap: 144px;
   --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;`;
 
-const CUSTOM_TOKENS = `  --color-paper: oklch(96% 0.010 80); --color-paper-2: oklch(93% 0.012 80); --color-paper-3: oklch(89% 0.014 80);
-  --color-ink: oklch(20% 0.012 80); --color-ink-2: oklch(28% 0.012 80); --color-muted: oklch(46% 0.012 80);
-  --color-rule: oklch(84% 0.010 80);
-  --color-accent: oklch(58% 0.16 250); --color-accent-ink: oklch(98% 0.005 250); --color-focus: oklch(58% 0.20 250);
+const CUSTOM_TOKENS = `  --color-paper: FILL ME; --color-paper-2: FILL ME; --color-paper-3: FILL ME;
+  --color-ink: FILL ME; --color-ink-2: FILL ME; --color-muted: FILL ME;
+  --color-rule: FILL ME;
+  --color-accent: FILL ME; --color-accent-ink: FILL ME; --color-focus: FILL ME;
   --font-display: "FILL ME", ui-serif, serif; --font-body: "FILL ME", ui-sans-serif, system-ui, sans-serif; --font-outlier: var(--font-body);
   --radius-card: 4px; --radius-pill: 999px; --rule-hair: 1px; --shadow-card: none;
   --tracking-display: -0.02em;`;
@@ -265,7 +265,7 @@ function scaffold() {
   const css = `:root {\n${scale}\n${tokens}\n}\n`;
   writeFileSync(out, css);
   const stamp = custom
-    ? `/* Hallmark · shape: <shape> · genre: <genre> · custom: draw n/7 (seed <slug>·<date>·r0)\n * hero: <posture> · nav: <shape> · footer: <shape> · enrichment: <none or the file> · signature: <the one move>\n * axes: <paper>/<display>/<accent> · posture: <posture> · contrast: pass · fold: pass · v${VERSION} */`
+    ? `/* Hallmark · shape: <shape> · genre: <genre> · theme: custom · direction: "<drawn, n/7>" · vibe: "<4 to 8 words>"\n * paper: oklch(<>) · accent: oklch(<>) · display: <face> · body: <face> · hero: <posture> · nav: <shape> · footer: <shape> · enrichment: <none or the file> · signature: <the one move>\n * axes: <paper>/<display>/<accent> · posture: <posture> · seed: <key> · challenger: <name> (<verdict or raise>) · contract: <after the finish review> · contrast: pass · fold: pass · v${VERSION} */`
     : `/* Hallmark · shape: <shape> · genre: ${header.genre} · theme: ${name} (${flag('dealt', '') ? `deal ${flag('dealt', '')}` : 'by request'})\n * hero: <posture> · nav: <shape> · footer: <shape> · enrichment: <none or the file> · signature: <the one move>\n * axes: ${triple(header)} · posture: ${header.posture} · contrast: pass · fold: pass · v${VERSION} */`;
   console.log(`wrote ${out} (${custom ? 'the shared scale; fill every --color-* and --font-* from direction.md § B and § C before building' : `${name} tokens plus the shared scale`})`);
   if (!custom) {

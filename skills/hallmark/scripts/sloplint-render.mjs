@@ -183,10 +183,17 @@ function observe(checkFold, meta) {
 
   if (checkFold) {
     const lin = (c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
+    const cvs = document.createElement('canvas'); cvs.width = cvs.height = 1;
+    const ctx2 = cvs.getContext('2d', { willReadFrequently: true });
+    const toRgb = (str) => { ctx2.clearRect(0, 0, 1, 1); ctx2.fillStyle = 'rgba(0, 0, 0, 0)'; ctx2.fillStyle = str; ctx2.fillRect(0, 0, 1, 1); const d = ctx2.getImageData(0, 0, 1, 1).data; return { r: d[0] / 255, g: d[1] / 255, b: d[2] / 255, a: d[3] / 255 }; };
     const parse = (s) => {
-      const m = /rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)(?:,\s*([\d.]+))?\)/.exec(s);
-      if (!m) return null;
-      return { r: +m[1] / 255, g: +m[2] / 255, b: +m[3] / 255, a: m[4] == null ? 1 : +m[4] };
+      if (!s || s === 'transparent') return null;
+      const m = /^rgba?\(([\d.]+),\s*([\d.]+),\s*([\d.]+)(?:,\s*([\d.]+))?\)$/.exec(s.trim());
+      if (m) return { r: +m[1] / 255, g: +m[2] / 255, b: +m[3] / 255, a: m[4] == null ? 1 : +m[4] };
+      const alpha = /\/\s*([\d.]+%?)\s*\)$/.exec(s);
+      const c = toRgb(s);
+      if (alpha) c.a = alpha[1].endsWith('%') ? parseFloat(alpha[1]) / 100 : parseFloat(alpha[1]);
+      return c;
     };
     const lum = (c) => 0.2126 * lin(c.r) + 0.7152 * lin(c.g) + 0.0722 * lin(c.b);
     const ratio = (a, b) => {
@@ -202,6 +209,17 @@ function observe(checkFold, meta) {
       }
       const root = parse(getComputedStyle(document.body).backgroundColor);
       return root && root.a > 0 ? root : { r: 1, g: 1, b: 1, a: 1 };
+    };
+    const over = (top, base) => ({ r: top.r * top.a + base.r * (1 - top.a), g: top.g * top.a + base.g * (1 - top.a), b: top.b * top.a + base.b * (1 - top.a), a: 1 });
+    const gradStops = (el, base) => {
+      const out = [];
+      for (let node = el; node && node !== document.documentElement; node = node.parentElement) {
+        const cs2 = getComputedStyle(node);
+        if (/gradient/.test(cs2.backgroundImage)) for (const m of cs2.backgroundImage.matchAll(/(?:oklch|oklab|lab|lch|rgba?|hsla?|color)\([^()]*\)|#[0-9a-fA-F]{3,8}\b/g)) out.push(over(toRgb(m[0]), base));
+        const c = parse(cs2.backgroundColor);
+        if (c && c.a >= 0.9) break;
+      }
+      return out;
     };
     let reported = 0;
     const seenSel = new Set();
@@ -229,6 +247,13 @@ function observe(checkFold, meta) {
         if (btnish && r < 1.6) {
           push(41, 'FAIL', `button text ~ button fill on ${key} (${r.toFixed(2)}:1)`,
             'Use accent-ink or paper for the label');
+        }
+      } else if (!seenSel.has(key)) {
+        const worst = gradStops(el, bg).reduce((m, c) => Math.min(m, ratio(fg, c)), Infinity);
+        if (worst < threshold - 0.05) {
+          seenSel.add(key);
+          reported++;
+          push(40, 'WARN', `contrast drops to ${worst.toFixed(2)}:1 over the gradient behind ${key}`, 'Check the text where the gradient is darkest or lightest; give the label its own ground');
         }
       }
     }
