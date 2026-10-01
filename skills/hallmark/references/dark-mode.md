@@ -1,6 +1,6 @@
 # Dark mode - parity, never inversion
 
-Loaded only when the user asks for both modes ("dark mode too", "light and dark") or the pre-flight finds an existing mode system to respect. A dark THEME (Midnight, Ledger, Aurora) is not a dual-mode page; this file is for pages that ship BOTH modes from one token system. Never emit dual-mode unprompted.
+Loaded only when the user asks for both modes ("dark mode too", "light and dark") or the pre-flight finds an existing mode system to respect. A dark THEME (Midnight, Ledger, Kiln) is not a dual-mode page; this file is for pages that ship BOTH modes from one token system. Never emit dual-mode unprompted.
 
 ## The stance
 

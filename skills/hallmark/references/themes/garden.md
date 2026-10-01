@@ -3,17 +3,17 @@ name: Garden
 slug: garden
 genre: editorial
 paper: light 95.5 92
-display: roman-serif Young Serif
+display: roman-serif Vollkorn
 accent: chromatic-green 140
 posture: committed
 keywords: farm, apiary, honey, cidery, orchard, seed, nursery, herbalist, botanical, tea, preserves, single-origin, seasonal, harvest, small-maker, csa, provenance, grown, field, homestead
-material: oat paper, green ink, one chunky roman serif, a leaf-green signal, clay kept inside hand-built craft
-signature: a specimen drawn in CSS and SVG mounted on a warm oat sheet beside its caption
+material: oat paper, green ink, a sturdy Vollkorn head, a leaf-green signal, clay kept inside hand-built craft
+signature: the season bar, twelve months as one ruled bar with the in-season months filled leaf green and the current month marked by a hairline
 ---
 
 # Garden
 
-Warm oat paper, a near-black green ink, Young Serif heads over Hanken Grotesk, one leaf-green signal, a clay pop kept inside hand-built CSS and SVG craft. The signature is a drawn specimen mounted on the oat sheet beside its caption.
+Warm oat paper, a near-black green ink, Vollkorn heads over Hanken Grotesk, one leaf-green signal, a clay pop kept inside hand-built CSS and SVG craft. The signature is the season bar: twelve months in one ruled bar, the months in season filled leaf green, the current month marked by a hairline.
 
 ## Tokens
 
@@ -24,22 +24,23 @@ Warm oat paper, a near-black green ink, Young Serif heads over Hanken Grotesk, o
   --color-rule: oklch(84% 0.020 120); --color-rule-2: oklch(70% 0.040 140);
   --color-accent: oklch(47% 0.130 140); --color-accent-2: oklch(54% 0.140 46); --color-accent-ink: oklch(97% 0.015 95);
   --color-focus: oklch(47% 0.130 140); --tint-moss: oklch(47% 0.130 140 / 0.10); --tint-clay: oklch(54% 0.140 46 / 0.10);
-  --font-display: "Young Serif", ui-serif, Georgia, serif; --font-body: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Vollkorn", ui-serif, Georgia, serif; --font-body: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-outlier: "Newsreader", ui-serif, Georgia, serif;
   --radius-card: 4px; --radius-pill: 999px; --rule-hair: 1px; --shadow-card: none;
-  --tracking-display: -0.006em;
+  --tracking-display: -0.01em;
 }
 ```
 
 ## Faces
 
-- **Display:** Young Serif 400, roman, `--tracking-display`, up to 5rem. One weight ships, so hierarchy comes from size, never from italic or a bolder cut. Chunky and hand-cut, not a high-contrast serif.
-- **Body:** Hanken Grotesk 400, 500, 600 with `oldstyle-nums`. Newsreader 400 carries long provenance prose at 58ch; Young Serif never runs as body.
-- **Labels, captions, table heads, meta, lot codes, dates:** Hanken Grotesk 500 one step smaller, sentence case, untracked, `--color-muted`: the herbarium tag reads like a caption, never like a stamp. No mono on the page.
+- **Display:** Vollkorn 600 to 800, roman, `--tracking-display`, up to 5rem: 700 for the hero, 600 for a section head, 800 only on a short line. One weight per head, never italic. A sturdy old-style serif with a dark, warm colour on the page, not a high-contrast serif.
+- **Body:** Hanken Grotesk 400, 500, 600 with `oldstyle-nums`. Newsreader 400 carries long provenance prose at 58ch; Vollkorn never runs as body.
+- **Labels, captions, table heads, meta, lot codes, dates, months:** Hanken Grotesk 500 one step smaller, sentence case, untracked, `--color-muted`: the herbarium tag reads like a caption, never like a stamp. No mono on the page.
 
 ## Material
 
-- Hand-built botanical craft: the imagery is pure CSS and hand-authored SVG (a honeycomb wash, a jar of amber, corked vials, a pressed leaf), never a stock photo. It is the thing being sold, not decoration.
+- The season bar (the signature): twelve months as one bar ruled in 1px hairlines, the months in season filled leaf green under `--color-accent-ink`, the rest left as paper with the month in `--color-muted`, and the current month marked by a 1px ink hairline that runs past the bar's edges. It shows the real season of the thing sold, or it does not appear.
+- Hand-built botanical craft: the imagery is pure CSS and hand-authored SVG (a honeycomb wash, a jar of amber, corked vials, a pressed leaf, a drawn specimen beside its caption), never a stock photo. It is the thing being sold, not decoration, and not the signature.
 - Tint bands, not boxed cards: soft full-bleed washes in `--tint-moss` or `--tint-clay`; structure is 1px hairlines plus whitespace, never a drop-shadowed box. Flat paper, no texture.
 - Every neutral carries a green cast (hue 90 to 152), no pure grey. Leaf-green stays under 5% of a viewport. Clay lives inside the craft, almost never as chrome.
 - The control pair: one flat leaf-green pill with `--color-accent-ink` text beside a hairline-outlined pill in `--color-rule-2`.
@@ -58,19 +59,24 @@ Warm, honest, seasonal, unhurried. Say the ridge, the flower, the pour date, the
 - Never grey-sage or slate paper; the ground is warm oat, hue 92.
 - Never a photograph where the craft should be.
 - Never a cool teal or corporate emerald; the green is chlorophyll, hue 140.
-- Never italic or faux-bold Young Serif.
-- Never clay on a control or a nav, never a gradient on the leaf-green control.
+- Never italic or faux-bold Vollkorn; load the real 600 to 800.
+- Never clay on a control, a nav or the season bar, never a gradient on the leaf-green control.
 
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Hanken+Grotesk:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet">
 ```
 
 ```css
 body { font-family: var(--font-body); font-variant-numeric: oldstyle-nums; color: var(--color-ink-2); }
-.display { font: 400 clamp(2.25rem, 4vw + 1rem, 5rem)/1.05 var(--font-display); letter-spacing: var(--tracking-display); color: var(--color-ink); }
+.display { font: 700 clamp(2.25rem, 4vw + 1rem, 5rem)/1.05 var(--font-display); letter-spacing: var(--tracking-display); color: var(--color-ink); }
 .tag { font-size: 0.8125rem; font-weight: 500; color: var(--color-muted); }
+.season { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); border: var(--rule-hair) solid var(--color-rule-2); }
+.season > li { position: relative; padding: var(--space-xs) 0; text-align: center; font-size: 0.75rem; color: var(--color-muted); }
+.season > li + li { border-inline-start: var(--rule-hair) solid var(--color-rule); }
+.season > .in { background: var(--color-accent); color: var(--color-accent-ink); }
+.season > [aria-current]::after { content: ""; position: absolute; inset-block: -8px; left: 50%; width: 1px; background: var(--color-ink); }
 .band--moss { background: var(--tint-moss); }
 .btn--solid { border-radius: var(--radius-pill); background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--line { border-radius: var(--radius-pill); border: var(--rule-hair) solid var(--color-rule-2); color: var(--color-ink); }

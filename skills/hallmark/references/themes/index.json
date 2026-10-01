@@ -131,49 +131,6 @@
    "file": "references/themes/atelier.md"
   },
   {
-   "name": "Aurora",
-   "slug": "aurora",
-   "genre": "atmospheric",
-   "posture": "committed",
-   "paper": {
-    "band": "dark",
-    "L": 11,
-    "hue": 200
-   },
-   "display": {
-    "class": "geometric-sans",
-    "face": "Sora"
-   },
-   "accent": {
-    "band": "chromatic-teal",
-    "hue": 172
-   },
-   "keywords": [
-    "dev tool",
-    "ai tool",
-    "generative",
-    "model",
-    "playground",
-    "render",
-    "pipeline",
-    "observability",
-    "deploy",
-    "ship",
-    "dark mode",
-    "after-hours",
-    "late-night",
-    "nocturnal",
-    "moody",
-    "aurora",
-    "northern lights",
-    "blue-green",
-    "cold"
-   ],
-   "material": "near-black cyan-tilted ground, two cold blooms, weighty Sora over a Sentient serif body, one teal-green signal",
-   "signature": "cyan and teal-green blooms overlapping across the ground like a curtain, a serif paragraph reading warm inside the cold",
-   "file": "references/themes/aurora.md"
-  },
-  {
    "name": "Bloom",
    "slug": "bloom",
    "genre": "atmospheric",
@@ -185,7 +142,7 @@
    },
    "display": {
     "class": "grotesk-sans",
-    "face": "Geist"
+    "face": "Figtree"
    },
    "accent": {
     "band": "warm",
@@ -213,7 +170,7 @@
     "daylight",
     "consumer creative"
    ],
-   "material": "warm off-white paper under two terracotta blooms, Geist throughout, one roman Gambarino line, raised warm cards",
+   "material": "warm off-white paper under two terracotta blooms, Figtree throughout, one roman Gambarino line, raised warm cards",
    "signature": "warm light on light paper, a plain sans headline with one serif sentence beneath it, the made thing on a raised warm card",
    "file": "references/themes/bloom.md"
   },
@@ -260,50 +217,6 @@
    "material": "prussian-blue sheet under a two-pitch grid, white line drawing, a fixed title block, dimension strings and hatch fills",
    "signature": "the fixed title block in the sheet's corner, with every figure on the page dimensioned like a drawing",
    "file": "references/themes/blueprint.md"
-  },
-  {
-   "name": "Broadcast",
-   "slug": "broadcast",
-   "genre": "editorial",
-   "posture": "full-palette",
-   "paper": {
-    "band": "mid",
-    "L": 70,
-    "hue": 260
-   },
-   "display": {
-    "class": "display-heavy",
-    "face": "Dela Gothic One"
-   },
-   "accent": {
-    "band": "warm",
-    "hue": 27
-   },
-   "keywords": [
-    "video",
-    "production",
-    "film crew",
-    "studio",
-    "live",
-    "streaming",
-    "podcast",
-    "tv",
-    "television",
-    "showreel",
-    "reel",
-    "post-production",
-    "event coverage",
-    "camera",
-    "cinematography",
-    "editing",
-    "media",
-    "news",
-    "channel",
-    "documentary"
-   ],
-   "material": "standard-grey ground under faint scanlines, wide heavy capitals, a black slate bar with a timecode, colour bars and a pluge strip, safe-area corner marks, a red tally and green on-screen text",
-   "signature": "the black slate running the width of the page with a timecode, over a capture framed by four corner marks",
-   "file": "references/themes/broadcast.md"
   },
   {
    "name": "Broadside",
@@ -364,8 +277,8 @@
     "face": "Albert Sans"
    },
    "accent": {
-    "band": "warm",
-    "hue": 25
+    "band": "chromatic-yellow",
+    "hue": 105
    },
    "keywords": [
     "brutalist",
@@ -387,51 +300,9 @@
     "no-nonsense",
     "uncompromising"
    ],
-   "material": "an engineered near-white sheet carved by 3px near-black rules, giant uppercase Albert Sans 700, zero radius, one red cut",
-   "signature": "a solid ink block butted against a bordered paper block with one red bar between them",
+   "material": "an engineered near-white sheet carved by 3px near-black rules, giant uppercase Albert Sans 700, zero radius, one acid-yellow fill",
+   "signature": "a solid ink block butted against a bordered paper block with one acid-yellow bar between them",
    "file": "references/themes/brutal.md"
-  },
-  {
-   "name": "Canvas",
-   "slug": "canvas",
-   "genre": "playful",
-   "posture": "full-palette",
-   "paper": {
-    "band": "light",
-    "L": 99.5,
-    "hue": 90
-   },
-   "display": {
-    "class": "grotesk-sans",
-    "face": "Instrument Sans"
-   },
-   "accent": {
-    "band": "chromatic-yellow",
-    "hue": 92
-   },
-   "keywords": [
-    "family",
-    "household",
-    "meal planning",
-    "planner",
-    "week",
-    "kids",
-    "home",
-    "shared",
-    "chores",
-    "recipes",
-    "shopping list",
-    "calendar",
-    "education",
-    "school",
-    "playful",
-    "fridge",
-    "pastel",
-    "sticker"
-   ],
-   "material": "a white fridge door, three pastels (butter, sky, blush) each inside a 1.5px ink border, Instrument Sans 700, panes and stickers",
-   "signature": "a pane with a pastel head band, and a die-cut sticker with a white ring outside its ink border",
-   "file": "references/themes/canvas.md"
   },
   {
    "name": "Carnival",
@@ -614,11 +485,11 @@
    },
    "display": {
     "class": "display-condensed",
-    "face": "Barlow Condensed"
+    "face": "Sofia Sans Extra Condensed"
    },
    "accent": {
-    "band": "warm",
-    "hue": 32
+    "band": "chromatic-amber",
+    "hue": 68
    },
    "keywords": [
     "photographer",
@@ -642,8 +513,8 @@
     "night",
     "print shop"
    ],
-   "material": "near-black ground with a fine grain, hairline condensed capitals, a safelight red, sprocket-holed strips of numbered frames, a grease-pencil ring and a greyscale step wedge",
-   "signature": "the sprocket-holed strip of numbered frames, one of them ringed in grease pencil",
+   "material": "near-black wall with a fine grain, hairline extra-condensed capitals, one amber safelight, greyscale prints hung edge to edge",
+   "signature": "prints hung edge to edge on the near-black wall at one height, each with its plate number and date beneath in the body face",
    "file": "references/themes/darkroom.md"
   },
   {
@@ -728,93 +599,6 @@
    "material": "warm cream, a heavy condensed grotesque slammed left, 1px hairlines, roman-numeral folios, one coral mark",
    "signature": "a condensed headline hard against the left margin, answered by one serif-italic pulled line between two hairlines",
    "file": "references/themes/editorial.md"
-  },
-  {
-   "name": "Ember",
-   "slug": "ember",
-   "genre": "atmospheric",
-   "posture": "committed",
-   "paper": {
-    "band": "dark",
-    "L": 17,
-    "hue": 60
-   },
-   "display": {
-    "class": "slab-serif",
-    "face": "Bitter"
-   },
-   "accent": {
-    "band": "warm",
-    "hue": 45
-   },
-   "keywords": [
-    "foundry",
-    "forge",
-    "furnace",
-    "metal",
-    "hardware",
-    "ceramics",
-    "kiln",
-    "glass",
-    "glassblowing",
-    "workshop",
-    "fabrication",
-    "casting",
-    "bakery",
-    "oven",
-    "heat",
-    "industrial",
-    "tools",
-    "knives",
-    "brass",
-    "bronze"
-   ],
-   "material": "soot-dark ground, heavy slab heads with light-weight figures, one grained orb of heat, cast plates with inset seams, a heat bar and a tick ruler",
-   "signature": "a single molten orb beside the head, with every temperature read off a ruler in the light slab weight",
-   "file": "references/themes/ember.md"
-  },
-  {
-   "name": "Enamel",
-   "slug": "enamel",
-   "genre": "playful",
-   "posture": "drenched",
-   "paper": {
-    "band": "mid",
-    "L": 33,
-    "hue": 262
-   },
-   "display": {
-    "class": "grotesk-sans",
-    "face": "Familjen Grotesk"
-   },
-   "accent": {
-    "band": "neutral",
-    "hue": 85
-   },
-   "keywords": [
-    "hardware",
-    "trade",
-    "shop",
-    "workshop",
-    "tools",
-    "ironmonger",
-    "brewery",
-    "distillery",
-    "railway",
-    "heritage",
-    "counter",
-    "ledger",
-    "drawers",
-    "parts",
-    "catalogue",
-    "sign",
-    "repair",
-    "industrial",
-    "stock"
-   ],
-   "material": "fired blue enamel on steel, cream keylines twice over, rivets, drawers and number plates, Familjen Grotesk alone",
-   "signature": "a double-keylined plate with a rivet in each corner, and one drawer pulled out of the bank",
-   "file": "references/themes/enamel.md"
   },
   {
    "name": "Formwork",
@@ -912,7 +696,7 @@
    },
    "display": {
     "class": "roman-serif",
-    "face": "Young Serif"
+    "face": "Vollkorn"
    },
    "accent": {
     "band": "chromatic-green",
@@ -940,8 +724,8 @@
     "field",
     "homestead"
    ],
-   "material": "oat paper, green ink, one chunky roman serif, a leaf-green signal, clay kept inside hand-built craft",
-   "signature": "a specimen drawn in CSS and SVG mounted on a warm oat sheet beside its caption",
+   "material": "oat paper, green ink, a sturdy Vollkorn head, a leaf-green signal, clay kept inside hand-built craft",
+   "signature": "the season bar, twelve months as one ruled bar with the in-season months filled leaf green and the current month marked by a hairline",
    "file": "references/themes/garden.md"
   },
   {
@@ -1131,8 +915,8 @@
     "face": "Epilogue"
    },
    "accent": {
-    "band": "chromatic-green",
-    "hue": 160
+    "band": "chromatic-teal",
+    "hue": 190
    },
    "keywords": [
     "library",
@@ -1154,7 +938,7 @@
     "competent",
     "monochrome"
    ],
-   "material": "white paper, a black with no hue, one mint that means in, Epilogue 700 display, rows on rules, a paper plane",
+   "material": "white paper, a black with no hue, one teal that means in, Epilogue 700 display, rows on rules, a paper plane",
    "signature": "a list that starts on a 1px ink rule and ends each row with a pill, and a single-path paper plane",
    "file": "references/themes/ink.md"
   },
@@ -1463,11 +1247,11 @@
    },
    "display": {
     "class": "grotesk-heavy",
-    "face": "Archivo Black"
+    "face": "Anybody"
    },
    "accent": {
-    "band": "chromatic-magenta",
-    "hue": 5
+    "band": "cool",
+    "hue": 215
    },
    "keywords": [
     "venue",
@@ -1483,14 +1267,15 @@
     "events",
     "nightlife",
     "two-colour",
+    "screenprint",
     "punk",
     "zine",
     "loud",
     "listings",
     "door"
    ],
-   "material": "warm newsprint stock, a shouted grotesk, two flat inks that miss each other by four pixels, tickets and stamps",
-   "signature": "a headline in one ink with a second copy of one word printed in the other ink four pixels out of register",
+   "material": "warm newsprint stock, a wide shouted grotesk, two transparent flat inks that print a third where they cross, tickets and stamps",
+   "signature": "two flat ink shapes overlapping behind or beside the headline, the overlap printing a third colour, nothing out of register",
    "file": "references/themes/overprint.md"
   },
   {
@@ -1505,11 +1290,11 @@
    },
    "display": {
     "class": "display-condensed",
-    "face": "Anton"
+    "face": "League Gothic"
    },
    "accent": {
-    "band": "warm",
-    "hue": 28
+    "band": "cool",
+    "hue": 250
    },
    "keywords": [
     "zine",
@@ -1533,8 +1318,8 @@
     "launch",
     "loud"
    ],
-   "material": "kraft board with a fibre wash, pasted ink blocks and cut paper strips at a slight tilt, tape, a round sticker, a rubber stamp, halftone prints, a serif galley for the reading",
-   "signature": "the headline pasted up as tilted ink blocks with one white cut-out word, taped down",
+   "material": "kraft board with a fibre wash, the headline cut into ink strips and taped down at a slight tilt, one photocopier blue, a round sticker, a rubber stamp, halftone prints, a serif galley for the reading",
+   "signature": "the headline pasted up as tilted ink strips held down with tape, every strip the same ink",
    "file": "references/themes/pasteup.md"
   },
   {
@@ -1578,49 +1363,6 @@
    "material": "snow-white paper, cobalt runs and buttons, black condensed caps, blue and red and black grade marks, one cobalt band sweeping the hero",
    "signature": "a headline in condensed black caps beside a mountain profile drawn in ink, with the runs on it in cobalt",
    "file": "references/themes/piste.md"
-  },
-  {
-   "name": "Prism",
-   "slug": "prism",
-   "genre": "modern-minimal",
-   "posture": "committed",
-   "paper": {
-    "band": "light",
-    "L": 99.6,
-    "hue": 260
-   },
-   "display": {
-    "class": "geometric-sans",
-    "face": "Sora"
-   },
-   "accent": {
-    "band": "cool",
-    "hue": 268
-   },
-   "keywords": [
-    "shipping",
-    "logistics",
-    "parcel",
-    "delivery",
-    "api",
-    "infrastructure",
-    "developer",
-    "tracking",
-    "payments",
-    "fintech",
-    "platform",
-    "integration",
-    "dashboard",
-    "live",
-    "board",
-    "carriers",
-    "webhooks",
-    "sdk",
-    "enterprise"
-   ],
-   "material": "white with every neutral tinted toward cobalt, Sora semi-bold, hairline tables, one tilted aurora panel in cobalt as the page's object",
-   "signature": "a rounded panel tilted five to eight degrees carrying three radial pools of cobalt, violet and cyan under grain, beside a flat cobalt button",
-   "file": "references/themes/prism.md"
   },
   {
    "name": "Ribbon",
@@ -1677,7 +1419,7 @@
    },
    "display": {
     "class": "grotesk-sans",
-    "face": "Geist"
+    "face": "Switzer"
    },
    "accent": {
     "band": "warm",
@@ -1703,7 +1445,7 @@
     "dark",
     "measured"
    ],
-   "material": "warm black paper, one disc lit along a third of its edge, Geist medium, mono for every measurement, zero radius",
+   "material": "warm black paper, one disc lit along a third of its edge, Switzer medium, mono for every measurement, zero radius",
    "signature": "the black disc with a hard-edged conic rim, and a 1px horizon rule with something rising under it",
    "file": "references/themes/rim.md"
   },
@@ -1757,7 +1499,7 @@
    },
    "display": {
     "class": "high-contrast-serif",
-    "face": "Bodoni Moda Italic"
+    "face": "Zodiak Italic"
    },
    "accent": {
     "band": "chromatic-amber",
@@ -1784,7 +1526,7 @@
     "craft",
     "stockists"
    ],
-   "material": "a whole page dyed mustard saffron, near-black ink, cream plates, an italic Didone on every head, a cropped giant letterform",
+   "material": "a whole page dyed mustard saffron, near-black ink, cream plates, Zodiak Italic on every head, a cropped giant letterform",
    "signature": "one enormous italic letter cropped by the section edge in a deeper saffron, with cream plates numbered along the fold",
    "file": "references/themes/saffron.md"
   },
@@ -1928,8 +1670,8 @@
     "face": "Saira Condensed"
    },
    "accent": {
-    "band": "warm",
-    "hue": 35
+    "band": "chromatic-volt",
+    "hue": 120
    },
    "keywords": [
     "running",
@@ -1951,8 +1693,8 @@
     "match",
     "tournament"
    ],
-   "material": "cool concrete paper, blue-black ink, uppercase Saira Condensed, tabular mono figures, one blaze-orange stripe",
-   "signature": "a split-time figure set larger than its label beside a single orange lane stripe",
+   "material": "cool concrete paper, blue-black ink, uppercase Saira Condensed, tabular mono figures, one volt stripe",
+   "signature": "a split-time figure set larger than its label beside a single volt lane stripe",
    "file": "references/themes/sport.md"
   },
   {
@@ -1996,50 +1738,6 @@
    "material": "a forest green ground with real chroma, peach controls, Manrope heavy from headline to footnote, drawn fruit with a ripeness bar",
    "signature": "a drawn fruit on the green with an 8px ripeness gradient under it, and one white card for the thing you pay for",
    "file": "references/themes/squeeze.md"
-  },
-  {
-   "name": "Stencil",
-   "slug": "stencil",
-   "genre": "playful",
-   "posture": "committed",
-   "paper": {
-    "band": "dark",
-    "L": 15,
-    "hue": 90
-   },
-   "display": {
-    "class": "display-condensed",
-    "face": "Big Shoulders Stencil Display"
-   },
-   "accent": {
-    "band": "chromatic-yellow",
-    "hue": 90
-   },
-   "keywords": [
-    "logistics",
-    "freight",
-    "shipping",
-    "pallet",
-    "warehouse",
-    "courier",
-    "delivery",
-    "fleet",
-    "cargo",
-    "depot",
-    "streetwear",
-    "merch",
-    "drop",
-    "workwear",
-    "hardware",
-    "industrial",
-    "utility",
-    "tracking",
-    "export",
-    "crate"
-   ],
-   "material": "crate-black ground, stencilled condensed capitals, hazard yellow, a typed mono body, hazard stripes, a double-ringed stamp and a barcode",
-   "signature": "the stencilled head over a hazard stripe, with one stamp struck at a tilt and a barcode at the foot",
-   "file": "references/themes/stencil.md"
   },
   {
    "name": "Sticker",
@@ -2099,8 +1797,8 @@
     "face": "Erode"
    },
    "accent": {
-    "band": "chromatic-green",
-    "hue": 145
+    "band": "warm",
+    "hue": 52
    },
    "keywords": [
     "design studio",
@@ -2119,8 +1817,8 @@
     "considered",
     "curatorial"
    ],
-   "material": "cool studio-white, a roughened roman serif at scale, hairlines and air, one botanical green",
-   "signature": "an Erode headline set huge with its chipped edges legible, over a hairline, and one green rectangle beneath it",
+   "material": "cool studio-white, a roughened roman serif at scale, hairlines and air, one cadmium-orange rectangle",
+   "signature": "an Erode headline set huge with its chipped edges legible, over a hairline, and one cadmium-orange rectangle beneath it",
    "file": "references/themes/studio.md"
   },
   {

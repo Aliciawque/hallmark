@@ -230,6 +230,16 @@ const indexed = new Set(index.themes.map((t) => t.slug));
 for (const f of themeFiles) if (!indexed.has(basename(f, '.md'))) add('error', f, 1, 'index', 'theme missing from index.json (run theme.mjs index)');
 for (const t of index.themes) if (!existsSync(join(ROOT, t.file))) add('error', join(THEME_DIR, 'index.json'), 1, 'index', `index lists ${t.file}, which does not exist`);
 
+const fontsSrc = read(join(ROOT, 'references', 'fonts.md'));
+const unusedTable = fontsSrc.slice(fontsSrc.indexOf('## Display faces the catalog does not use'), fontsSrc.indexOf('## Body faces'));
+const pairTable = fontsSrc.slice(fontsSrc.indexOf('## Pairings by tone'), fontsSrc.indexOf('## The wordmark'));
+const catalogFaces = index.themes.map((t) => ({ name: t.name, face: t.display.face.toLowerCase().replace(/ italic$/, '') }));
+for (const [label, table] of [['the faces-the-catalog-does-not-use table', unusedTable], ['the display column of the pairings table', pairTable.split('\n').map((l) => l.split('|')[2] || '').join('\n')]]) {
+  for (const { name, face } of catalogFaces) {
+    if (new RegExp(`(^|[\\s,|])${face.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?=[\\s,|(]|$)`, 'im').test(table.toLowerCase())) add('error', join(ROOT, 'references', 'fonts.md'), lineAt(fontsSrc, fontsSrc.toLowerCase().indexOf(face)), 'fonts', `${label} offers ${face}, which ${name} already sets as its display face`);
+  }
+}
+
 const reach = new Set([SKILL]);
 const queue = [SKILL];
 while (queue.length) {

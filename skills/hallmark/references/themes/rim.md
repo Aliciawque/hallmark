@@ -3,17 +3,17 @@ name: Rim
 slug: rim
 genre: modern-minimal
 paper: dark 6 80
-display: grotesk-sans Geist
+display: grotesk-sans Switzer
 accent: warm 45
 posture: committed
 keywords: space, satellite, earth observation, orbit, imagery, ground station, telemetry, hardware, schedule, utc, infrastructure, mission, sensor, monitoring, instrument, night, dark, measured
-material: warm black paper, one disc lit along a third of its edge, Geist medium, mono for every measurement, zero radius
+material: warm black paper, one disc lit along a third of its edge, Switzer medium, mono for every measurement, zero radius
 signature: the black disc with a hard-edged conic rim, and a 1px horizon rule with something rising under it
 ---
 
 # Rim
 
-Warm black paper, one disc lit along a third of its edge by a hard conic rim, Geist 500 heads, Geist Mono for every measurement with its zone, and a 1px horizon rule with something rising under it. The disc is the only round thing on the page, and it is drawn.
+Warm black paper, one disc lit along a third of its edge by a hard conic rim, Switzer 500 heads, Geist Mono for every measurement with its zone, and a 1px horizon rule with something rising under it. The disc is the only round thing on the page, and it is drawn.
 
 ## Tokens
 
@@ -24,7 +24,7 @@ Warm black paper, one disc lit along a third of its edge by a hard conic rim, Ge
   --color-rule: oklch(24% 0.010 80); --color-rule-2: oklch(15% 0.008 80);
   --color-accent: oklch(72% 0.17 45); --color-accent-ink: oklch(10% 0.02 45); --color-accent-2: oklch(74% 0.12 250); --color-focus: oklch(78% 0.15 45);
   --color-rim-1: oklch(82% 0.17 50); --color-rim-2: oklch(60% 0.15 300); --color-disc: oklch(9% 0.008 260); --color-disc-2: oklch(16% 0.012 260);
-  --font-display: "Geist", ui-sans-serif, system-ui, sans-serif; --font-body: var(--font-display);
+  --font-display: "Switzer", ui-sans-serif, system-ui, sans-serif; --font-body: var(--font-display);
   --font-outlier: "Geist Mono", ui-monospace, monospace;
   --radius-card: 0; --radius-pill: 0; --rule-hair: 1px; --shadow-card: none;
   --tracking-display: -0.04em; --display-weight: 500;
@@ -40,9 +40,9 @@ Two colourways, both dark, stated in the stamp (`rim: night` or `rim: station`).
 
 ## Faces
 
-- **Display:** Geist 500, `--tracking-display`, line-height 1.02, up to 4.75rem. Medium, never bold. One colour per head.
-- **Body:** Geist 400 at 16px, line-height 1.55, in `--color-muted`; Geist 500 where it must read as ink.
-- **Labels, captions, table heads, meta:** Geist 500 one step smaller, sentence case, untracked. Never mono, never uppercase.
+- **Display:** Switzer 500, `--tracking-display`, line-height 1.02, up to 4.75rem. Medium, never bold. One colour per head.
+- **Body:** Switzer 400 at 16px, line-height 1.55, in `--color-muted`; 500 where it must read as ink, 600 for `strong`.
+- **Labels, captions, table heads, meta:** Switzer 500 one step smaller, sentence case, untracked. Never mono, never uppercase.
 - **Measurements (mono as material):** Geist Mono 400 and 500, tabular, for every time, coordinate, kilometre, price and countdown, and for big figures at 20 to 40px. A time always carries its zone, UTC by default. Mono never sets a heading, a label or a paragraph.
 
 ## Material
@@ -68,12 +68,13 @@ Measured and exact: the pass, the time in UTC, the area in square kilometres, th
 - Never a photograph of the planet; imagery is drawn with a scale bar.
 - Never a bare time. `09:30` without a zone is the theme lying.
 - Never a triangle, chevron or star as the mark.
-- Never bold display. Geist 500 is the ceiling; the black does the weight.
+- Never bold display. Switzer 500 is the ceiling; the black does the weight.
 
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 ```
 
 ```css

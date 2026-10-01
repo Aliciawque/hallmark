@@ -3,17 +3,17 @@ name: Saffron
 slug: saffron
 genre: editorial
 paper: mid 72 82
-display: high-contrast-serif Bodoni Moda Italic
+display: high-contrast-serif Zodiak Italic
 accent: chromatic-amber 78
 posture: drenched
 keywords: couture, atelier, fashion, collection, season, dye, textile, silk, wool, linen, garment, fitting, boutique, lookbook, designer, luxury, slow fashion, craft, stockists
-material: a whole page dyed mustard saffron, near-black ink, cream plates, an italic Didone on every head, a cropped giant letterform
+material: a whole page dyed mustard saffron, near-black ink, cream plates, Zodiak Italic on every head, a cropped giant letterform
 signature: one enormous italic letter cropped by the section edge in a deeper saffron, with cream plates numbered along the fold
 ---
 
 # Saffron
 
-A page dyed saffron edge to edge, near-black ink, cream plates, Bodoni Moda Italic at opsz 96 on every head, Newsreader for the reading and Hanken Grotesk at 13px for the labels. One giant italic letter in a deeper saffron is cropped by a section's edge.
+A page dyed saffron edge to edge, near-black ink, cream plates, Zodiak Italic 400 on every head, Newsreader for the reading and Hanken Grotesk at 13px for the labels. One giant italic letter in a deeper saffron is cropped by a section's edge.
 
 ## Tokens
 
@@ -23,7 +23,7 @@ A page dyed saffron edge to edge, near-black ink, cream plates, Bodoni Moda Ital
   --color-ink: oklch(17% 0.012 70); --color-ink-2: oklch(24% 0.02 72); --color-muted: oklch(28% 0.04 75);
   --color-rule: oklch(40% 0.06 75); --color-plate: oklch(95% 0.035 88);
   --color-accent: oklch(60% 0.13 78); --color-accent-ink: oklch(17% 0.012 70); --color-focus: oklch(17% 0.012 70);
-  --font-display: "Bodoni Moda", "Didot", "Times New Roman", serif; --font-body: "Newsreader", Georgia, serif; --font-outlier: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Zodiak", Georgia, "Times New Roman", serif; --font-body: "Newsreader", Georgia, serif; --font-outlier: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
   --radius-card: 0; --radius-pill: 0; --rule-hair: 1px;
   --shadow-card: none;
   --tracking-display: -0.01em;
@@ -40,7 +40,7 @@ Three colourways, set once per page and named in the stamp (`saffron: lot`).
 
 ## Faces
 
-- **Display:** Bodoni Moda Italic 400, `font-variation-settings: "opsz" 96`, `--tracking-display`, line-height 1.04, up to 5rem; nav links in the same italic at 19px. Declared italic system, gate 38ii waived: on `--font-display`, every head, true italic, `font-synthesis: none`. Figures (grams, hours, plate numbers) are the one roman use, Bodoni Moda 700.
+- **Display:** Zodiak Italic 400, `--tracking-display`, line-height 1.04, up to 5rem; nav links in the same italic at 19px. Declared italic system, gate 38ii waived: on `--font-display`, every head, true italic, `font-synthesis: none`. Figures (grams, hours, plate numbers) are the one roman use, Zodiak 700.
 - **Body:** Newsreader 400 and 500 at 17px, line-height 1.45, `"opsz" 16`.
 - **Labels, buttons, captions, table heads:** Hanken Grotesk 500 at 13px, sentence case, untracked, in `--color-muted`. The sans is the outlier and carries only the small strings and the controls; never a head, never prose. No mono anywhere but code.
 
@@ -71,17 +71,18 @@ The atelier's register: the piece, the cloth weight, the bath, the hour of the f
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,700;1,6..96,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Hanken+Grotesk:wght@500&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@400i,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Hanken+Grotesk:wght@500&display=swap" rel="stylesheet">
 ```
 
 ```css
-.display, h1, h2, h3 { font-family: var(--font-display); font-style: italic; font-weight: 400; font-synthesis: none; font-variation-settings: "opsz" 96; letter-spacing: var(--tracking-display); line-height: 1.04; text-wrap: balance; }
+.display, h1, h2, h3 { font-family: var(--font-display); font-style: italic; font-weight: 400; font-synthesis: none; letter-spacing: var(--tracking-display); line-height: 1.04; text-wrap: balance; }
 .figure { font-family: var(--font-display); font-style: normal; font-weight: 700; }
 .label { font: 500 13px/1.3 var(--font-outlier); color: var(--color-muted); }
 .btn { display: inline-flex; padding: 15px 26px; font: 500 13px/1 var(--font-outlier); background: var(--color-ink); color: var(--color-paper); }
 .btn--secondary { background: transparent; color: var(--color-ink); box-shadow: inset 0 0 0 1px var(--color-ink); }
 .plate { background: var(--color-plate); color: var(--color-ink); }
-.letter { position: absolute; right: -80px; top: -210px; font: italic 500 1150px/1 var(--font-display); color: var(--color-paper-3); pointer-events: none; user-select: none; }
+.letter { position: absolute; right: -80px; top: -210px; font: italic 400 1150px/1 var(--font-display); color: var(--color-paper-3); pointer-events: none; user-select: none; }
 .cloth { background: linear-gradient(162deg, oklch(97.5% 0.025 90) 0%, oklch(94% 0.045 88) 40%, oklch(88% 0.08 86) 76%, oklch(80% 0.12 84) 100%); }
 ::selection { background: var(--color-ink); color: var(--color-paper); }
 ```

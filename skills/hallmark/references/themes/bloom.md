@@ -3,17 +3,17 @@ name: Bloom
 slug: bloom
 genre: atmospheric
 paper: light 97 72
-display: grotesk-sans Geist
+display: grotesk-sans Figtree
 accent: warm 35
 posture: committed
 keywords: generative, ai creative, music, song, video, image, voice, art, make, create, compose, render, imagine, prompt, studio, playground, expressive, warm, daylight, consumer creative
-material: warm off-white paper under two terracotta blooms, Geist throughout, one roman Gambarino line, raised warm cards
+material: warm off-white paper under two terracotta blooms, Figtree throughout, one roman Gambarino line, raised warm cards
 signature: warm light on light paper, a plain sans headline with one serif sentence beneath it, the made thing on a raised warm card
 ---
 
 # Bloom
 
-Warm off-white paper under two fixed terracotta blooms, Geist throughout with one roman Gambarino line, the made thing on a raised warm card. The signature is a plain sans headline with one serif sentence beneath it.
+Warm off-white paper under two fixed terracotta blooms, Figtree throughout with one roman Gambarino line, the made thing on a raised warm card. The signature is a plain sans headline with one serif sentence beneath it.
 
 ## Tokens
 
@@ -24,7 +24,7 @@ Warm off-white paper under two fixed terracotta blooms, Geist throughout with on
   --color-rule: oklch(88% 0.012 65);
   --color-accent: oklch(54% 0.13 35); --color-accent-2: oklch(64% 0.09 55);
   --color-accent-ink: oklch(98% 0.010 72); --color-focus: oklch(54% 0.13 35);
-  --font-display: "Geist", system-ui, sans-serif; --font-body: var(--font-display);
+  --font-display: "Figtree", ui-sans-serif, system-ui, sans-serif; --font-body: var(--font-display);
   --font-outlier: "Gambarino", Georgia, serif;
   --font-code: "Geist Mono", ui-monospace, monospace;
   --radius-card: 14px; --radius-pill: 999px; --rule-hair: 1px; --shadow-card: 0 6px 20px oklch(20% 0.022 40 / 0.10);
@@ -34,10 +34,10 @@ Warm off-white paper under two fixed terracotta blooms, Geist throughout with on
 
 ## Faces
 
-- **Display:** Geist 600, `--tracking-display`, line-height 1.06, up to 5.75rem, roman. Plain-English, never decorative.
-- **Body:** Geist 400 and 500.
+- **Display:** Figtree at `--display-weight`, 600 by default within 500 to 700, one weight for every head; `--tracking-display`, line-height 1.06, up to 5.75rem, roman. Plain-English, never decorative.
+- **Body:** Figtree 400 and 500.
 - **The serif gesture:** Gambarino, roman, once: a lede sentence, a pulled line or a large numeral. Never the H1, never italic.
-- **Labels, captions, tags, meta:** Geist 500 one step smaller, sentence case, in `--color-muted`. Geist Mono appears only inside code and on figures that compare (a duration column); it never sets a tag or a caption.
+- **Labels, captions, tags, meta:** Figtree 500 one step smaller, sentence case, in `--color-muted`. Geist Mono appears only inside code and on figures that compare (a duration column); it never sets a tag or a caption.
 
 ## Material
 
@@ -65,7 +65,7 @@ Warm, daylight, expressive, specific: say the verb (make, hum, describe) and say
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=gambarino@400&display=swap" rel="stylesheet">
 ```
 

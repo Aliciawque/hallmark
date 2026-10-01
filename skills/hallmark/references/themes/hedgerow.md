@@ -36,7 +36,6 @@ One dial, the colourway, stated in the stamp (`hedgerow: hedge`). The drawings f
 | Colourway | Ground | Ink | Accent |
 | --- | --- | --- | --- |
 | `hedge` (default) | oklch(24% 0.05 165) | cream oklch(93% 0.02 85) | chartreuse oklch(86% 0.19 115) |
-| `field-guide` | cream oklch(94% 0.02 90) | green oklch(22% 0.05 165) | leaf green oklch(40% 0.12 140), specimens in oklch(28% 0.07 155); paper band becomes light |
 | `sloe` | plum oklch(25% 0.06 320) | oklch(94% 0.02 80) | straw oklch(88% 0.15 95) |
 
 ## Faces

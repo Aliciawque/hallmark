@@ -178,7 +178,7 @@ The gates above that a script cannot settle, with enough to judge them well.
 
 **47c, imitation material.** The question is whether the thing pretends. A `data-slot` placeholder labelled "your screenshot" does not pretend; a styled-div dashboard with invented figures does. Geometry that is geometry (a diagram, a chart, an animated line) is a first-class medium; geometry pretending to be a picture is the tell. Grids and stripes need a canvas, a map or a measuring tool under them.
 
-**38iii, the accented word.** One word in the accent colour, one word in bold, one word on a highlighter band: the calibration guides name it beside the eyebrow as the machine-made head. A head is one weight, one style and one colour. Five themes carry an accented word as their signature (Manifesto's red word, Lumen's coloured verb, Paste-up's cut-out word, the misregistered word in Overprint and Riso); they stamp the waiver and place it once, in the hero.
+**38iii, the accented word.** One word in the accent colour, one word in bold, one word on a highlighter band: the calibration guides name it beside the eyebrow as the machine-made head. A head is one weight, one style and one colour. Three themes carry an accented word as their signature (Manifesto's red word, Lumen's coloured verb, Riso's misregistered word); they stamp the waiver and place it once, in the hero.
 
 **54, the eyebrow test.** Small type before a heading survives only when it carries a fact, a destination or an identifier the reader would otherwise lack. Delete the line and read the page: if nothing was lost but a name for what comes next, it was an eyebrow. The fix is never bare deletion; `craft.md` § Opening a section has twelve other ways in.
 
