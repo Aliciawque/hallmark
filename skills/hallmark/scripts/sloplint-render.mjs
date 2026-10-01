@@ -79,6 +79,7 @@ export async function renderCheck(htmlFiles, metaIn) {
         for (const [w, h] of [[1440, 900], [1920, 1080]]) {
           await page.setViewport({ width: w, height: h });
           await shoot(page, file, `${prefix}${w}x${h}`, false);
+          if (!heroOnly && w === 1440) await shoot(page, file, '1440-full', true);
           await page.evaluate(async () => { for (let y = 0; y < document.documentElement.scrollHeight; y += 800) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 15)); } window.scrollTo(0, 0); });
           await new Promise((r) => setTimeout(r, 200));
           const res = await page.evaluate(observeSpace, w === 1440, heroOnly, meta.heroPostureByFile[file] || '');
@@ -93,7 +94,7 @@ export async function renderCheck(htmlFiles, metaIn) {
   } finally {
     await browser.close().catch(() => {});
   }
-  if (SHOTS.length) console.error(heroOnly ? `render tier: ${SHOTS.length} hero screenshots in ${dirname(SHOTS[0])} (1280x800, 1440x900, 1920x1080 and 375x812 first screens)` : `render tier: ${SHOTS.length} screenshots in ${dirname(SHOTS[0])} (1280x800, 1440x900, 1920x1080 folds; 375 full page)`);
+  if (SHOTS.length) console.error(heroOnly ? `render tier: ${SHOTS.length} hero screenshots in ${dirname(SHOTS[0])} (1280x800, 1440x900, 1920x1080 and 375x812 first screens)` : `render tier: ${SHOTS.length} screenshots in ${dirname(SHOTS[0])} (1280x800, 1440x900, 1920x1080 folds; 1440 and 375 full pages)`);
 
   const seen = new Set();
   return findings.filter((f) => {

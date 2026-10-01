@@ -196,7 +196,7 @@ The gates above that a script cannot settle, with enough to judge them well.
 
 ## 6. The finish review, in fresh context
 
-The thread that built the page is its weakest reviewer. Spawn a reviewer with no inherited transcript (a subagent in Claude Code) and give it only: the artifact paths, the screenshots at 1280 x 800, 1440 x 900 and 375, the direction contract or theme line from the stamp, and § 4 of this file. Its brief:
+The thread that built the page is its weakest reviewer. Spawn a reviewer with no inherited transcript (a subagent in Claude Code) and give it only: the artifact paths, the screenshots the render tier wrote (the folds at 1280 x 800, 1440 x 900 and 1920 x 1080, and the full page at 1440 and at 375), the direction contract or theme line from the stamp, and § 4 of this file. Its brief:
 
 > Review a built page against a fixed list. You did not build it and will not be told why anything is the way it is. Read the page, not the intent. Reading is an allowance: the inputs above and nothing else, batched, and by the tenth turn stop reading and write.
 >

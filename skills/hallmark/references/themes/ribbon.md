@@ -20,7 +20,7 @@ Warm off-white paper, Newsreader italic 300 at every display size, pills for eve
 ```css
 :root {
   --color-paper: oklch(98.5% 0.006 85); --color-paper-2: oklch(96% 0.009 85); --color-paper-3: oklch(92.5% 0.012 85);
-  --color-ink: oklch(18% 0.004 80); --color-ink-2: oklch(30% 0.008 80); --color-muted: oklch(48% 0.012 80);
+  --color-ink: oklch(18% 0.005 80); --color-ink-2: oklch(30% 0.008 80); --color-muted: oklch(48% 0.012 80);
   --color-rule: oklch(90% 0.010 85); --color-rule-2: oklch(94% 0.008 85);
   --color-accent: oklch(44% 0.075 190); --color-accent-ink: oklch(98% 0.006 85); --color-focus: oklch(52% 0.09 190);
   --color-band: oklch(26% 0.045 195); --color-band-ink: oklch(94% 0.012 85);

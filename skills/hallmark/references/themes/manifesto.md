@@ -20,7 +20,7 @@ A warm near-black ground, Anton uppercase up to 9rem leaded at 0.86 and slammed 
 ```css
 :root {
   --color-paper: oklch(10% 0.005 60); --color-paper-2: oklch(15% 0.006 60); --color-paper-3: oklch(20% 0.007 60);
-  --color-ink: oklch(98% 0.003 90); --color-ink-2: oklch(88% 0.006 80); --color-muted: oklch(60% 0.012 65);
+  --color-ink: oklch(98% 0.005 90); --color-ink-2: oklch(88% 0.006 80); --color-muted: oklch(60% 0.012 65);
   --color-rule: oklch(28% 0.010 60);
   --color-accent: oklch(56% 0.23 28); --color-accent-text: oklch(62% 0.23 28); --color-accent-ink: oklch(98% 0.003 90);
   --color-focus: oklch(56% 0.23 28);

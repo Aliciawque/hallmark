@@ -19,7 +19,7 @@ Snow-white paper, Barlow Condensed 800 caps in black, cobalt for the runs, the b
 
 ```css
 :root {
-  --color-paper: oklch(98.5% 0.004 260); --color-paper-2: oklch(96% 0.004 260); --color-paper-3: oklch(92% 0.006 260);
+  --color-paper: oklch(98.5% 0.005 260); --color-paper-2: oklch(96% 0.005 260); --color-paper-3: oklch(92% 0.006 260);
   --color-ink: oklch(16% 0.01 260); --color-ink-2: oklch(28% 0.012 260); --color-muted: oklch(50% 0.015 260);
   --color-rule: oklch(90% 0.006 260);
   --color-accent: oklch(52% 0.25 265); --color-accent-ink: oklch(98.5% 0.004 260); --color-focus: oklch(58% 0.22 28);
@@ -42,14 +42,14 @@ Committed: cobalt is `--color-field` and carries a band, a column and a block; t
 
 ## Faces
 
-- **Display:** Barlow Condensed 800, uppercase, line-height 0.92, `--tracking-display`, up to 116px; every head and every figure. Roman.
+- **Display:** Barlow Condensed 800, uppercase, line-height 1.0 when a head can wrap (55a) and 0.92 only on a single nowrap line, `--tracking-display`, up to 7.25rem on a Marquee or Ledge hero; every head and every figure. Roman.
 - **Body:** Barlow 400 and 500, 16 to 19px, line-height 1.5.
 - **Signs and buttons:** Barlow Condensed 700, uppercase, tracked 0.04em, 14 to 16px, following the display's capitals. Table heads, captions and meta: Barlow 500 one step smaller, sentence case, untracked. No mono outside code.
 
 ## Material
 
 - Rules `--rule-bar` ink on top of a table and under a nav; `--rule-hair` in paper-3 between rows. Radius 0: signs are cut, tables are ruled, cards are rare.
-- The sign: a strip of condensed caps with one end cut to a point by clip-path, filled cobalt, red or black, or outlined 2px. Signs are the nav items and the tags.
+- The sign: a strip of condensed caps with one end cut to a point by clip-path, filled cobalt, red or black, or outlined 2px. Signs are the nav items, in the display's capitals at 16px or more tracked 0.04em at most; a tag smaller than that is a sign in sentence case (67).
 - Grade marks: 10px discs in blue, red or black that mean a piste's grade and nothing else. A disc never decorates a label.
 - The mountain: one SVG polyline of six to ten points in ink for the profile and two or three curved cobalt paths for the runs on it; that is the whole drawing, under 40 lines. Snow-depth bars are plain rects. The cobalt band sweeping the hero is a single wide SVG path.
 - Shadow: none on chrome; the soft `--shadow-card` under the one framed report.
@@ -78,7 +78,7 @@ The morning report: the hour, the depth in centimetres, the lifts open, the run 
 ```
 
 ```css
-.display { font: 800 var(--text-display)/0.92 var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-display); text-wrap: balance; }
+.display { font: 800 var(--text-display)/1 var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-display); text-wrap: balance; }
 .sign { display: inline-flex; align-items: center; height: 34px; padding: 0 22px 0 14px; font: 700 14px var(--font-display); letter-spacing: 0.04em; text-transform: uppercase;
   background: var(--color-accent); color: var(--color-accent-ink); clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%); }
 .grade { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--color-accent); }

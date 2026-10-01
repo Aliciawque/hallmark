@@ -81,7 +81,7 @@ Every posture, every hero:
 - **One reveal per page**, staggered by a `--i` custom property, capped at 500ms, and the content is visible without it (62): scope the hidden state to a `.js` class the script adds, or animate from visible with `@starting-style`. Reduced motion collapses spatial motion to a 150ms opacity crossfade and keeps functional loaders running.
 - **Scroll:** IntersectionObserver for reveals and for any state that flips at a threshold; a passive scroll listener, throttled to one read per frame, only where direction matters (a bar that hides on the way down); reveal once; scroll-scrubbed motion exists only as the named patterns in `scroll-choreography.md`, one per page (F8).
 - **State:** hover `translateY(-1px)` at micro, active back to 0; menus `--ease-out` open and `--ease-in` close with the Popover API; modals scale 0.96 to 1 with a backdrop fade over `--dur-long` using `<dialog>` and `inert`; accordions animate `grid-template-rows: 0fr` to `1fr`; tooltips delay 800 to 1000ms on hover and 0ms on focus (17); focus rings never animate (15).
-- **Never:** parallax, custom cursors, cursor followers, infinite loops other than loaders and a paused-on-hover marquee, `will-change` on a whole class, an image that scales or rotates on hover (11), a pulsing dot that is not live data.
+- **Never:** parallax, custom cursors, cursor followers, infinite loops other than loaders, a paused-on-hover marquee, and one ambient loop a theme declares as its material (8s or slower, stopped under reduced motion and while off-screen), `will-change` on a whole class, an image that scales or rotates on hover (11), a pulsing dot that is not live data.
 
 Full recipes (buttons, inputs, validation, toasts, modals, menus, drag, command palette, optimistic updates) are in `microinteractions.md`; load it when the page has stateful UI.
 
@@ -118,7 +118,7 @@ Two moves can share a section; three is panic. Pick one opening and repeat it, o
 
 A landing page is a demo. The first screen shows the thing working; later screens show it from other angles. Prose is what a page falls back on when it has nothing to show.
 
-A slot is a container carrying `data-slot="<name>"` (`hero`, `demo-2`, `demo-3`, `photo-1`) at a real size (an `aspect-ratio` or a fixed height, never the image's own), holding a designed placeholder that the user's image replaces without touching the layout. Both snippets ship in every page that has a slot; in a framework the same contract is a `<Slot name="hero">` component.
+A slot is a container carrying `data-slot="<name>"` (`hero`, `demo-2`, `demo-3`, `photo-1`) and a `data-alt` describing what will be in it, at a real size (an `aspect-ratio` or a fixed height, never the image's own), holding a designed placeholder that the user's image replaces without touching the layout. Both snippets ship in every page that has a slot; in a framework the same contract is a `<Slot name="hero">` component.
 
 ```css
 [data-slot] { position: relative; overflow: hidden; }
@@ -127,7 +127,7 @@ A slot is a container carrying `data-slot="<name>"` (`hero`, `demo-2`, `demo-3`,
 ```
 
 ```js
-window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = v; im.alt = ''; s.prepend(im); } };
+window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.prepend(im); } };
 ```
 
 **The placeholder is designed, not grey.** A gradient of two or three OKLCH stops from the theme's paper and accent with a slow hue path (a mesh of two radial gradients is the richer version; dark themes glow from a corner, light themes wash from an edge), optionally a sparse drawn interface of five shapes or fewer in the theme's material, one corner label in the theme's caption style saying what goes there (`your screenshot`, `product photo`), inside a frame that suits the theme (a hairline panel with a slight tilt, a device silhouette, a plain rounded panel, a kiss-cut print, an enamel plate). Never traffic lights, a URL pill or a notch (47a); never invented figures presented as real (47c); never the word *placeholder* at display size.

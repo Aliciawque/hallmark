@@ -19,7 +19,7 @@ Warm black paper, one disc lit along a third of its edge by a hard conic rim, Sw
 
 ```css
 :root {
-  --color-paper: oklch(6% 0.004 80); --color-paper-2: oklch(10% 0.005 80); --color-paper-3: oklch(4% 0.004 80);
+  --color-paper: oklch(6% 0.005 80); --color-paper-2: oklch(10% 0.005 80); --color-paper-3: oklch(4% 0.005 80);
   --color-ink: oklch(94% 0.010 80); --color-ink-2: oklch(84% 0.011 80); --color-muted: oklch(66% 0.012 80); --color-muted-2: oklch(50% 0.010 80);
   --color-rule: oklch(24% 0.010 80); --color-rule-2: oklch(15% 0.008 80);
   --color-accent: oklch(72% 0.17 45); --color-accent-ink: oklch(10% 0.02 45); --color-accent-2: oklch(74% 0.12 250); --color-focus: oklch(78% 0.15 45);

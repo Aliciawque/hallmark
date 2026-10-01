@@ -19,7 +19,7 @@ Cool grey paper, all type in Space Mono and JetBrains Mono, 2px ink borders on e
 
 ```css
 :root {
-  --color-paper: oklch(95% 0.005 250); --color-paper-2: oklch(91% 0.008 250); --color-paper-3: oklch(99.5% 0.003 250);
+  --color-paper: oklch(95% 0.005 250); --color-paper-2: oklch(91% 0.008 250); --color-paper-3: oklch(99.5% 0.005 250);
   --color-ink: oklch(15% 0.01 260); --color-ink-2: oklch(28% 0.012 260); --color-muted: oklch(48% 0.015 260);
   --color-rule: oklch(82% 0.01 250); --color-plate: oklch(15% 0.01 260);
   --color-accent: oklch(52% 0.22 264); --color-accent-2: oklch(80% 0.16 85); --color-accent-ink: oklch(99.5% 0.003 250); --color-focus: oklch(52% 0.22 264);

@@ -19,7 +19,7 @@ Cool concrete paper, blue-black ink, Saira Condensed 700 uppercase heads, JetBra
 
 ```css
 :root {
-  --color-paper: oklch(98% 0.003 250); --color-paper-2: oklch(95.5% 0.004 250); --color-paper-3: oklch(92.5% 0.005 250);
+  --color-paper: oklch(98% 0.005 250); --color-paper-2: oklch(95.5% 0.005 250); --color-paper-3: oklch(92.5% 0.005 250);
   --color-ink: oklch(16% 0.080 260); --color-ink-2: oklch(22% 0.060 258); --color-muted: oklch(50% 0.020 250);
   --color-rule: oklch(78% 0.008 250); --color-rule-2: oklch(36% 0.060 255);
   --color-accent: oklch(88% 0.200 120); --color-accent-ink: oklch(16% 0.080 260); --color-accent-deep: oklch(58% 0.145 125);

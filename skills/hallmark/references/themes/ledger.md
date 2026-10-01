@@ -46,7 +46,7 @@ Credit is money in: it takes the headline figure and the one solid button. Debit
 
 - **Display:** Instrument Sans 600, `--tracking-display`. No thin weight.
 - **Body:** Instrument Sans 400 and 500 at 1.0625rem, line-height 1.55.
-- **Figures and column heads:** IBM Plex Mono 400 and 500 with `tabular-nums` on every number and on column heads at 12px, sentence case, untracked. Mono is this theme's material; columns align digit for digit. The headline figure is mono 500 at `clamp(2.4rem, 6vw, 3.6rem)` in its side's ink.
+- **Figures:** IBM Plex Mono 400 and 500 with `tabular-nums` on every number; a column head is mono only over a column of figures, and the body face over a column of words (64), 12px, sentence case, untracked. Mono is this theme's material; columns align digit for digit. The headline figure is mono 500 at `clamp(2.4rem, 6vw, 3.6rem)` in its side's ink.
 - **Captions, field labels, status words, meta:** Instrument Sans 500 one step smaller, sentence case, `--color-muted`.
 
 ## Material
@@ -54,13 +54,13 @@ Credit is money in: it takes the headline figure and the one solid button. Debit
 - The sheet is ruled, and the ruling is the theme: it never brightens, never animates, never carries chroma.
 - Every figure foots and carries an as-of: columns sum to their totals and balances state their moment. A figure without a date is an assertion, not a record.
 - The foot: a 1px rule above the total, the total, then a double rule (two 1px rules 3px apart). The kit: the T-account, the statement extract as a real `<table>` with right-aligned amounts, one credit-ink sparkline with no axes, a status column, and a rotated outline stamp in one ink. A stamp carries a fact, a date or a frame number, or does not appear.
-- Rows, never tiles: repeated data is a ruled table whose hover lifts the row one paper step. At most one chart, and it is the sparkline.
+- Rows, never tiles: repeated data is a ruled table; a row lifts one paper step on hover only when the whole row is a link (11). At most one chart, and it is the sparkline.
 - Depth: 1px `--color-rule` on every edge, raised paper on `--color-paper-2` under one deep offset shadow. Radii 10px and 6px, never a pill.
 - The control pair: one solid credit-ink button at 6px with `--color-accent-ink` text beside a hairline-outlined one in `--color-rule`.
 
 ## Motion
 
-Near-still, the way a printed page behaves: rows shift one paper step on hover; buttons dip 1px on active; one live dot may pulse over 2.4s, once per page. Nothing counts up, nothing reveals.
+Near-still, the way a printed page behaves: linked rows shift one paper step on hover; buttons dip 1px on active; one live dot may pulse over 2.4s, once per page. Nothing counts up, nothing reveals.
 
 ## Voice
 

@@ -224,7 +224,7 @@ button, input, select, textarea { font: inherit; }
 @media (max-width: 40rem) { :root { --gutter: 16px; --section-gap: 72px; --gap-columns: 16px; } }
 @media (prefers-reduced-motion: reduce) { *:not(.keep-motion), *:not(.keep-motion)::before, *:not(.keep-motion)::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }`;
 
-const SLOTS_JS = `window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(\`[data-slot="\${k}"]\`); if (!s) continue; const im = new Image(); im.src = v; im.alt = ''; s.prepend(im); } };`;
+const SLOTS_JS = `window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(\`[data-slot="\${k}"]\`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.prepend(im); } };`;
 
 function scaffold() {
   const custom = has('custom');
@@ -298,6 +298,7 @@ function validate(files) {
       }
       const fence = tokenBlockOf(src, f);
       if (/\/\*/.test(fence)) problems.push('comment inside the token block');
+      if (!/waive 22/.test(src)) for (const m of fence.matchAll(/(--color-(?:paper|paper-2|paper-3|ink|ink-2|muted|rule|rule-2)):\s*oklch\(\s*[\d.]+%\s+([\d.]+)/g)) if (Number(m[2]) < 0.005) problems.push(`${m[1]} chroma ${m[2]} is under the 0.005 floor (gate 22), or the file names waive 22`);
       for (const k of ['--color-paper', '--color-ink', '--color-muted', '--color-rule', '--color-accent', '--color-accent-ink', '--color-focus', '--font-display', '--font-body', '--radius-card', '--tracking-display']) if (!fence.includes(k + ':')) problems.push(`token block lacks ${k}`);
       if (problems.length) { bad++; console.log(`${f}: ${problems.join('; ')}`); } else console.log(`${f}: ok (${e.name}, ${triple(e)}, ${src.length} bytes)`);
     } catch (err) { bad++; console.log(`${f}: ${err.message}`); }
