@@ -5,7 +5,7 @@ The hero is the page above the fold. A single statement or visual fills the view
 - **Heading:** display fills the fold, 8 to 14vw, hugging the viewport edges; `line-height` 1.0 or more when it can wrap (55a).
 - **Body:** below the fold, a list of work or one content block; the hero does not continue.
 - **Divider:** a thick rule between hero and below-fold, or a hard change of paper.
-- **Button:** no button in the fold. The one visible action is the nav's single link beside the wordmark, and the stamp says so (44b). The first button arrives below.
+- **Button:** one action in the fold under the statement, with the one sentence (Floor 12, 13): a typographic link or a single button. The statement owns the screen; the action and the sentence sit small at its foot.
 - **Image:** none in the fold (typography is the visual), or a single full-bleed photograph as the fold's background.
 - **Reveal:** the fold is static; below-fold may sweep in horizontally.
 

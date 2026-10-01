@@ -4,7 +4,7 @@ Loaded only when the picked theme earns texture (affinity table below) or a cust
 
 ## The budget (binds on every artifact)
 
-- **One artifact family per page.** Grain OR halftone OR misregistration OR scanline OR deckle; combinations are mud. A risograph print is one family: its grain and its misregistration come from the same drum.
+- **One artifact family per page.** Grain OR halftone OR misregistration OR scanline OR deckle; combinations are mud. A risograph print is one family: its grain and its misregistration come from the same drum. A halftone inside a drawn print or a placeholder is the image, not a page texture, and does not count against the page's one family.
 - **Tokened opacity, declared in the token block:** `--texture-opacity` <= 0.08 page-wide, <= 0.15 scoped to a card or plate. Under running body text, <= 0.05 or nothing.
 - **Never animated.** No drifting grain, no pulsing dots; the one exception is E7's slow-drift knob on its abstract background, which is E7's budget, not this file's.
 - **`pointer-events: none` and `aria-hidden="true"`** on every overlay; texture never intercepts input, and the retro signal is atmosphere, never a drawn monitor bezel (47a).

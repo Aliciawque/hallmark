@@ -7,13 +7,13 @@ display: display-heavy Big Shoulders Display
 accent: chromatic-yellow 95
 posture: full-palette
 keywords: record label, podcast, comedy, indie, zine, poster, illustrator, games, hot sauce, merch, streetwear, cassette, vinyl, live show, festival, loud, maximalist, scrappy
-material: tinted paper, a duo-tone pair that competes instead of blending, Big Shoulders Display 800 with its width axis engaged, 2px rules, a flat ink shadow offset four pixels
+material: tinted paper, a duo-tone pair that competes instead of blending, Big Shoulders Display 800 in its heavy width, 2px rules, a flat ink shadow offset four pixels
 signature: a mustard tile with a 4px hard ink shadow beside an oxblood tile with the same, an ornament divider between them
 ---
 
 # Carnival
 
-Tinted paper, two accents that compete across surfaces and never blend, Big Shoulders Display 800 with its width axis at 110, 2px rules, and a 4px ink shadow with zero blur. The signature is a mustard tile and an oxblood tile side by side, each on its hard shadow, an ornament between them.
+Tinted paper, two accents that compete across surfaces and never blend, Big Shoulders Display 800, 2px rules, and a 4px ink shadow with zero blur. The signature is a mustard tile and an oxblood tile side by side, each on its hard shadow, an ornament between them.
 
 ## Tokens
 
@@ -43,7 +43,7 @@ One dial, the drop, stated in the stamp (`carnival: diner-sign`): a saturated fi
 
 ## Faces
 
-- **Display:** Big Shoulders Display 800 with `font-variation-settings: "wdth" 110`. All caps, tracked tight: -0.005em on a lone hero word at line-height 0.82, 0.02em on a section head at 0.92. Loose tracking belongs only to a marquee.
+- **Display:** Big Shoulders Display 800 (its width comes from the face; the Google build has no width axis). All caps, tracked tight: -0.005em on a lone hero word at line-height 0.9 on a single nowrap line, 0.02em on a section head at 1.0 when it can wrap (55a). Loose tracking belongs only to a marquee.
 - **Body:** Golos Text 400, 500 and 700, sentence case, short, present tense, full ink.
 - **Labels, captions, table heads, meta:** Golos Text 500 one step smaller, sentence case; a poster tag may go 700 in an accent colour. Never mono: figures are Golos Text with `tabular-nums`.
 
@@ -53,7 +53,7 @@ One dial, the drop, stated in the stamp (`carnival: diner-sign`): a saturated fi
 - The hard offset shadow: `4px 4px 0 var(--color-ink)`, zero blur, on cards, buttons and images. Leave clearance at the page edge so the offset is never clipped.
 - Rules are `--rule-bar` in `--color-accent-2`; radius 2px at most. An accent fill may bleed about 24px past the page max-width on one side, a poster pinned to a wall.
 - Typographic ornaments (✱ ❋ ◆) in an accent colour as dividers, as the bullets of a real list, and as a marquee's repeating separator. Never glued in front of a label or a link.
-- Halftone fills (`texture.md` § Halftone) where the page would otherwise show a photo placeholder, at a fixed small size, never under type. The control pair: a button filled with one accent beside a button filled with the other, both with the hard shadow and a `--rule-bar` ink border.
+- Halftone fills (`texture.md` § Halftone) where the page would otherwise show a photo placeholder, at a fixed small size, never under type. The control pair: one button filled with an accent on its 4px ink shadow beside the same block outlined in ink with the same shadow; one fill per screen (F4).
 
 ## Motion
 
@@ -68,7 +68,7 @@ Short, loud, declarative. Headlines all caps, six words or fewer, ending in a fu
 - Never a soft shadow; hard offset or none.
 - Never both accents inside one block; blending kills the duo-tone read.
 - Never sentence-case headlines, and never loose tracking outside a marquee.
-- Never a neutral button; every call to action fills with one of the two accents.
+- Never a grey or ghost button: the secondary is the outlined ink block, the primary the one accent fill.
 
 ## Build hint
 
@@ -78,7 +78,7 @@ Short, loud, declarative. Headlines all caps, six words or fewer, ending in a fu
 
 ```css
 body { background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); }
-h1, h2 { font-family: var(--font-display); font-weight: 800; font-variation-settings: "wdth" 110; text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 0.92; }
+h1, h2 { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; letter-spacing: var(--tracking-display); line-height: 1; }
 .hard { border: var(--rule-bar) solid var(--color-ink); border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
 .tile--a { background: var(--color-accent); color: var(--color-accent-ink); }
 .tile--b { background: var(--color-accent-2); color: var(--color-paper); }

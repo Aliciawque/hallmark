@@ -48,7 +48,7 @@ Forest green with real chroma, peach controls, Manrope from 500 to 800 and nothi
 
 ## Motion
 
-Cheerful and physical: the crate fills on tap and the price follows; a marquee runs at about 36 seconds a loop, paused on hover. No reveals, no parallax, nothing else loops.
+Cheerful and physical: the crate fills on tap, and the price follows when the user has given one per size; a marquee runs at about 36 seconds a loop, paused on hover. No reveals, no parallax, nothing else loops.
 
 ## Voice
 

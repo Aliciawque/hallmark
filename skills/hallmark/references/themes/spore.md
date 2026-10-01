@@ -6,14 +6,14 @@ paper: dark 15 60
 display: roman-serif Young Serif
 accent: warm 30
 posture: committed
-keywords: grower, mushroom, fungi, farm, food, producer, fermentation, wine, cellar, dark, lab, culture, cultivated, night market, harvest, subscription, box, kitchen, small batch
-material: coffee-ground black under a warm grain, cream Young Serif, one oyster pink, mushrooms the code draws
-signature: a drawn cluster of caps on a brick shelf, the strain's name in cream serif and its price in pink
+keywords: grower, mushroom, fungi, farm, food, producer, fermentation, wine, natural wine, wine bar, bottle shop, cellar, preserves, dark, culture, night market, harvest, subscription, small batch
+material: coffee-ground black under a warm grain, cream Young Serif, one oyster pink, the product drawn in code on brick shelves
+signature: a drawn row of the product on a brick shelf (caps, bottles or jars), each name in cream serif and its price in pink
 ---
 
 # Spore
 
-Coffee-ground black under a warm screened grain, Young Serif in cream, an Instrument Sans body, one pink taken from the pink oyster mushroom, and caps the code draws as a rounded stem under a half-ellipse, sitting on a brick shelf.
+Coffee-ground black under a warm screened grain, Young Serif in cream, an Instrument Sans body, one pink taken from the pink oyster mushroom, and the product drawn in code from three shapes at most, sitting on a brick shelf.
 
 ## Tokens
 
@@ -32,7 +32,7 @@ Coffee-ground black under a warm screened grain, Young Serif in cream, an Instru
 }
 ```
 
-One dial, the colourway, stated in the stamp (`spore: cellar`). Each strain keeps its own drawn colours in every colourway; only the pink oyster follows the accent.
+One dial, the colourway, stated in the stamp (`spore: cellar`). Each product keeps its own drawn colours in every colourway; only the pink follows the accent.
 
 | Colourway | Ground | Ink | Accent |
 | --- | --- | --- | --- |
@@ -43,32 +43,32 @@ One dial, the colourway, stated in the stamp (`spore: cellar`). Each strain keep
 ## Faces
 
 - **Display:** Young Serif 400, its only weight, line-height 1.02, `--tracking-display`, roman, from 26px to 110px. One colour per head. Figures (the day, the price) are Young Serif at 34 to 52px.
-- **Body:** Instrument Sans 400 and 500, 16 to 18px, line-height 1.5, in `--color-ink-2`. The Latin name after a strain is Instrument Sans italic 400, the only italic.
+- **Body:** Instrument Sans 400 and 500, 16 to 18px, line-height 1.5, in `--color-ink-2`. A second name after a product (a Latin name, a grape, a vintage) is Instrument Sans italic 400, the only italic.
 - **Labels, captions, table heads, meta:** Instrument Sans 500 one step smaller, sentence case, in `--color-muted`. DM Mono only inside code and on figures that compare, tabular.
 
 ## Material
 
 - The grain: one SVG fractal-noise layer at page level, screened at 22%, `pointer-events: none`. It is the theme's whole atmosphere: no blooms, no spotlight, no torch. Depth is the three-step ground (cellar, panel, brick shelf) and the one offset shadow a dish casts.
-- Caps are drawn, one SVG each: a stem as a rounded rect in `--color-ink-2`, a cap as a half-ellipse in the strain's colour with a smaller lighter ellipse at its top left; a cluster is three of them at three sizes from one base point. That is the whole drawing, under 40 lines. No gills, no mycelium, no photograph.
+- The product is drawn, one SVG each, from three shapes at most in `--color-ink-2` and the product's own colour: a mushroom is a rounded stem under a half-ellipse cap with a lighter ellipse at its top left; a bottle is a rounded body and a narrow neck; a jar is a squared body and a lid. A cluster is three at three sizes from one base point. Under 40 lines; no detail past that, no photograph.
 - The gill fringe: 1px `--color-ink-2` lines every 5px, masked to fade, as the edge of a band.
-- Rules and shelves: 1px `--color-rule` between rows; a 2px shelf in `--color-paper-3` under a row of strains; 1.5px cream around a form and a dish. Nothing else has a border.
+- Rules and shelves: 1px `--color-rule` between rows; a 2px shelf in `--color-paper-3` under a row of products; 1.5px cream around a form and a dish. Nothing else has a border.
 - Radii: pills on controls and chips, 12px on a panel, 50% on the dish; forms square. The control pair: a pink-filled pill beside a pill outlined in 1.5px `--color-ink-2`.
 - The pink footprint: the primary control, the price, and at most one pink band per page.
 
 ## Motion
 
-Nothing moves except state: a chip picks a strain, a switch changes a price, a dish fills on a click in one frame. Caps never animate, nothing grows, nothing reveals.
+Nothing moves except state: a chip picks a product, a switch changes a price, a dish fills on a click in one frame. Drawn things never animate, nothing grows, nothing reveals.
 
 ## Voice
 
-A grower's log: the strain, the day, the weight, the kitchen. No wellness, no mystique.
+A maker's log: the name, the day, the weight, where it goes. No wellness, no mystique.
 
 ## Do-nots
 
-- Never a photograph of a mushroom next to a drawn one.
+- Never a photograph next to a drawing of the same thing.
 - Never a second accent; a green for "in stock" makes a garden centre. Stock is a sentence in muted.
 - Never a flat black without the grain, and never a torch or a pool of light standing in for it.
-- Never a card grid of strains; strains sit on shelves.
+- Never a card grid of products; products sit on shelves.
 - Never animate a cap.
 
 ## Build hint

@@ -362,7 +362,7 @@ function observeSpace(atLaptop, heroOnly, heroPosture) {
     }
     const H = document.documentElement.scrollHeight;
     let maxWords = 0, at = 0;
-    for (let y = 0; y < H; y += 150) { const w = words.filter((x) => x.y >= y && x.y < y + 900).reduce((a, b) => a + b.c, 0); if (w > maxWords) { maxWords = w; at = y; } }
+    for (let y = 0; y < H; y += 50) { const w = words.filter((x) => x.y >= y && x.y < y + 900).reduce((a, b) => a + b.c, 0); if (w > maxWords) { maxWords = w; at = y; } }
     if (maxWords > 95) push(58, 'FAIL', `${maxWords} words on one screen (from y=${at})`, 'One idea per screen: cut to about 80 words, make the section an object');
     else if (maxWords > 80) push(58, 'WARN', `${maxWords} words on one screen (from y=${at})`, 'Close to the 80-word screen budget');
     if (stack > 2) push(58, 'FAIL', `hero carries ${stack} text blocks before its actions`, 'Headline, one sentence, actions; delete the rest');

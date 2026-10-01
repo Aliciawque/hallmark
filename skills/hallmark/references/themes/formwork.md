@@ -23,7 +23,7 @@ A warm grey concrete surface that keeps its board lines and tie holes, Oswald ca
   --color-plate: oklch(81% 0.008 80);
   --color-ink: oklch(18% 0.005 270); --color-ink-2: oklch(30% 0.006 80); --color-muted: oklch(36% 0.008 80);
   --color-rule: oklch(64% 0.01 80);
-  --color-accent: oklch(66% 0.21 38); --color-accent-ink: oklch(18% 0.005 270); --color-focus: oklch(48% 0.17 38);
+  --color-accent: oklch(66% 0.21 38); --color-accent-ink: oklch(18% 0.005 270); --color-focus: oklch(42% 0.15 38);
   --color-accent-deep: oklch(48% 0.17 38);
   --texture-opacity: 0.08;
   --font-display: "Oswald", ui-sans-serif, sans-serif; --font-body: "Archivo", ui-sans-serif, sans-serif;
@@ -44,14 +44,14 @@ Three pours, stated in the stamp (`formwork: cast`). Muted sits on the wall only
 
 ## Faces
 
-- **Display:** Oswald 700, uppercase, line-height 0.92, `--tracking-display`; 48px for section heads, 84 to 90 for the page, 96 to 120 for figures. One colour per head. Roman.
+- **Display:** Oswald 700, uppercase, line-height 1.0 where a head can wrap (55a) and 0.92 only on a single nowrap line, `--tracking-display`; 48px for section heads, 84 to 90 for the page, 96 to 120 for figures. One colour per head. Roman.
 - **Body:** Archivo 400 and 500, 14 to 17px, line-height 1.5, in ink-2.
 - **Dimensions:** Archivo Narrow 600 at 12 to 13px, sentence case, tabular, the outlier, for every dimension on a drawing and the week number. Captions, meta and table heads: Archivo 500 one step smaller, sentence case. Plates and slots wear Oswald 600 at 13 to 15px uppercase, tracked 0.04em, following the display's capitals. No mono.
 
 ## Material
 
 - The wall: every surface carries the board lines (a 1px light and a 2px dark line every 96px) and tie holes on a 480 by 288 grid, drawn as gradients, plus grain from `texture.md` § Grain at `--texture-opacity`, multiplied (screened on the night pour). The one texture family.
-- Plates and slots: a button is a plate, raised on `0 3px 0` in the deep orange with a short `0 8px 14px` at 25% under it, or a slot, pressed in with `inset 0 2px 3px` and a 2px ink border.
+- Plates and slots: a button is a plate, raised on `0 3px 0` in the deep orange and nothing softer, or a slot, pressed in with `inset 0 2px 3px` and a 2px ink border.
 - Cards are cast: plate-coloured concrete, a `--rule-bar` ink border, a 6 to 8px block shadow in ink. Rules `--rule-bar` in ink across the top of a section, `--rule-hair` in paper-3 between rows.
 - Drawings are the object family: a section or a plan built from a radius, 2.5px ink outline, dashed construction lines, hatch under the slab, an orange coping dot, dimensions in Narrow.
 - The stripe: hazard stripes at 45 degrees in orange and ink, 14px each, along one edge of a band, at most twice a page.
@@ -83,9 +83,9 @@ body { background-color: var(--color-paper); background-image:
     radial-gradient(circle at 22px 48px, oklch(58% 0.01 80) 4px, oklch(64% 0.01 80) 5px, transparent 6.5px),
     repeating-linear-gradient(180deg, transparent 0 94px, oklch(97% 0.01 80 / 0.22) 94px 95px, oklch(8% 0.01 80 / 0.10) 95px 97px);
   background-size: 480px 288px, 100% 96px; }
-.display { font: 700 var(--text-display)/0.92 var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-display); }
+.display { font: 700 var(--text-display)/1 var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-display); }
 .plate { padding: 14px 32px; font: 600 15px var(--font-display); letter-spacing: 0.04em; text-transform: uppercase; background: var(--color-accent); color: var(--color-accent-ink);
-  box-shadow: 0 3px 0 var(--color-accent-deep), 0 8px 14px oklch(8% 0.01 80 / 0.25); transition: translate 120ms ease-out, box-shadow 120ms ease-out; }
+  box-shadow: 0 3px 0 var(--color-accent-deep); transition: translate 120ms ease-out, box-shadow 120ms ease-out; }
 .plate:active { translate: 0 3px; box-shadow: 0 0 0 var(--color-accent-deep); }
 .card { background: var(--color-plate); border: var(--rule-bar) solid var(--color-ink); box-shadow: var(--shadow-card); }
 ::selection { background: oklch(66% 0.21 38 / 0.35); }

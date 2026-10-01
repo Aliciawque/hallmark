@@ -865,6 +865,7 @@ function report(gate, grade, file, line, evidence, fix) {
   }
   if (tier === 'finish' && ANSWERED.has(b)) grade = 'ANSWERED';
   if (grade === 'WARN' && (DISMISSED.has(b) || DISMISSED.has(gateNumber(b)))) grade = 'DISMISSED';
+  if (grade === 'WARN' && tier === 'reflex' && waived) grade = 'WAIVED';
   findings.push({ gate: g, grade, tier, file: rel(file), line: line || 1, evidence: trunc(String(evidence)), fix });
 }
 
@@ -2361,7 +2362,7 @@ function check64(ctx) {
   if (monoIsMaterial(ctx)) return;
   const monoFam = (v) => /mono|courier|jetbrains|plex mono|geist mono|commit|fira code|space mono|dm mono|roboto mono|source code|silkscreen/i.test(firstFamily(resolveVars(v, ctx.tokens)));
   const LABELISH = /label|caption|meta|eyebrow|kicker|tag\b|badge|chip|small|folio|footnote|legend|\bth\b|thead|figcaption|overline|dateline|byline|credit|note\b/i;
-  const DATAISH = /code|pre\b|kbd|samp|num|figure|stat|price|value|data|tabular|counter|timer|clock|coord|amount|total|score|version|hash|\bid\b|sku/i;
+  const DATAISH = /code|pre\b|kbd|samp|num|figure|stat|price|value|data|tabular|counter|timer|clock|coord|amount|total|score|version|hash|\bid\b|sku|time|date|hour|utc|eta|lot\b|edition|ref\b|dimension|measure|reading|plate-?no|tag-?no/i;
   const seen = new Set();
   for (const r of ctx.rules) {
     if (r.keyframes || r.selector === '@font-face' || isTokenRule(r)) continue;
@@ -2638,7 +2639,7 @@ function fontSizePxOf(r, ctx) {
   return m ? pxOf(m[1]) : null;
 }
 
-const LABEL67 = /label|caption|meta|eyebrow|kicker|tag\b|badge|chip|small|folio|footnote|legend|\bth\b|thead|figcaption|overline|dateline|byline|credit|note\b|\bnav\b|menu|link|pill|status|unit|smallcaps|count|stamp|placard/i;
+const LABEL67 = /label|caption|meta|eyebrow|kicker|tag\b|badge|chip|small|folio|footnote|legend|\bth\b|thead|figcaption|overline|dateline|byline|credit|note\b|\bnav\b|menu|link|pill|status|unit|smallcaps|count|placard/i;
 const CONTROL67 = /btn|button|cta|\.sign\b|plate|control/i;
 const EXEMPT67_NAME = /^(wordmark|marquee|ticker|logo|brand|abbr|logo-?(mark|type|text)|brand-?(mark|name|type))$/i;
 const exemptName67 = (n) => !!n && EXEMPT67_NAME.test(n.split('--')[0].split('__').pop());

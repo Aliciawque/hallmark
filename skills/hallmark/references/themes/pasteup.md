@@ -13,7 +13,7 @@ signature: the headline pasted up as tilted ink strips held down with tape, ever
 
 # Paste-up
 
-Kraft board under a fibre wash, the headline pasted up as tilted ink strips held down with tape, a Newsreader galley for the reading, one photocopier blue for the sticker, the stamp and the margin scrawl. No strip is set apart: every one is the same ink, and the head reads as one colour.
+Kraft board under a fibre wash, the headline pasted up as tilted ink strips held down with tape, a Newsreader galley for the reading, one photocopier blue for the sticker, the stamp, the margin scrawl and the one primary button. No strip is set apart: every one is the same ink, and the head reads as one colour.
 
 ## Tokens
 
@@ -52,7 +52,7 @@ The blue reads as type on kraft and carries white type as a fill. Three boards, 
 - Two textures: the fibre wash (turbulence tinted tan, multiplied over the board, `texture.md` § 1) and a 9px halftone dot field inside every print (§ 2). Nothing else is worn.
 - Pasted strips (the signature): the headline is cut into ink strips, one per line or per word, each at its own `--r` between -2° and 2° with a 2px zero-blur drop, each held down at one end by tape, a translucent yellow rectangle. Every strip is the same ink under paper-coloured type; nothing in the head is cut out, recoloured or set apart.
 - Shadows are paper lifts (`--shadow-card` on slips, `--shadow-sheet` on a sheet); tilt 0.5° to 3°; radius 0 except the sticker and the stamp.
-- The control pair: an ink-filled primary with a hard `4px 4px 0` blue offset beside a white-sheet secondary with a hard ink offset, both Newsreader 500 at 15px.
+- The control pair: a blue-filled primary with white type on a hard `4px 4px 0` ink offset beside a white-sheet secondary on the same ink offset, both Newsreader 500 at 15px; the primary is the blue's one fill on a screen.
 - Objects: the round sticker (blue, display face, -12°) carries a fact, a price, a date or a table number, or does not appear; the rubber stamp (a `4px double` blue ring) carries a fact, a date or a frame number, or does not appear; the price strip; the taped print (a white sheet, halftone inside).
 
 ## Motion
