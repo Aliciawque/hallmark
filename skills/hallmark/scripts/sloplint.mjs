@@ -2481,7 +2481,7 @@ function checkF4(ctx) {
       if (!/^background(-color)?$/.test(d.prop)) continue;
       const rv = resolveVars(d.value, ctx.tokens);
       if (/transparent|none/i.test(rv)) continue;
-      if (/var\(\s*--color-(accent|ink)\b/.test(d.value) && !filled.has(first)) filled.set(first, { r, d });
+      if (/var\(\s*--color-(?!paper|rule|muted|focus)[\w-]+/.test(d.value) && !filled.has(first)) filled.set(first, { r, d });
     }
   }
   if (filled.size >= 2) {
@@ -2862,10 +2862,11 @@ function check42TwoButton(ctx) {
       if ((anc.get(i) || []).includes('nav')) continue;
       controls.push({ t, cls, label: plainText(innerOf(doc, i)?.inner || '').trim() });
     }
-    if (controls.length < 2 || !SECOND_CTA.test(controls[1].label)) continue;
-    const decls = styleFor(ctx, controls[0].cls, controls[0].t.name);
-    const bg = declValue(ctx, decls, 'background-color') || declValue(ctx, decls, 'background');
-    if (bg && /^(none|transparent)$/i.test(bg.trim())) continue;
+    if (controls.length < 2) continue;
+    const fillOf = (c) => { const decls = styleFor(ctx, c.cls, c.t.name); const bg = declValue(ctx, decls, 'background-color') || declValue(ctx, decls, 'background'); return bg && !/^(none|transparent|inherit|initial|unset)$/i.test(bg.trim()) && !/--color-paper\b/.test(bg); };
+    const firstFilled = fillOf(controls[0]);
+    if (firstFilled && fillOf(controls[1])) { report(42, 'WARN', doc.file, controls[1].t.line, `two filled buttons side by side in the hero: "${trunc(controls[0].label, 20)}" and "${trunc(controls[1].label, 20)}"`, 'One filled primary per screen; the second action is outlined or a typographic link'); continue; }
+    if (!SECOND_CTA.test(controls[1].label) || !firstFilled) continue;
     report(42, 'WARN', doc.file, controls[1].t.line, `the two-button hero: "${trunc(controls[0].label, 20)}" then "${controls[1].label}"`, 'One action in the hero; the second button is the template speaking');
   }
 }
