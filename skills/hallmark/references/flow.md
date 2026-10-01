@@ -88,6 +88,10 @@ Codex: batch a page's files into one patch so a dev server reloads once; never s
 
 **Rules that survive every harness:** if you have restated the plan twice, stop narrating and build; never write a gate count you did not verify; if a referenced file fails to load, proceed on the Floor and say which file was unavailable; no parallel tool calls unless the harness reliably supports them; when a step names a tool the harness lacks, do the intent with what you have, the tool is optional and the check is not; long sessions compact, so the stamp and `.hallmark/log.json` are the durable memory, re-read them instead of re-deriving.
 
+## Framework projects
+
+A Next.js, Astro, SvelteKit or Vite project renders through its dev server, not from a file: start it, then point the render tier at the route, `sloplint <changed css and markup files> --render --url http://localhost:<port>/<route>` (and `--stage hero` for the hero review). The static tier reads the stylesheets and the component markup it is given; the render tier reads the page the browser builds. Without a running server, say so and run the static tier alone.
+
 ## Output contract
 
 Tokens in one place (`:root` or `tokens.css`), named by role (`--color-ink`, never `--color-black`). Tailwind projects extend the theme rather than inlining arbitrary values. Framework projects follow the framework's file conventions. The stamp block sits at the top of the stylesheet; beyond it no comments are needed. Hallmark is a taste skill: it does not invent copy, pick a brand identity, enforce a style the user did not commit to, or build logic; asked to wire an auth flow, it does the work and applies Hallmark to the rendered surface.

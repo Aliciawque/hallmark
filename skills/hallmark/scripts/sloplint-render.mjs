@@ -4,21 +4,24 @@ import { join, dirname, basename, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const WIDTHS = [320, 375, 414, 768, 1280, 1920];
-const MAC_CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+const CHROMES = ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', '/Applications/Chromium.app/Contents/MacOS/Chromium', '/usr/bin/google-chrome', '/usr/bin/google-chrome-stable', '/usr/bin/chromium', '/usr/bin/chromium-browser', '/snap/bin/chromium', 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'];
+const isUrl = (t) => /^https?:\/\//.test(t);
+const slugOf = (t) => isUrl(t) ? t.replace(/^https?:\/\//, '').replace(/[^\w.-]+/g, '-').replace(/-+$/, '') : basename(t, '.html');
 
 const SHOTS = [];
 async function shoot(page, file, tag, fullPage) {
   try {
-    const dir = join(dirname(file), '.hallmark', 'shots');
+    const dir = isUrl(file) ? join(process.cwd(), '.hallmark', 'shots') : join(dirname(file), '.hallmark', 'shots');
     mkdirSync(dir, { recursive: true });
-    const out = join(dir, `${basename(file, '.html')}-${tag}.png`);
+    const out = join(dir, `${slugOf(file)}-${tag}.png`);
     await page.screenshot({ path: out, fullPage });
     SHOTS.push(out);
   } catch {}
 }
 
 export async function renderCheck(htmlFiles, metaIn) {
-  const meta = { genre: null, postureByFile: {}, ...(metaIn || {}) };
+  const meta = { genre: null, postureByFile: {}, stage: 'page', ...(metaIn || {}) };
+  const heroOnly = meta.stage === 'hero';
   let puppeteer = null;
   const { createRequire } = await import('node:module');
   const { pathToFileURL } = await import('node:url');
@@ -48,10 +51,12 @@ export async function renderCheck(htmlFiles, metaIn) {
     console.error('render tier unavailable (no puppeteer-core found locally, globally, or via HALLMARK_PUPPETEER); static checks only');
     return [];
   }
-  const chrome = existsSync(MAC_CHROME) ? MAC_CHROME
-    : (process.env.CHROME_PATH && existsSync(process.env.CHROME_PATH) ? process.env.CHROME_PATH : null);
+  let chrome = [process.env.CHROME_PATH, ...CHROMES].find((p) => p && existsSync(p)) || null;
+  if (!chrome && typeof puppeteer.executablePath === 'function') {
+    try { const bundled = puppeteer.executablePath(); if (bundled && existsSync(bundled)) chrome = bundled; } catch {}
+  }
   if (!chrome) {
-    console.error('render tier unavailable (no Chrome executable found; set CHROME_PATH); static checks only');
+    console.error('render tier unavailable (no Chrome or Chromium found; set CHROME_PATH); static checks only');
     return [];
   }
   const findings = [];
@@ -60,21 +65,23 @@ export async function renderCheck(htmlFiles, metaIn) {
     for (const file of htmlFiles) {
       const page = await browser.newPage();
       try {
-        await page.goto('file://' + file, { waitUntil: 'networkidle0', timeout: 20000 }).catch(() => {});
+        await page.goto(isUrl(file) ? file : 'file://' + file, { waitUntil: 'networkidle0', timeout: 30000 }).catch(() => {});
         const pageMeta = { genre: meta.genre, posture: meta.postureByFile[file] || 'restrained' };
-        for (const width of WIDTHS) {
-          await page.setViewport({ width, height: 800 });
+        const prefix = heroOnly ? 'hero-' : '';
+        for (const width of heroOnly ? [375, 1280] : WIDTHS) {
+          await page.setViewport({ width, height: width === 375 && heroOnly ? 812 : 800 });
           await new Promise((r) => setTimeout(r, 120));
-          if (width === 1280 || width === 375) await shoot(page, file, `${width}${width === 375 ? '' : 'x800'}`, width === 375);
+          if (width === 1280) await shoot(page, file, `${prefix}1280x800`, false);
+          if (width === 375) await shoot(page, file, heroOnly ? 'hero-375x812' : '375', !heroOnly);
           const res = await page.evaluate(observe, width === 1280, pageMeta);
           for (const f of res) findings.push({ ...f, file, line: 1, evidence: `[${width}px] ${f.evidence}` });
         }
         for (const [w, h] of [[1440, 900], [1920, 1080]]) {
           await page.setViewport({ width: w, height: h });
-          await shoot(page, file, `${w}x${h}`, false);
+          await shoot(page, file, `${prefix}${w}x${h}`, false);
           await page.evaluate(async () => { for (let y = 0; y < document.documentElement.scrollHeight; y += 800) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 15)); } window.scrollTo(0, 0); });
           await new Promise((r) => setTimeout(r, 200));
-          const res = await page.evaluate(observeSpace, w === 1440);
+          const res = await page.evaluate(observeSpace, w === 1440, heroOnly);
           for (const f of res) findings.push({ ...f, file, line: 1, evidence: `[${w}px] ${f.evidence}` });
         }
       } catch (e) {
@@ -86,7 +93,7 @@ export async function renderCheck(htmlFiles, metaIn) {
   } finally {
     await browser.close().catch(() => {});
   }
-  if (SHOTS.length) console.error(`render tier: ${SHOTS.length} screenshots in ${dirname(SHOTS[0])} (1280x800, 1440x900, 1920x1080 folds; 375 full page)`);
+  if (SHOTS.length) console.error(heroOnly ? `render tier: ${SHOTS.length} hero screenshots in ${dirname(SHOTS[0])} (1280x800, 1440x900, 1920x1080 and 375x812 first screens)` : `render tier: ${SHOTS.length} screenshots in ${dirname(SHOTS[0])} (1280x800, 1440x900, 1920x1080 folds; 375 full page)`);
 
   const seen = new Set();
   return findings.filter((f) => {
@@ -307,7 +314,7 @@ function observe(checkFold, meta) {
   return out;
 }
 
-function observeSpace(atLaptop) {
+function observeSpace(atLaptop, heroOnly) {
   const out = [];
   const push = (gate, grade, evidence, fix) => out.push({ gate: String(gate), grade, evidence, fix });
   const vw = window.innerWidth, vh = window.innerHeight;
@@ -359,14 +366,14 @@ function observeSpace(atLaptop) {
 
     const content = (s) => { let top = Infinity, bottom = -Infinity; for (const c of s.querySelectorAll('*')) { if (!vis(c)) continue; if (!(c.innerText || '').trim() && !/^(SVG|IMG|CANVAS|VIDEO)$/.test(c.tagName) && getComputedStyle(c).backgroundColor === 'rgba(0, 0, 0, 0)') continue; if (c.children.length && !/^(SVG)$/.test(c.tagName) && getComputedStyle(c).backgroundColor === 'rgba(0, 0, 0, 0)') continue; const b = abs(c); top = Math.min(top, b.top); bottom = Math.max(bottom, b.bottom); } if (top === Infinity) { const b = abs(s); return b; } return { top, bottom }; };
     const gaps = [];
-    for (let i = 0; i < secs.length - 1; i++) gaps.push(Math.round(content(secs[i + 1]).top - content(secs[i]).bottom));
+    for (let i = 0; !heroOnly && i < secs.length - 1; i++) gaps.push(Math.round(content(secs[i + 1]).top - content(secs[i]).bottom));
     const real = gaps.filter((g) => g > -50);
     if (real.length) {
       const min = Math.min(...real);
       if (min < 100) push(59, 'REFLEX', `smallest gap between sections is ${min}px (gaps: ${real.join(', ')})`, '120px or more between sections, varied');
       else if (real.length > 2 && new Set(real).size === 1) push(59, 'REFLEX', `every section gap is ${min}px`, 'Vary the rhythm: some 120, some 160, some 200');
     }
-    if (secs.length > 9) push(59, 'WARN', `${secs.length} sections`, 'Five to eight sections a page; merge or cut');
+    if (!heroOnly && secs.length > 9) push(59, 'WARN', `${secs.length} sections`, 'Five to eight sections a page; merge or cut');
 
     if (heroEnd != null) {
       if (heroEnd > vh + 8) push('44c', 'REFLEX', `hero runs past the 1440x900 fold (hero ends at ${Math.round(heroEnd)}px)`, 'Size the display and the visual so the hero is one screen');
@@ -390,7 +397,7 @@ function observeSpace(atLaptop) {
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   const htmls = process.argv.slice(2).filter((p) => p.endsWith('.html'));
-  const res = await renderCheck(htmls.map((p) => resolve(process.cwd(), p)));
+  const res = await renderCheck(process.argv.slice(2).filter((p) => isUrl(p)).concat(htmls.map((p) => resolve(process.cwd(), p))));
   console.log(JSON.stringify(res, null, 2));
   process.exit(0);
 }

@@ -68,6 +68,7 @@ For non-SaaS work (Editorial, Manifesto, Letter, Long Document, Quote-Led) this 
 
 ## How to pick
 
+0. **Read the material inventory** (SKILL.md Step 2). A shape built on screenshots or figures needs them, real or as slots the user asked for; with neither, pick a shape that carries type and facts.
 1. **Read the brief.** Note any words that strongly signal one shape ("data heavy", "tell a story", "a list of links", "many small features", "personal note").
 2. **Read `.hallmark/log.json`** (newest first) and the `shape:` field of any Hallmark stamp in the project; the last three shapes are excluded.
 3. **Match the brief to a shape** using the "Reach for it" lines. Most briefs match two to four; pick the one most distant from the logged shapes, and check the mirror test in SKILL.md Step 2.

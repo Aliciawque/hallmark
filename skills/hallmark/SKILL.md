@@ -56,9 +56,9 @@ Output one block with file:line citations, what Hallmark preserves and what it i
 
 One message, even on a five-word brief:
 
-> *Before I build, four things: 1. **Audience**: who uses this and what do they care about? 2. **Use**: the one action the page should drive. 3. **Tone**: pick an extreme (editorial · brutalist · soft · utilitarian · luxury · playful · technical · austere); "clean and modern" is not a tone. 4. **Material**: screenshots, product photos or a logo to build around? Paste them, give paths, or say "leave slots". Plus the brand's vibe in 4 to 8 words and an anchor colour if you have one. Or say **go ahead** and I will infer and tell you what I picked.*
+> *Before I build, four things. 1. **Material**, the one that matters most: what can the page show? Screenshots or a screen recording, product photos, real numbers (customers, uptime, prices), a quote someone said with their name, logos you may use. Paste them, give paths, or say "leave slots"; I never invent any of it. 2. **Audience**: who uses this and what do they care about? 3. **Use**: the one action the page should drive. 4. **Tone**: pick an extreme (editorial · brutalist · soft · utilitarian · luxury · playful · technical · austere); "clean and modern" is not a tone. Plus the vibe in 4 to 8 words and an anchor colour if you have one. Or say **go ahead** and I will infer and tell you what I picked.*
 
-Skipped fields are opt-outs: infer them, state the inferences in one line at the top of the reply, stamp them. No follow-up ladders.
+Skipped fields are opt-outs: infer them, state the inferences in one line at the top of the reply, stamp them. No follow-up ladders. Material is never inferred: what was not given is a slot or is absent.
 
 **Genre** is picked here, silently, from the brief: *AI tool, generative, music, video, voice, dark, atmospheric* → **atmospheric**; *SaaS, enterprise, API, platform, developer tool, infra, B2B* → **modern-minimal**; *fun, consumer, casual, family, community, onboarding* → **playful**; otherwise **editorial**. Two non-default signals: ask one either-or.
 
@@ -66,11 +66,13 @@ Skipped fields are opt-outs: infer them, state the inferences in one line at the
 
 ### 2. Shape
 
+**Material first.** Before the shape, write the inventory in one line: *real* (every concrete thing the brief and the project supply: the name, the claim, numbers, places, dates, inputs and outputs, images), *slots* (what the user will hand over later), *absent* (every proof the page will not have: logos, quotes, metrics nobody gave). The shape follows it: shapes built on screenshots (Bento, Workbench, Feature Stack) need two real visuals or the user's "leave slots"; with neither, choose a shape that carries type and facts (Long Document, Letter, Index-First, Manifesto, a spec sheet). Pages read as generated when they have nothing to show and pretend otherwise.
+
 Decide the page's shape, how it opens, how sections separate, what the nav and footer do, how tall the hero stands and what carries it. You are designing, not filling a form. The catalogs exist for when you want a starting point: 21 page shapes in [`references/macrostructures.md`](references/macrostructures.md), navs, footers and section archetypes in [`references/component-cookbook.md`](references/component-cookbook.md), enrichment in [`references/hero-enrichment.md`](references/hero-enrichment.md). Take a named shape and load only that one file; never read a whole catalog.
 
 **Rotation.** Read `.hallmark/log.json` (newest first). The page's shape must differ from the last three builds; the nav and footer must not repeat the last three shapes; the hero posture, enrichment and section opening must not repeat the previous run. The theme deal in Step 3 handles the theme axis for you. **The mirror test:** would this exact combination have come out for a neighbouring brief in the same category? If yes, change one decision and say which in the Picks block.
 
-**Signature.** Every page has one move a visitor would describe to a friend: an object, a composition, an interaction. Decide it here; it goes in the Picks block and the stamp, and the reviewer checks it is on the page. A page without one is a template with good tokens.
+**Signature.** Every page has one move a visitor would describe to a friend: an object, a composition, an interaction, built from the inventory's strongest real thing. Decide it here; it goes in the Picks block and the stamp, and the reviewer checks it is on the page. A page without one is a template with good tokens.
 
 Decide all of this and hold it. It is said once, at Step 5.
 
@@ -94,7 +96,7 @@ A catalog theme is a material, not a plan: it says what the page is made of, nev
 
 Exactly these, for a page build: [`references/craft.md`](references/craft.md) (type, colour, layout, motion, copy, section openings, demo slots, hero discipline, finish) · `references/genres/<genre>.md` · `references/themes/<slug>.md` (or `direction.md` on a custom run) · [`references/gates.md`](references/gates.md) § 1 to § 4.
 
-Only when the build needs them: one macrostructure file and the picked archetype files (Step 2) · [`references/hero-enrichment.md`](references/hero-enrichment.md) then one `enrichment/` file, only when the image-need check says yes · [`references/microinteractions.md`](references/microinteractions.md) when the page has stateful UI · [`references/interaction-and-states.md`](references/interaction-and-states.md) for forms · [`references/responsive.md`](references/responsive.md) when a layout is unusual · [`references/texture.md`](references/texture.md) when the theme earns texture · [`references/scroll-choreography.md`](references/scroll-choreography.md) for a scroll story · [`references/dark-mode.md`](references/dark-mode.md) when both modes are asked for · [`references/data-viz.md`](references/data-viz.md) for charts · [`references/fonts.md`](references/fonts.md) only on custom or studied runs (a theme already named its faces) · [`references/assets.md`](references/assets.md) and [`references/imagery-kit.md`](references/imagery-kit.md) only when an enrichment needs an external asset · [`references/comp.md`](references/comp.md) only on signal 9 · [`references/design-md.md`](references/design-md.md) only when asked to lock the system.
+Only when the build needs them, each in `references/`: one macrostructure file and the picked archetype files (Step 2) · `hero-enrichment.md` then one `enrichment/` file, when the image-need check says yes · `microinteractions.md` for stateful UI · `interaction-and-states.md` for forms · `responsive.md` for an unusual layout · `texture.md` when the theme earns texture · `scroll-choreography.md` for a scroll story · `dark-mode.md` when both modes are asked for · `data-viz.md` for charts · `fonts.md` on custom or studied runs · `assets.md` and `imagery-kit.md` when an enrichment needs an external asset · `comp.md` on signal 9 · `design-md.md` when asked to lock the system.
 
 Over-eager loading is the largest avoidable cost of running this skill. `gates.md` § 5 and § 6 are read at Step 7, not before.
 
@@ -111,7 +113,7 @@ The run's only prose recital of its decisions, and the user's five-second redire
 - **Hero** · Stage, visual beside the text (prev Settled) · enrichment: none
 - **Signature** · the pricing table is the hero visual, live, in a slot
 - **Sections** · Hero · Demo strip · Pricing · FAQ · Footer
-- **Slots** · hero, demo-2, demo-3 (leave slots)
+- **Material** · real: the 2-minute setup, the CSV import, Lisbon · slots: hero, demo-2, demo-3 · absent: logos, quotes, metrics
 - **Slop test** · run after build
 ```
 
@@ -122,6 +124,8 @@ On signal 9, [`references/comp.md`](references/comp.md) runs here: two comps of 
 ### 6. Build
 
 Emit code that satisfies the theme and the shape. Always:
+
+- **Hero first.** Write the nav and the hero, run `node <skill-dir>/scripts/sloplint.mjs <file> --render --stage hero` (the fold at three widths, the hero's words, the visual's place, four first-screen shots), then the hero review in fresh context (`gates.md` § 6). Build the sections only once the hero ships: a hero rewrite after eight sections exist costs eight sections.
 
 - **Start from the scaffold.** `node <skill-dir>/scripts/theme.mjs scaffold <slug>` (`--custom` on a derived run) writes `tokens.css` with the theme's tokens and the shared scale, and prints the base rules the Floor already decided (clipping, focus, reduced motion, browser surfaces, the slot contract) under a stamp skeleton. Paste them, fill the stamp, and write only the page.
 - **One idea per screen.** Hero: headline (seven words or fewer, 50 characters or fewer), one sentence (twelve words or fewer), one or two actions. A section: a heading of three to five words, at most one line, then its object (a slot, a figure, a drawn thing, a list of four or fewer, a table of five rows or fewer). Five to eight sections, footer included. 250 to 450 visible words on the page.
@@ -158,10 +162,11 @@ Dark mode and `design.md` are opt-in: only an explicit ask loads their files.
 
 ### 7. Sweep
 
-1. `node <skill-dir>/scripts/sloplint.mjs <files> --genre <genre> --render` (add `--scope component` on a component). Fix every FAIL, re-run until clean. The render tier writes the screenshots you need next; do not run Chrome by hand.
+1. `node <skill-dir>/scripts/sloplint.mjs <files> --genre <genre> --render` (add `--scope component` on a component; in a framework project with a dev server running, add `--url http://localhost:<port>/<route>`). Fix every FAIL, re-run until clean. The render tier writes the screenshots you need next; do not run Chrome by hand.
 2. Load [`references/gates.md`](references/gates.md) § 5 and walk the J and R/J gates. Confirm or dismiss every WARN. Fix every open Floor finding; fix or waive every Reflex one; answer every Finish one.
 3. Review in fresh context per `gates.md` § 6: a subagent with the artifact, the screenshots, the stamp's theme or contract, and the gate table. Act on its first word (`recapture`, `rebuild`, `fix`, `ship`). Two rounds is the ceiling.
-4. Update the Picks block's last row with the real outcome (`Floor 0 FAIL · Reflex 2 (1 waived: 47b) · finish-review: subagent, 3 resolved`). A fabricated pass is itself slop.
+4. Close with the material ask: every slot, its size and what belongs there, then the one piece of material that would most improve the page ("two screenshots of the import screen would replace both demo placeholders").
+5. Update the Picks block's last row with the real outcome (`Floor 0 FAIL · Reflex 2 (1 waived: 47b) · finish-review: subagent, 3 resolved`). A fabricated pass is itself slop.
 
 Verification is budgeted: one batched inspection, one fix batch, at most one confirming round, then stop polishing. Endless single-issue re-render loops are their own failure mode.
 

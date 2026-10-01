@@ -11,7 +11,7 @@ Every gate carries a **tier**, which says whether you may disagree with it:
 - **Finish.** Craft detail, invisible at arm's length. Reported, answered, never blocks a ship. These are the F-checks.
 - **Ledger.** Bookkeeping about repetition (32). Reports at `NOTE`, never counts toward the verdict.
 
-**Class** says who can check it: **M** mechanical (sloplint), **M/R** static half plus the render tier (`--render`, on by default when Chrome exists), **R/J** render or judge, **J** judged at Step 7 by the model. When sloplint has run, walk only the J and R/J gates plus the judged halves of M/R gates; re-litigating what the script passed is wasted judgement.
+**Class** says who can check it: **M** mechanical (sloplint), **M/R** static half plus the render tier (`--render`, which SKILL.md runs at the hero stage and at Step 7; `--url` renders a running dev server), **R/J** render or judge, **J** judged at Step 7 by the model. When sloplint has run, walk only the J and R/J gates plus the judged halves of M/R gates; re-litigating what the script passed is wasted judgement.
 
 **Grades:** `FAIL` (Floor, nothing ships) · `REFLEX` (unanswered Reflex, fix or waive) · `WAIVED` (guard satisfied, visible) · `WARN` (suspected, confirm or dismiss) · `ANSWERED` (Finish finding with a recorded reason) · `NOTE` (bookkeeping). `FAIL` and `REFLEX` report separately so "0 FAIL" stays a true statement about the Floor.
 
@@ -203,6 +203,12 @@ The thread that built the page is its weakest reviewer. Spawn a reviewer with no
 > First line: one of `recapture` (a screenshot is missing, blank or shows the wrong thing; list what to recapture and stop), `rebuild` (the first viewport fails the contract or the theme wholesale), `fix` (material findings follow), `ship` (nothing owed).
 >
 > Then: findings ranked by cost to the page, each one line with the gate or the plain defect, where it is, what you would do. At most eight. A direction you would not have chosen is not a finding. Then one answer to the question no gate can: does the stamp's contract or theme describe the page in front of you? Name the largest gap or say there is none. Close with one line naming what must not be diluted while fixing. Do not fix anything.
+
+**The hero review** runs the same way, once, at Step 6, before any section below the fold exists. Give the reviewer the four `hero-*` screenshots that `sloplint --render --stage hero` wrote, the stamp's first two lines, and the Picks block's Material and Signature rows. Its brief:
+
+> Review the first screen of a page that is still being built. You did not build it. First line: `ship` or `fix`. Then at most five findings, one line each, worst first: does the headline say something only this product could say, in seven words or fewer; is the visual beside the text, real or a labelled slot, and does it hold its half of the screen; does anything read as a template (a centred stack, a pill or label above the headline, a gradient blob, a drawn dashboard, two buttons where one would do); is the signature move on this screen; does the type carry the theme at this size. Do not fix anything.
+
+Fix, recapture with `--stage hero`, and build the sections once the answer is `ship`. Record `hero-review: ship after 1 fix` in the stamp's finish-review field.
 
 Score the return: fix what is real, mark each finding `resolved`, `partial` or `unresolved` with a reason, recapture the same files, and send the recaptures back to be scored, not re-reviewed. Two rounds is the ceiling. Record `finish-review: subagent · 4 findings · 3 resolved 1 unresolved · gap: none` in the stamp. No subagents: re-read the artifact cold, run the same brief against yourself, and record `finish-review: in-thread`.
 

@@ -5,7 +5,7 @@ import { join, extname, dirname, basename, resolve } from 'node:path';
 
 const GENRES = ['editorial', 'modern-minimal', 'atmospheric', 'playful'];
 const args = process.argv.slice(2);
-const opts = { genre: null, scope: 'page', json: false, render: false, tier: null, paths: [] };
+const opts = { genre: null, scope: 'page', json: false, render: false, tier: null, stage: 'page', urls: [], paths: [] };
 for (let i = 0; i < args.length; i++) {
   const a = args[i];
   if (a === '--genre') { opts.genre = args[++i]; }
@@ -13,14 +13,18 @@ for (let i = 0; i < args.length; i++) {
   else if (a === '--json') { opts.json = true; }
   else if (a === '--render') { opts.render = true; }
   else if (a === '--tier') { opts.tier = args[++i]; }
+  else if (a === '--stage') { opts.stage = args[++i]; }
+  else if (a === '--url') { opts.urls.push(args[++i]); opts.render = true; }
   else if (a === '--help' || a === '-h') { usage(); process.exit(0); }
   else if (a.startsWith('--')) { console.error(`unknown flag ${a}`); usage(); process.exit(2); }
   else opts.paths.push(a);
 }
 function usage() {
-  console.error('usage: node sloplint.mjs <file-or-dir ...> [--genre editorial|modern-minimal|atmospheric|playful] [--scope page|component] [--json] [--render] [--tier floor]');
+  console.error('usage: node sloplint.mjs <file-or-dir ...> [--genre editorial|modern-minimal|atmospheric|playful] [--scope page|component] [--stage hero|page] [--json] [--render] [--url http://localhost:3000] [--tier floor]');
 }
-if (!opts.paths.length) { usage(); process.exit(2); }
+if (!opts.paths.length && !opts.urls.length) { usage(); process.exit(2); }
+if (!['hero', 'page'].includes(opts.stage)) { console.error('--stage must be hero or page'); process.exit(2); }
+if (opts.urls.some((u) => !/^https?:\/\//.test(u || ''))) { console.error('--url takes an http or https address'); process.exit(2); }
 if (opts.genre && !GENRES.includes(opts.genre)) {
   console.error(`--genre must be one of: ${GENRES.join(', ')}`); process.exit(2);
 }
@@ -428,6 +432,7 @@ const TIERS = new Map(Object.entries({
   '55a': 'floor', '55b': 'reflex',
 }));
 
+const HERO_SKIP = new Set(['8', '9', '32', '59', 'F8', 'F15']);
 function baseGate(id) {
   const s = String(id).trim();
   if (/^F\d+$/i.test(s)) return s.toUpperCase();
@@ -497,6 +502,7 @@ const findings = [];
 function report(gate, grade, file, line, evidence, fix) {
   const g = String(gate);
   if (opts.scope === 'component' && pageOnly(g)) return;
+  if (opts.stage === 'hero' && HERO_SKIP.has(String(g))) return;
   const tier = tierOf(g);
   const b = baseGate(g);
   const waived = WAIVED.has(b) || WAIVED.has(gateNumber(b));
@@ -2641,8 +2647,8 @@ const CHECKS = [check1, check2, check3, check3Stripe, check4, check6a, check7, c
   check19Tells, check58Static, check42TwoButton, check47Placeholders, check65Tailwind, check29Glow, check11Lift, check15Fade,
   checkF1, checkF2, checkF3, checkF4, checkF5, checkF6, checkF7, checkF7Pills, checkF8, checkF9, checkF15, checkF16];
 
-const files = collectFiles(opts.paths);
-if (!files.length) { console.error('sloplint: no .html or .css files found'); process.exit(2); }
+const files = opts.paths.length ? collectFiles(opts.paths) : [];
+if (!files.length && !opts.urls.length) { console.error('sloplint: no .html or .css files found'); process.exit(2); }
 
 const groups = new Map();
 for (const f of files) {
@@ -2731,9 +2737,10 @@ if (opts.render) {
   const htmlFiles = files.filter((f) => extname(f).toLowerCase() === '.html');
   try {
     const mod = await import(new URL('./sloplint-render.mjs', import.meta.url).href);
-    const extra = await mod.renderCheck(htmlFiles, { genre: opts.genre, postureByFile });
+    const extra = await mod.renderCheck([...htmlFiles, ...opts.urls], { genre: opts.genre, postureByFile, stage: opts.stage });
+    const allWaivers = { WAIVED: new Set([...waiversByDir.values()].flatMap((x) => [...x.WAIVED])), ANSWERED: new Set([...waiversByDir.values()].flatMap((x) => [...x.ANSWERED])) };
     for (const f of extra) {
-      const w = waiversByDir.get(dirname(f.file));
+      const w = /^https?:/.test(f.file) ? allWaivers : waiversByDir.get(dirname(f.file));
       WAIVED = w ? w.WAIVED : new Set();
       ANSWERED = w ? w.ANSWERED : new Set();
       report(f.gate, f.grade === 'REFLEX' ? 'FAIL' : f.grade, f.file, f.line, f.evidence, f.fix);
@@ -2786,7 +2793,7 @@ if (opts.json) {
   }, null, 2));
 } else {
   if (!unique.length) {
-    console.log(`sloplint: clean. 0 FAIL, 0 REFLEX, 0 WARN across ${files.length} file(s).`);
+    console.log(`sloplint: clean. 0 FAIL, 0 REFLEX, 0 WARN across ${files.length} file(s)${opts.urls.length ? ` and ${opts.urls.length} URL(s)` : ''}${opts.stage === 'hero' ? ' (hero stage)' : ''}.`);
   } else {
     const wGate = Math.max(4, ...unique.map((f) => String(f.gate).length));
     const wGrade = Math.max(5, ...unique.map((f) => f.grade.length));
@@ -2798,7 +2805,7 @@ if (opts.json) {
         console.log(`${''.padEnd(wGate)}  ${''.padEnd(wGrade)}  ${''.padEnd(wWhere)}  fix: ${f.fix}`);
       }
     }
-    console.log(`\n${tally.join(', ')} across ${files.length} file(s).`);
+    console.log(`\n${tally.join(', ')} across ${files.length} file(s)${opts.urls.length ? ` and ${opts.urls.length} URL(s)` : ''}${opts.stage === 'hero' ? ' (hero stage)' : ''}.`);
   }
 }
 process.exit(fails > 0 || reflex > 0 ? 1 : 0);
