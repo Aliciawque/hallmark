@@ -25,7 +25,7 @@ The catalog's own coordinates are spent as well: `node <skill-dir>/scripts/theme
 **R.4 The draw and the challengers.** The model never hand-picks from its own slate. Run:
 
 ```
-node <skill-dir>/scripts/seed.mjs "<brief-slug>" --n 7
+node <skill-dir>/scripts/seed.mjs --brief "<the brief, as the user wrote it>" --n 7
 ```
 
 It prints a reproducible line (`draw: n/7 (seed <slug>·<date>·r0) · challengers: <a> · <b> · <c>`) and deals three challengers from `scripts/atlas.json`, one from each tier (a graphic system, an instrument language, an atmosphere world), each with a five-line system grammar and one named browser technique. Judge each against the drawn entry on exactly two axes, audience identification and product clarity, one written line per challenger ending in **wins** (it replaces the drawn entry), **competitive** or **declined**. A winning challenger supplies the form and its grammar; the product supplies every fact, name and claim; clarity wins every conflict. A losing challenger still donates: the strongest loser names the one discipline the drawn direction lacks, and the direction is raised to match (*raise: the mixing desk's per-function control colouring, on the pricing tiers*). Every custom run ships a winning challenger or one named raise. Re-roll only when the user asks (`--reroll 1`). Without Node: N = letter count of the brief mod 7, entry N + 1, printed so it is reproducible; skip challengers; stamp `seed: fallback-<letters>·<date>·r<n>`.

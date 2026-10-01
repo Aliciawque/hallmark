@@ -11,7 +11,7 @@ Polemical large type. The page tells the reader what to believe before it tells 
 
 Reach for it for repositioning announcements, mission-led indie products, a studio's beliefs page.
 
-Avoid for transactional pages. Manifesto sells agreement, not action.
+Avoid for checkout, pricing or a product tour. Manifesto sells agreement; a call to show up, sign or join is its one action.
 
 ```html
 <section class="manifesto bleed-ink">

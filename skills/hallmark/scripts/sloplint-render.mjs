@@ -215,7 +215,15 @@ function observe(checkFold, meta) {
       const out = [];
       for (let node = el; node && node !== document.documentElement; node = node.parentElement) {
         const cs2 = getComputedStyle(node);
-        if (/gradient/.test(cs2.backgroundImage)) for (const m of cs2.backgroundImage.matchAll(/(?:oklch|oklab|lab|lch|rgba?|hsla?|color)\([^()]*\)|#[0-9a-fA-F]{3,8}\b/g)) out.push(over(toRgb(m[0]), base));
+        if (/gradient/.test(cs2.backgroundImage)) {
+          const layers = []; let depth = 0, cur = '';
+          for (const ch of cs2.backgroundImage) { if (ch === '(') depth++; if (ch === ')') depth--; if (ch === ',' && depth === 0) { layers.push(cur); cur = ''; } else cur += ch; }
+          layers.push(cur);
+          for (const layer of layers) {
+            if (!/^\s*(linear|radial|conic)-gradient/.test(layer) || /[\s,(]\d(?:\.\d+)?px\b/.test(layer)) continue;
+            for (const m of layer.matchAll(/(?:oklch|oklab|lab|lch|rgba?|hsla?|color)\([^()]*\)|#[0-9a-fA-F]{3,8}\b/g)) out.push(over(toRgb(m[0]), base));
+          }
+        }
         const c = parse(cs2.backgroundColor);
         if (c && c.a >= 0.9) break;
       }

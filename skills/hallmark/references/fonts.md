@@ -26,7 +26,7 @@ Every model reaches for these first, so they read as unchosen: Inter, Roboto, Op
 | --- | --- |
 | Roman serif | EB Garamond, Cardo, Castoro, Piazzolla, Alegreya, Marcellus (Google); Gambetta, Recia (Fontshare) |
 | High-contrast serif | Gloock, Libre Bodoni, Abril Fatface, Rozha One, Besley (Google); Boska, Melodrama (Fontshare) |
-| Slab serif | Arvo, Hepta Slab, Domine, Alfa Slab One, Solway (Google); Bespoke Slab (Fontshare) |
+| Slab serif | Arvo, Hepta Slab, Domine, Alfa Slab One, Solway (Google); Bespoke Slab (Fontshare; old-style figures that ignore `lining-nums`, so figures go in the body face) |
 | Grotesk sans | Mona Sans, Hubot Sans, Gabarito, Rethink Sans, Reddit Sans, Wix Madefor Display (Google); Cabinet Grotesk, Clash Grotesk, Supreme (Fontshare) |
 | Geometric sans | Lexend, Geologica, League Spartan, Funnel Display, Afacad (Google); Satoshi, Ranade, Technor, Excon (Fontshare) |
 | Rounded sans | Inclusive Sans, Nunito Sans at 700 only with an argument, Varela Round (Google); Chubbo, Comico (Fontshare) |

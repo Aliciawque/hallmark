@@ -22,16 +22,19 @@ function fnv1a(str) {
 }
 
 const args = process.argv.slice(2);
-if (args.length === 0 || args[0].startsWith('--')) {
-  console.error('usage: node seed.mjs "<brief-slug>" [--n 7] [--reroll 0] [--wild 3] [--atlas <path>]');
-  process.exit(2);
-}
-
-const slug = args[0].toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const flag = (name, dflt) => {
   const i = args.indexOf(`--${name}`);
   return i !== -1 && args[i + 1] !== undefined ? args[i + 1] : dflt;
 };
+const ASK = new Set(['build', 'make', 'create', 'design', 'need', 'want', 'please', 'page', 'site', 'website', 'landing', 'called', 'for', 'and', 'the', 'with', 'that', 'this', 'our', 'your']);
+const briefFlag = flag('brief', null);
+if (!briefFlag && (args.length === 0 || args[0].startsWith('--'))) {
+  console.error('usage: node seed.mjs --brief "<the brief>" [--n 7] [--reroll 0] [--wild 3] [--atlas <path>]');
+  process.exit(2);
+}
+const slug = briefFlag
+  ? briefFlag.toLowerCase().replace(/[^a-z0-9\s-]/g, ' ').split(/\s+/).filter((w) => w.length > 2 && !ASK.has(w)).slice(0, 4).join('-') || 'brief'
+  : args[0].toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 const n = Math.max(2, parseInt(flag('n', '7'), 10) || 7);
 const reroll = Math.max(0, parseInt(flag('reroll', '0'), 10) || 0);
