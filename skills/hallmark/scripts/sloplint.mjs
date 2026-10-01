@@ -1005,17 +1005,18 @@ function styleIndex(ctx) {
       const tagM = /^([a-zA-Z][\w-]*)/.exec(cleaned);
       const tag = tagM ? tagM[1].toLowerCase() : null;
       if (!classes.length && !tag) continue;
-      entries.push({ classes, tag, decls: r.decls });
+      entries.push({ classes, tag, decls: r.decls, state: /:(hover|active|focus|focus-visible|focus-within|disabled|checked|visited|target)\b/i.test(compound) });
     }
   }
   ctx._styleIdx = entries;
   return entries;
 }
 
-function styleFor(ctx, classAttr, tagName) {
+function styleFor(ctx, classAttr, tagName, restingOnly = false) {
   const have = new Set(String(classAttr || '').split(/\s+/).filter(Boolean));
   const decls = [];
   for (const e of styleIndex(ctx)) {
+    if (restingOnly && e.state) continue;
     if (e.tag && e.tag !== tagName) continue;
     if (!e.classes.every((c) => have.has(c))) continue;
     decls.push(...e.decls);
@@ -2896,7 +2897,7 @@ function check42TwoButton(ctx) {
       controls.push({ t, cls, label: plainText(innerOf(doc, i)?.inner || '').trim() });
     }
     if (controls.length < 2) continue;
-    const fillOf = (c) => { const decls = styleFor(ctx, c.cls, c.t.name); const bg = declValue(ctx, decls, 'background-color') || declValue(ctx, decls, 'background'); return bg && !/^(none|transparent|inherit|initial|unset)$/i.test(bg.trim()) && !/--color-paper\b/.test(bg); };
+    const fillOf = (c) => { const decls = styleFor(ctx, c.cls, c.t.name, true); let raw = null; for (const d of decls) if (d.prop === 'background-color' || d.prop === 'background') raw = d.value; if (!raw || /--color-paper\b/.test(raw)) return false; const bg = resolveVars(raw, ctx.tokens); return !/^(none|transparent|inherit|initial|unset)$/i.test(bg.trim()) && !/transparent/i.test(bg) && !/var\(--color-paper/.test(raw); };
     const firstFilled = fillOf(controls[0]);
     if (firstFilled && fillOf(controls[1])) { report(42, 'WARN', doc.file, controls[1].t.line, `two filled buttons side by side in the hero: "${trunc(controls[0].label, 20)}" and "${trunc(controls[1].label, 20)}"`, 'One filled primary per screen; the second action is outlined or a typographic link'); continue; }
     if (!SECOND_CTA.test(controls[1].label) || !firstFilled) continue;

@@ -98,7 +98,7 @@ Exactly these, for a page build: [`references/craft.md`](references/craft.md) (t
 
 Only when the build needs them, each in `references/`: one macrostructure file and the picked archetype files (Step 2) · `hero-enrichment.md` then one `enrichment/` file, when the image-need check says yes · `microinteractions.md` for stateful UI · `interaction-and-states.md` for forms · `responsive.md` for an unusual layout · `texture.md` when the theme earns texture · `scroll-choreography.md` for a scroll story · `dark-mode.md` when both modes are asked for · `data-viz.md` for charts · `fonts.md` on custom or studied runs · `assets.md` and `imagery-kit.md` when an enrichment needs an external asset · `comp.md` on signal 9 · `design-md.md` when asked to lock the system.
 
-Over-eager loading is the largest avoidable cost of running this skill. `gates.md` § 5 and § 6 are read at Step 7, not before.
+Loading more is the largest avoidable cost; `gates.md` § 5 and § 6 wait for Step 7.
 
 ### 5. The Picks block
 
@@ -125,15 +125,15 @@ On signal 9, [`references/comp.md`](references/comp.md) runs here: two comps of 
 
 Emit code that satisfies the theme and the shape. Always:
 
-- **Hero first.** Write the nav and the hero, run `node <skill-dir>/scripts/sloplint.mjs <file> --render --stage hero` (the fold at three widths, the hero's words, the visual's place, four first-screen shots), then the hero review in fresh context (`gates.md` § 6). Build the sections only once the hero ships: a hero rewrite after eight sections exist costs eight sections.
-
 - **Start from the scaffold.** `node <skill-dir>/scripts/theme.mjs scaffold <slug>` (`--custom` on a derived run) writes `tokens.css` with the theme's tokens and the shared scale, and prints the base rules the Floor already decided (clipping, focus, reduced motion, browser surfaces, the slot contract) under a stamp skeleton. Paste them, fill the stamp, and write only the page.
+- **Read the exemplar** for the genre, `references/exemplars/<genre>.html`, once: a finished page in another theme that passes every gate. Take how its stamp, tokens, slots, states and openings are written; never its shape, theme or copy.
+- **Hero first.** Write the nav and the hero, run `node <skill-dir>/scripts/sloplint.mjs <file> --render --stage hero` (the fold at three widths, the hero's words, the visual's place, four first-screen shots), then the hero review in fresh context (`gates.md` § 6). Build the sections only once the hero ships: a hero rewrite after eight sections exist costs eight sections.
 - **One idea per screen.** Hero: headline (seven words or fewer, 50 characters or fewer), one sentence (twelve words or fewer), one or two actions. A section: a heading of three to five words, at most one line, then its object (a slot, a figure, a drawn thing, a list of four or fewer, a table of five rows or fewer). Five to eight sections, footer included; 450 visible words at most, fewer when the brief has less to say. Never pad to a count.
 - **Show, do not describe.** On a product page with material or "leave slots": at least two `data-slot` containers, the hero visual and a demo strip; with neither, the page shows what is real (Step 2). The user's images fill them; otherwise a designed placeholder in the theme's colours with a corner label (`craft.md` § Demo slots). Never a grey box, never a fake screenshot with invented figures.
-- **The fold.** The hero is the first screen and only the first screen at 1440 x 900 and 1920 x 1080, its visual beside the text (centres within 60px, 48 to 120px apart), never pinned in a corner. Fill a short hero with the visual or the headline, never with more copy.
+- **The fold.** The hero is the first screen and only the first screen at 1440 x 900 and 1920 x 1080, its visual beside the text (centres within 60px, 48 to 120px apart), never pinned in a corner.
 - **Room.** 120px or more between sections at desktop, varied; 32 to 48px from a heading to its content; 24 to 40px between grid items. More space above a heading than below it.
 - **Page invariants.** One primary button style, one container width, one column gap for every multi-column section, one radius per nesting level, and never more centred heading groups than left-aligned ones. A subhead over 120 characters is set left-aligned.
-- **Type.** The theme's display and body faces, two families (three with one outlier role). Display tracking -0.02 to -0.04em, line-height 1.0 to 1.15; body 16px or more at 1.5 to 1.65, 45 to 75ch. Headlines roman. Labels, captions, table heads and nav links in the body face, sentence case, untracked, never capitals (67), never mono unless mono is the material (64). A head is one weight and one colour throughout; the accented word is a tell (38iii).
+- **Type.** The theme's faces, two families (three with one outlier role); display tracking and leading per `craft.md` § 1; body 16px or more at 1.5 to 1.65, 45 to 75ch; heads roman. Labels, captions, table heads and nav links in the body face, sentence case, untracked, never capitals (67), never mono unless mono is the material (64). A head is one weight and one colour throughout; the accented word is a tell (38iii).
 - **States and motion.** Eight states on every interactive element; `transform` and `opacity` only; one orchestrated reveal per page, 0.4 to 0.8s, visible by default; exits at 60 to 75% of the enter; nothing bounces.
 - **Browser surfaces.** Keep the scaffold's `::selection`, `caret-color`, `scrollbar-color` and focus ring; add tabular numerals wherever figures compare. The cheapest sign a page was built rather than assembled.
 - **Stamp.** Line 1 of CSS:
@@ -157,7 +157,6 @@ then any `waive` and `answered` lines, then a custom run's direction contract. E
   "signature": "live pricing table in the hero slot", "waived": [], "brief": "Tracejam · observability" }
 ```
 
-Dark mode and `design.md` are opt-in: only an explicit ask loads their files.
 
 ### 7. Sweep
 
