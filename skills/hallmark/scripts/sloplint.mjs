@@ -767,7 +767,7 @@ const TIERS = new Map(Object.entries({
   '1': 'reflex', '3': 'reflex', '6': 'reflex', '7': 'reflex', '8': 'reflex', '9': 'reflex', '11': 'reflex',
   '12': 'reflex', '16': 'reflex', '22': 'reflex', '23': 'reflex', '24': 'reflex', '25': 'reflex', '29': 'reflex',
   '37': 'reflex', '38': 'reflex', '42': 'reflex', '44': 'reflex', '47': 'reflex', '55': 'reflex', '59': 'reflex',
-  '64': 'reflex', '65': 'reflex', '66': 'reflex',
+  '64': 'reflex', '65': 'reflex', '66': 'reflex', '68': 'reflex',
   '32': 'ledger',
   '2a': 'floor', '2b': 'reflex', '6a': 'floor', '6b': 'reflex', '7a': 'floor', '7b': 'reflex',
   '10a': 'floor', '10b': 'reflex', '24a': 'floor', '24b': 'reflex', '26a': 'floor', '26b': 'reflex',
@@ -2905,6 +2905,30 @@ function check42TwoButton(ctx) {
 }
 
 const PLACEHOLDER_IMG = /placehold\.co|via\.placeholder\.com|source\.unsplash\.com\/random|dummyimage\.com/i;
+function check68(ctx) {
+  for (const doc of ctx.docs) {
+    if (doc.kind !== 'html') continue;
+    const slots = [];
+    for (let i = 0; i < doc.tags.length; i++) {
+      const t = doc.tags[i];
+      if (t.close || !/\bdata-slot\s*=/.test(t.attrs)) continue;
+      const inner = t.selfClosing ? null : innerOf(doc, i);
+      if (inner && /<img\b[^>]*\bsrc\s*=\s*["'][^"']+["']/i.test(inner.inner)) continue;
+      slots.push({ i, t, parent: (doc.parentOf ? doc.parentOf(i) : null) });
+    }
+    if (slots.length > 3) report(68, 'FAIL', doc.file, slots[3].t.line, `${slots.length} empty slots on one page`, 'Two or three slots carry a page; set the rest in type, names and facts in a list or table');
+    const byRun = new Map();
+    for (const sl of slots) {
+      let depth = 0, parentIdx = -1;
+      for (let k = sl.i - 1; k >= 0; k--) { const t = doc.tags[k]; if (t.selfClosing) continue; if (t.close) depth++; else if (depth === 0) { parentIdx = k; break; } else depth--; }
+      let gp = -1; depth = 0;
+      for (let k = parentIdx - 1; k >= 0; k--) { const t = doc.tags[k]; if (t.selfClosing) continue; if (t.close) depth++; else if (depth === 0) { gp = k; break; } else depth--; }
+      for (const key of [parentIdx, gp]) { if (key < 0) continue; byRun.set(key, (byRun.get(key) || 0) + 1); }
+    }
+    for (const [key, n] of byRun) if (n >= 4) { report(68, 'FAIL', doc.file, doc.tags[key].line, `${n} empty slots in one row or grid`, 'A set the page has no pictures of is set in type with one slot at most'); break; }
+  }
+}
+
 function check47Placeholders(ctx) {
   for (const doc of ctx.docs) {
     const m = PLACEHOLDER_IMG.exec(doc.src);
@@ -3606,7 +3630,7 @@ const CHECKS = [check1, check2, check3, check3Stripe, check4, check6a, check7, c
   check25, check26, check27, check28, check30, check33, check34, check37, check38a,
   check39, check40_41, check42, check42Footer, check46, check47, check48, check49,
   check50, check50Wrap, check53, check54, check55, check56, checkCopyTell, check62, check63, check64, check65, check67, check38c,
-  check19Tells, check58Static, check42TwoButton, check47Placeholders, check65Tailwind, check29Glow, check11Lift, check15Fade,
+  check19Tells, check58Static, check68, check42TwoButton, check47Placeholders, check65Tailwind, check29Glow, check11Lift, check15Fade,
   checkF1, checkF2, checkF3, checkF4, checkF5, checkF6, checkF7, checkF7Pills, checkF8, checkF9, checkF15, checkF16,
   checkTailwind, checkComponentText];
 
