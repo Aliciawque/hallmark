@@ -1,29 +1,27 @@
 ### C4 · Sticky bottom bar
-A horizontal bar pinned to the viewport bottom, holding a CTA + a brief reassurance line.
-*Use when:* the page is long and the CTA needs to be reachable always.
-*Don't confuse with:* anything in the fold; this is a *persistent* element, not a hero CTA.
+A bar pinned to the viewport bottom holding the primary action and one line of fact.
+*Use when:* the page is long and the action must stay reachable.
+*Not:* a second hero CTA; a bar that hides the footer (the page pads its bottom by the bar's height).
 
 ```html
-<aside class="cta-sticky">
-  <span>Try it free for 14 days.</span>
-  <a class="cta-outline">Start →</a>
+<aside class="cta-sticky" aria-label="Start a trial">
+  <p>…</p>
+  <a class="cta-outline" href="/start">Start the trial</a>
 </aside>
 ```
 ```css
-.cta-sticky { position: fixed; left: 0; right: 0; bottom: 0; padding: var(--space-sm) var(--space-md); background: var(--color-paper); border-top: 1px solid var(--color-rule); display: flex; justify-content: space-between; align-items: center; }
+.cta-sticky { position: fixed; inset: auto 0 0 0; z-index: var(--z-sticky); display: flex; justify-content: space-between; align-items: center; gap: var(--space-md); padding: var(--space-sm) var(--gutter); background: var(--color-paper); border-top: var(--rule-hair) solid var(--color-rule); }
+.cta-sticky p { margin: 0; font-size: var(--text-sm); }
+body { padding-bottom: calc(44px + var(--space-lg)); }
 ```
 
----
+The line is the user's fact (the trial length, the ship date), never a reassurance the build wrote (46a).
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
+- Reveal: always · after the fold · on scroll up
+- Surface: hairline top · paper change
 
-- Reveal: always · scroll-up · after fold
-- Anchored: viewport bottom · viewport top · inline at bottom
-- Shadow: hairline · none · subtle
+## Mobile
 
-## Mobile collapse
-
-- **Below 60rem:** unchanged (already designed for narrow); ensure 44 px min-height
-- **Below 40rem:** label truncates if needed; CTA stays right-aligned
+- Below 40rem: the line drops; the action fills the bar at 44px.

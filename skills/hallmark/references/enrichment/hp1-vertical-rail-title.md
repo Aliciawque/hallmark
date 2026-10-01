@@ -1,23 +1,23 @@
-### HP1 · Vertical-rail title
+### HP1 · Vertical rail title
 
-The wordmark or a pull-label runs *vertically* alongside the centred body. CSS: `writing-mode: vertical-rl; text-orientation: mixed;` on the rail; the body sits in normal flow beside it. Reads as studio · atelier · editorial — Japanese-print rhythm, hand-set page furniture.
+A fact runs vertically beside the body: the issue and its date, or the wordmark alone. Never a string of words joined by dots, never tracked capitals; the rail carries a fact or the pattern is not used (66). `writing-mode: vertical-rl; text-orientation: mixed;` on the rail; the body sits in normal flow beside it.
 
-*Use when:* the hero is otherwise centred or marquee-shaped and the page wants a structural anchor that isn't a rule or a numeral.
-*Avoid when:* the body title is itself big and centred — vertical rail beside huge horizontal display reads as competing axes; pick one direction.
+*Use when:* the hero is otherwise centred or marquee-shaped and wants a structural anchor that is not a rule or a numeral.
+*Avoid when:* the body title is itself big and centred; a vertical rail beside a huge horizontal display makes two competing axes. The rail is the supporting voice; pick one direction.
 
 ```html
 <header class="hero hero--rail">
-  <p class="hero__rail" aria-hidden="true">STUDIO · 2026 · WORK · LETTERS</p>
+  <p class="hero__rail">Issue 12, spring 2026</p>
   <div class="hero__body">
     <h1 class="hero__display">A working archive.</h1>
-    <p class="hero__lede">Twelve years. Selected projects, in their own time.</p>
+    <p class="hero__lede">Twelve years of selected projects, in their own time.</p>
   </div>
 </header>
 ```
 ```css
-.hero--rail { display: grid; grid-template-columns: auto 1fr; gap: var(--space-2xl); padding: var(--space-2xl) var(--page-gutter); align-items: end; }
-.hero__rail { writing-mode: vertical-rl; text-orientation: mixed; font-family: var(--font-display); font-size: var(--text-sm); letter-spacing: 0.18em; color: var(--color-ink-2); margin: 0; }
-@media (max-width: 60rem) { .hero--rail { grid-template-columns: 1fr; } .hero__rail { writing-mode: horizontal-tb; font-size: var(--text-xs); } }
+.hero--rail { display: grid; grid-template-columns: auto 1fr; gap: var(--space-2xl); padding: var(--space-2xl) var(--gutter); align-items: end; }
+.hero__rail { writing-mode: vertical-rl; text-orientation: mixed; font-family: var(--font-body); font-size: var(--text-sm); color: var(--color-ink-2); margin: 0; }
+@media (max-width: 60rem) { .hero--rail { grid-template-columns: 1fr; } .hero__rail { writing-mode: horizontal-tb; order: 2; } }
 ```
 
-*Anti-pattern:* vertical text *and* horizontal display title competing at the same scale. Pick one direction; the rail is supporting voice.
+Under 60rem the rail turns horizontal and moves below the body, so it never sits above the heading as an eyebrow (54).

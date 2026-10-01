@@ -1,35 +1,26 @@
 ### F4 · Step sequence
-Numbered stages (`1.0 → 2.0 → 3.0`) flow vertically. Each stage has a heading, a paragraph, sometimes a small visual.
+Numbered stages flow vertically: a heading, one paragraph, sometimes a small visual.
 *Use when:* the product is a workflow, not a single moment.
-*Don't confuse with:* F2 Sticky-scroll (which doesn't number stages).
-
-The stage numbers come from `counter()`, never from a typed `<span>` beside the heading: a hand-typed `1.0` above an `<h3>` is an eyebrow at card scale (gate 54), and it makes screen readers announce the number twice.
+*Not:* F2 (unnumbered, synced). The number is a `counter()` inline in the heading, never a typed span above it (54); it is set in the body face, never mono (64).
 
 ```html
 <ol class="steps">
-  <li><h3>Intake.</h3><p>…</p></li>
-  <li><h3>Plan.</h3><p>…</p></li>
+  <li><h3>Intake</h3><p>…</p></li>
+  <li><h3>Plan</h3><p>…</p></li>
 </ol>
 ```
 ```css
-.steps { list-style: none; counter-reset: stage; padding: 0; }
+.steps { list-style: none; counter-reset: stage; margin: 0; padding: 0; display: grid; gap: var(--space-xl); }
 .steps > li { counter-increment: stage; }
-.steps > li > h3::before {
-  content: counter(stage) ".0";
-  font-family: var(--font-mono); color: var(--color-muted);
-  margin-inline-end: var(--space-2xs);
-}
+.steps > li > h3::before { content: counter(stage) ". "; font-family: var(--font-body); font-weight: 400; }
 ```
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
+- Numbering: decimal · leading zero · roman
+- Layout: vertical stack · a row of three
+- Connector: hairline · none
 
-- Numbering: `upper-roman` · `decimal-leading-zero` · `counter(stage) ".0"`
-- Layout: vertical stack · horizontal flow · diagonal
-- Connector: line · arrow · none
+## Mobile
 
-## Mobile collapse
-
-- **Below 60rem:** numbering moves from left margin to inline-with-step
-- **Below 40rem:** step containers tighten; connector lines drop
+- Below 60rem: a row of three stacks.

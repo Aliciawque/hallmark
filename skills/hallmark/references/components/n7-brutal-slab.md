@@ -1,35 +1,30 @@
 ### N7 · Brutal slab
-A heavy, full-width nav with a 2 px solid border-bottom, all-caps wordmark and tracked uppercase link row, dense rhythm, no shadow, no rounded corners. Reads as Pentagram project pages, Liquid Death, brutalist-leaning agencies.
-*Use when:* the genre is playful (Brutal, Manifesto, Sport) or the brand voice is heavy / declarative.
-*Don't confuse with:* N1 Wordmark + 2 links (which is small and quiet).
+A heavy full width bar: a 2px ink rule beneath, the wordmark in the display face, a heavy sentence-case link row, no shadow, no radius.
+*Use when:* the genre is playful (Brutal, Manifesto, Sport) or the voice is heavy and declarative.
+*Not:* N1 (small, quiet). Radius, soft shadow or blur fight this vocabulary: reach for blur and it is N5. The wordmark may be capitals, tracked 0.04em at most (67 allows the wordmark); the links are sentence case.
 
 ```html
 <header class="nav-slab">
-  <a class="slab-mark">STUDIO</a>
+  <a class="slab-mark" href="/" aria-label="Studio, home">STUDIO</a>
   <nav class="slab-nav" aria-label="Primary">
-    <ul><li><a>CATALOG</a></li><li><a>VOICE</a></li><li><a>WORK</a></li></ul>
+    <ul><li><a href="/catalog">Catalog</a></li><li><a href="/voice">Voice</a></li><li><a href="/work">Work</a></li></ul>
   </nav>
-  <a class="cta-fill cta-fill--slab">GET</a>
+  <a class="cta-fill cta-fill--slab" href="/get">Get it</a>
 </header>
 ```
 ```css
-.nav-slab { display: flex; align-items: center; gap: var(--space-md); padding: var(--space-sm) var(--page-gutter); border-bottom: 2px solid var(--color-ink); background: var(--color-paper); }
-.slab-mark { font-family: var(--font-display); font-weight: 800; letter-spacing: 0.04em; }
+.nav-slab { display: flex; align-items: center; gap: var(--space-md); padding: var(--space-sm) var(--gutter); border-bottom: 2px solid var(--color-ink); background: var(--color-paper); }
+.slab-mark { font-family: var(--font-display); font-weight: 800; letter-spacing: 0.04em; text-decoration: none; }
 .slab-nav ul { display: flex; gap: var(--space-md); list-style: none; padding: 0; margin: 0 0 0 auto; }
-.slab-nav a { text-transform: uppercase; letter-spacing: 0.08em; font-size: var(--text-sm); font-weight: 600; }
+.slab-nav a { font-size: var(--text-sm); font-weight: 700; text-decoration: none; }
 ```
-
-*Anti-pattern:* combining N7 with rounded corners, soft shadows, or backdrop-blur — those vocabularies fight. If you reach for blur, drop to N5; if you reach for round, drop to N1.
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
+- Rule weight: 2px · 3px · 4px
+- Link weight: 700 · 600
+- Action: filled slab · outlined block · text only
 
-- Border weight: 2 px · 3 px · 4 px
-- Letter-spacing: tracked uppercase · normal
-- CTA: filled slab · outline block · text-only
+## Mobile
 
-## Mobile collapse
-
-- **Below 60rem:** links wrap to second line; CTA stays right-aligned
-- **Below 40rem:** links collapse to hamburger; wordmark + hamburger only
+- Below 60rem: the links wrap to a second line; the action stays right. Below 40rem: the links go behind a menu; wordmark and menu only.

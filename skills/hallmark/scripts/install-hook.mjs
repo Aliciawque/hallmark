@@ -1,16 +1,4 @@
 #!/usr/bin/env node
-// Install the Hallmark edit-time lint hook into a project's .claude/settings.json.
-//
-//   node install-hook.mjs [--global] [--print] [--remove]
-//
-//   (default)  merge the hook into ./.claude/settings.json (project scope)
-//   --global   target ~/.claude/settings.json instead
-//   --print    print the hook block and the target path; write nothing
-//   --remove   remove the Hallmark hook (matched by its command path)
-//
-// Idempotent: re-running never duplicates the hook. Claude Code only. The hook
-// is advisory (never blocks a write); see lint-hook.mjs.
-
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -54,7 +42,6 @@ const settings = readSettings();
 settings.hooks ??= {};
 settings.hooks.PostToolUse ??= [];
 
-// drop any existing Hallmark hook (keeps everyone else's hooks intact)
 settings.hooks.PostToolUse = settings.hooks.PostToolUse.filter((e) => !isOurs(e));
 
 if (has("--remove")) {

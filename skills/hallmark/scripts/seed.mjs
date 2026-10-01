@@ -1,19 +1,4 @@
 #!/usr/bin/env node
-// Hallmark · the draw. Deterministic outside pick for the custom ritual.
-// The model lists ~7 grounded directions (the slate) but its own favourite is
-// deterministic, so this script assigns WHICH entry gets built, and deals three
-// challengers from the atlas, one per tier (graphic-system, instrument,
-// atmosphere). Same brief, same day, same reroll count -> same draw and the
-// same deal. Usage:
-//
-//   node seed.mjs "<brief-slug>" [--n 7] [--reroll 0] [--wild 3] [--atlas <path>]
-//
-// Prints lines the model pastes into the Picks block, e.g.:
-//   draw: 4/7 (seed coffeebox-subscription·2026-07-23·r0) · challengers: Bus blind · Split-flap board · Night market
-//
-// --wild overrides the challenger count (0 disables; other values deal
-// round-robin across tiers, still deterministic). No dependencies. Node 18+.
-
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -50,12 +35,13 @@ const flag = (name, dflt) => {
 
 const n = Math.max(2, parseInt(flag('n', '7'), 10) || 7);
 const reroll = Math.max(0, parseInt(flag('reroll', '0'), 10) || 0);
-const wild = Math.max(0, parseInt(flag('wild', '3'), 10) ?? 3);
+const wildRaw = parseInt(flag('wild', '3'), 10);
+const wild = Math.max(0, Number.isNaN(wildRaw) ? 3 : wildRaw);
 const date = new Date().toISOString().slice(0, 10);
 
 const seedKey = `${slug}·${date}·r${reroll}`;
 const hash = fnv1a(seedKey);
-const index = (hash % n) + 1; // 1-based slate index
+const index = (hash % n) + 1;
 
 function validateEntry(e, i) {
   const fail = (msg) => {
@@ -78,14 +64,12 @@ function validateEntry(e, i) {
 
 let challengers = [];
 if (wild > 0) {
-  const atlasPath = flag('atlas', join(dirname(fileURLToPath(import.meta.url)), '..', 'references', 'direction-atlas.json'));
+  const atlasPath = flag('atlas', join(dirname(fileURLToPath(import.meta.url)), 'atlas.json'));
   try {
     const atlas = JSON.parse(readFileSync(atlasPath, 'utf8'));
     if (!Array.isArray(atlas) || atlas.length === 0) throw new Error('atlas is empty');
     atlas.forEach(validateEntry);
 
-    // Stratified deal: walk the tiers round-robin so the default of 3 yields
-    // exactly one graphic-system, one instrument, one atmosphere.
     const byTier = Object.fromEntries(TIERS.map((t) => [t, atlas.filter((e) => e.tier === t)]));
     const dealt = new Set();
     for (let k = 0; k < wild; k++) {

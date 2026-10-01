@@ -1,120 +1,40 @@
-# Direction - deriving the world
+# Direction: deriving the world
 
-**This is the opt-in path.** A build takes it only when the user asks for one, most often by saying **custom** (or "derive it", "something bespoke", "no theme", "make me a world"). Everything else takes the catalog, which is Hallmark's default and its main road: see [`SKILL.md`](../SKILL.md) § 2.6. When this file does run, the direction is **made-to-measure for one brief**, written inline into the page's `:root`, never a permanent catalog entry. It spans two depths: **tuned** (a complete OKLCH palette + free-font pairing on Hallmark's structures) and **bespoke** (structure and composition designed from first principles too). One route, chosen depth.
+The opt-in path. A build takes it only when the user asks (**custom**, "derive it", "bespoke", "no theme", "a world of its own"). The direction is made to measure for one brief, written inline into the page's `:root`, never a catalog entry. Two depths: **tuned** (a complete OKLCH palette and a free-font pairing on Hallmark's structures) and **bespoke** (the structure and composition designed from first principles too).
 
-**The freedom is the combination, never the floor.** Every constraint in [`color.md`](color.md), [`typography.md`](typography.md), and [`anti-patterns.md`](anti-patterns.md) still applies, and **every slop-test gate fires unchanged at every depth** (unpicked variants drafts alone defer the sweep to promotion, per [`verbs/variants.md`](verbs/variants.md)). The Step 5 Picks block surfaces the direction, posture, palette, and pairing in plain text before any code is emitted, so the user can redirect.
+The ritual exists because the model's own taste is an attractor: asked for "something unique", a model ships the same two or three looks per category every time, and letting it choose is letting it repeat itself. The steps below are outside interventions: named rejections, a deterministic draw, a scene the palette must obey, and a contract the build is audited against. Every gate fires unchanged at every depth; the Picks block surfaces the direction, posture, palette and pairing before code so the user can redirect.
 
-The ritual exists because **the model's own taste is an attractor**. Left alone, a model asked for "something unique" ships the same two or three looks per category, every time; its favourite is deterministic, so asking it to choose is asking it to repeat itself. A user who asks for custom is asking to escape the catalog, and handing them the model's argmax instead is the same repetition wearing a different label. The steps below are outside interventions that break that pull: named rejections, a deterministic draw, a scene the palette must obey, and a contract the build is audited against.
+**Nothing from the catalog.** A custom run never runs the deal, never opens a theme file, and never borrows a theme's faces, palette or signature object; the catalog's coordinates are the one thing it reads, through `theme.mjs check`, so that it can stay away from them. The test is the reviewer's: if a fresh reader could name the catalog theme this page resembles, the run failed and the world is reworked before the sweep.
 
-## When the catalog takes it back
+**The catalog takes it back** when the user names a theme ("custom, something like Newsprint" is a theme pick with a mood note), when a `design.md` or a real brand already exists (inherit it), and in component scope. `--fast` on a custom ask is a contradiction: take the catalog and say so.
 
-Even after a custom ask, three things still route to the catalog, because they are stronger instructions:
+## The ritual
 
-1. **The user names a theme.** "Custom, something like Newsprint" is a theme pick with a mood note, not a derivation.
-2. **A `design.md` or a real brand already exists.** Pre-flight found the system; inherit it. That branch never reaches this file.
-3. **Component scope.** One button does not need a derived world.
+Runs in order before any palette work. Each step is one or two written lines; the whole ritual reads as a short paragraph of decisions, not a form.
 
-`--fast` on a custom ask is a contradiction; take the catalog and say so in one line.
+**R.1 Reflex check.** Name the category's obvious aesthetic and its tasteful second-order fallback, then reject both in writing: *Reflex check: rejecting sage-and-cream (the category default) and editorial serif on bone (the tasteful fallback).* The default and its predictable opposite are both the rut. Two more altitudes: would the slate you are about to write fit the category's other products unchanged (then it is category gravity), and could someone guess the aesthetic from the category plus what Hallmark always avoids (then the avoidance is the pattern)? If either is obvious, rework.
 
-The coordinates a custom system must not land on are the catalog's own, in [`theme-axes.md`](theme-axes.md) § The rejection reading.
+**R.2 Spent defaults.** Already worn out for the brief family, declared before the slate: warm, bookish, food, family → cream paper, serif display, lamplight amber; tech, developer, AI → near-black, one neon accent, mono labels; editorial, studio, portfolio → bone paper, high-contrast serif, hairlines everywhere; playful, consumer → rounded sans, candy accent on white, blobs; luxury, craft → ivory, letterspaced small caps, no accent; health, science → clinical white, single blue, geometric sans; finance → navy, emerald, tabular mono; events, music → black, duotone photo, condensed caps. A spent look can still be earned by a draw that demands it; drifting there is what is banned.
 
----
+Your own rendition prior is spent too, and it bites at execution rather than selection. Claude renders warm, bookish and child-facing subjects as cream, serif, italic accents and lamplight whatever the draw said; before writing code, re-read the OWN-WORLD block, and if it says cream, paper, parchment, ivory or lamplight on a brief that never pinned them, rework from the world's saturated materials. Codex renders a tight grotesk at 600 on near-white with one blue accent and a bordered soft-shadow card. Gemini renders gradient ramps as material and hover motion on images. Open-weight models revert mid-build: the first viewport commits, section three becomes a card grid on white.
 
-## § The ritual
+The catalog's own coordinates are spent as well: `node <skill-dir>/scripts/theme.mjs check --axes "<paper>/<display>/<accent>"` at § D tells you whether the triple you are about to build already exists.
 
-Runs on every custom build, both depths, in order, before any palette work. Each step produces one or two written lines in the reply; the whole ritual reads as a short paragraph of decisions, not a form.
+**R.3 The slate.** Seven grounded directions, numbered, one line each: a concrete visual system, artifact, place or ritual this audience already knows, with the germ of a system grammar. *3. The pharmacy blotter: clinical buff card, one federal-blue rule system, dosage-table typography.* Not adjectives, not moods. Two questions pull the list off the obvious: what would this thing look like as a physical object, and what did its world look like before the web? The audience's graphic traditions count (a notation system, a documentation standard, a school of poster). Spread across at least three material families; the brief's own noun gets at most one seat.
 
-### R.1 · Reflex check
-
-Name the category's obvious aesthetic AND the second-order trap, then reject both in writing. Two altitudes, both mandatory:
-
-- First order: the aesthetic anyone would guess. Tea brand: sage, cream, forest green. Fintech: navy and emerald trust palette. AI tool: near-black with a glowing gradient.
-- Second order: the "tasteful" fallback a design-literate model reaches for after dodging the first. Tea: editorial serif on bone paper. Fintech: monochrome Swiss restraint. AI tool: mono type and terminal green.
-
-Format: *"Reflex check: rejecting <first-order> (the category default) and <second-order> (the tasteful fallback)."* Landing on either after writing this line means the self-check failed; redirect before continuing. The default and its predictable opposite are both the rut: dodging navy fintech by shipping anti-navy fintech is still steering by the default, just in reverse.
-
-Third altitude, **the mirror**: if the slate you are about to write would fit the category's OTHER products unchanged, it is category gravity wearing a slate's clothes. Sharpen entries until at least three are only defensible for THIS product.
-
-**Fourth altitude, the avoidance signature.** It is not enough that nobody could guess the aesthetic from the category. Ask the harder version: could they guess it from *the category plus what Hallmark always avoids*? Always dodging the same things is itself a pattern, and this skill's own anti-pattern list is long enough to form one. If the answer to either question is obvious, rework.
-
-### R.2 · Spent defaults
-
-Hallmark's own house defaults count as already spent for this brief family. Declare it before writing the slate. The spent table:
-
-| Brief family | Already spent (do not land here) |
-| --- | --- |
-| warm / bookish / food / family | cream paper · serif display · lamplight amber accent |
-| tech / developer / AI | near-black surface · one neon accent · mono labels |
-| editorial / studio / portfolio | bone paper · high-contrast serif · hairline rules everywhere |
-| playful / consumer | rounded sans · candy accent on white · blob shapes |
-| luxury / craft | ivory · letterspaced small caps · no accent |
-| health / science | clinical white · single blue · geometric sans |
-| finance | navy · emerald · tabular mono |
-| events / music | black · duotone photo treatment · condensed caps |
-
-The spent look can still be *earned* if the draw lands on a direction that genuinely demands it; what is banned is drifting there by default.
-
-**Your own rendition prior is spent too.** The table above is what the *category* has worn out; this is what *you* reach for regardless of the brief, and it bites hardest at execution rather than selection. A direction assigned honestly still gets rendered in the model's house palette unless the prior is named first.
-
-| Model family | The prior to treat as already spent |
-| --- | --- |
-| Claude | Warm, bookish, family and child-facing subjects come out cream-grounded, serif-display, italic-accented and lamplit, whatever the draw said. Before writing code, re-read your own OWN-WORLD block: if it says cream, paper, parchment, ivory or lamplight on a brief that never pinned them, the rendition failed and reworks from the world's saturated materials. |
-| GPT / Codex | Tight grotesk at 600, near-black on near-white, 12-16px radii, one blue accent, a 1px border under a soft shadow. Reads as competent product chrome and erases whatever world was drawn. |
-| Gemini | Gradient-forward surfaces and pastel-to-saturate ramps standing in for material, plus hover motion on images that are not action targets. |
-| Open-weight models | The strongest single tell is reversion to the training centroid mid-build: the first viewport commits, then section three quietly becomes a card grid on white. |
-
-A pinned world pins the world, not its softest rendition: the pinned world's full material range stays in play, and a rendition that matches what any model ships for that world failed at execution, not selection.
-
-Note that the catalog's own twenty-three coordinates are spent too, on every custom run. [`theme-axes.md`](theme-axes.md) § The rejection reading carries that list and the tolerance that defines a collision.
-
-### R.3 · The slate
-
-List ~7 grounded directions, numbered 1-7. Each is a **concrete visual system, artifact, place, or ritual this audience already knows**, one line each, with the germ of a system grammar. Not adjectives, not moods. Good slate entries name things that exist: a regional print tradition, a specific era of packaging, an instrument's control surface, a municipal document, a shop interior the audience has stood in.
-
-Format per entry: *"3. The pharmacy blotter: clinical buff card, one federal-blue rule system, dosage-table typography."*
-
-Two questions that pull the list away from the obvious: what would this thing look like as a physical object, and what did its world look like before the web? The audience's world includes its graphic traditions, not only its objects: a notation system, a documentation standard, a school of poster is as concrete a candidate as any artifact.
-
-**Spread across material families.** If more than three of the seven share one material family (all paper goods, all screens, all signage), the derivation stopped at the subject's most obvious artifact. Dig until the list spans at least three families.
-
-**The literal metaphor gets one seat.** The brief's own noun is allowed at most one slate entry: a coffee brand may seat one coffee-bag direction, not three. The audience's world is larger than the product's object.
-
-### R.4 · The draw, and the challengers
-
-The model never hand-picks from its own slate; its favourite is deterministic, and refusing that argmax is the whole point. An outside pick decides:
+**R.4 The draw and the challengers.** The model never hand-picks from its own slate. Run:
 
 ```
 node <skill-dir>/scripts/seed.mjs "<brief-slug>" --n 7
 ```
 
-The script prints a reproducible line: `draw: n/7 (seed <slug>·<date>·r0) · challengers: <name> · <name> · <name>`. Paste it into the Picks block. Re-roll (only when the user asks): rerun with `--reroll 1`, `--reroll 2`, and so on; it usually lands elsewhere (there is no exclusion; roll again if it repeats), and the seed key keeps every roll reproducible.
+It prints a reproducible line (`draw: n/7 (seed <slug>·<date>·r0) · challengers: <a> · <b> · <c>`) and deals three challengers from `scripts/atlas.json`, one from each tier (a graphic system, an instrument language, an atmosphere world), each with a five-line system grammar and one named browser technique. Judge each against the drawn entry on exactly two axes, audience identification and product clarity, one written line per challenger ending in **wins** (it replaces the drawn entry), **competitive** or **declined**. A winning challenger supplies the form and its grammar; the product supplies every fact, name and claim; clarity wins every conflict. A losing challenger still donates: the strongest loser names the one discipline the drawn direction lacks, and the direction is raised to match (*raise: the mixing desk's per-function control colouring, on the pricing tiers*). Every custom run ships a winning challenger or one named raise. Re-roll only when the user asks (`--reroll 1`). Without Node: N = letter count of the brief mod 7, entry N + 1, printed so it is reproducible; skip challengers; stamp `seed: fallback-<letters>·<date>·r<n>`.
 
-**Challengers.** The three dealt entries come from [`direction-atlas.json`](direction-atlas.json), a curated deck of complete design systems from real lineages, one from each tier: a **graphic system**, an **instrument language**, an **atmosphere world**. Each arrives with a five-line system grammar and one named browser technique. Judge each against the drawn slate entry on exactly two axes, **audience identification** and **product clarity**, in one written line per challenger with the verdict at the end: **wins** (it replaces the drawn entry), **competitive** (loses, but narrowly), **declined**. Challengers exist to break category gravity, never to win by novelty.
+**R.5 The scene sentence.** One concrete sentence placing a real person at a real time and place with the product: *a subscriber in Vermont, 6:43 am in early January; the kettle just clicked off; one lamp on.* It decides surface lightness and light temperature before any palette work, and it is the scene sentence `craft.md` § 4 asks for before an enrichment; write it once.
 
-**Fusion, not costume.** A winning challenger supplies the form and its system grammar; the product supplies every fact, name, number, and claim; clarity wins every conflict. The page is the product wearing the challenger's system, never the challenger with the product's logo pasted on.
+**R.6 Colour posture.** Exactly one, with a one-line reason: Restrained (accent under 5%), Committed (one colour carries 30 to 60% through the field or paper tokens), Full palette (three or four named roles with jobs), Drenched (the surface is the colour). Declared in the stamp and the log; gate 23 reads it.
 
-**The raise.** A challenger that loses does not just vanish: the strongest loser donates the one discipline of its system grammar the drawn direction lacks (a state language, a navigation topology, a material rule), named in one line: *"raise: the mixing desk's per-function control colouring, applied to the pricing tiers."* Every custom run ships either a winning challenger or one named raise; a run with neither treated the deal as ceremony.
-
-**Script-less fallback** (no Node, no shell): N = (letter count of the brief, spaces and punctuation excluded) mod 7, pick slate entry N + 1; each re-roll adds 3 (mod 7). Print the arithmetic so the pick is reproducible: *"draw fallback: 142 letters mod 7 = 2, entry 3."* Skip challengers, and stamp the seed as `seed: fallback-<letters>·<date>·r<n>`.
-
-### R.5 · The scene sentence
-
-One concrete sentence placing a real person at a real time and place with the product. *"A subscriber in Vermont, 6:43am in early January; the kettle just clicked off; one lamp on."* The scene decides **surface lightness and light temperature** before any palette work: that sentence forces a dark surface with warm interior light, not a daylit white. § B.2 consumes this decision directly. A scene that does not constrain the surface is not concrete enough; rewrite it. This is the same scene sentence SKILL.md Step 4 asks for; write it once, here.
-
-### R.6 · Colour posture
-
-Commit to exactly one, with a one-line justification:
-
-- **Restrained** - accent <= 5% of any viewport; the catalog's discipline.
-- **Committed** - one colour carries 30-60% of the surface, routed through the surface tokens (`--color-field`, the paper family), while the accent token proper stays <= 5%.
-- **Full palette** - 3 or 4 named roles, each with a stated job (field, signal, seal, ink).
-- **Drenched** - the surface IS the colour; ink and rules derive from it.
-
-Posture is declared in the stamp and the log. Gate 23 reads the posture: a declared surface colour is not accent footprint; undeclared accent sprawl still fails.
-
-### R.7 · The direction contract
-
-Five blocks, <= 150 words total, written into the artifact as a comment directly BELOW the macrostructure stamp and critique line (the stamp stays line 1, per gate 20), before any code, and mirrored in the Step 5 Picks block:
+**R.7 The direction contract.** Five blocks, 150 words or fewer, as a comment directly below the stamp and critique line, and mirrored in the Picks block:
 
 ```
 /* direction contract · seed <key>
@@ -122,135 +42,49 @@ Five blocks, <= 150 words total, written into the artifact as a comment directly
  * OWN-WORLD: what makes it not-anyone's-page; the drawn direction, named.
  * STORY: the scene sentence.
  * FIRST-VIEWPORT: what the fold shows, concretely.
- * FORM: structure + the one signature move.
- */
+ * FORM: structure plus the one signature move a visitor would describe to a friend. */
 ```
 
-If a block reads like a mood ("elegant, premium feel"), the direction is not decided yet; rewrite it until each block is checkable. **The signature move** named in FORM is the one structural or visual idea a visitor would describe to a friend; a page without one is a template with nice tokens.
+If a block reads like a mood ("elegant, premium feel"), the direction is not decided yet. The stamp adds `theme: custom · direction: "<drawn>" · vibe: "<4 to 8 words>" · paper: oklch(…) · accent: oklch(…) · display: <face> · body: <face> · axes: <triple> · posture: <posture> · seed: <key> · challenger: <name> (<verdict or raise>) · contract: kept (5/5)`, the last field written only after the finish review confirms it; the log entry carries the same fields.
 
-### R.7b · What the stamp and the log carry
+## Bespoke depth
 
-The base stamp and the base log entry are specified in [`SKILL.md`](../SKILL.md) § 6 and § 2. A custom run extends both:
+The brief's structure itself is the ask and no catalog shape fits (a scroll-assembled poem, a ticket-shaped page). The ritual runs identically; the build may drop the shape catalog, the genre routing and the rotation (a one-off must still not clone a recent bespoke run). It keeps every gate, access and contrast, the font discipline, the OKLCH discipline, one orchestrated motion, the Picks block, the stamp and the log. Bespoke is more judgement, not less, and it is rare; reaching for it on a vanilla brief is over-reach.
 
-```css
-/* Hallmark · macrostructure: <name or "bespoke: <one-line shape>"> · <hero archetype + knobs>
- * theme: custom · direction: "<drawn direction>" · vibe: "<4-8 words>"
- * paper: oklch(<L>% <C> <H>) · accent: oklch(<L>% <C> <H>) · display: <font> · body: <font>
- * axes: <paper-band> / <display-style> / <accent-hue> · posture: <posture>
- * seed: <slug>·<date>·r<n> · challenger: <name> (<wins | raise: one line | declined>)
- * contract: kept (5/5) · studied: no · v1.2.0
- */
+## A. The one extra question
+
+Asked with the Step 1 questions, never after: *One more input: the brand's vibe in 4 to 8 words ("archival warmth, hand-set, no varnish" · "industrial precision, cool, technical" · "moss, lichen, soft pink, herbal"), and optionally an anchor colour.* Two words is enough to proceed; a paragraph compresses to eight for the stamp.
+
+## B. Palette construction
+
+1. **Posture and scene set the frame.** The scene fixes the paper's lightness band and light temperature; the posture decides where large colour lives.
+2. **Anchor accent first.** Convert the given anchor to OKLCH and clamp chroma to 0.12 to 0.20; a real brand's anchor comes from `.hallmark/brand-spec.md`, never memory. No anchor: derive the hue from the vibe (warmth 30 to 60°, technical 220 to 250°, botanical 130 to 160°, late-night neon 280 to 320°, sun-drenched 60 to 80°), chroma 0.12 to 0.16.
+3. **Paper.** From the scene: bright and airy L 95 to 98 warm-tinted; archival L 92 to 95; clinical L 98 to 99 cool-tinted; dark and late-night L 12 to 18 anchor-tinted. Always tinted toward the anchor at chroma 0.005 to 0.020. Committed posture puts the carried colour in `--color-field`; Drenched makes paper the anchor at a usable lightness. Paper-2 steps 2 to 4% L, paper-3 5 to 7%.
+4. **Ink.** Paper under 50% L: ink L 88 to 96; over: L 16 to 24; tinted 0.005 to 0.014. Ink-2 sits 4 to 8% L toward paper.
+5. **Neutrals.** Rule (L 70 to 82 on light paper, 26 to 34 on dark), rule-2 closer to paper, muted (L 38 to 56), all tinted 0.005 to 0.018.
+6. **Focus.** The accent's hue, chroma 0.18 to 0.22, L within 5% of the accent.
+7. **Accent-ink.** Ink on an accent lighter than 50% L, paper on a darker one; verify 4.5:1.
+8. **Texture** only on a print-lineage draw (riso, letterpress, ticket stock, line printer), one artifact from `texture.md` under its budget.
+9. **Verify** against gates 7, 22, 23, 65: paper and ink both carry chroma, every grey is 0.005 or more, the accent has a stated role, and the triple is not cream, high-contrast serif and clay unless the brief pinned it.
+
+## C. Font pairing
+
+A derived system pulls from `fonts.md` and may mix tones (an editorial display over a technical body, a brutalist display over an editorial body). One display face, one body face, an optional outlier for one role. The display face is one no catalog theme sets (`theme.mjs check --face` refuses the ones in use). Free faces only unless the user confirms licences; the banned defaults stay banned; variable fonts preferred. The drawn direction should be audible in the pairing: a ledger wants tabular figures, a playbill wants wood-type energy. Labels take the body face, sentence case, untracked, unless mono is the world's material (64, 67); a head is one weight and one colour (38iii).
+
+## D. Axes and posture
+
+Declare the triple so Rotation reads it like a catalog theme's: paper band (dark under 30% L, mid 30 to 85, light over 85), display class (roman-serif, high-contrast-serif, slab-serif, grotesk-sans, grotesk-heavy, geometric-sans, rounded-sans, display-condensed, display-heavy, mono, pixel, handwritten), accent band (warm 10 to 60°, cool 200 to 300°, neutral under 0.05 chroma, chromatic-<name>), plus the posture. Then:
+
+```
+node <skill-dir>/scripts/theme.mjs check --axes "light/roman-serif/cool" --face "Sentient" --hue 250 --log .hallmark/log.json
 ```
 
-`contract: kept (5/5)` is written only after the finish review below confirms it. The log entry adds the same values as fields: `"theme": "custom"`, `"direction"`, `"posture"`, `"seed"`, `"challenger"` (name plus verdict, and the raise when one was taken), `"vibe"`, and the `"axes"` triple (one key, the same one a catalog entry uses; Rotation reads it either way).
+It refuses a triple a theme owns, a display face a theme sets, and an accent within 20 degrees of a theme that shares the paper band and display class. A collision with a catalog theme or a recent build is a failed reflex check, not a coincidence: move one axis, the one the brief cares least about (usually the accent, occasionally the paper, rarely the display), and say it happened in one line: *Landed on Cobalt's triple; moved accent to chromatic-moss ~145.* Two narrow exceptions: the user asked for that theme's feel (stamp `axes: <triple> (Cobalt, by request)`), or the draw genuinely demands the coordinate, argued in one line. Siblings built side by side in other projects count as occupied too.
 
----
+## The finish review
 
-## § Bespoke depth
+Before the sweep, re-read the contract promise by promise: is THESIS still the page's position, is OWN-WORLD visible in the shipped surface or did the build drift back toward a spent default, is STORY's light still in the palette, is FIRST-VIEWPORT what the fold shows, is FORM's signature move present and load-bearing? Any unkept promise is a revision, not a ship. Then Step 7 runs as normal, and the fresh-context reviewer in `gates.md` § 6 gets the contract.
 
-Most custom runs are tuned. **Bespoke** is the deep end: the brief's structure itself is the ask and no catalog shape fits. The ritual runs identically (R.1 through R.7); bespoke changes what the build may drop:
+## What derivation does not do
 
-**It drops:** the fixed macrostructure + archetype catalog (compose the structure for the idea; a novel hero, nav, or section is encouraged when it serves the FORM block); the genre cluster routing; the diversification rotation (bespoke is a one-off, though it must not clone a recent bespoke run).
-
-**It keeps:** every universal slop-test gate; accessibility and contrast (APCA / WCAG, visible `:focus-visible`, `prefers-reduced-motion`, semantic landmarks, alt text); the font ban list and free-baseline discipline (§ C); OKLCH palette discipline (§ B); one orchestrated motion; the Step 5 Picks block before code; the stamp + log.
-
-Bespoke is more design judgment, not less: a bespoke page that reads generic, or trips a gate, has failed. It is also rare; reaching for bespoke on a vanilla brief is over-reach.
-
----
-
-## § A · The one follow-up question
-
-Ask **one** thing in **one** message, alongside the Step 1 questions rather than after them:
-
-> *"One more input: describe the brand's vibe in 4-8 words. Examples: 'archival warmth, hand-set, no varnish' · 'industrial precision, cool, technical' · 'moss, lichen, soft pink, herbal'.*
->
-> *Optional: an anchor colour - hex, OKLCH, or a name like 'terracotta', 'sea-blue'. Skip it and I'll pick one from the vibe."*
-
-Do not ask anything else; audience / use / tone from Step 1 plus the vibe is enough. Two or three words is enough to proceed; a paragraph gets compressed to 4-8 words for the stamp. The ritual runs regardless of how the user answers; the vibe feeds R.3's slate.
-
----
-
-## § B · Palette construction
-
-Build in this order; each step applies the cited rule without restating it.
-
-### B.0 · Posture and scene set the frame
-
-Before any values: the scene sentence (R.5) fixes the paper's lightness band and light temperature; the posture (R.6) decides where large colour lives. Committed and Drenched route their colour through the paper / field tokens, never by inflating the accent's footprint.
-
-### B.1 · Anchor accent first
-
-- Convert the named or hex anchor to OKLCH; clamp chroma to **0.12-0.20** (inside the cap in [`color.md`](color.md) § Palette construction). When the brief names a REAL brand, the anchor comes from `.hallmark/brand-spec.md` ([`brand-truth.md`](brand-truth.md)), never from memory.
-- No anchor given: derive hue from the vibe: warmth 30-60° · technical 220-250° · botanical 130-160° · late-night neon 280-320° · sun-drenched 60-80°. Chroma 0.12-0.16.
-
-### B.2 · Paper
-
-- Paper L from the scene sentence: bright / airy → **L 95-98%** (warm-tinted) · archival / editorial → **L 92-95%** · clinical / spec-sheet → **L 98-100%** near-white, cool-tinted · dark / late-night → **L 12-18%**, anchor-tinted.
-- **Always tint paper toward the anchor hue, chroma 0.005-0.020** per [`color.md`](color.md) § Principles (tint the greys).
-- Committed posture: the carried colour becomes `--color-field` at the scene's lightness band; paper stays a quiet neighbour. Drenched posture: paper IS the anchor at usable lightness; ink derives from it.
-- Paper-2: step ±2-4% L. Paper-3 (optional): ±5-7% L.
-
-### B.3 · Ink
-
-- Paper L < 50: ink L **88-96%**. Paper L >= 50: ink L **16-24%**.
-- Tint ink chroma **0.005-0.014** toward the anchor. Ink-2: 4-8% L toward paper, same hue family.
-
-### B.4 · Supporting greys
-
-Step ~6-10% L between paper and ink, all tinted toward the anchor (chroma 0.005-0.018): `--color-rule` (L ~70-82% light paper / ~26-34% dark), `--color-rule-2` (4-6% closer to paper), `--color-muted` (L ~38-56%), `--color-neutral` (L ~30-56%). The L-steps give typographic depth without leaning on accent.
-
-### B.5 · Focus
-
-Same hue as accent, chroma 0.18-0.22, L ±5% of accent. `:focus-visible` only; appears instantly.
-
-### B.6 · Accent-ink
-
-Text on accent fills: accent L > 50 uses ink; accent L <= 50 uses paper. Verify APCA >= Lc 60 / WCAG 4.5:1 for body, 3:1 for large text.
-
-### B.6b · Texture (print-lineage draws only)
-
-When the drawn direction's lineage is print (riso zine, letterpress, ticket stock, line-printer), it may draw ONE artifact from [`texture.md`](texture.md) under that file's budget tokens. Digital-native draws take none; texture is earned by lineage, never added for warmth.
-
-### B.7 · Verification
-
-Gate 7 (no pure #000/#fff): paper and ink both carry chroma. Gate 22 (no zero-chroma neutrals): every grey >= 0.005. Gate 23 (accent footprint): plan the accent's role; under Committed / Drenched the carried colour lives in field / paper tokens and the accent proper still keeps to a signal.
-
----
-
-## § C · Font pairing
-
-A derived system pulls from the tone pairings in [`typography.md`](typography.md), and **may mix tones** - that is the freedom:
-
-- Editorial display + Technical body: an academic-tone SaaS.
-- Brutalist display + Editorial body: a manifesto magazine.
-- Playful display + Austere body: a creator-tool brand.
-- Luxury display + Technical body: a hand-crafted dev tool.
-
-One display face, one body face, optional mono. The discipline: **free-baseline only** unless the user confirms licences; the banned defaults stay banned (gate 1); variable fonts preferred. Then confirm the pair reads: enough weight contrast in the display, body legible at >= 14px across 45-75ch, mono-on-mono only when the mono IS the design. The drawn direction (R.4) should be audible in the pairing: a ledger direction wants tabular figures; a playbill direction wants wood-type energy in the display slot.
-
----
-
-## § D · Axes and posture
-
-A derived system declares its diversification values explicitly so the Rotation block in [`SKILL.md`](../SKILL.md) fires the same as catalog:
-
-- **Paper band:** dark (L < 30%) · mid (30-85%) · light (> 85%).
-- **Display style:** italic-serif · roman-serif · geometric-sans · grotesk-sans · mono · display-condensed-bold · display-heavy · slab-serif · system-native · risograph-bold · handwritten (rare).
-- **Accent hue band:** warm 10-60° · cool 200-300° · neutral (chroma < 0.05) · chromatic-other (sub-tag the anchor: `chromatic-moss ~140°`).
-- **Posture** (fourth logged value): restrained · committed · full-palette · drenched.
-
-Before the triple is final, check it against the rejection table in [`theme-axes.md`](theme-axes.md) § The rejection reading: the catalog's twenty-three coordinates, live on every custom run. A triple that survives it is the thing this route was built to produce.
-
----
-
-## § The finish review
-
-Before the slop test, re-read the direction contract promise by promise: THESIS still the page's position? OWN-WORLD visible in the shipped surface, or did the build drift back toward a spent default? STORY's light still in the palette? FIRST-VIEWPORT actually what the fold shows? FORM's signature move present and load-bearing? **Any unkept promise = revise, not ship.** Then run Step 7 as normal. This review never replaces the gate sweep.
-
-## What derivation does **not** do
-
-1. **Does not lower the floor.** Every gate fires; a derived page that trips one is not "expressive", it is broken.
-2. **Does not extend the catalog.** The system is written inline for this page, never added to `references/themes/`.
-3. **Does not invent facts.** Gate 46a binds hardest here, because a fresh world is where invented proof feels most at home.
-4. **Does not skip the draw.** The model's own #1 pick is exactly what the draw exists to refuse; a build with no seed line in the stamp is over-invented. Audit it; redirect.
-5. **Does not mean more decoration.** A derived system is a tighter argument than a catalog theme, not a louder one.
+It does not lower the floor (a derived page that trips a gate is broken, not expressive). It does not extend the catalog (the system is inline for this page). It does not invent facts (gate 46a binds hardest where a fresh world makes invented proof feel at home). It does not skip the draw (a stamp with no seed line is over-invented; audit it). It does not mean more decoration: a derived system is a tighter argument than a catalog theme, not a louder one.

@@ -1,30 +1,28 @@
 ## Tier A · Pure CSS art
 
-**When.** Geometric forms, gradient compositions, glyph-style decoration. Bars, dots, badges, icons, simple loaves, sliced spheres, abstract logos. Anything that's *shapes plus colour*.
+**When.** Geometric forms, gradient compositions, glyph-style decoration. Bars, dots, badges, icons, a simple loaf, a sliced sphere, an abstract mark. Anything that is shapes plus colour. Zero bytes, browser-native, scales without limit; the cost is the practice `clip-path` and `conic-gradient` take.
 
-**Effort:** high (mastering `clip-path` + `conic-gradient` takes practice).
-**Payoff:** very high (zero bytes, browser-native, infinitely scalable).
-**Bundle cost:** zero.
+### The toolkit
 
-### The CSS-art toolkit (2026)
+| Feature | Use for |
+| --- | --- |
+| `clip-path: polygon(…)` | Multi-sided shapes: chevrons, hexagons, custom blobs |
+| `clip-path: path("M …")` | Curved outlines from an SVG path (feature-query a fallback) |
+| `conic-gradient()` | Pie segments, radial dividers, rotating colour wheels |
+| `radial-gradient()` | Spheres, sun-burst centres |
+| `linear-gradient()` (multi-stop) | Composite shapes from stacked stops |
+| `mask-image: url(…)` | Layered transparency, morphing shapes, text clips |
+| `mix-blend-mode` | Compositional depth (multiply, overlay, screen) |
+| `filter` (drop-shadow, blur, hue-rotate) | Soft shadows on irregular shapes (follows the alpha channel) |
+| `@property` | Smoothly interpolated custom properties (colour, length, angle) |
+| `animation-timeline: scroll() / view()` | Declarative scroll-linked motion, composited off-thread |
 
-| Feature | Use for | Browser support |
-| --- | --- | --- |
-| `clip-path: polygon(…)` | Multi-sided shapes (chevrons, hexagons, custom blobs) | 96 %+ |
-| `clip-path: path("M …")` | Curved hand-drawn outlines from an SVG path | 88 %+ (use feature query for fallback) |
-| `conic-gradient()` | Pie segments, radial dividers, mandalas, rotating colour wheels | 96 %+ |
-| `radial-gradient()` | Spheres, glow points, sun-burst centres | 100 % |
-| `linear-gradient()` (multi-stop) | Composite shapes via stacked stops | 100 % |
-| `mask-image: url(…)` | Layered transparency, morphing shapes, text-clip effects | 95 %+ |
-| `mix-blend-mode` | Compositional depth (multiply, overlay, screen) | 95 %+ |
-| `filter` (drop-shadow, blur, hue-rotate) | Soft shadows on irregular shapes (uses the alpha channel) | 100 % |
-| `@property` | Smoothly-interpolated custom properties (colour, length, angle) | 88 %+ |
-| `animation-timeline: scroll() / view()` | Declarative scroll-linked motion, hardware-composited | Baseline 2025 (88 %) |
+### A worked example: the loaf as a single div
 
-### A worked example — the bakery loaf as a single div
+Every colour derives from a token: the crust from the accent, the shadow from the ink (48).
 
 ```html
-<div class="loaf" aria-label="A loaf of bread"></div>
+<div class="loaf" role="img" aria-label="A loaf of bread"></div>
 ```
 
 ```css
@@ -42,16 +40,16 @@
     radial-gradient(ellipse at 30% 70%, transparent 1.2rem, var(--color-ink-2) 1.21rem 1.3rem, transparent 1.31rem),
     radial-gradient(ellipse at 50% 70%, transparent 1.2rem, var(--color-ink-2) 1.21rem 1.3rem, transparent 1.31rem),
     radial-gradient(ellipse at 70% 70%, transparent 1.2rem, var(--color-ink-2) 1.21rem 1.3rem, transparent 1.31rem),
-    /* loaf body */
-    linear-gradient(180deg, oklch(78% 0.12 60), oklch(64% 0.16 50));
+    /* loaf body: the accent, darkened toward the base */
+    linear-gradient(180deg, var(--color-accent), oklch(from var(--color-accent) calc(l - 0.14) c h));
   border-radius: 50% 50% 14% 14% / 70% 70% 30% 30%;
   transform: translateY(var(--rise));
-  animation: rise 6s ease-in-out infinite alternate;
-  box-shadow: 0 1.2rem 1.5rem -0.8rem oklch(20% 0.02 60 / 0.18);
+  animation: rise 6s var(--ease-in-out) infinite alternate;
+  box-shadow: 0 1.2rem 1.5rem -0.8rem oklch(from var(--color-ink) l c h / 0.18);
 }
 
 @keyframes rise {
-  to { --rise: -4px; }   /* the breath: 4px over 6s, the loaf is alive */
+  to { --rise: -4px; }   /* the breath: 4px over 6s */
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -59,11 +57,11 @@
 }
 ```
 
-That's a hand-built bakery centerpiece in about 25 lines, no asset, animated, accessible. The next bakery brief Hallmark touches gets a *different* loaf because the variation knobs change (rise distance, loaf curvature, crust-ridge spacing, colour stop).
+A bakery centrepiece in about 25 lines: no asset, animated, accessible. The next bakery brief gets a different loaf because the knobs change: rise distance, curvature, ridge spacing, colour stop.
 
 ### Anti-patterns of CSS art
 
-- **Recalculating `clip-path` on every scroll.** Tanks framerate. Animate `transform` instead, or use `animation-timeline` (which composites off-thread).
-- **Over-nested wrapper divs.** A pure-CSS illustration should fit in one to three elements. Eight nested wrappers reads as "I gave up structuring this".
-- **No reduced-motion fallback.** Every animation must have a `@media (prefers-reduced-motion: reduce)` block.
-- **Random gradient noise.** If the gradient looks generated rather than designed, redo it. Three stops max for any single gradient layer.
+- **Recalculating `clip-path` on every scroll.** Animate `transform` instead, or use `animation-timeline`, which composites off-thread.
+- **Over-nested wrappers.** A pure-CSS illustration fits in one to three elements.
+- **No reduced-motion fallback.** Every animation gets a `@media (prefers-reduced-motion: reduce)` block (27).
+- **Random gradient noise.** If the gradient looks generated rather than designed, redo it. Three stops at most in any one layer, and every stop a token or derived from one.

@@ -1,34 +1,21 @@
 ## 08 · Photographic
 
-A single huge image dominates each fold. Text is small annotation, not headline. The design says *look* before it says *read*.
+A single huge image dominates each fold. Text is small annotation, not headline. The design says look before it says read.
 
-- **Heading:** small caption near a corner of the image; never centered display.
+- **Heading:** a small caption near a corner of the image, in the body face; never a centred display.
 - **Body:** full-bleed image bands alternating with narrow text bands.
-- **Divider:** the image edge IS the divider; no rules.
-- **Button:** typographic link tucked under the caption.
-- **Image:** the whole point — full-bleed, edge to edge, often a single photo per fold.
-- **Reveal:** no spatial motion; let the photographs do the work.
+- **Divider:** the image edge is the divider; no rules.
+- **Button:** a typographic link tucked under the caption, carrying a verb; it is the fold's one visible action (44b).
+- **Image:** the whole point: full-bleed, edge to edge, one photograph per fold, from the user; a `photo-1` slot when it has not arrived (`craft.md` § 8).
+- **Reveal:** no spatial motion; the photographs do the work.
 
-Reach for it for fashion, hospitality, photography portfolios, lifestyle e-commerce, any brand whose product is a *feeling*.
+Reach for it for fashion, hospitality, photography portfolios, lifestyle commerce, any brand whose product is a feeling.
 
-Avoid without real photography. AI-generated stock undoes the macrostructure.
+Avoid without real photography. Generated stock undoes the shape.
 
-Reference: Aimé Leon Dore, Mr Porter editorial, Stüssy lookbooks.
+Code: [`../components/h6-photographic-fold.md`](../components/h6-photographic-fold.md).
 
-**Sample opening lines** (imitate the *specificity* — captions for photographs are dates, places, plate numbers — not marketing):
-> *"Plate 47 · scored before the proof."* — Maple Street Bread (test 03) — a number, a moment in the process
-> *"Spring, 2026."* — Atelier-style — two words, full stop
-> *"From the working archive."* — gives the photograph provenance without explaining it
-
-```html
-<section class="photo-fold">
-  <img class="bleed" src="hero.jpg" />
-  <p class="caption">Spring, 2026.</p>
-</section>
-<section class="text-fold">
-  <p class="lede">…</p>
-</section>
-<section class="photo-fold">…</section>
-```
-
----
+**Sample opening lines** (captions are dates, places and plate numbers, not marketing):
+> *"Plate 47, scored before the proof."* A number and a moment in the process (Maple Street Bread, test 03).
+> *"Spring, 2026."* Two words, full stop.
+> *"From the working archive."* Gives the photograph provenance without explaining it.

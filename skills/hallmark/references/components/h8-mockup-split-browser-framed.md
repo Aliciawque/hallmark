@@ -1,36 +1,33 @@
-### H8 · Mockup Split (browser-framed)
-Headline left, browser-frame mockup right, the mockup tilted 1–3° for life. Frame can be browser chrome, macOS toolbar, minimal hairline, or floating no-frame.
-*Use when:* you're selling a web app and you have a clean, well-lit screenshot.
-*Don't confuse with:* H7 Clipped-Edge (which extends past the viewport) or H2 Split Diptych (which uses photography or proof column, not a product mockup).
+### H8 · Screenshot as a plate
+Headline left, one real capture right, set like a plate in a catalogue: a `<figure>` with a `<figcaption>` carrying a fact (what is shown, which build, when), or the theme's `data-slot` placeholder until the user's capture arrives. No chrome, no tilt, no stack (47a, 47b).
+*Use when:* the product is a web app and the user has a clean capture.
+*Not:* H7 (video, clipped); a drawn mockup with invented figures (47c). One frame at most: a hairline inset outline, never a browser bar or an OS window.
 
 ```html
-<section class="hero-mock">
-  <div>
-    <h1>The studio's new mute button.</h1>
-    <p>Press <kbd>⌘ M</kbd> from anywhere.</p>
-  </div>
-  <figure class="mock">
-    <header class="mock__chrome"><span></span><span></span><span></span></header>
-    <div class="mock__body"><!-- screenshot or CSS-art mockup --></div>
+<section class="hero-plate">
+  <div class="hero-plate__copy"><h1>…</h1><p>…</p><a class="cta-outline" href="#">…</a></div>
+  <figure class="hero-plate__figure">
+    <div class="hero-plate__capture" data-slot="hero"><!-- the user's capture, or the theme's placeholder (craft § 8) --></div>
+    <figcaption>…</figcaption>
   </figure>
 </section>
 ```
 ```css
-.hero-mock  { display: grid; grid-template-columns: 1fr 1.2fr; gap: var(--space-2xl); align-items: center; }
-.mock       { transform: rotate(1.5deg); border-radius: 12px; overflow: hidden; box-shadow: 0 24px 60px -20px oklch(20% 0.02 60 / 0.18); }
-.mock__chrome { display: flex; gap: 6px; padding: 10px 12px; background: var(--color-paper-2); border-block-end: var(--rule-hair) solid var(--color-rule); }
-.mock__chrome span { width: 10px; height: 10px; border-radius: 50%; background: var(--color-rule-2); }
+.hero-plate { min-height: 80dvh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: var(--gap-columns); align-items: center; padding-block: var(--space-2xl) var(--space-3xl); }
+.hero-plate__figure { margin: 0; display: grid; gap: var(--space-sm); }
+.hero-plate__capture { aspect-ratio: 16 / 10; border-radius: min(1vw, 12px); outline: 1px solid color-mix(in oklab, var(--color-ink) 8%, transparent); outline-offset: -1px; box-shadow: var(--shadow-card); }
+.hero-plate__figure figcaption { font-size: var(--text-sm); color: var(--color-muted); }
+@media (max-width: 60rem) { .hero-plate { grid-template-columns: minmax(0, 1fr); } }
 ```
+
+The caption sits outside the slot so the slot script does not hide it when the image lands.
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
+- Frame: none · hairline inset
+- Caption: beneath · in the margin beside
+- Capture: 16/10 · 4/3 · one phone-tall 9/16 with real content
 
-- Frame style: browser chrome · macOS toolbar · minimal hairline · floating no-frame
-- Tilt: 0° · 1.5° · 3°
-- Screenshot count: 1 · stack-of-3 · orbit-of-3
+## Mobile
 
-## Mobile collapse
-
-- **Below 60rem:** drops the tilt; grid `1fr`; mockup goes full-width below text
-- **Below 40rem:** annotation pins consolidate; numbered legend moves below mockup
+- Below 60rem: one column, the plate beneath the text, full width.

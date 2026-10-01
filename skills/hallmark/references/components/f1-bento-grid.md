@@ -1,33 +1,31 @@
-
 ### F1 · Bento grid
-Asymmetric grid of 8–15 tiles in mixed spans (1×1, 2×1, 1×2, 2×2). Visual rhythm via size.
-*Use when:* multiple equally-valid entry points; SaaS feature page.
-*Don't confuse with:* F2 Sticky-scroll (which stacks vertically with sticky pacing).
+An asymmetric grid of six to nine tiles in mixed spans (1x1, 2x1, 1x2, 2x2). Rhythm comes from size.
+*Use when:* several equally valid entry points; a feature page.
+*Not:* a three-card row with one tile stretched; F2 (stacks vertically, sticky pacing). Tiles are tinted wells or air, never a card inside a card (4).
 
 ```html
 <section class="bento">
-  <article class="cell span-2x2">…</article>
-  <article class="cell span-1x1">…</article>
-  <article class="cell span-2x1">…</article>
+  <article class="cell span-2x2"><h3>…</h3><figure data-slot="demo-2">…</figure></article>
+  <article class="cell"><h3>…</h3><p>…</p></article>
+  <article class="cell span-2x1"><h3>…</h3><p>…</p></article>
 </section>
 ```
 ```css
-.bento { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 12rem; gap: var(--space-md); }
+.bento { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 12rem; gap: var(--gap-columns); }
+.cell { min-width: 0; padding: var(--space-lg); background: var(--color-paper-2); border-radius: var(--radius-card); }
 .span-2x2 { grid-column: span 2; grid-row: span 2; }
 .span-2x1 { grid-column: span 2; }
 .span-1x2 { grid-row: span 2; }
-@media (max-width: 56rem) { .bento { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 60rem) { .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 40rem) { .bento { grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; } .span-2x2, .span-2x1, .span-1x2 { grid-column: auto; grid-row: auto; } }
 ```
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
-
-- Tiles: 4 · 6 · 7 · 9
+- Tiles: 6 · 7 · 9
 - Spans: regular · irregular · mosaic
-- Border: hairline all · accent corners · none
+- Surface: tinted well · hairline · air
 
-## Mobile collapse
+## Mobile
 
-- **Below 60rem:** grid drops from 6/4-col to 2-col; large tiles span 2; small tiles span 1
-- **Below 40rem:** drops to 1-col; tile order respects information priority
+- Below 60rem: two columns, big tiles keep their span. Below 40rem: one column in reading order.

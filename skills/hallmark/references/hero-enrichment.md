@@ -1,138 +1,121 @@
-# Hero enrichment — when, what, and how much
+# Hero enrichment: whether, what and how much
 
-This file is loaded after the macrostructure pick (Step 3 in the design flow), when you reach Step 4: "Decide on hero enrichment." It tells you whether to enrich the hero with media at all, and if so, which archetype and how to build it. It is an index: run the detection gate, pick a tier, pick at most one archetype and one polish pattern, then load ONLY the matching file from `references/enrichment/`.
+Loaded at Step 4, only when the hero may carry imagery. Run the image-need check first; if it says no, close this file and ship the typographic hero. If it says yes, pick a tier, pick at most one archetype and one polish pattern, and load only the matching file from `enrichment/`.
 
-**The promise.** Enrichment is an option, not a default. A typographic-only hero is *always* an acceptable answer. Visual enrichment — demo video, illustration, mockup, animated loop, abstract background, photography — has to *earn its place*. If the hero can be deleted of its enrichment and still works, the enrichment earned its place. If the hero collapses without the enrichment, you propped weak typography on a crutch.
+**The promise.** Enrichment is an option, never a default. A typographic hero is always an acceptable answer. Video, illustration, a screenshot, a loop, a background, a photograph: each has to earn its place. The hero must still work with the enrichment deleted; if it collapses, the enrichment was a crutch under weak typography.
 
-**The bar.** Better nothing than bad something. A page that ships a quiet, well-set typographic hero is always better than a page that ships a stock illustration, a Lottie checkmark, an aurora-blob background, or a generic centred demo video block.
+**The bar.** A quiet, well-set typographic hero beats a stock illustration, a Lottie checkmark, a blob background or a generic centred video block every time.
 
 ---
 
-## Image-need detection — does this brief need imagery at all?
+## Image-need check: does this brief want imagery at all?
 
-Before picking an enrichment tier, decide whether the brief actually wants imagery. The default is **typography-only**. Match the brief against this table; act on the *first* row that fires:
+The default is typography only. Match the brief against this table and act on the first row that fires:
 
-| Brief signal (any of these words / intents) | Image strategy |
+| Brief signal | Image strategy |
 | --- | --- |
-| e-commerce, shop, store, product catalogue, brand, fashion, lookbook | Real product photos required — placeholder until user provides |
-| photography, portfolio, gallery, artist | Imagery *is* the page — placeholder until user provides |
-| food, restaurant, menu, dish, coffee, wine, recipe | Hero photo + product crops — placeholder until user provides |
-| team, staff, "about us", portraits, hiring, careers | Kit avatars ([`imagery-kit.md`](imagery-kit.md) § avatar, with their paired names) until the user provides real people; never pravatar/dicebear/unsplash faces (F9) |
-| travel, hotel, destination, real estate, listing, property | Cover photo + tile photos — placeholder until user provides |
-| news, blog, magazine, journal, publication | Feature image per post — placeholder until user provides |
-| SaaS landing, manifesto, agency, studio, atmospheric, slow-and-editorial | **Composed-abstract (kit grammar, built in-page).** Compose washes, transparent abstracts, and ornaments with the kit's patterns, constructed via craft tier-a CSS / tier-b SVG - see [`imagery-kit.md`](imagery-kit.md) (its hard rule: no URL outside the manifest) and [`assets.md` § Placeholder strategy](assets.md). |
-| API, docs, changelog, CLI, library, dev-tool, SDK, package | **No imagery.** Typography-only. Code blocks if needed. |
-| editorial, essay, letter, foundry, type-specimen, broadside | **No imagery.** Display typography is the design. |
-| (all other / vague / unspecified) | **Default: typography-only.** When in doubt, no images. |
+| e-commerce, shop, store, product catalogue, brand, fashion, lookbook | Real product photos; a `data-slot` placeholder until the user provides them |
+| photography, portfolio, gallery, artist | Imagery is the page; slots until the user provides it |
+| food, restaurant, menu, dish, coffee, wine, recipe | A hero photo and product crops; slots until the user provides them |
+| team, staff, about us, portraits, hiring, careers | Kit avatars ([`imagery-kit.md`](imagery-kit.md) § avatar, with their paired names) until the user provides real people; never pravatar, dicebear or unsplash faces (F9) |
+| travel, hotel, destination, real estate, listing, property | A cover photo and tile photos; slots until the user provides them |
+| news, blog, magazine, journal, publication | A feature image per post; slots until the user provides them |
+| SaaS landing, platform, dashboard, developer tool | A real capture in a slot: E4 (screenshot) or E1 (demo video). No capture, a designed placeholder (`craft.md` § 8), never a drawn mockup (47c) |
+| atmospheric, slow and editorial | E7 (a two-colour gradient with grain) or E6 (one small loop), built in-page at tier A or B; any external asset obeys [`imagery-kit.md`](imagery-kit.md) (no URL outside its manifest) and [`assets.md` § Placeholder strategy](assets.md) |
+| agency, studio | E8 photography, or none |
+| manifesto, essay, letter, foundry, type specimen, broadside | No imagery. Display typography is the design |
+| API, docs, changelog, CLI, library, SDK, package | No imagery. Typography only; code blocks if needed |
+| anything else, vague or unspecified | Typography only |
 
 Rules:
 
-- When the user has attached an image asset (or `.hallmark/preflight.json` cached one), use it. Never overwrite with a placeholder.
-- When the brief is genuinely ambiguous between a "needs photos" row and a "no imagery" row, ask one short question: *"Will you have product photos, or should I leave swappable placeholders?"*
-- A placeholder must look like a placeholder, not like a confident decision. The skill refuses to invent stock photos as if they were the final design.
-- Imagery rows above don't override genre overlays. Modern-minimal genre still suppresses decorative kit imagery (gate in `imagery-kit.md` anti-patterns).
+- When the user attached an image (or `.hallmark/preflight.json` cached one), use it. Never overwrite it with a placeholder.
+- When the brief sits between a "needs photos" row and a "no imagery" row, ask one short question: *Will you have product photos, or should I leave swappable placeholders?*
+- A placeholder looks like a placeholder, never like a confident decision. The skill never invents stock photos as if they were the final design.
+- The rows above do not override the genre file. Modern-minimal still suppresses decorative kit imagery (`imagery-kit.md` § Anti-patterns).
 
-The hierarchy below picks the tier *after* this gate decides imagery is needed at all. Skipping this gate is what produces "blob illustration on every page" outputs — exactly the AI-default Hallmark refuses.
+The tier is chosen after this check says imagery is needed. Skipping the check is what produces a blob illustration on every page.
 
 ---
 
-## The enrichment hierarchy
+## The craft tiers
 
-Reach for the highest tier the brief lets you ship in the time you have. Skipping tiers is the new tell.
+One alphabet, shared with [`custom-craft.md`](custom-craft.md). Typography only is not a tier; it is the answer when no tier is needed. Reach for the highest tier the brief lets you ship in the time you have.
 
 | Tier | What | When |
 | --- | --- | --- |
-| **0 · Typography only** | No enrichment. Display, lede, optional CTA. | Always acceptable. The strongest fail-state. |
-| **A · Custom-built CSS art** | Pure-CSS shapes, gradients, clip-paths, no asset, zero dependency. | Geometric shapes, gradient compositions, glyph-style decoration. |
-| **B · Hand-built SVG** | Designed in Figma, optimised, animated declaratively. | Illustrations more complex than CSS handles cleanly — a loaf, a mascot, a workflow diagram. |
-| **C · Generated illustration** | Nanobanana / Recraft V4 / Midjourney, with provenance + post-processing. | Characters or specific scenes that hand-build can't economically reach. Always post-processed. |
-| **D · Library illustration** | Storyset / Humaaans / unDraw, customised with brand colours. | When budget and timeline force a shortcut — and even then, never unmodified. |
-| **E · Lottie animation** | LAST RESORT. Only when complex character motion can't be hand-built. | Articulated figures, multi-frame mascot loops. Never for "spinning logo" or "checkmark draw" — those are CSS. |
+| **A · CSS art** | Pure CSS shapes, gradients, clip-paths; no asset, no dependency | Geometric shapes, gradient compositions, glyph-style decoration |
+| **B · Hand-built SVG** | Drawn in Figma, optimised, animated declaratively | Illustration past what CSS handles cleanly: a loaf, a mascot, a diagram |
+| **C · Declarative animation** | Motion on top of A or B; CSS first, a library only for orchestration | A loop, a draw-on, a staggered entrance |
+| **D · WebGL** | Three.js or shaders | Only when the 3D is the product and the user interacts with it |
+| **E · Generated still** | An image model, with provenance and post-processing | Characters or scenes that hand-building cannot reach economically; always post-processed |
+| **F · Library asset or Lottie** | Storyset, Humaaans, unDraw, LottieFiles, customised | Last resort, when budget and timeline force a shortcut; never unmodified |
 
-**The discipline.** If you can do it in tier A, do it in tier A. If A can't reach it, try B. Only drop to C when characters demand it. Only D when the brief is explicit about "fast and cheap". Only E when E is genuinely the only option. Reaching for E because it's familiar — and many AI tools do — is the signature of a templated page.
+**The discipline.** If A can do it, do it in A. If A cannot reach it, B. Drop to E only when characters demand it, and to F only when the brief says fast and cheap or the motion is character-articulated. Reaching for F because it is familiar is the signature of a templated page.
 
-See [`custom-craft.md`](custom-craft.md) for *how* to build (its craft tiers are lettered by construction method: css, svg, animation, webgl, generated, lottie; match by name). See [`assets.md`](assets.md) for the catalogue of sources for generated stills, libraries, and Lottie.
-
----
-
-## Eyeball or ask — the decision protocol
-
-Two paths to picking enrichment:
-
-```
-If the brief contains explicit visual cues, pick from this map:
-
-  • "demo", "show how it works", "product tour"           → E1 / E2 demo video
-  • "platform", "tool", "infra", "dashboard", "developer" → E3 / E4 mockup
-  • "shop", "store", "menu", "products", "items"          → E8 photography (or F6 product grid)
-  • "bakery", "kitchen", "café", "atelier" + craft brief  → E5 custom illustration (Tier B SVG)
-  • "agency", "studio", "portfolio"                       → E8 photography or no enrichment
-  • "manifesto", "essay", "book", "letter"                → no enrichment (typography only)
-  • Coral theme picked                                    → no enrichment (the theme IS restraint)
-
-Else if the brief is genuinely ambiguous, ask one question:
-  "Want me to add a demo video, an illustration, or keep it
-   typography-only? I default to typography-only because it's
-   the strongest fail-state."
-
-Else default to no enrichment. State the inference in one sentence
-in your reply, alongside the macrostructure inference.
-```
-
-When in doubt: don't enrich. The hero will be fine. Most great landing pages are typographic.
+`custom-craft.md` says how to build at each tier; [`assets.md`](assets.md) catalogues the sources for generated stills, libraries and Lottie.
 
 ---
 
-## Eight enrichment archetypes — index
+## Picking the archetype
 
-Each file carries the full recipe: definition, use-when / avoid-when, variation knobs (consistent with [`component-cookbook.md`](component-cookbook.md)), a worked example, and a code sketch where the build is non-obvious. **Pick zero or one. Then read ONLY that one file.**
+If the brief carries an explicit visual cue, pick from this map:
 
-- **E1 · Demo Video, clipped by the viewport edge**: headline left, demo video right, the rightmost 10-20 % cut off past the viewport. SaaS with real footage, or a Tier A CSS-art mockup. [`enrichment/e1-clipped-demo-video.md`](enrichment/e1-clipped-demo-video.md)
-- **E2 · Demo Video, full-bleed muted loop**: video as wallpaper under a ghost overlay; the feel is the message, not the detail. [`enrichment/e2-fullbleed-muted-loop.md`](enrichment/e2-fullbleed-muted-loop.md)
-- **E3 · Mock App Screenshot, browser-framed split**: framed screenshot right, slight tilt, numbered pin annotations. [`enrichment/e3-browser-framed-split.md`](enrichment/e3-browser-framed-split.md)
-- **E4 · Mock App Screenshot, floating no-frame**: chrome-less screenshot with soft shadow; demands a beautiful capture. [`enrichment/e4-floating-no-frame.md`](enrichment/e4-floating-no-frame.md)
-- **E5 · Custom Illustration Centerpiece**: one hand-built SVG (Tier B) or generated raster (craft tier: generated) as the hero's single illustrative element. [`enrichment/e5-custom-illustration-centerpiece.md`](enrichment/e5-custom-illustration-centerpiece.md)
-- **E6 · Animated Loop**: one small custom CSS / SVG loop, 4 s or less, that gives an otherwise still page life. [`enrichment/e6-animated-loop.md`](enrichment/e6-animated-loop.md)
-- **E7 · Abstract Background**: two-colour low-chroma gradient plus feTurbulence grain; paper texture, never aurora. [`enrichment/e7-abstract-background.md`](enrichment/e7-abstract-background.md)
-- **E8 · Hero Photography**: one tightly-cropped photograph with a margin-aligned caption; cookbook H6 cross-reference. [`enrichment/e8-hero-photography.md`](enrichment/e8-hero-photography.md)
+- "demo", "show how it works", "product tour": E1 or E2 demo video
+- "platform", "tool", "infra", "dashboard", "developer": E4 screenshot in a figure
+- "shop", "store", "menu", "products", "items": E8 photography (or the F6 product grid)
+- "bakery", "kitchen", "café", "atelier" with a craft brief: E5 custom illustration, tier B
+- "agency", "studio", "portfolio": E8 photography or none
+- "manifesto", "essay", "book", "letter": none
 
----
-
-## Hero shape polish — patterns beyond enrichment
-
-The eight enrichment archetypes above (E1–E8) decide *what sits next to the headline*. The four polish patterns below decide *how the headline itself sits* — they affect layout, type, motion, not decoration on top. They are admissible on top of any hero macrostructure (Marquee Hero, Stat-Led, Quote-Led, Letter, Photographic). Pick one polish pattern when the hero feels shape-flat — colour-only, symmetric, predictable.
-
-You can ship a hero with one polish pattern *and* one enrichment archetype, but never two polish patterns at once. The hero is a high-stakes surface; one structural choice carries it. **Pick zero or one. Then read ONLY that one file.**
-
-- **HP1 · Vertical-rail title**: the wordmark runs vertically beside the body; studio and editorial energy. [`enrichment/hp1-vertical-rail-title.md`](enrichment/hp1-vertical-rail-title.md)
-- **HP2 · Marquee-overflow**: the H1 intentionally bleeds past the viewport edge; short loud titles only. [`enrichment/hp2-marquee-overflow.md`](enrichment/hp2-marquee-overflow.md)
-- **HP3 · Cursor-spotlight**: a radial gradient tracks the cursor, scoped to the hero backdrop only. [`enrichment/hp3-cursor-spotlight.md`](enrichment/hp3-cursor-spotlight.md)
-- **HP4 · Decorative-numeral**: a huge display-italic numeral that means something (issue, year, version, chapter). [`enrichment/hp4-decorative-numeral.md`](enrichment/hp4-decorative-numeral.md)
-
-The decision sequence:
-
-1. Pick the hero macrostructure (Marquee Hero, Stat-Led, Quote-Led, Letter, Photographic) — see [`macrostructures.md`](macrostructures.md).
-2. Pick zero-or-one **enrichment archetype** (E1–E8 above).
-3. Pick zero-or-one **polish pattern** (HP1–HP4 above).
-4. Load [`enrichment/hero-discipline.md`](enrichment/hero-discipline.md) alongside your pick and apply it: space discipline, hero animation discipline, and the eight pre-flight quality questions that decide whether the enrichment ships at all.
-5. Stamp the choices into the macrostructure stamp.
+If the brief is ambiguous, ask one question: *Add a demo video, an illustration, or keep it typography only? I default to typography only.* Otherwise default to none and state the inference in one sentence, beside the shape inference.
 
 ---
 
-## Output stamp
+## Seven enrichment archetypes
 
-When you ship enrichment, the macrostructure stamp records the choice:
+Each file carries the recipe: definition, use-when and avoid-when, knobs, a worked example, and a sketch where the build is not obvious. **Pick zero or one. Then read only that one file.**
+
+- **E1 · Demo video, clipped by the viewport edge**: headline left, a real capture right in a slot, the rightmost 10 to 20% cut off past the viewport. [`enrichment/e1-clipped-demo-video.md`](enrichment/e1-clipped-demo-video.md)
+- **E2 · Demo video, full-bleed muted loop**: video as wallpaper under a ghost overlay; the feel is the message, not the detail. [`enrichment/e2-fullbleed-muted-loop.md`](enrichment/e2-fullbleed-muted-loop.md)
+- **E4 · Screenshot in a figure**: a real capture in a `<figure>` with a caption that states a fact, no drawn chrome, optional tilt and numbered pins. E3 (browser-framed) was folded into it. [`enrichment/e4-floating-no-frame.md`](enrichment/e4-floating-no-frame.md)
+- **E5 · Custom illustration centrepiece**: one hand-built SVG (tier B) or generated still (tier E) as the hero's single illustrative element. [`enrichment/e5-custom-illustration-centerpiece.md`](enrichment/e5-custom-illustration-centerpiece.md)
+- **E6 · Animated loop**: one small custom CSS or SVG loop, 4s or less, that gives an otherwise still page life. [`enrichment/e6-animated-loop.md`](enrichment/e6-animated-loop.md)
+- **E7 · Abstract background**: a two-colour low-chroma gradient plus feTurbulence grain; paper texture, never aurora. [`enrichment/e7-abstract-background.md`](enrichment/e7-abstract-background.md)
+- **E8 · Hero photography**: one tightly cropped photograph with a margin-aligned caption; cookbook H6 cross-reference. [`enrichment/e8-hero-photography.md`](enrichment/e8-hero-photography.md)
+
+---
+
+## Hero polish, beyond enrichment
+
+The archetypes decide what sits next to the headline. The polish patterns decide how the headline itself sits: layout, type and scale, not decoration on top. They are admissible on any hero shape. Pick one when the hero feels flat, symmetric or predictable.
+
+A hero may carry one polish pattern and one enrichment archetype, never two polish patterns. **Pick zero or one. Then read only that one file.**
+
+- **HP1 · Vertical rail title**: a fact runs vertically beside the body. [`enrichment/hp1-vertical-rail-title.md`](enrichment/hp1-vertical-rail-title.md)
+- **HP2 · Marquee overflow**: the h1 bleeds past the viewport edge; short loud titles only. [`enrichment/hp2-marquee-overflow.md`](enrichment/hp2-marquee-overflow.md)
+- **HP4 · Decorative numeral**: a huge roman numeral that means something (issue, year, version, chapter). [`enrichment/hp4-decorative-numeral.md`](enrichment/hp4-decorative-numeral.md)
+
+The cursor spotlight (formerly HP3) is refused by gate 29 and by the atmospheric genre file; it is not a pattern.
+
+The sequence:
+
+1. The hero shape is already decided at Step 2 (see [`macrostructures.md`](macrostructures.md)).
+2. Pick zero or one enrichment archetype.
+3. Pick zero or one polish pattern.
+4. Apply [`craft.md` § 4](craft.md): the posture, the fold, the entrance, and the before-it-ships list (every item must be yes or the typographic hero ships).
+5. Stamp the choices.
+
+---
+
+## Stamp
+
+The enrichment and polish go on the stamp's second line, in the `enrichment:` field:
 
 ```css
-/* Hallmark · macrostructure: Marquee Hero · H1 hero knobs: size=xxl, alignment=left-bias
- * enrichment: E1 Clipped-Edge Video · clip=right, aspect=16/10, frame=hairline
- * polish: HP3 Cursor-spotlight (scoped to hero, reduced-motion fallback pinned at 50%/30%)
- * nav: N5 Floating pill · footer: Ft5 Statement
- * craft: tier-A CSS art (no real video — pure custom-built mockup)
- * theme: Newsprint · accent: steel-blue ~3% · studied: no
- */
+/* Hallmark · shape: Workbench · genre: modern-minimal · theme: Newsprint (deal 1/3, seed tracejam·2026-09-22·r0)
+ * hero: Stage · nav: edge-aligned · footer: colophon line · enrichment: E1 demo capture, clip right, 16/10, hairline · polish: HP4 numeral, issue 22 · signature: the trace runs off the page
+ * axes: light/grotesk-sans/warm · posture: restrained · contrast: pass · fold: pass · v2.1.0 */
 ```
 
-If no polish pattern is used, omit the `polish:` line — don't fake it. Same for enrichment.
-
-This signals to future Hallmark runs (and to the audit verb) what was chosen and how. It also lets the user see the inferences in one place and redirect if anything's off.
+No polish, omit `polish:`. No enrichment, write `enrichment: none`. Never fake either. The log entry's `enrichment` field carries the same value so Rotation can read it.

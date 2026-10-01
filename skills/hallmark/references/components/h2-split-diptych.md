@@ -1,28 +1,26 @@
-### H2 · Split Diptych
-Headline + lede on one side, image or product capture on the other. 6/6 or 7/5 columns.
-*Use when:* you can pair every claim with a visual proof.
-*Don't confuse with:* H6 Photographic (which puts the image full-bleed, not paired).
+### H2 · Split diptych
+Headline and one sentence on one side, a capture or a photograph on the other. 7/5 or 6/6.
+*Use when:* the claim has a visual proof.
+*Not:* H6 (full bleed, not paired). The visual sits beside the text, centres within 60px (44c), never pinned to the viewport corner.
 
 ```html
 <section class="hero-split">
-  <div><h1>…</h1><p>…</p><a class="cta-outline">…</a></div>
-  <figure><img src="" /></figure>
+  <div class="hero-split__copy"><h1>…</h1><p>…</p><a class="cta-outline" href="#">…</a></div>
+  <figure class="hero-split__visual" data-slot="hero"></figure>
 </section>
 ```
 ```css
-.hero-split { display: grid; grid-template-columns: 7fr 5fr; gap: var(--space-2xl); align-items: center; }
-@media (max-width: 56rem) { .hero-split { grid-template-columns: 1fr; } }
+.hero-split { min-height: 80dvh; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: var(--gap-columns); align-items: center; padding-block: var(--space-2xl) var(--space-3xl); }
+.hero-split__visual { margin: 0; aspect-ratio: 16 / 10; }
+@media (max-width: 60rem) { .hero-split { grid-template-columns: minmax(0, 1fr); } }
 ```
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
-
 - Ratio: 7/5 · 6/6 · 5/7
-- Right side: photo · proof column · pull-quote
-- Divider: hairline · negative space · vertical rule
+- Right side: capture · photograph · proof column
+- Divider: air · hairline
 
-## Mobile collapse
+## Mobile
 
-- **Below 60rem:** grid `1fr` (text top, proof column below); divider becomes hairline-rule between
-- **Below 40rem:** proof column collapses to a 2-column compact grid for items
+- Below 60rem: one column, text first, the visual beneath at 16/9.

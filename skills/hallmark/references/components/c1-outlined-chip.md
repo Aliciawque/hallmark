@@ -1,25 +1,24 @@
-
 ### C1 · Outlined chip
-A bordered, transparent button with a typographic verb ("Save changes").
-*Use when:* the page has one primary action; you want it visible but quiet.
-*Don't confuse with:* C2 Oversized solid (which is statement-loud).
+A bordered, transparent button carrying the verb of the action ("Save changes"). No arrow, no icon.
+*Use when:* the page has one primary action and it should be visible but quiet.
+*Not:* the filled primary (a page has one of those); a chip with an arrow or a plus glued to its text (63).
 
 ```html
-<a class="cta-outline">Open your studio →</a>
+<a class="cta-outline" href="/studio">Open your studio</a>
 ```
 ```css
-.cta-outline { display: inline-flex; align-items: center; gap: 0.4em; padding: 0.7rem 1.2rem; border: 1px solid var(--color-ink); min-height: 44px; }
+.cta-outline { display: inline-flex; align-items: center; min-height: 44px; padding: var(--space-sm) var(--space-lg); border: var(--rule-hair) solid var(--color-ink); border-radius: var(--radius-input); color: var(--color-ink); text-decoration: none; transition: background-color var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out); }
+.cta-outline:hover { background: var(--color-paper-2); transform: translateY(-1px); }
+.cta-outline:active { transform: translateY(0); }
+.cta-outline:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 ```
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
-
-- Shape: rectangular · pill (only allowed for tactile/playful tones) · slab
+- Shape: rectangular · slab · pill (playful or tactile tones only)
 - Density: spacious · compact
-- Adornment: arrow · plus · none
+- Border: hairline · 2px
 
-## Mobile collapse
+## Mobile
 
-- **Below 60rem:** unchanged (chips wrap onto multiple lines if needed)
-- **Below 40rem:** full-width single chip ; min-height 44 px hit target
+- Below 40rem: full width, one per row.

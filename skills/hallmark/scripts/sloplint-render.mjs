@@ -1,34 +1,51 @@
 #!/usr/bin/env node
-/**
- * sloplint-render.mjs - optional render tier for sloplint.mjs (--render).
- *
- * Completes the [M/R] gates with a real browser:
- *   34  horizontal scroll at 320/375/414/768/1280/1920 px widths
- *   49  two-line clickable affordances (a, button, [role=button], nav a)
- *   44  hero fold at 1280x800: first h1 + nearest CTA fully inside the fold
- *   40/41  computed-style contrast for visible text
- *   23  painted accent area at 1280x800 vs the 5% budget (posture-aware)
- *   56  two position:sticky top:0 elements actually overlapping
- *
- * Requires puppeteer-core (optional) plus a Chrome executable at the standard
- * mac path or CHROME_PATH. When either is missing it degrades to a one-line
- * notice and the static checks stand alone.
- *
- * Finding shape matches sloplint.mjs: {gate, grade, file, line, evidence, fix}.
- */
-
-import { existsSync } from 'node:fs';
+import { existsSync, mkdirSync } from 'node:fs';
+import { join, dirname, basename, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const WIDTHS = [320, 375, 414, 768, 1280, 1920];
 const MAC_CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 
+const SHOTS = [];
+async function shoot(page, file, tag, fullPage) {
+  try {
+    const dir = join(dirname(file), '.hallmark', 'shots');
+    mkdirSync(dir, { recursive: true });
+    const out = join(dir, `${basename(file, '.html')}-${tag}.png`);
+    await page.screenshot({ path: out, fullPage });
+    SHOTS.push(out);
+  } catch {}
+}
+
 export async function renderCheck(htmlFiles, metaIn) {
   const meta = { genre: null, postureByFile: {}, ...(metaIn || {}) };
-  let puppeteer;
-  try {
-    puppeteer = (await import('puppeteer-core')).default;
-  } catch {
-    console.error('render tier unavailable (puppeteer-core not installed); static checks only');
+  let puppeteer = null;
+  const { createRequire } = await import('node:module');
+  const { pathToFileURL } = await import('node:url');
+  const tryRoots = async (roots) => {
+    for (const root of roots) {
+      for (const name of ['puppeteer-core', 'puppeteer']) {
+        try {
+          const req = createRequire(join(root, 'noop.js'));
+          const resolved = req.resolve(name);
+          puppeteer = (await import(pathToFileURL(resolved).href)).default;
+          if (puppeteer) return;
+        } catch {}
+      }
+    }
+  };
+  const local = [process.cwd(), dirname(fileURLToPath(import.meta.url))];
+  if (process.env.HALLMARK_PUPPETEER) local.unshift(process.env.HALLMARK_PUPPETEER);
+  await tryRoots(local);
+  if (!puppeteer) {
+    try {
+      const { execSync } = await import('node:child_process');
+      const g = execSync('npm root -g', { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+      if (g) await tryRoots([dirname(g)]);
+    } catch {}
+  }
+  if (!puppeteer) {
+    console.error('render tier unavailable (no puppeteer-core found locally, globally, or via HALLMARK_PUPPETEER); static checks only');
     return [];
   }
   const chrome = existsSync(MAC_CHROME) ? MAC_CHROME
@@ -38,7 +55,7 @@ export async function renderCheck(htmlFiles, metaIn) {
     return [];
   }
   const findings = [];
-  const browser = await puppeteer.launch({ executablePath: chrome, headless: 'new' });
+  const browser = await puppeteer.launch({ executablePath: chrome, headless: true });
   try {
     for (const file of htmlFiles) {
       const page = await browser.newPage();
@@ -48,8 +65,17 @@ export async function renderCheck(htmlFiles, metaIn) {
         for (const width of WIDTHS) {
           await page.setViewport({ width, height: 800 });
           await new Promise((r) => setTimeout(r, 120));
+          if (width === 1280 || width === 375) await shoot(page, file, `${width}${width === 375 ? '' : 'x800'}`, width === 375);
           const res = await page.evaluate(observe, width === 1280, pageMeta);
           for (const f of res) findings.push({ ...f, file, line: 1, evidence: `[${width}px] ${f.evidence}` });
+        }
+        for (const [w, h] of [[1440, 900], [1920, 1080]]) {
+          await page.setViewport({ width: w, height: h });
+          await shoot(page, file, `${w}x${h}`, false);
+          await page.evaluate(async () => { for (let y = 0; y < document.documentElement.scrollHeight; y += 800) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 15)); } window.scrollTo(0, 0); });
+          await new Promise((r) => setTimeout(r, 200));
+          const res = await page.evaluate(observeSpace, w === 1440);
+          for (const f of res) findings.push({ ...f, file, line: 1, evidence: `[${w}px] ${f.evidence}` });
         }
       } catch (e) {
         console.error(`render tier: failed on ${file}: ${e.message}`);
@@ -60,7 +86,8 @@ export async function renderCheck(htmlFiles, metaIn) {
   } finally {
     await browser.close().catch(() => {});
   }
-  /* dedupe: keep the first width at which each (gate, evidence-tail) fires */
+  if (SHOTS.length) console.error(`render tier: ${SHOTS.length} screenshots in ${dirname(SHOTS[0])} (1280x800, 1440x900, 1920x1080 folds; 375 full page)`);
+
   const seen = new Set();
   return findings.filter((f) => {
     const k = f.gate + '|' + f.evidence.replace(/^\[\d+px\] /, '');
@@ -70,7 +97,6 @@ export async function renderCheck(htmlFiles, metaIn) {
   });
 }
 
-/* Runs inside the page. checkFold is true only at 1280x800. */
 function observe(checkFold, meta) {
   meta = meta || { genre: null, posture: 'restrained' };
   const out = [];
@@ -86,31 +112,28 @@ function observe(checkFold, meta) {
     return r.width > 1 && r.height > 1;
   };
 
-  /* gate 34: horizontal scroll */
   if (document.documentElement.scrollWidth > window.innerWidth + 1) {
     push(34, 'FAIL', `horizontal scroll: scrollWidth ${document.documentElement.scrollWidth} > viewport ${window.innerWidth}`,
       'overflow-x: clip on html and body; find the overflowing block');
   }
 
-  /* gate 49: two-line clickable affordances */
   for (const el of document.querySelectorAll('a, button, [role="button"], nav a')) {
     if (!visible(el)) continue;
     const text = (el.textContent || '').trim();
     if (!text) continue;
-    const rects = el.getClientRects();
     const cs = getComputedStyle(el);
     const lh = parseFloat(cs.lineHeight) || parseFloat(cs.fontSize) * 1.4;
-    const wrapped = rects.length > 1 || el.getBoundingClientRect().height > lh * 1.9;
-    if (wrapped && cs.display.includes('inline') && rects.length > 1) {
-      push(49, 'FAIL', `clickable "${text.slice(0, 32)}" wraps to ${rects.length} lines (${describe(el)})`,
-        'Shorten the label or set nowrap');
-    } else if (wrapped && !cs.display.includes('inline')) {
-      push(49, 'FAIL', `clickable "${text.slice(0, 32)}" renders two text lines (${describe(el)})`,
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    const tops = [...range.getClientRects()].filter((r) => r.width > 0 && r.height > 0).map((r) => r.top).sort((a, b) => a - b);
+    let lines = tops.length ? 1 : 0;
+    for (let i = 1; i < tops.length; i++) if (tops[i] - tops[i - 1] > lh * 0.6) lines++;
+    if (lines > 1) {
+      push(49, 'FAIL', `clickable "${text.slice(0, 32)}" wraps to ${lines} lines (${describe(el)})`,
         'Shorten the label or set nowrap');
     }
   }
 
-  /* gate 44: hero fold at 1280x800 */
   if (checkFold) {
     const h1 = document.querySelector('h1');
     if (h1 && visible(h1)) {
@@ -122,19 +145,18 @@ function observe(checkFold, meta) {
       }
       const fold = 800;
       if (hr.bottom > fold || hr.top < 0) {
-        push(44, 'FAIL', `h1 crosses the 1280x800 fold (bottom ${Math.round(hr.bottom)}px)`,
+        push('44b', 'FAIL', `h1 crosses the 1280x800 fold (bottom ${Math.round(hr.bottom)}px)`,
           'Right-size the display clamp to the fold');
       } else if (cta) {
         const cr = cta.getBoundingClientRect();
         if (cr.bottom > fold) {
-          push(44, 'FAIL', `primary CTA below the 1280x800 fold (bottom ${Math.round(cr.bottom)}px)`,
+          push('44b', 'FAIL', `primary CTA below the 1280x800 fold (bottom ${Math.round(cr.bottom)}px)`,
             'Trim hero padding so the CTA fits the fold');
         }
       }
     }
   }
 
-  /* gates 40/41: computed contrast for visible text */
   if (checkFold) {
     const lin = (c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
     const parse = (s) => {
@@ -188,15 +210,9 @@ function observe(checkFold, meta) {
     }
   }
 
-  /* gate 23: painted accent area at 1280x800. Runs only when no colour
-     posture is declared (a stamped posture is the gate's own carve-out and
-     stays judged); dark papers can never match the accent RGB, so the
-     dark-theme exception is automatic. Union grid = no double-counting. */
   if (checkFold && meta.posture === 'restrained') {
     const cs0 = getComputedStyle(document.documentElement);
-    /* Modern Chrome keeps oklch() in computed values AND in canvas fillStyle
-       serialization, so normalize by parsing: hex, rgb/rgba, color(srgb),
-       and oklch via the same math sloplint.mjs uses. */
+
     const oklchToRgb = (L, C, H) => {
       const hr = (H * Math.PI) / 180;
       const a = C * Math.cos(hr), b = C * Math.sin(hr);
@@ -240,14 +256,14 @@ function observe(checkFold, meta) {
     if (targets.length) {
       const near = (str) => {
         const p = toRgb(str);
-        if (!p || p[3] < 0.5) return false; // alpha-thinned tints don't count
+        if (!p || p[3] < 0.5) return false;
         return targets.some((t) => Math.abs(t[0] - p[0]) + Math.abs(t[1] - p[1]) + Math.abs(t[2] - p[2]) <= 30);
       };
       const CW = 16, COLS = Math.ceil(innerWidth / CW), ROWS = Math.ceil(800 / CW);
       const grid = new Uint8Array(COLS * ROWS);
       let walked = 0;
       for (const el of document.querySelectorAll('body, body *')) {
-        if (++walked > 4000) break; // perf bound
+        if (++walked > 4000) break;
         if (el !== document.body && !visible(el)) continue;
         const cs = getComputedStyle(el);
         const isBg = near(cs.backgroundColor);
@@ -276,7 +292,6 @@ function observe(checkFold, meta) {
     }
   }
 
-  /* gate 56: double sticky at top 0 */
   if (checkFold) {
     const sticky = [];
     for (const el of document.querySelectorAll('body *')) {
@@ -292,10 +307,90 @@ function observe(checkFold, meta) {
   return out;
 }
 
-/* direct CLI use: node sloplint-render.mjs <html ...> */
+function observeSpace(atLaptop) {
+  const out = [];
+  const push = (gate, grade, evidence, fix) => out.push({ gate: String(gate), grade, evidence, fix });
+  const vw = window.innerWidth, vh = window.innerHeight;
+  const vis = (el) => { const s = getComputedStyle(el); if (s.display === 'none' || s.visibility === 'hidden' || parseFloat(s.opacity) === 0) return false; const r = el.getBoundingClientRect(); return r.width > 1 && r.height > 1; };
+  const abs = (el) => { const r = el.getBoundingClientRect(); return { top: r.top + scrollY, bottom: r.bottom + scrollY, left: r.left, right: r.right, w: r.width, h: r.height }; };
+  let secs = [...document.querySelectorAll('section, main > div, footer')].filter((s) => vis(s) && s.getBoundingClientRect().height > 40);
+  secs = secs.filter((s) => !secs.some((o) => o !== s && o.contains(s)));
+  const h1 = document.querySelector('h1');
+  const heroish = (el) => /^(SECTION|HEADER)$/.test(el.tagName) || [...el.classList].some((c) => /^hero(-[\w-]+)?$/i.test(c) || /(^|-)hero$/i.test(c));
+  let hero = null;
+  for (let n = h1; n && n !== document.body; n = n.parentElement) if (heroish(n)) { hero = n; break; }
+  hero = hero || [...document.querySelectorAll('section, header, [class]')].find(heroish) || secs[0];
+  const heroEnd = hero ? abs(hero).bottom : null;
+
+  let stack = 0, textBox = null, fig = null;
+  if (hero && h1) {
+    const cta = [...hero.querySelectorAll('a, button')].filter((c) => vis(c) && (c.textContent || '').trim() && !c.closest('nav'))[0];
+    const ctaTop = cta ? abs(cta).top : Infinity;
+    const texts = [...hero.querySelectorAll('h1, h2, p, small, [class*="sub"], [class*="lede"], [class*="eyebrow"], [class*="kicker"], [class*="label"]')].filter((e) => vis(e) && (e.innerText || '').trim() && !e.closest('nav, svg, table, figure, [data-slot]') && abs(e).top < ctaTop);
+    const seen = [];
+    for (const e of texts) { if (seen.some((o) => o.contains(e) || e.contains(o))) continue; seen.push(e); }
+    stack = seen.length;
+    const boxes = [h1, ...seen.filter((e) => Math.abs(abs(e).left - abs(h1).left) < 40)].map(abs);
+    textBox = { top: Math.min(...boxes.map((b) => b.top)), bottom: Math.max(...boxes.map((b) => b.bottom), cta ? abs(cta).bottom : 0), left: Math.min(...boxes.map((b) => b.left)), right: Math.max(...boxes.map((b) => b.right)) };
+    let bestA = 0;
+    for (const e of hero.querySelectorAll('svg, canvas, img, figure, video, picture, [data-slot], [class*="fig"], [class*="visual"], [class*="device"], [class*="demo"], [class*="shot"], [class*="illus"], [class*="panel"]')) {
+      if (!vis(e) || e.closest('nav') || e.contains(h1)) continue;
+      const b = abs(e); const a = b.w * b.h;
+      if (b.w > 160 && b.h > 120 && a > bestA && b.w < vw * 0.95 && b.left >= textBox.right - 40) { fig = b; bestA = a; }
+    }
+  }
+
+  if (atLaptop) {
+
+    const words = [];
+    const tw = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let n;
+    while ((n = tw.nextNode())) {
+      const p = n.parentElement; if (!p || !vis(p) || p.closest('script, style, noscript, svg')) continue;
+      const t = n.textContent.trim(); if (!t) continue;
+      words.push({ y: p.getBoundingClientRect().top + scrollY, c: t.split(/\s+/).length });
+    }
+    const H = document.documentElement.scrollHeight;
+    let maxWords = 0, at = 0;
+    for (let y = 0; y < H; y += 150) { const w = words.filter((x) => x.y >= y && x.y < y + 900).reduce((a, b) => a + b.c, 0); if (w > maxWords) { maxWords = w; at = y; } }
+    if (maxWords > 95) push(58, 'FAIL', `${maxWords} words on one screen (from y=${at})`, 'One idea per screen: cut to about 80 words, make the section an object');
+    else if (maxWords > 80) push(58, 'WARN', `${maxWords} words on one screen (from y=${at})`, 'Close to the 80-word screen budget');
+    if (stack > 2) push(58, 'FAIL', `hero carries ${stack} text blocks before its actions`, 'Headline, one sentence, actions; delete the rest');
+
+    const content = (s) => { let top = Infinity, bottom = -Infinity; for (const c of s.querySelectorAll('*')) { if (!vis(c)) continue; if (!(c.innerText || '').trim() && !/^(SVG|IMG|CANVAS|VIDEO)$/.test(c.tagName) && getComputedStyle(c).backgroundColor === 'rgba(0, 0, 0, 0)') continue; if (c.children.length && !/^(SVG)$/.test(c.tagName) && getComputedStyle(c).backgroundColor === 'rgba(0, 0, 0, 0)') continue; const b = abs(c); top = Math.min(top, b.top); bottom = Math.max(bottom, b.bottom); } if (top === Infinity) { const b = abs(s); return b; } return { top, bottom }; };
+    const gaps = [];
+    for (let i = 0; i < secs.length - 1; i++) gaps.push(Math.round(content(secs[i + 1]).top - content(secs[i]).bottom));
+    const real = gaps.filter((g) => g > -50);
+    if (real.length) {
+      const min = Math.min(...real);
+      if (min < 100) push(59, 'REFLEX', `smallest gap between sections is ${min}px (gaps: ${real.join(', ')})`, '120px or more between sections, varied');
+      else if (real.length > 2 && new Set(real).size === 1) push(59, 'REFLEX', `every section gap is ${min}px`, 'Vary the rhythm: some 120, some 160, some 200');
+    }
+    if (secs.length > 9) push(59, 'WARN', `${secs.length} sections`, 'Five to eight sections a page; merge or cut');
+
+    if (heroEnd != null) {
+      if (heroEnd > vh + 8) push('44c', 'REFLEX', `hero runs past the 1440x900 fold (hero ends at ${Math.round(heroEnd)}px)`, 'Size the display and the visual so the hero is one screen');
+      else if (heroEnd < vh * 0.84 && secs.length > 1) push('44c', 'REFLEX', `hero ends at ${Math.round(heroEnd)}px of a 900px screen`, 'Fill the first screen with the visual or the headline, not with copy');
+    }
+    if (fig && textBox) {
+      const off = Math.round((fig.top + fig.bottom) / 2 - (textBox.top + textBox.bottom) / 2);
+      const gap = Math.round(fig.left - textBox.right);
+      if (Math.abs(off) > 60) push('44c', 'REFLEX', `hero visual centre is ${off}px from the text block centre`, 'Align the visual beside the text');
+      if (gap > 120 || (fig.right > vw - 8 && gap > 48)) push('44c', 'REFLEX', `hero visual sits ${gap}px from the text and ${Math.round(vw - fig.right)}px from the viewport edge`, 'Bring the visual to within 48 to 120px of the text; never pin it to the corner');
+    }
+  } else {
+
+    if (textBox && textBox.left < 120) push('44d', 'FAIL', `hero text starts ${Math.round(textBox.left)}px from the edge at 1920`, 'Cap the container at 1360 to 1520px and centre it');
+    if (heroEnd != null && heroEnd > vh + 8) push('44d', 'FAIL', `hero runs past the 1920x1080 screen (hero ends at ${Math.round(heroEnd)}px)`, 'Cap vw-sized visuals and display sizes');
+    const wide = [...document.querySelectorAll('p, h1, h2, h3, li')].filter((e) => vis(e) && (e.innerText || '').trim().length > 40 && e.getBoundingClientRect().width > 1600);
+    if (wide.length) push('44d', 'FAIL', `${wide.length} text blocks wider than 1600px at 1920`, 'Cap the container; hold the measure');
+  }
+  return out;
+}
+
 if (import.meta.url === `file://${process.argv[1]}`) {
   const htmls = process.argv.slice(2).filter((p) => p.endsWith('.html'));
-  const res = await renderCheck(htmls.map((p) => new URL(p, `file://${process.cwd()}/`).pathname));
+  const res = await renderCheck(htmls.map((p) => resolve(process.cwd(), p)));
   console.log(JSON.stringify(res, null, 2));
   process.exit(0);
 }

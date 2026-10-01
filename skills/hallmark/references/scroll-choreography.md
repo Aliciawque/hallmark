@@ -1,12 +1,12 @@
 # Scroll choreography - the one earned pattern
 
-The default is still none: motion.md's IntersectionObserver reveal-once is the page norm. This file is the exception path - a scroll-linked pattern used ONCE, on structure, when the content genuinely has a sequence worth pinning or scrubbing. sloplint check F8 counts pattern families and flags a second one.
+The default is still none: the reveal-once in `craft.md` § 5 is the page norm. This file is the exception path - a scroll-linked pattern used ONCE, on structure, when the content genuinely has a sequence worth pinning or scrubbing. sloplint check F8 counts pattern families and flags a second one.
 
 ## Budget (non-negotiable)
 
 - **One pattern per page.** Two scroll behaviours compete for the same attention.
 - **Never on body text.** Targets are structural: a pinned section, ONE display element, a 2px spine, figures. Prose never moves under the reader.
-- **Hero entrance rules unchanged.** The page-load orchestration in motion.md stays as is; scroll choreography never replaces it, and no element carries both.
+- **Hero entrance rules unchanged.** The page-load orchestration in `craft.md` § 5 stays as is; scroll choreography never replaces it, and no element carries both.
 - **Static end-state mandatory.** Base CSS shows the finished layout. The choreography lives entirely inside `@supports (animation-timeline: view())` + `@media (prefers-reduced-motion: no-preference) and (min-width: 40rem)` - reduced-motion, small screens, and non-supporting browsers get the complete page.
 - **Order footgun:** the `animation` shorthand RESETS `animation-timeline` and `animation-range`. Declare them AFTER `animation`, always.
 - **`linear` is correct here** - scrubbing maps scroll distance to progress 1:1; an easing curve would make the page feel detached from the thumb.
@@ -95,7 +95,7 @@ Structure and pin mechanics come from [`components/f2-sticky-scroll-stack.md`](c
 
 ## JS fallback (optional, shared)
 
-When JS is present and `animation-timeline` is not, the one sanctioned fallback is motion.md's reveal-once - never a scroll listener, never a scrub polyfill:
+When JS is present and `animation-timeline` is not, the one sanctioned fallback is the reveal-once in `craft.md` § 5 - never a scroll listener, never a scrub polyfill:
 
 ```html
 <script>

@@ -1,114 +1,24 @@
 #!/usr/bin/env node
-/**
- * sloplint.mjs - deterministic static slop checker for Hallmark output.
- * Zero dependencies. Node 18+. One file.
- *
- * Usage:
- *   node sloplint.mjs <file-or-dir ...> [--genre editorial|modern-minimal|atmospheric|playful]
- *                     [--scope page|component] [--json] [--render]
- *
- * Coverage map (the skill's slop test has 58 gates: numbered 1-57 plus 38a).
- * This checker implements every mechanically checkable gate; gates tagged J
- * in slop-test.md stay model-judged and are NOT checked here.
- *
- * [M] static, FAIL-grade (unambiguous mechanical violations):
- *   1   banned display font (Inter/Roboto/Open Sans/Poppins/Lato/system default)
- *   2   gradient text (background-clip: text over a gradient) - the FAIL half
- *   4   card nested inside card
- *   7   pure #000 / #fff base colour (modern-minimal: pure #fff allowed)
- *   10  transition: all
- *   12  bouncy / overshoot easing on UI state changes (entrance choreography
- *       on content elements is not flagged)
- *   14  animating width / height / top / left (margin / padding transitions,
- *       e.g. deliberate nav morphs, downgrade to WARN; skip-links exempt)
- *   15  focus ring that transitions into existence
- *   19  placeholder names (Jane Doe) and startup cliches (Acme, Nexus...)
- *   20  missing Hallmark stamp comment (also passes on "/* Hallmark" in first 15 lines)
- *   22  zero-chroma oklch neutral (modern-minimal exempt; alpha<1 shadow values exempt)
- *   24  off-scale px padding / margin / gap (px values only; rem/em rhythm skipped)
- *   26  :focus-visible missing entirely = FAIL; missing :active / :disabled = WARN
- *   27  keyframes / transform transitions with no prefers-reduced-motion block
- *   30  emoji glyph as feature / step / tier icon - the FAIL half
- *   33  visual svg / canvas without aria-hidden or aria-label
- *   34  static half: html/body missing overflow-x clip|hidden entirely = FAIL;
- *       overflow-x: hidden instead of clip = WARN; width:100vw = WARN
- *   37  more than three distinct font families
- *   38a italic heading / display type
- *   48  colour or font literal outside the token block: #hex/rgb()/hsl() = FAIL,
- *       oklch() = WARN (calibrated: shipped pages extend tokens with oklch alpha
- *       variants in place; hex/rgb/hsl remain unambiguous improvisation)
- *   51  display header w/ long unbroken word and no overflow-wrap: break-word
- *   53  CSS-only radio tabs at position:absolute top:0 with no JS guard
- *   55  all-caps display head with line-height < 1.0
- *   56  static half: two position:sticky top:0 elements
- *
- * [M] static, WARN-grade (heuristics needing human / model confirmation):
- *   2   purple-to-blue / cyan-to-magenta gradient (atmospheric: radial bg allowed)
- *   3   3-equal-column grid (icon-tile suspicion)
- *   5   thick coloured side-stripe border
- *   11  uniform hover-scale across multiple selectors
- *   17  tooltip focus delay equals hover delay
- *   18  infinite auto-rotating animation without pause-on-hover
- *   F1-F9 finish tier (never counted in the 58 gates; see slop-test.md § The
- *       finish tier): F1 straight quotes in prose · F2 three-period ellipsis ·
- *       F3 no text-wrap balance on display heads · F4 >1 filled primary button ·
- *       F5 icon-in-coloured-circle coin · F6 display-size numerics without
- *       tabular figures · F7 one container recipe on >= 6 selectors · F8 >1
- *       scroll-choreography pattern · F9 fake-human avatar hotlinks (FAIL) and
- *       person-keyword unsplash (WARN)
- *   23  accent token on viewport-scale backgrounds / display-size accent text
- *       (WARN; posture-aware via the stamp; --render measures painted area
- *       against the 5% budget and can FAIL)
- *   25  prose measure outside 45-75ch
- *   28  video/LCP hygiene (autoplay w/o muted, no poster, lazy hero media)
- *   30  two or more icon libraries mixed - the WARN half
- *   39  input-state subchecks (border-width shift, border-built focus ring,
- *       height mismatch, opacity-only disabled)
- *   40  declared same-rule colour/background contrast below threshold
- *   41  button text ~ button fill; accent w/o accent-ink; dark surface w/o colour swap
- *   42  AI-default nav fingerprint
- *   43  AI-default footer fingerprint
- *   46  invented-metric shapes ("verify the user supplied this number")
- *   47  re-drawn UI chrome (fake browser/phone/terminal frame classes)
- *   49  static half: long clickable label without white-space: nowrap
- *   50  image-bearing grid track using bare 1fr
- *   52  per-theme section-head override without mobile collapse
- *   54  eyebrow / kicker / overline before a heading, in any geometry
- *
- * [M/R] gates 34, 40, 41, 49, 56 gain full verification in the optional render
- * tier (sloplint-render.mjs, --render). Gate 44 is render-verifiable only.
- *
- * [J] judged only, never checked here: 6, 8, 9, 13, 16, 21, 23, 29, 31, 32,
- *     35, 36, 38, 45, 57.
- *
- * Extra non-gate tell: " -- " double-hyphen in page copy (copy.md mandates a
- * true em dash in generated copy, so em dashes themselves are never flagged).
- *
- * Output: human table (FAIL first) or --json
- *   {summary:{fails,warns,files}, findings:[{gate,grade,file,line,evidence,fix}]}
- * Exit code 1 if any FAIL, else 0.
- */
-
+/* sloplint: Hallmark's mechanical gate checker. Zero dependencies, Node 18+. Gate ids and tiers: references/gates.md. */
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, extname, dirname, basename, resolve } from 'node:path';
 
-/* ---------------------------------------------------------------- CLI --- */
-
 const GENRES = ['editorial', 'modern-minimal', 'atmospheric', 'playful'];
 const args = process.argv.slice(2);
-const opts = { genre: null, scope: 'page', json: false, render: false, paths: [] };
+const opts = { genre: null, scope: 'page', json: false, render: false, tier: null, paths: [] };
 for (let i = 0; i < args.length; i++) {
   const a = args[i];
   if (a === '--genre') { opts.genre = args[++i]; }
   else if (a === '--scope') { opts.scope = args[++i]; }
   else if (a === '--json') { opts.json = true; }
   else if (a === '--render') { opts.render = true; }
+  else if (a === '--tier') { opts.tier = args[++i]; }
   else if (a === '--help' || a === '-h') { usage(); process.exit(0); }
   else if (a.startsWith('--')) { console.error(`unknown flag ${a}`); usage(); process.exit(2); }
   else opts.paths.push(a);
 }
 function usage() {
-  console.error('usage: node sloplint.mjs <file-or-dir ...> [--genre editorial|modern-minimal|atmospheric|playful] [--scope page|component] [--json] [--render]');
+  console.error('usage: node sloplint.mjs <file-or-dir ...> [--genre editorial|modern-minimal|atmospheric|playful] [--scope page|component] [--json] [--render] [--tier floor]');
 }
 if (!opts.paths.length) { usage(); process.exit(2); }
 if (opts.genre && !GENRES.includes(opts.genre)) {
@@ -117,8 +27,6 @@ if (opts.genre && !GENRES.includes(opts.genre)) {
 if (!['page', 'component'].includes(opts.scope)) {
   console.error('--scope must be page or component'); process.exit(2);
 }
-
-/* ------------------------------------------------------- file collection --- */
 
 function collectFiles(paths) {
   const files = [];
@@ -140,8 +48,6 @@ function collectFiles(paths) {
   for (const p of paths) visit(p);
   return files;
 }
-
-/* ---------------------------------------------------------- CSS parsing --- */
 
 function stripComments(src) {
   let out = '';
@@ -226,8 +132,6 @@ function parseCss(source, file, lineOffset = 0) {
   return rules;
 }
 
-/* --------------------------------------------------------- HTML parsing --- */
-
 const VOID_TAGS = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr']);
 
 function parseHtml(file, src) {
@@ -248,9 +152,13 @@ function parseHtml(file, src) {
   const scriptRe = /<script\b[^>]*>([\s\S]*?)<\/script>/gi;
   while ((m = scriptRe.exec(src))) scripts += m[1] + '\n';
 
+  const pad = (t) => t.replace(/[^\n]/g, ' ');
+  const masked = src
+    .replace(/<!--[\s\S]*?-->/g, pad)
+    .replace(/(<(script|style)\b[^>]*>)([\s\S]*?)(<\/\2\s*>)/gi, (m0, open, tag, body, close) => open + pad(body) + close);
   const tags = [];
   const tagRe = /<(\/?)([a-zA-Z][a-zA-Z0-9-]*)((?:"[^"]*"|'[^']*'|[^>"'])*)>/g;
-  while ((m = tagRe.exec(src))) {
+  while ((m = tagRe.exec(masked))) {
     tags.push({
       close: m[1] === '/', name: m[2].toLowerCase(), attrs: m[3] || '',
       pos: m.index, end: m.index + m[0].length,
@@ -266,7 +174,7 @@ function parseHtml(file, src) {
     .replace(/&hellip;|&#8230;/g, '\u2026').replace(/&mdash;|&#8212;/g, '\u2014')
     .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
     .replace(/&nbsp;/g, ' ').replace(/[ \t]+/g, ' ');
-  return { file, src, styles, scripts, tags, text, lineOf };
+  return { file, src, masked, styles, scripts, tags, text, lineOf };
 }
 
 function getAttr(attrStr, name) {
@@ -279,8 +187,6 @@ function hasAttr(attrStr, name) {
   return new RegExp(`(?:^|\\s)${name}(?=[\\s=/]|$)`, 'i').test(attrStr);
 }
 
-/** Direct element children of tags[idx]: [{name, open, html, idx}].
- *  `idx` indexes back into doc.tags, so a caller can report at the child's own line. */
 function directChildren(doc, idx) {
   const open = doc.tags[idx];
   if (open.close || open.selfClosing) return [];
@@ -310,7 +216,6 @@ function directChildren(doc, idx) {
   return children;
 }
 
-/** Ancestor tag names (outermost first) for every open tag, keyed by tags index. */
 function ancestorMap(doc) {
   if (doc._anc) return doc._anc;
   const map = new Map();
@@ -325,16 +230,14 @@ function ancestorMap(doc) {
   return map;
 }
 
-/** Rendered text of an HTML chunk, entities decoded, whitespace collapsed. */
 function plainText(html) {
   return html.replace(/<[^>]*>/g, ' ')
-    .replace(/&middot;|&#0?183;/g, '·').replace(/&mdash;|&#8212;/g, '—').replace(/&ndash;|&#8211;/g, '–')
+    .replace(/&middot;|&#0?183;/g, '·').replace(/&mdash;|&#8212;/g, '\u2014').replace(/&ndash;|&#8211;/g, '\u2013')
     .replace(/&nbsp;|&#160;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
     .replace(/&#\d+;|&[a-z]+;/gi, ' ')
     .replace(/\s+/g, ' ').trim();
 }
 
-/** innerHTML of tags[idx] via depth counting; returns {inner, endPos} or null. */
 function innerOf(doc, idx) {
   const open = doc.tags[idx];
   if (open.close || open.selfClosing) return null;
@@ -348,11 +251,8 @@ function innerOf(doc, idx) {
   return { inner: doc.src.slice(open.end), endPos: doc.src.length };
 }
 
-/* ----------------------------------------------------------- colour math --- */
-
 function parseNum(s) { const v = parseFloat(s); return Number.isNaN(v) ? null : v; }
 
-/** Parse a CSS colour into {r,g,b (gamma sRGB 0-1), alpha} or null. */
 function parseColor(raw) {
   if (!raw) return null;
   const v = raw.trim().toLowerCase();
@@ -464,8 +364,6 @@ function contrastRatio(a, b) {
   return (hi + 0.05) / (lo + 0.05);
 }
 
-/* ------------------------------------------------------------- helpers --- */
-
 function isTokenRule(rule) {
   return /:root|\[data-theme/i.test(rule.selector)
     || basename(rule.file).toLowerCase() === 'tokens.css'
@@ -508,53 +406,32 @@ function pxOf(value) {
 const rel = (f) => f.startsWith(process.cwd()) ? f.slice(process.cwd().length + 1) : f;
 const trunc = (s, n = 72) => (s.length > n ? s.slice(0, n - 1) + '…' : s);
 
-/* ----------------------------------------------------------- gate engine --- */
+const PAGE_ONLY = new Set(['3', '4', '17', '18', '19', '20', '25', '28', '28a', '28b', '33', '34', '42', '46', '46a', '46b', '47', '47a', '47b', '47c', '49', '49a', '49b', '50', '53', '54', '55', '55a', '55b', '56', '58', '62', '63', '65', '66', 'F7', 'F8', 'F15', 'F16']);
+const gateNumber = (id) => (/^(\d{1,2})/.exec(String(id)) || [])[1] || null;
+const pageOnly = (id) => PAGE_ONLY.has(String(id)) || PAGE_ONLY.has(gateNumber(id));
 
-/* Gates that need a whole page to mean anything. Component scope is a SCOPE
-   filter, not a tier filter: a single button is still held to every gate that
-   can see it. Derived, so it cannot drift from a hand-kept Core-15 list. */
-const PAGE_ONLY = new Set(['3', '4', '5', '17', '18', '19', '20', '25', '28', '33', '34', '42', '43', '46', '47', '49', '50', '51', '52', '53', '54', '55', '56', 'F7', 'F8', 'copy-tell']);
-
-/* ------------------------------------------------------------ tiers --- */
-/* slop-test.md owns the tiers; this is its mechanical shadow. A split gate is
-   listed at the tier of the clause THIS SCRIPT can actually detect. Gate 7 is
-   the clearest case: its Floor clause (an absolute outside the token block) is
-   already caught by gate 48, so what check7 sees is the waivable half. */
 const TIERS = new Map(Object.entries({
-  '2': 'floor', '4': 'floor', '10': 'floor', '14': 'floor', '15': 'floor', '17': 'floor',
-  '18': 'floor', '19': 'floor', '20': 'floor', '26': 'floor', '27': 'floor', '28': 'floor',
-  '30': 'floor', '33': 'floor', '34': 'floor', '39': 'floor', '40': 'floor', '41': 'floor',
-  '46': 'floor', '48': 'floor', '49': 'floor', '50': 'floor', '51': 'floor', '52': 'floor',
-  '53': 'floor', '54': 'floor', '56': 'floor',
-
-  '1': 'reflex', '3': 'reflex', '5': 'reflex', '6': 'reflex', '7': 'reflex', '8': 'reflex',
-  '9': 'reflex', '11': 'reflex', '12': 'reflex', '13': 'reflex', '16': 'reflex', '21': 'reflex',
-  '22': 'reflex', '23': 'reflex', '24': 'reflex', '25': 'reflex', '29': 'reflex', '37': 'reflex',
-  '38a': 'reflex', '42': 'reflex', '43': 'reflex', '44': 'reflex', '45': 'reflex', '47': 'reflex',
-  '55': 'reflex',
-
-  '31': 'finish', '35': 'finish', '36': 'finish', '38': 'finish',
-  '32': 'ledger', '57': 'ledger',
-
-  /* Split gates carry a Floor clause and a Reflex clause under one number, so a
-     single tier per number is wrong in both directions: it either makes a Floor
-     clause waivable or makes a Reflex clause unwaivable. tierOf() resolves the
-     exact clause id first and only then falls back to the number above, so these
-     entries win wherever a check emits a clause id. */
-  '2a':  'floor', '2b':  'reflex',   '6a':  'floor', '6b':  'reflex',
-  '7a':  'floor', '7b':  'reflex',   '14a': 'floor', '14b': 'reflex',
-  '24a': 'floor', '24b': 'reflex',   '26a': 'floor', '26b': 'reflex',
-  '28a': 'floor', '28b': 'reflex',   '30a': 'floor', '30b': 'reflex',
-  '39a': 'floor', '39b': 'reflex',   '46a': 'floor', '46b': 'reflex',
-  '47a': 'floor', '47b': 'reflex',   '55a': 'floor', '55b': 'reflex',
-  '38a-i': 'floor', '38a-ii': 'reflex',
+  '2': 'floor', '4': 'floor', '10': 'floor', '15': 'floor', '17': 'floor', '18': 'floor', '19': 'floor',
+  '20': 'floor', '26': 'floor', '27': 'floor', '28': 'floor', '30': 'floor', '33': 'floor', '34': 'floor',
+  '39': 'floor', '40': 'floor', '41': 'floor', '46': 'floor', '48': 'floor', '49': 'floor', '50': 'floor',
+  '53': 'floor', '54': 'floor', '56': 'floor', '58': 'floor', '62': 'floor', '63': 'floor', '67': 'floor',
+  '1': 'reflex', '3': 'reflex', '6': 'reflex', '7': 'reflex', '8': 'reflex', '9': 'reflex', '11': 'reflex',
+  '12': 'reflex', '16': 'reflex', '22': 'reflex', '23': 'reflex', '24': 'reflex', '25': 'reflex', '29': 'reflex',
+  '37': 'reflex', '38': 'reflex', '42': 'reflex', '44': 'reflex', '47': 'reflex', '55': 'reflex', '59': 'reflex',
+  '64': 'reflex', '65': 'reflex', '66': 'reflex',
+  '32': 'ledger',
+  '2a': 'floor', '2b': 'reflex', '6a': 'floor', '6b': 'reflex', '7a': 'floor', '7b': 'reflex',
+  '10a': 'floor', '10b': 'reflex', '24a': 'floor', '24b': 'reflex', '26a': 'floor', '26b': 'reflex',
+  '28a': 'floor', '28b': 'reflex', '30a': 'floor', '30b': 'reflex', '38i': 'floor', '38ii': 'reflex', '38iii': 'reflex',
+  '39a': 'floor', '39b': 'reflex', '44a': 'reflex', '44b': 'floor', '44c': 'reflex', '44d': 'floor',
+  '46a': 'floor', '46b': 'reflex', '47a': 'floor', '47b': 'reflex', '47c': 'reflex', '49a': 'floor', '49b': 'reflex',
+  '55a': 'floor', '55b': 'reflex',
 }));
 
-/** '7b' -> '7', '38a-ii' -> '38a', 'F3' -> 'F3' */
 function baseGate(id) {
   const s = String(id).trim();
   if (/^F\d+$/i.test(s)) return s.toUpperCase();
-  const m = /^(\d{1,2}a?)/.exec(s);
+  const m = /^(\d{1,2}(?:i{1,3}|[a-z])?)/.exec(s);
   return m ? m[1] : s;
 }
 function tierOf(gate) {
@@ -565,9 +442,6 @@ function tierOf(gate) {
   return TIERS.get(b) || 'floor';
 }
 
-/* Guards: the mechanical precondition a waiver has to have satisfied. Returning
-   a string rejects the waiver with that reason. Gates without an entry default
-   to satisfied — the reason checks and the caps still apply. */
 function fontFamilyCount(ctx) {
   const fams = new Set();
   for (const [prop, val] of Object.entries(ctx.tokens || {})) {
@@ -577,20 +451,31 @@ function fontFamilyCount(ctx) {
 }
 const GUARDS = {
   '1': (ctx) => fontFamilyCount(ctx) >= 2 || 'fewer than two font families are declared',
+  '2b': (ctx) => {
+    for (const { r, grad } of gradientTextRules(ctx)) {
+      if (!grad) return `${r.selector} clips text to a background that is not a gradient ramp`;
+      if (/#[0-9a-f]{3,8}\b|oklch\(|rgba?\(|hsla?\(/i.test(grad.value)) return `${r.selector}: the ramp stops are literals, not tokens`;
+      const hues = gradientHues(grad.value, ctx);
+      if (hues.length >= 2 && Math.max(...hues) - Math.min(...hues) > 40) return `${r.selector}: ramp spans ${Math.round(Math.max(...hues) - Math.min(...hues))} degrees of hue`;
+    }
+    return true;
+  },
   '7': (ctx) => /surface:\s*absolute/i.test(ctx.stampText) || 'the stamp does not declare surface: absolute',
   '23': (ctx) => /posture:\s*(restrained|committed|full-palette|drenched)/i.test(ctx.stampText)
     || 'the stamp declares no colour posture',
   '37': (ctx) => fontFamilyCount(ctx) <= 4 || 'five or more families is past the backstop',
-  '38a': (ctx) => /font-synthesis\s*:\s*none/i.test(ctx.allCss) || 'font-synthesis: none is not declared',
-  '42': (ctx) => /·\s*nav:\s*\S/i.test(ctx.stampText) || 'the stamp has no nav: field naming the pattern',
-  '43': (ctx) => /·\s*footer:\s*\S/i.test(ctx.stampText) || 'the stamp has no footer: field naming the pattern',
-  '44': (ctx) => /·\s*hero:\s*\S/i.test(ctx.stampText) || 'the stamp names no hero: posture',
+  '26b': (ctx) => !ctx.docs.some((d) => d.tags.some((t) => !t.close && /aria-disabled/i.test(t.attrs))) || 'aria-disabled appears in the markup',
+  '38': () => 'name the clause: 38ii (italic display) or 38iii (accented word)',
+  '38ii': (ctx) => /font-synthesis\s*:\s*none/i.test(ctx.allCss) || 'font-synthesis: none is not declared',
+  '38iii': (ctx) => accentedWordInHero(ctx),
+  '42': (ctx) => (/(^|[·*])\s*nav:\s*\S/im.test(ctx.stampText) && /(^|[·*])\s*footer:\s*\S/im.test(ctx.stampText)) || 'the stamp has no nav: and footer: fields naming the chrome',
+  '64': (ctx) => monoIsMaterial(ctx) || 'neither --font-display nor --font-body is a monospace face',
+  '65': (ctx) => /by request|pinned|user named/i.test(ctx.stampText) || 'the stamp does not say the theme was asked for by name',
+  '44': (ctx) => /(^|[·*])\s*hero:\s*\S/im.test(ctx.stampText) || 'the stamp names no hero: posture',
 };
 
 const WAIVER_MAX = 3;
-/* Boilerplate is stripped phrase by phrase, not matched whole: "intentional
-   design choice" is three boilerplate phrases in a trench coat and used to slip
-   through a full-string test. Whatever survives the strip has to be substantial. */
+
 const WAIVER_FILLER = /\b(a|an|the|is|it|this|that|was|are|and|but|so|very|just|really|here|quite|more|most)\b/gi;
 const WAIVER_BOILERPLATE_PHRASES = [
   'design choice', 'design decision', 'intentionally', 'intentional', 'by design',
@@ -605,37 +490,31 @@ function reasonIsBoilerplate(reason) {
   return r.length < 12;
 }
 
-/* Honoured waivers and answered Finish checks for the group being checked. */
 let WAIVED = new Set();
 let ANSWERED = new Set();
 
 const findings = [];
 function report(gate, grade, file, line, evidence, fix) {
   const g = String(gate);
-  if (opts.scope === 'component' && PAGE_ONLY.has(g)) return;
+  if (opts.scope === 'component' && pageOnly(g)) return;
   const tier = tierOf(g);
   const b = baseGate(g);
+  const waived = WAIVED.has(b) || WAIVED.has(gateNumber(b));
   if (grade === 'FAIL') {
-    /* Bookkeeping never blocks a ship, and a Reflex finding is not a Floor
-       finding: it gets its own blocking grade so "Floor clean" stays a true
-       statement even while the build still owes an answer somewhere. */
     if (tier === 'ledger') grade = 'NOTE';
-    else if (tier === 'reflex') grade = WAIVED.has(b) ? 'WAIVED' : 'REFLEX';
+    else if (tier === 'reflex') grade = waived ? 'WAIVED' : 'REFLEX';
   }
   if (tier === 'finish' && ANSWERED.has(b)) grade = 'ANSWERED';
   findings.push({ gate: g, grade, tier, file: rel(file), line: line || 1, evidence: trunc(String(evidence)), fix });
 }
 
-/** Parse, judge, and apply the `waive` lines in a group's stamp. */
 function applyWaivers(ctx, dir) {
   WAIVED = new Set(); ANSWERED = new Set();
-  const re = /\/\*\s*Hallmark\s*·\s*waive\s+(\d{1,2}[a-z]?(?:-[a-z]+)?|F\d+)\s*·\s*([^·*]+?)\s*·\s*([^*]+?)\s*\*\//gi;
+  const re = /\/\*\s*Hallmark\s*·\s*waive\s+(\d{1,2}[a-z]{0,3}|F\d+)\s*·\s*([^·*]+?)\s*·\s*([^*]+?)\s*\*\//gi;
   const claims = [...ctx.stampText.matchAll(re)].map((m) => ({
     id: m[1], evidence: m[2].trim(), reason: m[3].trim(), raw: m[0],
   }));
-  /* Anything that says "waive" but does not parse must say so. Silently ignoring
-     a malformed waiver leaves the author staring at a gate they thought they had
-     answered, with nothing to tell them the syntax was wrong. */
+
   const wellFormed = new Set(claims.map((c) => c.raw));
   const malformed = [...ctx.stampText.matchAll(/\/\*[^*]*Hallmark[^*]*·\s*waive\b[^*]*\*\//gi)]
     .map((m) => m[0]).filter((raw) => !wellFormed.has(raw));
@@ -645,7 +524,7 @@ function applyWaivers(ctx, dir) {
     const key = c.reason.toLowerCase();
     reasons.set(key, (reasons.get(key) || 0) + 1);
   }
-  /* words the page itself uses — a reason has to be about THIS page */
+
   const pageWords = new Set(
     (ctx.stampText + ' ' + ctx.docs.map((d) => d.text).join(' '))
       .toLowerCase().match(/[a-z]{4,}/g) || []
@@ -668,22 +547,24 @@ function applyWaivers(ctx, dir) {
   for (const c of claims) {
     const b = baseGate(c.id);
     const tier = tierOf(c.id);
-    if (tier !== 'reflex') { rejectAt(c, tier === 'ledger' ? 'bookkeeping gate' : 'Floor is never waivable'); continue; }
+    if (tier !== 'reflex') {
+      rejectAt(c, tier === 'ledger' ? 'a Ledger note is bookkeeping, nothing to waive'
+        : tier === 'finish' ? 'Finish findings are answered, not waived'
+        : 'Floor is never waivable');
+      continue;
+    }
     if (WAIVED.has(b)) { rejectAt(c, 'one waiver per gate'); continue; }
     if (c.reason.length < 24) { rejectAt(c, 'reason under 24 characters'); continue; }
     if (reasonIsBoilerplate(c.reason)) { rejectAt(c, 'boilerplate reason'); continue; }
     if (reasons.get(c.reason.toLowerCase()) > 1) { rejectAt(c, 'reason reused on another waiver'); continue; }
     const words = c.reason.toLowerCase().match(/[a-z]{4,}/g) || [];
     if (!words.some((w) => pageWords.has(w))) { rejectAt(c, 'reason shares no word with the page'); continue; }
-    const guard = GUARDS[b];
+    const guard = GUARDS[b] || GUARDS[gateNumber(b)];
     const verdict = guard ? guard(ctx) : true;
     if (verdict !== true) { rejectAt(c, `guard: ${verdict}`); continue; }
     WAIVED.add(b);
   }
-  /* Past the soft cap the waivers still stand: a genuinely expressive page can
-     legitimately overrule four or five reflexes, and blocking it there would be
-     the restraint this tier exists to remove. What it earns instead is a name.
-     Guards, reason quality and the log are what keep this honest, not a count. */
+
   if (WAIVED.size > WAIVER_MAX) {
     findings.push({
       gate: 'waive', grade: 'NOTE', tier: 'ledger', file: rel(file), line: 1,
@@ -692,9 +573,7 @@ function applyWaivers(ctx, dir) {
     });
   }
 
-  /* Finish findings are "read and answered". This is the record form, so an
-     answer is parseable by the next run instead of freeform prose in a comment. */
-  const ansRe = /\/\*\s*Hallmark\s*·\s*answered\s+(\d{1,2}[a-z]?(?:-[a-z]+)?|F\d+)\s*·\s*([^*]+?)\s*\*\//gi;
+  const ansRe = /\/\*\s*Hallmark\s*·\s*answered\s+(\d{1,2}[a-z]{0,3}|F\d+)\s*·\s*([^*]+?)\s*\*\//gi;
   for (const m of ctx.stampText.matchAll(ansRe)) {
     const id = baseGate(m[1]);
     const reason = m[2].trim();
@@ -716,35 +595,31 @@ function applyWaivers(ctx, dir) {
 const GRADE_RANK = { FAIL: 0, REFLEX: 1, WAIVER: 2, WARN: 3, WAIVED: 4, ANSWERED: 5, NOTE: 6 };
 
 function gateSortKey(g) {
-  if (g === '38a') return 38.5;
   const f = /^F(\d+)$/.exec(g);
-  if (f) return 900 + Number(f[1]); // finish tier groups after the numbered gates; copy-tell stays last
+  if (f) return 900 + Number(f[1]);
   const n = parseFloat(g);
   return Number.isNaN(n) ? 999 : n;
 }
 
-/* Each check receives ctx = { rules, tokens, docs, genre } */
-
 function selectorIsInteractive(sel) {
   return /(^|[\s,>+~(])(a|button|input|select|textarea|summary)\b|\.(btn|button|cta|link|tab|chip|control)/i.test(sel);
 }
-const HEADING_SEL = /(^|[\s,>+~(])h[1-6]\b|__title|__display|hero__|wordmark|masthead|display/i;
+const HEADING_SEL = /(^|[\s,>+~(])h[1-6]\b|__title|__display|__headline|hero__(title|display|headline|h\d)|wordmark|masthead|display/i;
+const GENERIC_FAMILIES = new Set(['serif', 'sans-serif', 'monospace', 'cursive', 'fantasy', 'system-ui', 'ui-monospace', 'ui-serif', 'ui-sans-serif', 'ui-rounded', 'math', 'emoji', 'fangsong', 'inherit', 'initial', 'unset']);
 
-function mergedDeclsBySelector(rules) {
+function mergedDeclsBySelector(ctx) {
+  if (ctx._merged) return ctx._merged;
   const map = new Map();
-  for (const r of rules) {
+  for (const r of ctx.rules) {
     if (r.keyframes || r.selector === '@font-face') continue;
     const key = r.selector + '@@' + (r.media || '');
     if (!map.has(key)) map.set(key, { selector: r.selector, media: r.media, decls: [], file: r.file, line: r.line });
     map.get(key).decls.push(...r.decls);
   }
-  return [...map.values()];
+  ctx._merged = [...map.values()];
+  return ctx._merged;
 }
 
-/* Class-to-declarations lookup. Approximates the DESKTOP computed style of an
-   element: rules are matched on their rightmost compound only (so `.a .b` is
-   treated as `.b`), and max-width blocks are skipped. Good enough to ask "is
-   this styled like a label?", never precise enough for layout maths. */
 function styleIndex(ctx) {
   if (ctx._styleIdx) return ctx._styleIdx;
   const entries = [];
@@ -777,7 +652,6 @@ function styleFor(ctx, classAttr, tagName) {
   return decls;
 }
 
-/** Last-wins value of `prop` in a decl list, with var() resolved. */
 function declValue(ctx, decls, prop) {
   let v = null;
   for (const d of decls) if (d.prop === prop) v = d.value;
@@ -787,11 +661,10 @@ function declValue(ctx, decls, prop) {
 function fontPxOf(ctx, decls) {
   const v = declValue(ctx, decls, 'font-size');
   if (!v) return null;
-  const clamped = /clamp\(\s*([^,]+),/.exec(v);          /* clamp() → its floor */
+  const clamped = /clamp\(\s*([^,]+),/.exec(v);
   return pxOf(clamped ? clamped[1].trim() : v);
 }
 
-/** letter-spacing in em. Never route an em value through pxOf — 0.16em is not 2.56px. */
 function trackingEmOf(ctx, decls, fontPx) {
   const v = declValue(ctx, decls, 'letter-spacing');
   if (!v) return null;
@@ -802,7 +675,6 @@ function trackingEmOf(ctx, decls, fontPx) {
   return px / fontPx;
 }
 
-/* gate 1: banned display font */
 function check1(ctx) {
   const banned = new Set(['inter', 'roboto', 'open sans', 'poppins', 'lato', 'system-ui', '-apple-system', 'arial', 'helvetica', 'helvetica neue', 'segoe ui']);
   const seen = new Set();
@@ -826,45 +698,64 @@ function check1(ctx) {
   }
 }
 
-/* gate 2: gradient text (FAIL) + purple-blue gradient (WARN) */
-function check2(ctx) {
-  const bySel = mergedDeclsBySelector(ctx.rules);
-  for (const r of bySel) {
-    const clip = r.decls.find((d) => /background-clip/.test(d.prop) && /\btext\b/i.test(d.value));
-    if (clip) {
-      const grad = r.decls.find((d) => /^background(-image)?$/.test(d.prop) && /gradient\(/i.test(d.value));
-      const transparent = r.decls.find((d) => (d.prop === 'color' || d.prop === '-webkit-text-fill-color') && /transparent/i.test(d.value));
-      if (grad || transparent) {
-        report(2, 'FAIL', r.file, clip.line, `gradient text on ${r.selector}`, 'Solid ink headline; no gradient text');
-      }
+const hueIn = (h, lo, hi) => (lo <= hi ? h >= lo && h <= hi : h >= lo || h <= hi);
+function gradientHues(value, ctx) {
+  const resolved = resolveVars(value, ctx.tokens);
+  const stops = [];
+  const colRe = /#[0-9a-fA-F]{3,8}\b|oklch\([^)]*\)|rgba?\([^)]*\)|hsla?\([^)]*\)/g;
+  let cm;
+  while ((cm = colRe.exec(resolved))) {
+    const c = parseColor(cm[0]);
+    if (c && c.alpha > 0.05) {
+      const ok = c.okl || srgbToOklch(c);
+      if (ok.C > 0.04) stops.push(ok.H);
     }
   }
+  return stops;
+}
+function paperIsDark(ctx) {
+  const p = parseColor(resolveVars(ctx.tokens['--color-paper'] || '', ctx.tokens));
+  return !!p && (p.okl || srgbToOklch(p)).L < 0.4;
+}
+function bannedGradient(stops, ctx) {
+  const purple = stops.some((h) => hueIn(h, 265, 330));
+  const blue = stops.some((h) => hueIn(h, 200, 264));
+  const pink = stops.some((h) => hueIn(h, 331, 25));
+  const cyan = stops.some((h) => hueIn(h, 170, 230));
+  if (purple && blue) return 'purple-to-blue';
+  if (purple && pink) return 'purple-to-pink';
+  if (cyan && paperIsDark(ctx)) return 'cyan-on-dark';
+  return null;
+}
+function gradientTextRules(ctx) {
+  const out = [];
+  for (const r of mergedDeclsBySelector(ctx)) {
+    const clip = r.decls.find((d) => /background-clip/.test(d.prop) && /\btext\b/i.test(d.value));
+    if (!clip) continue;
+    const grad = r.decls.find((d) => /^background(-image)?$/.test(d.prop) && /gradient\(/i.test(d.value));
+    const transparent = r.decls.find((d) => (d.prop === 'color' || d.prop === '-webkit-text-fill-color') && /transparent/i.test(d.value));
+    if (grad || transparent) out.push({ r, clip, grad });
+  }
+  return out;
+}
+function check2(ctx) {
+  const textRules = new Set();
+  for (const { r, clip, grad } of gradientTextRules(ctx)) {
+    textRules.add(r.selector);
+    const banned = grad ? bannedGradient(gradientHues(grad.value, ctx), ctx) : null;
+    if (banned) report('2a', 'FAIL', r.file, clip.line, `${banned} gradient text on ${r.selector}`, 'One anchor hue, solid ink');
+    else report('2b', 'FAIL', r.file, clip.line, `gradient text on ${r.selector}`, 'Solid ink; weight or a display face. Guard: a single-hue ramp from two tokens with 40 and 41 passing');
+  }
   for (const r of ctx.rules) {
+    if (textRules.has(r.selector)) continue;
     for (const d of r.decls) {
       if (!/gradient\(/i.test(d.value)) continue;
-      const isRadial = /radial-gradient|conic-gradient/i.test(d.value);
-      if (ctx.genre === 'atmospheric' && isRadial) continue;
-      const resolved = resolveVars(d.value, ctx.tokens);
-      const stops = [];
-      const colRe = /#[0-9a-fA-F]{3,8}\b|oklch\([^)]*\)|rgba?\([^)]*\)|hsla?\([^)]*\)/g;
-      let cm;
-      while ((cm = colRe.exec(resolved))) {
-        const c = parseColor(cm[0]);
-        if (c && c.alpha > 0.05) {
-          const ok = c.okl || srgbToOklch(c);
-          if (ok.C > 0.04) stops.push(ok.H);
-        }
-      }
-      const purple = stops.some((h) => h >= 250 && h <= 340);
-      const bluecyan = stops.some((h) => h >= 170 && h < 260);
-      if (purple && bluecyan) {
-        report(2, 'WARN', r.file, d.line, `purple-to-blue gradient on ${r.selector}`, 'One anchor hue; drop the purple-blue gradient');
-      }
+      const banned = bannedGradient(gradientHues(d.value, ctx), ctx);
+      if (banned) report('2a', 'FAIL', r.file, d.line, `${banned} gradient on ${r.selector}`, 'One anchor hue; drop the gradient');
     }
   }
 }
 
-/* gate 3: 3-equal-column grid */
 function check3(ctx) {
   for (const r of ctx.rules) {
     for (const d of r.decls) {
@@ -872,7 +763,7 @@ function check3(ctx) {
       const v = resolveVars(d.value, ctx.tokens).trim();
       if (/^repeat\(\s*3\s*,\s*(minmax\(\s*0(px)?\s*,\s*1fr\s*\)|1fr)\s*\)$/.test(v)
         || /^(1fr|minmax\(\s*0(px)?\s*,\s*1fr\s*\))(\s+(1fr|minmax\(\s*0(px)?\s*,\s*1fr\s*\))){2}$/.test(v)) {
-        /* only a tell when the tiles carry icon-above-heading shape */
+
         const classes = (r.selector.match(/\.[a-zA-Z][\w-]*/g) || []).map((c) => c.slice(1));
         let iconTiles = !ctx.docs.length && !classes.length;
         for (const doc of ctx.docs) {
@@ -895,10 +786,8 @@ function check3(ctx) {
   }
 }
 
-/* gate 4: card in card */
 function check4(ctx) {
-  /* a card is the BEM block itself ("card", "code-card", "card--dark");
-     child elements ("card__bar") are parts of the same card, not nested cards */
+
   const cardWord = /(^|-)card(--[\w-]+)?$/i;
   const containerish = /(grid|list|rail|row|wrap|deck|group|stack|container|section|scroller|track)/i;
   for (const doc of ctx.docs) {
@@ -921,20 +810,48 @@ function check4(ctx) {
   }
 }
 
-/* gate 5: thick side-stripe border */
-function check5(ctx) {
+function check3Stripe(ctx) {
   for (const r of ctx.rules) {
     for (const d of r.decls) {
       if (!/^border-(left|right|inline-start|inline-end)$/.test(d.prop)) continue;
       const m = /(\d+(?:\.\d+)?)px/.exec(d.value);
       if (m && parseFloat(m[1]) >= 3 && !/transparent|none/i.test(d.value)) {
-        report(5, 'WARN', r.file, d.line, `${d.prop}: ${trunc(d.value, 32)} on ${r.selector}`, 'Hairline all round, none, or an accent square');
+        report(3, 'WARN', r.file, d.line, `side stripe ${d.prop}: ${trunc(d.value, 32)} on ${r.selector}`, 'Hairline all round, none, or an accent square');
       }
     }
   }
 }
 
-/* gate 7: pure black / white base colour */
+function heroClasses(ctx) {
+  const out = new Set();
+  for (const doc of ctx.docs) {
+    const h1 = doc.tags.findIndex((t) => !t.close && t.name === 'h1');
+    if (h1 < 0) continue;
+    for (let i = h1 - 1; i >= 0; i--) {
+      const t = doc.tags[i];
+      if (t.close || !/^(section|header)$/.test(t.name)) continue;
+      for (const c of (getAttr(t.attrs, 'class') || '').split(/\s+/)) if (c) out.add(c);
+      break;
+    }
+  }
+  return out;
+}
+function check6a(ctx) {
+  const heroCls = heroClasses(ctx);
+  const isHero = (sel) => /hero/i.test(sel) || [...heroCls].some((c) => sel.includes('.' + c));
+  const seen = new Set();
+  for (const r of ctx.rules) {
+    if (r.keyframes || isTokenRule(r) || !isHero(r.selector)) continue;
+    for (const d of r.decls) {
+      if (!/^(min-)?height$/.test(d.prop)) continue;
+      const v = resolveVars(d.value, ctx.tokens);
+      if (!/\d\s*vh\b/i.test(v) || seen.has(r.selector)) continue;
+      seen.add(r.selector);
+      report('6a', 'FAIL', r.file, d.line, `hero sized in vh: ${d.prop}: ${trunc(v, 24)} on ${r.selector}`, 'dvh or svh');
+    }
+  }
+}
+
 function check7(ctx) {
   const props = /^(color|background|background-color|border-color|outline-color)$|^--color-/;
   for (const r of ctx.rules) {
@@ -948,8 +865,7 @@ function check7(ctx) {
       const isBlack = c.r < 0.001 && c.g < 0.001 && c.b < 0.001;
       if (isWhite && ctx.genre === 'modern-minimal') continue;
       if (isWhite || isBlack) {
-        // 7a is a raw absolute written outside the token block; 7b is a token that
-        // resolves to one. A declaration reading var(...) is tokenised by definition.
+
         const viaToken = d.prop.startsWith('--') || /var\(/.test(d.value);
         report(viaToken ? '7b' : '7a', 'FAIL', r.file, d.line, `pure ${isBlack ? '#000' : '#fff'}: ${d.prop}: ${trunc(d.value, 28)} (${r.selector})`, 'Tint the base toward the anchor hue');
       }
@@ -957,7 +873,6 @@ function check7(ctx) {
   }
 }
 
-/* gate 10: transition: all */
 function check10(ctx) {
   for (const r of ctx.rules) {
     for (const d of r.decls) {
@@ -976,7 +891,6 @@ function check10(ctx) {
   }
 }
 
-/* gate 11: uniform hover-scale */
 function check11(ctx) {
   const byScale = new Map();
   for (const r of ctx.rules) {
@@ -997,10 +911,13 @@ function check11(ctx) {
       report(11, 'WARN', list[0].file, list[0].line, `hover scale(${k}) on ${distinct.size} selectors`, 'One hover signal per element');
     }
   }
+  for (const r of ctx.rules) {
+    if (!/:hover/.test(r.selector) || !/(^|[\s>+~,])(img|picture|figure|video)\b|__(img|image|photo|thumb|cover)\b|\.(img|image|photo|thumb|cover)\b/i.test(r.selector)) continue;
+    const t = r.decls.find((d) => d.prop === 'transform' && /scale|rotate/.test(d.value));
+    if (t) report(11, 'WARN', r.file, t.line, `image transforms on hover (${r.selector})`, 'Imagery sits still; give the container the feedback');
+  }
 }
 
-/* gate 12: overshoot easing on UI state changes (buttons, modals, tooltips).
-   Entrance choreography on content elements is a design choice and is not flagged. */
 function check12(ctx) {
   const uiSel = /:hover|:active|:focus|\b(btn|button|modal|dialog|tooltip|dropdown|menu|popover|toast|tab|input|select|switch|toggle|accordion)\b/i;
   for (const r of ctx.rules) {
@@ -1019,22 +936,19 @@ function check12(ctx) {
   }
 }
 
-/* gate 14: animating box-model properties.
-   width/height/top/left = FAIL (layout thrash); margin/padding = WARN
-   (deliberate morphs, e.g. a floating-nav padding morph, need confirmation). */
-function check14(ctx) {
-  const hardRe = /(?<![\w-])(width|height|top|left)(?![\w-])/;
+function check10Motion(ctx) {
+  const hardRe = /(?<![\w-])(width|height|top|left|right|bottom|inset(?:-[a-z-]+)?|flex-basis|grid-template-(?:columns|rows))(?![\w-])/;
   const softRe = /(?<![\w-])(margin(?:-[a-z]+)?|padding(?:-[a-z]+)?)(?![\w-])/;
   const a11ySel = /skip|sr-only|visually-hidden/i;
   for (const r of ctx.rules) {
-    if (a11ySel.test(r.selector)) continue; /* skip-links move via top by design */
+    if (a11ySel.test(r.selector)) continue;
     if (r.keyframes) {
       for (const d of r.decls) {
         if (/^(min|max)-/.test(d.prop)) continue;
         if (hardRe.test(d.prop)) {
-          report(14, 'FAIL', r.file, d.line, `@keyframes ${r.keyframes} animates ${d.prop}`, 'Animate transform or opacity instead');
+          report('10a', 'FAIL', r.file, d.line, `@keyframes ${r.keyframes} animates ${d.prop}`, 'Animate transform or opacity instead');
         } else if (softRe.test(d.prop)) {
-          report(14, 'WARN', r.file, d.line, `@keyframes ${r.keyframes} animates ${d.prop}`, 'Animate transform or opacity instead');
+          report('10b', 'WARN', r.file, d.line, `@keyframes ${r.keyframes} animates ${d.prop}`, 'Animate transform or opacity instead');
         }
       }
       continue;
@@ -1044,16 +958,15 @@ function check14(ctx) {
         const hard = hardRe.exec(d.value);
         const soft = softRe.exec(d.value);
         if (hard) {
-          report(14, 'FAIL', r.file, d.line, `transitioning ${hard[1]} on ${r.selector}`, 'Animate transform or opacity instead');
+          report('10a', 'FAIL', r.file, d.line, `transitioning ${hard[1]} on ${r.selector}`, 'Animate transform or opacity instead');
         } else if (soft) {
-          report(14, 'WARN', r.file, d.line, `transitioning ${soft[1]} on ${r.selector}`, 'Animate transform or opacity instead');
+          report('10b', 'WARN', r.file, d.line, `transitioning ${soft[1]} on ${r.selector}`, 'Animate transform or opacity instead');
         }
       }
     }
   }
 }
 
-/* gate 15: focus ring transitions in */
 function check15(ctx) {
   for (const r of ctx.rules) {
     if (!/:focus(-visible|-within)?\b/.test(r.selector)) continue;
@@ -1065,7 +978,6 @@ function check15(ctx) {
   }
 }
 
-/* gate 17: tooltip focus delay equals hover delay */
 function check17(ctx) {
   const tips = ctx.rules.filter((r) => /tooltip|tip\b/i.test(r.selector));
   const delayed = (r) => r.decls.find((d) => /^transition(-delay)?$/.test(d.prop) && /(\d{3,})ms|([1-9][\d.]*)s\b/.test(d.value));
@@ -1076,7 +988,6 @@ function check17(ctx) {
   }
 }
 
-/* gate 18: infinite auto animation without pause */
 function check18(ctx) {
   const autoish = /carousel|marquee|ticker|rotate|slider|scroll|auto/i;
   const paused = ctx.rules.some((r) => /:hover|:focus/.test(r.selector) && r.decls.some((d) => d.prop === 'animation-play-state' && /paused/.test(d.value)));
@@ -1090,10 +1001,9 @@ function check18(ctx) {
   }
 }
 
-/* gate 19: placeholder names and cliches */
 function check19(ctx) {
   for (const doc of ctx.docs) {
-    const t = doc.text;
+    const t = maskedProse(doc);
     const patterns = [
       [/\b(jane doe|john smith|john doe|example user)\b/i, 'placeholder name'],
       [/\bAcme\b/, 'startup cliche name'],
@@ -1102,18 +1012,19 @@ function check19(ctx) {
     ];
     for (const [re, label] of patterns) {
       const m = re.exec(t);
-      if (m) {
-        const pos = doc.text.indexOf(m[0]);
-        const line = pos >= 0 ? (doc.src.slice(0, doc.src.indexOf(m[0]) >= 0 ? doc.src.indexOf(m[0]) : 0).split('\n').length) : 1;
-        report(19, 'FAIL', doc.file, line, `${label}: "${m[0]}"`, 'Use plausible audience-fitting names');
-      }
+      if (m) report(19, 'FAIL', doc.file, doc.lineOf(m.index), `${label}: "${m[0]}"`, 'Use plausible audience-fitting names');
     }
   }
 }
 
-/* gate 20: Hallmark stamp */
 function check20(ctx) {
-  const stamped = (src) => /\/\*\s*Hallmark|Hallmark\s*·/.test(src.split('\n').slice(0, 15).join('\n'));
+  if (ctx.tokensOnly) return;
+  const stamped = (src) => {
+    const lines = src.split('\n').map((l) => l.trim()).filter(Boolean);
+    let i = 0;
+    while (i < lines.length && /^@charset\b/i.test(lines[i])) i++;
+    return i < lines.length && /^\/\*\s*Hallmark/.test(lines[i]);
+  };
   let ok = false;
   const cssSources = [];
   for (const f of ctx.cssFiles) cssSources.push(f.raw);
@@ -1121,17 +1032,16 @@ function check20(ctx) {
   for (const s of cssSources) if (stamped(s)) { ok = true; break; }
   if (!ok && cssSources.length) {
     const where = ctx.cssFiles[0]?.file || ctx.docs[0]?.file;
-    report(20, 'FAIL', where, 1, 'no Hallmark stamp in the first 15 lines of any CSS', 'Add the Hallmark stamp comment');
+    report(20, 'FAIL', where, 1, 'no Hallmark stamp on the first non-empty line of any CSS', 'The stamp comment is line 1 of the CSS; only @charset may precede it');
   }
 }
 
-/* gate 22: zero-chroma oklch */
 function check22(ctx) {
   if (ctx.genre === 'modern-minimal') return;
   const MASK_PROPS = /(^|-)mask(-image|-composite|-mode)?$|^filter$|^backdrop-filter$/;
   for (const r of ctx.rules) {
     for (const d of r.decls) {
-      if (MASK_PROPS.test(d.prop)) continue; // masks/filters read alpha or luminance; zero-chroma stops are legitimate there
+      if (MASK_PROPS.test(d.prop)) continue;
       const re = /oklch\(\s*([\d.]+%?)\s+([\d.]+)\s+[\d.]+(?:deg)?\s*(?:\/\s*([\d.]+%?))?\s*\)/g;
       let m;
       while ((m = re.exec(d.value))) {
@@ -1145,14 +1055,8 @@ function check22(ctx) {
   }
 }
 
-/* gate 23: accent-footprint heuristic (WARN) - static half; --render measures the real area */
 function check23(ctx) {
-  const heads = [
-    ...ctx.cssFiles.map((f) => f.raw),
-    ...ctx.docs.flatMap((d) => d.styles.map((st) => st.css)),
-  ].map((t) => t.split('\n').slice(0, 40).join('\n')).join('\n');
-  const posture = (/posture:\s*(restrained|committed|full-palette|drenched)/i.exec(heads)?.[1] || 'restrained').toLowerCase();
-  if (posture === 'drenched') return; // the surface IS the colour, by declaration
+  if (ctx.posture === 'drenched') return;
   const ACC = /var\(\s*--color-accent(?:-2)?\s*[,)]/;
   const SURFACE = /(^|[\s,>~+])(body|html|main|section|header|footer|aside)(\b|$)|\bhero\b|__hero|banner|\bstrip\b|\bband\b/i;
   const big = (r) => r.decls.some((d) =>
@@ -1162,8 +1066,8 @@ function check23(ctx) {
     if (isTokenRule(r) || r.keyframes) continue;
     for (const d of r.decls) {
       if (!/^background(-color|-image)?$/.test(d.prop) || !ACC.test(d.value)) continue;
-      if (/\/\s*0?\.[0-2]\d*/.test(d.value)) continue;            // alpha-thinned tint or wash, not a fill
-      if (ctx.genre === 'atmospheric' && /radial-gradient/i.test(d.value)) continue; // the bloom licence; area judged at the gate
+      if (/\/\s*0?\.[0-2]\d*/.test(d.value)) continue;
+      if (ctx.genre === 'atmospheric' && /radial-gradient/i.test(d.value)) continue;
       if (SURFACE.test(r.selector) || big(r)) {
         report(23, 'WARN', r.file, d.line,
           `accent background on viewport-scale rule "${trunc(r.selector, 44)}"`,
@@ -1185,7 +1089,6 @@ function check23(ctx) {
   }
 }
 
-/* gate 24: off-scale px spacing */
 function check24(ctx) {
   const props = /^(padding|margin|gap|row-gap|column-gap)(-[a-z]+)?$/;
   for (const r of ctx.rules) {
@@ -1203,7 +1106,34 @@ function check24(ctx) {
   }
 }
 
-/* gate 25: prose measure */
+function check24a(ctx) {
+  const spaceVals = new Map();
+  for (const [k, v] of Object.entries(ctx.tokens)) {
+    if (!/^--space-/.test(k)) continue;
+    const px = pxOf(resolveVars(v, ctx.tokens));
+    if (px != null && px > 0) spaceVals.set(px, k);
+  }
+  if (!spaceVals.size) return;
+  const props = /^(padding|margin|gap|row-gap|column-gap)(-[a-z]+)?$/;
+  const counts = new Map();
+  for (const r of ctx.rules) {
+    if (r.keyframes || isTokenRule(r)) continue;
+    for (const d of r.decls) {
+      if (!props.test(d.prop)) continue;
+      const raw = d.value.replace(/var\([^)]*\)/g, ' ');
+      for (const m of raw.matchAll(/(?<![\w.-])(-?\d+(?:\.\d+)?)(px|rem)\b/g)) {
+        const px = Math.abs(pxOf(m[1] + m[2]) ?? 0);
+        if (!px || !spaceVals.has(px)) continue;
+        const n = (counts.get(r.file) || 0) + 1;
+        counts.set(r.file, n);
+        if (n <= 8) report('24a', 'FAIL', r.file, d.line, `${d.prop}: ${trunc(d.value, 28)} on ${trunc(r.selector, 32)} where ${spaceVals.get(px)} exists`, `Use var(${spaceVals.get(px)})`);
+        break;
+      }
+    }
+  }
+  for (const [file, n] of counts) if (n > 8) report('24a', 'FAIL', file, 1, `+${n - 8} more raw spacing lengths with a matching --space-* token in this file`, 'Use the tokens');
+}
+
 function check25(ctx) {
   const proseish = /(^|[\s,>+~(])p\b|lede|prose|copy|__body|__text|__desc|paragraph/i;
   for (const r of ctx.rules) {
@@ -1221,7 +1151,6 @@ function check25(ctx) {
   }
 }
 
-/* gate 26: interaction states present */
 function check26(ctx) {
   const hasInteractive = ctx.docs.some((doc) => /<(a|button|input|select|textarea)\b|role\s*=\s*["']button/i.test(doc.src))
     || ctx.rules.some((r) => selectorIsInteractive(r.selector));
@@ -1229,18 +1158,17 @@ function check26(ctx) {
   const has = (pseudo) => ctx.rules.some((r) => r.selector.includes(pseudo));
   const file = ctx.cssFiles[0]?.file || ctx.docs[0]?.file || '?';
   if (!has(':focus-visible') && !has(':focus')) {
-    report(26, 'FAIL', file, 1, 'no :focus-visible styling anywhere', 'Style focus-visible, active, and disabled states');
+    report('26a', 'FAIL', file, 1, 'no :focus-visible styling anywhere', 'A focus ring at 3:1 or better, instant');
   }
   if (!has(':active')) {
-    report(26, 'WARN', file, 1, 'no :active styling anywhere', 'Style focus-visible, active, and disabled states');
+    report('26b', 'FAIL', file, 1, 'no :active styling anywhere', 'All eight states; guard: not a form control, no aria-disabled anywhere');
   }
   const hasFormish = ctx.docs.some((doc) => /<(button|input|select|textarea)\b/i.test(doc.src));
   if (hasFormish && !has(':disabled') && !ctx.rules.some((r) => /\[disabled\]|aria-disabled/.test(r.selector))) {
-    report(26, 'WARN', file, 1, 'no :disabled styling anywhere', 'Style focus-visible, active, and disabled states');
+    report('26b', 'FAIL', file, 1, 'no :disabled styling anywhere', 'All eight states; guard: not a form control, no aria-disabled anywhere');
   }
 }
 
-/* gate 27: reduced-motion fallback */
 function check27(ctx) {
   const hasMotion = ctx.rules.some((r) => r.keyframes)
     || ctx.rules.some((r) => r.decls.some((d) => /^transition/.test(d.prop) && /transform/.test(d.value)));
@@ -1255,7 +1183,6 @@ function check27(ctx) {
   }
 }
 
-/* gate 28: media / LCP hygiene */
 function check28(ctx) {
   for (const doc of ctx.docs) {
     let firstMedia = true;
@@ -1263,19 +1190,19 @@ function check28(ctx) {
       if (t.close) continue;
       if (t.name === 'video') {
         if (hasAttr(t.attrs, 'autoplay') && !hasAttr(t.attrs, 'muted')) {
-          report(28, 'WARN', doc.file, t.line, 'autoplay video without muted', 'autoplay muted loop playsinline, with poster');
+          report('28a', 'FAIL', doc.file, t.line, 'autoplay video without muted', 'autoplay muted loop playsinline, with poster');
         }
         if (!getAttr(t.attrs, 'poster')) {
-          report(28, 'WARN', doc.file, t.line, 'video without poster', 'Add a poster frame');
+          report('28b', 'FAIL', doc.file, t.line, 'video without poster', 'Add a poster frame; guard: below the fold and not the LCP');
         }
         if ((getAttr(t.attrs, 'loading') || '').toLowerCase() === 'lazy' && firstMedia) {
-          report(28, 'WARN', doc.file, t.line, 'lazy-loaded hero video', 'fetchpriority=high on the LCP element');
+          report('28a', 'WARN', doc.file, t.line, 'lazy-loaded hero video', 'fetchpriority=high on the LCP element');
         }
         firstMedia = false;
       }
       if (t.name === 'img') {
         if (firstMedia && (getAttr(t.attrs, 'loading') || '').toLowerCase() === 'lazy') {
-          report(28, 'WARN', doc.file, t.line, 'lazy-loaded first image (likely LCP)', 'fetchpriority=high on the LCP element');
+          report('28a', 'WARN', doc.file, t.line, 'lazy-loaded first image (likely LCP)', 'fetchpriority=high on the LCP element');
         }
         firstMedia = false;
       }
@@ -1283,9 +1210,8 @@ function check28(ctx) {
   }
 }
 
-/* gate 30: emoji icon (FAIL) + mixed icon libraries (WARN) */
 function check30(ctx) {
-  const EMOJI = /[✨⚡✅⭐🚀🔥🎯🎉💡📈🔒🌟💪🧠]|🛠/;
+  const EMOJI = /(?![\u00a9\u00ae\u2122\u203c\u2049\u2190-\u21ff])\p{Extended_Pictographic}/u;
   for (const doc of ctx.docs) {
     for (let i = 0; i < doc.tags.length; i++) {
       const t = doc.tags[i];
@@ -1296,9 +1222,7 @@ function check30(ctx) {
       if (!inner) continue;
       const content = inner.inner.replace(/<[^>]*>/g, '').trim();
       if (content && content.length <= 4 && EMOJI.test(content) && (iconish || !/<[a-z]/.test(inner.inner))) {
-        if (EMOJI.test(content)) {
-          report(30, 'FAIL', doc.file, t.line, `emoji icon "${content}" in <${t.name} class="${trunc(cls, 28)}">`, 'One icon library or custom SVG');
-        }
+        report('30a', 'FAIL', doc.file, t.line, `emoji icon "${content}" in <${t.name} class="${trunc(cls, 28)}">`, 'One icon library or custom SVG');
       }
     }
   }
@@ -1316,17 +1240,16 @@ function check30(ctx) {
   const hay = ctx.docs.map((d) => d.src).join('\n') + ctx.cssFiles.map((f) => f.raw).join('\n');
   for (const [name, re] of libs) if (re.test(hay)) found.add(name);
   if (found.size >= 2) {
-    report(30, 'WARN', ctx.docs[0]?.file || ctx.cssFiles[0]?.file, 1, `icon libraries mixed: ${[...found].join(' + ')}`, 'One icon library per page');
+    report('30b', 'WARN', ctx.docs[0]?.file || ctx.cssFiles[0]?.file, 1, `icon libraries mixed: ${[...found].join(' + ')}`, 'One icon library per page; guard: the second is a brand mark in at most two slots');
   }
 }
 
-/* gate 33: unlabeled visual svg / canvas */
 function check33(ctx) {
   const labeledAttrs = (a) => hasAttr(a, 'aria-hidden') || getAttr(a, 'aria-label') != null
     || getAttr(a, 'aria-labelledby') != null
     || ['img', 'presentation', 'none'].includes((getAttr(a, 'role') || '').toLowerCase());
   for (const doc of ctx.docs) {
-    const stack = []; /* ancestor labeled-ness */
+    const stack = [];
     for (const t of doc.tags) {
       if (t.close) {
         for (let i = stack.length - 1; i >= 0; i--) {
@@ -1336,7 +1259,8 @@ function check33(ctx) {
       }
       if (t.name === 'svg' || t.name === 'canvas') {
         const ancestorLabeled = stack.some((s) => s.labeled);
-        if (!labeledAttrs(t.attrs) && !ancestorLabeled) {
+        const titled = t.name === 'svg' && !t.selfClosing && /<title\b[^>]*>\s*\S/i.test(innerOf(doc, doc.tags.indexOf(t))?.inner || '');
+        if (!labeledAttrs(t.attrs) && !ancestorLabeled && !titled) {
           report(33, 'FAIL', doc.file, t.line, `<${t.name}> without aria-hidden or aria-label`, 'Add aria-hidden or an aria-label');
         }
       }
@@ -1345,23 +1269,26 @@ function check33(ctx) {
   }
 }
 
-/* gate 34 static half: page-edge clipping */
 function check34(ctx) {
-  let clip = false, hidden = null;
+  const clipped = new Set();
+  let hidden = null;
   for (const r of ctx.rules) {
     if (!/(^|[\s,])(html|body)\b/.test(r.selector)) continue;
+    const targets = r.selector.split(',').map((p) => (/^\s*(html|body)\s*$/.exec(p) || [])[1]).filter(Boolean);
     for (const d of r.decls) {
       if (d.prop === 'overflow-x' || d.prop === 'overflow') {
-        if (/\bclip\b/.test(d.value)) clip = true;
+        if (/\bclip\b/.test(d.value)) for (const t of targets) clipped.add(t);
         else if (/\bhidden\b/.test(d.value)) hidden = { file: r.file, line: d.line, sel: r.selector };
       }
     }
   }
   const file = ctx.cssFiles[0]?.file || ctx.docs[0]?.file;
-  if (!clip && !hidden && file && ctx.docs.length) {
-    report(34, 'FAIL', file, 1, 'no overflow-x: clip on html/body', 'overflow-x: clip on html and body');
-  } else if (!clip && hidden) {
-    report(34, 'WARN', hidden.file, hidden.line, `overflow-x: hidden on ${hidden.sel} (breaks sticky)`, 'Use overflow-x: clip, not hidden');
+  const both = clipped.has('html') && clipped.has('body');
+  if (!both && hidden) {
+    report(34, 'WARN', hidden.file, hidden.line, `overflow-x: hidden on ${hidden.sel} (breaks sticky)`, 'Use overflow-x: clip on both html and body, never hidden');
+  } else if (!both && file && ctx.docs.length) {
+    const where = clipped.size ? `overflow-x: clip on ${[...clipped][0]} only` : 'no overflow-x: clip on html and body';
+    report(34, 'FAIL', file, 1, where, 'overflow-x: clip on both html and body');
   }
   for (const r of ctx.rules) {
     for (const d of r.decls) {
@@ -1372,10 +1299,9 @@ function check34(ctx) {
   }
 }
 
-/* gate 37: font family count */
 function check37(ctx) {
   const families = new Map();
-  const generic = new Set(['serif', 'sans-serif', 'monospace', 'cursive', 'fantasy', 'system-ui', 'ui-monospace', 'ui-serif', 'ui-sans-serif', 'inherit', 'initial']);
+  const generic = GENERIC_FAMILIES;
   for (const r of ctx.rules) {
     if (r.selector === '@font-face') continue;
     for (const d of r.decls) {
@@ -1393,18 +1319,16 @@ function check37(ctx) {
   }
 }
 
-/* gate 38a: italic headings */
 function check38a(ctx) {
   for (const r of ctx.rules) {
     if (!HEADING_SEL.test(r.selector)) continue;
     for (const d of r.decls) {
       if (d.prop === 'font-style' && /italic|oblique/.test(d.value)) {
-        report('38a-ii', 'FAIL', r.file, d.line, `italic display type on ${r.selector}`, 'Roman headers; emphasis via weight or accent');
+        report('38ii', 'FAIL', r.file, d.line, `italic display type on ${r.selector}`, 'Roman headers; emphasis via weight or accent');
       }
     }
   }
-  /* <em>/<i> in a heading is only a violation when it renders italic; a page
-     that globally sets em { font-style: normal } (highlighter-band pattern) passes. */
+
   const emNormalized = ctx.rules.some((r) =>
     /(^|[\s,])(em|i)\b/.test(r.selector)
     && r.decls.some((d) => d.prop === 'font-style' && /normal/.test(d.value)));
@@ -1414,13 +1338,12 @@ function check38a(ctx) {
     let m;
     while ((m = re.exec(doc.src))) {
       if (/<(em|i)\b/i.test(m[2])) {
-        report('38a-i', 'FAIL', doc.file, doc.lineOf(m.index), `<em>/<i> inside <h${m[1]}>`, 'Roman headers; emphasis via weight or accent');
+        report('38i', 'FAIL', doc.file, doc.lineOf(m.index), `<em>/<i> inside <h${m[1]}>`, 'Roman headers; emphasis via weight or accent');
       }
     }
   }
 }
 
-/* gate 39: input-state subchecks */
 function check39(ctx) {
   const hasInputs = ctx.docs.some((doc) => /<(input|textarea|select)\b/i.test(doc.src))
     || ctx.rules.some((r) => /(^|[\s,>+~])(input|textarea|select)\b/.test(r.selector));
@@ -1447,7 +1370,7 @@ function check39(ctx) {
       if (d.prop === 'border' || d.prop === 'border-width') {
         const w = widthOf(d.value);
         if (w != null && baseW != null && w !== baseW) {
-          report(39, 'WARN', r.file, d.line, `border-width ${baseW}px -> ${w}px on ${r.selector} (layout shift)`, 'Keep border-width constant; move state to outline');
+          report('39a', 'FAIL', r.file, d.line, `border-width ${baseW}px -> ${w}px on ${r.selector} (layout shift)`, 'Keep border-width constant; move state to outline');
         }
       }
     }
@@ -1455,7 +1378,7 @@ function check39(ctx) {
       const setsBorder = r.decls.some((d) => /^border(-color)?$/.test(d.prop));
       const setsOutline = r.decls.some((d) => /^outline/.test(d.prop));
       if (setsBorder && !setsOutline) {
-        report(39, 'WARN', r.file, r.line, `focus state via border on ${r.selector}`, 'Focus ring via outline, not border');
+        report('39a', 'FAIL', r.file, r.line, `focus state via border on ${r.selector}`, 'Focus ring via outline, not border');
       }
     }
   }
@@ -1464,14 +1387,13 @@ function check39(ctx) {
     const hasOpacity = r.decls.some((d) => d.prop === 'opacity');
     const hasCursor = r.decls.some((d) => d.prop === 'cursor' && /not-allowed/.test(d.value));
     if (hasOpacity && !hasCursor) {
-      report(39, 'WARN', r.file, r.line, `disabled via opacity alone on ${r.selector}`, 'Add cursor: not-allowed and the disabled attribute');
+      report('39a', 'FAIL', r.file, r.line, `disabled via opacity alone on ${r.selector}`, 'Three disabled channels: fill, ink and cursor, plus the disabled attribute');
     }
   }
 }
 
-/* gates 40 + 41: declared-pair contrast math */
 function check40_41(ctx) {
-  const bySel = mergedDeclsBySelector(ctx.rules);
+  const bySel = mergedDeclsBySelector(ctx);
   const resolveColor = (value, local) => {
     const resolved = resolveVars(value, ctx.tokens, local).trim();
     return parseColor(resolved);
@@ -1551,7 +1473,6 @@ function check40_41(ctx) {
   }
 }
 
-/* gate 42: AI-default nav fingerprint */
 function check42(ctx) {
   for (const doc of ctx.docs) {
     const navIdx = doc.tags.findIndex((t) => !t.close && (t.name === 'nav' || (t.name === 'header' && /banner|nav/i.test(t.attrs))));
@@ -1570,21 +1491,19 @@ function check42(ctx) {
   }
 }
 
-/* gate 43: AI-default footer fingerprint */
-function check43(ctx) {
+function check42Footer(ctx) {
   for (const doc of ctx.docs) {
     const idx = doc.tags.findIndex((t) => !t.close && t.name === 'footer');
     if (idx === -1) continue;
     const inner = innerOf(doc, idx);
     if (!inner) continue;
     const uls = (inner.inner.match(/<ul\b/gi) || []).length;
-    /* the AI default is 4 EQUAL link columns; a statement footer with an
-       auto brand column + meta columns is not the fingerprint */
+
     const fourEqualCol = ctx.rules.some((r) => /footer/i.test(r.selector) && r.decls.some((d) =>
       d.prop === 'grid-template-columns'
       && (/repeat\(\s*4\s*,/.test(d.value)
         || /^(1fr|minmax\([^)]*\))(\s+(1fr|minmax\([^)]*\))){3,}$/.test(d.value.trim()))));
-    /* count link groups: columns carrying 3+ links each */
+
     let linkGroups = 0;
     const colRe = /<(ul|div|p|nav)\b[^>]*class\s*=\s*"[^"]*(col|column|links|group)[^"]*"[^>]*>([\s\S]*?)<\/\1>/gi;
     let cm;
@@ -1595,12 +1514,11 @@ function check43(ctx) {
       if ((um[1].match(/<a\b/gi) || []).length >= 3) linkGroups++;
     }
     if (uls >= 4 || (fourEqualCol && linkGroups >= 3)) {
-      report(43, 'WARN', doc.file, doc.tags[idx].line, `default footer shape: ${uls >= 4 ? uls + ' link columns' : '4 equal columns of links'}`, 'Route the footer via the cookbook variants');
+      report(42, 'WARN', doc.file, doc.tags[idx].line, `default footer shape: ${uls >= 4 ? uls + ' link columns' : '4 equal columns of links'}`, 'Decide the footer and name it in the stamp, or build another shape');
     }
   }
 }
 
-/* gate 46: invented-metric shapes */
 function check46(ctx) {
   const shapes = [
     /\b\d+(\.\d+)?\s*[x×]\s*faster\b/i,
@@ -1612,20 +1530,19 @@ function check46(ctx) {
     /\bsaves?\s+\d+\s+hours?\b/i,
   ];
   for (const doc of ctx.docs) {
+    const prose = maskedProse(doc);
+    const lines = new Set();
     for (const re of shapes) {
-      const m = re.exec(doc.text);
-      if (m) {
-        const pos = doc.src.indexOf(m[0]);
-        report(46, 'WARN', doc.file, pos >= 0 ? doc.lineOf(pos) : 1,
-          `metric "${m[0].trim()}" - verify the user supplied this number`, 'Confirm the metric or drop the slot');
-      }
+      const m = re.exec(prose);
+      if (!m) continue;
+      const line = doc.lineOf(m.index);
+      if (lines.has(line)) continue;
+      lines.add(line);
+      report('46a', 'WARN', doc.file, line, `metric "${m[0].trim()}": verify the user supplied this number`, 'Confirm the metric or drop the slot');
     }
   }
 }
 
-/* gate 47: re-drawn UI chrome. 47a (browser or OS window) is Floor and fails
-   always; 47b (device, terminal, editor frames) is Reflex and is waivable when
-   the frame is the product rather than decoration. */
 const CHROME_47 = [
   ['47a', /(browser|window|mac|osx)[-_]?(bar|chrome|dots|controls)|traffic[-_]?light|title[-_]?bar|window[-_]?(dots|buttons)|url[-_]?(bar|pill)/i],
   ['47b', /phone[-_]?(frame|mock(up)?)|device[-_]?frame|\bnotch\b|terminal[-_]?(chrome|frame|bar|dots|header)|(ide|editor)[-_]?(chrome|frame)|(browser|window)[-_]?frame/i],
@@ -1633,8 +1550,12 @@ const CHROME_47 = [
 function check47(ctx) {
   for (const [gate, re] of CHROME_47) {
     for (const doc of ctx.docs) {
-      const m = re.exec(doc.src);
-      if (m) report(gate, 'FAIL', doc.file, doc.lineOf(m.index), `re-drawn chrome marker "${m[0]}"`, 'Use a real screenshot in a figure');
+      for (const t of doc.tags) {
+        if (t.close) continue;
+        const cls = getAttr(t.attrs, 'class');
+        const m = cls ? re.exec(cls) : null;
+        if (m) { report(gate, 'FAIL', doc.file, t.line, `re-drawn chrome class "${m[0]}" (class="${trunc(cls, 32)}")`, 'Use a real screenshot in a figure'); break; }
+      }
     }
     for (const r of ctx.rules) {
       const m = re.exec(r.selector);
@@ -1646,8 +1567,6 @@ function check47(ctx) {
   }
 }
 
-/* gate 48: token discipline. oklch WARNs are capped at 6 per file to keep the
-   table readable; the seventh becomes a "+N more" summary. */
 function check48(ctx) {
   const colorLit = /#[0-9a-fA-F]{3,8}\b|(?<![\w-])rgba?\(|(?<![\w-])hsla?\(|(?<![\w-])oklch\(/;
   const oklchCount = new Map();
@@ -1656,15 +1575,24 @@ function check48(ctx) {
     oklchCount.set(file, n);
     if (n <= 6) report(48, 'WARN', file, line, evidence, 'Lift the value into the token block');
   };
+  for (const [prop, val] of Object.entries(ctx.tokens)) {
+    if (/^--font-/.test(prop) && /FILL ME/i.test(val)) {
+      const tr = ctx.rules.find((r) => isTokenRule(r) && r.decls.some((d) => d.prop === prop));
+      report(48, 'FAIL', tr ? tr.file : ctx.cssFiles[0]?.file || ctx.docs[0]?.file, tr ? tr.decls.find((d) => d.prop === prop)?.line : 1, `${prop} is still the scaffold placeholder "FILL ME"`, 'Fill the face from direction.md § C before building');
+    }
+  }
   for (const r of ctx.rules) {
     if (isTokenRule(r)) continue;
     for (const d of r.decls) {
       if (d.prop === 'font-family') {
         const v = d.value;
+        if (/FILL ME/i.test(resolveVars(v, ctx.tokens))) {
+          report(48, 'FAIL', r.file, d.line, `font-family on ${r.selector} resolves to the placeholder "FILL ME"`, 'Fill the face from direction.md § C before building');
+          continue;
+        }
         if (!v.includes('var(')) {
           const fam = firstFamily(v);
-          const generic = new Set(['serif', 'sans-serif', 'monospace', 'cursive', 'fantasy', 'inherit', 'system-ui', 'ui-monospace']);
-          if (!generic.has(fam)) {
+          if (!GENERIC_FAMILIES.has(fam)) {
             report(48, 'FAIL', r.file, d.line, `font-family literal "${trunc(v, 36)}" on ${r.selector}`, 'Lift the value into the token block');
           }
         }
@@ -1704,7 +1632,6 @@ function check48(ctx) {
   }
 }
 
-/* gate 49 static half: long clickable labels without nowrap */
 function check49(ctx) {
   const nowrapSelectors = ctx.rules.filter((r) => r.decls.some((d) => d.prop === 'white-space' && /nowrap/.test(d.value)));
   const covered = (cls, tag) => nowrapSelectors.some((r) =>
@@ -1727,13 +1654,13 @@ function check49(ctx) {
   }
 }
 
-/* gate 50: bare 1fr track with images */
 function check50(ctx) {
   for (const r of ctx.rules) {
     for (const d of r.decls) {
       if (!/^grid-template-(columns|rows)$/.test(d.prop)) continue;
       const flat = resolveVars(d.value, ctx.tokens).replace(/minmax\([^)]*\)/g, 'MM');
-      if (!/\b1fr\b/.test(flat)) continue;
+      const bare = /(?<![\w.-])\d*\.?\d+fr\b/.exec(flat);
+      if (!bare) continue;
       const classes = (r.selector.match(/\.[a-zA-Z][\w-]*/g) || []).map((c) => c.slice(1));
       let hit = null;
       for (const doc of ctx.docs) {
@@ -1748,14 +1675,13 @@ function check50(ctx) {
         if (hit) break;
       }
       if (hit) {
-        report(50, 'WARN', r.file, d.line, `bare 1fr track holds images (${r.selector})`, 'Use minmax(0, 1fr) for image tracks');
+        report(50, 'FAIL', r.file, d.line, `bare ${bare[0]} track holds images (${r.selector})`, 'Use minmax(0, 1fr) for image tracks');
       }
     }
   }
 }
 
-/* gate 51: display header long-word wrap safety */
-function check51(ctx) {
+function check50Wrap(ctx) {
   const wrapCovered = (cls, tag) => ctx.rules.some((r) => {
     const has = r.decls.some((d) =>
       (d.prop === 'overflow-wrap' && /anywhere|break-word/.test(d.value))
@@ -1784,30 +1710,12 @@ function check51(ctx) {
         if (risky) break;
       }
       if (risky && !wrapCovered(cls, t.name)) {
-        report(51, 'FAIL', doc.file, t.line, `display header word "${trunc(risky, 30)}" with no overflow-wrap`, 'Add overflow-wrap: break-word and min-width: 0');
+        report(50, 'FAIL', doc.file, t.line, `display header word "${trunc(risky, 30)}" with no overflow-wrap`, 'Add overflow-wrap: break-word and min-width: 0');
       }
     }
   }
 }
 
-/* gate 52: theme section-head override without mobile collapse */
-function check52(ctx) {
-  const overrides = ctx.rules.filter((r) => !r.media
-    && /\[data-theme[^\]]*\]/.test(r.selector) && /__head\b/.test(r.selector)
-    && r.decls.some((d) => d.prop === 'grid-template-columns'
-      && !/^(1fr|minmax\(\s*0(px)?\s*,\s*1fr\s*\)|none)$/.test(resolveVars(d.value, ctx.tokens).trim())));
-  for (const o of overrides) {
-    const collapsed = ctx.rules.some((r) => r.media && /max-width:\s*(48rem|768px)/.test(r.media)
-      && /__head\b/.test(r.selector)
-      && r.decls.some((d) => d.prop === 'grid-template-columns' && /^(1fr|minmax\(\s*0(px)?\s*,\s*1fr\s*\)|none)$/.test(d.value.trim())));
-    if (!collapsed) {
-      const d = o.decls.find((x) => x.prop === 'grid-template-columns');
-      report(52, 'WARN', o.file, d.line, `${o.selector} keeps ${trunc(d.value, 24)} on mobile`, 'Collapse the head to one column on mobile');
-    }
-  }
-}
-
-/* gate 53: scroll-jumping radio tabs */
 function check53(ctx) {
   const radios = ctx.rules.filter((r) => /input\[type=["']?radio["']?\]|\.(radio|tab-input|tab-radio)\b/i.test(r.selector));
   for (const r of radios) {
@@ -1822,19 +1730,11 @@ function check53(ctx) {
   }
 }
 
-/* gate 54: eyebrow / kicker / overline announcing a heading. Banned outright,
-   in every geometry — stacked, side-by-side, badge pill, ordinal, card-scoped.
-   DOM-first: walk containers looking for "short inert label immediately before a
-   heading", then consult resolved CSS for corroboration. The old CSS-first check
-   only saw multi-column grids, so it missed flex stacks, block stacks, heads
-   declared inside a media query, class-less headings, and the word "overline". */
-
 const EYEBROW_CONTAINER = /^(div|header|section|article|aside|hgroup|li|main|figure|a|body|blockquote)$/;
-/* A is never an eyebrow when it is one of these: each is a label for a thing
-   that is present (identifier), not an announcement of what comes next. */
+
 const EYEBROW_SKIP_TAGS = /^(figcaption|label|legend|caption|th|dt|summary|option|code|kbd|button|select|nav|time)$/;
 const EYEBROW_ANCESTOR_SKIP = /^(form|fieldset|table|thead|tbody|nav|menu|dl|select|figcaption|label|button)$/;
-/* leaf-ish test: a wrapper holding real content is a band, not a label */
+
 const EYEBROW_BLOCKY = /<(p|ul|ol|hr|h[1-6]|img|table|figure|section|article|blockquote|form|dl)\b/i;
 const EYEBROW_CLASS = /\b(eyebrow|kicker|overline|superhead|suphead|rubric|strap(line)?|pre-?(title|head(ing)?)|section-?label|num-?label|chapter|ordinal|topic|category|dept)\b|__(num|label|tag|kicker|chip|badge|meta|index|caps|micro)\b|\b(tag|chip|badge|meta|caps|micro|label|index)\b/i;
 const EYEBROW_ANNOUNCE = /^(features?|benefits?|introducing|new|how it works?|the (process|tour)|our (process|story|work|team|approach|values?)|why (us|choose|we)|pricing|plans?|faq|questions?|testimonials?|reviews?|trusted by|as seen in|what we do|about( us)?|services?|solutions?|use cases?|get started|contact|team|work|projects?|gallery|blog|news|resources?|examples?|overview)$/i;
@@ -1845,12 +1745,10 @@ function capsRatio(s) {
   return (letters.match(/[A-Z]/g) || []).length / letters.length;
 }
 
-/** Does B read as the heading this label would be announcing? */
 function eyebrowHeadingBearing(ctx, B, aPx) {
   if (/^h[1-6]$/.test(B.name)) return true;
   if (/<h[1-6][\s>]/i.test(B.html)) return true;
-  /* a class-less or non-semantic head still counts when it is visually a head:
-     display-ish class AND at least 1.5x the label's size */
+
   const cls = getAttr(B.open, 'class') || '';
   if (!/__(title|display|head(line)?|h\d)\b|hero__|masthead|wordmark/i.test(cls)) return false;
   const bPx = fontPxOf(ctx, styleFor(ctx, cls, B.name));
@@ -1863,9 +1761,9 @@ function eyebrowHit(ctx, A, B, inOrderedList) {
   if (/role\s*=\s*["']status|aria-live|aria-current|aria-hidden\s*=\s*["']true/i.test(A.open)) return null;
   const inner = A.html.slice(A.open.length);
   if (EYEBROW_BLOCKY.test(inner) || /<br\b/i.test(inner)) return null;
-  if (/<time\b[^>]*\sdatetime\s*=/i.test(A.html)) return null;          /* dateline */
+  if (/<time\b[^>]*\sdatetime\s*=/i.test(A.html)) return null;
   if (/<img\b[^>]*\salt\s*=\s*["'][^"']+/i.test(A.html)) return null;
-  /* destination: a linked chip, category link, or nav label is not an eyebrow */
+
   const ownHref = A.name === 'a' ? getAttr(A.open, 'href') : null;
   if (ownHref && !/^#?$/.test(ownHref.trim())) return null;
   const innerHref = /<a\b[^>]*\shref\s*=\s*["']([^"']*)["']/i.exec(inner);
@@ -1873,30 +1771,19 @@ function eyebrowHit(ctx, A, B, inOrderedList) {
 
   const text = plainText(A.html);
   if (!text) return null;
-  const words = text.split(/[\s·/|—–]+/).filter(Boolean);
+  const words = text.split(/[\s·/|\u2014\u2013]+/).filter(Boolean);
   if (words.length > 7 || text.length > 56) return null;
-  if (/[\w/-]+\.[a-z]{1,4}$/i.test(text)) return null;                  /* code filename tab */
+  if (/[\w/-]+\.[a-z]{1,4}$/i.test(text)) return null;
 
-  /* the digit rule: one leading ordinal is an eyebrow's costume, but any further
-     figure is a fact the reader would otherwise lack — a price, a version, a
-     date, a live count. Strip the ordinal; if two or more digits survive, pass.
-     A quantity carrying a unit (24h, 100%, 4.7/5) is a figure, never an ordinal;
-     bare digits (01, 02) are the costume, so those still fire. */
   if (/^[\d.,]+\s*(?:[%°+]|[a-z]{1,3})$/i.test(text)) return null;
-  const stripped = text.replace(/^\s*(?:no\.?\s*)?\d{1,3}(?:\s*[·./—–-]\s*|\s+|$)/i, '').trim();
+  const stripped = text.replace(/^\s*(?:no\.?\s*)?\d{1,3}(?:\s*[·./\u2014\u2013-]\s*|\s+|$)/i, '').trim();
   if ((stripped.match(/\d/g) || []).length >= 2) return null;
-  /* Known limitation: two digits is enough to buy a pass, so a season or volume
-     wearing a label's costume ("The W'25 Collection") slips through. Raising the
-     threshold to three catches those but starts failing legitimate version and
-     status lines ("Open beta · v1.0"), and a false positive on an auto-fail gate
-     costs more than a miss. The judged sweep at Step 7 is the backstop. */
-  /* real <ol> semantics is the prescribed fix, so structure earns the pass */
+
   if (inOrderedList && stripped && !EYEBROW_ANNOUNCE.test(stripped)) return null;
 
   const cls = getAttr(A.open, 'class') || '';
   const aDecls = styleFor(ctx, cls, A.name);
-  /* Out of flow is not "before the heading": a ribbon pinned to a card's edge
-     reads as a ribbon, whatever its DOM position. */
+
   const pos = declValue(ctx, aDecls, 'position');
   if (pos && /absolute|fixed/.test(pos)) return null;
   const aPx = fontPxOf(ctx, aDecls);
@@ -1942,7 +1829,7 @@ function check54(ctx) {
           report(54, 'FAIL', doc.file, doc.tags[A.idx]?.line || t.line,
             `eyebrow "${trunc(hit.text, 32)}" before <${B.name}>`,
             'Cut it; the heading already says this (references/section-entry.md has twelve other openings)');
-          break;                                    /* one finding per container */
+          break;
         }
       }
     }
@@ -1950,8 +1837,6 @@ function check54(ctx) {
   check54Unheaded(ctx);
 }
 
-/* The honest edge case: a section whose only label IS its heading, marked up as
-   a label. Deleting it loses the section's name — the fix is <h2>, not a cut. */
 function check54Unheaded(ctx) {
   for (const doc of ctx.docs) {
     for (let i = 0; i < doc.tags.length; i++) {
@@ -1971,9 +1856,8 @@ function check54Unheaded(ctx) {
   }
 }
 
-/* gate 55: all-caps display head with line-height < 1 */
 function check55(ctx) {
-  const bySel = mergedDeclsBySelector(ctx.rules);
+  const bySel = mergedDeclsBySelector(ctx);
   for (const r of bySel) {
     const upper = r.decls.find((d) => d.prop === 'text-transform' && /uppercase/.test(d.value));
     if (!upper) continue;
@@ -1981,20 +1865,16 @@ function check55(ctx) {
     const lhD = r.decls.find((d) => d.prop === 'line-height');
     if (!lhD) continue;
     const lh = parseFloat(resolveVars(lhD.value, ctx.tokens));
-    if (!Number.isNaN(lh) && lh < 1.0 && (displayish || lh < 1.0 && r.decls.some((d) => d.prop === 'font-size' && (pxOf(resolveVars(d.value, ctx.tokens)) ?? 0) >= 28))) {
-      if (displayish || (pxOf(resolveVars(r.decls.find((d) => d.prop === 'font-size')?.value || '', ctx.tokens)) ?? 0) >= 28) {
-        // 55a needs the element to be able to wrap; a nowrap lockup cannot collide
-        // with a line that does not exist, which is what 55b covers and permits.
-        const nowrap = r.decls.some((d) => d.prop === 'white-space' && /nowrap/.test(d.value));
-        report(nowrap ? '55b' : '55a', 'FAIL', r.file, lhD.line, `uppercase + line-height ${lh} on ${r.selector} (cap collision)`, 'Line-height 1.0 minimum for caps heads');
-      }
-    }
+    if (Number.isNaN(lh) || lh >= 1.0) continue;
+    const bigType = r.decls.some((d) => d.prop === 'font-size' && (pxOf(resolveVars(d.value, ctx.tokens)) ?? 0) >= 28);
+    if (!displayish && !bigType) continue;
+    const nowrap = r.decls.some((d) => d.prop === 'white-space' && /nowrap/.test(d.value));
+    report(nowrap ? '55b' : '55a', 'FAIL', r.file, lhD.line, `uppercase + line-height ${lh} on ${r.selector} (cap collision)`, 'Line-height 1.0 minimum for caps heads');
   }
 }
 
-/* gate 56 static half: two sticky top-0 elements */
 function check56(ctx) {
-  const bySel = mergedDeclsBySelector(ctx.rules);
+  const bySel = mergedDeclsBySelector(ctx);
   const sticky = [];
   for (const r of bySel) {
     const isSticky = r.decls.some((d) => d.prop === 'position' && /sticky/.test(d.value));
@@ -2007,24 +1887,142 @@ function check56(ctx) {
   }
 }
 
-/* extra: double-hyphen dash tell in copy (em dash itself is mandated, never flagged) */
 function checkCopyTell(ctx) {
   for (const doc of ctx.docs) {
-    const m = /\w\s--\s\w/.exec(doc.text);
-    if (m) {
-      const pos = doc.src.indexOf(m[0]);
-      report('copy-tell', 'WARN', doc.file, pos >= 0 ? doc.lineOf(pos) : 1, `double-hyphen dash "${m[0]}" in copy`, 'Use a true em dash in page copy');
+    const prose = maskedProse(doc);
+    const m = /\w\s--\s\w|[\u2014\u2013]|&mdash;|&ndash;|&#8212;|&#8211;/.exec(prose);
+    if (m) report(19, 'FAIL', doc.file, doc.lineOf(m.index), `dash "${m[0]}" in copy`, 'A comma, a colon, a full stop or parentheses; never a dash');
+    const buzz = /\b(seamless(ly)?|robust|empower(s|ing)?|supercharge[sd]?|elevate[sd]?|effortless(ly)?|unlock(s|ing)?|next[- ]generation|world[- ]class|cutting[- ]edge|streamline[sd]?|revolutioni[sz]e[sd]?|game[- ]chang(er|ing)|enterprise[- ]grade|quietly (trusted|in use)|built for the modern|in today's)\b/i.exec(prose);
+    if (buzz) report(19, 'FAIL', doc.file, doc.lineOf(buzz.index), `buzzword "${buzz[0]}"`, 'Say what the product does, in its own nouns');
+    const cadence = prose.match(/(^|[.!?]\s+)(not|no)\s+[a-z][^.!?\n]{0,40}[.]\s+(just|only|a|an)?\s*[a-z][^.!?\n]{0,40}[.]/gi) || [];
+    if (cadence.length >= 3) report(19, 'FAIL', doc.file, doc.lineOf(prose.indexOf(cadence[0].trim()) || 0), `rebuttal cadence repeated ${cadence.length} times ("${trunc(cadence[0].trim(), 40)}")`, 'Once is voice; three times is a tic');
+  }
+}
+
+function monoIsMaterial(ctx) {
+  const mono = (v) => v && /mono|code|courier|silkscreen|jetbrains|plex mono|geist mono|commit|fira code|space mono|dm mono|roboto mono|source code|ibm plex mono|press start|vt323|share tech/i.test(firstFamily(resolveVars(v, ctx.tokens)));
+  return mono(ctx.tokens['--font-display']) || mono(ctx.tokens['--font-body']);
+}
+
+const HIDE_OK = /tooltip|popover|menu|dropdown|modal|dialog|toast|overlay|backdrop|sheet|drawer|panel|:hover|:focus|:not\(|::before|::after|\.is-|\[hidden|\[aria-hidden|sr-only|visually-hidden|skip|placeholder|::marker|\[data-slot/i;
+function check62(ctx) {
+  const hasStartingStyle = /@starting-style/i.test(ctx.allCss);
+  const jsScoped = (sel) => /(^|[\s,])(html|body)?\.js\b|\[data-js|\.no-js|html\.has-js/i.test(sel);
+  const animatedNames = new Map();
+  for (const r of ctx.rules) if (r.keyframes) {
+    const arr = animatedNames.get(r.keyframes) || [];
+    arr.push(r); animatedNames.set(r.keyframes, arr);
+  }
+  const animatesVisible = (name) => (animatedNames.get(name) || []).some((r) => /to|100%/.test(r.selector) && r.decls.some((d) => d.prop === 'opacity' && parseFloat(d.value) === 1));
+  const seen = new Set();
+  for (const r of ctx.rules) {
+    if (r.keyframes || r.media || r.selector === '@font-face') continue;
+    const hidden = r.decls.find((d) => (d.prop === 'opacity' && parseFloat(resolveVars(d.value, ctx.tokens)) === 0) || (d.prop === 'visibility' && /hidden/.test(d.value)));
+    if (!hidden) continue;
+    if (HIDE_OK.test(r.selector) || jsScoped(r.selector) || hasStartingStyle) continue;
+    const revealish = /reveal|fade|animate|aos|in-view|inview|appear|enter|rise|slide|stagger|observe|lazy/i.test(r.selector) || r.decls.some((d) => d.prop === 'transform' && /translate|scale/.test(d.value));
+    if (!revealish) continue;
+    const anim = r.decls.find((d) => d.prop === 'animation' || d.prop === 'animation-name');
+    const animName = anim ? anim.value.split(/\s+/).find((w) => animatedNames.has(w)) : null;
+    if (animName && animatesVisible(animName)) continue;
+    const key = r.selector;
+    if (seen.has(key)) continue; seen.add(key);
+    report(62, 'FAIL', r.file, hidden.line, `${r.selector} is hidden at rest (${hidden.prop}: ${hidden.value}) and depends on a script to appear`, 'Visible by default: scope the hidden state under a .js class the script adds, or animate from visible with @starting-style');
+  }
+}
+
+const TEXT_TAGS = new Set(['p', 'span', 'li', 'small', 'a', 'div', 'figcaption', 'td', 'th', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'time', 'dd', 'dt', 'cite', 'strong', 'em', 'b', 'label', 'button', 'summary']);
+function check63(ctx) {
+  for (const doc of ctx.docs) {
+    const dotLines = new Set(); const arrowLines = new Set(); let dotCount = 0;
+    for (let i = 0; i < doc.tags.length; i++) {
+      const t = doc.tags[i];
+      if (t.close || t.selfClosing || !TEXT_TAGS.has(t.name)) continue;
+      const cls = getAttr(t.attrs, 'class') || '';
+      if (/marquee|ticker|tape|crawl/i.test(cls)) continue;
+      const inner = innerOf(doc, i);
+      if (!inner) continue;
+      if (/<(p|div|li|section|article|ul|ol|table)\b/i.test(inner.inner)) continue;
+      const text = plainText(inner.inner);
+      if (!text) continue;
+      const dots = (text.match(/\s[·•]\s/g) || []).length;
+      if (dots >= 2 && !dotLines.has(t.line)) { dotLines.add(t.line); report(63, 'FAIL', doc.file, t.line, `middle-dot meta string "${trunc(text, 50)}"`, 'Line breaks, columns or hairlines; one dot in a byline at most'); }
+      if ((t.name === 'a' || t.name === 'button') && /(\u2192|->|\u203a|\u00bb|\u27f6)\s*$/.test(text) && !arrowLines.has(t.line)) { arrowLines.add(t.line); report(63, 'FAIL', doc.file, t.line, `arrow glued to the label "${trunc(text, 40)}"`, 'A verb as the label; the link already says it goes somewhere'); }
+      if (/^[A-Z]{3,}\s+-\s+\S/.test(text) && text.length < 60) report(63, 'FAIL', doc.file, t.line, `WORD - fragment label "${trunc(text, 40)}"`, 'Say the thing as a sentence or a heading');
+    }
+    for (let i = 0; i < doc.tags.length; i++) {
+      const t = doc.tags[i];
+      if (t.close || !/^(span|i|b|em|s)$/.test(t.name)) continue;
+      const cls = getAttr(t.attrs, 'class') || '';
+      if (!/(^|\s)(dot|status-dot|indicator|bullet|pip|blip)(\s|$|__|-)/i.test(cls)) continue;
+      if (/aria-live|role\s*=\s*"status"/i.test(t.attrs)) continue;
+      const inner = innerOf(doc, i);
+      if (inner && plainText(inner.inner)) continue;
+      dotCount++;
+      if (dotCount === 3) report(63, 'FAIL', doc.file, t.line, `decorative status dots (${cls.trim()}) repeated across the page`, 'Delete them; a dot means live state, and only where it is one');
     }
   }
 }
 
-/* ------------------------------------------------- finish tier (F1-F9) --- */
-/* Polish checks, never counted in the 58 gates. WARN unless noted; F9's
-   fake-avatar half is FAIL. See slop-test.md § The finish tier. */
+function check64(ctx) {
+  if (monoIsMaterial(ctx)) return;
+  const monoFam = (v) => /mono|courier|jetbrains|plex mono|geist mono|commit|fira code|space mono|dm mono|roboto mono|source code|silkscreen/i.test(firstFamily(resolveVars(v, ctx.tokens)));
+  const LABELISH = /label|caption|meta|eyebrow|kicker|tag\b|badge|chip|small|folio|footnote|legend|\bth\b|thead|figcaption|overline|dateline|byline|credit|note\b/i;
+  const DATAISH = /code|pre\b|kbd|samp|num|figure|stat|price|value|data|tabular|counter|timer|clock|coord|amount|total|score|version|hash|\bid\b|sku/i;
+  const seen = new Set();
+  for (const r of ctx.rules) {
+    if (r.keyframes || r.selector === '@font-face' || isTokenRule(r)) continue;
+    if (!LABELISH.test(r.selector) || DATAISH.test(r.selector)) continue;
+    const fam = r.decls.find((d) => d.prop === 'font-family' || (d.prop === 'font' && /var\(--font|mono/i.test(d.value)));
+    if (!fam) continue;
+    const raw = fam.prop === 'font' ? (/var\(--font-[\w-]+\)/.exec(fam.value) || [fam.value])[0] : fam.value;
+    if (!monoFam(raw)) continue;
+    const key = baseSelector(r.selector);
+    if (seen.has(key)) continue; seen.add(key);
+    report(64, 'FAIL', r.file, fam.line, `monospace label voice on ${r.selector}`, 'Labels in the body face, a step smaller, sentence case; mono only for code and figures');
+  }
+}
 
-/* Position-preserving prose view: code-ish blocks, comments, and tags are
-   space-padded (never collapsed) so match indices map straight to doc.lineOf.
-   Entities stay ENCODED here; patterns match both forms. */
+function check65(ctx) {
+  const paper = parseColor(resolveVars(ctx.tokens['--color-paper'] || '', ctx.tokens));
+  const accent = parseColor(resolveVars(ctx.tokens['--color-accent'] || '', ctx.tokens));
+  if (!paper || !accent) return;
+  const p = paper.okl || srgbToOklch(paper); const a = accent.okl || srgbToOklch(accent);
+  const cream = p.L >= 0.9 && p.C >= 0.006 && p.H >= 55 && p.H <= 105;
+  const clay = a.C >= 0.08 && a.H >= 15 && a.H <= 55;
+  const disp = firstFamily(resolveVars(ctx.tokens['--font-display'] || '', ctx.tokens));
+  const hcSerif = /bodoni|didot|didone|playfair|fraunces|instrument serif|cormorant|dm serif|libre caslon display|abril|prata|gloock|newsreader|editorial new|gt sectra|canela|freight/i.test(disp);
+  if (cream && clay && hcSerif) report(65, 'FAIL', ctx.cssFiles[0]?.file || ctx.docs[0]?.file, 1, `the named look: cream paper (L ${Math.round(p.L * 100)}%, hue ${Math.round(p.H)}) + ${disp} + a clay accent (hue ${Math.round(a.H)})`, 'Move one axis, the accent first; or stamp the theme as asked for by name');
+}
+
+function checkF15(ctx) {
+  const widths = new Map();
+  for (const r of ctx.rules) {
+    if (r.keyframes || r.media || !/container|wrap|inner|shell|content|section|page|main/i.test(r.selector)) continue;
+    for (const d of r.decls) if (d.prop === 'max-width') { const px = maxPxIn(resolveVars(d.value, ctx.tokens)); if (px && px >= 900) widths.set(px, r.selector); }
+  }
+  if (widths.size > 2) report('F15', 'WARN', ctx.cssFiles[0]?.file || ctx.docs[0]?.file, 1, `${widths.size} container widths on one page (${[...widths.keys()].join(', ')}px)`, 'One container width, applied by the same two-element pattern in every section');
+  const gaps = new Map();
+  for (const r of ctx.rules) {
+    if (r.keyframes || r.media) continue;
+    const cols = r.decls.find((d) => d.prop === 'grid-template-columns' && /\s/.test(d.value.trim()) && !/^repeat\(\s*auto/.test(d.value.trim()));
+    if (!cols) continue;
+    const gap = r.decls.find((d) => /^(gap|column-gap)$/.test(d.prop));
+    if (gap) { const v = resolveVars(gap.value, ctx.tokens).split(/\s+/).pop(); const px = maxPxIn(v); if (px != null && px >= 16) gaps.set(v, r.selector); }
+  }
+  if (gaps.size > 2) report('F15', 'WARN', ctx.cssFiles[0]?.file || ctx.docs[0]?.file, 1, `${gaps.size} different column gaps across multi-column sections (${[...gaps.keys()].join(', ')})`, 'One column gap for every multi-column section');
+}
+
+function checkF16(ctx) {
+  if (ctx.tokensOnly || !ctx.tokens['--color-accent']) return;
+  const missing = [];
+  if (!/::selection/.test(ctx.allCss)) missing.push('::selection');
+  if (!/scrollbar-color|::-webkit-scrollbar/.test(ctx.allCss)) missing.push('scrollbar-color');
+  const hasInputs = ctx.docs.some((d) => /<(input|textarea)\b/i.test(d.src));
+  if (hasInputs && !/caret-color/.test(ctx.allCss)) missing.push('caret-color');
+  if (missing.length) report('F16', 'WARN', ctx.cssFiles[0]?.file || ctx.docs[0]?.file, 1, `browser surfaces unthemed: ${missing.join(', ')}`, 'Theme the parts you did not draw from the palette');
+}
+
 function maskedProse(doc) {
   if (doc._prose == null) {
     const pad = (m) => m.replace(/[^\n]/g, ' ');
@@ -2036,7 +2034,7 @@ function maskedProse(doc) {
   return doc._prose;
 }
 
-function maxPxIn(value) { // largest px-equivalent in a value (handles clamp())
+function maxPxIn(value) {
   let best = null;
   for (const m of String(value).matchAll(/(-?\d+(?:\.\d+)?)(px|rem|em)/g)) {
     const px = m[2] === 'px' ? parseFloat(m[1]) : parseFloat(m[1]) * 16;
@@ -2045,14 +2043,13 @@ function maxPxIn(value) { // largest px-equivalent in a value (handles clamp())
   return best;
 }
 
-function baseSelector(sel) { // strip pseudo-classes/elements
+function baseSelector(sel) {
   return sel.replace(/::?[a-z-]+(\([^)]*\))?/gi, '').replace(/\s+/g, ' ').trim();
 }
 
-/* gate F1: straight quotes in prose (curly quotes never flagged) */
 function checkF1(ctx) {
   const dq = /(?:"|&quot;|&#0?34;)(?=[A-Za-z])|[A-Za-z](?:"|&quot;|&#0?34;)/g;
-  const ap = /[A-Za-z](?:'|&#0?39;|&apos;)(?=[A-Za-z])/g; // contractions/possessives only
+  const ap = /[A-Za-z](?:'|&#0?39;|&apos;)(?=[A-Za-z])/g;
   for (const doc of ctx.docs) {
     const prose = maskedProse(doc);
     const hits = [...prose.matchAll(dq), ...prose.matchAll(ap)].sort((a, b) => a.index - b.index);
@@ -2063,7 +2060,6 @@ function checkF1(ctx) {
   }
 }
 
-/* gate F2: three-period ellipsis in prose */
 function checkF2(ctx) {
   for (const doc of ctx.docs) {
     const prose = maskedProse(doc);
@@ -2074,12 +2070,11 @@ function checkF2(ctx) {
   }
 }
 
-/* gate F3: display heads without text-wrap balance (single WARN per file set) */
 function checkF3(ctx) {
   const H12 = /(^|[\s,>+~(])h[12]\b/i;
   const targets = [];
   let satisfied = false;
-  for (const r of mergedDeclsBySelector(ctx.rules)) {
+  for (const r of mergedDeclsBySelector(ctx)) {
     const isH12 = H12.test(r.selector);
     const isDisplayClass = HEADING_SEL.test(r.selector)
       && r.decls.some((d) => d.prop === 'font-size' && (maxPxIn(resolveVars(d.value, ctx.tokens)) ?? 0) >= 40);
@@ -2094,11 +2089,10 @@ function checkF3(ctx) {
   }
 }
 
-/* gate F4: more than one filled-primary button recipe */
 function checkF4(ctx) {
   const BTN = /\b(btn|button|cta)\b|__(btn|button|cta)\b/i;
-  const filled = new Map(); // base selector -> {r, d}
-  for (const r of mergedDeclsBySelector(ctx.rules)) {
+  const filled = new Map();
+  for (const r of mergedDeclsBySelector(ctx)) {
     if (isTokenRule(r) || /:hover|:active|:focus|:disabled|\.is-|\[disabled/i.test(r.selector)) continue;
     const first = baseSelector(r.selector.split(',')[0]);
     if (!BTN.test(first)) continue;
@@ -2118,9 +2112,8 @@ function checkF4(ctx) {
   }
 }
 
-/* gate F5: icon in a coloured circle coin */
 function checkF5(ctx) {
-  for (const r of mergedDeclsBySelector(ctx.rules)) {
+  for (const r of mergedDeclsBySelector(ctx)) {
     if (isTokenRule(r) || !/icon|\bico\b/i.test(r.selector)) continue;
     const radius = r.decls.find((d) => d.prop === 'border-radius');
     if (!radius) continue;
@@ -2140,13 +2133,12 @@ function checkF5(ctx) {
   }
 }
 
-/* gate F6: display-size numeric surfaces without tabular figures (selector heuristic) */
 function checkF6(ctx) {
   const NUM_SEL = /\b(stat|price|table|figure|count|num)[\w-]*/i;
   const hasTnum = (r) => r.decls.some((d) => d.prop === 'font-variant-numeric'
     || (d.prop === 'font-feature-settings' && /tnum/.test(d.value)));
   if (ctx.rules.some((r) => /^(html|body|:root)\b/i.test(r.selector.trim()) && hasTnum(r))) return;
-  const bySel = mergedDeclsBySelector(ctx.rules);
+  const bySel = mergedDeclsBySelector(ctx);
   const covered = new Set(bySel.filter(hasTnum).map((r) => baseSelector(r.selector)));
   const warned = new Set();
   for (const r of bySel) {
@@ -2162,10 +2154,9 @@ function checkF6(ctx) {
   }
 }
 
-/* gate F7: container monotony - identical surface recipe across >= 6 selectors */
 function checkF7(ctx) {
   const byKey = new Map();
-  for (const r of mergedDeclsBySelector(ctx.rules)) {
+  for (const r of mergedDeclsBySelector(ctx)) {
     if (isTokenRule(r) || /::(before|after)/.test(r.selector)) continue;
     const get = (re) => {
       const d = r.decls.filter((x) => re.test(x.prop)).pop();
@@ -2190,14 +2181,13 @@ function checkF7(ctx) {
   }
 }
 
-/* gate F8: more than one scroll-choreography pattern family */
 function checkF8(ctx) {
   const famOf = (sel) => {
     const m = /\.([a-z][\w-]*)/i.exec(sel) || /(^|[\s>+~])([a-z][\w-]*)/i.exec(sel);
     const name = m ? (m[1] || m[2]) : sel;
     return name.split('__')[0].split('--')[0].toLowerCase();
   };
-  const NAVISH = /^(nav|header|topbar|masthead|banner)$/; // scroll-reactive navs are n10/n12 territory
+  const NAVISH = /^(nav|header|topbar|masthead|banner)$/;
   const timeline = new Map(), sticky = new Map(), animated = new Set();
   for (const r of ctx.rules) {
     if (r.keyframes || isTokenRule(r)) continue;
@@ -2221,7 +2211,6 @@ function checkF8(ctx) {
   }
 }
 
-/* gate F9: fake-human avatar hotlinks (FAIL) / person-keyword unsplash (WARN) */
 function checkF9(ctx) {
   const FAKE = /(i\.pravatar\.cc|pravatar\.cc|api\.dicebear\.com|dicebear\.com|randomuser\.me|thispersondoesnotexist\.com|ui-avatars\.com)/i;
   const UNSPLASH = /https?:\/\/[^"'()\s]*unsplash\.com[^"'()\s]*/gi;
@@ -2240,14 +2229,417 @@ function checkF9(ctx) {
   for (const c of ctx.cssFiles) scan(c.raw, c.file, (i) => c.raw.slice(0, i).split('\n').length);
 }
 
-/* -------------------------------------------------------------- runner --- */
+function fontSizePxOf(r, ctx) {
+  const fs = r.decls.find((d) => d.prop === 'font-size');
+  if (fs) return pxOf(resolveVars(fs.value, ctx.tokens));
+  const f = r.decls.find((d) => d.prop === 'font');
+  if (!f) return null;
+  const m = /(?:^|\s)(\d+(?:\.\d+)?(?:px|rem|em))(?:\/[\d.]+(?:px|rem|em)?)?\s/.exec(resolveVars(f.value, ctx.tokens) + ' ');
+  return m ? pxOf(m[1]) : null;
+}
 
-const CHECKS = [check1, check2, check3, check4, check5, check7, check10, check11,
-  check12, check14, check15, check17, check18, check19, check20, check22, check23, check24,
+const LABEL67 = /label|caption|meta|eyebrow|kicker|tag\b|badge|chip|small|folio|footnote|legend|\bth\b|thead|figcaption|overline|dateline|byline|credit|note\b|\bnav\b|menu|link|pill|status|unit|smallcaps|count|stamp|placard/i;
+const CONTROL67 = /btn|button|cta|\.sign\b|plate|control/i;
+const EXEMPT67_NAME = /^(wordmark|marquee|ticker|logo|brand|abbr|logo-?(mark|type|text)|brand-?(mark|name|type))$/i;
+const exemptName67 = (n) => !!n && EXEMPT67_NAME.test(n.split('--')[0].split('__').pop());
+function exempt67(sel) {
+  return sel.split(',').some((part) => {
+    const comp = baseSelector(part).split(/[\s>+~]+/).filter(Boolean).pop() || '';
+    const names = (comp.match(/\.[a-zA-Z_][\w-]*/g) || []).map((c) => c.slice(1));
+    names.push((/^[a-zA-Z][\w-]*/.exec(comp) || [''])[0]);
+    return names.some(exemptName67);
+  });
+}
+function inherited67(bySel, sel, prop) {
+  const base = baseSelector(sel);
+  let best = null, bestLen = 0;
+  for (const o of bySel) {
+    if (/:hover|:focus|:active/.test(o.selector) || (o.media && /max-width/i.test(o.media))) continue;
+    for (const part of o.selector.split(',')) {
+      const ob = baseSelector(part);
+      if (!ob || ob === base || ob.length <= bestLen || !base.startsWith(ob) || !/[\s>+~]/.test(base[ob.length] || '')) continue;
+      const d = o.decls.filter((x) => x.prop === prop).pop();
+      if (d) { best = d.value; bestLen = ob.length; }
+    }
+  }
+  return best;
+}
+const isSmallCaps67 = (prop, v) => (/^font-variant(-caps)?$/.test(prop) && /\b(all-)?(small|petite)-caps\b/.test(v))
+  || (prop === 'font-feature-settings' && /\b(smcp|c2sc)\b/.test(v));
+function check67(ctx) {
+  const bySel = mergedDeclsBySelector(ctx);
+  const upperDisplay = bySel.some((r) => HEADING_SEL.test(r.selector) && !LABEL67.test(r.selector) && r.decls.some((d) => d.prop === 'text-transform' && /uppercase/.test(d.value)));
+  const isUpper = (v) => v != null && /uppercase/.test(resolveVars(v, ctx.tokens));
+  const seen = new Set();
+  for (const r of bySel) {
+    if (isTokenRule(r) || exempt67(r.selector) || /::first-letter\s*(,|$)/.test(r.selector)) continue;
+    const ownTT = r.decls.filter((d) => d.prop === 'text-transform').pop();
+    const ownUpper = ownTT ? isUpper(ownTT.value) : null;
+    const ownSmallCaps = r.decls.some((d) => isSmallCaps67(d.prop, resolveVars(d.value, ctx.tokens)));
+    const px = fontSizePxOf(r, ctx);
+    const ownEm = trackingEmOf(ctx, r.decls, px || 16);
+    const ownSignal = ownUpper === true || ownSmallCaps || (ownEm != null && ownEm > 0.03);
+    if (!ownSignal) continue;
+    const upper = ownUpper != null ? ownUpper : isUpper(inherited67(bySel, r.selector, 'text-transform'));
+    const smallCaps = ownSmallCaps || ['font-variant', 'font-variant-caps', 'font-feature-settings'].some((prop) => {
+      const v = inherited67(bySel, r.selector, prop);
+      return v != null && isSmallCaps67(prop, resolveVars(v, ctx.tokens));
+    });
+    let em = ownEm;
+    if (em == null) {
+      const v = inherited67(bySel, r.selector, 'letter-spacing');
+      if (v != null) em = trackingEmOf(ctx, [{ prop: 'letter-spacing', value: v }], px || 16);
+    }
+    const tracked = em != null && em > 0.03;
+    const labelish = LABEL67.test(r.selector);
+    const control = CONTROL67.test(r.selector);
+    const heading = HEADING_SEL.test(r.selector) && !labelish;
+    if (heading && !control) continue;
+    const key = baseSelector(r.selector);
+    if (seen.has(key)) continue;
+    const small = px != null && px < 15;
+    if (control && !labelish) {
+      if (!upper && !smallCaps) { if (!(tracked && small)) continue; }
+      else if (upperDisplay && (em == null || em <= 0.045)) continue;
+      seen.add(key);
+      report(67, 'FAIL', r.file, r.line, upperDisplay ? `${r.selector}: uppercase control tracked ${em}em` : `${r.selector}: uppercase control on a page whose display is not uppercase`, 'Controls follow the display voice: sentence case here, or tracking 0.04em at most where the display itself is uppercase');
+      continue;
+    }
+    const caps = upper || smallCaps;
+    if ((caps && (labelish || smallCaps || tracked || small)) || (tracked && (labelish || small))) {
+      seen.add(key);
+      const what = smallCaps ? 'small caps' : upper ? 'uppercase' : 'letter-spaced';
+      report(67, 'FAIL', r.file, r.line, `${r.selector}: ${what}${tracked ? ` tracked ${em}em` : ''}${px != null ? ` at ${Math.round(px)}px` : ''} in a label role`, 'Labels, captions, table heads, nav links and meta are the body face, a step smaller, sentence case, untracked');
+    }
+  }
+  check67Html(ctx);
+}
+
+const CAPS_TAGS = /^(p|span|small|a|li|div|figcaption|td|th|dt|dd|label|time|cite|strong|b|em|button|summary)$/;
+function check67Html(ctx) {
+  for (const doc of ctx.docs) {
+    const anc = ancestorMap(doc);
+    const seen = new Set();
+    for (let i = 0; i < doc.tags.length; i++) {
+      const t = doc.tags[i];
+      if (t.close || t.selfClosing || !CAPS_TAGS.test(t.name)) continue;
+      const cls = getAttr(t.attrs, 'class') || '';
+      if (cls.split(/\s+/).some(exemptName67)) continue;
+      if ((anc.get(i) || []).some((n) => /^(svg|pre|code|abbr|kbd|samp)$/.test(n))) continue;
+      const inner = innerOf(doc, i);
+      if (!inner || /<(p|div|ul|ol|h[1-6]|table|section|article|svg|img|abbr|code|kbd)\b/i.test(inner.inner)) continue;
+      const text = plainText(inner.inner);
+      const letters = text.replace(/[^A-Za-z]/g, '');
+      if (letters.length < 5 || capsRatio(text) < 0.95 || /^[A-Z]{2,5}$/.test(text)) continue;
+      const decls = styleFor(ctx, cls, t.name);
+      const px = fontPxOf(ctx, decls);
+      const em = trackingEmOf(ctx, decls, px || 16);
+      const tracked = em != null && em > 0.03;
+      if (!((px != null && px <= 15) || tracked)) continue;
+      const key = cls || t.name;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      report(67, 'FAIL', doc.file, t.line, `"${trunc(text, 32)}" typed in capitals${px != null ? ` at ${Math.round(px)}px` : ''}${tracked ? ` tracked ${em}em` : ''} (<${t.name}${cls ? ` class="${trunc(cls, 24)}"` : ''}>)`, 'Sentence case in the body face; capitals survive only as a wordmark or as the display voice');
+    }
+  }
+}
+
+const ACCENT38 = /(?:^|[\s,])((?:h[1-3]|\.display|\.headline|\.title|[.\w-]*__(?:title|display|headline))[^\s,>+~]*)\s*(?:>|\s)\s*(em|i|b|strong|span|mark|\.[\w-]+)(?::nth-child\([^)]*\))?(?:::?[\w-]+)?\s*$/i;
+const INHERITED38 = /^(inherit|currentcolor|unset|initial|normal)$/i;
+function accentedHeads(ctx) {
+  if (ctx._acc38) return ctx._acc38;
+  const out = [];
+  const seen = new Set();
+  for (const r of ctx.rules) {
+    if (r.keyframes || isTokenRule(r)) continue;
+    const m = ACCENT38.exec(r.selector);
+    if (!m) continue;
+    const marked = r.decls.some((d) =>
+      (/^(color|background|background-color|-webkit-text-stroke|font-weight|text-decoration|text-decoration-color|border-bottom|box-shadow)$/.test(d.prop) && !INHERITED38.test(d.value.trim()))
+      || (d.prop === 'font-style' && !INHERITED38.test(d.value.trim())));
+    if (!marked || seen.has(r.selector)) continue;
+    seen.add(r.selector);
+    out.push({ r, head: m[1] });
+  }
+  ctx._acc38 = out;
+  return out;
+}
+function accentedWordInHero(ctx) {
+  const heads = accentedHeads(ctx);
+  if (!heads.length) return true;
+  const sels = new Set(heads.map((h) => baseSelector(h.r.selector)));
+  if (sels.size > 1) return `the accented word sits on ${sels.size} selectors (${trunc([...sels].join(', '), 48)}); the signature appears once`;
+  const { r, head } = heads[0];
+  if (/hero/i.test(r.selector) || /^h1\b/i.test(head)) return true;
+  const cls = (/\.([\w-]+)/.exec(head) || [])[1];
+  if (!cls || !ctx.docs.length) return true;
+  let count = 0, aboveFirstH2 = false;
+  for (const doc of ctx.docs) {
+    let h2Seen = false;
+    for (const t of doc.tags) {
+      if (t.close) continue;
+      if (t.name === 'h2') h2Seen = true;
+      if ((getAttr(t.attrs, 'class') || '').split(/\s+/).includes(cls)) { count++; if (!h2Seen) aboveFirstH2 = true; }
+    }
+  }
+  if (count === 1 && aboveFirstH2) return true;
+  return count !== 1 ? `.${cls} appears ${count} times in the markup; the signature appears once, in the hero` : `.${cls} sits below the first h2, outside the hero`;
+}
+function check38c(ctx) {
+  for (const { r } of accentedHeads(ctx)) {
+    report('38iii', 'FAIL', r.file, r.line, `accented word inside a heading (${r.selector})`, 'Set the whole head one way: a line break, a second line at a second size, or the whole head in the accent. Guard: the theme names the coloured word as its signature and it appears once on the page, in the hero');
+  }
+}
+
+function heroIndexOf(doc, h1Idx) {
+  for (let i = h1Idx - 1; i >= 0; i--) {
+    const t = doc.tags[i];
+    if (t.close || !/^(section|header)$/.test(t.name)) continue;
+    const inner = innerOf(doc, i);
+    if (inner && inner.endPos > doc.tags[h1Idx].pos) return i;
+  }
+  return -1;
+}
+const wordsOf = (t) => plainText(t).split(/\s+/).filter((w) => /[A-Za-z0-9]/.test(w));
+
+const TELLS19 = [
+  [/\bwhether you'?re\b/i, 'filler opener'],
+  [/\bwe'?ve got you covered\b/i, 'cliche'],
+  [/\bsay goodbye to\b/i, 'cliche'],
+  [/\bno credit card required\b/i, 'template line'],
+  [/\beverything you need to\b/i, 'cliche'],
+  [/\ball in one place\b/i, 'cliche'],
+  [/\blorem ipsum\b/i, 'placeholder text'],
+  [/\ball rights reserved\b/i, 'template footer line'],
+  [/\bmade with\s*(?:♥|❤|\u{1f9e1}|\u{1f49b}|\u{1f49a}|\u{1f499}|\u{1f49c}|\u{1f5a4}|\u{1f90d}|&hearts;|&#9829;|&#10084;|<3)/iu, 'made with a heart'],
+];
+function check19Tells(ctx) {
+  for (const doc of ctx.docs) {
+    const prose = maskedProse(doc);
+    const lines = new Set();
+    const tell = (idx, what, text) => {
+      const line = doc.lineOf(idx);
+      if (lines.has(line)) return;
+      lines.add(line);
+      report(19, 'FAIL', doc.file, line, `${what}: "${trunc(text, 40)}"`, 'Say what the product does, in its own nouns');
+    };
+    for (const [re, what] of TELLS19) {
+      const m = re.exec(prose);
+      if (m) tell(m.index, what, m[0]);
+    }
+    for (let i = 0; i < doc.tags.length; i++) {
+      const t = doc.tags[i];
+      if (t.close || !/^h[1-6]$/.test(t.name)) continue;
+      const text = plainText(innerOf(doc, i)?.inner || '');
+      if (/^Meet\s+[A-Z][\w-]*[.!]?$/.test(text)) tell(t.pos, 'the "Meet <Name>" heading', text);
+      else if (/^[A-Z][a-z]+\.\s+[A-Z][a-z]+\.\s+[A-Z][a-z]+\.$/.test(text)) tell(t.pos, 'the three-word triad heading', text);
+    }
+  }
+}
+
+function check58Static(ctx) {
+  for (const doc of ctx.docs) {
+    const h1 = doc.tags.findIndex((t) => !t.close && t.name === 'h1');
+    if (h1 >= 0) {
+      const words = wordsOf(innerOf(doc, h1)?.inner || '');
+      if (words.length > 7) report(58, 'WARN', doc.file, doc.tags[h1].line, `h1 runs ${words.length} words ("${trunc(words.join(' '), 40)}")`, 'Seven words or fewer, 50 characters or fewer');
+      const heroIdx = heroIndexOf(doc, h1);
+      const hero = heroIdx >= 0 ? innerOf(doc, heroIdx) : null;
+      if (hero) {
+        for (let i = h1 + 1; i < doc.tags.length && doc.tags[i].pos < hero.endPos; i++) {
+          const t = doc.tags[i];
+          if (t.close || t.name !== 'p') continue;
+          const pw = wordsOf(innerOf(doc, i)?.inner || '');
+          if (pw.length > 12) report(58, 'WARN', doc.file, t.line, `hero paragraph runs ${pw.length} words`, 'One sentence, twelve words or fewer');
+          break;
+        }
+      }
+    }
+    const sections = doc.tags.filter((t) => !t.close && t.name === 'section').length;
+    const fullPage = sections >= 5 || doc.tags.some((t) => !t.close && t.name === 'footer');
+    if (!fullPage) continue;
+    const total = doc.text.split(/\s+/).filter((w) => /[A-Za-z0-9]/.test(w)).length;
+    if (total < 250 || total > 450) report(58, 'WARN', doc.file, 1, `${total} visible words on the page (250 to 450 expected)`, total > 450 ? 'Cut copy: one idea per screen, sections become objects' : 'A page this short is a section; fill the slots or cut the sections');
+  }
+}
+
+const SECOND_CTA = /^(learn more|see how it works|watch (the )?demo|get started|book a demo)$/i;
+function check42TwoButton(ctx) {
+  for (const doc of ctx.docs) {
+    const h1 = doc.tags.findIndex((t) => !t.close && t.name === 'h1');
+    if (h1 < 0) continue;
+    const heroIdx = heroIndexOf(doc, h1);
+    const hero = heroIdx >= 0 ? innerOf(doc, heroIdx) : null;
+    if (!hero) continue;
+    const anc = ancestorMap(doc);
+    const controls = [];
+    for (let i = heroIdx + 1; i < doc.tags.length && doc.tags[i].pos < hero.endPos; i++) {
+      const t = doc.tags[i];
+      if (t.close || t.selfClosing || !(t.name === 'button' || t.name === 'a')) continue;
+      const cls = getAttr(t.attrs, 'class') || '';
+      if (t.name === 'a' && !/btn|cta|button/i.test(cls)) continue;
+      if ((anc.get(i) || []).includes('nav')) continue;
+      controls.push({ t, cls, label: plainText(innerOf(doc, i)?.inner || '').trim() });
+    }
+    if (controls.length < 2 || !SECOND_CTA.test(controls[1].label)) continue;
+    const decls = styleFor(ctx, controls[0].cls, controls[0].t.name);
+    const bg = declValue(ctx, decls, 'background-color') || declValue(ctx, decls, 'background');
+    if (bg && /^(none|transparent)$/i.test(bg.trim())) continue;
+    report(42, 'WARN', doc.file, controls[1].t.line, `the two-button hero: "${trunc(controls[0].label, 20)}" then "${controls[1].label}"`, 'One action in the hero; the second button is the template speaking');
+  }
+}
+
+const PLACEHOLDER_IMG = /placehold\.co|via\.placeholder\.com|source\.unsplash\.com\/random|dummyimage\.com/i;
+function check47Placeholders(ctx) {
+  for (const doc of ctx.docs) {
+    const m = PLACEHOLDER_IMG.exec(doc.src);
+    if (m) report('47c', 'WARN', doc.file, doc.lineOf(m.index), `placeholder image service ${m[0]}`, 'A labelled data-slot in the theme colours, or a real asset');
+  }
+  for (const c of ctx.cssFiles) {
+    const m = PLACEHOLDER_IMG.exec(c.raw);
+    if (m) report('47c', 'WARN', c.file, c.raw.slice(0, m.index).split('\n').length, `placeholder image service ${m[0]}`, 'A labelled data-slot in the theme colours, or a real asset');
+  }
+}
+
+const TAILWIND_HEX = /#(0f172a|1e293b|6366f1|8b5cf6|3b82f6|f8fafc|64748b)\b/i;
+function check65Tailwind(ctx) {
+  for (const r of ctx.rules) {
+    if (!isTokenRule(r) || r.selector === '@font-face') continue;
+    for (const d of r.decls) {
+      const m = TAILWIND_HEX.exec(d.value);
+      if (m) report(65, 'WARN', r.file, d.line, `default Tailwind palette ${m[0]} on ${d.prop}`, 'Mix the colour for this page in OKLCH; a stock swatch is the AI look');
+    }
+  }
+}
+
+function splitTop(v) {
+  const out = [];
+  let depth = 0, cur = '';
+  for (const ch of v) {
+    if (ch === '(') depth++;
+    if (ch === ')') depth--;
+    if (ch === ',' && depth === 0) { out.push(cur); cur = ''; } else cur += ch;
+  }
+  if (cur.trim()) out.push(cur);
+  return out;
+}
+const COLOR_RE = /#[0-9a-fA-F]{3,8}\b|oklch\([^)]*\)|rgba?\([^)]*\)|hsla?\([^)]*\)|color-mix\((?:[^()]|\([^()]*\))*\)|\b(white|black|transparent)\b/i;
+const lengthPx = (x) => (x === '0' ? 0 : pxOf(x));
+function check29Glow(ctx) {
+  const seen = new Set();
+  const once = (key, file, line, ev, fix) => { if (seen.has(key)) return; seen.add(key); report(29, 'WARN', file, line, ev, fix); };
+  for (const r of mergedDeclsBySelector(ctx)) {
+    if (isTokenRule(r)) continue;
+    const local = {};
+    for (const d of r.decls) if (d.prop.startsWith('--')) local[d.prop] = d.value;
+    const bf = r.decls.find((d) => /^(-webkit-)?backdrop-filter$/.test(d.prop) && /blur\(/i.test(d.value));
+    if (bf) {
+      const bgD = r.decls.filter((d) => /^background(-color)?$/.test(d.prop)).pop();
+      const rv = bgD ? resolveVars(bgD.value, ctx.tokens, local).trim() : '';
+      const c = parseColor(rv);
+      const mixed = /color-mix\([^)]*\b(white|black|--color-(paper|ink))\b[^)]*\btransparent\b/i.test(rv);
+      const nearWhite = c && c.r > 0.85 && c.g > 0.85 && c.b > 0.85;
+      const nearBlack = c && c.r < 0.15 && c.g < 0.15 && c.b < 0.15;
+      if ((c && c.alpha < 0.95 && (nearWhite || nearBlack)) || (!c && mixed)) {
+        once('glass:' + r.selector, r.file, bf.line, `glass panel: backdrop-filter blur over a translucent ${nearBlack ? 'black' : 'white'} on ${trunc(r.selector, 36)}`, 'Solid or grained surface; elevation by lightness');
+      }
+    }
+    for (const d of r.decls) {
+      if (d.prop !== 'box-shadow') continue;
+      for (const part of splitTop(resolveVars(d.value, ctx.tokens, local))) {
+        const cm = COLOR_RE.exec(part);
+        if (!cm) continue;
+        const c = parseColor(cm[0]);
+        if (!c || c.alpha <= 0.05) continue;
+        const ok = c.okl || srgbToOklch(c);
+        if (ok.C <= 0.04) continue;
+        const lens = part.replace(cm[0], ' ').replace(/\binset\b/, ' ').trim().split(/\s+/).filter(Boolean).map(lengthPx);
+        if (lens.length >= 3 && lens[0] === 0 && lens[1] === 0 && lens[2] != null && lens[2] > 20) {
+          once('glow:' + r.selector, r.file, d.line, `chromatic zero-offset glow (blur ${Math.round(lens[2])}px) on ${trunc(r.selector, 36)}`, 'Shadows carry offset and blur in a neutral; colour is not depth');
+          break;
+        }
+      }
+    }
+    if (/::(before|after)/.test(r.selector) && r.decls.some((d) => d.prop === 'position' && /absolute|fixed/.test(d.value))) {
+      const f = r.decls.find((d) => d.prop === 'filter' && /blur\(\s*(\d+(?:\.\d+)?)px/i.test(d.value));
+      const n = f ? parseFloat(/blur\(\s*(\d+(?:\.\d+)?)px/i.exec(f.value)[1]) : 0;
+      if (n > 40) once('orb:' + r.selector, r.file, f.line, `blurred orb: filter blur(${n}px) on the positioned ${trunc(r.selector, 36)}`, 'Delete the wash; a surface is paper or ground, not a light show');
+    }
+  }
+}
+
+function check11Lift(ctx) {
+  const lifts = new Map();
+  for (const r of mergedDeclsBySelector(ctx)) {
+    if (!/:hover/.test(r.selector)) continue;
+    const t = r.decls.find((d) => (d.prop === 'transform' && /translateY\(\s*-\s*\d/.test(resolveVars(d.value, ctx.tokens))) || (d.prop === 'translate' && /^0(px)?\s+-\d/.test(resolveVars(d.value, ctx.tokens))));
+    const sh = r.decls.find((d) => d.prop === 'box-shadow');
+    if (t && sh) for (const part of r.selector.split(',')) lifts.set(baseSelector(part), { r, t });
+  }
+  if (lifts.size < 3) return;
+  const third = [...lifts.values()][2];
+  report(11, 'WARN', third.r.file, third.t.line, `the hover lift (translateY plus shadow) on ${lifts.size} selectors (${trunc([...lifts.keys()].slice(0, 3).join(', '), 44)})`, 'One signal per element; the same lift on every card is the template');
+}
+
+function check15Fade(ctx) {
+  const focusProps = new Map();
+  for (const r of ctx.rules) {
+    if (!/:focus-visible/.test(r.selector)) continue;
+    for (const part of r.selector.split(',')) {
+      if (!/:focus-visible/.test(part)) continue;
+      const base = baseSelector(part).replace(/^\*$/, '');
+      const set = focusProps.get(base) || new Set();
+      for (const d of r.decls) {
+        if (d.prop === 'box-shadow') set.add('box-shadow');
+        if (/^outline/.test(d.prop)) set.add('outline');
+      }
+      focusProps.set(base, set);
+    }
+  }
+  if (!focusProps.size) return;
+  const global = focusProps.get('') || new Set();
+  for (const r of ctx.rules) {
+    if (r.keyframes || /:focus|:hover|:active/.test(r.selector)) continue;
+    for (const d of r.decls) {
+      if (d.prop !== 'transition' && d.prop !== 'transition-property') continue;
+      for (const prop of ['box-shadow', 'outline']) {
+        if (!new RegExp(`(^|[\\s,])${prop}(-[a-z]+)?\\b`).test(d.value)) continue;
+        const own = r.selector.split(',').some((p) => (focusProps.get(baseSelector(p)) || new Set()).has(prop));
+        if (global.has(prop) || own) {
+          report(15, 'FAIL', r.file, d.line, `${trunc(r.selector, 32)} transitions ${prop} while :focus-visible sets it (the ring fades in)`, 'Rings appear instantly: transition the hover property only, or draw the ring with a property that is not transitioned');
+          break;
+        }
+      }
+    }
+  }
+}
+
+function checkF7Pills(ctx) {
+  const CONTROLISH = /btn|button|cta|input|select|textarea|switch|toggle|control|chip|pill/i;
+  const sels = new Set();
+  let where = null;
+  for (const r of mergedDeclsBySelector(ctx)) {
+    if (isTokenRule(r)) continue;
+    const d = r.decls.filter((x) => x.prop === 'border-radius').pop();
+    if (!d) continue;
+    if (!/^(9999px|999px|50rem)$/.test(resolveVars(d.value, ctx.tokens).trim())) continue;
+    for (const part of r.selector.split(',')) {
+      const b = baseSelector(part);
+      if (!b || CONTROLISH.test(b)) continue;
+      sels.add(b);
+      where = where || { r, d };
+    }
+  }
+  if (sels.size >= 5) report('F7', 'WARN', where.r.file, where.d.line, `the pill radius on ${sels.size} non-control selectors (${trunc([...sels].slice(0, 4).join(', '), 48)})`, 'Pills are for controls; boxes and media take the card radius');
+}
+
+const CHECKS = [check1, check2, check3, check3Stripe, check4, check6a, check7, check10, check10Motion, check11,
+  check12, check15, check17, check18, check19, check20, check22, check23, check24, check24a,
   check25, check26, check27, check28, check30, check33, check34, check37, check38a,
-  check39, check40_41, check42, check43, check46, check47, check48, check49,
-  check50, check51, check52, check53, check54, check55, check56, checkCopyTell,
-  checkF1, checkF2, checkF3, checkF4, checkF5, checkF6, checkF7, checkF8, checkF9];
+  check39, check40_41, check42, check42Footer, check46, check47, check48, check49,
+  check50, check50Wrap, check53, check54, check55, check56, checkCopyTell, check62, check63, check64, check65, check67, check38c,
+  check19Tells, check58Static, check42TwoButton, check47Placeholders, check65Tailwind, check29Glow, check11Lift, check15Fade,
+  checkF1, checkF2, checkF3, checkF4, checkF5, checkF6, checkF7, checkF7Pills, checkF8, checkF9, checkF15, checkF16];
 
 const files = collectFiles(opts.paths);
 if (!files.length) { console.error('sloplint: no .html or .css files found'); process.exit(2); }
@@ -2261,36 +2653,73 @@ for (const f of files) {
   else g.html.push(f);
 }
 
+const localRef = (href) => href && !/^(?:[a-z]+:|\/\/)/i.test(href) ? href.split(/[?#]/)[0] : null;
+function importsOf(css, from) {
+  const out = [];
+  for (const m of stripComments(css).matchAll(/@import\s+(?:url\(\s*)?["']?([^"')\s;]+)["']?\s*\)?/gi)) {
+    const ref = localRef(m[1]);
+    if (ref) out.push(resolve(from, ref));
+  }
+  return out;
+}
+function linksOf(doc, from) {
+  const out = [];
+  for (const t of doc.tags) {
+    if (t.close || t.name !== 'link' || !/stylesheet/i.test(getAttr(t.attrs, 'rel') || '')) continue;
+    const ref = localRef(getAttr(t.attrs, 'href'));
+    if (ref) out.push(resolve(from, ref));
+  }
+  return out;
+}
+
+const waiversByDir = new Map();
+const postureByFile = {};
 for (const [dir, g] of groups) {
   const cssFiles = [];
   const rules = [];
   const docs = [];
+  const inGroup = new Set([...g.css, ...g.html]);
+  const pending = [];
   for (const f of g.css) {
     const raw = readFileSync(f, 'utf8');
     cssFiles.push({ file: f, raw });
     rules.push(...parseCss(raw, f));
+    pending.push(...importsOf(raw, dirname(f)));
   }
   for (const f of g.html) {
     const raw = readFileSync(f, 'utf8');
     const doc = parseHtml(f, raw);
     docs.push(doc);
-    for (const s of doc.styles) rules.push(...parseCss(s.css, f, s.lineOffset));
-    const inlineRe = /style\s*=\s*"([^"]*)"/gi;
-    let m;
-    while ((m = inlineRe.exec(raw))) {
-      // inline styles participate in token discipline via check48 (scanned there)
+    for (const s of doc.styles) {
+      rules.push(...parseCss(s.css, f, s.lineOffset));
+      pending.push(...importsOf(s.css, dirname(f)));
     }
+    pending.push(...linksOf(doc, dirname(f)));
   }
-  /* The stamp: the first 40 lines of every stylesheet plus the first 60 of every
-     document, which is where gate 20 requires it and where waivers must live. */
+  while (pending.length) {
+    const p = pending.shift();
+    if (inGroup.has(p) || extname(p).toLowerCase() !== '.css' || !existsSync(p)) continue;
+    inGroup.add(p);
+    let raw;
+    try { raw = readFileSync(p, 'utf8'); } catch { continue; }
+    cssFiles.push({ file: p, raw, attached: true });
+    rules.push(...parseCss(raw, p));
+    pending.push(...importsOf(raw, dirname(p)));
+  }
+
+  const head40 = (t) => t.split('\n').slice(0, 40).join('\n');
   const stampText = [
-    ...cssFiles.map((c) => c.raw.split('\n').slice(0, 40).join('\n')),
-    ...docs.map((d) => d.src.split('\n').slice(0, 60).join('\n')),
+    ...cssFiles.map((c) => head40(c.raw)),
+    ...docs.flatMap((d) => d.styles.map((st) => head40(st.css))),
   ].join('\n');
+  const posture = (/posture:\s*(restrained|committed|full-palette|drenched)/i.exec(stampText)?.[1] || 'restrained').toLowerCase();
+  for (const d of docs) postureByFile[d.file] = posture;
   const allCss = cssFiles.map((c) => c.raw).join('\n') + '\n'
     + docs.map((d) => d.styles.map((s) => s.css).join('\n')).join('\n');
-  const ctx = { rules, tokens: buildTokens(rules), docs, cssFiles, genre: opts.genre, stampText, allCss };
+  const tokensOnly = !docs.length && rules.length > 0 && rules.every(isTokenRule);
+  const ctx = { rules, tokens: buildTokens(rules), docs, cssFiles, genre: opts.genre, stampText, allCss, posture, tokensOnly };
   applyWaivers(ctx, dir);
+  waiversByDir.set(dir, { WAIVED, ANSWERED });
   for (const check of CHECKS) {
     try { check(ctx); } catch (e) {
       console.error(`sloplint: internal error in ${check.name} for ${dir}: ${e.message}`);
@@ -2298,29 +2727,26 @@ for (const [dir, g] of groups) {
   }
 }
 
-/* render tier */
 if (opts.render) {
   const htmlFiles = files.filter((f) => extname(f).toLowerCase() === '.html');
   try {
     const mod = await import(new URL('./sloplint-render.mjs', import.meta.url).href);
-    const postureByFile = {};
-    for (const f of htmlFiles) {
-      let head = '';
-      try { head = readFileSync(f, 'utf8').split('\n').slice(0, 60).join('\n'); } catch { /* unreadable */ }
-      postureByFile[f] = (/posture:\s*(restrained|committed|full-palette|drenched)/i.exec(head)?.[1] || 'restrained').toLowerCase();
-    }
     const extra = await mod.renderCheck(htmlFiles, { genre: opts.genre, postureByFile });
     for (const f of extra) {
-      findings.push({ ...f, file: rel(f.file), evidence: trunc(String(f.evidence)) });
+      const w = waiversByDir.get(dirname(f.file));
+      WAIVED = w ? w.WAIVED : new Set();
+      ANSWERED = w ? w.ANSWERED : new Set();
+      report(f.gate, f.grade === 'REFLEX' ? 'FAIL' : f.grade, f.file, f.line, f.evidence, f.fix);
     }
   } catch (e) {
     console.error(`render tier unavailable (${e.message}); static checks only`);
   }
 }
 
-/* dedupe identical findings */
 const seen = new Set();
+const tierOk = (f) => !opts.tier || (opts.tier === 'floor' ? (f.tier === 'floor' && f.grade === 'FAIL') : f.tier === opts.tier);
 const unique = findings.filter((f) => {
+  if (!tierOk(f)) return false;
   const k = `${f.gate}|${f.grade}|${f.file}|${f.line}|${f.evidence}`;
   if (seen.has(k)) return false;
   seen.add(k);
@@ -2345,9 +2771,6 @@ const rejected = count('WAIVER');
 const answered = count('ANSWERED');
 const notes = count('NOTE');
 
-/* Floor and Reflex both block, and both are reported, but they are not the same
-   claim: "0 FAIL" means nothing got past the floor, which stays true even while
-   the build still owes an argument on a reflex. */
 const tally = [`${fails} FAIL`];
 if (reflex) tally.push(`${reflex} REFLEX`);
 tally.push(`${warns} WARN`);

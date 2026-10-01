@@ -1,52 +1,49 @@
 ### N13 · Inline ⌘K search pill
-A **visible** search pill sits inline in the bar — placeholder text plus a `⌘K` kbd hint — alongside (not replacing) the links. Click it, or press ⌘K / Ctrl K, to open a spotlight modal with grouped, keyboard-navigable results. The opposite of N4 (which *hides* nav behind the shortcut): here the affordance is on the surface for newcomers, with the shortcut for power users. Tailwind, Linear, Raycast, docs sites.
-*Use when:* the product is search-heavy or docs-heavy and search is a primary action (dev tools, music/library apps, large content sites).
-*Don't confuse with:* N4 (no visible nav, ⌘K only); a plain search icon that just focuses an input in place.
+A visible search control sits in the bar beside the links: placeholder text and a `⌘K` hint. Click it, or press ⌘K or Ctrl K, and a spotlight dialog opens with grouped, keyboard-navigable results. The opposite of N4: the affordance is on the surface for newcomers, the shortcut for the rest.
+*Use when:* search is a primary action (developer docs, a library, a large catalogue).
+*Not:* N4 (no visible nav); a search icon that focuses an input in place. The dialog is a `<dialog>` that traps focus and closes on Escape: ship the pill, ship the keyboard model. The pill reads as search (an icon and a placeholder), not as a generic button.
 
 ```html
 <header class="nav" id="nav"><div class="nav__inner">
-  <a class="nav__brand">Crank</a>
-  <button class="searchpill" id="searchpill" aria-label="Search (⌘K)">
-    <span class="searchpill__ico"></span><span class="searchpill__text">Search docs…</span>
+  <a class="nav__brand" href="/" aria-label="Studio, home">Studio</a>
+  <button class="searchpill" type="button" aria-haspopup="dialog" aria-controls="cmdk" aria-keyshortcuts="Meta+K Control+K">
+    <svg class="searchpill__ico" aria-hidden="true">…</svg><span class="searchpill__text">Search the docs</span>
     <span class="searchpill__kbd"><kbd>⌘</kbd><kbd>K</kbd></span>
   </button>
-  <nav class="nav__right"><a class="nav__link">Docs</a><a class="btn btn--accent">Start</a></nav>
+  <nav class="nav__right" aria-label="Primary"><a class="nav__link" href="/docs">Docs</a><a class="btn btn--accent" href="/start">Start</a></nav>
 </div></header>
-<div class="cmdk" id="cmdk" aria-hidden="true">
-  <div class="cmdk__backdrop" data-close></div>
-  <div class="cmdk__panel" role="dialog" aria-modal="true">
-    <div class="cmdk__field"><span class="cmdk__field-ico"></span><input id="cmdk-input" placeholder="Search docs…"><kbd>esc</kbd></div>
-    <div class="cmdk__results"><p class="cmdk__group">Suggested</p><button class="cmdk__item is-active">…</button></div>
-    <div class="cmdk__foot"><span><kbd>↑</kbd><kbd>↓</kbd> navigate</span><span><kbd>↵</kbd> open</span><span><kbd>esc</kbd> close</span></div>
-  </div>
-</div>
+<dialog class="cmdk" id="cmdk" aria-label="Search">
+  <form class="cmdk__field" method="dialog"><label for="cmdk-input" class="visually-hidden">Search</label><input id="cmdk-input" type="search" name="q" placeholder="Search the docs"><kbd>esc</kbd></form>
+  <div class="cmdk__results" role="listbox"><p class="cmdk__group">Suggested</p><button class="cmdk__item" type="button" role="option" aria-selected="true">…</button></div>
+  <p class="cmdk__foot"><span><kbd>↑</kbd><kbd>↓</kbd> move</span><span><kbd>↵</kbd> open</span><span><kbd>esc</kbd> close</span></p>
+</dialog>
 ```
 ```css
-.searchpill { display: flex; align-items: center; gap: 0.6rem; height: 40px; padding: 0 0.55rem 0 0.85rem;
-  background: var(--color-paper-2); border: 1px solid var(--color-rule); border-radius: 999px; color: var(--color-muted);
-  transition: border-color 200ms, box-shadow 200ms; }
-.searchpill:hover { border-color: var(--color-rule-2); box-shadow: 0 4px 16px -10px oklch(0% 0 0 / 0.3); }
-.cmdk { position: fixed; inset: 0; z-index: 700; opacity: 0; visibility: hidden; transition: opacity 200ms, visibility 200ms; }
-.cmdk.is-open { opacity: 1; visibility: visible; }
-.cmdk__panel { position: absolute; top: 14vh; left: 50%; transform: translateX(-50%) translateY(-8px) scale(0.98);
-  width: min(560px, calc(100vw - 2rem)); transition: transform 240ms var(--ease-spring); }
-.cmdk.is-open .cmdk__panel { transform: translateX(-50%) translateY(0) scale(1); }
+.searchpill { display: flex; align-items: center; gap: var(--space-xs); min-height: 44px; padding: 0 var(--space-xs) 0 var(--space-sm); background: var(--color-paper-2); border: var(--rule-hair) solid var(--color-rule); border-radius: var(--radius-pill); color: var(--color-muted); cursor: pointer;
+  transition: border-color var(--dur-micro) var(--ease-out), background-color var(--dur-micro) var(--ease-out); }
+.searchpill:hover { border-color: var(--color-rule-2); }
+.searchpill:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.searchpill kbd, .cmdk kbd { font-family: var(--font-outlier); font-size: var(--text-xs); padding: 0 var(--space-2xs); border: var(--rule-hair) solid var(--color-rule-2); border-radius: var(--radius-input); }
+.cmdk { width: min(560px, calc(100% - var(--space-xl))); margin: 14vh auto 0; padding: 0; background: var(--color-paper); color: var(--color-ink); border: var(--rule-hair) solid var(--color-rule); border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
+.cmdk::backdrop { background: oklch(from var(--color-ink) l c h / 0.28); }
+.cmdk[open] { animation: cmdk-in var(--dur-long) var(--ease-out); }
+@keyframes cmdk-in { from { opacity: 0; transform: translateY(-8px) scale(0.96); } }
+@media (prefers-reduced-motion: reduce) { .cmdk[open] { animation: none; } }
+.cmdk__field { display: flex; align-items: center; gap: var(--space-sm); margin: 0; padding: var(--space-sm) var(--space-md); border-bottom: var(--rule-hair) solid var(--color-rule); }
+.cmdk__field input { flex: 1; min-width: 0; border: 0; background: none; font: inherit; color: inherit; }
+.cmdk__group { margin: 0; padding: var(--space-sm) var(--space-md) var(--space-2xs); font-size: var(--text-sm); color: var(--color-muted); }
+.cmdk__foot { display: flex; gap: var(--space-md); margin: 0; padding: var(--space-xs) var(--space-md); border-top: var(--rule-hair) solid var(--color-rule); font-size: var(--text-xs); color: var(--color-muted); }
 ```
-*JS:* ⌘K / Ctrl K toggles, Esc closes, backdrop-click closes, ↑/↓ move the active item, Enter selects, focus the input on open and lock body scroll.
 
-**Knobs** — *Pill placement:* centred (default) · right-of-brand · *Result groups:* flat · grouped (default) · *Footer hints:* shown (default) · hidden · *Open trigger:* pill+⌘K (default) · ⌘K only (→ that's N4, not N13).
-*Anti-pattern:* don't fake the modal with a `<div>` that traps no focus and ignores Esc — if you ship the pill you ship the keyboard model. The pill must look like search (icon + placeholder), not a generic button.
-*Mobile:* the pill collapses to a search icon; the modal goes full-height sheet.
+JS: ⌘K or Ctrl K toggles, Escape closes (native), a backdrop click closes, the arrows move the selected option, Enter opens it, focus lands in the input on open and body scroll locks.
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
-
-- Pill placement: centred · right-of-brand
-- Result groups: flat · grouped
+- Pill placement: centred · beside the brand
+- Results: flat · grouped
 - Footer hints: shown · hidden
+- Open trigger: pill and ⌘K (⌘K alone is N4)
 
-## Mobile collapse
+## Mobile
 
-- **Below 60rem:** pill narrows; placeholder shortens; ⌘K hint hidden
-- **Below 40rem:** pill becomes an icon-only search trigger opening a full-screen modal
+- Below 60rem: the pill narrows and the hint hides. Below 40rem: an icon-only search control opening a full-height dialog.

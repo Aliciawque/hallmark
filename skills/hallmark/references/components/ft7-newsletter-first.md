@@ -1,40 +1,42 @@
 ### Ft7 · Newsletter-first
-The form (label + input + submit) is the *primary* element of the footer; everything else (wordmark, links, copyright) is set in 12 px muted type beneath. Stratechery, Substack-shaped sites, indie magazines.
-*Use when:* the brand legitimately publishes — and the page above the fold has *already* offered a subscription. The footer is a final invitation, not an ambush.
-*Don't confuse with:* Ft1 (which doesn't ask for anything).
+The form (label, input, submit) is the *primary* element of the footer; wordmark, links and copyright sit beneath in the body face, a step smaller.
+*Use when:* the brand legitimately publishes and the page has *already* offered a subscription above the fold. The footer is a final invitation, not an ambush.
+*Don't confuse with:* Ft1 (which asks for nothing).
 
 ```html
 <footer class="foot-news">
   <form class="foot-news__form" action="/subscribe" method="post">
-    <label for="foot-email">Letters from the studio · monthly</label>
+    <label for="foot-email">Monthly letters from the studio</label>
     <div class="foot-news__row">
-      <input id="foot-email" name="email" type="email" required placeholder="you@domain">
-      <button type="submit" class="cta-fill">Subscribe</button>
+      <input id="foot-email" name="email" type="email" required autocomplete="email">
+      <button type="submit" class="cta-outline">Subscribe</button>
     </div>
   </form>
-  <p class="foot-news__meta muted">Studio · © 2026 · <a href="/imprint">Imprint</a></p>
+  <ul class="foot-news__meta">
+    <li class="wordmark">Studio</li>
+    <li>© 2026</li>
+    <li><a href="/imprint">Imprint</a></li>
+  </ul>
 </footer>
 ```
 ```css
-.foot-news { padding: var(--space-2xl) var(--page-gutter); display: grid; gap: var(--space-lg); max-width: 56ch; }
+.foot-news { padding: var(--space-2xl) var(--gutter); display: grid; gap: var(--space-lg); max-width: 56ch; }
 .foot-news__form label { display: block; font-size: var(--text-sm); margin-block-end: var(--space-2xs); }
-.foot-news__row { display: flex; gap: var(--space-2xs); }
-.foot-news__row input { flex: 1; min-height: 44px; padding-inline: var(--space-sm); border: var(--rule-hair) solid var(--color-rule); border-radius: var(--radius-input); background: var(--color-paper); }
-.foot-news__row input:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 1px; }
-.foot-news__meta { font-size: var(--text-xs); }
+.foot-news__row { display: flex; gap: var(--space-xs); }
+.foot-news__row input, .foot-news__row button { min-height: 44px; }
+.foot-news__row input { flex: 1; min-width: 0; padding-inline: var(--space-sm); border: var(--rule-hair) solid var(--color-rule); border-radius: var(--radius-input); background: var(--color-paper); font-size: var(--text-md); }
+.foot-news__row input:focus-visible { outline: 2px solid var(--color-focus); outline-offset: -2px; }
+.foot-news__meta { display: flex; gap: var(--space-lg); list-style: none; padding: 0; margin: 0; font-size: var(--text-sm); color: var(--color-muted); }
 ```
 
-*Anti-pattern:* Ft7 when the page never said "subscribe" above the fold. The footer is an honest *conclusion*; if you didn't ask, don't ambush. Drop to Ft2 instead.
+The page's one filled primary is above the fold; the footer submit takes the secondary style (F4). Input and button share a height (39a).
+
+*Anti-pattern:* Ft7 when the page never said "subscribe" above the fold. If you did not ask, do not ambush: take Ft2 instead.
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
+- Layout: stacked · inline · split (form left, meta right)
+- Submit style: outline · typographic
+- Privacy line under the form: yes · no
 
-- Layout: stacked · inline · split (form left · meta right)
-- Submit style: filled · outline · arrow link
-- Privacy line: yes · no
-
-## Mobile collapse
-
-- **Below 60rem:** input + button stack vertically; full-width
-- **Below 40rem:** label moves above input; button is full-width below
+*Mobile:* below 40rem the input and button stack, each full width.

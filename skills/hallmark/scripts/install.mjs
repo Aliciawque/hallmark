@@ -1,30 +1,11 @@
 #!/usr/bin/env node
-// Install Hallmark into the three harnesses it is tuned for:
-//
-//   Claude Code  ->  ~/.claude/skills/hallmark
-//   Codex CLI    ->  ~/.agents/skills/hallmark   (+ refresh a stale legacy
-//                    copy at ~/.codex/skills/hallmark if one exists)
-//   OpenCode     ->  discovers the Claude Code / Codex copies automatically
-//                    via its compatibility paths; gets its own copy at
-//                    ~/.config/opencode/skills/hallmark only when neither
-//                    of those is installed (or with --opencode --copy).
-//
-//   node install.mjs                 detect installed harnesses, install to each
-//   node install.mjs --claude --codex --opencode   pick targets explicitly
-//   node install.mjs --dry-run       show the plan, write nothing
-//   node install.mjs --remove        uninstall from every known location
-//
-// The payload is LEAN: SKILL.md, references/, scripts/, agents/, LICENSE.
-// Never site/, docs/, eval/, or git state. Idempotent: re-running replaces
-// the installed copy atomically (write to .tmp, swap).
-
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { homedir } from "node:os";
 
 const HERE = path.dirname(fileURLToPath(import.meta.url));
-const SKILL_ROOT = path.dirname(HERE); // skills/hallmark
+const SKILL_ROOT = path.dirname(HERE);
 const HOME = homedir();
 
 const PAYLOAD = ["SKILL.md", "LICENSE", "references", "scripts", "agents"];
@@ -88,7 +69,6 @@ function removeAt(dir) {
   console.log(`  removed ${dir}`);
 }
 
-// --- remove mode -----------------------------------------------------------
 if (has("--remove")) {
   console.log("Removing Hallmark from every known install location:");
   for (const t of Object.values(TARGETS)) removeAt(t.dir);
@@ -96,7 +76,6 @@ if (has("--remove")) {
   process.exit(0);
 }
 
-// --- pick targets ----------------------------------------------------------
 const explicit = ["claude", "codex", "opencode"].filter((k) => has("--" + k));
 const picked = explicit.length ? explicit : Object.keys(TARGETS).filter((k) => TARGETS[k].detect());
 
@@ -106,6 +85,12 @@ if (!picked.length) {
   process.exit(1);
 }
 
+try {
+  const { execFileSync } = await import("node:child_process");
+  execFileSync(process.execPath, [path.join(HERE, "theme.mjs"), "index"], { stdio: DRY ? "ignore" : "inherit" });
+} catch {
+  console.log("  (theme index not rebuilt; run node scripts/theme.mjs index)");
+}
 console.log(`Hallmark installer${DRY ? " (dry run)" : ""} · payload: ${PAYLOAD.join(", ")}`);
 
 for (const key of picked) {
@@ -113,8 +98,7 @@ for (const key of picked) {
   console.log(`\n${t.label}:`);
 
   if (key === "opencode" && !has("--copy")) {
-    // OpenCode's compatibility discovery already sees the Claude Code and
-    // Codex copies; an explicit third copy would just shadow them.
+
     const willHaveCompat = picked.includes("claude") || picked.includes("codex") ||
       fs.existsSync(TARGETS.claude.dir) || fs.existsSync(TARGETS.codex.dir);
     if (willHaveCompat) {

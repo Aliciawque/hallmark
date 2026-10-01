@@ -1,48 +1,42 @@
-### N1b · Canonical SaaS three-section
-Wordmark hard-left · a centred cluster of 4–6 links (some opening hover dropdowns) · a sign-in text link + filled CTA hard-right. The dominant marketing-nav of 2024–26 (Stripe, Linear, Vercel, Figma, Notion, PostHog). The structural opposite of N1's *minimal* two-link variant — this one is dense and balanced.
-*Use when:* a SaaS / product / dev-tool page with several real destinations and a clear primary action. The default reach for modern-minimal and (Hum-styled) playful product pages.
-*Don't confuse with:* N1a (wordmark + 2 links, no centre cluster); N5 (detached pill); N11 (mega-menu panels, not small dropdowns).
+### N1b · Three-section product bar
+Wordmark hard left, a centred cluster of three to five links (one or two opening small dropdowns), a sign-in link and one filled action hard right. Dense and balanced; the structural opposite of N1.
+*Use when:* a product page has several real destinations and one clear primary action.
+*Not:* N1 (two links, no centre); N5 (a detached pill); N11 (full width panels). This is the reflex bar (42): the stamp names it and one knob moves. The cluster never collides with the brand or the action; if it cannot sit centred with room, drop to three links or use N1. A dropdown opens on hover and on focus, and closes on Escape.
 
 ```html
 <header class="nav"><div class="nav__inner">
-  <a class="nav__brand">Conduit</a>
-  <nav class="nav__center">
+  <a class="nav__brand" href="/" aria-label="Studio, home">Studio</a>
+  <nav class="nav__center" aria-label="Primary">
     <div class="nav__item nav__item--menu">
-      <button class="nav__link" aria-expanded="false">Product <span class="nav__caret"></span></button>
-      <div class="nav__dropdown"><a class="nav__dropitem"><b>Gateway</b><i>one endpoint</i></a></div>
+      <button class="nav__link" type="button" aria-expanded="false">Product</button>
+      <div class="nav__dropdown"><a class="nav__dropitem" href="/gateway"><b>Gateway</b><span>one endpoint</span></a></div>
     </div>
-    <a class="nav__link">Docs</a><a class="nav__link">Pricing</a>
+    <a class="nav__link" href="/docs">Docs</a><a class="nav__link" href="/pricing">Pricing</a>
   </nav>
-  <div class="nav__right"><a class="btn btn--text">Sign in</a><a class="btn btn--accent">Start</a></div>
+  <div class="nav__right"><a class="btn btn--text" href="/sign-in">Sign in</a><a class="btn btn--accent" href="/start">Start</a></div>
 </div></header>
 ```
 ```css
-.nav { position: fixed; inset: 0 0 auto; z-index: 500; background: transparent; border-bottom: 1px solid transparent;
-  transition: background 240ms, border-color 240ms, box-shadow 240ms; }
-.nav.is-scrolled { background: color-mix(in oklch, var(--color-paper) 72%, transparent);
-  backdrop-filter: blur(18px) saturate(160%); border-bottom-color: var(--color-rule); box-shadow: 0 8px 28px -18px oklch(0% 0 0 / 0.4); }
-.nav__inner { max-width: var(--page-max); margin: 0 auto; padding-inline: var(--page-gutter); height: 64px;
-  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
-.nav__brand { justify-self: start; } .nav__center { justify-self: center; display: flex; gap: 0.35rem; } .nav__right { justify-self: end; }
-.nav__dropdown { position: absolute; opacity: 0; visibility: hidden; transform: translateY(-6px) scale(0.98);
-  transition: opacity 200ms, transform 220ms var(--ease-spring), visibility 200ms; }
-.nav__item--menu:hover .nav__dropdown, .nav__item--menu:focus-within .nav__dropdown { opacity: 1; visibility: visible; transform: none; }
+.nav { position: fixed; inset: 0 0 auto; z-index: var(--z-sticky-nav); background: transparent; border-bottom: var(--rule-hair) solid transparent;
+  transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out); }
+.nav.is-scrolled { background: color-mix(in oklab, var(--color-paper) 72%, transparent); backdrop-filter: blur(18px) saturate(160%); border-bottom-color: var(--color-rule); }
+.nav__inner { max-width: var(--container); margin: 0 auto; padding-inline: var(--gutter); min-height: 64px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+.nav__brand { justify-self: start; } .nav__center { justify-self: center; display: flex; gap: var(--space-xs); } .nav__right { justify-self: end; display: flex; align-items: center; gap: var(--space-sm); }
+.nav__link { font-size: var(--text-sm); padding: var(--space-xs) var(--space-sm); background: none; border: 0; color: inherit; text-decoration: none; }
+.nav__dropdown { position: absolute; z-index: var(--z-dropdown); opacity: 0; visibility: hidden; transform: translateY(-6px);
+  transition: opacity var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out), visibility 0s linear var(--dur-short); }
+.nav__item--menu:hover .nav__dropdown, .nav__item--menu:focus-within .nav__dropdown { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
 ```
 
-**Knobs** — *Centre links:* 3 · 4 · 5–6 · *Dropdowns:* none · 1 · 2 · *Scroll state:* frost-on-scroll (default) · always-solid · transparent-fixed · *CTA pair:* sign-in + fill · fill only.
-*Scroll behaviour (default):* transparent at rest over the hero, frosts (blur backdrop + hairline border + soft shadow) past ~24px, and tightens height ~8px. Always rAF-throttle the scroll handler.
-*Anti-pattern:* don't let the centre cluster collide with brand/CTA — if it can't sit centred with breathing room, drop to 3 links or route to N1a. Never ship a dropdown that opens on click only with no hover/focus affordance.
-*Mobile:* hide `.nav__center` below ~900px; brand + CTA (or hamburger) remain.
+Scroll state: transparent at rest over the hero; past 24px it frosts (blur, hairline) and its padding tightens by 8px (the outer height stays constant, 10b). The handler is rAF-throttled and passive.
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
-
-- Centre links: 3 · 4 · 5–6
+- Centre links: 3 · 4 · 5
 - Dropdowns: none · 1 · 2
-- Scroll: frost-on-scroll · always-solid · transparent-fixed
+- Scroll state: frost on scroll · always solid · transparent, fixed
+- Right pair: sign in and fill · fill only
 
-## Mobile collapse
+## Mobile
 
-- **Below 60rem:** centre link cluster collapses behind a menu disclosure; sign-in + CTA stay inline
-- **Below 40rem:** hamburger only: wordmark left, menu + CTA right, 44px hit targets
+- Below 60rem: the centre cluster collapses behind a menu disclosure; sign in and the action stay. Below 40rem: wordmark left, menu and action right, 44px targets.

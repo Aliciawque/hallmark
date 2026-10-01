@@ -1,111 +1,78 @@
-# Theme - Garden
+---
+name: Garden
+slug: garden
+genre: editorial
+paper: light 95.5 92
+display: roman-serif Young Serif
+accent: chromatic-green 140
+posture: committed
+keywords: farm, apiary, honey, cidery, orchard, seed, nursery, herbalist, botanical, tea, preserves, single-origin, seasonal, harvest, small-maker, csa, provenance, grown, field, homestead
+material: oat paper, green ink, one chunky roman serif, a leaf-green signal, clay kept inside hand-built craft
+signature: a specimen drawn in CSS and SVG mounted on a warm oat sheet beside its caption
+---
 
-Warm-botanical editorial: the naturalist field-journal and herbarium-sheet school. A **warm oat-cream ground** (never grey-sage), **botanical green ink** (a warm near-black green, never `#000`), one **living leaf-green** accent, a clay pop, and imagery that is **hand-built botanical craft** rather than photography. It reads like a well-kept field notebook: honest, seasonal, grown-not-manufactured.
+# Garden
 
-The material, in one line: **oat paper, green ink, a chunky roman serif, and something grown drawn by hand.**
+Warm oat paper, a near-black green ink, Young Serif heads over Hanken Grotesk, one leaf-green signal, a clay pop kept inside hand-built CSS and SVG craft. The signature is a drawn specimen mounted on the oat sheet beside its caption.
 
-## Axes (diversification)
+## Tokens
 
-- **Paper band** - light warm (`L 95.5%`, hue 92, low chroma). Oat cream, faintly honeyed. Distinct from the genre's cool and bone grounds and from any grey-sage; tint everything toward oat, never toward slate.
-- **Display style** - **roman serif** (Young Serif, one organic weight `400`, `--display-style: normal`). Chunky, slab-ish, hand-cut. Never italic in headers; Young Serif ships one weight, so vary by size, not weight.
-- **Accent hue** - **chromatic leaf-green** (`oklch(47% 0.13 140)`, primary) with an **earthy clay / terracotta** pop (`oklch(54% 0.14 46)`, secondary). Living, chlorophyll-real, clear of any cool teal or corporate emerald.
+```css
+:root {
+  --color-paper: oklch(95.5% 0.022 92); --color-paper-2: oklch(92.5% 0.026 92); --color-paper-3: oklch(89.5% 0.030 92);
+  --color-ink: oklch(24% 0.052 152); --color-ink-2: oklch(33% 0.050 150); --color-muted: oklch(48% 0.030 145);
+  --color-rule: oklch(84% 0.020 120); --color-rule-2: oklch(70% 0.040 140);
+  --color-accent: oklch(47% 0.130 140); --color-accent-2: oklch(54% 0.140 46); --color-accent-ink: oklch(97% 0.015 95);
+  --color-focus: oklch(47% 0.130 140); --tint-moss: oklch(47% 0.130 140 / 0.10); --tint-clay: oklch(54% 0.140 46 / 0.10);
+  --font-display: "Young Serif", ui-serif, Georgia, serif; --font-body: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-outlier: "Newsreader", ui-serif, Georgia, serif;
+  --radius-card: 4px; --radius-pill: 999px; --rule-hair: 1px; --shadow-card: none;
+  --tracking-display: -0.006em;
+}
+```
 
-## Reference register
+## Faces
 
-Aesop · Kinfolk · Cereal · Frama · Le Labo · Mast · Toast Ale · Ballymaloe · small-CSA and single-apiary brand sites.
-
-The material to match: the naturalist's brand story - warm paper, roman serif, hand-drawn or hand-built botanical craft, seasonal honesty, prose that smells of the field. A pressed-herbarium sheet: one specimen, a hand-lettered mono tag, a warm neutral mount. Ask "does this read like a field journal, or a supermarket label?" Keep the former. Never name any of these in the output.
-
-**Voice range:** warm, honest, seasonal, unhurried. Say the ridge, the flower, the pour date, the number of jars; never *artisanal*, *curated*, *small-batch* as a hollow badge.
-
-## Palette
-
-- `--color-paper: oklch(95.5% 0.022 92)` - oat cream, faintly honeyed
-- `--color-ink: oklch(24% 0.052 152)` - botanical near-black green, headlines
-- `--color-ink-2: oklch(33% 0.05 150)` - body
-- `--color-accent: oklch(47% 0.13 140)` - living leaf-green, the signal
-- `--color-accent-2: oklch(54% 0.14 46)` - clay / terracotta pop
-- `--tint-moss: oklch(47% 0.13 140 / 0.10)` and `--tint-clay: oklch(54% 0.14 46 / 0.10)` - band washes
-- `--color-rule` soft green-grey, `--color-rule-2` mossy - hairlines
-
-Every neutral carries a green cast (hue 90-152); no pure grey anywhere. Leaf-green stays under 5% of any viewport (links, the one solid control, focus rings, active nav). Clay lives mostly *inside* the craft (honey fill, cork, ripe accents) and rarely as UI chrome. Two hues, disciplined. Set `font-variant-numeric: oldstyle-nums`.
-
-## Typography
-
-- **Display** - Young Serif at `--display-weight: 400`, roman only, `--tracking-display: -0.006em`, clamped to `5rem`. Hierarchy comes from size, never from italic or a bolder cut. A drop-of-honey slab feel, hand-cut, not a refined Didone.
-- **Body** - Hanken Grotesk 400/500/600/700.
-- **Prose serif** - Newsreader at `--measure: 58ch` for long provenance and story copy: readable and warm. Young Serif never runs as body.
-- **Label** - Geist Mono, UPPERCASE, `--tracking-label: 0.14em`. The herbarium tag voice, dry machine-lettering mounted against the warm serif: lot codes, dates, captions, meta rows, table headers, units, folios.
+- **Display:** Young Serif 400, roman, `--tracking-display`, up to 5rem. One weight ships, so hierarchy comes from size, never from italic or a bolder cut. Chunky and hand-cut, not a high-contrast serif.
+- **Body:** Hanken Grotesk 400, 500, 600 with `oldstyle-nums`. Newsreader 400 carries long provenance prose at 58ch; Young Serif never runs as body.
+- **Labels, captions, table heads, meta, lot codes, dates:** Hanken Grotesk 500 one step smaller, sentence case, untracked, `--color-muted`: the herbarium tag reads like a caption, never like a stamp. No mono on the page.
 
 ## Material
 
-- **Hand-built botanical craft.** The imagery is drawn in pure CSS and hand-authored SVG (a honeycomb wash, a glass jar of amber, corked vials of a pour), never a stock photo. It is the thing being sold, anchored rather than decorative.
-- **Tint bands, not boxed cards.** Soft full-bleed washes in `--tint-moss` or `--tint-clay`. Structure is hairlines plus generous whitespace, never drop-shadowed boxes.
-- **Sprig ornament.** A small hand-authored SVG leaf-sprig or fleuron drawn in `--color-rule-2` or accent: the broadsheet fleuron, botanised. Ornament, never chrome.
-- **Radius and shadow** - near-square, flat. One solid leaf-green control; a pill is fine, a gradient on it is not.
+- Hand-built botanical craft: the imagery is pure CSS and hand-authored SVG (a honeycomb wash, a jar of amber, corked vials, a pressed leaf), never a stock photo. It is the thing being sold, not decoration.
+- Tint bands, not boxed cards: soft full-bleed washes in `--tint-moss` or `--tint-clay`; structure is 1px hairlines plus whitespace, never a drop-shadowed box. Flat paper, no texture.
+- Every neutral carries a green cast (hue 90 to 152), no pure grey. Leaf-green stays under 5% of a viewport. Clay lives inside the craft, almost never as chrome.
+- The control pair: one flat leaf-green pill with `--color-accent-ink` text beside a hairline-outlined pill in `--color-rule-2`.
+- A sprig ornament: one small hand-authored SVG leaf in `--color-rule-2`, the fleuron botanised; ornament, never chrome.
 
 ## Motion
 
-**Motion character: calm (1.2×).** Quiet and seasonal. One orchestrated entrance: staggered reveal (fade plus <=10px rise, `--i` stagger, <=500ms, reveal-once). An optional single hover behaviour on a piece of craft (a jar-fill rise). Transform and opacity only: no bounce, no parallax, no autoplay. Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static and fully visible.
+Nothing moves except state: one hover on a piece of craft, a jar filling or a leaf tilting, on transform and opacity only. No reveal, no stagger, no parallax.
 
-## Do-nots (this theme's own failure modes)
+## Voice
 
-- **Never grey-sage or slate paper.** The ground is warm oat (hue ~92); a cool grey-green kills it.
-- **Never stock photography.** The imagery is hand-built CSS and SVG botanical craft. A real honey photo reads as a supermarket label.
-- **Never a cool teal or corporate emerald accent.** The green must read chlorophyll-living (hue ~140), not fintech.
-- **Never italic Young Serif and never faux-bold.** One roman weight; vary by size.
-- **Never boxed drop-shadow cards.** Hairlines and tint bands do the containing.
-- **Never a gradient on the leaf-green control.** One flat fill, honest.
+Warm, honest, seasonal, unhurried. Say the ridge, the flower, the pour date, the number of jars; never artisanal, curated or small-batch as a hollow badge.
 
-## How Garden differs from its neighbours
+## Do-nots
 
-| vs | difference |
-|---|---|
-| **Almanac** | A dense data and ledger register (tables, monospace almanac). Garden is a warm brand story with hand-built botanical craft and a living leaf-green accent: narrative, not tabular. |
-| **Atelier** | A restrained studio voice on a neutral ground. Garden shares the letter-close warmth but commits to green ink, oat paper, and chunky Young Serif: agrarian, not gallery-quiet. |
-| **Specimen** | Its specimen is a type and glyph specimen. Garden's is a *botanical* object and its accent is chromatic leaf-green: a farm, not a foundry. |
-
-## When the brief routes here
-
-*farm · apiary · honey · cidery · orchard · seed · nursery · herbalist · botanical · tea · preserves · single-origin · seasonal · harvest · small-maker · CSA · provenance · grown · field · homestead*. Categories: artisan food and drink, apiaries, farm brands, seed companies, nurseries, herbal and botanical goods, maker stories. Tone: warm, honest, seasonal, rooted, unhurried, hand-made.
-
-Technical, corporate, cool, or photo-heavy briefs route elsewhere.
+- Never grey-sage or slate paper; the ground is warm oat, hue 92.
+- Never a photograph where the craft should be.
+- Never a cool teal or corporate emerald; the green is chlorophyll, hue 140.
+- Never italic or faux-bold Young Serif.
+- Never clay on a control or a nav, never a gradient on the leaf-green control.
 
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Hanken+Grotesk:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet">
 ```
 
 ```css
-html, body { overflow-x: clip; }
-body { background: var(--color-paper); color: var(--color-ink-2);
-       font-family: var(--font-body); font-weight: 400;
-       font-variant-numeric: oldstyle-nums; }
-
-/* Young Serif display - roman, one weight, sized not bolded */
-.display { font-family: var(--font-display); font-weight: var(--display-weight);
-  font-style: var(--display-style); letter-spacing: var(--tracking-tight);
-  color: var(--color-ink); line-height: var(--lh-tight); }
-
-/* Herbarium tag - dry mono against the warm serif */
-.tag { font-family: var(--font-label); text-transform: uppercase;
-  letter-spacing: var(--tracking-label); color: var(--color-muted); }
-
-/* Tint band + hairline, never a boxed card */
+body { font-family: var(--font-body); font-variant-numeric: oldstyle-nums; color: var(--color-ink-2); }
+.display { font: 400 clamp(2.25rem, 4vw + 1rem, 5rem)/1.05 var(--font-display); letter-spacing: var(--tracking-display); color: var(--color-ink); }
+.tag { font-size: 0.8125rem; font-weight: 500; color: var(--color-muted); }
 .band--moss { background: var(--tint-moss); }
-.rule { border-top: 1px solid var(--color-rule); }
-
-/* One leaf-green control; clay stays on the craft */
-.btn--solid { background: var(--color-accent); color: var(--color-accent-ink); }
-
-/* Reveal - the whole motion engine */
-.reveal { opacity: 0; transform: translateY(10px);
-  transition: opacity .5s ease, transform .5s ease;
-  transition-delay: calc(var(--i, 0) * 70ms); }
-.reveal.is-in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; } }
+.btn--solid { border-radius: var(--radius-pill); background: var(--color-accent); color: var(--color-accent-ink); }
+.btn--line { border-radius: var(--radius-pill); border: var(--rule-hair) solid var(--color-rule-2); color: var(--color-ink); }
+::selection { background: oklch(47% 0.130 140 / 0.22); }
 ```
-
-Plus one `IntersectionObserver` adding the in-view class. Reference build: [`site/examples/garden-01/`](../../../../site/examples/garden-01/) - match its register (tokens, voice, motion feel), never its composition; reusing its section order, hero geometry, or grid is a gate-32-grade repeat.

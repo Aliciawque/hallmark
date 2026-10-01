@@ -1,8 +1,8 @@
 # Comp before build - composing in pixels before composing in CSS
 
-Loaded at Step 5.5, and **only** when the pre-flight found both `TOGETHER_API_KEY` and `scripts/imagegen.mjs`. With no key this file never loads, the step never runs, and the build goes from the Picks block straight to Step 6. The comp step is never a blocker, never a dependency, and never something to apologise for skipping.
+Loaded at the comp step after the Picks block, and **only** when the pre-flight found both `TOGETHER_API_KEY` and `scripts/imagegen.mjs`. With no key this file never loads, the step never runs, and the build goes from the Picks block straight to Step 6. The comp step is never a blocker, never a dependency, and never something to apologise for skipping.
 
-**Why it exists.** Every other lever in this skill raises the floor: the gates catch what is wrong, the ritual refuses what is reflexive. This one raises the ceiling. Composing a page in CSS from prose caps the result at what fits in prose, and prose is bad at composition. It can say "asymmetric spans" but not *where the weight sits*; "generous whitespace" but not *what shape the whitespace is*; "a strong hero" but nothing about the interval between the headline and the thing under it. A rendered comp carries all three at a glance, and reproducing an approved image is a categorically easier task than inventing a composition from a paragraph.
+**Why it exists.** Prose is bad at composition: it can say "asymmetric spans" but not where the weight sits. A rendered comp carries mass, interval and alignment at a glance, and reproducing an approved image is an easier task than inventing a composition from a paragraph.
 
 ---
 
@@ -10,7 +10,7 @@ Loaded at Step 5.5, and **only** when the pre-flight found both `TOGETHER_API_KE
 
 | It is | It is not |
 | --- | --- |
-| a composition proposal: mass, interval, alignment, where the eye lands first | a design system; the palette and pairing were settled at Step 2.6 and do not move |
+| a composition proposal: mass, interval, alignment, where the eye lands first | a design system; the palette and pairing were settled in the Picks block and do not move |
 | the first viewport only, at the surface's own dimensions | a full page; comping below the fold buys nothing and costs a call per region |
 | a target to reproduce in code, measured against | a texture source; nothing from the comp is ever embedded in the page |
 | disposable once the build matches it | an asset; comps are not shipped and not committed |
@@ -78,10 +78,10 @@ Before writing a line of the build, every region of the approved comp gets a wri
 
 Two rules on top:
 
-- **A raster region needs a real source.** The generated-still rung of the enrichment hierarchy, a user-supplied asset, or a placeholder that is honestly labelled. An invented stock photograph is not a source, and the hierarchy in SKILL.md Step 4 still binds: typography, then CSS art, then SVG, then generated, and Lottie last.
+- **A raster region needs a real source.** The generated-still rung of the enrichment hierarchy, a user-supplied asset, or a placeholder that is honestly labelled. An invented stock photograph is not a source, and the hierarchy in `craft.md` § 4 still binds: typography, then CSS art, then SVG, then generated, and Lottie last.
 - **A region cannot change medium silently during the build.** Downgrading raster to CSS mid-build is the whole failure this section catches. Change it if the code argues for it, and say so in one line.
 
-Ship the inventory as part of the Step 5.5 message, under the comps:
+Ship the inventory as part of the comp message, under the comps:
 
 ```
 Hero ground        raster    kraft paper fibre, generated

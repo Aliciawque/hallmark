@@ -1,47 +1,46 @@
-### N12 · Announcement banner + retracting nav
-A coloured promo **banner** stacked above one real nav. On scroll-down the banner slides up and retracts, leaving a single clean nav docked to the top; on scroll-up it slides back. A dismiss × removes the banner for good (its height zeroes so no gap is left). Apple-style coupled bars, but the top tier is a *banner*, not a second nav — the colour contrast is what stops it reading as "two navs".
-*Use when:* there's a genuine, time-bound announcement (a launch, a sale, free shipping) worth a persistent strip, over a product/marketing page. Great for stat-led or commerce pages.
-*Don't confuse with:* a static announcement bar that never moves (fine, but not N12); N1b (single bar, no banner).
+### N12 · Announcement banner and retracting nav
+A coloured banner stacked above one real nav. Scrolling down, the banner slides up out of view and the bar docks to the top; scrolling up brings it back. A dismiss control removes it for good and zeroes its height so no gap remains. The banner's colour is what stops it reading as two navs.
+*Use when:* there is a real, time-bound announcement (a launch, a sale, shipping) worth a strip over a product or commerce page.
+*Not:* a second row of links (the two-bar smell this exists to avoid); a static strip that never moves. One line, one link, one dismiss; no glyph before the text (63); the height is never animated, the whole `.nav` translates.
 
 ```html
 <header class="nav" id="nav">
   <div class="nav__banner" id="banner">
-    <p class="nav__banner-text"><span class="nav__banner-spark"></span> New — <b>shared habits</b>. <a class="nav__banner-link">Try it →</a></p>
-    <button class="nav__banner-x" id="banner-x" aria-label="Dismiss"><span></span></button>
+    <p class="nav__banner-text">… <a class="nav__banner-link" href="/changelog">Read the changelog</a></p>
+    <button class="nav__banner-x" id="banner-x" type="button" aria-label="Dismiss the announcement"><svg aria-hidden="true">…</svg></button>
   </div>
   <div class="nav__bar"><div class="nav__bar-inner">
-    <a class="nav__brand">Tally</a>
-    <nav class="nav__links">…</nav>
-    <a class="btn btn--accent">Start</a>
+    <a class="nav__brand" href="/" aria-label="Studio, home">Studio</a>
+    <nav class="nav__links" aria-label="Primary">…</nav>
+    <a class="btn btn--accent" href="/start">Start</a>
   </div></div>
 </header>
 ```
 ```css
-:root { --banner-h: 42px; --bar-h: 64px; }
-.nav { position: fixed; inset: 0 0 auto; z-index: 500; transform: translateY(0); transition: transform 320ms var(--ease-out); }
-.nav.is-compact   { transform: translateY(calc(var(--banner-h) * -1)); }  /* banner hides, bar docks to top */
+:root { --banner-height: 42px; }
+.nav { position: fixed; inset: 0 0 auto; z-index: var(--z-sticky-nav); transform: translateY(0); transition: transform var(--dur-long) var(--ease-out); }
+.nav.is-compact   { transform: translateY(calc(var(--banner-height) * -1)); }  /* the banner hides, the bar docks to the top */
 .nav.is-dismissed { transform: none; }
 .nav.is-dismissed .nav__banner { display: none; }
-.nav__banner { height: var(--banner-h); display: flex; align-items: center; justify-content: center;
-  background: linear-gradient(100deg, var(--color-accent), var(--color-accent-deep)); color: var(--color-paper); }
-/* content clears both at rest; zero --banner-h on dismiss so calc() reflows with no gap */
-.demo-hero { padding-top: calc(var(--banner-h) + var(--bar-h) + 4rem); }
+.nav__banner { height: var(--banner-height); display: flex; align-items: center; justify-content: center; gap: var(--space-sm); padding-inline: var(--gutter); background: var(--color-accent); color: var(--color-accent-ink); }
+.nav__banner-text { margin: 0; font-size: var(--text-sm); }
+.nav__banner-link { color: inherit; }
+.nav__banner-x { min-width: 44px; height: var(--banner-height); background: none; border: 0; color: inherit; cursor: pointer; }
+.nav__bar { background: var(--color-paper); border-bottom: var(--rule-hair) solid var(--color-rule); }
+.nav__bar-inner { max-width: var(--container); margin: 0 auto; padding-inline: var(--gutter); min-height: 64px; display: flex; align-items: center; gap: var(--space-lg); }
+/* content clears both at rest; dismiss zeroes --banner-height so the calc reflows with no gap */
+main { padding-top: calc(var(--banner-height) + 64px + var(--space-xl)); }
 ```
-*JS:* track scroll direction — past ~48px going down → `.is-compact`; going up → remove it; near top → always show. Dismiss × sets `--banner-h: 0px` (via `documentElement.style`) and adds `.is-dismissed`.
 
-**Knobs** — *Banner fill:* solid accent · gradient (default) · tint+ink · *Dismiss:* yes (default) · none · *Bar scroll:* sticky (default) · also-frosts · *Banner content:* promo · status · countdown.
-*Anti-pattern:* never make the top tier a second set of nav links — that's the "two nav bars" smell the banner exists to avoid. Keep the banner one line, one link, one dismiss. Don't animate banner height directly (janky); translate the whole `.nav` and zero the height only on dismiss.
-*Mobile:* banner text truncates / drops the leading glyph; nav links collapse; the Buy/primary CTA stays.
+JS: track the scroll direction; past 48px going down add `.is-compact`, going up remove it, near the top always show. Dismiss sets `--banner-height: 0px` on `documentElement.style` and adds `.is-dismissed`. The handler is rAF-throttled and passive. A second sticky element on the page docks under `calc(var(--banner-height) + 64px)` (56).
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
-
-- Banner fill: solid · gradient · tint+ink
+- Banner fill: solid accent · tinted paper with ink
 - Dismiss: yes · none
-- Bar scroll: sticky · also-frosts
+- Bar on scroll: docks · docks and frosts
+- Content: a launch line · a live status in a `role="status"` · a countdown to a real date
 
-## Mobile collapse
+## Mobile
 
-- **Below 60rem:** banner stays dismissible; retract behaviour kept
-- **Below 40rem:** banner text truncates to one line; nav row collapses to hamburger
+- Below 60rem: the links collapse behind a menu; the action stays. Below 40rem: the banner text truncates to one line.

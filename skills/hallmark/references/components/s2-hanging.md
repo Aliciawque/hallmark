@@ -1,25 +1,3 @@
 ### S2 · Hanging
-Heading floats above the section in negative space; no border, no rule.
-*Use when:* the content has a quiet, room-to-breathe energy.
-*Don't confuse with:* S3 Sticky-pinned (which moves with scroll).
-
-```html
-<header class="head-hang">
-  <h2>…</h2>
-</header>
-```
-```css
-.head-hang { padding-block: var(--space-3xl) var(--space-xl); }
-```
-
-## Knobs
-
-Vary at least one knob vs the last logged use of this archetype (gate 32):
-
-- Padding-block: 3xl/xl default · 4xl/2xl airier
-- Heading size: text-2xl · text-3xl
-
-## Mobile collapse
-
-- **Below 60rem:** padding-block steps down one token
-- **Below 40rem:** heading size steps down one size
+Air above, heading flush, no rule and no label: `craft.md` § 7 item 1. `padding-block: var(--space-3xl) var(--space-xl)` on the section head, or 4xl over 2xl on an airier page; the padding steps down one token below 60rem.
+*Don't confuse with:* S3 Sticky pinned (which moves with scroll).

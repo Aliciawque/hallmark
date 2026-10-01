@@ -1,19 +1,13 @@
-### H7 · Demo Video — Clipped-by-viewport-edge
-Display headline left, demo video right, the rightmost ~10–20 % extending past the viewport so it's intentionally cut off. The clip *is* the design — implies "there's more product than fits the screen". Pioneered by Linear, refined by Vercel / Resend / Cursor.
-*Use when:* the brief is SaaS / dev-tool / dashboard / platform AND you have real footage of the product (or a hand-built CSS-art mockup of it).
-*Don't confuse with:* H4 Stat-Led (number-led, no video) or H8 Mockup Split (still screenshot, not video).
-
-See [`hero-enrichment.md`](../hero-enrichment.md) for the full E1 recipe (codec chain, autoplay rules, `prefers-reduced-motion` fallback, mobile collapse). The cookbook entry below is the structural sketch.
+### H7 · Demo video, clipped by the viewport edge
+Headline left, a real demo video right, its rightmost 10 to 20% running past the viewport: the clip implies more product than fits the screen. The recipe (codecs, autoplay, poster, reduced motion) is [`enrichment/e1-clipped-demo-video.md`](../enrichment/e1-clipped-demo-video.md); this is the structural sketch.
+*Use when:* the product has a screen and the user supplied real footage. Without footage the same slot holds a real capture or the theme's `data-slot` placeholder (47c), never a drawn mockup.
+*Not:* H8 (a still, uncut); H4 (number led).
 
 ```html
 <section class="hero hero--clipped">
-  <div class="hero__copy">
-    <h1>Plan, build, ship.</h1>
-    <p>The project tracker your engineering team won't ignore.</p>
-  </div>
-  <figure class="hero__media">
-    <video autoplay muted loop playsinline preload="metadata"
-           poster="/hero-poster.webp" fetchpriority="high">
+  <div class="hero__copy"><h1>…</h1><p>…</p><a class="cta-outline" href="#">…</a></div>
+  <figure class="hero__media" data-slot="hero">
+    <video autoplay muted loop playsinline preload="metadata" poster="/hero-poster.webp" fetchpriority="high">
       <source src="/hero.av1.mp4" type='video/mp4; codecs="av01.0.05M.08"'>
       <source src="/hero.h264.mp4" type="video/mp4">
     </video>
@@ -21,20 +15,19 @@ See [`hero-enrichment.md`](../hero-enrichment.md) for the full E1 recipe (codec 
 </section>
 ```
 ```css
-.hero--clipped { display: grid; grid-template-columns: 1fr 1.4fr; gap: var(--space-2xl); overflow: visible; }
-.hero__media   { width: calc(100% + 12vw); aspect-ratio: 16 / 10; border-radius: 12px; overflow: hidden; }
-@media (max-width: 60rem) { .hero--clipped { grid-template-columns: 1fr; } .hero__media { width: 100%; } }
+.hero--clipped { min-height: 80dvh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: var(--gap-columns); align-items: center; overflow: visible; }
+.hero__media { margin: 0 calc(-1 * min(12vw, 12rem)) 0 0; aspect-ratio: 16 / 10; border-radius: min(1vw, 12px); overflow: hidden; }
+@media (max-width: 60rem) { .hero--clipped { grid-template-columns: minmax(0, 1fr); } .hero__media { margin: 0; } }
 ```
+
+The section keeps `overflow: visible`; the page clips at `html` and `body` (34).
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
+- Clip side: right · left
+- Ratio: 16/10 · 16/9
+- Frame: none · hairline inset
 
-- Clip side: right · left · both
-- Aspect ratio: 16/10 · 16/9 · 4/3
-- Frame: hairline · browser chrome · none
+## Mobile
 
-## Mobile collapse
-
-- **Below 60rem:** **drops the clip**; goes `1fr` stacked, full-width media; tilt removed (clipping at 375 px reads as broken)
-- **Below 40rem:** media reduces to 16/9; poster image used (auto-playing on cellular is hostile)
+- Below 60rem: the clip drops; one column, full width media. Below 40rem: 16/9, the poster shows and autoplay is off.

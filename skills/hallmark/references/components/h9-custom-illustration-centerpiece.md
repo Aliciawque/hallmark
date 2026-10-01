@@ -1,40 +1,28 @@
-### H9 · Custom Illustration Centerpiece
-A single hand-built SVG (Tier B in the enrichment hierarchy — or pure CSS at Tier A for simpler shapes) sitting on the hero as one illustrative element. The bakery loaf, the studio's mascot, the workflow diagram.
-*Use when:* the brand has a *thing* that benefits from being drawn — a craft, a character, a process.
-*Don't confuse with:* H6 Photographic (real photography) or H8 Mockup (a product screenshot, not artwork).
-
-The illustration itself is *built*, not picked from Storyset / Humaaans / unDraw / Lottie. See [`custom-craft.md`](../custom-craft.md) for full recipes (CSS art, hand-built SVG, declarative animation). The cookbook entry below is the page-level structural sketch.
+### H9 · Custom illustration centrepiece
+One built illustration beside the text: a hand-built SVG or a CSS shape that is the brand's thing (a loaf, a mark, a diagram). The build tiers, recipes and animation rules are [`enrichment/e5-custom-illustration-centerpiece.md`](../enrichment/e5-custom-illustration-centerpiece.md); this is the page-level sketch.
+*Use when:* the brand has a thing worth drawing: a craft, a character, a process.
+*Not:* H6 (photography); H8 (a capture). Never a library illustration (F10, 47c). The SVG carries an `aria-label` or `aria-hidden="true"` (33); its fills are tokens (48).
 
 ```html
 <section class="hero-art">
-  <div>
-    <h1>Sourdough, every morning.</h1>
-    <p>Slow-fermented overnight, baked on stone, before you wake.</p>
-    <p class="hero__mark">Maple Street Bread, est. 2026</p>
-  </div>
-  <svg viewBox="0 0 200 100" class="loaf" aria-label="A loaf of bread">
-    <path class="loaf__body" d="M 20 70 Q 100 10 180 70 L 180 90 L 20 90 Z" />
-    <path class="loaf__score" d="M 60 50 L 90 30 M 100 45 L 130 25 M 140 50 L 165 35" />
-  </svg>
+  <div class="hero-art__copy"><h1>…</h1><p>…</p><a class="cta-outline" href="#">…</a></div>
+  <svg class="hero-art__figure" viewBox="0 0 200 100" role="img" aria-label="…">…</svg>
 </section>
 ```
 ```css
-.hero-art   { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2xl); align-items: center; }
-.loaf__body { fill: oklch(72% 0.14 50); }
-.loaf__score{ stroke: oklch(38% 0.10 35); stroke-width: 2; fill: none; stroke-linecap: round; }
+.hero-art { min-height: 80dvh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--gap-columns); align-items: center; }
+.hero-art__figure { width: 100%; max-width: 36rem; justify-self: center; }
+.hero-art__figure .fill { fill: var(--color-accent); }
+.hero-art__figure .line { stroke: var(--color-ink); stroke-width: 2; fill: none; stroke-linecap: round; }
+@media (max-width: 60rem) { .hero-art { grid-template-columns: minmax(0, 1fr); } }
 ```
-
----
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
+- Build: pure CSS · hand-built SVG · generated still (when a character demands it)
+- Motion: none · one loop that pauses on hover and focus · scroll linked (one per page)
+- Scale: accent · dominant
 
-- Build method: Tier-A pure-CSS · Tier-B hand-SVG · Tier-C generated · Tier-D library
-- Animation: none · loop · scroll-linked
-- Scale: small accent · dominant
+## Mobile
 
-## Mobile collapse
-
-- **Below 60rem:** grid `1fr`; illustration moves below text (or above — pick by tone)
-- **Below 40rem:** illustration scales to ≤ 40 % viewport width; never dominates
+- Below 60rem: one column; the figure sits beneath the text at 40% of the viewport width or less.

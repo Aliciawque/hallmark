@@ -1,23 +1,20 @@
 ### Ft4 · Dense typographic
-One large block of text — credits, references, licence, address — in a small monospace font, fully justified or ragged-right. Editorial colophon energy.
+One block of text, credits, references, licence and address, in the body face a step smaller, ragged-right or justified with `hyphens: auto`. A colophon, not a sitemap. Mono only when mono is the theme's material (64).
 *Use when:* the brand is editorial and a colophon-style sign-off fits.
 *Don't confuse with:* Ft3 Index (which navigates).
 
 ```html
-<footer class="foot-dense mono">
-  <p>Hallmark v0.2.0. Built with The Future, Fraunces, IBM Plex Mono. MIT licensed. Powered by Together AI. 137 Marlow Street, 2026.</p>
+<footer class="foot-dense">
+  <p>Set in the display and body faces named in the stamp. MIT licensed. 137 Marlow Street, 2026.</p>
 </footer>
+```
+```css
+.foot-dense { padding: var(--space-2xl) var(--gutter); max-width: 65ch; font-size: var(--text-sm); color: var(--color-muted); line-height: 1.6; }
+.foot-dense p { margin: 0; }
 ```
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
-
-- Family: monospace · serif · sans
-- Layout: single block · paragraphs · log-style
-- Includes: build hash · date · attribution
-
-## Mobile collapse
-
-- **Below 60rem:** unchanged (mono/wraps naturally); reduce padding
-- **Below 40rem:** font-size step down
+- Family: body · display at text size · mono, only on a mono theme
+- Layout: single block · short paragraphs · a log, one entry per line
+- Includes: build hash · date · type credit

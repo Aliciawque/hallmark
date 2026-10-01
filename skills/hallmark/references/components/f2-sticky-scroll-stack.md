@@ -1,33 +1,32 @@
-### F2 · Sticky-scroll stack
-Sticky left pane, scrolling right pane that cycles through related screenshots.
-*Use when:* feature has multiple sub-states worth showing in sequence.
-*Don't confuse with:* F4 Step sequence (which is linearly numbered, not synced). Scroll-scrub choreography on top of the pin lives in [`scroll-choreography.md`](../scroll-choreography.md) § Sticky diptych.
+### F2 · Sticky scroll stack
+A sticky left pane and a right pane that scrolls through related captures.
+*Use when:* a feature has several states worth showing in sequence.
+*Not:* F4 (numbered, not synced). Scroll-scrubbed motion on top of the pin is `scroll-choreography.md` § Sticky diptych.
 
 ```html
 <section class="sticky-stack">
   <div class="pane-sticky"><h3>…</h3><p>…</p></div>
   <div class="pane-scroll">
-    <figure>1</figure><figure>2</figure><figure>3</figure>
+    <figure data-slot="demo-2">…</figure>
+    <figure data-slot="demo-3">…</figure>
   </div>
 </section>
 ```
 ```css
-.sticky-stack { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-2xl); }
-/* `calc(--banner-height + --space-xl)` so the sticky pane docks below the
-   nav with breathing room. Falls back to --space-xl alone when no sticky
-   nav is on the page (slop-test gate 56). */
+.sticky-stack { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--gap-columns); }
+/* docks below a sticky nav when one exists (gate 56); falls back to --space-xl alone */
 .pane-sticky { position: sticky; top: calc(var(--banner-height, 0px) + var(--space-xl)); align-self: start; z-index: var(--z-sticky); }
+.pane-scroll { display: grid; gap: var(--space-2xl); }
+.pane-scroll figure { margin: 0; aspect-ratio: 16 / 10; }
+@media (max-width: 60rem) { .sticky-stack { grid-template-columns: minmax(0, 1fr); } .pane-sticky { position: static; } }
 ```
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
-
 - Pinned side: left · right
-- Right pane content: code · screenshot · diagram
-- Pin steps: 3 · 4 · 5
+- Right pane: captures · code · diagram
+- Steps: 3 · 4 · 5
 
-## Mobile collapse
+## Mobile
 
-- **Below 60rem:** sticky pane unsticks; content becomes linear sequence of paired text+visual blocks
-- **Below 40rem:** the visuals shrink to 16/9 inline; no sticky behaviour at all
+- Below 60rem: the pane unsticks; text and capture alternate in one column.

@@ -1,87 +1,116 @@
 # Macrostructures
 
-Twenty-one named landing-page shapes. Each is a complete fingerprint (heading placement, body composition, divider language, button voice, image treatment, reveal pattern) bundled under one name. **This is a vocabulary, not a menu.** Design the page the brief asks for, then name the shape you designed so Rotation and gate 32 have something to read; reaching in here first and building whatever comes back is how twenty-one shapes collapse into the same three. When nothing here fits what you designed, say so and describe the shape in a line, per [`structure.md`](structure.md).
+Twenty-one named landing-page shapes. Each is a complete fingerprint (heading placement, body composition, divider language, button voice, image treatment, reveal pattern) bundled under one name. **This is a vocabulary, not a menu.** Design the page the brief asks for, then name the shape you designed so Rotation and gate 32 have something to read; reaching in here first and building whatever comes back is how twenty-one shapes collapse into the same three. When nothing here fits what you designed, say so and describe the shape as a fingerprint (§ The fingerprint, below).
 
-The Specimen macrostructure (huge serif + asymmetric spans + hairline rules + typographic CTA) is one of these twenty-one. **It is no longer a default.** Reach for it only when the brief is explicitly editorial, foundry-adjacent, or the user has named it.
+## The 21 macrostructures, index
 
-## Diversification rule
+**Read only the one file** for the shape you landed on, from `references/macrostructures/`. Do not load the whole catalogue. Slugs are stable; Rotation reads the shape from the stamp and the log. A hero shape may carry one enrichment archetype and one polish pattern from `hero-enrichment.md`, never two polish patterns; nav and footer are part of the shape, settled with the hero. Where a shape's code already lives in `components/`, the shape file points at it instead of repeating it.
 
-The rule lives in SKILL.md's Rotation block.
-Check the `/* Hallmark · macrostructure: <name> · ... */` stamp and `.hallmark/log.json` before you settle the shape.
-
-## Hero polish patterns
-
-The hero macrostructures (Marquee Hero · Stat-Led · Quote-Led · Letter · Photographic) admit one optional **polish pattern** on top of their base shape — HP1 Vertical-rail · HP2 Marquee-overflow · HP3 Cursor-spotlight · HP4 Decorative-numeral. Polish patterns are *structural* (layout / type / motion), not decorative; they live alongside the hero macrostructure rather than replacing it. See [`hero-enrichment.md`](hero-enrichment.md) § Hero shape polish for the catalogue + when each one fits.
-
-A hero may carry one enrichment archetype (E1–E8) AND one polish pattern (HP1–HP4) — but never two polish patterns at once. The decision sequence is: macrostructure → enrichment? → polish? → space discipline.
-
-## Nav and footer voice
-
-Each macrostructure also implies a **nav archetype** (N1a–N13) and a **footer archetype** (Ft1–Ft8). The defaults sit in the routing tables in [`component-cookbook.md`](component-cookbook.md) § Navigation and § Footers. Nav and footer are part of the page shape, not optional chrome: settle them alongside the hero rather than defaulting them.
-
----
-
-## The 21 macrostructures — index
-
-**Read ONLY the one file** for the shape you landed on, from `references/macrostructures/`. Do not load the whole catalogue. Slugs are stable; the diversification rule reads the `<name>` from the `/* Hallmark · macrostructure: <name> · ... */` stamp.
-
-- **01 · Bento Grid** — Modular blocks of varying sizes laid out as an irregular grid. Each block is a feature, a quote, an image, a stat. Visual rhythm comes from size variation, not card uniformity. [`macrostructures/01-bento-grid.md`](macrostructures/01-bento-grid.md)
-- **02 · Long Document** — Reads like a memo, a letter, or a journal entry. No marketing structure. Continuous prose with inline section heads. The page is *literature* about the product. [`macrostructures/02-long-document.md`](macrostructures/02-long-document.md)
-- **03 · Marquee Hero** — The hero IS the page above the fold. A single bold statement or visual fills the viewport. No subhead, no CTA in fold. Below the fold the page becomes something else (a list, a grid, prose). [`macrostructures/03-marquee-hero.md`](macrostructures/03-marquee-hero.md)
-- **04 · Stat-Led** — The hero is a giant number — a metric, a count, a percentage. Everything that follows supports or qualifies it. Data is the narrative. [`macrostructures/04-stat-led.md`](macrostructures/04-stat-led.md)
-- **05 · Workbench** — Product screenshots in frames are the primary content. The page is a guided tour of the app in use. Less marketing copy, more "here's what you do with it." [`macrostructures/05-workbench.md`](macrostructures/05-workbench.md)
-- **06 · Conversational FAQ** — Bold questions, brief answers. The page reads like an honest interview with the product. Often each Q/A is a collapsible accordion. [`macrostructures/06-conversational-faq.md`](macrostructures/06-conversational-faq.md)
-- **07 · Manifesto** — Polemical large type. Declaration energy. The page tells the reader what to believe before it tells them what to buy. Often political-poster aesthetic. [`macrostructures/07-manifesto.md`](macrostructures/07-manifesto.md)
-- **08 · Photographic** — A single huge image dominates each fold. Text is small annotation, not headline. The design says *look* before it says *read*. [`macrostructures/08-photographic.md`](macrostructures/08-photographic.md)
-- **09 · Quote-Led** — The hero is a pull-quote with attribution. The headline is borrowed credibility, not the brand's voice. The page leads with social proof. [`macrostructures/09-quote-led.md`](macrostructures/09-quote-led.md)
-- **10 · Specimen** — Huge serif display, asymmetric column spans, hairline rules, typographic-only CTA, generous whitespace. Editorial / type-foundry energy. [`macrostructures/10-specimen.md`](macrostructures/10-specimen.md)
-- **11 · Catalogue** — Uniform grid of variations of the same thing — typefaces, colour palettes, product SKUs. The page is a visual index of inventory. [`macrostructures/11-catalogue.md`](macrostructures/11-catalogue.md)
-- **12 · Letter** — First-person, written, intimate. Opens with a greeting ("Dear friend,"). No buttons in the fold. Reads as a personal note from the founder. [`macrostructures/12-letter.md`](macrostructures/12-letter.md)
-- **13 · Index-First** — The page IS a list of links. No hero image, no narrative flow. Pure navigation as design. [`macrostructures/13-index-first.md`](macrostructures/13-index-first.md)
-- **14 · Narrative Workflow** — Numbered stages tell the story of how the user uses the product over time. Each section is a phase (1.0 → 2.0 → 3.0 → 4.0). The page is a process timeline. [`macrostructures/14-narrative-workflow.md`](macrostructures/14-narrative-workflow.md)
-- **15 · Split Studio** — Diptych. Every major content block divides the screen — text on one side, proof on the other. The pairing alternates direction down the page. [`macrostructures/15-split-studio.md`](macrostructures/15-split-studio.md)
-- **16 · Feature Stack** — Sticky left pane (label / description) + scroll-synced right pane (screenshots cycling through related details). Cinematic pacing. [`macrostructures/16-feature-stack.md`](macrostructures/16-feature-stack.md)
-- **17 · Type Specimen** — The typeface IS the design. Foundry homepage or design-system marketing where a custom typeface is the brand's proof. [`macrostructures/17-type-specimen.md`](macrostructures/17-type-specimen.md)
-- **18 · Portfolio Grid** — Filterable cards of projects. Studio or designer homepages where the work is the product. [`macrostructures/18-portfolio-grid.md`](macrostructures/18-portfolio-grid.md)
-- **19 · Map / Diagram** — A single large spatial diagram organises the page — flowchart, floor plan, network graph, system map. Information is laid out *spatially*, not linearly. [`macrostructures/19-map-diagram.md`](macrostructures/19-map-diagram.md)
-- **20 · Ecosystem Index** — Multiple discovery surfaces — featured / latest / by category / by people. The platform's value is emergence and browsing, not declaration. [`macrostructures/20-ecosystem-index.md`](macrostructures/20-ecosystem-index.md)
-- **21 · Component Playground** — Interactive code-and-preview blocks are the page's primary content. Each block previews a thing and shows how to copy-paste it. [`macrostructures/21-component-playground.md`](macrostructures/21-component-playground.md)
+- **01 · Bento Grid.** Modular blocks of varying sizes laid out as an irregular grid. Each block is a feature, a figure, an image or a quote the user supplied. Rhythm comes from size variation, not card uniformity. [`macrostructures/01-bento-grid.md`](macrostructures/01-bento-grid.md)
+- **02 · Long Document.** Reads like a memo, a letter or a journal entry. No marketing structure. Continuous prose with inline section heads. The page is literature about the product. [`macrostructures/02-long-document.md`](macrostructures/02-long-document.md)
+- **03 · Marquee Hero.** The hero is the page above the fold. A single statement or visual fills the viewport. Below the fold the page becomes something else (a list, a grid, prose). [`macrostructures/03-marquee-hero.md`](macrostructures/03-marquee-hero.md)
+- **04 · Stat-Led.** The hero is a figure the user gave, with the line that says what it means. Everything that follows supports or qualifies it. [`macrostructures/04-stat-led.md`](macrostructures/04-stat-led.md)
+- **05 · Workbench.** Real product captures are the primary content. The page is a guided tour of the app in use, with short captions in place of marketing copy. [`macrostructures/05-workbench.md`](macrostructures/05-workbench.md)
+- **06 · Conversational FAQ.** Bold questions, brief answers. The page reads like an honest interview with the product. Each pair may be a disclosure. [`macrostructures/06-conversational-faq.md`](macrostructures/06-conversational-faq.md)
+- **07 · Manifesto.** Polemical large type. The page tells the reader what to believe before it tells them what to buy. [`macrostructures/07-manifesto.md`](macrostructures/07-manifesto.md)
+- **08 · Photographic.** A single huge image dominates each fold. Text is small annotation, not headline. The design says look before it says read. [`macrostructures/08-photographic.md`](macrostructures/08-photographic.md)
+- **09 · Quote-Led.** The hero is a quote the user supplied, with its attribution. The headline is someone else's voice. [`macrostructures/09-quote-led.md`](macrostructures/09-quote-led.md)
+- **10 · Specimen.** Large serif display, asymmetric spans, hairline rules, a typographic CTA, generous whitespace. Editorial and foundry briefs only. [`macrostructures/10-specimen.md`](macrostructures/10-specimen.md)
+- **11 · Catalogue.** Uniform grid of variations of the same thing: typefaces, palettes, SKUs. The page is a visual index of inventory. [`macrostructures/11-catalogue.md`](macrostructures/11-catalogue.md)
+- **12 · Letter.** First-person, written, intimate. Opens with a greeting. Reads as a personal note from the founder. [`macrostructures/12-letter.md`](macrostructures/12-letter.md)
+- **13 · Index-First.** The page is a list of links. No hero image, no narrative flow. Navigation as design. [`macrostructures/13-index-first.md`](macrostructures/13-index-first.md)
+- **14 · Narrative Workflow.** Numbered stages tell the story of how the user uses the product over time. Each section is a phase; the page is a process timeline. [`macrostructures/14-narrative-workflow.md`](macrostructures/14-narrative-workflow.md)
+- **15 · Split Studio.** Diptych. Every major block divides the screen, text on one side, proof on the other, alternating direction down the page. [`macrostructures/15-split-studio.md`](macrostructures/15-split-studio.md)
+- **16 · Feature Stack.** Sticky left pane holding the heading, scroll-synced right pane cycling through related captures. Paced like film. [`macrostructures/16-feature-stack.md`](macrostructures/16-feature-stack.md)
+- **17 · Type Specimen.** The typeface is the design. Foundry pages and design systems where a custom face is the proof. [`macrostructures/17-type-specimen.md`](macrostructures/17-type-specimen.md)
+- **18 · Portfolio Grid.** Filterable cards of projects. Studio and designer homepages where the work is the product. [`macrostructures/18-portfolio-grid.md`](macrostructures/18-portfolio-grid.md)
+- **19 · Map / Diagram.** A single large spatial diagram organises the page: flowchart, floor plan, network graph, system map. [`macrostructures/19-map-diagram.md`](macrostructures/19-map-diagram.md)
+- **20 · Ecosystem Index.** Multiple discovery surfaces: featured, latest, by category, by people. The platform's value is browsing, not declaration. [`macrostructures/20-ecosystem-index.md`](macrostructures/20-ecosystem-index.md)
+- **21 · Component Playground.** Interactive code-and-preview blocks are the page's primary content. Each block previews a thing and shows how to copy it. [`macrostructures/21-component-playground.md`](macrostructures/21-component-playground.md)
 
 ---
 
-## SaaS section deck - deal it, don't sequence it
+## SaaS section deck: deal it, do not sequence it
 
-When the macrostructure is **Bento Grid · Stat-Led · Workbench · Marquee Hero** and the brief is a B2B SaaS page, build from this **deck of eight core cards**. Cards have roles, not positions:
+When the shape is **Bento Grid, Stat-Led, Workbench or Marquee Hero** and the brief is a B2B SaaS page, build from this deck. Cards have roles, not positions. The base of the deck is made of things the page can show honestly without inventing anything; the top of the deck exists only when the user handed over the material.
 
-| Card | Role |
-| --- | --- |
-| Hero | the claim - macrostructure-specific, two CTAs max |
-| Logo wall | borrowed trust - 6-8 monochrome marks (see [`assets.md` § Logo walls](assets.md)) |
-| Features | the capabilities - 3-6, shaped by the macrostructure |
-| Testimonials | outside voices - 2-4 quotes, use-case-specific, role + company |
-| Pricing | the commitment - real prices, 2-3 tiers |
-| FAQ | objections, answered like a person |
-| CTA strip | the ask, once - one button |
-| Footer | the colophon - theme-appropriate |
+**Base cards** (always available):
 
-**Every deal deviates twice.** (a) **Drop at least one** core card and name it (logo wall and CTA strip are the usual cuts; hero and footer never drop). (b) **Either promote one wildcard** - **spec-sheet (F3) · changelog · manifesto-inset · worked-example · comparison-anatomy · index (macro 13)** - into the run, **or reorder one adjacent pair meaningfully** (pricing before features says "the price is the pitch"; testimonials before features says "trust before claims"). State both moves in the Picks block: `deck: -logos +worked-example` or `deck: -faq · pricing<features`. A deal that keeps **at least five** core cards still reads complete; below five it is a landing strip, not a landing page - re-add cards or switch macrostructure.
+| Card | Role | Code |
+| --- | --- | --- |
+| Spec sheet | what it is, in figures the product ships with: limits, formats, versions, regions | [`components/f3-tabular-spec-sheet.md`](components/f3-tabular-spec-sheet.md) |
+| Worked example | the product doing one real job on the user's material: a command and its output, a capture and its caption | [`components/f5-annotated-screenshot.md`](components/f5-annotated-screenshot.md) |
+| Changelog | the last three or four entries with their real dates; the page proves it is alive | [`components/f4-step-sequence.md`](components/f4-step-sequence.md) for the numbered form |
+| Comparison anatomy | the product beside the way it is done today, row by row, no scores | [`components/f3-tabular-spec-sheet.md`](components/f3-tabular-spec-sheet.md) |
+| Pricing table | the actual price, two or three tiers; "Contact sales" on every tier says the brand does not trust the buyer | `craft.md` § 9 Pricing |
+| FAQ | real objections answered like a person; "Yes, both providers work out of the box" beats "integrates with leading providers" | [`macrostructures/06-conversational-faq.md`](macrostructures/06-conversational-faq.md) |
+| CTA strip | the ask, once, one button | [`components/c4-sticky-bottom-bar.md`](components/c4-sticky-bottom-bar.md) or a closing band |
+| Footer | the colophon, in the theme's voice | `component-cookbook.md` footers |
 
-**Voice, wherever a card lands:** pricing shows the actual price ("Contact sales" on every tier signals the brand doesn't trust the buyer); testimonials name the person's role *and* company, use-case-specific ("Foundry got us SOC2 in five weeks. We wrote zero policies ourselves." beats "we use it every day"), plausible names never "Jane Doe" (gate 19); FAQ answers like a person ("Yes - Stripe and Adyen are both supported out of the box" beats "our platform integrates with leading payment providers"); the CTA strip has one button - the repetition is the call to action.
+**Material cards** (exist only when the user supplied the material, and the Picks block names what was supplied):
 
-Each card transition uses theme-appropriate vertical spacing - `--space-3xl` minimum between cards; the section break is the visual rhythm, no sub-rules.
+| Card | Needs | Without it |
+| --- | --- | --- |
+| Hero visual | a real capture, or "leave slots" for a labelled `data-slot` | a typographic hero; never a styled-div product UI (47c) |
+| Logo row | the user's own customer marks, with permission to show them | the card does not exist; no invented marks, no "Trusted by" line (46a, 54) |
+| Three features | three named capabilities, each with a capture or figure to show | fold them into the worked example or the spec sheet |
+| Testimonials | quotes the user supplied verbatim, with the person's name, role and company as given | the card does not exist; no plausible names, no paraphrase (46a, 19) |
 
-The deck is **not** a template you stamp out - the macrostructure determines *how* each card looks. A Bento Grid page interleaves features and proof inside the grid; a Stat-Led page sequences them top-to-bottom; a Marquee Hero page lets the marquee do the social-proof work.
+**Every deal deviates twice.** (a) Drop at least one base card and name it (the CTA strip is the usual cut; footer never drops). (b) Either promote a second base card into the hero's place (a spec sheet as the hero object says "the numbers are the pitch"; a worked example as the hero says "watch it work") or reorder one adjacent pair meaningfully (pricing before the example says "the price is the pitch"). State both moves in the Picks block: `deck: -cta +changelog` or `deck: -faq · pricing<example`. A deal that keeps at least five cards still reads complete; below five it is a landing strip, not a landing page: re-add cards or switch shape.
 
-For non-SaaS work (Editorial, Manifesto, Letter, Long Document, Quote-Led), this deck does **not** apply. A bakery does not need a pricing tier comparison.
+Each card transition uses the theme's vertical spacing, `--space-3xl` or more between cards, varied (59); the section break is the rhythm, no sub-rules.
+
+The deck is not a template you stamp out: the shape determines how each card looks. A Bento Grid page interleaves the spec sheet and the example inside the grid; a Stat-Led page sequences them top to bottom under the figure; a Marquee Hero page lets the marquee carry the claim and the example carry the proof.
+
+For non-SaaS work (Editorial, Manifesto, Letter, Long Document, Quote-Led) this deck does not apply. A bakery does not need a pricing tier comparison.
 
 ---
 
 ## How to pick
 
-1. **Read the brief.** Note any words that strongly signal one macrostructure ("data heavy", "tell a story", "a list of links", "many small features", "personal note").
-2. **Check the codebase** for an existing `/* Hallmark · macrostructure: <name> · ... */` stamp. If found, exclude that name from your choices.
-3. **Match brief energy to a macrostructure** using the "Reach for it" lines. Most briefs match 2–4 of these patterns; pick the one that's most categorically distant from any past output for this user.
-4. **State your pick** in plain text *before* writing code: "Macrostructure: Bento Grid." Then write the code, opening the CSS with the required stamp.
-5. If genuinely torn, offer the user three choices from *different categories* (e.g. Bento + Long Document + Manifesto) and let them pick.
+1. **Read the brief.** Note any words that strongly signal one shape ("data heavy", "tell a story", "a list of links", "many small features", "personal note").
+2. **Read `.hallmark/log.json`** (newest first) and the `shape:` field of any Hallmark stamp in the project; the last three shapes are excluded.
+3. **Match the brief to a shape** using the "Reach for it" lines. Most briefs match two to four; pick the one most distant from the logged shapes, and check the mirror test in SKILL.md Step 2.
+4. **State the pick once**, in the Picks block's Shape row, then write the code with the stamp's `shape:` field set. The stamp reads `/* Hallmark · shape: <shape> · genre: <genre> · theme: <theme> ... */`; the full form is in SKILL.md Step 6.
+5. If genuinely torn, offer three from different families (§ Domain to trio, below) and let the user pick.
 
-The goal is not novelty for its own sake. The goal is that two pages Hallmark builds for two different briefs *look like different sites, not different colour-swaps of the same template*.
+Two pages Hallmark builds for two different briefs must look like different sites, not colour swaps of one template.
+
+## The fingerprint: six axes
+
+**1. Heading placement.** Left-margin (marginalia beside the body; a label beside a heading is an eyebrow, gate 54) · Hanging (the heading floats above in air) · Centred display · Bottom-aligned (the heading anchors the base, content above) · Overlapping (over a photo or colour block) · Sticky or pinned · Numbered by structure (a real `<ol>` with `counter()`, or one numeral at graphic scale) · Inline with the body (no break, the heading emerges from the prose). Any placement is fair; what reads as a mistake is a narrow auto-centred head over full-width left-flush content.
+
+**2. Body composition.** Single column · Two-column asymmetric (wide body, narrow margin for captions) · Multi-column justified with hyphenation · Marginalia (sidenotes in the outer margin) · Three equal columns (reference density) · Full-bleed with margin reset (65ch body, pull quotes and images bleed) · Asymmetric spans (2-1-3 ratios on a grid).
+
+**3. Divider language.** Hairline rule (0.5 to 1px, inset or full-bleed) · Ornament (a fleuron, a dot, a mark) · Negative space (the gap is the divider) · Bleed-colour block (a paper change is the edge) · Double rule. Pick one and let it run the whole page.
+
+**4. Button voice.** Outlined · Unstyled link (an underlined word) · Oversized solid · Typographic only (a word in a weight, no box) · Form as CTA (the action is fill-this-field).
+
+**5. Image treatment.** Full-bleed · Tightly cropped to the grid · Inline with the text · Margin-aligned · None.
+
+**6. Reveal pattern.** Fade-up stagger (once, orchestrated) · Horizontal sweep · Type-unmask (a clip-path opening over text) · Number-tick (counters, only on real figures) · Typewriter (a terminal only, the caret inside a typed command) · None.
+
+Fingerprint: one choice per axis, written `Hanging|Asymmetric spans|Hairline|Outlined|Margin-aligned|None`. Two rules: coherence (choices from the same world; a justified newspaper body wants a typographic CTA, not an oversized solid) and anti-repetition (no more than three of six axes shared with any of the last three logged entries).
+
+## Domain to trio, when the user says "you pick"
+
+When the brief gives no shape, offer three shapes from different families (grid-led, document-led, poster-led, product-led) that fit the domain, never three near-twins:
+
+| Domain words | Trio |
+| --- | --- |
+| podcast, audio, music, listening | Photographic · Quote-Led · Letter |
+| shop, store, product, merch, commerce | Catalogue · Photographic · Bento Grid |
+| docs, CLI, SDK, API, library, open source | Workbench · Long Document · Component Playground |
+| platform, infra, observability, B2B tool | Bento Grid · Workbench · Stat-Led |
+| agency, studio, case studies, portfolio | Portfolio Grid · Split Studio · Index-First |
+| personal one-pager, about-me, resume | Long Document · Letter · Index-First |
+| restaurant, café, bar, food, menu | Photographic · Long Document · Catalogue |
+| fashion, apparel, beauty, lookbook | Photographic · Catalogue · Marquee Hero |
+| fintech, banking, payments, trading | Stat-Led · Workbench · Long Document |
+| manifesto, campaign, cause, advocacy | Manifesto · Quote-Led · Stat-Led |
+| editorial, foundry, magazine, type | Specimen · Long Document · Type Specimen |
+| product launch, SaaS marketing | Bento Grid · Workbench · Stat-Led |
+| conference, event, speaker | Marquee Hero · Manifesto · Photographic |
+| no signal at all | Bento Grid · Long Document · Manifesto |
+
+Developer docs and developer marketing are different briefs (a walkthrough wants Workbench; the landing wants Bento plus Stat-Led), as are a one-pager and a case-study portfolio; ask one question when it is ambiguous. A vague tone word ("modern", "clean") is not an answer; re-ask with the trio. Whichever of the three is most distant from the last logged shape is the right pick.

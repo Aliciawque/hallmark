@@ -1,37 +1,32 @@
 ### N6 · Newspaper masthead
-Full-width header, large centred wordmark on the top row, thin issue/date line above or below in serif small caps, optional inline link row beneath, double-rule below the whole thing. Reads as editorial, broadsheet — NYT, FT, Vogue.
-*Use when:* the page is editorial, magazine-shaped, or framed as an issue / edition.
-*Don't confuse with:* N1 Wordmark + 2 links (which is asymmetric and small).
+A full width header: a large centred wordmark, an issue and date line in the body face above or below it, an optional link row beneath, a double rule under all of it.
+*Use when:* the page is editorial, a magazine, framed as an issue or an edition.
+*Not:* N1 (small, asymmetric). On a SaaS or developer product it reads as costume. The issue line is a fact in a `<time>`, never an eyebrow (54); the wordmark's capitals are the wordmark's and nothing else in the masthead is uppercase (67).
 
 ```html
 <header class="nav-mast">
-  <p class="mast-line muted">No 22 · Spring 2026 · Studio</p>
-  <h1 class="mast-name">STUDIO</h1>
+  <p class="mast-line"><time datetime="…">…</time></p>
+  <a class="mast-name" href="/" aria-label="Studio, home">STUDIO</a>
   <nav class="mast-nav" aria-label="Primary">
-    <ul><li><a>Catalog</a></li><li><a>Voice</a></li><li><a>Letters</a></li></ul>
+    <ul><li><a href="/catalog">Catalog</a></li><li><a href="/voice">Voice</a></li><li><a href="/letters">Letters</a></li></ul>
   </nav>
-  <hr class="mast-rule double" aria-hidden="true">
+  <hr class="mast-rule" aria-hidden="true">
 </header>
 ```
 ```css
-.nav-mast { display: grid; gap: var(--space-2xs); padding: var(--space-md) var(--page-gutter) 0; text-align: center; }
-.mast-name { font-family: var(--font-display); font-size: clamp(2.25rem, 5vw, 3.75rem); letter-spacing: -0.01em; line-height: 0.95; margin: 0; }
-.mast-line { font-variant: small-caps; letter-spacing: 0.08em; font-size: var(--text-xs); }
+.nav-mast { display: grid; gap: var(--space-2xs); padding: var(--space-md) var(--gutter) 0; text-align: center; }
+.mast-name { margin: 0; font-family: var(--font-display); font-size: clamp(2.25rem, 5vw, 3.75rem); letter-spacing: -0.01em; line-height: 1; text-decoration: none; }
+.mast-line { margin: 0; font-size: var(--text-sm); color: var(--color-muted); }
 .mast-nav ul { display: inline-flex; gap: var(--space-md); list-style: none; padding: 0; margin: var(--space-2xs) 0 0; }
-.mast-rule.double { border: 0; border-top: var(--rule-hair) solid var(--color-rule); border-bottom: var(--rule-hair) solid var(--color-rule); height: 4px; margin: var(--space-sm) 0 0; }
+.mast-rule { border: 0; border-top: var(--rule-hair) solid var(--color-rule); border-bottom: var(--rule-hair) solid var(--color-rule); height: var(--space-2xs); margin: var(--space-sm) 0 0; }
 ```
-
-*Anti-pattern:* using N6 on a SaaS dashboard or a developer-tool product page. The masthead vocabulary belongs to long-form / editorial sites; on a B2B product, it reads as costume.
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
-
-- Issue line: above wordmark · below wordmark · none
+- Issue line: above · below · none
 - Wordmark size: 3xl · 2xl · xl
 - Rule: double · single · none
 
-## Mobile collapse
+## Mobile
 
-- **Below 60rem:** issue line stacks above wordmark; nav links wrap to a second row
-- **Below 40rem:** wordmark size step down; nav row collapses behind a "menu" disclosure
+- Below 60rem: the link row wraps. Below 40rem: the wordmark steps down; the links go behind a menu disclosure.

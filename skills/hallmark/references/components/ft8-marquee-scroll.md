@@ -1,38 +1,33 @@
 ### Ft8 · Marquee scroll
-A horizontal infinite-scroll line of repeating tagline + dot separator: `STUDIO · 2026 · STUDIO · 2026 · STUDIO · 2026 ·`. Sport-genre sites, fashion lookbooks, brand-forward agencies.
-*Use when:* the brand voice is loud, kinetic, sport-or-manifesto.
+A horizontal infinite-scroll line repeating one short phrase with a dot between repeats (the marquee's separator is the one legal middle dot, 63). Sentence case, untracked, in the display face. Pauses on hover and on focus (18).
+*Use when:* the brand voice is loud and kinetic: sport, manifesto, playful.
 *Don't confuse with:* Ft4 Dense colophon (which is static text).
 
 ```html
 <footer class="foot-marquee" aria-label="Footer">
   <div class="foot-marquee__track" aria-hidden="true">
-    <span>STUDIO · 2026 · STUDIO · 2026 · STUDIO · 2026 · STUDIO · 2026 ·</span>
-    <span>STUDIO · 2026 · STUDIO · 2026 · STUDIO · 2026 · STUDIO · 2026 ·</span>
+    <span>Open all summer · Open all summer · Open all summer · Open all summer · </span>
+    <span>Open all summer · Open all summer · Open all summer · Open all summer · </span>
   </div>
-  <p class="visually-hidden">Studio · 2026 · MIT licensed</p>
+  <p class="visually-hidden">Studio, open all summer. MIT licensed.</p>
 </footer>
 ```
 ```css
-.foot-marquee { overflow: hidden; border-top: 2px solid var(--color-ink); }
+.foot-marquee { overflow: clip; border-top: 2px solid var(--color-ink); }
 .foot-marquee__track { display: flex; gap: var(--space-2xl); white-space: nowrap; padding-block: var(--space-md); animation: foot-marquee 32s linear infinite; }
-.foot-marquee__track span { font-family: var(--font-display); font-weight: 700; letter-spacing: 0.08em; font-size: clamp(1rem, 2.5vw, 1.5rem); }
+.foot-marquee:hover .foot-marquee__track, .foot-marquee:focus-within .foot-marquee__track { animation-play-state: paused; }
+.foot-marquee__track span { font-family: var(--font-display); font-weight: 700; font-size: clamp(1rem, 2.5vw, 1.5rem); }
 @keyframes foot-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) { .foot-marquee__track { animation: none; } }
 ```
 
-*Anti-pattern:* using Ft8 on editorial / quiet contexts — the motion reads as loud. Pair only with playful / sport / manifesto voices, and always honour `prefers-reduced-motion: reduce`.
+The two spans are identical so the loop is seamless at -50%. `html` and `body` still carry the page's `overflow-x: clip` (34); the footer's clip is local.
 
----
+*Anti-pattern:* Ft8 in an editorial or quiet context, where the motion is noise. Pair it only with playful, sport or manifesto voices.
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
+- Speed: 24s · 32s · 48s
+- Direction: left · right
 
-- Speed: 24 s · 32 s · 48 s
-- Direction: left · right · alternate (rare)
-- Glyph: middot · em-dash · slash
-
-## Mobile collapse
-
-- **Below 60rem:** unchanged (already designed for narrow); slow speed by ~25 %
-- **Below 40rem:** speed slows further; track height step down
+*Mobile:* below 60rem the speed slows by about a quarter; below 40rem the track height steps down.

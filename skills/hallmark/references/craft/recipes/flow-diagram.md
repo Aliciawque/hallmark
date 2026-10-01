@@ -1,6 +1,6 @@
-### Recipe 1 · Workflow / process diagram
+### Recipe 1 · Workflow diagram
 
-Three labelled boxes connected by curved arrows. Slight asymmetric rotation (-1° on box one, +0.5° on box three) for hand-drawn feel. One arrow has an animated `stroke-dashoffset` flow suggesting data movement. Use case: feature page showing data flow, decision tree, or user journey steps.
+Three labelled boxes joined by curved arrows. A slight asymmetric rotation (-1° on box one, +0.5° on box three) for a drawn feel. One arrow carries an animated `stroke-dashoffset` flow suggesting data movement. Use case: a feature page showing data flow, a decision tree, or the steps of a journey. Labels are the body face, sentence case, untracked (64, 67); the arrowheads are geometry inside a drawing, not punctuation glued to text.
 
 ```html
 <svg class="flow" viewBox="0 0 720 200" role="img" aria-label="Data flow: input, process, output">
@@ -19,8 +19,8 @@ Three labelled boxes connected by curved arrows. Slight asymmetric rotation (-1�
 
   <g class="flow__step">
     <rect class="flow__box" x="260" y="55" width="200" height="90" rx="0" />
-    <text class="flow__label" x="360" y="100" text-anchor="middle">Parse + Filter</text>
-    <text class="flow__sub"   x="360" y="118" text-anchor="middle">small predicate language</text>
+    <text class="flow__label" x="360" y="100" text-anchor="middle">Parse and filter</text>
+    <text class="flow__sub"   x="360" y="120" text-anchor="middle">A small predicate language</text>
   </g>
 
   <path class="flow__arrow" d="M 460 100 Q 500 120 540 100" marker-end="url(#flow-arrow)" />
@@ -42,7 +42,7 @@ Three labelled boxes connected by curved arrows. Slight asymmetric rotation (-1�
 .flow { width: 100%; max-width: 48rem; height: auto; display: block; margin: 0 auto; color: var(--color-ink); }
 .flow__box   { fill: none; stroke: currentColor; stroke-width: 1.5; }
 .flow__label { font-family: var(--font-display); font-size: 16px; fill: var(--color-ink); }
-.flow__sub   { font-family: var(--font-mono); font-size: 11px; fill: var(--color-muted); }
+.flow__sub   { font-family: var(--font-body); font-size: 12px; fill: var(--color-muted); }
 .flow__step--a { transform: rotate(-1deg); transform-origin: 100px 100px; }
 .flow__step--c { transform: rotate(0.5deg); transform-origin: 620px 100px; }
 .flow__arrow { fill: none; stroke: var(--color-muted); stroke-width: 1.5; stroke-linecap: round; }
@@ -58,6 +58,4 @@ Three labelled boxes connected by curved arrows. Slight asymmetric rotation (-1�
 }
 ```
 
-**Use when** the brief is "show the user how data flows" — feature page, docs landing, technical-narrative section. **Avoid when** the diagram has more than five nodes (use Mermaid or a real graph layout) or when relationships are non-linear (this recipe assumes left-to-right flow).
-
-*Inspiration:* Lynn Fisher's `lynnandtonic.com` `<rect>`-rotation experiments; Rauno Freiberg's `stroke-dashoffset` flows on rauno.me.
+**Use when** the brief is "show how the data flows": a feature page, a docs landing, a technical narrative. **Avoid when** the diagram has more than five nodes (use a real graph layout) or the relationships are not left to right.

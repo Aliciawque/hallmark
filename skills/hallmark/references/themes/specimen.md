@@ -1,114 +1,79 @@
-# Theme - Specimen
+---
+name: Specimen
+slug: specimen
+genre: editorial
+paper: light 96 80
+display: high-contrast-serif Bodoni Moda
+accent: cool 262
+posture: restrained
+keywords: typography, type specimen, foundry, letterform, portfolio, editorial, magazine, essay, studio, agency, brand story, print, publication, craft, considered, literary
+material: warm oat paper, a Didone set enormous and thin, hairlines, one cool ink-blue mark
+signature: a single Bodoni Moda word at specimen scale whose hairlines nearly vanish, over a ruled page
+---
 
-The canonical Hallmark editorial voice and the catalog's silent default: the type-specimen school, where one high-contrast serif set enormous and thin *is* the page. Warm oat paper, a single signal-orange mark, ruler-drawn hairlines, Bodoni Moda shown at specimen scale. It reads like a well-set printed page: quiet, warm, exact.
+# Specimen
 
-The material, in one line: **oat paper, one thin serif at scale, hairlines, and a single orange mark.**
+Warm oat paper, Bodoni Moda 400 at opsz 96 set enormous so its hairlines nearly vanish against the stems, a Geist body, ruler-drawn 1px rules, and one ink-blue mark under 5%.
 
-## Axes (diversification)
+## Tokens
 
-- **Paper band** - warm oat (`oklch(96% 0.018 80)`, hue 80). A cream near-white with real yellow warmth, distinct from Almanac's cool blue-grey oat and Atelier's near-neutral taupe.
-- **Display style** - **high-contrast serif** (Bodoni Moda, its lightest cut). `--display-weight: 400` (the family floor), `--display-optical: 96` (the top of the optical-size axis, where the hairlines thin furthest against the stems). A Didone: elegant and razor-thin, never the bold crown of Atelier or the slab of Newsprint.
-- **Accent hue** - **signal orange** (`#FC4C02`, hue ~33). One warm spark, with `--color-accent-ink: oklch(55% 0.21 32)` for legible orange text on oat. A signal, never a flood.
+```css
+:root {
+  --color-paper: oklch(96% 0.018 80); --color-paper-2: oklch(93.5% 0.02 80); --color-paper-3: oklch(90.5% 0.022 78);
+  --color-ink: oklch(18% 0.014 60); --color-ink-2: oklch(26% 0.014 60); --color-muted: oklch(48% 0.014 65);
+  --color-rule: oklch(80% 0.016 75);
+  --color-accent: oklch(46% 0.17 262); --color-accent-ink: oklch(96% 0.018 80); --color-focus: oklch(50% 0.18 262);
+  --font-display: "Bodoni Moda", serif; --font-body: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-outlier: "Geist Mono", ui-monospace, monospace;
+  --radius-card: 0; --radius-pill: 0; --rule-hair: 1px;
+  --shadow-card: none;
+  --tracking-display: -0.025em; --display-weight: 400; --display-optical: 96;
+}
+```
 
-## Reference register
+## Faces
 
-Klim and Commercial Type foundry specimens · Pentagram · Aesop · Cereal · Kinfolk · It's Nice That · Readymag editorial · Frere-Jones.
-
-The material to match: the printed type specimen and the considered editorial page - one serif shown at scale, hairline structure, mono folios, generous paper, a single ink colour. Ask "does this read like a printed specimen, or a marketing template?" Keep the former. **Never name any of these in the output.**
-
-**Voice range:** editorial, hand-set, lightly literary. Verbs over adjectives; name the thing concretely, name the number.
-
-## Palette
-
-- `--color-paper: oklch(96% 0.018 80)` - warm oat, never `#fff`
-- `--color-ink: oklch(18% 0.014 60)` - warm near-black, never `#000`
-- `--color-ink-2: oklch(26% 0.014 60)` - body, a notch up
-- `--color-muted` - meta and folios
-- `--color-accent: #FC4C02` - signal orange, the one spark
-- `--color-accent-ink: oklch(55% 0.21 32)` - orange that stays legible as text on oat
-- `--color-rule` at `--rule-card: 1px`, `--rule-hair: 0.5px`
-
-Everything is tinted warm (hue 60-80). Orange stays under 5% of any viewport: a link underline, one control, the drop cap, the focus ring, a single italic emphasis. It never fills a band or a surface, and there is no second accent.
-
-## Typography
-
-- **Display** - Bodoni Moda at `--display-weight: 400`, `font-variation-settings: "opsz" 96`, `--text-display: clamp(3rem, 5.5vw + 1rem, 5.75rem)`, `--tracking-display: -0.025em`, `--lh-tight: 1.02`. One word or a short phrase set enormous and light: at the top of the optical axis the hairlines go razor-fine against the stems, and that contrast *is* the graphic. Do not drop the optical size; a low `opsz` fattens the hairlines and the specimen effect dies with them.
-- **Body** - Geist at `--measure: 62ch`, `--lh-normal: 1.45`. The sans-under-serif contrast is the specimen tension.
-- **Serif emphasis** - Bodoni Moda italic for pulled lines and single-word emphasis only, never the display face.
-- **Label** - Geist Mono, UPPERCASE, `--tracking-label: 0.12em`, `--text-xs`, `--color-muted`. The machine-readout counterpoint that keeps the warm serif from going soft: meta rows, folios, figure captions, table headers, units.
+- **Display:** Bodoni Moda 400, `"opsz" 96`, `--tracking-display`, up to 5.75rem, line-height 1.02; roman. Set enormous, the hairlines thin to a razor against the stems, and that contrast is the graphic.
+- **Body:** Geist 400 and 500, 62ch, line-height 1.45; the sans under the Didone is the tension. Bodoni Moda italic is a body-level device only (a pulled line at text size, one emphasised word in running text) and never enters a head.
+- **Labels, captions, folios, table heads, meta:** Geist 500 one step smaller, sentence case, `--color-muted`. Mono is not this theme's material; Geist Mono appears only inside code and on figures that compare.
 
 ## Material
 
-- **Hairlines, square corners, no shadow.** `--rule-card: 1px`, `--radius-card: 0`, `--shadow-card: none`, `--rule-hair: 0.5px`. Structure is drawn with rules, columns, and double rules, never boxed surfaces or blur.
-- **Editorial ornament, no depth.** A fleuron or an orange Bodoni Moda drop cap is welcome; a shadow is not. Where the page ornaments itself, the ornament demonstrates the face it is set in.
-- **Generous paper.** `--page-max: 76rem`. Whitespace and the size of the type do the work.
+- Hairlines, square corners, no shadow: 1px `--color-rule` on structure, inside tables and between columns, radius 0, nothing lifts. Rules, columns and one double rule, never boxed surfaces.
+- The object family is the specimen itself: a waterfall (one line per size), a character grid, a weight or optical ladder, a figure set with a folio, showing the display face.
+- Ornament without depth: a fleuron or a blue Bodoni Moda drop cap, set in the face it demonstrates.
+- The one mark under 5%: the drop cap, a link underline, one control, a single figure. Never a fill behind type, never a band, never a second hue.
+- The control pair: an ink-filled rectangle beside a hairline-outlined one, both square. No texture, no gradient, no mesh.
 
 ## Motion
 
-**Motion character: calm (1.0×).** Quiet and composed. One orchestrated entrance: reveals fade and rise (`--ease-out`, ~600ms). Optionally one weight or optical ladder that settles once, then holds static. Hover: an orange underline-grow on links, a 1px rule shift toward accent on focusable surfaces. No bounce, no parallax, no autoplay. Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static and fully visible.
+Nothing moves except state: a blue underline grows under a link on hover. No reveal, no settling ladder, nothing loops.
 
-## Do-nots (this theme's own failure modes)
+## Voice
 
-- **Never a heavy or black display.** Bodoni Moda stays at 400. A bold serif crown is Atelier's move; a heavy hero reads as a different theme.
-- **Never cool paper.** Cool blue-grey oat is Almanac's, warm pink cream is Newsprint's. Specimen is oat.
-- **Never a second accent.** One signal orange only: no teal, no blue, no companion hue.
-- **Never an orange flood.** The accent is a spark on a mark, never a fill behind type or a full band.
-- **Never rounded corners, pills, or shadows.** Square, hairline, flat.
-- **Never background texture, mesh, or gradient.** Oat paper plus hairlines plus one orange mark carry it.
+Editorial, hand-set, lightly literary. Verbs over adjectives; name the face, the size, the number.
 
-## How Specimen differs from its neighbours
+## Do-nots
 
-| vs | difference |
-|---|---|
-| **Atelier** | Sentient at weight **700** (bold, soft-contrast, no hairlines), near-neutral plaster paper, umber accent (`oklch(22% 0.060 40)`). Specimen is Bodoni Moda at **400** (a Didone's thick/thin extreme), warmer oat, signal orange. High-contrast-plus-orange vs soft-bold-plus-umber. |
-| **Newsprint** | Pinker cream paper (`oklch(92% 0.045 50)`), a **serif body** (Spectral), a **slab** display (Zilla Slab 700), brick accent, broadsheet columns. Specimen has a **sans body** (Geist), a Didone display, oat not pink, orange not brick. |
-| **Almanac** | **Cool** blue-grey paper (hue 245), a **sans display** (Hanken Grotesk), blue accent, dense small type. Specimen is warm, serif-display, orange. Warm-serif vs cool-sans. |
-
-## When the brief routes here
-
-*type specimen · typography · foundry · letterform · portfolio · editorial · magazine · essay · manifesto · studio · agency · brand story · print · publication · considered · craft · design-led*. Categories: type foundries, design portfolios, editorial and magazine sites, agency sites, personal sites, brand stories, indie publications. Tone: literary, hand-set, warm, considered, high-craft, quiet-confident.
-
-When the brief names no specialised aesthetic ("a landing page for X"), it lands here. Cool or technical routes to Almanac or Cobalt, loud-maximalist to Carnival, heavy-dramatic serif to Atelier.
+- Never a heavy display; Bodoni Moda stays at 400, and bold turns the Didone into a crown.
+- Never an optical size under 72 on display type; fat hairlines are the theme's most common failure.
+- Never a warm accent; the one mark is ink blue, and the warmth comes from the oat.
+- Never cool paper; the ground is oat, hue 80, and every neutral tints toward it.
+- Never rounded corners, pills, shadows or texture. Square, hairline, flat.
 
 ## Build hint
 
 ```html
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;1,6..96,400&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 ```
 
 ```css
-html, body { overflow-x: clip; }
-body { background: var(--color-paper); color: var(--color-ink-2);
-       font-family: var(--font-body); font-weight: 400; }
-
-/* Specimen-scale display - Bodoni Moda, lightest cut, max optical size */
-.display { font-family: var(--font-display); font-weight: var(--display-weight); /* 400 */
-           font-variation-settings: "opsz" var(--display-optical);                /* 96 */
-           font-size: var(--text-display); letter-spacing: var(--tracking-display);
-           line-height: var(--lh-tight); }
-
-/* Mono label - the machine-readout counterpoint (meta, folios, captions) */
-.label { font-family: var(--font-mono); text-transform: uppercase;
-         letter-spacing: var(--tracking-label); font-size: var(--text-xs);
-         color: var(--color-muted); }
-
-/* Hairline structure, square corners, no shadow */
-.rule { border-top: var(--rule-fine) solid var(--color-rule); }
-.card { border: var(--rule-card) solid var(--color-rule);
-        border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
-
-/* The one signal - orange, used sparingly; the drop cap spends it well */
-a { text-decoration-color: var(--color-accent); }
-.dropcap::first-letter { color: var(--color-accent); font-family: var(--font-display); }
-:focus-visible { outline: 2px solid var(--color-focus); }
-
-.reveal { opacity: 0; transform: translateY(10px);
-          transition: opacity .6s var(--ease-out), transform .6s var(--ease-out); }
-.reveal.is-in { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
-}
+.display { font: var(--display-weight) var(--text-display)/1.02 var(--font-display); font-variation-settings: "opsz" var(--display-optical); letter-spacing: var(--tracking-display); }
+.waterfall > * { border-top: var(--rule-hair) solid var(--color-rule); padding-block: 0.5rem; font-family: var(--font-display); font-variation-settings: "opsz" 96; }
+.dropcap::first-letter { float: left; font: 400 3.6em/0.82 var(--font-display); color: var(--color-accent); padding-right: 0.08em; }
+.btn { border-radius: 0; padding: 0.7rem 1.2rem; font-weight: 500; }
+.btn--primary { background: var(--color-ink); color: var(--color-paper); }
+.btn--secondary { border: 1px solid var(--color-ink); color: var(--color-ink); }
+a { text-decoration-color: var(--color-accent); text-underline-offset: 0.18em; }
+::selection { background: oklch(46% 0.17 262 / 0.22); }
 ```
-
-Plus one `IntersectionObserver` adding `.is-in`. Specimen supplies the oat, the one serif, the hairline vocabulary, and the single orange mark; what is set in that face is the brief's business.

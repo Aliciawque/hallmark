@@ -1,114 +1,81 @@
-# Theme - Manifesto
+---
+name: Manifesto
+slug: manifesto
+genre: editorial
+paper: dark 10 60
+display: display-condensed Anton
+accent: warm 28
+posture: committed
+keywords: manifesto, statement, declaration, principles, beliefs, mission, movement, protest, cause, campaign, activism, advocacy, values, take a stand, bold launch, defiant, punk, record label
+material: warm charcoal, condensed uppercase caps at 9rem leaded tight, a quiet grotesque body, one fighting red
+signature: a three-line block of condensed caps locked into one solid mass against the left margin, with a single red word in it
+---
 
-Loud editorial, broadside register: the protest-poster and political-broadside school, executed on a **warm near-black ground with condensed-bold uppercase display and exactly ONE fighting red**. Giant Anton lines slam to the left margin and the body drops to a quiet grotesque. It reads like a thesis nailed to a door: uncompromising, urgent, set once and set loud.
+# Manifesto
 
-The material, in one line: **warm charcoal, condensed caps at 9rem, a quiet body, one red.**
+A warm near-black ground, Anton uppercase up to 9rem leaded at 0.86 and slammed to the left margin, a Public Sans body at 1rem, and one red word inside the hero block. The whole drama is the gap between 9rem caps and 1rem body.
 
-## Axes (diversification)
+## Tokens
 
-- **Paper band** - **dark, warm** (`oklch(10% 0.005 60)`, a warm charcoal near-black). Stepped bands at `paper-2 15%` / `paper-3 20%`. The only dark theme in the editorial cluster.
-- **Display style** - **display-condensed-bold** (Anton 400, single weight, `--display-optical: 96`). Uppercase, tracked at `0.005em`, leaded tight at `--lh-tight: 0.86`. Distinct from Carnival's variable-width Big Shoulders and every serif option.
-- **Accent hue** - **fighting red** (`--color-accent: #E51A1A`; the same red tuned for text is `--color-accent-ink: oklch(58% 0.24 28)`). One warm red (~25-28 deg), used as a signal, never a flood. Sits clear of Carnival's mustard/oxblood duo-tone.
+```css
+:root {
+  --color-paper: oklch(10% 0.005 60); --color-paper-2: oklch(15% 0.006 60); --color-paper-3: oklch(20% 0.007 60);
+  --color-ink: oklch(98% 0.003 90); --color-ink-2: oklch(88% 0.006 80); --color-muted: oklch(60% 0.012 65);
+  --color-rule: oklch(28% 0.010 60);
+  --color-accent: oklch(56% 0.23 28); --color-accent-text: oklch(62% 0.23 28); --color-accent-ink: oklch(98% 0.003 90);
+  --color-focus: oklch(56% 0.23 28);
+  --font-display: "Anton", "Impact", sans-serif; --font-body: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-outlier: "JetBrains Mono", ui-monospace, monospace;
+  --radius-card: 0; --radius-pill: 0; --rule-hair: 1px; --rule-bar: 3px; --shadow-card: none;
+  --tracking-display: 0.005em; --lh-tight: 0.86; --text-display: clamp(4rem, 8vw + 1rem, 9rem);
+}
+```
 
-## Reference register
+## Faces
 
-Recorded broadsides and statement pages: the Communist / Futurist / Dada printed manifesto, a strike poster, a punk zine cover, "we stand for" appeals, mission pages set in condensed grotesque. **Never name any of these in the output.**
-
-The material to match: a political declaration printed at scale in one ink plus red, argument carried by type alone, no image needed. Internally: *the printed manifesto nailed up in public*. When in doubt ask "does this read like a declaration, or like a product page?" Keep the former.
-
-## Palette
-
-Canonical values live in [`site/css/tokens.css`](../../../../site/css/tokens.css) under `[data-theme="manifesto"]`.
-
-- `--color-paper: oklch(10% 0.005 60)` - warm charcoal, never `#000`; bands step to `15%` / `20%`
-- `--color-ink: oklch(98% 0.003 90)` - warm near-white
-- `--color-ink-2: oklch(88% 0.006 80)` - body, a notch back
-- `--color-muted: oklch(60% 0.012 65)` - meta
-- `--color-accent: #E51A1A` - flat red for fills, underlines, and the 3px bar
-- `--color-accent-ink: oklch(58% 0.24 28)` - the text-legible red, for a red **word**
-- `--color-focus` - the same red
-- `--color-rule: oklch(28% 0.010 60)` - the hairline that divides
-
-Everything is warm-tinted (hue 60-90), never neutral grey. One red, under 5% of any viewport, and **at most one red-inverted surface on the whole page** (red paper, `--color-ink` text); everywhere else red stays a signal. Text on a red fill is `--color-ink`, never dark ink. At most one red word per headline.
-
-## Typography
-
-The whole drama is scale contrast: the gap between `9rem` caps and `1rem` grotesque IS the theme.
-
-- **Display** - Anton, one weight, uppercase only, at `clamp(4rem, 8vw+1rem, 9rem)` (`--text-display`), leaded at `--lh-tight: 0.86` so a three-line block locks into one solid mass. Slam it to the left margin, edge to edge.
-- **Body** - Public Sans 400/600/700, set small and plain at `--measure: 56ch` in `--color-ink-2`. It never competes; it is the calm argument under the shout.
-- **Label** - JetBrains Mono, UPPERCASE, `--tracking-label: 0.10em`. The machine-voice against the Anton shout: captions, meta rows, table headers, units, dates, folios, and entry numbers inside a real `<ol>` when the argument is genuinely ordered. It carries a value; it never sits above a heading to announce it.
+- **Display:** Anton 400, one weight, uppercase only, at `--text-display`, leaded at `--lh-tight` so a three-line block locks into one mass, slammed left. One red word on the whole page, inside the hero block, in `--color-accent-text`: the signature (stamp `waive 38iii`). Every other head is one colour.
+- **Body:** Public Sans 400, 600, 700, set small and plain at a 56ch measure in `--color-ink-2`.
+- **Labels, captions, table heads, meta, dates, folios:** Public Sans 500 one step smaller, sentence case, `--color-muted`. Mono appears only inside code.
 
 ## Material
 
-- **Hairlines divide, one thick red bar accents.** `--rule-hair: 1px` in `--color-rule` separates like a printed broadsheet; a single `--rule-fine: 3px` red bar is the emphatic mark. Rules do the structural work: **no boxed cards, no drop-shadows.**
-- **Square, ruler-drawn controls.** Buttons and inputs are `0px` radius or hairline-bordered blocks. A primary action is a flat red block with `--color-ink` text, or an outlined block that inverts to red on hover. No pills, no soft radii, no gradients.
-- **No texture, no ornament.** The scale and the red carry everything.
-- **No imagery leading.** Type argues; a photograph undercuts the broadside.
+- Hairlines divide, one thick red bar accents: `--rule-hair` in `--color-rule` separates like a printed broadsheet; a single `--rule-bar` red bar is the emphatic mark. Rules do the structural work: no boxed cards, no drop shadows.
+- Square, ruler-drawn controls: a flat red block with `--color-accent-ink` text beside a hairline-outlined block that inverts to red on hover. No pills, no soft radii, no gradients.
+- One red, under 5% of a viewport, and at most one red-inverted surface on the whole page; everywhere else red is a signal. Text on red is always the light ink.
+- Everything warm-tinted (hue 60 to 90), never neutral grey; no texture, no ornament. Scale and red carry the page.
+- The object family is the declaration block: a numbered list of claims, a locked display mass over a hairline, a red bar under a date.
 
 ## Motion
 
-**Motion character: severe (0.7×).** Hard and staccato, not soft. Display blocks clip-reveal upward once (a `clip-path: inset()` mask, not a soft fade and drift) via one `IntersectionObserver`, on a snappy cubic-bezier, playing once. Lines can enter one after another with the same snap. No bounce, no parallax, no autoplay, no red pulsing. Everything gates behind `prefers-reduced-motion: no-preference`; reduced-motion ships static and fully visible.
+One clip reveal: the hero block clip-reveals upward once (`clip-path: inset()`, never a soft fade) over 500ms. Nothing else moves; no bounce, no parallax, no red pulsing.
 
-## Voice range
+## Voice
 
-Imperative, short, declarative. Fighting words, verbs over adjectives, one red word. Never *seamless, effortless, delightful, gentle, playful, cozy, maybe, perhaps, leverage, synergy*. No hedging, no hype-marketing: state it and stand behind it.
+Imperative, short, declarative: fighting words, verbs over adjectives, one red word. No hedging; state it and stand behind it.
 
-## Do-nots (this theme's own failure modes)
+## Do-nots
 
-- **No pure `#000` ground or `#fff` ink.** Warm-tinted charcoal and warm near-white, hue 60-90.
-- **No second accent.** Red is the ONLY colour: no blue, no green, no duo-tone pairing (that is Carnival).
-- **No red flood** beyond the single inverted surface. Red is a signal, not a background.
-- **No light ground.** Manifesto is dark. A light statement page routes to Riso or Carnival.
-- **No decorative ornaments** - no fleurons, stickers, hard-offset shadows, tinted paper tricks.
-- **No serif display, no lowercase or title-cased display.** `--font-serif` resolves to Anton on purpose; the display voice is UPPERCASE and declarative.
-
-## How Manifesto differs from its neighbours
-
-| vs | difference |
-|---|---|
-| **Carnival** (loud-editorial sibling) | Carnival is a **light**, tinted-paper, **duo-tone** decorative page (mustard + oxblood, ornaments, hard-offset shadows, variable Big Shoulders). Manifesto is **dark**, **one red**, raw, condensed-bold Anton, no ornament. Light-decorative vs dark-declarative settles it instantly. |
-| **Brutal** (raw-editorial sibling) | Brutal is a **light 98% sheet** with heavy black rules and Albert Sans 700 - rigid and grid-structural, its one red cutting the near-white. Manifesto is a **dark** warm-charcoal ground with condensed-bold Anton - composed loudness, not grid rawness. |
-| **Riso** (print-editorial sibling) | Riso is a **light** print-texture, duotone-registration page. Manifesto is a dark, textureless broadside carried by scale and one red bar, not by ink-misregistration charm. |
-
-## When the brief routes here
-
-*manifesto · statement · declaration · principles · beliefs · mission · movement · protest · cause · campaign · activism · advocacy · values · take a stand · bold launch · defiant · anti-establishment · punk*. Categories: activist and cause orgs, advocacy campaigns, defiant brand launches, editorial statements, agencies with an attitude, loud record labels, movement pages. Tone: loud, defiant, urgent, declarative, uncompromising.
-
-Calm, product, consumer, or image-led briefs route elsewhere. When the brief wants to **shout a conviction in type**, it is Manifesto.
+- Never a second accent; red is the only colour.
+- Never a red flood beyond the single inverted surface; red is a signal, not a background.
+- Never a light ground; the broadside is dark.
+- Never ornament: no fleurons, stickers, hard-offset shadows or tinted-paper tricks.
+- Never a serif, lowercase or title-case display; the voice is uppercase and declarative.
 
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Public+Sans:wght@400;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 ```
 
 ```css
-html, body { overflow-x: clip; }
-body { background: var(--color-paper); color: var(--color-ink-2);
-       font-family: var(--font-body); font-weight: 400; }
-
-/* Condensed-bold caps, slammed left, leaded tight */
-.display { font-family: var(--font-display); text-transform: uppercase;
-           font-size: var(--text-display); line-height: var(--lh-tight);
-           letter-spacing: var(--tracking-display); color: var(--color-ink);
-           text-align: left; text-wrap: balance; }
-.display .hot { color: var(--color-accent-ink); }   /* one red word, max */
-
-/* Mono label voice + the one thick red bar */
-.label { font-family: var(--font-mono); text-transform: uppercase;
-         letter-spacing: var(--tracking-label); color: var(--color-muted); }
-.rule-red { height: var(--rule-fine); background: var(--color-accent); border: 0; }
-
-/* Square controls - a flat red block, never a pill */
-.btn { border-radius: 0; background: var(--color-accent); color: var(--color-ink);
-       border: var(--rule-hair) solid var(--color-accent); }
-:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
-
-/* Hard clip-reveal - the whole motion engine */
-.reveal { clip-path: inset(0 0 100% 0); transition: clip-path .5s cubic-bezier(0.2,0.9,0.1,1); }
+body { font-family: var(--font-body); color: var(--color-ink-2); }
+.display { font: 400 var(--text-display)/var(--lh-tight) var(--font-display); text-transform: uppercase;
+  letter-spacing: var(--tracking-display); color: var(--color-ink); }
+.display .hot { color: var(--color-accent-text); }
+.rule-red { height: var(--rule-bar); background: var(--color-accent); border: 0; }
+.btn--primary { border-radius: 0; background: var(--color-accent); color: var(--color-accent-ink); font-weight: 600; }
+.btn--secondary { border-radius: 0; border: var(--rule-hair) solid var(--color-ink-2); color: var(--color-ink); font-weight: 600; }
+.reveal { clip-path: inset(0 0 100% 0); transition: clip-path 500ms var(--ease-out); }
 .reveal.is-in { clip-path: inset(0 0 0 0); }
-@media (prefers-reduced-motion: reduce) { .reveal { clip-path: none; transition: none; } }
+::selection { background: var(--color-accent); color: var(--color-accent-ink); }
 ```
-
-The rest of the page is yours. Manifesto supplies the charcoal, the caps, and the one red; what gets declared in them is the brief's business, not the theme's.

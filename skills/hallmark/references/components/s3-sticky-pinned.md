@@ -1,7 +1,7 @@
 ### S3 · Sticky pinned
 Heading remains in viewport while content scrolls beneath. Orientation aid.
-*Use when:* the section is dense and the user benefits from always seeing where they are. The persistence is itself an opening move: nothing needs to introduce a heading that never leaves ([`../section-entry.md`](../section-entry.md) § 12).
-*Don't confuse with:* S1 Ordinal by structure (which doesn't move).
+*Use when:* the section is dense and the reader benefits from always seeing where they are. The persistence is itself the opening: nothing needs to introduce a heading that never leaves (`craft.md` § 7 item 12).
+*Don't confuse with:* S1 Ordinal by structure (which does not move).
 
 ```html
 <header class="head-sticky">
@@ -10,22 +10,17 @@ Heading remains in viewport while content scrolls beneath. Orientation aid.
 ```
 ```css
 /* If the page has a sticky top nav, offset by its height so the sticky
-   head docks BENEATH it instead of bleeding over (slop-test gate 56).
-   Use --z-sticky (in-page) so the nav's --z-sticky-nav out-paints it. */
-.head-sticky { position: sticky; top: var(--banner-height, 0px); background: var(--color-paper); padding-block: var(--space-sm); border-bottom: 1px solid var(--color-ink); z-index: var(--z-sticky); }
+   head docks beneath it instead of bleeding over (gate 56).
+   --z-sticky (in-page) sits below the nav's --z-sticky-nav. */
+.head-sticky { position: sticky; top: var(--banner-height, 0px); background: var(--color-paper); padding-block: var(--space-sm); border-bottom: var(--rule-hair) solid var(--color-rule); z-index: var(--z-sticky); }
 ```
 
-**Sticky pairing rule:** if the page emits a sticky `<header>` / `<nav>` / `.banner` (anything with `position: sticky; top: 0`), you MUST also declare `--banner-height` (a px value matching the nav's height) and `--z-sticky-nav` (≥ 1 above `--z-sticky`) in `tokens.css`. The S3 recipe above pulls both. Without those tokens the section head paints over the nav during scroll — see slop-test gate 56.
+**Sticky pairing rule.** If the page emits a sticky `<header>`, `<nav>` or `.banner` (anything with `position: sticky; top: 0`), it must also declare `--banner-height` (a px value matching the nav's height) and `--z-sticky-nav` (at least 1 above `--z-sticky`) in `tokens.css`. The recipe above pulls both; without them the section head paints over the nav during scroll (gate 56).
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
-
 - Offset: `--banner-height` dock · 0 (no sticky nav)
-- Border-bottom: hairline · ink 1px
+- Border-bottom: hairline · ink, 1px
 - Dock behaviour: pinned throughout · released at the section's end
 
-## Mobile collapse
-
-- **Below 60rem:** sticky retained; `--banner-height` offset re-measured
-- **Below 40rem:** unsticks entirely (`position: static`); border kept as the section rule
+*Mobile:* below 60rem the head stays sticky and `--banner-height` is re-measured; below 40rem it unsticks (`position: static`) and the border stays as the section rule.

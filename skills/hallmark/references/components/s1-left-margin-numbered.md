@@ -1,9 +1,7 @@
 ### S1 · Ordinal by structure
-When a run of sections is genuinely ordered, the order comes from the markup or from a numeral built at graphic scale, never from a small label typed above the heading. The old form of this archetype (`01 — Foundations` stacked over an `<h2>`) is an eyebrow and gate 54 bans it outright.
-*Use when:* the content is truly sequential (chapters, steps, issues, a run of numbered work). Not for "the third section on the page", which is not an ordinal, just a position.
-*Don't confuse with:* S5 Bottom-anchored (label *under* the section); [`../enrichment/hp4-decorative-numeral.md`](../enrichment/hp4-decorative-numeral.md) (one numeral, hero scale, not a run).
-
-Sequence carried by the list element, so the numbers are real and screen readers do not hear them twice:
+When a run of sections is genuinely ordered, the order comes from the markup: a real `<ol>` with `counter()`, the numeral inline at the heading's own size, in the heading's own weight and colour. A small muted `01` stacked above an `<h2>` is an eyebrow in ordinal geometry and gate 54 bans it.
+*Use when:* the content is truly sequential (chapters, steps, issues, a run of numbered work). Not for "the third section on the page", which is a position, not an ordinal.
+*Don't confuse with:* S5 Bottom-anchored (a caption *under* the section); [`../enrichment/hp4-decorative-numeral.md`](../enrichment/hp4-decorative-numeral.md) (one numeral at graphic scale, one per page, not a run).
 
 ```html
 <ol class="chapters">
@@ -20,27 +18,15 @@ Sequence carried by the list element, so the numbers are real and screen readers
 ```css
 .chapters { list-style: none; counter-reset: chapter; padding: 0; }
 .chapters > li { counter-increment: chapter; }
+.chapters > li > h2 { font-variant-numeric: tabular-nums; }
 .chapters > li > h2::before {
-  content: counter(chapter, decimal-leading-zero);
-  font-family: var(--font-mono); font-size: var(--text-xs);
-  color: var(--color-muted); letter-spacing: 0.06em;
-  display: block; margin-block-end: var(--space-2xs);
+  content: counter(chapter, decimal-leading-zero) "\00a0\00a0";
 }
 ```
 
-The `::before` is a generated ordinal on the heading itself, not a sibling element: nothing to mistake for a kicker, nothing to delete later.
-
-*Mobile:* already single-column; nothing collapses.
+The ordinal is generated on the heading itself, so it reads once, at heading size, in the heading's colour: nothing to mistake for a kicker and nothing a screen reader hears twice.
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
-
-- Ordinal form: `decimal-leading-zero` · `upper-roman` · `lower-alpha` · none (a rule instead)
-- Ordinal position: above the heading · hung in the margin (`position: absolute` off the list) · inline before the first word
-- Ordinal weight: muted mono · accent-tick · display-scale numeral (then read hp4's discipline first)
-
-## Mobile collapse
-
-- **Below 60rem:** unchanged (already a single-column stack). A margin-hung ordinal returns to flow above the heading.
-- **Below 40rem:** unchanged
+- Ordinal form: `decimal-leading-zero` · `upper-roman` · none (a rule between items instead)
+- Ordinal position: inline before the first word · hung in the outer margin at the heading's size (`position: absolute`, returns inline below 60rem) · one numeral at graphic scale (hp4, one per page, only when the number is real)

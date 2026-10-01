@@ -1,30 +1,25 @@
 ### N9 · Edge-aligned minimal
-Wordmark hard-left, single CTA hard-right, vast empty space between, no link row at all. The *absence* is the design — Apple product pages, Carl Hauser, luxury sites.
-*Use when:* the page is luxury / quiet / Atelier / Garden and the brand earns the silence.
-*Don't confuse with:* N1 Wordmark + 2 links (which fills the middle).
+Wordmark hard left, one action hard right, nothing between. The absence is the design.
+*Use when:* luxury, quiet, atelier pages where the brand earns silence; the default bar when a page has one destination.
+*Not:* N1 (fills the middle). Four links "to fill the space" makes N1 with extra steps. The action is a verb ("Book a fitting"), never "Get" with an arrow (63).
 
 ```html
 <header class="nav-edge">
-  <a class="wordmark">Studio</a>
-  <a class="cta-outline">Get →</a>
+  <a class="wordmark" href="/" aria-label="Studio, home">Studio</a>
+  <a class="cta-outline" href="/book">Book a fitting</a>
 </header>
 ```
 ```css
-.nav-edge { display: flex; justify-content: space-between; align-items: center; padding: var(--space-md) var(--page-gutter); }
-.nav-edge .wordmark { font-family: var(--font-display); font-size: var(--text-md); }
+.nav-edge { display: flex; justify-content: space-between; align-items: center; padding: var(--space-md) var(--gutter); }
+.nav-edge .wordmark { font-family: var(--font-display); font-size: var(--text-md); text-decoration: none; }
 ```
-
-*Anti-pattern:* adding 4 inline links between the wordmark and CTA "to fill the space". The space *is* the design; if you fill it, you've made N1 with extra steps.
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
+- Action: outlined · filled pill · typographic link
+- Wordmark: display face · body face · the outlier
+- Padding block: `--space-sm` · `--space-md` · `--space-lg`
 
-- CTA shape: outlined · filled pill · text+arrow
-- Wordmark: serif italic · sans · monospace
-- Padding-block: tight · default · spacious
+## Mobile
 
-## Mobile collapse
-
-- **Below 60rem:** unchanged (already designed for breathing room)
-- **Below 40rem:** wordmark + CTA stay edge-aligned; CTA pads to 44 px hit target
+- Below 40rem: the action keeps a 44px hit target.

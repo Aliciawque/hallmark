@@ -1,6 +1,6 @@
 ### Recipe 4 · Botanical leaf flourish
 
-A small (~40 × 80 px) hand-drawn sprig with two asymmetric leaves at +25° and -30° rotations. Leaf veins at 0.6 opacity. Sized to sit beside a headline as an inline accent. Pure SVG, no animation by default (the design is the stillness).
+A small (about 40 by 80 units) drawn sprig with two asymmetric leaves at -25° and +30°. Leaf veins at 0.6 opacity. Sized to sit beside a headline as an inline accent. Pure SVG, no animation; the design is the stillness.
 
 ```html
 <svg class="sprig" viewBox="0 0 40 80" aria-hidden="true">
@@ -34,10 +34,8 @@ A small (~40 × 80 px) hand-drawn sprig with two asymmetric leaves at +25° and 
 .sprig__leaf  { fill: none; stroke: currentColor; stroke-width: 1.4; }
 .sprig__vein  { fill: none; stroke: currentColor; stroke-width: 0.9; opacity: 0.6; stroke-linecap: round; }
 
-/* Use beside a headline */
+/* beside a headline */
 h1.has-flourish { display: flex; align-items: baseline; gap: 0.4em; }
 ```
 
-**Use when** the brief is a bakery, restaurant, café, boutique, herbalist, florist, atelier — anything where a hand-drawn signal of *care* fits the brand. **Avoid when** the brand is technical, brutalist, or quietly austere (the sprig adds warmth where the page wants restraint).
-
-*Inspiration:* hand-drawn botanical assets in old broadsheet papers; restaurant menus from Lisbon and Tokyo; Lynn Fisher's constraint-driven simplicity (this recipe could have been *A Single Div* with cleverer clip-paths, but SVG is more legible at small scale).
+**Use when** the brief is a bakery, restaurant, café, boutique, herbalist, florist or atelier: anywhere a drawn signal of care fits the brand. **Avoid when** the brand is technical, brutalist or quietly austere; the sprig adds warmth where the page wants restraint. It could be a single div with cleverer clip-paths, but SVG stays legible at this scale.

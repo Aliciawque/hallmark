@@ -1,13 +1,13 @@
 # Texture and print artifacts - a budgeted vocabulary
 
-Loaded only when the picked theme earns texture (affinity table below) or a custom draw's lineage is print. Texture is a TREATMENT with a budget, never ambience: one artifact family per page, tokened opacity, never animated, never under body text at more than a whisper. Grain smeared everywhere is the tic the harness adapters refuse; grain from this file, on a theme that earns it, is craft.
+Loaded only when the picked theme earns texture (affinity table below) or a custom draw's lineage is print. Texture is a TREATMENT with a budget, never ambience: one artifact family per page, tokened opacity, never animated, never under body text at more than a whisper. Grain smeared everywhere is the tic `flow.md` § Harnesses refuses; grain from this file, on a theme that earns it, is craft.
 
 ## The budget (binds on every artifact)
 
 - **One artifact family per page.** Grain OR halftone OR misregistration OR scanline OR deckle; combinations are mud.
 - **Tokened opacity, declared in the token block:** `--texture-opacity` <= 0.08 page-wide, <= 0.15 scoped to a card or plate. Under running body text, <= 0.05 or nothing.
 - **Never animated.** No drifting grain, no pulsing dots; the one exception is E7's slow-drift knob on its abstract background, which is E7's budget, not this file's.
-- **`pointer-events: none` and `aria-hidden="true"`** on every overlay; texture never intercepts input (the gate-47 carve-out language for Arcade's scanlines is the model).
+- **`pointer-events: none` and `aria-hidden="true"`** on every overlay; texture never intercepts input, and the retro signal is atmosphere, never a drawn monitor bezel (47a).
 - **Perf:** pure CSS or a data-URI SVG filter; no image requests for texture (the imagery-kit texture tiles are the only sanctioned files, and they are optional).
 
 ## 1 · Grain (paper)
@@ -55,7 +55,7 @@ Riso's signature, portable to any print-lineage custom:
 
 ## 4 · Scanline (CRT)
 
-Arcade's recipe; the gate-47 carve-out applies verbatim (the retro signal is atmosphere, never a fake monitor bezel):
+Arcade's recipe; the retro signal is atmosphere, never a drawn monitor bezel (47a):
 
 ```css
 body::after { content: ""; position: fixed; inset: 0; z-index: var(--z-raised);
@@ -83,7 +83,7 @@ One edge, one element class per page (a ticket edge, a stamp perforation). Never
 | --- | --- |
 | Riso | grain (page <= 0.08) + misregistration (its signature) |
 | Carnival | halftone plates + hard-offset kit (its own, see spec) |
-| Arcade | the CRT stack: aperture grille + scanline + vignette + tight bloom (gate-47 carve-out). Applied once at page level, never per component. The starfield is banned. |
+| Arcade | the CRT stack: aperture grille + scanline + vignette + tight bloom (atmosphere, never a bezel). Applied once at page level, never per component. The starfield is banned. |
 | Ledger | the sheet's own ruling: banded, columnar, or journal (its own, see spec) |
 | Newsprint | the faintest fibre grain, card-scoped, off by default |
 | Custom draws with print lineage | pick ONE artifact that the drawn direction historically used |

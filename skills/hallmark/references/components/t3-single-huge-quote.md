@@ -1,24 +1,24 @@
 ### T3 · Single huge quote
-One quote, set big, centered, taking a whole section. No supporting text, no attribution boxes — attribution is a small caps line beneath.
+One quote, set big, centred, taking a whole section. No supporting text, no attribution box: the attribution is one quiet line beneath, in the body face. The quote and the name are the user's material, verbatim; without both the block does not ship (46a).
 *Use when:* one quote is so good it earns the room.
-*Don't confuse with:* T1 Margin pull-quote (which is the *side* mate, not the *room*).
+*Don't confuse with:* T1 Pull-quote with marginalia (which is the *side* mate, not the *room*).
 
 ```html
 <section class="proof-room">
-  <blockquote class="display-italic">"…"</blockquote>
-  <p class="attribution"><span class="caps">— Name, Company</span></p>
+  <blockquote><p><!-- the user's quote, verbatim --></p></blockquote>
+  <p class="attribution"><!-- the user's name, then their company if given --></p>
 </section>
+```
+```css
+.proof-room { padding-block: var(--space-3xl); text-align: center; }
+.proof-room blockquote { margin: 0 auto; max-width: 60ch; font-family: var(--font-display); font-size: var(--text-2xl); line-height: 1.15; text-wrap: balance; }
+.proof-room .attribution { font-family: var(--font-body); font-size: var(--text-sm); color: var(--color-muted); margin-block-start: var(--space-lg); }
 ```
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
+- Quote face: serif italic · roman display
+- Measure: 60ch · 45ch · the container
+- Attribution position: under the quote · a hairline band beneath
 
-- Quote face: serif italic · roman display · italic mono
-- Width: full-bleed · 60ch · 40ch
-- Attribution position: same line · separate band
-
-## Mobile collapse
-
-- **Below 60rem:** quote remains full width; attribution wraps below
-- **Below 40rem:** quote size step down by 1.4×
+*Mobile:* below 40rem the quote drops one size step; the attribution stays one line.

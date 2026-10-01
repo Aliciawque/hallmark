@@ -1,24 +1,30 @@
-### H3 · Quote-Led
-A pull-quote with attribution is the hero. Your headline is borrowed credibility.
-*Use when:* you have a real testimonial that earns the front page.
-*Don't confuse with:* T3 Single huge quote (which lives mid-page, not in the hero slot).
+### H3 · Quote led
+A pull quote with its attribution is the hero. The headline is borrowed.
+*Use when:* the user supplied a real quote from a named person who agreed to it (46a). Without one this hero does not exist.
+*Not:* T3 (mid page, not the fold). The whole quote is set one way, roman or italic; one italic word inside it is 38i.
 
 ```html
 <section class="hero-quote">
-  <blockquote class="display-italic">"…"</blockquote>
-  <p class="attribution">— Name, Role, Company</p>
+  <blockquote class="hero-quote__text"><p>“…”</p></blockquote>
+  <p class="hero-quote__by"><cite>…</cite></p>
+  <a class="link" href="#">Read the case</a>
 </section>
+```
+```css
+.hero-quote { min-height: 70dvh; display: grid; align-content: center; gap: var(--space-lg); padding: var(--space-2xl) var(--gutter); }
+.hero-quote__text { margin: 0; font-family: var(--font-display); font-size: var(--text-display-s); line-height: 1.1; max-width: 24ch; }
+.hero-quote__text p { position: relative; }
+.hero-quote__text p::before { content: "“"; position: absolute; transform: translateX(-100%); }
+.hero-quote__by { margin: 0; font-size: var(--text-sm); color: var(--color-muted); }
+.hero-quote__by cite { font-style: normal; }
 ```
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
+- Quote face: display roman · display italic (whole quote) · body, large
+- Attribution: beneath · margin aligned · right flush
+- Length: 80 characters or fewer · 80 to 160
 
-- Quote weight: italic display · roman display · roman body large
-- Attribution position: under quote · margin-aligned · right-flush
-- Length: ≤80 chars · 80–160 chars
+## Mobile
 
-## Mobile collapse
-
-- **Below 60rem:** quote stays full width; attribution wraps to its own line
-- **Below 40rem:** quote size step down; attribution font-size step down
+- Below 40rem: the quote steps down to `--text-2xl`.

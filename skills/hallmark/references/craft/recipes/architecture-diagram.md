@@ -1,31 +1,33 @@
-### Recipe 3 · Three-tier architectural diagram
+### Recipe 3 · Three-tier architecture diagram
 
-Browser → API → Database, drawn at ~16/9 with three labelled boxes and animated `stroke-dasharray` flow lines using `@property --flow-offset`. The data-flow lines pulse to suggest live traffic. Use case: a developer-tool landing page showing where the product fits in the stack.
+Browser to API to database, drawn at about 16/9 with three labelled boxes and animated `stroke-dasharray` flow lines. The lines pulse to suggest live traffic. Use case: a developer-tool landing page showing where the product sits in the stack. Every label is a fact; the hop labels name the real protocols and sit on two lines rather than joined by a dot (63). Labels are the body face, sentence case, untracked, 11px or more (64, 67); the box names take the display face.
 
 ```html
-<svg class="arch" viewBox="0 0 320 180" role="img" aria-label="Three-tier architecture: browser, API, database">
+<svg class="arch" viewBox="0 0 640 360" role="img" aria-label="Three-tier architecture: browser, API, database">
   <g class="arch__tier">
-    <rect x="14"  y="50" width="76" height="80" />
-    <text x="52"  y="86" text-anchor="middle" class="arch__name">Browser</text>
-    <text x="52"  y="104" text-anchor="middle" class="arch__sub">React / Next</text>
+    <rect x="28"  y="100" width="152" height="160" />
+    <text x="104" y="172" text-anchor="middle" class="arch__name">Browser</text>
+    <text x="104" y="208" text-anchor="middle" class="arch__sub">Your web app</text>
   </g>
 
-  <line class="arch__flow" x1="90"  y1="90" x2="120" y2="90" />
-  <text class="arch__hop"  x="105"  y="80" text-anchor="middle">HTTPS · OTLP</text>
+  <line class="arch__flow" x1="180" y1="180" x2="240" y2="180" />
+  <text class="arch__hop" x="210" y="150" text-anchor="middle">HTTPS</text>
+  <text class="arch__hop" x="210" y="166" text-anchor="middle">OTLP</text>
 
   <g class="arch__tier arch__tier--mid">
-    <rect x="120" y="50" width="80" height="80" />
-    <text x="160" y="86" text-anchor="middle" class="arch__name">API</text>
-    <text x="160" y="104" text-anchor="middle" class="arch__sub">Edge runtime</text>
+    <rect x="240" y="100" width="160" height="160" />
+    <text x="320" y="172" text-anchor="middle" class="arch__name">API</text>
+    <text x="320" y="208" text-anchor="middle" class="arch__sub">Edge runtime</text>
   </g>
 
-  <line class="arch__flow arch__flow--reverse" x1="200" y1="90" x2="230" y2="90" />
-  <text class="arch__hop"  x="215"  y="80" text-anchor="middle">SQL · gRPC</text>
+  <line class="arch__flow arch__flow--reverse" x1="400" y1="180" x2="460" y2="180" />
+  <text class="arch__hop" x="430" y="150" text-anchor="middle">SQL</text>
+  <text class="arch__hop" x="430" y="166" text-anchor="middle">gRPC</text>
 
   <g class="arch__tier">
-    <rect x="230" y="50" width="76" height="80" />
-    <text x="268" y="86" text-anchor="middle" class="arch__name">Database</text>
-    <text x="268" y="104" text-anchor="middle" class="arch__sub">Postgres + vec</text>
+    <rect x="460" y="100" width="152" height="160" />
+    <text x="536" y="172" text-anchor="middle" class="arch__name">Database</text>
+    <text x="536" y="208" text-anchor="middle" class="arch__sub">Postgres</text>
   </g>
 </svg>
 ```
@@ -45,13 +47,13 @@ Browser → API → Database, drawn at ~16/9 with three labelled boxes and anima
   stroke-width: 1.5;
 }
 .arch__tier--mid rect {
-  fill: color-mix(in oklch, var(--color-paper-2) 100%, var(--color-accent) 8%);
-  stroke: color-mix(in oklch, var(--color-accent) 60%, var(--color-ink));
+  fill: color-mix(in oklab, var(--color-paper-2) 92%, var(--color-accent));
+  stroke: color-mix(in oklab, var(--color-accent) 60%, var(--color-ink));
 }
 
-.arch__name { font-family: var(--font-display); font-size: 11px; font-weight: 500; fill: var(--color-ink); }
-.arch__sub  { font-family: var(--font-mono);    font-size: 8px;  fill: var(--color-muted); }
-.arch__hop  { font-family: var(--font-mono);    font-size: 7px;  fill: var(--color-muted); letter-spacing: 0.04em; }
+.arch__name { font-family: var(--font-display); font-size: 22px; font-weight: 500; fill: var(--color-ink); }
+.arch__sub  { font-family: var(--font-body); font-size: 14px; fill: var(--color-muted); }
+.arch__hop  { font-family: var(--font-body); font-size: 11px; fill: var(--color-muted); }
 
 .arch__flow {
   stroke: var(--color-accent);
@@ -68,6 +70,4 @@ Browser → API → Database, drawn at ~16/9 with three labelled boxes and anima
 }
 ```
 
-**Use when** the brief is a developer-facing product that needs to show its position in a stack — observability tools, edge functions, ORMs, ingestion services. **Avoid when** the architecture has more than five tiers or non-linear topology (this recipe is for the "three-box flow" model only; for graph-like topologies, use a real diagram tool and embed an SVG export).
-
-*Inspiration:* Vercel's network/edge diagrams; Diana Smith's structural precision in placing geometry.
+Font sizes are in viewBox units and scale with the drawing; at the 48rem cap they render at about 1.2 times the value. **Use when** the brief is a developer-facing product that needs to show its position in a stack: observability, edge functions, ORMs, ingestion. **Avoid when** the architecture has more than five tiers or a non-linear topology; this recipe is the three-box flow only. For graph-like topologies draw it in a diagram tool and embed the SVG export.

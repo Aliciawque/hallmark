@@ -1,27 +1,32 @@
-### N3 · Side-rail
-A thin vertical strip on the left edge — wordmark rotated, plus 2–3 dot-indicators for sections. Editorial / portfolio energy.
-*Use when:* the page is long and section-numbered.
-*Don't confuse with:* N1 Top wordmark (which is horizontal).
+### N3 · Side rail
+A thin vertical strip on one edge: the wordmark set vertically, then the page's sections as text links in the same writing mode, the current one in ink. Every link is a real section name; never an empty dot (33, 63).
+*Use when:* a long, sectioned page where a sticky object (a ticket, a contents list) earns the rail. Never the default nav; a top bar is (N1, N9).
+*Not:* N1 (horizontal). The wordmark is the only rotated text; rotated words with nothing to say are decoration (66).
 
 ```html
-<nav class="nav-rail">
-  <p class="wordmark vertical">Studio</p>
-  <ul class="dots"><li></li><li></li><li></li></ul>
+<nav class="nav-rail" aria-label="Sections">
+  <a class="wordmark" href="/" aria-label="Studio, home">Studio</a>
+  <ol class="nav-rail__list">
+    <li><a href="#work" aria-current="location">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ol>
 </nav>
 ```
 ```css
-.nav-rail { position: fixed; left: 0; top: 0; bottom: 0; width: 3rem; padding: var(--space-md); writing-mode: vertical-rl; }
+.nav-rail { position: fixed; inset: 0 auto 0 0; width: 3rem; z-index: var(--z-sticky-nav); display: flex; flex-direction: column; justify-content: space-between; align-items: center; padding: var(--space-md) 0; background: var(--color-paper); border-right: var(--rule-hair) solid var(--color-rule); writing-mode: vertical-rl; }
+.nav-rail__list { list-style: none; margin: 0; padding: 0; display: flex; gap: var(--space-lg); }
+.nav-rail__list a { font-size: var(--text-sm); color: var(--color-muted); text-decoration: none; }
+.nav-rail__list a[aria-current] { color: var(--color-ink); }
+body { padding-inline-start: 3rem; }
 ```
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
-
 - Side: left · right
-- Width: 12ch · 16ch · 20ch
-- Indicator: filled bar · text-only · numbered
+- Width: 3rem (names) · 12ch (names with a numeral)
+- Current: colour · a hairline beside the name
 
-## Mobile collapse
+## Mobile
 
-- **Below 60rem:** rail unsticks and becomes a hamburger trigger above
-- **Below 40rem:** hamburger becomes the only nav
+- Below 60rem: the rail becomes a top bar with a menu disclosure; the body padding drops.

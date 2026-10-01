@@ -1,27 +1,28 @@
-### H4 · Stat-Led
-A giant number or metric is the hero. A small qualifier line below.
-*Use when:* you have one defensible, externally-verifiable number.
-*Don't confuse with:* T4 Numbered stat strip (which is several stats in a row, not one focal).
+### H4 · Stat led
+One number the user gave is the hero, with its unit, one line saying what it measures, and its source (46b).
+*Use when:* the user supplied one defensible, externally checkable figure.
+*Not:* T4 (a row of several). Never a figure the build wrote (46a); without the user's number the slot stays labelled and the page picks another hero.
 
 ```html
 <section class="hero-stat">
-  <p class="figure tnum">99.97<span class="unit">%</span></p>
-  <p class="qualifier">…</p>
+  <p class="hero-stat__figure num"><!-- the user's figure -->…<span class="hero-stat__unit">%</span></p>
+  <p class="hero-stat__line">…</p>
+  <a class="cta-outline" href="#">…</a>
 </section>
 ```
 ```css
-.figure { font-size: clamp(6rem, 18vw, 16rem); font-variant-numeric: tabular-nums; line-height: 0.85; }
+.hero-stat { min-height: 80dvh; display: grid; align-content: center; gap: var(--space-md); padding: var(--space-2xl) var(--gutter); }
+.hero-stat__figure { margin: 0; font-family: var(--font-display); font-size: clamp(6rem, 16vw, 14rem); line-height: 0.9; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.hero-stat__unit { font-size: 0.5em; }
+.hero-stat__line { margin: 0; max-width: 45ch; }
 ```
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
+- Figure: display, tabular · mono (only when mono is the theme's material)
+- Line: beneath · inline right of the figure
+- Secondary figures: none · two beneath (also the user's, also sourced)
 
-- Number style: tabular display · italic display · monospace
-- Qualifier position: below · inline-right · stacked-above
-- Secondary stats: none · two below · row of four
+## Mobile
 
-## Mobile collapse
-
-- **Below 60rem:** number stays full width, text stacks below; secondary stats become 2-up grid
-- **Below 40rem:** number size step down (`clamp` floor lifts); qualifier text wraps
+- Below 40rem: the clamp floor drops to 4rem; secondary figures stack.

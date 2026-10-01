@@ -1,9 +1,9 @@
 ### Recipe 2 · Minimal-line mascot
 
-A small SVG character — face only, ~120 × 120 px — that has personality without anthropomorphic uncanny-valley risk. Two ellipse eyes (with `@keyframes blink` 3s loop), a single quadratic-curve mouth, and two stem accents (hair / hat / horns / antennae). Pairs beside text.
+A small SVG character, face only, about 120 by 120 units, with personality and none of the uncanny-valley risk of a rendered figure. Two ellipse eyes with a blink loop, one quadratic-curve mouth, two stem accents (hair, hat, horns, antennae). Sits beside text. It does not react to the pointer; a hover state on a non-interactive element is a tell (11).
 
 ```html
-<figure class="mascot" aria-label="The Hallmark mascot — a face with two eyes and a small smile">
+<figure class="mascot" aria-label="A drawn face with two eyes and a small smile">
   <svg viewBox="0 0 120 130" class="mascot__svg">
     <circle class="mascot__head" cx="60" cy="60" r="42" />
 
@@ -21,9 +21,9 @@ A small SVG character — face only, ~120 × 120 px — that has personality wit
 ```css
 .mascot { display: inline-block; width: 80px; height: 86px; margin: 0; vertical-align: -8px; }
 .mascot__svg { width: 100%; height: 100%; color: var(--color-ink); }
-.mascot__head { fill: color-mix(in oklch, var(--color-paper-2) 100%, var(--color-accent) 6%); stroke: var(--color-ink); stroke-width: 2; }
-.mascot__eye  { fill: var(--color-ink); animation: blink 5s ease-in-out infinite; }
-.mascot__eye--r { animation-delay: 80ms; }   /* one eye lags slightly — feels organic */
+.mascot__head { fill: color-mix(in oklab, var(--color-paper-2) 94%, var(--color-accent)); stroke: var(--color-ink); stroke-width: 2; }
+.mascot__eye  { fill: var(--color-ink); animation: blink 5s var(--ease-in-out) infinite; }
+.mascot__eye--r { animation-delay: 80ms; }   /* one eye lags a little, as a drawn face would */
 @keyframes blink {
   0%, 8%, 92%, 100% { ry: 6px; }
   12%, 14%          { ry: 0.8px; }
@@ -31,15 +31,9 @@ A small SVG character — face only, ~120 × 120 px — that has personality wit
 .mascot__mouth { fill: none; stroke: var(--color-ink); stroke-width: 1.6; stroke-linecap: round; }
 .mascot__accent { fill: none; stroke: var(--color-accent); stroke-width: 1.2; opacity: 0.6; stroke-linecap: round; }
 
-@media (hover: hover) and (pointer: fine) {
-  .mascot:hover .mascot__head { fill: color-mix(in oklch, var(--color-paper-2) 100%, var(--color-accent) 12%); transition: fill 240ms cubic-bezier(0.16, 1, 0.3, 1); }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .mascot__eye { animation: none; }
 }
 ```
 
-**Use when** a small product / studio / indie brand needs personality without the uncanny-valley risk of a generated character. **Avoid when** the mascot needs to be expressive across many states (use Rive instead — the @property route is for simple loops, not articulated emotion).
-
-*Inspiration:* Are.na's reductive-aesthetic site mark; the Mailchimp Freddie family (single-colour confidence); Diana Smith's CSS-art portrait constraints.
+**Use when** a small product, studio or indie brand needs personality without a generated character. **Avoid when** the mascot must be expressive across many states; the `@property` route is for simple loops, and articulated emotion is tier F territory.

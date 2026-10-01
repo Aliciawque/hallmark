@@ -1,25 +1,26 @@
-
 ### T1 · Pull-quote with marginalia
-A quote sits in the wide column; the attribution and source link float in the narrow margin column.
-*Use when:* the page already has a marginalia rhythm (Tufte-leaning, editorial).
-*Don't confuse with:* T3 Single huge quote (which is centered and dominates).
+A quote sits in the wide column; the attribution and source link sit in the narrow margin column. The quote and the name are the user's material, verbatim; without both the block does not ship (46a).
+*Use when:* the page already has a marginalia rhythm (editorial, sidenote-led).
+*Don't confuse with:* T3 Single huge quote (which is centred and takes the room).
 
 ```html
 <aside class="proof-margin">
-  <blockquote class="serif-italic">"…"</blockquote>
-  <p class="attribution muted">— Name<br />Role, Company</p>
+  <blockquote><p><!-- the user's quote, verbatim --></p></blockquote>
+  <p class="attribution"><!-- the user's name --><br><!-- their role, if given --></p>
 </aside>
+```
+```css
+.proof-margin { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); gap: var(--gap-columns); }
+.proof-margin blockquote { margin: 0; font-family: var(--font-display); font-size: var(--text-xl); line-height: 1.3; max-width: 45ch; }
+.proof-margin blockquote p { position: relative; }
+.proof-margin blockquote p::before { content: "\201C"; position: absolute; transform: translateX(-100%); }
+.proof-margin .attribution { font-family: var(--font-body); font-size: var(--text-sm); color: var(--color-muted); align-self: end; }
 ```
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
+- Quote treatment: italic display · roman display · roman body, large
+- Attribution: name and role · name and date · name and a source link
+- Marginalia: attribution only · one footnote beside it
 
-- Quote treatment: italic display · roman large · serif italic
-- Attribution: signed · stamped · timestamped
-- Marginalia: none · timeline · 1 footnote
-
-## Mobile collapse
-
-- **Below 60rem:** marginalia move below quote; divider becomes hairline
-- **Below 40rem:** marginalia consolidate into a single line
+*Mobile:* below 60rem the margin column moves under the quote and the columns become one.

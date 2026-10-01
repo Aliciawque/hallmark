@@ -1,24 +1,23 @@
-### H5 · Letter Hero
-First-person opening — "Dear reader,". No buttons in fold. Reads as personal correspondence.
+### H5 · Letter hero
+A first person opening, "Dear reader," then one paragraph. Reads as correspondence. The one action is a typographic link at the end of the paragraph, inside the fold (44b).
 *Use when:* the founder's voice is the brand.
-*Don't confuse with:* H1 Marquee (which is impersonal declaration).
+*Not:* H1 (impersonal). Never a second paragraph in the fold (58); the letter continues below it if it must.
 
 ```html
 <section class="hero-letter">
-  <p class="salutation"><em>Dear reader,</em></p>
-  <p class="lede">…</p>
+  <p class="hero-letter__salute">Dear reader,</p>
+  <p class="hero-letter__body">… <a class="link" href="#">Read on</a></p>
+  <p class="hero-letter__sign">…</p>
 </section>
+```
+```css
+.hero-letter { min-height: 70dvh; display: grid; align-content: center; gap: var(--space-lg); padding: var(--space-2xl) var(--gutter); max-width: 60ch; }
+.hero-letter__salute { margin: 0; font-family: var(--font-display); font-size: var(--text-xl); }
+.hero-letter__body { margin: 0; font-size: var(--text-lg); line-height: 1.6; }
+.hero-letter__sign { margin: 0; color: var(--color-muted); }
 ```
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
-
-- Salutation: greeting · "Dear X," · time-stamp
-- Body length: 1 paragraph · 2 paragraphs · 3 paragraphs
-- Signoff: typed name · drawn signature SVG · initials
-
-## Mobile collapse
-
-- **Below 60rem:** unchanged single column; aside (if present) moves below body, divider becomes top border
-- **Below 40rem:** salutation size step down; signoff tightens
+- Salutation: a greeting · "Dear X," · a dateline in a `<time>`
+- Sign off: typed name · drawn signature SVG with an `aria-label` · initials

@@ -1,27 +1,27 @@
 ## Tier D · Three.js / WebGL / shaders
 
-**When justified.** The 3D *is* the hero value — a rotating product the user can interact with, an interactive 3D playground, a generative art piece. Examples: Apple's product pages with interactive bottles / iPhones, Bruno Simon's portfolio, Vercel's WebGL hero galleries.
+**When justified.** The 3D is the hero value: a product the visitor turns in their hands, an interactive playground, a generative piece the cursor steers.
 
-**When not.** A static spinning thing the user can't interact with. A bloom-overdosed shader background that "looks premium". A 5-MB model loaded eagerly on a marketing page.
+**When not.** A static spinning thing the visitor cannot touch. A bloom-heavy shader background that "looks premium". A 5 MB model loaded eagerly on a marketing page.
 
 **Performance budget.**
-- < 100 draw calls
-- < 2 MB JS + assets total
-- < 6 s load time
-- 60 fps target on mid-range mobile
+- Under 100 draw calls
+- Under 2 MB of JS and assets in total
+- Under 6s to load
+- 60fps on a mid-range phone
 
 **Stack.**
-- React Three Fiber (R3F) for React projects — ergonomic, ~30 KB on top of Three.js
-- Vanilla [Three.js](https://threejs.org) otherwise (~100–300 KB depending on features)
-- Models: glTF 2.0 with Draco compression (20–50 % size reduction)
-- Textures: KTX2 / Basis (much smaller than PNG/JPEG)
+- React Three Fiber for React projects, about 30 KB on top of Three.js
+- Vanilla [Three.js](https://threejs.org) otherwise, 100 to 300 KB depending on features
+- Models: glTF 2.0 with Draco compression
+- Textures: KTX2 / Basis, far smaller than PNG or JPEG
 
-**Always include a non-WebGL fallback.** If the canvas fails to initialise (no WebGL2, GPU blacklisted, low-power mode), show a static poster image so the page still renders.
+**Always a non-WebGL fallback.** When the canvas fails to initialise (no WebGL2, a blocklisted GPU, low-power mode), show a static poster so the page still renders and still reads.
 
-### Anti-patterns of Three.js / WebGL
+### Anti-patterns of WebGL
 
-- **Three.js for a stationary product.** No interaction = no justification. Use SVG or a still photograph.
-- **Bloom + glow overdose.** Three or four post-processing passes that just make everything blurry. Pick one effect, dial it down to "barely visible".
-- **5-MB models loaded eagerly.** Always lazy-load the geometry, show a poster while it streams in.
-- **No fallback.** WebGL fails on ~5 % of devices; if the page is unusable for them, you've failed accessibility.
-- **Generic procedural-noise shaders.** Looks like every other Three.js demo on the internet. Custom shaders earn their place; off-the-shelf Perlin noise rarely does.
+- **Three.js for a stationary product.** No interaction, no justification; an SVG or a photograph.
+- **Bloom and glow overdose.** Three or four post-processing passes that blur everything. One effect, barely visible (29).
+- **A 5 MB model loaded eagerly.** Lazy-load the geometry and show the poster while it streams.
+- **No fallback.** A page that is blank without WebGL has failed accessibility.
+- **Generic procedural-noise shaders.** The look of every demo. A custom shader earns its place; off-the-shelf Perlin noise rarely does.

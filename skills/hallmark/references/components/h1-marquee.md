@@ -1,28 +1,24 @@
-
 ### H1 · Marquee
-A single statement fills the fold. No subhead, no CTA in view.
-*Use when:* the brand or person *is* the message.
-*Don't confuse with:* H4 Stat-Led (which is a number, not a statement).
+A single statement fills the fold. No subhead. The page's one action is the nav's control, in view at the top of the same screen (44b).
+*Use when:* the brand or person is the message.
+*Not:* H4 (a number, not a statement); a marquee with a line of copy under it (58).
 
 ```html
 <section class="hero-marquee">
-  <h1 class="display-xxl">A statement.</h1>
+  <h1 class="display-xxl">…</h1>
 </section>
 ```
 ```css
-.hero-marquee { min-height: 80dvh; display: grid; align-content: end; padding: 0 var(--page-gutter) var(--space-2xl); }
-.display-xxl { font-size: clamp(4rem, 12vw, 12rem); line-height: 0.92; }
+.hero-marquee { min-height: 80dvh; display: grid; align-content: end; padding: 0 var(--gutter) var(--space-2xl); }
+.display-xxl { font-size: clamp(3.5rem, 8vw, 7rem); line-height: 1; letter-spacing: -0.03em; max-width: 12ch; overflow-wrap: break-word; min-width: 0; text-wrap: balance; }
 ```
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
+- Size: 7rem for a single word · 5.5rem for a line
+- Alignment: left · centred · right
+- Rule: none · one hairline above · one hairline below
 
-- Display size: `xxl` (clamp 4–12rem) · `xl` (clamp 3–8rem)
-- Alignment: left-bias · centred · right-bias
-- Underlay: none · single rule above · single rule below
+## Mobile
 
-## Mobile collapse
-
-- **Below 60rem:** unchanged (typography-only; centres / left-biases naturally)
-- **Below 40rem:** display size step down (`xl` → `lg`); reduce side padding
+- Below 40rem: the clamp floor drops to 2.75rem.

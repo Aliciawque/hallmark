@@ -3,12 +3,11 @@
  * make-pack.mjs - compile the Hallmark skill text into a single system prompt.
  *
  * Two packs:
- *   --pack floor  SKILL.md "The Floor" + "Flow at a glance" sections only,
+ *   --pack floor  SKILL.md "The Floor" + "Flow" sections only,
  *                 behind a 3-line one-shot preamble. The cheapest prompt that
  *                 should still hold the non-negotiables.
- *   --pack full   The entire SKILL.md plus references/typography.md, color.md,
- *                 anti-patterns.md, copy.md, and the gate-list portion of
- *                 slop-test.md, concatenated with file-path separators.
+ *   --pack full   The entire SKILL.md plus references/craft.md and the gate
+ *                 table portion of gates.md, concatenated with file-path separators.
  *
  * Usage:
  *   node eval/make-pack.mjs --pack floor              # size summary
@@ -66,14 +65,11 @@ function extractSection(markdown, headingText) {
   return body.join("\n");
 }
 
-/** The gate-list portion of slop-test.md: from "## Core-15 sweep" to the end
- *  of the file (drops only the title block and intro above it). This keeps the
- *  component-sweep subset, the gate classes, the pre-emit self-critique, and
- *  every named gate section. */
-function gatePortion(slopText) {
-  const idx = slopText.search(/^## Component sweep/m);
-  if (idx < 0) throw new Error('slop-test.md: "## Component sweep" heading not found');
-  return slopText.slice(idx).trimEnd();
+/** The gate table portion of gates.md: from "## 4. The gates" to the end. */
+function gatePortion(text) {
+  const idx = text.search(/^## 4\. The gates/m);
+  if (idx < 0) throw new Error('gates.md: "## 4. The gates" heading not found');
+  return text.slice(idx).trimEnd();
 }
 
 function sep(relPath) {
@@ -85,11 +81,11 @@ function buildFloor() {
   const parts = [
     { label: "preamble (3 lines)", text: PREAMBLE },
     { label: 'SKILL.md :: "The Floor"', text: extractSection(skill, "The Floor") },
-    { label: 'SKILL.md :: "Flow at a glance"', text: extractSection(skill, "Flow at a glance") },
+    { label: 'SKILL.md :: "Flow"', text: extractSection(skill, "Flow") },
   ];
   const text =
     PREAMBLE +
-    sep("skills/hallmark/SKILL.md (The Floor + Flow at a glance)") +
+    sep("skills/hallmark/SKILL.md (The Floor + Flow)") +
     parts[1].text +
     "\n\n" +
     parts[2].text +
@@ -100,11 +96,8 @@ function buildFloor() {
 function buildFull() {
   const files = [
     ["skills/hallmark/SKILL.md", SKILL_MD, (t) => t],
-    ["skills/hallmark/references/typography.md", resolve(REFS, "typography.md"), (t) => t],
-    ["skills/hallmark/references/color.md", resolve(REFS, "color.md"), (t) => t],
-    ["skills/hallmark/references/anti-patterns.md", resolve(REFS, "anti-patterns.md"), (t) => t],
-    ["skills/hallmark/references/copy.md", resolve(REFS, "copy.md"), (t) => t],
-    ["skills/hallmark/references/slop-test.md (gate list portion)", resolve(REFS, "slop-test.md"), gatePortion],
+    ["skills/hallmark/references/craft.md", resolve(REFS, "craft.md"), (t) => t],
+    ["skills/hallmark/references/gates.md (gate table portion)", resolve(REFS, "gates.md"), gatePortion],
   ];
   const parts = [{ label: "preamble (3 lines)", text: PREAMBLE }];
   let text = PREAMBLE;

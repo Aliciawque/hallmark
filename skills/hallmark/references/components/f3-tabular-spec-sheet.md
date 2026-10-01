@@ -1,24 +1,30 @@
 ### F3 · Tabular spec sheet
-Each row is a feature; columns hold name, value, footnote. Hairline rules between rows. Tabular numerics.
-*Use when:* features compare quantitatively.
-*Don't confuse with:* F1 Bento (which is non-tabular and visually rhythmic).
+Each row is a feature: name, value, note. Hairline rules between rows, tabular numerals.
+*Use when:* features compare as numbers.
+*Not:* F1 (rhythmic, not tabular); a card around a table (craft § 9). Every value is the user's and carries its source; a row with neither is dropped (46a).
 
 ```html
-<table class="spec-sheet tnum">
-  <tr><th>Latency</th><td>p99 &lt; 50 ms</td><td class="muted">measured externally</td></tr>
-  <tr>…</tr>
+<table class="spec-sheet">
+  <caption class="visually-hidden">Specifications</caption>
+  <thead><tr><th scope="col">Spec</th><th scope="col">Value</th><th scope="col">Note</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">Latency</th><td class="num">…</td><td class="note">…</td></tr>
+  </tbody>
 </table>
+```
+```css
+.spec-sheet { width: 100%; border-collapse: collapse; }
+.spec-sheet th, .spec-sheet td { padding: var(--space-sm) 0; border-bottom: var(--rule-hair) solid var(--color-rule); text-align: left; vertical-align: top; }
+.spec-sheet th { font-family: var(--font-body); font-size: var(--text-sm); font-weight: 500; white-space: nowrap; }
+.spec-sheet .num { font-variant-numeric: tabular-nums; }
+.spec-sheet .note { font-size: var(--text-sm); color: var(--color-muted); }
 ```
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
+- Columns: 2 (name, value) · 3 (with unit) · 4 (with note)
+- Rules: every row · groups of three · head only
 
-- Columns: 2 (key/val) · 3 (key/val/unit) · 4 (with footnote)
-- Rule density: every row · groups of 3 · headers only
-- Numbers: tabular · proportional
+## Mobile
 
-## Mobile collapse
-
-- **Below 60rem:** columns reduce: 4-col → 2 (key + value), drop unit + footnote
-- **Below 40rem:** spec list goes vertical; each row is `dt` above `dd`
+- Below 40rem: the table scrolls sideways in a wrapper (craft § 9); the note column drops.

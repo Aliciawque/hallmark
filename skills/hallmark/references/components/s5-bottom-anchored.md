@@ -1,25 +1,19 @@
 ### S5 · Bottom-anchored
-The label or heading sits *below* the section's content. Inverts hierarchy.
-*Use when:* the content is the primary act and the label is a footer to it. Legal under gate 54 precisely because it comes *after*: order is the discriminator between a caption and a kicker.
+The caption sits *below* the section's content and carries a fact: a plate number, a date, a place. Legal under gate 54 because it comes *after* and names something present; order is the discriminator between a caption and a kicker.
+*Use when:* the content is the primary act and the line beneath is a caption to it (a plate in a catalogue). No fact to carry, no caption: the section ends on its content.
 *Don't confuse with:* S1 Ordinal by structure (which carries the sequence in the markup).
 
 ```html
 <section>
   <div class="content">…</div>
-  <p class="section__colophon">— end of 02</p>
+  <p class="section__caption">Plate 4, March 2026</p>
 </section>
 ```
-
----
+```css
+.section__caption { font-family: var(--font-body); font-size: var(--text-sm); color: var(--color-muted); margin-block-start: var(--space-md); }
+```
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
-
-- Label form: `— end of 02` · rule + label · label only
+- Caption form: plate number · date · rule above the caption · none
 - Alignment: left · right-flush
-
-## Mobile collapse
-
-- **Below 60rem:** unchanged; long labels wrap
-- **Below 40rem:** label font-size steps down

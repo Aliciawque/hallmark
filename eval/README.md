@@ -16,7 +16,7 @@ Repo-internal tooling for benchmarking the Hallmark skill across harnesses and p
 | --- | --- |
 | `briefs.json` | The 6 briefs, `b1`..`b6`, each with an `expect` block (`page`, `component`, or `study-decline`). b1-b3 are parity reruns of hallmark-lab gen-01..03; b4 tempts fabricated metrics; b5 tests component routing; b6 probes the no-vision capability check. |
 | `models.json` | The model arms (Anthropic + OpenAI-compatible endpoints) and the key files to read variable names from. `enabled: false` arms are skipped by `--arm all` but run when named explicitly. |
-| `make-pack.mjs` | Compiles the skill into a system prompt. `--pack floor` is the Critical floor + Flow at a glance sections of `SKILL.md` behind a 3-line one-shot preamble; `--pack full` is all of `SKILL.md` plus typography, color, anti-patterns, copy, and the gate list from `slop-test.md`, with file-path separators. |
+| `make-pack.mjs` | Compiles the skill into a system prompt. `--pack floor` is the Floor and Flow sections of `SKILL.md` behind a 3-line one-shot preamble; `--pack full` is all of `SKILL.md` plus `references/craft.md` and the gate table from `references/gates.md`, with file-path separators. |
 | `gen-direct.py` | Runs the (brief x arm x pack) matrix sequentially against the raw APIs. Stdlib only. |
 | `runs/` | One directory per cell: `runs/<briefId>/<armId>-<pack>/` with `index.html`, `raw.txt`, `run.json`, and later `score.json` (sloplint) + `judge.json` (vision judge). |
 | `_shots/` | Screenshots: `<briefId>-<armId>-<pack>-{hero,full,mobile}.png`. |

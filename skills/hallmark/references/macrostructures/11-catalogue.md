@@ -1,23 +1,21 @@
 ## 11 · Catalogue
 
-Uniform grid of variations of the same thing — typefaces, colour palettes, product SKUs. The page is a visual index of inventory.
+Uniform grid of variations of the same thing: typefaces, palettes, SKUs. The page is a visual index of inventory.
 
-- **Heading:** brand mark + tagline only; no big display.
-- **Body:** grid of identical-sized cards (3–5 per row), each one variant of the core product.
-- **Divider:** hairline rules between rows; sometimes a category label band.
-- **Button:** card-internal link to detail page; no global CTA.
-- **Image:** specimen thumbnail per card, or a swatch.
+- **Heading:** the wordmark and one line; no large display.
+- **Body:** a grid of same-sized cards, 3 to 5 per row, each one variant of the core product; image tracks `minmax(0, 1fr)` (50).
+- **Divider:** hairline rules between rows.
+- **Button:** a link inside each card to its detail page; no global CTA. The fold's one visible action is the first card's link (44b).
+- **Image:** a specimen thumbnail or a swatch per card.
 - **Reveal:** none.
 
-Reach for it for foundries, palette generators, font shops, colour systems, capsule collections.
+Reach for it for foundries, palette tools, font shops, colour systems, capsule collections.
 
-Avoid for narrative brands. Catalogue treats every item as equal — wrong for products with hierarchy.
+Avoid for narrative brands. Catalogue treats every item as equal, wrong for a product with hierarchy.
 
-Reference: Klim Type Foundry, Pangram Pangram, Coolors palettes.
+Code: [`../components/f6-product-card-grid.md`](../components/f6-product-card-grid.md).
 
-**Sample opening lines** (imitate the *specificity* — Catalogue openings are inventory headers, dated, with a count):
-> *"Today's loaves."* — Maple Street Bread (test 03) — two words, ownership of the day
-> *"Five collections, in store now."* — names the count and the where
-> *"Thirty-eight items · Spring 2026 · all hand-stitched."* — count, date, qualifier; no adjectives
-
----
+**Sample opening lines** (inventory headers: dated, with a count):
+> *"Today's loaves."* Two words, ownership of the day (Maple Street Bread, test 03).
+> *"Five collections, in store now."* The count and the where.
+> *"Thirty-eight pieces this spring, every one hand-stitched."* Count, season, qualifier; no adjectives.

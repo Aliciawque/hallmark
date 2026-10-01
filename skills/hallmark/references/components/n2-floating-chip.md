@@ -1,27 +1,24 @@
 ### N2 · Floating chip
-A small fixed chip in a corner — wordmark + a single action ("Try it"). Doesn't sit in document flow.
-*Use when:* the page is fold-heavy and traditional nav would fight the content.
-*Don't confuse with:* C4 Sticky bottom bar (which is full-width).
+A small fixed chip in a corner: wordmark and one verb ("Try it"). Out of document flow.
+*Use when:* the fold is the content and a bar would fight it.
+*Not:* C4 (full width, at the bottom); N5 (a whole nav in a pill).
 
 ```html
-<aside class="nav-chip">
-  <a class="wordmark">Studio</a>
-  <a class="cta-outline">Try →</a>
+<aside class="nav-chip" aria-label="Site">
+  <a class="wordmark" href="/" aria-label="Studio, home">Studio</a>
+  <a class="cta-outline" href="/try">Try it</a>
 </aside>
 ```
 ```css
-.nav-chip { position: fixed; top: var(--space-md); right: var(--space-md); display: inline-flex; gap: var(--space-md); padding: 0.5rem 0.75rem; background: var(--color-paper); border: 1px solid var(--color-rule); }
+.nav-chip { position: fixed; top: var(--space-md); right: var(--space-md); z-index: var(--z-sticky-nav); display: inline-flex; align-items: center; gap: var(--space-md); padding: var(--space-xs) var(--space-sm); background: var(--color-paper); border: var(--rule-hair) solid var(--color-rule); border-radius: var(--radius-card); }
 ```
 
 ## Knobs
 
-Vary at least one knob vs the last logged use of this archetype (gate 32):
+- Corner: top right · bottom left · bottom right
+- Content: one action · a theme switch · a search trigger
+- Backdrop: solid paper · blur
 
-- Anchor: top · bottom · top-right · bottom-left
-- Content: theme picker · search · navigation
-- Backdrop: blur · solid · none
+## Mobile
 
-## Mobile collapse
-
-- **Below 60rem:** chip remains floating; reduce padding
-- **Below 40rem:** chip widens to support 44 px hit target; never below 280 px
+- Below 40rem: the action keeps a 44px hit target; the chip sits inside the gutter.
