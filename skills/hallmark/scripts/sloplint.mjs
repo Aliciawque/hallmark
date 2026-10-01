@@ -21,6 +21,7 @@ for (let i = 0; i < args.length; i++) {
 }
 function usage() {
   console.error('usage: node sloplint.mjs <file-or-dir ...> [--genre editorial|modern-minimal|atmospheric|playful] [--scope page|component] [--stage hero|page] [--json] [--render] [--url http://localhost:3000] [--tier floor]');
+  console.error('reads .html and .css, plus .jsx .tsx .vue .svelte .astro (Tailwind class strings, cn/clsx/cva calls); skips node_modules, dist, build, coverage and dot folders');
 }
 if (!opts.paths.length && !opts.urls.length) { usage(); process.exit(2); }
 if (!['hero', 'page'].includes(opts.stage)) { console.error('--stage must be hero or page'); process.exit(2); }
@@ -32,24 +33,26 @@ if (!['page', 'component'].includes(opts.scope)) {
   console.error('--scope must be page or component'); process.exit(2);
 }
 
+const DOC_EXT = new Set(['.html', '.jsx', '.tsx', '.vue', '.svelte', '.astro']);
+const BUILD_DIRS = new Set(['dist', 'build', 'coverage']);
 function collectFiles(paths) {
   const files = [];
   const seen = new Set();
-  const visit = (p) => {
+  const visit = (p, top) => {
     const abs = resolve(p);
     if (seen.has(abs)) return;
     let st;
     try { st = statSync(abs); } catch { console.error(`sloplint: cannot read ${p}`); return; }
     if (st.isDirectory()) {
       const base = basename(abs);
-      if (base === 'node_modules' || base.startsWith('.')) return;
-      for (const e of readdirSync(abs)) visit(join(abs, e));
+      if (base === 'node_modules' || base.startsWith('.') || (!top && BUILD_DIRS.has(base))) return;
+      for (const e of readdirSync(abs)) visit(join(abs, e), false);
     } else {
       const ext = extname(abs).toLowerCase();
-      if (ext === '.html' || ext === '.css') { seen.add(abs); files.push(abs); }
+      if (ext === '.css' || DOC_EXT.has(ext)) { seen.add(abs); files.push(abs); }
     }
   };
-  for (const p of paths) visit(p);
+  for (const p of paths) visit(p, true);
   return files;
 }
 
@@ -125,6 +128,9 @@ function parseCss(source, file, lineOffset = 0) {
           walk(blockStart, blockEnd, media, name || 'anon');
         } else if (/^@font-face/i.test(selector)) {
           rules.push(makeRule('@font-face', blockStart, blockEnd, media, null));
+        } else if (/^@theme\b/i.test(selector)) {
+          rules.push(makeRule('@theme', blockStart, blockEnd, media, null));
+          walk(blockStart, blockEnd, media, keyframes);
         }
       } else {
         rules.push(makeRule(selector, blockStart, blockEnd, media, keyframes));
@@ -137,8 +143,9 @@ function parseCss(source, file, lineOffset = 0) {
 }
 
 const VOID_TAGS = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr']);
+const HTML_NAMES = new Set(('a abbr address area article aside audio b base bdi bdo blockquote body br button canvas caption cite code col colgroup data datalist dd del details dfn dialog div dl dt em embed fieldset figcaption figure footer form h1 h2 h3 h4 h5 h6 head header hgroup hr html i iframe img input ins kbd label legend li link main map mark menu meta meter nav noscript object ol optgroup option output p param picture pre progress q rp rt ruby s samp script search section select slot small source span strong style sub summary sup svg table tbody td template textarea tfoot th thead time title tr track u ul var video wbr').split(' '));
 
-function parseHtml(file, src) {
+function parseHtml(file, src, kind = 'html') {
   const nl = [];
   for (let i = 0; i < src.length; i++) if (src[i] === '\n') nl.push(i);
   const lineOf = (pos) => {
@@ -161,8 +168,13 @@ function parseHtml(file, src) {
     .replace(/<!--[\s\S]*?-->/g, pad)
     .replace(/(<(script|style)\b[^>]*>)([\s\S]*?)(<\/\2\s*>)/gi, (m0, open, tag, body, close) => open + pad(body) + close);
   const tags = [];
+  const comps = [];
   const tagRe = /<(\/?)([a-zA-Z][a-zA-Z0-9-]*)((?:"[^"]*"|'[^']*'|[^>"'])*)>/g;
   while ((m = tagRe.exec(masked))) {
+    if (kind !== 'html' && !HTML_NAMES.has(m[2])) {
+      comps.push({ close: m[1] === '/', name: m[2], attrs: m[3] || '', pos: m.index, end: m.index + m[0].length, selfClosing: /\/\s*$/.test(m[3] || ''), line: lineOf(m.index) });
+      continue;
+    }
     tags.push({
       close: m[1] === '/', name: m[2].toLowerCase(), attrs: m[3] || '',
       pos: m.index, end: m.index + m[0].length,
@@ -178,7 +190,340 @@ function parseHtml(file, src) {
     .replace(/&hellip;|&#8230;/g, '\u2026').replace(/&mdash;|&#8212;/g, '\u2014')
     .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
     .replace(/&nbsp;/g, ' ').replace(/[ \t]+/g, ' ');
-  return { file, src, masked, styles, scripts, tags, text, lineOf };
+  return { file, src, masked, styles, scripts, tags, text, lineOf, kind, comps };
+}
+
+function braceEnd(s, j) {
+  let depth = 0;
+  for (let i = j; i < s.length; i++) {
+    const c = s[i];
+    if (c === '"' || c === "'" || c === '`') {
+      i++;
+      while (i < s.length && s[i] !== c) { if (s[i] === '\\') i++; i++; }
+      continue;
+    }
+    if (c === '{') depth++;
+    else if (c === '}' && --depth === 0) return i;
+  }
+  return s.length;
+}
+
+const FRONTMATTER = /^\s*---[^\n]*\n[\s\S]*?\n---/;
+function templateMask(src, kind) {
+  const n = src.length;
+  let out = null;
+  const put = (k, ch) => { if (!out) out = src.split(''); out[k] = ch; };
+  const blank = (a, b) => { for (let k = a; k < b; k++) if (src[k] !== '\n' && src[k] !== ' ') put(k, ' '); };
+  const lower = src.toLowerCase();
+  const braces = kind === 'svelte' || kind === 'astro';
+  let i = 0;
+  if (kind === 'astro') {
+    const fm = FRONTMATTER.exec(src);
+    if (fm) { blank(0, fm[0].length); i = fm[0].length; }
+  }
+  while (i < n) {
+    const lt = src.indexOf('<', i);
+    if (lt < 0) break;
+    if (src.startsWith('<!--', lt)) { const e = src.indexOf('-->', lt + 4); i = e < 0 ? n : e + 3; continue; }
+    if (!/[A-Za-z]/.test(src[lt + 1] || '')) { i = lt + 1; continue; }
+    let j = lt + 1;
+    while (j < n && /[\w:.-]/.test(src[j])) j++;
+    const name = lower.slice(lt + 1, j);
+    while (j < n && src[j] !== '>') {
+      const c = src[j];
+      if (c === '"' || c === "'") {
+        let e = src.indexOf(c, j + 1);
+        if (e < 0) e = n;
+        for (let k = j + 1; k < e; k++) if (src[k] === '<' || src[k] === '>') put(k, ' ');
+        j = e + 1;
+        continue;
+      }
+      if (c === '{' && braces) { const e = braceEnd(src, j); blank(j + 1, e); j = e + 1; continue; }
+      j++;
+    }
+    i = j + 1;
+    if (name === 'script' || name === 'style' || name === 'textarea') {
+      const e = lower.indexOf('</' + name, i);
+      i = e < 0 ? n : e;
+    }
+  }
+  return out ? out.join('') : src;
+}
+
+const cutGlued = (seg, after, before) => {
+  let s = seg;
+  if (after) s = s.replace(/^\S+/, '');
+  if (before) s = s.replace(/\S+$/, '');
+  return s;
+};
+function clsLits(s, level = 0) {
+  if (level > 20) return [];
+  const parts = [];
+  let i = 0;
+  while (i < s.length) {
+    const c = s[i];
+    if (c === '/' && s[i + 1] === '/') { const e = s.indexOf('\n', i); i = e < 0 ? s.length : e; continue; }
+    if (c === '/' && s[i + 1] === '*') { const e = s.indexOf('*/', i + 2); i = e < 0 ? s.length : e + 2; continue; }
+    if (c === '"' || c === "'") {
+      let j = i + 1;
+      while (j < s.length && s[j] !== c && s[j] !== '\n') { if (s[j] === '\\') j++; j++; }
+      parts.push(s.slice(i + 1, j));
+      i = j + 1;
+      continue;
+    }
+    if (c === '`') {
+      let j = i + 1, seg = '', after = false;
+      while (j < s.length && s[j] !== '`') {
+        if (s[j] === '\\') { seg += s[j + 1] || ''; j += 2; continue; }
+        if (s[j] === '$' && s[j + 1] === '{') {
+          parts.push(cutGlued(seg, after, true));
+          const e = braceEnd(s, j + 1);
+          parts.push(clsLits(s.slice(j + 2, e), level + 1).join(' '));
+          j = e + 1; seg = ''; after = true;
+          continue;
+        }
+        seg += s[j]; j++;
+      }
+      parts.push(cutGlued(seg, after, false));
+      i = j + 1;
+      continue;
+    }
+    i++;
+  }
+  return parts.join(' ').split(/\s+/).filter(Boolean);
+}
+
+const JS_EXPR_KW = new Set(['return', 'yield', 'await', 'case', 'default', 'else', 'do', 'throw', 'typeof', 'void', 'delete', 'in', 'of', 'new', 'instanceof']);
+const CLASS_FNS = new Set(['cn', 'clsx', 'classNames', 'classnames', 'twMerge', 'twJoin', 'cva', 'cx', 'tv']);
+function jsxPseudo(src) {
+  const n = src.length;
+  const out = new Array(n);
+  for (let k = 0; k < n; k++) out[k] = src[k] === '\n' ? '\n' : ' ';
+  const classes = [];
+  const calls = [];
+  let hi = 0, fails = 0, inClass = 0, depth = 0;
+  const blank = (a, b) => { for (let k = a; k < b && k < n; k++) out[k] = src[k] === '\n' ? '\n' : ' '; };
+  const paint = (a, b) => { for (let k = a; k < b && k < n; k++) out[k] = src[k]; if (b > hi) hi = b; };
+  const write = (a, b, text) => {
+    blank(a, b);
+    let k = a;
+    for (const ch of text) { while (k < b && src[k] === '\n') k++; if (k >= b) break; out[k++] = ch; }
+    if (b > hi) hi = b;
+  };
+  const ws = (i) => { while (i < n && /\s/.test(src[i])) i++; return i; };
+  const gap = (i) => {
+    for (;;) {
+      i = ws(i);
+      if (src[i] === '/' && src[i + 1] === '*') { const e = src.indexOf('*/', i + 2); if (e < 0) return n; i = e + 2; continue; }
+      if (src[i] === '/' && src[i + 1] === '/') { const e = src.indexOf('\n', i); if (e < 0) return n; i = e; continue; }
+      return i;
+    }
+  };
+  const strEnd = (i) => {
+    const q = src[i];
+    let j = i + 1;
+    while (j < n && src[j] !== q && src[j] !== '\n') { if (src[j] === '\\') j++; j++; }
+    return Math.min(j + 1, n);
+  };
+  const tplEnd = (i) => {
+    let j = i + 1;
+    while (j < n && src[j] !== '`') {
+      if (src[j] === '\\') { j += 2; continue; }
+      if (src[j] === '$' && src[j + 1] === '{') { j = js(j + 2, true) + 1; continue; }
+      j++;
+    }
+    return Math.min(j + 1, n);
+  };
+  const reEnd = (i) => {
+    let j = i + 1, set = false;
+    while (j < n && src[j] !== '\n') {
+      const c = src[j];
+      if (c === '\\') { j += 2; continue; }
+      if (c === '[') set = true;
+      else if (c === ']') set = false;
+      else if (c === '/' && !set) { j++; while (j < n && /[a-z]/i.test(src[j])) j++; return j; }
+      j++;
+    }
+    return -1;
+  };
+  function js(i, stop) {
+    if (depth > 200) return stop ? Math.min(braceEnd(src, i - 1), n) : n;
+    depth++;
+    const r = jsScan(i, stop);
+    depth--;
+    return r;
+  }
+  function jsScan(i, stop) {
+    let level = 0, val = false;
+    while (i < n) {
+      const c = src[i];
+      if (c === ' ' || c === '\n' || c === '\t' || c === '\r') { i++; continue; }
+      if (c === '/' && src[i + 1] === '/') { const e = src.indexOf('\n', i); i = e < 0 ? n : e; continue; }
+      if (c === '/' && src[i + 1] === '*') { const e = src.indexOf('*/', i + 2); i = e < 0 ? n : e + 2; continue; }
+      if (c === '"' || c === "'") { i = strEnd(i); val = true; continue; }
+      if (c === '`') { i = tplEnd(i); val = true; continue; }
+      if (c === '{') { level++; i++; val = false; continue; }
+      if (c === '}') { if (stop && level === 0) return i; level--; i++; val = true; continue; }
+      if (c === ')' || c === ']') { i++; val = true; continue; }
+      if (c === '<' && !val && fails < 500 && /[A-Za-z_$>]/.test(src[i + 1] || '')) {
+        const e = el(i);
+        if (e > 0) { i = e; val = true; continue; }
+        fails++;
+      }
+      if (c === '/' && !val) { const e = reEnd(i); if (e > 0) { i = e; val = true; continue; } }
+      if (/[A-Za-z_$]/.test(c)) {
+        let j = i + 1;
+        while (j < n && /[\w$]/.test(src[j])) j++;
+        const w = src.slice(i, j);
+        val = !JS_EXPR_KW.has(w);
+        if (!inClass && CLASS_FNS.has(w) && src[i - 1] !== '.' && src[ws(j)] === '(') calls.push(i);
+        i = j;
+        continue;
+      }
+      if (c >= '0' && c <= '9') { let j = i + 1; while (j < n && /[\w.]/.test(src[j])) j++; i = j; val = true; continue; }
+      i++;
+      val = false;
+    }
+    return n;
+  }
+  function el(start) {
+    if (depth > 200) return -1;
+    const mc = classes.length, mk = calls.length;
+    depth++;
+    const e = tag(start);
+    depth--;
+    if (e < 0) { blank(start, Math.max(hi, start + 1)); hi = start; classes.length = mc; calls.length = mk; }
+    return e;
+  }
+  function tag(start) {
+    let i = start + 1;
+    if (src[i] === '>') return kids(i + 1, '');
+    let j = i;
+    while (j < n && /[\w$.:-]/.test(src[j])) j++;
+    const name = src.slice(i, j);
+    paint(start, j);
+    i = j;
+    let cls = null;
+    for (;;) {
+      i = gap(i);
+      if (i >= n) return -1;
+      const c = src[i];
+      if (c === '/' && src[i + 1] === '>') { paint(i, i + 2); if (cls) classes.push([start, cls]); return i + 2; }
+      if (c === '>') { paint(i, i + 1); i++; break; }
+      if (c === '{') { const e = js(i + 1, true); if (e >= n) return -1; blank(i, e + 1); i = e + 1; continue; }
+      if (!/[A-Za-z_$]/.test(c)) return -1;
+      let k = i + 1;
+      while (k < n && /[\w$:.-]/.test(src[k])) k++;
+      const attr = src.slice(i, k);
+      let v = ws(k);
+      if (src[v] !== '=') { paint(i, k); i = k; continue; }
+      v = ws(v + 1);
+      const q = src[v];
+      const isCls = attr === 'className' || attr === 'class';
+      let e;
+      if (q === '"' || q === "'") {
+        e = src.indexOf(q, v + 1);
+        if (e < 0) return -1;
+        if (isCls) cls = (cls || []).concat(src.slice(v + 1, e).split(/\s+/).filter(Boolean));
+        else paint(i, e + 1);
+      } else if (q === '{') {
+        if (isCls) inClass++;
+        e = js(v + 1, true);
+        if (isCls) inClass--;
+        if (e >= n) return -1;
+        if (isCls) cls = (cls || []).concat(clsLits(src.slice(v + 1, e)));
+        else { paint(i, v); write(v, e + 1, '"' + src.slice(v + 1, e).replace(/[^\w$.\-/:#@]+/g, ' ') + '"'); }
+      } else if (q === '<') {
+        e = el(v) - 1;
+        if (e < 0) return -1;
+        blank(i, e + 1);
+      } else return -1;
+      if (isCls && cls) write(i, e + 1, 'class="' + cls.join(' ').replace(/"/g, "'").replace(/[<>]/g, ' ') + '"');
+      i = e + 1;
+    }
+    if (cls) classes.push([start, cls]);
+    return kids(i, name);
+  }
+  function kids(i, name) {
+    while (i < n) {
+      const c = src[i];
+      if (c === '{') { const e = js(i + 1, true); if (e >= n) return -1; i = e + 1; continue; }
+      if (c === '<') {
+        if (src[i + 1] === '/') {
+          const k = ws(i + 2);
+          let j = k;
+          while (j < n && /[\w$.:-]/.test(src[j])) j++;
+          const e = ws(j);
+          if (src[e] !== '>' || src.slice(k, j) !== name) return -1;
+          if (name) paint(i, e + 1);
+          return e + 1;
+        }
+        if (/[A-Za-z_$>]/.test(src[i + 1] || '')) { const e = el(i); if (e > 0) { i = e; continue; } }
+        i++;
+        continue;
+      }
+      out[i] = c;
+      if (i >= hi) hi = i + 1;
+      i++;
+    }
+    return -1;
+  }
+  js(0, false);
+  return { pseudo: out.join(''), classAt: new Map(classes), calls };
+}
+
+function classCalls(src, sites) {
+  const out = [];
+  let last = -1;
+  for (const pos of [...sites].sort((a, b) => a - b)) {
+    if (pos < last) continue;
+    const open = src.indexOf('(', pos);
+    if (open < 0) continue;
+    let depth = 0, i = open;
+    for (; i < src.length; i++) {
+      const c = src[i];
+      if (c === '/' && src[i + 1] === '/') { const e = src.indexOf('\n', i); i = e < 0 ? src.length : e; continue; }
+      if (c === '/' && src[i + 1] === '*') { const e = src.indexOf('*/', i + 2); i = e < 0 ? src.length : e + 1; continue; }
+      if (c === '"' || c === "'" || c === '`') { i++; while (i < src.length && src[i] !== c) { if (src[i] === '\\') i++; i++; } continue; }
+      if (c === '(') depth++;
+      else if (c === ')' && --depth === 0) break;
+    }
+    last = i;
+    const toks = clsLits(src.slice(open + 1, i));
+    if (toks.length) out.push({ pos, name: /^[\w$]+/.exec(src.slice(pos))[0], toks });
+  }
+  return out;
+}
+
+function scriptSites(src, kind) {
+  const ranges = [];
+  for (const m of src.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/gi)) ranges.push([m.index + m[0].length - m[1].length - 9, m.index + m[0].length - 9]);
+  const fm = kind === 'astro' ? FRONTMATTER.exec(src) : null;
+  if (fm) ranges.push([0, fm[0].length]);
+  const sites = [];
+  for (const [a, b] of ranges) {
+    for (const m of src.slice(a, b).matchAll(/(?<![\w$.])(?:cn|clsx|classNames|classnames|twMerge|twJoin|cva|cx|tv)\s*\(/g)) sites.push(a + m.index);
+  }
+  return sites;
+}
+
+function parseDoc(file, raw) {
+  const ext = extname(file).toLowerCase();
+  if (ext === '.jsx' || ext === '.tsx') {
+    const j = jsxPseudo(raw);
+    const doc = parseHtml(file, j.pseudo, 'jsx');
+    doc.styles = [];
+    doc.scripts = raw;
+    doc.classAt = j.classAt;
+    doc.virtuals = classCalls(raw, j.calls);
+    doc.raw = raw;
+    return doc;
+  }
+  const kind = ext === '.html' ? 'html' : ext.slice(1);
+  const doc = parseHtml(file, templateMask(raw, kind), kind);
+  doc.raw = raw;
+  doc.virtuals = kind === 'html' ? [] : classCalls(raw, scriptSites(raw, kind));
+  return doc;
 }
 
 function getAttr(attrStr, name) {
@@ -371,7 +716,7 @@ function contrastRatio(a, b) {
 function isTokenRule(rule) {
   return /:root|\[data-theme/i.test(rule.selector)
     || basename(rule.file).toLowerCase() === 'tokens.css'
-    || rule.selector === '@font-face';
+    || rule.selector === '@font-face' || rule.selector === '@theme';
 }
 
 function buildTokens(rules) {
@@ -462,6 +807,13 @@ const GUARDS = {
       if (/#[0-9a-f]{3,8}\b|oklch\(|rgba?\(|hsla?\(/i.test(grad.value)) return `${r.selector}: the ramp stops are literals, not tokens`;
       const hues = gradientHues(grad.value, ctx);
       if (hues.length >= 2 && Math.max(...hues) - Math.min(...hues) > 40) return `${r.selector}: ramp spans ${Math.round(Math.max(...hues) - Math.min(...hues))} degrees of hue`;
+    }
+    for (const it of twGroup(ctx).items) {
+      const g = twGradient(ctx, it.info);
+      if (!g || !g.text) continue;
+      if (it.info.stops.some((s) => s.kind !== 'token')) return `${twWhere(it)}: the ramp stops are palette or literal classes, not tokens`;
+      const hues = it.info.stops.map((s) => s.hue).filter((h) => h != null);
+      if (hues.length >= 2 && Math.max(...hues) - Math.min(...hues) > 40) return `${twWhere(it)}: ramp spans ${Math.round(Math.max(...hues) - Math.min(...hues))} degrees of hue`;
     }
     return true;
   },
@@ -890,11 +1242,6 @@ function check10(ctx) {
       }
     }
   }
-  for (const doc of ctx.docs) {
-    if (/class\s*=\s*["'][^"']*\btransition-all\b/.test(doc.src)) {
-      report(10, 'FAIL', doc.file, 1, 'class "transition-all" in markup', 'List the transitioned properties explicitly');
-    }
-  }
 }
 
 function check11(ctx) {
@@ -1036,7 +1383,8 @@ function check20(ctx) {
   for (const f of ctx.cssFiles) cssSources.push(f.raw);
   for (const doc of ctx.docs) for (const s of doc.styles) cssSources.push(s.css);
   for (const s of cssSources) if (stamped(s)) { ok = true; break; }
-  if (!ok && cssSources.length) {
+  const pageCss = ctx.cssFiles.length || ctx.docs.some((d) => d.kind === 'html' && d.styles.length);
+  if (!ok && cssSources.length && pageCss) {
     const where = ctx.cssFiles[0]?.file || ctx.docs[0]?.file;
     report(20, 'FAIL', where, 1, 'no Hallmark stamp on the first non-empty line of any CSS', 'The stamp comment is line 1 of the CSS; only @charset may precede it');
   }
@@ -1162,27 +1510,39 @@ function check26(ctx) {
     || ctx.rules.some((r) => selectorIsInteractive(r.selector));
   if (!hasInteractive) return;
   const has = (pseudo) => ctx.rules.some((r) => r.selector.includes(pseudo));
+  const tv = twGroup(ctx).variants;
+  const shared = ctx.shared || {};
+  const once = (key) => !shared.once || (!shared.once.has(key) && !!shared.once.add(key));
   const file = ctx.cssFiles[0]?.file || ctx.docs[0]?.file || '?';
-  if (!has(':focus-visible') && !has(':focus')) {
+  if (!has(':focus-visible') && !has(':focus') && !shared.focus && ![...tv].some((v) => /^focus(?:-visible|-within)?$/.test(v)) && once('26a')) {
     report('26a', 'FAIL', file, 1, 'no :focus-visible styling anywhere', 'A focus ring at 3:1 or better, instant');
   }
-  if (!has(':active')) {
+  if (!has(':active') && !shared.active && !tv.has('active') && once('26b:active')) {
     report('26b', 'FAIL', file, 1, 'no :active styling anywhere', 'All eight states; guard: not a form control, no aria-disabled anywhere');
   }
   const hasFormish = ctx.docs.some((doc) => /<(button|input|select|textarea)\b/i.test(doc.src));
-  if (hasFormish && !has(':disabled') && !ctx.rules.some((r) => /\[disabled\]|aria-disabled/.test(r.selector))) {
+  if (hasFormish && !has(':disabled') && !shared.disabled && !tv.has('disabled') && !tv.has('aria-disabled') && !ctx.rules.some((r) => /\[disabled\]|aria-disabled/.test(r.selector)) && once('26b:disabled')) {
     report('26b', 'FAIL', file, 1, 'no :disabled styling anywhere', 'All eight states; guard: not a form control, no aria-disabled anywhere');
   }
 }
 
 function check27(ctx) {
+  const tw = twGroup(ctx);
   const hasMotion = ctx.rules.some((r) => r.keyframes)
     || ctx.rules.some((r) => r.decls.some((d) => /^transition/.test(d.prop) && /transform/.test(d.value)));
-  if (!hasMotion) return;
+  if (!hasMotion && !tw.motion) return;
   const hasPRM = ctx.rules.some((r) => r.media && /prefers-reduced-motion/i.test(r.media))
     || ctx.cssFiles.some((f) => /prefers-reduced-motion/i.test(stripComments(f.raw)))
-    || ctx.docs.some((doc) => doc.styles.some((s) => /prefers-reduced-motion/i.test(stripComments(s.css))));
-  if (!hasPRM) {
+    || ctx.docs.some((doc) => doc.styles.some((s) => /prefers-reduced-motion/i.test(stripComments(s.css))))
+    || tw.variants.has('motion-reduce') || tw.variants.has('motion-safe') || !!ctx.shared?.prm;
+  if (!hasPRM && ctx.shared) {
+    if (ctx.shared.once.has('27')) return;
+    ctx.shared.once.add('27');
+  }
+  if (!hasPRM && !hasMotion) {
+    const m = tw.motion;
+    report(27, 'FAIL', m.doc.file, m.line, `motion utilities (${m.info.animate || 'a transition on a transform'}) with no motion-reduce: or motion-safe: variant anywhere`, 'Add motion-reduce: fallbacks, or put the motion behind motion-safe:');
+  } else if (!hasPRM) {
     const kf = ctx.rules.find((r) => r.keyframes);
     const file = kf ? kf.file : (ctx.cssFiles[0]?.file || ctx.docs[0]?.file || '?');
     report(27, 'FAIL', file, kf ? kf.line : 1, 'motion present, no prefers-reduced-motion block', 'Add a prefers-reduced-motion fallback');
@@ -1288,11 +1648,19 @@ function check34(ctx) {
       }
     }
   }
+  const hiddenUtil = [];
+  for (const it of twGroup(ctx).items) {
+    if (it.idx < 0 || !/^(html|body)$/.test(it.name)) continue;
+    if (it.info.oxClip) clipped.add(it.name);
+    if (it.info.oxHidden) hiddenUtil.push(it);
+  }
+  for (const it of hiddenUtil) report(34, 'FAIL', it.doc.file, it.line, `${it.info.oxHidden} on <${it.name}> (breaks sticky)`, 'overflow-x-clip on both html and body, never hidden');
+  const pageish = ctx.docs.some((d) => d.kind === 'html' || d.tags.some((t) => !t.close && (t.name === 'html' || t.name === 'body')));
   const file = ctx.cssFiles[0]?.file || ctx.docs[0]?.file;
   const both = clipped.has('html') && clipped.has('body');
   if (!both && hidden) {
     report(34, 'WARN', hidden.file, hidden.line, `overflow-x: hidden on ${hidden.sel} (breaks sticky)`, 'Use overflow-x: clip on both html and body, never hidden');
-  } else if (!both && file && ctx.docs.length) {
+  } else if (!both && file && ctx.docs.length && pageish && !hiddenUtil.length) {
     const where = clipped.size ? `overflow-x: clip on ${[...clipped][0]} only` : 'no overflow-x: clip on html and body';
     report(34, 'FAIL', file, 1, where, 'overflow-x: clip on both html and body');
   }
@@ -1834,7 +2202,7 @@ function check54(ctx) {
         if (hit) {
           report(54, 'FAIL', doc.file, doc.tags[A.idx]?.line || t.line,
             `eyebrow "${trunc(hit.text, 32)}" before <${B.name}>`,
-            'Cut it; the heading already says this (references/section-entry.md has twelve other openings)');
+            'Cut it; the heading already says this (craft.md § 7 has twelve other openings)');
           break;
         }
       }
@@ -2021,18 +2389,25 @@ function checkF15(ctx) {
 
 function checkF16(ctx) {
   if (ctx.tokensOnly || !ctx.tokens['--color-accent']) return;
+  const tw = twGroup(ctx);
   const missing = [];
-  if (!/::selection/.test(ctx.allCss)) missing.push('::selection');
-  if (!/scrollbar-color|::-webkit-scrollbar/.test(ctx.allCss)) missing.push('scrollbar-color');
+  if (!/::selection/.test(ctx.allCss) && !tw.variants.has('selection')) missing.push('::selection');
+  if (!/scrollbar-color|::-webkit-scrollbar/.test(ctx.allCss) && !tw.scrollbar) missing.push('scrollbar-color');
   const hasInputs = ctx.docs.some((d) => /<(input|textarea)\b/i.test(d.src));
-  if (hasInputs && !/caret-color/.test(ctx.allCss)) missing.push('caret-color');
+  if (hasInputs && !/caret-color/.test(ctx.allCss) && !tw.caret) missing.push('caret-color');
   if (missing.length) report('F16', 'WARN', ctx.cssFiles[0]?.file || ctx.docs[0]?.file, 1, `browser surfaces unthemed: ${missing.join(', ')}`, 'Theme the parts you did not draw from the palette');
 }
 
+const proseRun = (run, pad) => {
+  let r = run;
+  for (let k = 0; k < 3 && /\{[^{}]*\}/.test(r); k++) r = r.replace(/\{[^{}]*\}/g, pad);
+  return /[;=(){}]|\breturn\b/.test(r) ? pad(r) : r;
+};
 function maskedProse(doc) {
   if (doc._prose == null) {
     const pad = (m) => m.replace(/[^\n]/g, ' ');
-    doc._prose = doc.src
+    const src = doc.kind && doc.kind !== 'html' ? doc.src.replace(/(^|>)([^<>]*)(?=<|$)/g, (m0, a, run) => a + proseRun(run, pad)) : doc.src;
+    doc._prose = src
       .replace(/<(script|style|pre|code|kbd|samp|textarea)\b[^>]*>[\s\S]*?<\/\1>/gi, pad)
       .replace(/<!--[\s\S]*?-->/g, pad)
       .replace(/<[^>]*>/g, pad);
@@ -2463,7 +2838,7 @@ function check58Static(ctx) {
     }
     const sections = doc.tags.filter((t) => !t.close && t.name === 'section').length;
     const fullPage = sections >= 5 || doc.tags.some((t) => !t.close && t.name === 'footer');
-    if (!fullPage) continue;
+    if (!fullPage || doc.kind !== 'html') continue;
     const total = doc.text.split(/\s+/).filter((w) => /[A-Za-z0-9]/.test(w)).length;
     if (total < 250 || total > 450) report(58, 'WARN', doc.file, 1, `${total} visible words on the page (250 to 450 expected)`, total > 450 ? 'Cut copy: one idea per screen, sections become objects' : 'A page this short is a section; fill the slots or cut the sections');
   }
@@ -2639,16 +3014,570 @@ function checkF7Pills(ctx) {
   if (sels.size >= 5) report('F7', 'WARN', where.r.file, where.d.line, `the pill radius on ${sels.size} non-control selectors (${trunc([...sels].slice(0, 4).join(', '), 48)})`, 'Pills are for controls; boxes and media take the card radius');
 }
 
+const TW_SIZE = { xs: 12, sm: 14, base: 16, lg: 18, xl: 20, '2xl': 24, '3xl': 30, '4xl': 36, '5xl': 48, '6xl': 60, '7xl': 72, '8xl': 96, '9xl': 128 };
+const TW_TRACK = { tighter: -0.05, tight: -0.025, normal: 0, wide: 0.025, wider: 0.05, widest: 0.1 };
+const TW_HUE = { red: 25, orange: 47, amber: 70, yellow: 86, lime: 131, green: 150, emerald: 163, teal: 183, cyan: 215, sky: 237, blue: 260, indigo: 277, violet: 293, purple: 304, fuchsia: 322, pink: 354, rose: 16 };
+const TW_COLOURS = 'slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose';
+const TW_PAL = new RegExp(`^(?:bg|text|border(?:-[xytrblse])?|ring(?:-offset)?|outline|decoration|divide|from|via|to|fill|stroke|shadow|accent|caret|placeholder|inset-shadow|inset-ring|drop-shadow)-(?:${TW_COLOURS})-(?:50|[1-9]00|950)(?:\\/(?:\\d{1,3}|\\[[^\\]]*\\]))?$`);
+const TW_SHADE = new RegExp(`^(${TW_COLOURS})-(?:50|[1-9]00|950)(?:\\/\\S*)?$`);
+const TW_ACCENT = /^text-(?:red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(?:500|600|700)(?:\/\S*)?$/;
+const TW_PURPLE = /^(?:purple|violet|fuchsia|indigo)$/;
+const TW_BLUE = /^(?:blue|sky|cyan|indigo)$/;
+const TW_PINK = /^(?:pink|rose)$/;
+const TW_GREY = /^(?:slate|gray|zinc|neutral|stone)$/;
+const TW_NONFILL = /^bg-(?:none|transparent|inherit|current|fixed|local|scroll|cover|contain|auto|center|top|bottom|left|right|no-repeat|repeat(?:-[\w-]+)?|(?:left|right|top|bottom)-(?:top|bottom|left|right)|clip-[\w-]+|origin-[\w-]+|blend-[\w-]+|gradient-to-[\w-]+|(?:linear|radial|conic)(?:-.*)?|size-.*|position-.*|\[(?:url|length|position|size|image|(?:repeating-)?(?:linear|radial|conic)-gradient)[^\]]*\].*)$/;
+const TW_GLASS = /^bg-(?:white|black|(?:slate|gray|zinc|neutral|stone)-(?:50|100|900|950)|paper|ink|background|foreground)\/(\d{1,2}|\[(?:0?\.\d+|\d{1,2}%)\])$/;
+const TW_MONO = /mono|courier|jetbrains|plex mono|geist mono|commit|fira code|space mono|dm mono|roboto mono|source code|silkscreen/i;
+const TW_LOGO = /logo|brand|wordmark/i;
+const TW_ROOT = { size: null, em: null, upper: false, caps: false, noLabel: false, code: false, eyeSkip: false, inOl: false, logo: false, logoSelf: false };
+const TW_PARSED = new Map();
+
+function twParse(tok) {
+  let p = TW_PARSED.get(tok);
+  if (p) return p;
+  const variants = [];
+  let depth = 0, cur = '';
+  for (const ch of tok) {
+    if (ch === '[' || ch === '(') depth++;
+    else if ((ch === ']' || ch === ')') && depth > 0) depth--;
+    if (ch === ':' && depth === 0) { variants.push(cur); cur = ''; } else cur += ch;
+  }
+  let base = cur;
+  if (base.startsWith('!')) base = base.slice(1);
+  if (base.endsWith('!')) base = base.slice(0, -1);
+  const neg = base.length > 1 && base.startsWith('-');
+  if (neg) base = base.slice(1);
+  p = { variants: variants.map((v) => v.replace(/^(?:group|peer)-/, '').replace(/\/[\w-]+$/, '')), base, neg };
+  TW_PARSED.set(tok, p);
+  return p;
+}
+
+const twTokens = (ctx) => ctx.twTok || ctx.tokens;
+const twValue = (tok, v) => resolveVars(v, tok).trim().replace(/^(-?)\./, '$10.');
+
+function twSize(ctx, b) {
+  const tok = twTokens(ctx);
+  let m = /^text-(xs|sm|base|lg|[2-9]?xl)(?:\/\S+)?$/.exec(b);
+  if (m) return TW_SIZE[m[1]];
+  m = /^text-(?:\[(?:length:)?([^\]]+)\]|\((?:length:)?(--[\w-]+)\))(?:\/\S+)?$/.exec(b);
+  let v = m ? (m[1] ? m[1].replace(/_/g, ' ') : `var(${m[2]})`) : null;
+  if (!m) {
+    m = /^text-([a-z][\w-]*?)(?:\/\S+)?$/.exec(b);
+    v = m && tok[`--text-${m[1]}`];
+  }
+  if (!v) return null;
+  const r = twValue(tok, v);
+  const cl = /^clamp\(\s*([^,]+),/.exec(r);
+  return pxOf(cl ? twValue(tok, cl[1]) : r);
+}
+
+function twTrack(ctx, b, neg) {
+  const tok = twTokens(ctx);
+  let m = /^tracking-(tighter|tight|normal|wide|wider|widest)$/.exec(b);
+  let v = null;
+  if (m) v = `${TW_TRACK[m[1]]}em`;
+  else if ((m = /^tracking-(?:\[([^\]]+)\]|\((--[\w-]+)\))$/.exec(b))) v = m[1] ? m[1].replace(/_/g, ' ') : `var(${m[2]})`;
+  else if ((m = /^tracking-([a-z][\w-]*)$/.exec(b)) && tok[`--tracking-${m[1]}`]) v = tok[`--tracking-${m[1]}`];
+  if (v == null) return null;
+  const r = twValue(tok, v);
+  const e = /^(-?\d*\.?\d+)em$/.exec(r);
+  const px = e ? null : pxOf(r);
+  if (!e && px == null) return null;
+  const out = e ? parseFloat(e[1]) : px;
+  return e ? { em: neg ? -out : out } : { px: neg ? -out : out };
+}
+
+const twHue = (c) => {
+  if (!c || c.alpha <= 0.05) return null;
+  const ok = c.okl || srgbToOklch(c);
+  return ok.C > 0.04 ? ok.H : null;
+};
+function twStop(ctx, v, tok) {
+  if (/^\[?-?\d*\.?\d+%\]?$/.test(v)) return null;
+  const tokens = twTokens(ctx);
+  const pm = TW_SHADE.exec(v);
+  if (pm) return { tok, kind: 'palette', pal: pm[1], hue: TW_GREY.test(pm[1]) ? null : TW_HUE[pm[1]] };
+  if (/^(?:white|black|transparent|current|inherit)(?:\/\S*)?$/.test(v)) return { tok, kind: 'plain', hue: null };
+  if (v.startsWith('(')) return { tok, kind: 'token', hue: twHue(parseColor(twValue(tokens, `var${v.replace(/\/\S*$/, '').replace(/^\((?:color:)?/, '(')}`))) };
+  if (v.startsWith('[')) {
+    const inner = v.slice(1, v.lastIndexOf(']')).replace(/_/g, ' ');
+    return { tok, kind: /var\(/.test(inner) ? 'token' : 'literal', hue: twHue(parseColor(twValue(tokens, inner))) };
+  }
+  const tv = tokens[`--color-${v.replace(/\/\S*$/, '')}`];
+  return { tok, kind: 'token', hue: tv ? twHue(parseColor(twValue(tokens, tv))) : null };
+}
+
+function twFamily(v) {
+  if (/var\(/.test(v)) return null;
+  const named = v.replace(/^family-name:/, '');
+  if (named === v && !/^['"]/.test(v) && /^(?:\d|weight:|number:)/.test(v)) return null;
+  const fam = firstFamily(named.replace(/_/g, ' '));
+  return !fam || GENERIC_FAMILIES.has(fam) ? null : fam;
+}
+
+function twLiterals(b, tok, f) {
+  for (const m of b.matchAll(/\[([^\]]+)\]/g)) {
+    const v = m[1].replace(/url\([^)]*\)/gi, ' ').replace(/_/g, ' ');
+    const fam = /^font-family:(.+)$/.exec(v);
+    if (fam && !/var\(/.test(fam[1]) && !GENERIC_FAMILIES.has(firstFamily(fam[1]))) f.font = f.font || tok;
+    for (const c of v.matchAll(TW_COLOR_LIT)) {
+      const col = parseColor(c[0]);
+      if (col && col.alpha > 0) f.colours.push({ tok, oklch: /^oklch/i.test(c[0]) });
+    }
+  }
+}
+const TW_COLOR_LIT = /#[0-9a-fA-F]{3,8}\b|oklch\([^)]*\)|rgba?\([^)]*\)|hsla?\([^)]*\)/g;
+
+function twInfo(ctx, toks, tw) {
+  const f = {
+    upper: false, normalCase: false, caps: false, size: null, em: null, mono: false, accent: null,
+    tAll: null, bounce: null, overshoot: null, hScale: null, hRotate: null, grad: false, stops: [], clip: false, clear: false,
+    bblur: null, glass: null, blur: 0, blurTok: null, pos: null, fill: false, shadows: [], shadowCol: null, vh: null,
+    oxHidden: null, oxClip: false, colours: [], font: null, pal: [], rounded: false, cols3: false, animate: null,
+    transform: false, transition: false, caret: false, scrollbar: false, hero: false, padded: false,
+  };
+  let sizeV = null;
+  const tracks = [];
+  for (const tok of toks) {
+    if (tok.includes('__')) continue;
+    const p = twParse(tok);
+    const b = p.base;
+    if (!b) continue;
+    const plain = !p.variants.length;
+    for (const v of p.variants) tw.variants.add(v);
+    const hover = p.variants.includes('hover');
+    if (TW_PAL.test(b)) f.pal.push(b.replace(/\/.*$/, ''));
+    if (b.includes('[')) twLiterals(b, tok, f);
+    if (/hero/i.test(b)) f.hero = true;
+    if (b === 'uppercase') { f.upper = true; continue; }
+    if (b === 'normal-case') { if (plain) f.normalCase = true; continue; }
+    if (b === 'small-caps' || /^\[font-variant(?:-caps)?:[^\]]*(?:small|petite)-caps/.test(b) || /^\[font-feature-settings:[^\]]*(?:smcp|c2sc)/.test(b)) { f.caps = true; continue; }
+    if (b.startsWith('text-')) {
+      const px = twSize(ctx, b);
+      if (px != null) {
+        if (plain) f.size = px; else sizeV = sizeV == null ? px : Math.min(sizeV, px);
+        continue;
+      }
+      if (b === 'text-transparent') { f.clear = true; continue; }
+      if (TW_ACCENT.test(b)) f.accent = f.accent || tok;
+      continue;
+    }
+    if (b.startsWith('tracking-')) {
+      const r = twTrack(ctx, b, p.neg);
+      if (r) tracks.push({ r, plain });
+      continue;
+    }
+    if (b === 'font-mono') { f.mono = true; continue; }
+    if (b.startsWith('font-')) {
+      const arb = /^font-\[(.+)\]$/.exec(b);
+      const fam = arb ? twFamily(arb[1]) : null;
+      if (fam) { f.font = f.font || tok; if (TW_MONO.test(fam)) f.mono = true; }
+      const named = !arb && /^font-([a-z][\w-]*)$/.exec(b);
+      const tv = named && twTokens(ctx)[`--font-${named[1]}`];
+      if (tv && /mono|courier|code/i.test(firstFamily(resolveVars(tv, twTokens(ctx))))) f.mono = true;
+      continue;
+    }
+    if (b === 'transition-all' || /^transition-\[[^\]]*\b(?:all|width|height|top|left|right|bottom|inset)\b/.test(b) || /^\[transition(?:-property)?:[^\]]*\b(?:all|width|height|top|left)\b/.test(b)) {
+      f.tAll = f.tAll || tok; f.transition = true;
+      continue;
+    }
+    if (/^transition(?:-transform)?$/.test(b)) { f.transition = true; if (b !== 'transition') f.transform = true; continue; }
+    if (b.startsWith('animate-')) {
+      if (b !== 'animate-none') f.animate = f.animate || tok;
+      if (b === 'animate-bounce') f.bounce = f.bounce || tok;
+      continue;
+    }
+    const ez = /^ease-\[cubic-bezier\(([^)]*)\)\]$/.exec(b);
+    if (ez) {
+      const n = ez[1].split(/[,_\s]+/).filter(Boolean).map(Number);
+      if (n.length === 4 && [n[1], n[3]].some((y) => y > 1.05 || y < -0.05)) f.overshoot = f.overshoot || tok;
+      continue;
+    }
+    if (/^(?:scale|translate|rotate|skew)-/.test(b)) {
+      f.transform = true;
+      if (hover && /^scale-/.test(b) && !/^scale-(?:[xy]-)?100$/.test(b)) f.hScale = f.hScale || tok;
+      if (hover && /^rotate-/.test(b) && b !== 'rotate-0') f.hRotate = f.hRotate || tok;
+      continue;
+    }
+    if (/^bg-(?:gradient-to-|linear-|radial|conic)|^bg-\[(?:repeating-)?(?:linear|radial|conic)-gradient/.test(b) || /^\[background(?:-image)?:[^\]]*gradient\(/.test(b)) f.grad = true;
+    const st = /^(?:from|via|to)-(.+)$/.exec(b);
+    if (st) { const s = twStop(ctx, st[1], tok); if (s) f.stops.push(s); continue; }
+    if (b === 'bg-clip-text' || /^\[(?:-webkit-)?background-clip:text\]$/.test(b)) { f.clip = true; continue; }
+    if (b === '[-webkit-text-fill-color:transparent]') { f.clear = true; continue; }
+    if (/^backdrop-blur(?:-|$)/.test(b) || /^\[(?:-webkit-)?backdrop-filter:[^\]]*blur/.test(b)) { f.bblur = f.bblur || tok; continue; }
+    const bl = /^blur-(?:(2xl|3xl)|\[(\d*\.?\d+)(px|rem)\])$/.exec(b);
+    if (bl) {
+      const px = bl[1] ? (bl[1] === '2xl' ? 40 : 64) : parseFloat(bl[2]) * (bl[3] === 'rem' ? 16 : 1);
+      if (px > f.blur) { f.blur = px; f.blurTok = tok; }
+      continue;
+    }
+    if (b === 'absolute' || b === 'fixed') { f.pos = f.pos || b; continue; }
+    if (b.startsWith('bg-')) {
+      const gm = TW_GLASS.exec(b);
+      if (gm) {
+        const v = gm[1].replace(/^\[|\]$/g, '');
+        const a = v.endsWith('%') ? parseFloat(v) / 100 : v.includes('.') ? parseFloat(v) : parseFloat(v) / 100;
+        if (a < 0.95) f.glass = f.glass || tok;
+      }
+      if (!TW_NONFILL.test(b)) f.fill = true;
+      continue;
+    }
+    if (b.startsWith('shadow-')) {
+      const sm = /^shadow-\[(.+)\]$/.exec(b);
+      if (sm) f.shadows.push({ v: sm[1], tok });
+      else if (!/^shadow-(?:2xs|xs|sm|md|lg|xl|2xl|inner|none)$/.test(b)) f.shadowCol = f.shadowCol || b.slice(7);
+      continue;
+    }
+    if (/^(?:min-)?h-(?:screen|\[[^\]]*\d\s*vh[^\]]*\])$/.test(b)) { f.vh = f.vh || tok; continue; }
+    if (b === 'overflow-x-hidden') { f.oxHidden = f.oxHidden || tok; continue; }
+    if (b === 'overflow-x-clip' || b === 'overflow-clip') { f.oxClip = true; continue; }
+    if (/^rounded(?:-|$)/.test(b)) { if (b !== 'rounded-none') f.rounded = true; continue; }
+    if (b === 'grid-cols-3') { f.cols3 = true; continue; }
+    if (/^p[xytrblse]?-/.test(b)) { f.padded = true; continue; }
+    if (b.startsWith('caret-')) { f.caret = true; continue; }
+    if (b.startsWith('scrollbar') || b.startsWith('[scrollbar-')) f.scrollbar = true;
+  }
+  if (f.size == null) f.size = sizeV;
+  let emV = null;
+  for (const { r, plain } of tracks) {
+    const em = r.em != null ? r.em : r.px / (f.size || 16);
+    if (plain) f.em = em; else emV = emV == null ? em : Math.max(emV, em);
+  }
+  if (f.em == null) f.em = emV;
+  return f;
+}
+
+const TW_CLASS_ATTR = /(?:^|\s)(class|className|:class|v-bind:class|x-bind:class|class:list)\s*=\s*/g;
+function twInterp(val) {
+  const parts = [];
+  let i = 0, seg = '', after = false;
+  while (i < val.length) {
+    if (val[i] === '{') {
+      parts.push(cutGlued(seg, after, true));
+      const e = braceEnd(val, i);
+      parts.push(clsLits(val.slice(i + 1, e)).join(' '));
+      i = e + 1; seg = ''; after = true;
+      continue;
+    }
+    seg += val[i++];
+  }
+  parts.push(cutGlued(seg, after, false));
+  return parts.join(' ').split(/\s+/).filter(Boolean);
+}
+function twTokensOf(doc, t) {
+  if (doc.classAt) return doc.classAt.get(t.pos) || [];
+  const tag = (doc.raw || doc.src).slice(t.pos, t.end);
+  if (!tag.includes('class')) return [];
+  const out = [];
+  for (const m of tag.matchAll(TW_CLASS_ATTR)) {
+    const i = m.index + m[0].length;
+    const q = tag[i];
+    let val, dyn = m[1] !== 'class' && m[1] !== 'className';
+    if (q === '"' || q === "'") { const e = tag.indexOf(q, i + 1); val = tag.slice(i + 1, e < 0 ? tag.length : e); }
+    else if (q === '{') { val = tag.slice(i + 1, braceEnd(tag, i)); dyn = true; }
+    else val = (/^[^\s>]*/.exec(tag.slice(i)) || [''])[0];
+    if (dyn) out.push(...clsLits(val));
+    else if (val.includes('{')) out.push(...twInterp(val));
+    else out.push(...val.split(/\s+/));
+  }
+  for (const d of tag.matchAll(/(?:^|\s)class:(?!list\b)([\w-]+)/g)) out.push(d[1]);
+  return out.filter(Boolean);
+}
+
+function twFrame(parent, t, f, toks) {
+  const logo = toks.some((x) => TW_LOGO.test(x)) || TW_LOGO.test(getAttr(t.attrs, 'aria-label') || '');
+  return {
+    size: f && f.size != null ? f.size : parent.size,
+    em: f && f.em != null ? f.em : parent.em,
+    upper: f ? f.upper || (!f.normalCase && parent.upper) : parent.upper,
+    caps: (f && f.caps) || parent.caps,
+    noLabel: parent.noLabel || /^(?:svg|pre|code|abbr|kbd|samp)$/.test(t.name),
+    code: parent.code || /^(?:pre|code|kbd|samp)$/.test(t.name),
+    eyeSkip: parent.eyeSkip || EYEBROW_ANCESTOR_SKIP.test(t.name),
+    inOl: parent.inOl || t.name === 'ol',
+    logo: parent.logo || (t.name === 'a' && logo),
+    logoSelf: logo,
+  };
+}
+
+function twGroup(ctx) {
+  if (ctx._tw) return ctx._tw;
+  const tw = { items: [], variants: new Set(), caret: false, scrollbar: false, motion: null, upperDisplay: false };
+  ctx._tw = tw;
+  const add = (it) => {
+    const f = it.info;
+    tw.items.push(it);
+    if (f.caret) tw.caret = true;
+    if (f.scrollbar) tw.scrollbar = true;
+    if (!tw.motion && (f.animate || (f.transition && f.transform))) tw.motion = it;
+    if (/^h[12]$/.test(it.name) && f.upper) tw.upperDisplay = true;
+  };
+  for (const doc of ctx.docs) {
+    const stack = [];
+    for (let i = 0; i < doc.tags.length; i++) {
+      const t = doc.tags[i];
+      if (t.close) { stack.pop(); continue; }
+      const parent = stack.length ? stack[stack.length - 1] : TW_ROOT;
+      const toks = twTokensOf(doc, t);
+      const info = toks.length ? twInfo(ctx, toks, tw) : null;
+      const frame = twFrame(parent, t, info, toks);
+      if (info) add({ doc, idx: i, name: t.name, attrs: t.attrs, line: t.line, toks, info, frame });
+      if (!t.selfClosing) stack.push(frame);
+    }
+    for (let c = 0; c < doc.comps.length; c++) {
+      const t = doc.comps[c];
+      if (t.close) continue;
+      const toks = twTokensOf(doc, t);
+      if (!toks.length) continue;
+      const info = twInfo(ctx, toks, tw);
+      add({ doc, idx: -1, comp: c, name: t.name, attrs: t.attrs, line: t.line, toks, info, frame: twFrame(TW_ROOT, t, info, toks) });
+    }
+    for (const v of doc.virtuals || []) {
+      const info = twInfo(ctx, v.toks, tw);
+      add({ doc, idx: -1, virtual: true, name: v.name, attrs: '', line: doc.lineOf(v.pos), toks: v.toks, info, frame: twFrame(TW_ROOT, { name: v.name, attrs: '' }, info, v.toks) });
+    }
+  }
+  return tw;
+}
+
+function twWhere(it) {
+  return it.virtual ? `${it.name}() class string` : `<${it.name} class="${trunc(it.toks.join(' '), 32)}">`;
+}
+
+function compInner(doc, c) {
+  const open = doc.comps[c];
+  if (open.selfClosing) return '';
+  let depth = 1;
+  for (let i = c + 1; i < doc.comps.length; i++) {
+    const t = doc.comps[i];
+    if (t.name !== open.name || t.selfClosing) continue;
+    if (!t.close) depth++;
+    else if (--depth === 0) return doc.src.slice(open.end, t.pos);
+  }
+  return '';
+}
+
+function twPlain(doc, html) {
+  let s = html;
+  if (doc.kind !== 'html' && doc.kind !== 'jsx') for (let k = 0; k < 3 && /\{[^{}]*\}/.test(s); k++) s = s.replace(/\{[^{}]*\}/g, ' ');
+  return plainText(s);
+}
+
+function twText(it) {
+  if (it.text == null) {
+    let inner = '';
+    if (it.idx >= 0) inner = innerOf(it.doc, it.idx)?.inner || '';
+    else if (it.comp != null) inner = compInner(it.doc, it.comp);
+    it.text = twPlain(it.doc, inner);
+  }
+  return it.text;
+}
+
+function closeIndex(doc, idx) {
+  if (doc.tags[idx].selfClosing) return idx;
+  let depth = 1;
+  for (let i = idx + 1; i < doc.tags.length; i++) {
+    const t = doc.tags[i];
+    if (t.selfClosing) continue;
+    if (!t.close) depth++;
+    else if (--depth === 0) return i;
+  }
+  return doc.tags.length - 1;
+}
+
+function twGradient(ctx, f) {
+  if (!f.stops.length || (!f.grad && f.stops.length < 2)) return null;
+  const names = f.stops.filter((s) => s.pal).map((s) => s.pal);
+  let banned = null;
+  for (const a of names) {
+    if (!TW_PURPLE.test(a)) continue;
+    if (names.some((x) => x !== a && TW_BLUE.test(x))) { banned = 'purple-to-blue'; break; }
+    if (names.some((x) => x !== a && TW_PINK.test(x))) { banned = 'purple-to-pink'; break; }
+  }
+  if (!banned) banned = bannedGradient(f.stops.map((s) => s.hue).filter((h) => h != null), { tokens: twTokens(ctx) });
+  return { banned, text: f.clip && f.clear, list: f.stops.map((s) => s.tok).join(' ') };
+}
+
+function twGlow(ctx, f) {
+  const tokens = twTokens(ctx);
+  for (const s of f.shadows) {
+    for (const part of splitTop(resolveVars(s.v.replace(/_/g, ' '), tokens))) {
+      const cm = COLOR_RE.exec(part);
+      const lens = (cm ? part.replace(cm[0], ' ') : part).replace(/\binset\b/, ' ').trim().split(/\s+/).filter(Boolean).map(lengthPx);
+      if (lens.length < 3 || lens[0] !== 0 || lens[1] !== 0 || lens[2] == null || lens[2] < 8) continue;
+      let chroma = 0;
+      if (cm) {
+        const c = parseColor(cm[0]);
+        if (c && c.alpha > 0.05) chroma = (c.okl || srgbToOklch(c)).C;
+      } else if (f.shadowCol) {
+        const name = f.shadowCol.replace(/\/\S*$/, '');
+        const pm = TW_SHADE.exec(name);
+        const tv = tokens[`--color-${name}`];
+        chroma = pm ? (TW_GREY.test(pm[1]) ? 0 : 0.2) : tv ? (twHue(parseColor(resolveVars(tv, tokens).trim())) != null ? 0.2 : 0) : 0;
+      }
+      if (chroma > 0.04) return `glow: ${s.tok}${cm ? '' : ` with shadow-${f.shadowCol}`}`;
+    }
+  }
+  return null;
+}
+
+function twDataText(s) {
+  const t = s.trim();
+  const letters = (t.match(/[A-Za-z]/g) || []).length;
+  const digits = (t.match(/\d/g) || []).length;
+  if (digits >= letters) return true;
+  if (/^v?\d+(?:\.\d+)+/.test(t) || /[⌘⌥⇧⌃⎋↵]|^(?:ctrl|cmd|alt|shift|option)\s*[+-]/i.test(t)) return true;
+  if (/[{}();=<>]|^\$\s|^(?:npm|npx|pnpm|yarn|bun|git|curl|cd|ls|brew|pip|docker|node) |^--?[a-z]|[\w-]+\.[a-z][a-z0-9]{0,3}$|^[#.]?[a-z]+(?:[-_][a-z0-9]+)+$|^[a-z]+[A-Z]\w*$|^\/[\w/.-]*$|^https?:/.test(t)) return true;
+  return digits > 0 && /^(?:\d{1,2}:\d{2}|(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+\d)/i.test(t);
+}
+
+function tw67(it, tw) {
+  const f = it.info, fr = it.frame;
+  if (!(f.upper || f.caps || (f.em != null && f.em > 0.03))) return null;
+  if (fr.logo || fr.logoSelf || fr.noLabel) return null;
+  const size = fr.size, em = fr.em;
+  if ((size != null && size >= 24) || (size == null && /^h[1-6]$/.test(it.name))) return null;
+  const caps = fr.upper || fr.caps;
+  const small = size != null && size <= 15;
+  const tracked = em != null && em > 0.03;
+  const control = /^(?:button|input)$/.test(it.name) || /(?:button|btn|cta)$/i.test(it.name) || (it.name === 'a' && f.fill && f.padded) || /role\s*=\s*["']?button/i.test(it.attrs);
+  if (tw.upperDisplay && control && (em == null || em <= 0.04)) return null;
+  if (!((caps && (small || tracked)) || (tracked && small))) return null;
+  return { what: fr.caps ? 'small caps' : fr.upper ? 'uppercase' : 'letter-spaced', size, em: tracked ? Math.round(em * 1000) / 1000 : null };
+}
+
+function tw54(it) {
+  const f = it.info, fr = it.frame, doc = it.doc;
+  if (it.idx < 0 || !/^(?:p|span|div|small)$/.test(it.name) || fr.eyeSkip) return null;
+  if (!(f.upper || (f.em != null && f.em > 0.03) || f.accent)) return null;
+  if (fr.size == null || fr.size > 14) return null;
+  const t = doc.tags[it.idx];
+  if (/role\s*=\s*["']?status|aria-live|aria-current|aria-hidden\s*=\s*["']?true/i.test(t.attrs)) return null;
+  const c = closeIndex(doc, it.idx);
+  const nx = doc.tags[c + 1];
+  if (!nx || nx.close || !/^h[1-3]$/.test(nx.name)) return null;
+  const inner = c > it.idx ? doc.src.slice(t.end, doc.tags[c].pos) : '';
+  if (EYEBROW_BLOCKY.test(inner) || /<br\b|<time\b/i.test(inner)) return null;
+  const href = /<a\b[^>]*\shref\s*=\s*["']([^"']*)["']/i.exec(inner);
+  if (href && !/^#?$/.test(href[1].trim())) return null;
+  const text = twPlain(doc, inner);
+  const signal =[f.upper ? 'uppercase' : null, f.em != null && f.em > 0.03 ? `tracked ${Math.round(f.em * 1000) / 1000}em` : null, f.accent].filter(Boolean).join(', ');
+  if (!text) return doc.kind !== 'html' && c > it.idx && (doc.raw || '').slice(t.end, doc.tags[c].pos).includes('{') ? { text: '', next: nx.name, signal } : null;
+  const words = text.split(/[\s·/|\u2014\u2013]+/).filter(Boolean);
+  if (words.length > 7 || text.length > 56 || /[\w/-]+\.[a-z]{1,4}$/i.test(text)) return null;
+  const stripped = text.replace(/^\s*(?:no\.?\s*)?\d{1,3}(?:\s*[·./\u2014\u2013-]\s*|\s+|$)/i, '').trim();
+  if ((stripped.match(/\d/g) || []).length >= 2) return null;
+  if (fr.inOl && stripped && !EYEBROW_ANNOUNCE.test(stripped)) return null;
+  return { text, next: nx.name, signal };
+}
+
+function twTiles(it, byIdx) {
+  const doc = it.doc;
+  let tiles = 0;
+  for (const k of directChildren(doc, it.idx)) {
+    if (!/<h3\b/i.test(k.html)) continue;
+    const end = closeIndex(doc, k.idx);
+    for (let j = k.idx + 1; j < end; j++) {
+      const t = doc.tags[j];
+      if (t.close) continue;
+      if (/^h[1-6]$/.test(t.name)) break;
+      const ti = byIdx.get(j);
+      if (!ti || !ti.info.rounded || !ti.info.fill) continue;
+      const inner = innerOf(doc, j);
+      if (inner && /<svg\b|<[A-Z][\w.]*Icon\b|<Icon\b|<i\b[^>]*class/.test(inner.inner) && !twPlain(doc, inner.inner)) { tiles++; break; }
+    }
+  }
+  return tiles;
+}
+
+function checkTailwind(ctx) {
+  const tw = twGroup(ctx);
+  if (!tw.items.length) return;
+  const had = (gate, doc, line) => findings.some((x) => x.gate === gate && x.file === rel(doc.file) && x.line === line);
+  const monoOk = monoIsMaterial({ tokens: twTokens(ctx) });
+  const byDoc = new Map();
+  for (const it of tw.items) {
+    if (!byDoc.has(it.doc)) byDoc.set(it.doc, []);
+    byDoc.get(it.doc).push(it);
+    const { doc, info: f } = it;
+    const at = (gate, grade, ev, fix) => report(gate, grade, doc.file, it.line, ev, fix);
+    const where = twWhere(it);
+    if (f.tAll) at('10a', 'FAIL', `${f.tAll} on ${where}`, 'Name the properties: transition-colors, transition-opacity or transition-transform');
+    if (f.bounce || f.overshoot) at(12, 'FAIL', `${f.bounce ? 'bounce' : 'overshoot easing'} ${f.bounce || f.overshoot} on ${where}`, 'Exponential ease-out on UI state; no bounce or overshoot');
+    const g = twGradient(ctx, f);
+    if (g && g.banned) at('2a', 'FAIL', `${g.banned} gradient${g.text ? ' text' : ''} (${g.list}) on ${where}`, 'One anchor hue, solid ink');
+    else if (g && g.text) at('2b', 'FAIL', `gradient text (${g.list}) on ${where}`, 'Solid ink; weight or a display face. Guard: a single-hue ramp from two tokens with 40 and 41 passing');
+    const g29 = f.bblur && f.glass ? `glass: ${f.bblur} over ${f.glass}`
+      : f.blur >= 40 && f.pos && (f.fill || f.grad || f.stops.length) ? `blurred orb: ${f.blurTok} on a filled ${f.pos} element`
+        : twGlow(ctx, f);
+    if (g29) at(29, 'WARN', `${g29} on ${where}`, 'Solid or grained surface; elevation by lightness, shadows with offset and blur');
+    if (f.colours.length || f.font) {
+      const what = [f.colours.length ? `colour literal ${f.colours[0].tok}` : null, f.font ? `font-family literal ${f.font}` : null].filter(Boolean).join(' and ');
+      at(48, f.font || f.colours.some((c) => !c.oklch) ? 'FAIL' : 'WARN', `${what} in a class on ${where}`, 'Lift the value into the token block (@theme or :root) and use its utility name');
+    }
+    if ((f.hScale || f.hRotate) && /^(?:img|picture|image)$/i.test(it.name)) at(11, 'WARN', `${f.hScale || f.hRotate} on ${where}: the image moves on hover`, 'Imagery sits still; give the container the feedback');
+    const t67 = tw67(it, tw);
+    if (t67 && !had('67', doc, it.line)) {
+      const text = it.virtual ? '' : twText(it);
+      at(67, 'FAIL', `${text ? `"${trunc(text, 24)}" ` : ''}${t67.what}${t67.size != null ? ` at ${t67.size}px` : ''}${t67.em != null ? ` tracked ${t67.em}em` : ''} on ${where}`, 'Sentence case in the body face, a step smaller, untracked: drop uppercase and the tracking-* class');
+    }
+    const e54 = tw54(it);
+    if (e54 && !had('54', doc, it.line)) {
+      at(54, 'FAIL', `eyebrow ${e54.text ? `"${trunc(e54.text, 24)}" ` : ''}before <${e54.next}> (${e54.signal} at ${it.frame.size}px)`, 'Cut it; open the section another way (craft.md, Opening a section)');
+    }
+    if (!monoOk && f.mono && !it.virtual && !it.frame.code && !/^(?:code|pre|kbd|samp|time|var)$/.test(it.name) && it.frame.size != null && it.frame.size <= 14) {
+      const text = twText(it);
+      if (/[A-Za-z]/.test(text) && !twDataText(text)) at(64, 'FAIL', `font-mono on "${trunc(text, 24)}" at ${it.frame.size}px (${where})`, 'Labels in the body face at a smaller size and normal case; font-mono only for code and figures');
+    }
+  }
+  for (const [doc, list] of byDoc) {
+    const pal = new Map();
+    let palAt = null;
+    for (const it of list) for (const p of it.info.pal) if (!pal.has(p)) { pal.set(p, it); if (pal.size === 5) palAt = it; }
+    if (palAt) report(65, 'WARN', doc.file, palAt.line, `default palette instead of theme tokens: ${pal.size} distinct palette classes (${[...pal.keys()].slice(0, 4).join(' ')})`, 'Extend the Tailwind theme with the Hallmark tokens and use those names');
+    const scaled = list.filter((it) => it.info.hScale);
+    if (scaled.length >= 3) report(11, 'WARN', doc.file, scaled[2].line, `hover scale on ${scaled.length} elements in this file (${scaled.slice(0, 3).map((it) => it.info.hScale).join(', ')})`, 'One hover signal per element; not every card grows');
+    const first = new Set(['section', 'header'].map((n) => doc.tags.findIndex((t) => !t.close && t.name === n)).filter((x) => x >= 0));
+    const byIdx = new Map();
+    for (const it of list) if (it.idx >= 0) byIdx.set(it.idx, it);
+    for (const it of list) {
+      if (it.info.vh && !it.virtual && (first.has(it.idx) || it.info.hero)) report('6a', 'FAIL', doc.file, it.line, `hero sized in vh: ${it.info.vh} on ${twWhere(it)}`, 'min-h-dvh or min-h-svh');
+      if (it.info.cols3 && it.idx >= 0) {
+        const n = twTiles(it, byIdx);
+        if (n >= 3) report(3, 'WARN', doc.file, it.line, `icon-tile row: ${n} children of ${twWhere(it)} open on an icon in a rounded filled tile above an h3`, 'Vary column widths or drop the icon tiles');
+      }
+    }
+  }
+}
+
+const EMOJI_ICON = /(?![©®™‼⁉←-⇿])\p{Extended_Pictographic}/u;
+function checkComponentText(ctx) {
+  for (const doc of ctx.docs) {
+    for (let c = 0; c < doc.comps.length; c++) {
+      const t = doc.comps[c];
+      if (t.close || t.selfClosing) continue;
+      const inner = compInner(doc, c);
+      if (!inner || /<(?:p|div|li|section|article|ul|ol|table)\b/i.test(inner)) continue;
+      const text = twPlain(doc, inner);
+      if (!text) continue;
+      if (/(?:link|button|btn|cta)$/i.test(t.name) && /(→|->|›|»|⟶)\s*$/.test(text)) report(63, 'FAIL', doc.file, t.line, `arrow glued to the label "${trunc(text, 40)}" (<${t.name}>)`, 'A verb as the label; the link already says it goes somewhere');
+      if ((text.match(/\s[·•]\s/g) || []).length >= 2) report(63, 'FAIL', doc.file, t.line, `middle-dot meta string "${trunc(text, 50)}"`, 'Line breaks, columns or hairlines; one dot in a byline at most');
+      if (text.length <= 4 && EMOJI_ICON.test(text)) report('30a', 'FAIL', doc.file, t.line, `emoji icon "${text}" in <${t.name}>`, 'One icon library or custom SVG');
+    }
+  }
+}
+
 const CHECKS = [check1, check2, check3, check3Stripe, check4, check6a, check7, check10, check10Motion, check11,
   check12, check15, check17, check18, check19, check20, check22, check23, check24, check24a,
   check25, check26, check27, check28, check30, check33, check34, check37, check38a,
   check39, check40_41, check42, check42Footer, check46, check47, check48, check49,
   check50, check50Wrap, check53, check54, check55, check56, checkCopyTell, check62, check63, check64, check65, check67, check38c,
   check19Tells, check58Static, check42TwoButton, check47Placeholders, check65Tailwind, check29Glow, check11Lift, check15Fade,
-  checkF1, checkF2, checkF3, checkF4, checkF5, checkF6, checkF7, checkF7Pills, checkF8, checkF9, checkF15, checkF16];
+  checkF1, checkF2, checkF3, checkF4, checkF5, checkF6, checkF7, checkF7Pills, checkF8, checkF9, checkF15, checkF16,
+  checkTailwind, checkComponentText];
 
 const files = opts.paths.length ? collectFiles(opts.paths) : [];
-if (!files.length && !opts.urls.length) { console.error('sloplint: no .html or .css files found'); process.exit(2); }
+if (!files.length && !opts.urls.length) { console.error('sloplint: no .html, .css, .jsx, .tsx, .vue, .svelte or .astro files found'); process.exit(2); }
 
 const groups = new Map();
 for (const f of files) {
@@ -2678,8 +3607,47 @@ function linksOf(doc, from) {
   return out;
 }
 
+const projectRoots = new Map();
+function projectRoot(dir) {
+  if (projectRoots.has(dir)) return projectRoots.get(dir);
+  const up = dirname(dir);
+  const root = existsSync(join(dir, 'package.json')) ? dir : up === dir ? null : projectRoot(up);
+  projectRoots.set(dir, root);
+  return root;
+}
+function shareProjects(contexts) {
+  const byRoot = new Map();
+  for (const [dir, ctx] of contexts) {
+    const root = projectRoot(dir);
+    if (!root) continue;
+    if (!byRoot.has(root)) byRoot.set(root, []);
+    byRoot.get(root).push(ctx);
+  }
+  for (const list of byRoot.values()) {
+    const parts = list.filter((c) => !c.cssFiles.length && c.docs.length && c.docs.every((d) => d.kind !== 'html'));
+    if (!parts.length || parts.length === list.length) continue;
+    const tokens = {};
+    const shared = { focus: false, active: false, disabled: false, prm: false, once: new Set() };
+    for (const c of list) {
+      Object.assign(tokens, c.tokens);
+      const tv = twGroup(c).variants;
+      const sel = (re) => c.rules.some((r) => re.test(r.selector));
+      shared.focus = shared.focus || sel(/:focus/) || [...tv].some((v) => /^focus/.test(v));
+      shared.active = shared.active || sel(/:active/) || tv.has('active');
+      shared.disabled = shared.disabled || sel(/:disabled|\[disabled\]|aria-disabled/) || tv.has('disabled') || tv.has('aria-disabled');
+      shared.prm = shared.prm || /prefers-reduced-motion/i.test(stripComments(c.allCss)) || tv.has('motion-reduce') || tv.has('motion-safe');
+    }
+    for (const c of list) c.shared = shared;
+    for (const c of parts) {
+      c.twTok = { ...tokens, ...c.tokens };
+      c._tw = null;
+    }
+  }
+}
+
 const waiversByDir = new Map();
 const postureByFile = {};
+const contexts = [];
 for (const [dir, g] of groups) {
   const cssFiles = [];
   const rules = [];
@@ -2694,7 +3662,11 @@ for (const [dir, g] of groups) {
   }
   for (const f of g.html) {
     const raw = readFileSync(f, 'utf8');
-    const doc = parseHtml(f, raw);
+    let doc;
+    try { doc = parseDoc(f, raw); } catch (e) {
+      console.error(`sloplint: skipped ${rel(f)}, it could not be parsed (${e.message})`);
+      continue;
+    }
     docs.push(doc);
     for (const s of doc.styles) {
       rules.push(...parseCss(s.css, f, s.lineOffset));
@@ -2723,7 +3695,10 @@ for (const [dir, g] of groups) {
   const allCss = cssFiles.map((c) => c.raw).join('\n') + '\n'
     + docs.map((d) => d.styles.map((s) => s.css).join('\n')).join('\n');
   const tokensOnly = !docs.length && rules.length > 0 && rules.every(isTokenRule);
-  const ctx = { rules, tokens: buildTokens(rules), docs, cssFiles, genre: opts.genre, stampText, allCss, posture, tokensOnly };
+  contexts.push([dir, { rules, tokens: buildTokens(rules), docs, cssFiles, genre: opts.genre, stampText, allCss, posture, tokensOnly }]);
+}
+shareProjects(contexts);
+for (const [dir, ctx] of contexts) {
   applyWaivers(ctx, dir);
   waiversByDir.set(dir, { WAIVED, ANSWERED });
   for (const check of CHECKS) {

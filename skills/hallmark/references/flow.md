@@ -90,7 +90,7 @@ Codex: batch a page's files into one patch so a dev server reloads once; never s
 
 ## Framework projects
 
-A Next.js, Astro, SvelteKit or Vite project renders through its dev server, not from a file: start it, then point the render tier at the route, `sloplint <changed css and markup files> --render --url http://localhost:<port>/<route>` (and `--stage hero` for the hero review). The static tier reads the stylesheets and the component markup it is given; the render tier reads the page the browser builds. Without a running server, say so and run the static tier alone.
+A Next.js, Astro, SvelteKit or Vite project renders through its dev server, not from a file: start it, then point the render tier at the route, `sloplint <changed files or folders> --render --url http://localhost:<port>/<route>` (and `--stage hero` for the hero review). The static tier reads `.jsx`, `.tsx`, `.vue`, `.svelte` and `.astro` files as well as stylesheets: their markup, their copy and their Tailwind class strings, so `uppercase tracking-widest text-xs` on a label, `transition-all`, `min-h-screen` on a hero, a purple-to-blue `from-` and `to-` pair or `bg-[#hex]` fail the same gates their CSS would. A component folder borrows its project's global stylesheet for the facts it cannot hold (focus rings, reduced motion). Without a running server, say so and run the static tier alone.
 
 ## Output contract
 

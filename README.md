@@ -76,7 +76,7 @@ When the user asks for **custom** ("derive it", "bespoke", "no theme"), Hallmark
 
 ## One skill, three harnesses
 
-The same SKILL.md, references, gates and scripts run in **Claude Code**, **Codex CLI** and **OpenCode**; [`flow.md`](skills/hallmark/references/flow.md) § Harnesses carries the per-harness tuning. The mechanically checkable gates live in a zero-dependency checker:
+The same SKILL.md, references, gates and scripts run in **Claude Code**, **Codex CLI** and **OpenCode**; [`flow.md`](skills/hallmark/references/flow.md) § Harnesses carries the per-harness tuning. The mechanically checkable gates live in a zero-dependency checker that reads HTML and CSS, React, Vue, Svelte and Astro components and their Tailwind classes, and with `--render` the page itself at seven widths (or a running dev server with `--url`):
 
 ```
 node skills/hallmark/scripts/sloplint.mjs <file-or-dir> --genre <genre> --render

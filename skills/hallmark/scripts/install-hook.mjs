@@ -54,4 +54,4 @@ settings.hooks.PostToolUse.push(hookEntry);
 mkdirSync(dirname(settingsPath), { recursive: true });
 writeFileSync(settingsPath, JSON.stringify(settings, null, 2) + "\n");
 console.log(`installed the Hallmark edit-time lint hook into ${settingsPath}`);
-console.log(`it lints .html/.css Hallmark artifacts on write and advises (never blocks). Remove with --remove.`);
+console.log(`it lints Hallmark .html and .css files, and .jsx, .tsx, .vue, .svelte and .astro files inside a project with a .hallmark folder, on write; it advises and never blocks. Remove with --remove.`);

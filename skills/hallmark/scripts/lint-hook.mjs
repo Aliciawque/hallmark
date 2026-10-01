@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -14,11 +14,14 @@ function main() {
   const filePath = payload?.tool_input?.file_path;
   if (typeof filePath !== "string" || !filePath) return OK();
   const lower = filePath.toLowerCase();
-  if (!lower.endsWith(".html") && !lower.endsWith(".css")) return OK();
+  const markup = /\.(html|css)$/.test(lower);
+  const component = /\.(jsx|tsx|vue|svelte|astro)$/.test(lower);
+  if (!markup && !component) return OK();
   let src = "";
   try { src = readFileSync(filePath, "utf8"); } catch { return OK(); }
   if (src.length === 0) return OK();
-  const looksHallmark = /\/\*\s*Hallmark/.test(src);
+  const inHallmarkProject = () => { let d = dirname(filePath); for (let i = 0; i < 8; i++) { if (existsSync(join(d, ".hallmark"))) return true; const up = dirname(d); if (up === d) break; d = up; } return false; };
+  const looksHallmark = markup ? /\/\*\s*Hallmark/.test(src) : inHallmarkProject();
   if (!looksHallmark) return OK();
   const gm = src.match(/genre:\s*(editorial|modern-minimal|atmospheric|playful)/i);
   const args = [filePath, "--json", "--tier", "floor"];

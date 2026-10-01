@@ -44,6 +44,8 @@ function parseHeader(src, file) {
     accent: { band: aband, hue: Number(ahue) },
     keywords: h.keywords.split(',').map((s) => s.trim().toLowerCase()).filter(Boolean),
     material: h.material, signature: h.signature, file: `references/themes/${basename(file)}`,
+    ...(h.pictured ? { pictured: h.pictured } : {}),
+    ...(existsSync(join(THEMES, basename(file).replace(/\.md$/, '.jpg'))) ? { picture: `references/themes/${basename(file).replace(/\.md$/, '.jpg')}` } : {}),
   };
 }
 
@@ -134,7 +136,7 @@ function deal() {
   console.log(`deal: ${seedKey} · genre ${genre}${reroll ? ` · reroll ${reroll}` : ''}`);
   picked.forEach((s, i) => {
     const why = s.hits.length ? `fits: ${s.hits.slice(0, 4).join(', ')}` : (s.t.genre === genre ? 'genre fit' : 'adjacent genre');
-    console.log(`${i + 1}. ${s.t.name} · ${triple(s.t)} · ${s.t.material} · ${why} · ${s.t.file}`);
+    console.log(`${i + 1}. ${s.t.name} · ${triple(s.t)} · ${s.t.material} · ${why} · ${s.t.file}${s.t.picture ? ` + ${s.t.picture}` : ''}`);
   });
   if (recent.length) console.log(`avoid: ${recent.map((r) => `${r.theme || '?'} (${r.axes || 'no axes'})`).join(' · ')}`);
   else console.log('avoid: nothing logged yet (first run for this project)');
@@ -250,6 +252,10 @@ function scaffold() {
     ? `/* Hallmark · shape: <shape> · genre: <genre> · custom: draw n/7 (seed <slug>·<date>·r0)\n * hero: <posture> · nav: <shape> · footer: <shape> · enrichment: <none or the file> · signature: <the one move>\n * axes: <paper>/<display>/<accent> · posture: <posture> · contrast: pass · fold: pass · v${VERSION} */`
     : `/* Hallmark · shape: <shape> · genre: ${header.genre} · theme: ${name} (deal n/3, seed <from the deal>)\n * hero: <posture> · nav: <shape> · footer: <shape> · enrichment: <none or the file> · signature: <the one move>\n * axes: ${triple(header)} · posture: ${header.posture} · contrast: pass · fold: pass · v${VERSION} */`;
   console.log(`wrote ${out} (${custom ? 'the shared scale; fill every --color-* and --font-* from direction.md § B and § C before building' : `${name} tokens plus the shared scale`})`);
+  if (!custom) {
+    const pic = join(THEMES, `${slug}.jpg`);
+    if (existsSync(pic)) console.log(`look at ${pic}: the material at full size${header.pictured ? `, from a page built as ${header.pictured}` : ''}. Take its scale, density and objects; build a different hero and a different section order.`);
+  }
   console.log('');
   console.log('paste under the stamp, before any rule of your own:');
   console.log('');

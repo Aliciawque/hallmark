@@ -11,7 +11,7 @@ Every gate carries a **tier**, which says whether you may disagree with it:
 - **Finish.** Craft detail, invisible at arm's length. Reported, answered, never blocks a ship. These are the F-checks.
 - **Ledger.** Bookkeeping about repetition (32). Reports at `NOTE`, never counts toward the verdict.
 
-**Class** says who can check it: **M** mechanical (sloplint), **M/R** static half plus the render tier (`--render`, which SKILL.md runs at the hero stage and at Step 7; `--url` renders a running dev server), **R/J** render or judge, **J** judged at Step 7 by the model. When sloplint has run, walk only the J and R/J gates plus the judged halves of M/R gates; re-litigating what the script passed is wasted judgement.
+**Class** says who can check it: **M** mechanical (sloplint, in CSS and in markup, including Tailwind utilities in `.jsx`, `.tsx`, `.vue`, `.svelte` and `.astro` files), **M/R** static half plus the render tier (`--render`, which SKILL.md runs at the hero stage and at Step 7; `--url` renders a running dev server), **R/J** render or judge, **J** judged at Step 7 by the model. When sloplint has run, walk only the J and R/J gates plus the judged halves of M/R gates; re-litigating what the script passed is wasted judgement.
 
 **Grades:** `FAIL` (Floor, nothing ships) · `REFLEX` (unanswered Reflex, fix or waive) · `WAIVED` (guard satisfied, visible) · `WARN` (suspected, confirm or dismiss) · `ANSWERED` (Finish finding with a recorded reason) · `NOTE` (bookkeeping). `FAIL` and `REFLEX` report separately so "0 FAIL" stays a true statement about the Floor.
 
