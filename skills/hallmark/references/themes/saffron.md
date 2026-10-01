@@ -49,7 +49,7 @@ Three colourways, set once per page and named in the stamp (`saffron: lot`).
 - 1px ink rules: under a nav, under section heads, between table rows and as the left edge of a column. No borders on plates; a plate is a cream rectangle on saffron, or a saffron one on cream.
 - Zero radius and no shadow. Depth is a step of saffron: `--color-paper-2` for a band, `--color-paper-3` for the giant letter.
 - The giant letterform: one italic character (a letter of the name, an ampersand) at 600 to 1200px in `--color-paper-3`, positioned past a section's edge and cropped by it, `pointer-events: none`. One per page.
-- Numbered plates: cream rectangles carrying a two-digit figure in the roman at 700 and an italic title; a plate may be black with saffron type.
+- Numbered plates: cream rectangles carrying a two-digit figure in the roman at 700 and an italic title; a plate may be black with saffron type. Plates waiting for their garments are slots by design: stamp `waive 68` and say whose they are.
 - The cloth placeholder: a 162deg linear gradient from pale straw to saffron with a 1px thread grid at 3.5% ink drawn over it and a bold roman figure in its corner. Never a photo of nothing.
 - The control pair: an ink-filled square button beside a 1px-inset outlined one, both Hanken Grotesk 500 at 13px, sentence case; inline links are underlined by a 1px bottom border in the text colour.
 

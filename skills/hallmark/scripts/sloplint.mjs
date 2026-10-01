@@ -2916,14 +2916,15 @@ function check68(ctx) {
       if (inner && /<img\b[^>]*\bsrc\s*=\s*["'][^"']+["']/i.test(inner.inner)) continue;
       slots.push({ i, t, parent: (doc.parentOf ? doc.parentOf(i) : null) });
     }
-    if (slots.length > 3) report(68, 'FAIL', doc.file, slots[3].t.line, `${slots.length} empty slots on one page`, 'Two or three slots carry a page; set the rest in type, names and facts in a list or table');
+    if (slots.length > 5) report(68, 'FAIL', doc.file, slots[5].t.line, `${slots.length} empty slots on one page`, 'Two to four slots carry a page; set the rest in type, names and facts in a list or table');
     const byRun = new Map();
     for (const sl of slots) {
       let depth = 0, parentIdx = -1;
       for (let k = sl.i - 1; k >= 0; k--) { const t = doc.tags[k]; if (t.selfClosing) continue; if (t.close) depth++; else if (depth === 0) { parentIdx = k; break; } else depth--; }
-      let gp = -1; depth = 0;
-      for (let k = parentIdx - 1; k >= 0; k--) { const t = doc.tags[k]; if (t.selfClosing) continue; if (t.close) depth++; else if (depth === 0) { gp = k; break; } else depth--; }
-      for (const key of [parentIdx, gp]) { if (key < 0) continue; byRun.set(key, (byRun.get(key) || 0) + 1); }
+      const up = (from) => { let d = 0; for (let k = from - 1; k >= 0; k--) { const t = doc.tags[k]; if (t.selfClosing) continue; if (t.close) d++; else if (d === 0) return k; else d--; } return -1; };
+      const gp = parentIdx >= 0 ? up(parentIdx) : -1;
+      const ggp = gp >= 0 ? up(gp) : -1;
+      for (const key of new Set([parentIdx, gp, ggp])) { if (key < 0) continue; byRun.set(key, (byRun.get(key) || 0) + 1); }
     }
     for (const [key, n] of byRun) if (n >= 4) { report(68, 'FAIL', doc.file, doc.tags[key].line, `${n} empty slots in one row or grid`, 'A set the page has no pictures of is set in type with one slot at most'); break; }
   }

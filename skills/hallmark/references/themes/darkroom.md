@@ -48,7 +48,7 @@ Three colourways, stated in the stamp (`darkroom: amber`).
 ## Material
 
 - Grain once, fixed, over the whole page at `--grain` with overlay (texture.md § 1). No vignette, no bloom, no amber wash; depth is lightness, ground 9, plate 13, surface 17.
-- The hang, the one object family: prints butted edge to edge in a row, all one height so tops and bottoms run level, widths following each picture's ratio; no frame, no mat, no gap. Beneath each, its plate number and date, flush with the print's left edge.
+- The hang, the one object family: prints butted edge to edge in a row, all one height so tops and bottoms run level, widths following each picture's ratio; no frame, no mat, no gap. Beneath each, its plate number and date, flush with the print's left edge. A series shown before its prints arrive is a row of slots by design: stamp `waive 68` and name the series.
 - A print is greyscale: a photograph under `filter: grayscale(1)`, or a placeholder graded within `--g0` to `--g5`. A step wedge appears only on a photography page, and only as a scale that measures something real (a paper grade, a test strip's seconds).
 - The safelight is scarce: a line, a figure, a caption on hover and the one filled control. `--color-accent-deep` is the quieter fill, under ink text.
 - The control pair: a 1px ink-outlined secondary beside an amber-filled primary with ground-coloured text, uppercase, radius 0.
