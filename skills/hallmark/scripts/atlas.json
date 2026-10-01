@@ -277,7 +277,7 @@
     "spark": "A landscape flattened to hairline contours, and the margins full of quiet institutional truth.",
     "system": [
       "Palette/material: paper white with hairline contour density in brown; water in one blue; a marginalia frame",
-      "Type/composition: small caps for place names, italic reserved for water alone; datum notes in tiny sans",
+      "Type/composition: place names in the serif a step smaller, italic reserved for water alone; datum notes in a small sans",
       "Topology/navigation: the sheet grid with edge coordinates is the layout; sections are named quadrangles",
       "Controls/state: hover raises a contour line's weight; selected areas get the survey's red grid tick",
       "Responsive/motion: the frame margins hold at every width; contours draw in once, slowly, on first view"
@@ -365,10 +365,10 @@
 
   { "name": "Line-printer output", "tier": "instrument",
     "lineage": "Punched-card decks and tractor-feed line-printer reports, 1960s-70s",
-    "spark": "Greenbar stripes, uppercase mono, a job number in the header: the machine's own handwriting.",
+    "spark": "Greenbar stripes, mono throughout, a job number in the header: the machine's own handwriting.",
     "system": [
       "Palette/material: greenbar striped paper (alternating pale bands); ink near-black; no accent, emphasis is overstrike",
-      "Type/composition: uppercase mono only; fixed-width report blocks; page headers carry job and date",
+      "Type/composition: mono only, report headers in capitals as the display voice and every label in sentence case; fixed-width report blocks; page headers carry job and date",
       "Topology/navigation: content arrives as numbered report sections; the sprocket margin is the scroll rail",
       "Controls/state: selection is an overstruck line; errors print as a flagged exception row, never a red banner",
       "Responsive/motion: the character grid rewraps at column counts, not pixels; output prints in line by line, once"
@@ -407,7 +407,7 @@
     "spark": "Dated entries in iron-gall ink with the sketch pasted in and the coordinates in the margin.",
     "system": [
       "Palette/material: ivory ruled pages; iron-gall near-black that browns at the edges; one wax-red seal colour",
-      "Type/composition: serif entries with upright figures for data; marginal coordinates in small caps",
+      "Type/composition: serif entries with upright figures for data; marginal coordinates in the serif's figures, a step smaller",
       "Topology/navigation: strictly chronological entries; the margin rail of dates is the nav",
       "Controls/state: today's entry is the open page; hover tilts a pasted sketch 1 degree",
       "Responsive/motion: margins collapse into inline date stamps; a new entry blots in once"
@@ -433,7 +433,7 @@
     "spark": "Object number, title, medium, provenance: four quiet lines doing justice to the thing above them.",
     "system": [
       "Palette/material: gallery white; ink only; the objects carry all colour",
-      "Type/composition: one quiet serif at two sizes with generous leading; the number line in small caps",
+      "Type/composition: one quiet serif at two sizes with generous leading; the number line in old-style figures",
       "Topology/navigation: object-and-label pairs structure the page; a numbered checklist navigates",
       "Controls/state: hover raises the label's rule; selection adds the loan-collection dot",
       "Responsive/motion: labels stay under their objects at every width; no motion, gallery stillness"
@@ -511,7 +511,7 @@
     "spark": "A wall of jacks and one patch cable that explains everything by where it goes.",
     "system": [
       "Palette/material: matte black or brushed aluminium panels; cable colours as the only saturation; silk-screened white legends",
-      "Type/composition: small caps silk-screen labels; module names in a wider tracked grotesque",
+      "Type/composition: silk-screen labels in a small sans, sentence case; module names in a wide grotesque, untracked",
       "Topology/navigation: modules are the sections; drawn patch cables literally connect related content",
       "Controls/state: jacks are link points; a patched connection is the selected state, cable and all",
       "Responsive/motion: modules re-rack vertically; cables re-drape with a settle, motion ends there"
@@ -524,7 +524,7 @@
     "spark": "The clatter of forty flaps landing on the word you were waiting for.",
     "system": [
       "Palette/material: near-black board; off-white flap characters; one amber row for delays and exceptions",
-      "Type/composition: one condensed gothic per flap cell, uppercase; the split line across every character",
+      "Type/composition: one condensed gothic per flap cell, uppercase as the display voice only; the split line across every character",
       "Topology/navigation: ranked rows (time, code, destination, remark) are the content; the header row is fixed",
       "Controls/state: updates flip through intermediate characters; the amber row is the alert state",
       "Responsive/motion: columns shed right to left; the flap animation is the single signature motion"
@@ -589,7 +589,7 @@
     "spark": "Two columns of algebraic moves and a clock that makes time itself take turns.",
     "system": [
       "Palette/material: tournament cream sheet; ink black; one arbiter red for flags and illegal states",
-      "Type/composition: algebraic notation in mono pairs; player names in small caps at the head",
+      "Type/composition: algebraic notation in mono pairs; player names in the serif at the head",
       "Topology/navigation: numbered move pairs structure the content; the clock faces anchor two states",
       "Controls/state: the active side's clock face is live, the other dimmed; pressing hands turn over",
       "Responsive/motion: columns stay paired at every width; the only motion is the clock hand and the flag fall"
@@ -628,7 +628,7 @@
     "spark": "Shutter, ISO, and a film counter, all machined, all legible, all exactly where thumbs expect them.",
     "system": [
       "Palette/material: satin chrome and black leatherette; engraved figures ink-filled; one meter-needle orange",
-      "Type/composition: engraved numerals on dials; small caps for settings; the model name in a restrained script",
+      "Type/composition: engraved numerals on dials; settings in a small serif, sentence case; the model name in a restrained script",
       "Topology/navigation: dials cluster by function; sections read left to right like the plate itself",
       "Controls/state: dials click through detents (real steps, no smooth glide); the needle shows live exposure",
       "Responsive/motion: dials become stacked steppers; the needle is the only continuous motion"
@@ -641,7 +641,7 @@
     "spark": "The house lights sink, the dome fills with stars, and a voice starts naming them.",
     "system": [
       "Palette/material: deep blue-black dome ground; pinpoint white stars; brass-gold for constellation lines and figures",
-      "Type/composition: classical serif with letterspaced small caps for star names; captions like a narrated program",
+      "Type/composition: classical serif with star names in italic; captions like a narrated program",
       "Topology/navigation: constellation lines literally connect content nodes; a coordinate ring frames sections",
       "Controls/state: hover brightens a star and its lines; the projector beam is the focus state",
       "Responsive/motion: the dome crops, stars keep their positions; one slow sky rotation, minutes long"
@@ -680,7 +680,7 @@
     "spark": "A hundred green-glass lamps, each one a small island of permitted light.",
     "system": [
       "Palette/material: deep oak-brown ground; green-glass lamp pools; brass fittings; paper cream only inside the pools",
-      "Type/composition: bookish serif with real small caps; catalog numbers in a quiet mono",
+      "Type/composition: bookish serif with old-style figures; catalog numbers in a quiet mono",
       "Topology/navigation: desks-in-rows structure the content; each lamp pool holds one reading; the stacks are the archive nav",
       "Controls/state: a lamp switches on to focus its desk; hushed states, nothing blinks",
       "Responsive/motion: desks stack in single file; light pools fade up one at a time, then hold"
@@ -745,7 +745,7 @@
     "spark": "The room is dark, the curtain is red, the horn is lit, and nobody is checking their phone.",
     "system": [
       "Palette/material: near-black room; one warm spotlight pool; deep curtain red as the only saturation",
-      "Type/composition: a set-list serif with hand-numbered sets; names in lowercase, instruments in small caps",
+      "Type/composition: a set-list serif with hand-numbered sets; names in lowercase, instruments in italic",
       "Topology/navigation: the set list is the nav; sections are sets; the bar menu is the footer",
       "Controls/state: the spotlight moves to the active act; applause states are brief and dim back down",
       "Responsive/motion: tables clear to a single aisle; the spotlight cross-fade is the one transition"
@@ -797,7 +797,7 @@
     "spark": "Grey-green stone, warm water, and architecture that tells you to lower your voice.",
     "system": [
       "Palette/material: mineral grey-greens; steam-softened whites; brass tap warmth as the accent",
-      "Type/composition: a serene wide-tracked sans in lowercase; temperatures as quiet large numerals",
+      "Type/composition: a serene wide sans in lowercase, untracked; temperatures as quiet large numerals",
       "Topology/navigation: pools order the sections by temperature; the changing-room threshold is the entry",
       "Controls/state: water states ripple faintly on interaction; occupied pools show a folded towel marker",
       "Responsive/motion: pools stack down the temperature scale; steam drifts imperceptibly, nothing else"
@@ -862,7 +862,7 @@
     "spark": "A line of white dishes all turning together toward something nobody can see yet.",
     "system": [
       "Palette/material: pale dawn-pink sky over desert buff; dish white; one deep-space violet for the data",
-      "Type/composition: a technical grotesque with wide-tracked caps for array IDs; observations in mono",
+      "Type/composition: a technical grotesque with array IDs in mono; observations in mono",
       "Topology/navigation: dishes are the sections, aligned along the array baseline; azimuth readouts badge them",
       "Controls/state: a dish rotates subtly toward the hovered content; locked-on is the tracked state",
       "Responsive/motion: the array foreshortens to a single dish; rotations are slow and mechanical"
@@ -914,7 +914,7 @@
     "spark": "A wall of pigeonholes, a bell that means someone will actually come, and a ledger that knows everyone.",
     "system": [
       "Palette/material: marble cream and walnut; brass key-plate gold; hotel-livery deep green as the accent",
-      "Type/composition: an elegant engraved serif with true small caps; room numbers on brass plates",
+      "Type/composition: an elegant engraved serif; room numbers on brass plates",
       "Topology/navigation: the pigeonhole wall is the content grid; the register book is the nav; the bell is the CTA",
       "Controls/state: a pigeonhole with mail glows softly; the checked-in state hangs the key",
       "Responsive/motion: pigeonholes reflow as a smaller wall; the bell dips once when pressed"

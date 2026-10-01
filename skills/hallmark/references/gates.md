@@ -135,7 +135,7 @@ One line each. `a`/`b` clauses share a number and carry their own tier. Genre no
 | 27 | Floor | M | Any keyframe or transform transition without a `prefers-reduced-motion: reduce` fallback | add it |
 | 28a | Floor | M | A video autoplaying without `muted`; `loading="lazy"` on the LCP element | `autoplay muted loop playsinline`; `fetchpriority="high"` |
 | 28b | Reflex | M | Video without `poster` or priority hint. Guard: below the fold and not the LCP | add them |
-| 39a | Floor | M | Input states that break: border width shifting between states, a focus ring built from `border`, input height unequal to its adjacent button, disabled by opacity alone | constant border, `outline`, shared height, three disabled channels |
+| 39a | Floor | M | Input states that break: border width shifting between states, a focus ring built from `border`, input height unequal to its adjacent button, disabled by opacity alone | constant border, `outline`, shared height, three disabled channels (opacity, `cursor: not-allowed`, the native attribute) |
 | 39b | Reflex | M | Control height outside 44 to 52px on a marketing page. Guard: app UI at 32 to 40px with the hit-target expansion | the number |
 | 62 | Floor | M | Content hidden at rest: a reveal class that sets `opacity: 0` or `visibility: hidden` and depends on JavaScript to show it, with no `.js` scoping, no CSS animation that runs on its own, and no `@starting-style`. The page ships blank when a script fails | visible by default; hide only under a `.js` class or animate from visible with `@starting-style` |
 

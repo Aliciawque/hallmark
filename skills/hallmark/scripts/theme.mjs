@@ -235,7 +235,8 @@ body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-
 a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.16em; }
 h1, h2, h3 { margin: 0; font-family: var(--font-display); letter-spacing: var(--tracking-display); line-height: 1.05; overflow-wrap: break-word; min-width: 0; text-wrap: balance; }
 h1 { max-width: 20ch; } h2 { max-width: 30ch; } h3 { max-width: 40ch; }
-p { margin: 0; text-wrap: pretty; max-width: 65ch; }
+p { margin: 0; text-wrap: pretty; }
+p:not([class]) { max-width: 65ch; }
 img, svg, video { max-width: 100%; height: auto; display: block; }
 button, input, select, textarea { font: inherit; }
 .container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); box-sizing: border-box; }
