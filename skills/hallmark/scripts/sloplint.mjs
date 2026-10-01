@@ -3880,6 +3880,7 @@ if (opts.render) {
       DISMISSED = w ? (w.DISMISSED || new Set()) : new Set();
       report(f.gate, f.grade === 'REFLEX' ? 'FAIL' : f.grade, f.file, f.line, f.evidence, f.fix);
     }
+    for (const x of extra.failed || []) { WAIVED = new Set(); ANSWERED = new Set(); DISMISSED = new Set(); report('render', 'FAIL', x.file, 1, `the render tier crashed on this page (${trunc(x.message, 60)}); its gates did not run`, 'Fix the page error, or rerun; a crashed render is never a pass'); }
   } catch (e) {
     console.error(`render tier unavailable (${e.message}); static checks only`);
   }

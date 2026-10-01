@@ -2,7 +2,7 @@
 
 The hero is a figure the user gave, with the line that says what it means. Everything that follows supports or qualifies it. Data is the narrative.
 
-- **Heading:** a large numeric display (8 to 12rem, tabular figures) paired with a worded headline. The figure is the biggest element and never the hero's only words: say what it means beside or beneath it as a real headline, not a small label. Read them together: *"Four seconds. From the alert link to the slow span."*
+- **Heading:** a large numeric display at graphic scale (`craft.md` § 7, tabular figures) paired with a worded headline. The figure is the biggest element and never the hero's only words: say what it means beside or beneath it as a real headline, not a small label. Read them together: *"Four seconds. From the alert link to the slow span."*
 - **Body:** sections each anchored by a supporting figure or chart.
 - **Divider:** hairline rules between figure blocks; `tabular-nums` everywhere.
 - **Button:** an outlined chip beneath the qualifier, labelled with a verb ("Read the report").

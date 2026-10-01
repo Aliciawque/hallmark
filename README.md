@@ -39,13 +39,13 @@ Each page is self-contained HTML and CSS, stamped in its first CSS comment with 
     <td width="25%"><a href="https://www.usehallmark.com/examples/hum-07/"><img src="docs/screenshots/hero-hum-07.jpg" alt="Bubble guided sourdough app hero" /></a></td>
     <td width="25%"><a href="https://www.usehallmark.com/examples/cobalt-01/"><img src="docs/screenshots/hero-cobalt-01.jpg" alt="Distil content-extraction API hero" /></a></td>
     <td width="25%"><a href="https://www.usehallmark.com/examples/carnival-01/"><img src="docs/screenshots/hero-carnival-01.jpg" alt="Cold Snap record-label EP hero" /></a></td>
-    <td width="25%"><a href="https://www.usehallmark.com/examples/lumen-01/"><img src="docs/screenshots/hero-lumen-01.jpg" alt="Cinder AI reasoning tool hero" /></a></td>
+    <td width="25%"><a href="https://www.usehallmark.com/examples/lumen-01/"><img src="docs/screenshots/hero-lumen-01.jpg" alt="Cinder serverless GPU inference hero" /></a></td>
   </tr>
   <tr>
     <td><b>Bubble</b><br/><sub>Sourdough app · Hum</sub></td>
     <td><b>Distil</b><br/><sub>Extraction API · Cobalt</sub></td>
     <td><b>Cold Snap</b><br/><sub>Record label · Carnival</sub></td>
-    <td><b>Cinder</b><br/><sub>AI tool · Lumen</sub></td>
+    <td><b>Cinder</b><br/><sub>GPU inference · Lumen</sub></td>
   </tr>
   <tr>
     <td><a href="https://www.usehallmark.com/examples/custom-03/"><img src="docs/screenshots/hero-custom-03.jpg" alt="Ferns and Fathom tea menu hero" /></a></td>

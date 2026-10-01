@@ -11,7 +11,7 @@ The page is a list of links. No hero image, no narrative flow. Navigation as des
 
 Reach for it for documentation hubs, knowledge bases, archive front pages, design-system entries, link pages with substance.
 
-Avoid for marketing pages. Index-First serves a browsing audience; selling needs structure.
+Avoid for a hard sell (a launch, a checkout). Index-First serves a browsing audience; a personal site that offers its owner's time is fine.
 
 Code: [`../components/ft3-index-style-category-list.md`](../components/ft3-index-style-category-list.md) is the same list at footer scale.
 

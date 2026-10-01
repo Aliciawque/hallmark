@@ -88,7 +88,7 @@ Check in order; the first match wins.
 node <skill-dir>/scripts/theme.mjs deal --genre <genre> --brief "<the brief>" [--log .hallmark/log.json]
 ```
 
-The script reads the catalog index and the log, applies Rotation (two consecutive systems differ on paper band, display class or accent band; siblings in the log count as occupied) and deals three candidates that fit the brief's words, one line each, with a reproducible seed. Look at the three pictures, pick one, say which and why in one clause, and load only `references/themes/<slug>.md`. Re-deal only when the user asks (`--reroll 1`). No Node: read `references/themes/index.json`, apply the same rule by hand, and stamp `deal: manual`.
+The script reads the catalog index and the log, applies Rotation (consecutive systems differ on paper band, display class or accent band; logged siblings count as taken) and deals three candidates that fit the brief, with a reproducible seed. Look at the three pictures, pick one, say which and why in one clause, and load only `references/themes/<slug>.md`. Re-deal only when the user asks (`--reroll 1`). No Node: read `references/themes/index.json`, apply the same rule by hand, and stamp `deal: manual`.
 
 A catalog theme is a material, not a plan: it says what the page is made of, never what the page contains or in what order. Two pages in one theme should not share a section sequence. Where the theme and a shape, genre, craft or enrichment file disagree on material, controls or motion, the theme wins; nothing beats the Floor.
 
@@ -126,7 +126,7 @@ On signal 9, [`references/comp.md`](references/comp.md) runs here: two comps of 
 Emit code that satisfies the theme and the shape. Always:
 
 - **Start from the scaffold.** `node <skill-dir>/scripts/theme.mjs scaffold <slug>` (with the deal's `--dealt`; `--custom` on a derived run) writes `tokens.css` with the theme's tokens and the shared scale, and prints the base rules the Floor already decided under a stamp skeleton. Paste them, fill the stamp, and write only the page.
-- **Read the exemplar** for the genre, `references/exemplars/<genre>.html`, once: a finished page in another theme that passes every gate. Take how its stamp, tokens, slots, states and openings are written; never its shape, theme or copy. Skip it if it is in your theme.
+- **Read the exemplar** for the genre, `references/exemplars/<genre>.html`, once: a finished page in another theme that passes every gate. Take how its stamp, tokens, slots, states and openings are written, nothing else. Skip it if it is in your theme.
 - **Hero first.** Write the nav and the hero, run `node <skill-dir>/scripts/sloplint.mjs <file> --render --stage hero` (the fold at three widths, the hero's words, the visual's place, four first-screen shots), then the hero review in fresh context (`gates.md` § 6). Build the sections only once the hero ships: a hero rewrite after eight sections exist costs eight sections.
 - **One idea per screen.** Hero: headline (seven words or fewer, 50 characters or fewer), one sentence (twelve words or fewer), one or two actions. A section: a heading of three to five words, at most one line, then its object (a slot, a figure, a drawn thing, a list of four or fewer, a table of five rows or fewer). Four to eight sections, footer included; 450 visible words at most, fewer when the brief has less to say. Never pad to a count.
 - **Show, do not describe.** On a product page with material or "leave slots": at least two `data-slot` containers, the hero visual and a demo strip; with neither, the page shows what is real (Step 2). The user's images fill them; otherwise a designed placeholder in the theme's colours with a corner label (`craft.md` § Demo slots). Never a grey box, never a fake screenshot with invented figures.
@@ -148,7 +148,7 @@ Emit code that satisfies the theme and the shape. Always:
 then any `waive` and `answered` lines, then a custom run's direction contract. Everything the linter reads sits in the first 40 lines.
 - **`tokens.css`** is the scaffold's, at the project root, imported by the page; every colour, face, space, size, easing, duration, rule, radius and z level is a token in it. On a `design.md` project, refresh its `## Exports` per [`references/export-formats.md`](references/export-formats.md).
 - **Existing stylesheets are append-only.** Keep `@tailwind` and `@import "tailwindcss"` where they are, add Hallmark's `:root` below them, reuse the project's own token names where they exist. A full rewrite only on explicit request.
-- **Log.** Append to `.hallmark/log.json`, newest first, trimmed to 20:
+- **Log.** `node <skill-dir>/scripts/theme.mjs log --entry '<json>'` puts it atop `.hallmark/log.json`, trimmed to 20:
 
 ```json
 { "date": "2026-09-22", "shape": "Workbench", "theme": "Coral", "axes": "light/grotesk-sans/warm",

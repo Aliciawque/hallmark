@@ -41,10 +41,10 @@ One dial, the signal ink, stated in the stamp (`grid: red`). `--color-focus` fol
 
 ## Faces
 
-- **Display:** Archivo 800, lowercase, `clamp(52px, 10.5vw, 136px)`, `--tracking-display`, line-height 0.9, slammed to the left margin and edge-aligned to the rails.
+- **Display:** Archivo 800, lowercase, `clamp(52px, 10.5vw, 136px)`, `--tracking-display`, line-height 0.92, slammed to the left margin and edge-aligned to the rails.
 - **Body:** Archivo 400 at 16px, line-height 1.5. One family; discipline comes from weight, scale and tracking, never from a second face.
 - **Labels, captions, table heads, meta, folios, units:** Archivo 500 at 13px, sentence case, `--color-muted`. Figures take `tabular-nums` in Archivo; mono appears only on figures that compare, if at all.
-- **The numeral voice:** Archivo 800 numerals at `clamp(120px, 22vw, 320px)` as objects, cropped by the band edge, at 6 to 10% ink, only when the numeral is a real figure (an issue, a year, a chapter) and a caption says which. One per section at most; art, not a heading.
+- **The numeral voice:** Archivo 800 numerals at `clamp(7.5rem, 22vw, 18rem)` as objects, cropped by the band edge, at 6 to 10% ink, only when the numeral is a real figure (an issue, a year, a chapter) and a caption says which. One per page; art, not a heading.
 
 ## Material
 
@@ -57,7 +57,7 @@ One dial, the signal ink, stated in the stamp (`grid: red`). `--color-focus` fol
 
 ## Motion
 
-Grid-snapped, 180 to 200ms ease, no scroll reveals, no parallax. Hover: a row shifts to `--color-paper-2` and its title slides 8px; a mark answers the pointer with a snapped transform (a quarter-disc rotates 90 degrees, a stepped bar extends one track).
+Grid-snapped, 180 to 200ms on `--ease-out`, no scroll reveals, no parallax. Hover: a row shifts to `--color-paper-2` and its title slides 8px; a mark answers the pointer with a snapped transform (a quarter-disc rotates 90 degrees, a stepped bar extends one track).
 
 ## Voice
 
@@ -78,10 +78,10 @@ Rational, institutional: name the system, the place, the year.
 ```css
 .rails { position: absolute; inset: 0; z-index: 0; pointer-events: none; max-width: 1280px; margin-inline: auto;
   background-image: repeating-linear-gradient(to right, var(--color-rule) 0 1px, transparent 1px calc(100% / 12)); }
-h1, h2 { font: var(--display-weight) clamp(52px, 10.5vw, 136px)/0.9 var(--font-display); letter-spacing: var(--tracking-display); text-transform: lowercase; }
+h1, h2 { font: var(--display-weight) clamp(52px, 10.5vw, 136px)/0.92 var(--font-display); letter-spacing: var(--tracking-display); text-transform: lowercase; }
 .plate { background: var(--color-accent); color: var(--color-accent-ink); position: relative; overflow: clip; }
 .plate::before { content: ""; position: absolute; inset: 0; pointer-events: none;
   background-image: repeating-linear-gradient(to right, color-mix(in oklab, var(--color-paper) 15%, transparent) 0 1px, transparent 1px calc(100% / 12)); }
-.btn--secondary { border-radius: 0; border: 1px solid var(--color-ink); transition: border-color 180ms ease; } .btn--secondary:hover { border-color: var(--color-accent); }
+.btn--secondary { border-radius: 0; border: 1px solid var(--color-ink); transition: border-color 180ms var(--ease-out); } .btn--secondary:hover { border-color: var(--color-accent); }
 ::selection { background: var(--color-accent); color: var(--color-accent-ink); }
 ```

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync, renameSync } from 'node:fs';
 import { join, dirname, basename, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
@@ -19,6 +19,7 @@ function usage() {
   node theme.mjs scaffold <slug> [--dealt "<n>/3, seed <seed>"] [--dir .] [--force]
   node theme.mjs scaffold --custom [--dir .] [--force]
   node theme.mjs check --axes "<paper>/<display>/<accent>" [--face "<display face>"] [--hue <accent hue>] [--log .hallmark/log.json]
+  node theme.mjs log --entry '<one JSON object>' [--log .hallmark/log.json]
   node theme.mjs index
   node theme.mjs list
   node theme.mjs validate <files...>`);
@@ -64,6 +65,19 @@ function buildIndex() {
 function loadIndex() {
   if (!existsSync(INDEX)) return buildIndex();
   return JSON.parse(readFileSync(INDEX, 'utf8')).themes;
+}
+
+function addLog() {
+  const file = resolve(flag('log', '.hallmark/log.json'));
+  let entry;
+  try { entry = JSON.parse(flag('entry', '')); } catch { entry = null; }
+  if (!entry || Array.isArray(entry) || typeof entry !== 'object') { console.error('--entry takes one JSON object, the build\'s log entry'); process.exit(2); }
+  const next = [entry, ...readLog(file)].slice(0, 20);
+  mkdirSync(dirname(file), { recursive: true });
+  const tmp = `${file}.${process.pid}.tmp`;
+  writeFileSync(tmp, JSON.stringify(next, null, 1) + '\n');
+  renameSync(tmp, file);
+  console.log(`logged ${entry.shape || '?'} in ${entry.theme || '?'} at the top of ${file} (${next.length} of 20)`);
 }
 
 function readLog(p) {
@@ -313,6 +327,7 @@ try {
   if (cmd === 'deal') deal();
   else if (cmd === 'check') check();
   else if (cmd === 'scaffold') scaffold();
+  else if (cmd === 'log') addLog();
   else if (cmd === 'index') { const e = buildIndex(); console.log(`indexed ${e.length} themes into ${INDEX}`); }
   else if (cmd === 'list') list();
   else if (cmd === 'validate') {

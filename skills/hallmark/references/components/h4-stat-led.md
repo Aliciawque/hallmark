@@ -12,7 +12,7 @@ One number the user gave is the hero, with its unit, one line saying what it mea
 ```
 ```css
 .hero-stat { min-height: 80dvh; display: grid; align-content: center; gap: var(--space-md); padding: var(--space-2xl) var(--gutter); }
-.hero-stat__figure { margin: 0; font-family: var(--font-display); font-size: clamp(6rem, 16vw, 14rem); line-height: 0.9; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.hero-stat__figure { margin: 0; font-family: var(--font-display); font-size: clamp(6rem, 16vw, 14rem); line-height: 0.9; letter-spacing: var(--tracking-display); font-variant-numeric: tabular-nums; }
 .hero-stat__unit { font-size: 0.5em; }
 .hero-stat__line { margin: 0; max-width: 45ch; }
 ```

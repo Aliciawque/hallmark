@@ -10,7 +10,7 @@ A small fixed chip in a corner: wordmark and one verb ("Try it"). Out of documen
 </aside>
 ```
 ```css
-.nav-chip { position: fixed; top: var(--space-md); right: var(--space-md); z-index: var(--z-sticky-nav); display: inline-flex; align-items: center; gap: var(--space-md); padding: var(--space-xs) var(--space-sm); background: var(--color-paper); border: var(--rule-hair) solid var(--color-rule); border-radius: var(--radius-card); }
+.nav-chip { position: fixed; top: var(--space-md); right: max(var(--space-md), calc(50% - var(--container) / 2 + var(--gutter))); z-index: var(--z-sticky-nav); display: inline-flex; align-items: center; gap: var(--space-md); padding: var(--space-xs) var(--space-sm); background: var(--color-paper); border: var(--rule-hair) solid var(--color-rule); border-radius: var(--radius-card); }
 ```
 
 ## Knobs

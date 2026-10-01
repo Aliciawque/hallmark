@@ -20,6 +20,7 @@ async function shoot(page, file, tag, fullPage) {
 }
 
 export async function renderCheck(htmlFiles, metaIn) {
+  const failed = [];
   const meta = { genre: null, postureByFile: {}, heroPostureByFile: {}, stage: 'page', ...(metaIn || {}) };
   const heroOnly = meta.stage === 'hero';
   let puppeteer = null;
@@ -89,6 +90,7 @@ export async function renderCheck(htmlFiles, metaIn) {
         }
       } catch (e) {
         console.error(`render tier: failed on ${file}: ${e.message}`);
+        failed.push({ file, message: e.message });
       } finally {
         await page.close().catch(() => {});
       }
@@ -99,12 +101,14 @@ export async function renderCheck(htmlFiles, metaIn) {
   if (SHOTS.length) console.error(heroOnly ? `render tier: ${SHOTS.length} hero screenshots in ${dirname(SHOTS[0])} (1280x800, 1440x900, 1920x1080 and 375x812 first screens)` : `render tier: ${SHOTS.length} screenshots in ${dirname(SHOTS[0])} (1280x800, 1440x900, 1920x1080 folds; 1440 and 375 full pages)`);
 
   const seen = new Set();
-  return findings.filter((f) => {
+  const kept = findings.filter((f) => {
     const k = f.gate + '|' + f.evidence.replace(/^\[\d+px\] /, '');
     if (seen.has(k)) return false;
     seen.add(k);
     return true;
   });
+  kept.failed = failed;
+  return kept;
 }
 
 function observe(checkFold, meta) {
@@ -408,7 +412,19 @@ function observeSpace(atLaptop, heroOnly, heroPosture) {
       if (min < 100) push(59, 'REFLEX', `smallest gap between sections is ${min}px (gaps: ${real.join(', ')})`, '120px or more between sections, varied');
       else if (real.length > 2 && new Set(real).size === 1) push(59, 'REFLEX', `every section gap is ${min}px`, 'Vary the rhythm: some 120, some 160, some 200');
     }
-    if (!heroOnly && secs.length > 9) push(59, 'WARN', `${secs.length} sections`, 'Five to eight sections a page; merge or cut');
+    if (!heroOnly && secs.length > 9) push(59, 'WARN', `${secs.length} sections`, 'Four to eight sections a page; merge or cut');
+    if (!heroOnly) {
+      for (const e of document.querySelectorAll('p, li, dd, td, th, h2, h3, h4, figcaption, blockquote')) {
+        if (!vis(e) || e.closest('nav, svg, [aria-hidden="true"]')) continue;
+        const t = (e.innerText || '').trim();
+        if (t.length < 24) continue;
+        const cs = getComputedStyle(e);
+        const fs = parseFloat(cs.fontSize) || 16;
+        const lh = parseFloat(cs.lineHeight) || fs * 1.4;
+        const r = e.getBoundingClientRect();
+        if (r.width < fs * 8 && r.height / lh >= 3.6) { push('F17', 'WARN', `"${t.slice(0, 28)}" squeezed to ${Math.round(r.width)}px wide over ${Math.round(r.height / lh)} lines (${e.tagName.toLowerCase()}${e.classList[0] ? '.' + e.classList[0] : ''})`, 'A grid placement or a span ran wide; give the text its column back'); break; }
+      }
+    }
 
     if (hero && !/^(poster|ledge)$/.test(heroPosture || '')) {
       const hb = abs(hero);
