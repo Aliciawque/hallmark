@@ -1,7 +1,7 @@
-### N1b · Three-section product bar
-Wordmark hard left, a centred cluster of three to five links (one or two opening small dropdowns), a sign-in link and one filled action hard right. Dense and balanced; the structural opposite of N1.
+### N1 · Three-section bar
+Wordmark hard left, a centred cluster of three to five links (one or two opening small dropdowns), a sign-in link and one filled action hard right. Dense and balanced; the structural opposite of N9.
 *Use when:* a product page has several real destinations and one clear primary action.
-*Not:* N1 (two links, no centre); N5 (a detached pill); N11 (full width panels). This is the reflex bar (42): the stamp names it and one knob moves. The cluster never collides with the brand or the action; if it cannot sit centred with room, drop to three links or use N1. A dropdown opens on hover and on focus, and closes on Escape.
+*Not:* N9 (one or two destinations at the far edge); N5 (a detached pill); N11 (full width panels). This is the reflex bar (42): reach for it only when the product has four or more real top-level destinations, name it in the stamp and move one knob. The cluster never collides with the brand or the action; if it cannot sit centred with room, drop to three links or use N9. A dropdown opens on hover and on focus, and closes on Escape.
 
 ```html
 <header class="nav"><div class="nav__inner">

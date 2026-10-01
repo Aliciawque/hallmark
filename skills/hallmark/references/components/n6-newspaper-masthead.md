@@ -1,7 +1,7 @@
 ### N6 · Newspaper masthead
 A full width header: a large centred wordmark, an issue and date line in the body face above or below it, an optional link row beneath, a double rule under all of it.
 *Use when:* the page is editorial, a magazine, framed as an issue or an edition.
-*Not:* N1 (small, asymmetric). On a SaaS or developer product it reads as costume. The issue line is a fact in a `<time>`, never an eyebrow (54); the wordmark's capitals are the wordmark's and nothing else in the masthead is uppercase (67).
+*Not:* N9 (small, asymmetric). On a SaaS or developer product it reads as costume. The issue line is a fact in a `<time>`, never an eyebrow (54); the wordmark's capitals are the wordmark's and nothing else in the masthead is uppercase (67).
 
 ```html
 <header class="nav-mast">

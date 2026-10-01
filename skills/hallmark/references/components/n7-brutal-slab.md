@@ -1,7 +1,7 @@
 ### N7 · Brutal slab
 A heavy full width bar: a 2px ink rule beneath, the wordmark in the display face, a heavy sentence-case link row, no shadow, no radius.
 *Use when:* the genre is playful (Brutal, Manifesto, Sport) or the voice is heavy and declarative.
-*Not:* N1 (small, quiet). Radius, soft shadow or blur fight this vocabulary: reach for blur and it is N5. The wordmark may be capitals, tracked 0.04em at most (67 allows the wordmark); the links are sentence case.
+*Not:* N9 (small, quiet). Radius, soft shadow or blur fight this vocabulary: reach for blur and it is N5. The wordmark may be capitals, tracked 0.04em at most (67 allows the wordmark); the links are sentence case.
 
 ```html
 <header class="nav-slab">

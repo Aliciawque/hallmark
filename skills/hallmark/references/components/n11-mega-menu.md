@@ -1,7 +1,7 @@
 ### N11 · Mega menu panel
 A standard bar whose triggers open a full width, multi-column panel: an icon, a title and a one-line description per item, grouped under column heads, with an optional feature cell at one side. The page dims behind a scrim.
 *Use when:* the brand has many destinations that need grouping and explanation (six or more products, a docs hub). The panel is the design problem, not the bar.
-*Not:* N1b (small single-column dropdowns). At most four columns, never taller than 60vh, never opened on hover without a close grace (the panel flickers as the pointer crosses the gap). Every item carries its description; a bare link grid is N1b in disguise. Column heads are the body face, sentence case (67).
+*Not:* N1 (small single-column dropdowns). At most four columns, never taller than 60vh, never opened on hover without a close grace (the panel flickers as the pointer crosses the gap). Every item carries its description; a bare link grid is N1 in disguise. Column heads are the body face, sentence case (67).
 
 ```html
 <header class="nav">

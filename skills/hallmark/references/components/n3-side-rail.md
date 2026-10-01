@@ -1,7 +1,7 @@
 ### N3 · Side rail
 A thin vertical strip on one edge: the wordmark set vertically, then the page's sections as text links in the same writing mode, the current one in ink. Every link is a real section name; never an empty dot (33, 63).
-*Use when:* a long, sectioned page where a sticky object (a ticket, a contents list) earns the rail. Never the default nav; a top bar is (N1, N9).
-*Not:* N1 (horizontal). The wordmark is the only rotated text; rotated words with nothing to say are decoration (66).
+*Use when:* a long, sectioned page where a sticky object (a ticket, a contents list) earns the rail. Never the default nav; a top bar is (N9, N1).
+*Not:* N9 (horizontal). The wordmark is the only rotated text; rotated words with nothing to say are decoration (66).
 
 ```html
 <nav class="nav-rail" aria-label="Sections">

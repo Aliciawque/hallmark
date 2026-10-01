@@ -13,23 +13,20 @@ The same page shape (say, Bento Grid) can be built from many combinations of the
 ### Heroes
 
 - **H1 · Marquee.** A single statement fills the fold. No subhead; the primary action is the fold's one other visible control. [`components/h1-marquee.md`](components/h1-marquee.md)
-- **H2 · Split diptych.** Headline and lede on one side, image or product capture on the other. 6/6 or 7/5 columns. [`components/h2-split-diptych.md`](components/h2-split-diptych.md)
+- **H2 · Split.** Headline, one sentence and the action on one side; one visual on the other, beside the text: a capture plate, a clipped demo video, a built illustration or a photograph, each with its enrichment recipe. [`components/h2-split-diptych.md`](components/h2-split-diptych.md)
 - **H3 · Quote led.** A pull-quote with attribution is the hero, both the user's material. The headline is borrowed credibility. [`components/h3-quote-led.md`](components/h3-quote-led.md)
 - **H4 · Stat led.** One figure the user gave, with its unit, is the hero. A small qualifier line below says what it means. [`components/h4-stat-led.md`](components/h4-stat-led.md)
 - **H5 · Letter hero.** First-person opening, "Dear reader,". No buttons; the action is one typographic link inside the fold. Reads as personal correspondence. [`components/h5-letter-hero.md`](components/h5-letter-hero.md)
 - **H6 · Photographic fold.** A single full-bleed image fills the viewport. The caption sits in a corner. [`components/h6-photographic-fold.md`](components/h6-photographic-fold.md)
-- **H7 · Demo video clipped by viewport edge.** Display headline left, demo video right, the rightmost 10 to 20% extending past the viewport so it is deliberately cut off. The clip *is* the design: it implies more product than fits the screen. [`components/h7-demo-video-clipped-by-viewport-edge.md`](components/h7-demo-video-clipped-by-viewport-edge.md)
-- **H8 · Screenshot as a plate**: Headline left, one real capture right in a `<figure>` with a `<figcaption>` carrying a fact, or the theme's labelled `data-slot`. One hairline frame at most, no chrome, no tilt. [`components/h8-mockup-split-browser-framed.md`](components/h8-mockup-split-browser-framed.md)
-- **H9 · Custom illustration centerpiece.** A single hand-built SVG (Tier B in the enrichment hierarchy, or pure CSS at Tier A for simpler shapes) sitting on the hero as one illustrative element: the bakery loaf, the studio mark. [`components/h9-custom-illustration-centerpiece.md`](components/h9-custom-illustration-centerpiece.md)
 
 ### Section heads
 
 **Read `craft.md` § 7 before picking one.** These five are the structural shells; that section is the twelve ways in.
 
 - **S1 · Ordinal by structure.** A genuinely ordered run numbered by `<ol>` and `counter()`, the numeral inline at heading size, never a small label above the heading. [`components/s1-left-margin-numbered.md`](components/s1-left-margin-numbered.md)
-- **S2 · Hanging.** Air above, heading flush; no border, no rule. [`components/s2-hanging.md`](components/s2-hanging.md)
+- **S2 · Hanging.** Air above, the heading flush; no border, no rule, no file: `craft.md` § 7, item 1.
 - **S3 · Sticky pinned.** The heading remains in the viewport while content scrolls beneath. An orientation aid. [`components/s3-sticky-pinned.md`](components/s3-sticky-pinned.md)
-- **S4 · Inline no break.** The heading is a heavier phrase that emerges *inside* the body flow; no spatial break. [`components/s4-inline-no-break.md`](components/s4-inline-no-break.md)
+- **S4 · Inline, no break.** The heading is a heavier phrase that opens the paragraph; no spatial break, no file: `craft.md` § 7, item 3.
 - **S5 · Bottom anchored.** A caption carrying a fact sits *below* the section's content. Inverts the hierarchy. [`components/s5-bottom-anchored.md`](components/s5-bottom-anchored.md)
 
 ### Feature blocks
@@ -70,20 +67,17 @@ Every block here is built from the user's material: their quote, their name, the
 
 ### Navigation
 
-- **N1 · Wordmark 2 links.** Top-of-page bar: wordmark on the left, two text links on the right ("Pricing", "Sign in"). No logo image, no menu icon. The *minimal* variant; for the dense canonical SaaS bar use **N1b**. [`components/n1-wordmark-2-links.md`](components/n1-wordmark-2-links.md)
 - **N2 · Floating chip.** A small fixed chip in a corner: wordmark and a single action ("Try it"). Does not sit in document flow. [`components/n2-floating-chip.md`](components/n2-floating-chip.md)
 - **N3 · Side rail.** A thin vertical strip on the left edge, wordmark rotated, plus named section links with `aria-current`; never the default nav, only where a sticky object earns it. [`components/n3-side-rail.md`](components/n3-side-rail.md)
-- **N4 · Hidden behind k.** No visible nav. The user opens a command palette via `⌘K` to get anywhere. For keyboard-first audiences. [`components/n4-hidden-behind-k.md`](components/n4-hidden-behind-k.md)
-- **N5 · Floating pill.** A rounded full-pill nav, *visibly detached* from the page edges, sitting about `var(--space-md)` from the top, soft blur backdrop, soft shadow. Contemporary modern-minimal. [`components/n5-floating-pill.md`](components/n5-floating-pill.md)
+- **N5 · Floating pill.** A content-sized pill detached from the edges, blur backdrop, hairline ring; from the first paint, or morphing from a full bar once the reader scrolls (one DOM, one curve, constant height). [`components/n5-floating-pill.md`](components/n5-floating-pill.md)
 - **N6 · Newspaper masthead.** Full-width header: a large centred wordmark on the top row, a thin issue and date line above or below in the body face, an optional inline link row beneath, a double rule under the whole thing. [`components/n6-newspaper-masthead.md`](components/n6-newspaper-masthead.md)
 - **N7 · Brutal slab.** A heavy, full-width nav with a 2px solid border-bottom, an all-caps wordmark and a heavy sentence-case link row; dense rhythm, no shadow, no rounded corners. [`components/n7-brutal-slab.md`](components/n7-brutal-slab.md)
-- **N8 · Terminal command.** A nav formatted as a CLI prompt: `> studio --catalog --voice --get▮`. The links are command flags. The blinking cursor (`▮`) is allowed *only here*, where it has a purpose. [`components/n8-terminal-command.md`](components/n8-terminal-command.md)
-- **N9 · Edge aligned minimal.** Wordmark hard-left, single CTA hard-right, vast empty space between, no link row at all. The *absence* is the design. [`components/n9-edge-aligned-minimal.md`](components/n9-edge-aligned-minimal.md)
-- **N10 · Floating on scroll morph.** A sticky bar at the top that **morphs into a floating pill** as the user scrolls past a threshold. Two visual modes share one DOM: `.nav` (outer) owns the bar look, `.nav__inner` the pill. [`components/n10-floating-on-scroll-morph.md`](components/n10-floating-on-scroll-morph.md)
-- **N1b · Canonical SaaS three-section.** Wordmark left, a centred cluster of four to six links (some with hover dropdowns), sign-in and a filled CTA right. The dominant modern marketing nav; frosts on scroll. N1 is the *minimal* two-link variant; this is the dense, balanced one. [`components/n1b-saas-three-section.md`](components/n1b-saas-three-section.md)
+- **N8 · Terminal command.** A nav formatted as a CLI prompt: `> studio --catalog --voice --get`. The links are command flags; a cursor may end the typed line and nothing else on the page blinks. [`components/n8-terminal-command.md`](components/n8-terminal-command.md)
+- **N9 · Edge-aligned.** Wordmark at one edge, one action or two text links at the other, nothing between. The first nav for a page with one or two destinations. [`components/n9-edge-aligned-minimal.md`](components/n9-edge-aligned-minimal.md)
+- **N1 · Three-section bar.** Wordmark left, a centred cluster of three to five links (some with small dropdowns), sign-in and one filled action right. The reflex product bar (42): only for four or more real top-level destinations, named in the stamp. [`components/n1-three-section-bar.md`](components/n1-three-section-bar.md)
 - **N11 · Mega-menu panel.** A top bar whose triggers open a full-width multi-column panel (icon, title and description per item, grouped, plus a feature card); the page dims behind a scrim. For platforms and hubs with many grouped destinations. [`components/n11-mega-menu.md`](components/n11-mega-menu.md)
 - **N12 · Announcement banner + retracting nav.** A coloured promo banner stacked above one real nav; the banner retracts on scroll-down, returns on scroll-up, dismisses via ×. The banner is not a second nav (colour contrast keeps them distinct). [`components/n12-banner-retract.md`](components/n12-banner-retract.md)
-- **N13 · Inline ⌘K search pill.** A visible search pill in the bar (placeholder plus a `⌘K` hint) opening a spotlight modal with grouped, keyboard-navigable results. The *visible* opposite of N4. For search-heavy and docs-heavy products. [`components/n13-inline-cmdk-pill.md`](components/n13-inline-cmdk-pill.md)
+- **N13 · Command palette.** A spotlight dialog of grouped, keyboard-navigable results opened by ⌘K; triggered by a visible search pill in the bar, or by one small `Menu ⌘K` control with no other nav for keyboard-first audiences. [`components/n13-inline-cmdk-pill.md`](components/n13-inline-cmdk-pill.md)
 
 ---
 
@@ -121,17 +115,17 @@ The knob values live **inside each archetype file** (`## Knobs`), next to the co
 
 ## Routing, which nav fits which genre / theme
 
-| Genre / cluster | Default nav | Acceptable also |
+| Genre / cluster | Default nav | Also OK |
 | --- | --- | --- |
-| editorial | **N6 Masthead** | N1, N9, N12 |
-| modern-minimal | **N1b SaaS three-section** | N5, N11, N13, N9 |
-| atmospheric | **N5 Floating pill** (blur backdrop sells the mood) | N9, N4, N13, N1b |
-| playful | **N7 Brutal slab** on a heavy theme; **N12** or **N1b** on a soft one (N7 refuses rounded corners) | N11, N13 |
-| terminal / CLI | **N8 Terminal command** | N4 ⌘K-only, N13 |
-| docs / reference | **N1 edge-aligned bar**, N3 only when a sticky object earns it | N13, N4 |
-| commerce / product launch | **N12 Banner + retract** | N1b, N11, N9 |
+| editorial | **N6 Masthead** on an issue or edition; **N9 Edge-aligned** otherwise | N12, N3 when a sticky object earns it |
+| modern-minimal | **N9 Edge-aligned** | N5, N13, N11 for six or more grouped products, N1 for four or more destinations |
+| atmospheric | **N5 Floating pill** (the blur sells the mood) | N9, N13 |
+| playful | **N7 Brutal slab** on a heavy theme; **N12** or **N9** on a soft one (N7 refuses rounded corners) | N5, N13 |
+| terminal / CLI | **N8 Terminal command** | N13 |
+| docs / reference | **N13 Command palette** with a search pill | N9, N3 when a sticky contents list earns it |
+| commerce / product launch | **N12 Banner + retract** | N9, N11 |
 
-**Default away from N1.** The most-recognised machine fingerprint is N1 (wordmark, inline link row, button right) used reflexively. For a real product nav reach for **N1b** (the dense, balanced canonical bar) or N5, N11 or N13 first; reach for N1 only when the page genuinely has two destinations.
+**Default away from N1.** Wordmark left, a centred link row, a filled button right and a hairline under it is the most recognised machine-made nav (42). Start from the page's real destinations: one or two is N9, a search-led product is N13, a launch is N12, an edition is N6. N1 is right only when four or more top-level destinations exist, and then the stamp names it.
 
 ---
 

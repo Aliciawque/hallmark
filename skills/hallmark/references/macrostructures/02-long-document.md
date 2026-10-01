@@ -13,7 +13,7 @@ Reach for it for case studies, founder posts, mission pages, products whose sale
 
 Avoid when there is one decisive action to take. Long Document hides its actions inside sentences, which is wrong for a transactional page.
 
-Heading code: [`../components/s4-inline-no-break.md`](../components/s4-inline-no-break.md).
+Heading: the inline lead-in of [`../craft.md`](../craft.md) § 7, item 3.
 
 ```html
 <article class="prose">

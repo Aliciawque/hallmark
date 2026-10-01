@@ -1,7 +1,7 @@
 ### N8 · Terminal command
 The nav is a command line: `> studio --catalog --voice --get`, the links are flags. A blinking cursor ends the line. It is legal because the line is a typed command and the cursor says "type next"; it is the page's only cursor, and nothing else on the page blinks (66).
 *Use when:* the page is a CLI tool, developer docs, or a theme whose material is mono.
-*Not:* N4 (a palette, not a bar). On a non-developer site the `>` prompt is set decoration.
+*Not:* N13 (a palette, not a bar). On a non-developer site the `>` prompt is set decoration.
 
 ```html
 <header class="nav-term">

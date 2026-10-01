@@ -1,7 +1,7 @@
-### N13 · Inline ⌘K search pill
-A visible search control sits in the bar beside the links: placeholder text and a `⌘K` hint. Click it, or press ⌘K or Ctrl K, and a spotlight dialog opens with grouped, keyboard-navigable results. The opposite of N4: the affordance is on the surface for newcomers, the shortcut for the rest.
+### N13 · Command palette
+A spotlight dialog with grouped, keyboard-navigable results, opened by ⌘K or Ctrl K. The trigger is a visible search pill in the bar (placeholder text and a `⌘K` hint) for newcomers, or, for a keyboard-first audience, one small control showing the shortcut and no other nav at all.
 *Use when:* search is a primary action (developer docs, a library, a large catalogue).
-*Not:* N4 (no visible nav); a search icon that focuses an input in place. The dialog is a `<dialog>` that traps focus and closes on Escape: ship the pill, ship the keyboard model. The pill reads as search (an icon and a placeholder), not as a generic button.
+*Not:* a search icon that focuses an input in place. The dialog is a `<dialog>` that traps focus and closes on Escape: ship the pill, ship the keyboard model. The pill reads as search (an icon and a placeholder), not as a generic button.
 
 ```html
 <header class="nav" id="nav"><div class="nav__inner">
@@ -42,7 +42,7 @@ JS: ⌘K or Ctrl K toggles, Escape closes (native), a backdrop click closes, the
 - Pill placement: centred · beside the brand
 - Results: flat · grouped
 - Footer hints: shown · hidden
-- Open trigger: pill and ⌘K (⌘K alone is N4)
+- Trigger: a search pill in the bar and ⌘K · one small `Menu ⌘K` control fixed top right, no other nav (the palette lists every destination)
 
 ## Mobile
 
