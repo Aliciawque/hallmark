@@ -28,7 +28,7 @@ Cool concrete paper, blue-black ink, Saira Condensed 700 uppercase heads, JetBra
   --font-outlier: "JetBrains Mono", ui-monospace, monospace;
   --radius-card: 4px; --radius-pill: 4px; --rule-hair: 1px; --rule-bar: 2px;
   --shadow-card: none;
-  --tracking-display: -0.04em; --display-weight: 700;
+  --tracking-display: -0.015em; --display-weight: 700;
 }
 ```
 
@@ -58,7 +58,7 @@ Imperative, kinetic, numbered. Caps on the head, sentence case in the body. Nume
 ## Do-nots
 
 - Never slant the display; the lean comes from tracking and layout.
-- Never loosen the display tracking; spread caps read stretched. Tight heads, plain labels.
+- Never loosen the display tracking past zero, and never tighten it until two capitals touch; a true condensed face already sits close.
 - Never warm paper; the ground is cool concrete, hue 250.
 - Never volt type, a volt hairline on paper, a second accent or a duotone; one volt, as a fill.
 - Never stadium skeuomorphism: no grass, jersey mesh, medal or trophy.

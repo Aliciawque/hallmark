@@ -26,7 +26,7 @@ Warm cream, Bricolage Grotesque 800 at width 75 slammed against the left margin,
   --font-display: "Bricolage Grotesque", ui-sans-serif, sans-serif; --font-body: "Figtree", ui-sans-serif, system-ui, sans-serif;
   --font-outlier: "EB Garamond", ui-serif, Georgia, serif;
   --radius-card: 0; --radius-pill: 0; --rule-hair: 1px; --shadow-card: none;
-  --tracking-display: -0.04em; --display-weight: 800;
+  --tracking-display: -0.01em; --display-weight: 800;
 }
 ```
 
