@@ -40,7 +40,7 @@ Signals: the brief names one element (button, input, form, card, modal, dropdown
 .btn:active, .btn.is-active { transform: translateY(1px); }
 ```
 
-Stamp: `/* Hallmark · component: <type> · genre: <genre> · theme: <theme> · states: 8 · contrast: pass · v2.2.0 */`. Sweep: `sloplint --scope component`, which runs the Floor tier minus the page-only gates.
+Stamp: `/* Hallmark · component: <type> · genre: <genre> · theme: <theme> · states: 8 · contrast: pass · v2.3.0 */`. Sweep: `sloplint --scope component`, which runs the Floor tier minus the page-only gates.
 
 ## Signal 8: the archive builds, Hallmark sweeps
 
@@ -57,7 +57,7 @@ Enter at Step 7 over the files the archive wrote, with five differences:
 ```css
 /* Hallmark · checked: 2026-09-22 · genre: modern-minimal (inferred)
  * floor: 0 FAIL · fixed: 6 (2, 7, 22, 27, 38, 54) · structural: 2 printed (8, 42)
- * built: external (reference archive) · v2.2.0 */
+ * built: external (reference archive) · v2.3.0 */
 ```
 
 The fresh-context review still runs, one round, with the narrower question: *does anything here read as machine-made?* Close with the counts: `Swept 4 files · fixed 6 · 2 structural findings printed · Floor 0 FAIL`.

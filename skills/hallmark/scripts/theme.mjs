@@ -7,7 +7,7 @@ import { createHash } from 'node:crypto';
 const HERE = dirname(fileURLToPath(import.meta.url));
 const THEMES = join(HERE, '..', 'references', 'themes');
 const INDEX = join(THEMES, 'index.json');
-const VERSION = '2.2.0';
+const VERSION = '2.3.0';
 const args = process.argv.slice(2);
 const cmd = args[0];
 const flag = (k, d = null) => { const i = args.indexOf('--' + k); const v = i >= 0 ? args[i + 1] : undefined; return v !== undefined && !String(v).startsWith('--') ? v : d; };

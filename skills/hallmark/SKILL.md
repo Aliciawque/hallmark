@@ -1,7 +1,7 @@
 ---
 name: hallmark
 description: "Design skill for pages, sites and components that look made, not generated. Picks a theme from a dealt catalog or derives a world, sets type, colour, layout and motion to a hard floor, builds, then lints and reviews the result. Use when the user asks to build, design, style or lay out a page, landing page, site, app screen or UI component, or invokes Hallmark by name."
-version: 2.2.0
+version: 2.3.0
 ---
 
 # Hallmark
@@ -105,7 +105,7 @@ Loading more is the largest avoidable cost; `gates.md` § 5 and § 6 wait for St
 The run's only prose recital of its decisions, and the user's five-second redirect window:
 
 ```markdown
-**Hallmark · v2.2.0**
+**Hallmark · v2.3.0**
 
 - **Shape** · Workbench (last 3: Bento, Long Document, Manifesto) · genre modern-minimal
 - **Theme** · Coral, dealt 2/3 (warm grey, one coral signal, General Sans, soft pills) · clears Cobalt on paper band
@@ -141,7 +141,7 @@ Emit code that satisfies the theme and the shape. Always:
 ```css
 /* Hallmark · shape: Workbench · genre: modern-minimal · theme: Coral (deal 2/3, seed tracejam·2026-09-22·r0)
  * hero: Stage · nav: edge-aligned · footer: colophon line · enrichment: none · signature: live pricing table in the hero slot
- * axes: light/grotesk-sans/warm · posture: restrained · contrast: pass · fold: pass · v2.2.0 */
+ * axes: light/grotesk-sans/warm · posture: restrained · contrast: pass · fold: pass · v2.3.0 */
 /* Hallmark · pre-emit critique: P4 H5 E4 S4 R5 V4 · weakest: E, focus ring was the body colour; moved to --color-focus */
 ```
 
