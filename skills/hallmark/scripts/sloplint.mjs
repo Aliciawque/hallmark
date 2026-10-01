@@ -2694,7 +2694,9 @@ function check67(ctx) {
       if (v != null) em = trackingEmOf(ctx, [{ prop: 'letter-spacing', value: v }], px || 16);
     }
     const tracked = em != null && em > 0.03;
-    const labelish = LABEL67.test(r.selector);
+    const subject = r.selector.split(',').map((p) => baseSelector(p).split(/[\s>+~]+/).filter(Boolean).pop() || '');
+    const labelish = subject.some((s) => LABEL67.test(s)) ? !(px != null && px >= 28)
+      : LABEL67.test(r.selector) && !subject.every((s) => /^h[1-6]\b/i.test(s)) && (px == null || px < 20);
     const control = CONTROL67.test(r.selector);
     const heading = HEADING_SEL.test(r.selector) && !labelish;
     if (heading && !control) continue;
@@ -2931,15 +2933,39 @@ function check68(ctx) {
   }
 }
 
+const FACT69 = /(?:[£$€¥]\s?\d[\d,.]*|\d[\d,.]*\s?(?:pm|am|MAD|kg|g|ml|km|mi|miles|%)\b|\b\d{1,2}:\d{2}\b)/gi;
+const REGION69 = /^(section|header|footer|article|aside|nav|form|dialog)$/;
 function check69(ctx) {
   for (const doc of ctx.docs) {
     if (doc.kind !== 'html') continue;
-    const text = doc.text.replace(/\s+/g, ' ');
-    const facts = text.match(/(?:[£$€¥]\s?\d[\d,.]*|\d[\d,.]*\s?(?:pm|am|MAD|kg|g|ml|km|mi|miles|%)\b|\b\d{1,2}:\d{2}\b)/gi) || [];
-    const counts = new Map();
-    for (const f of facts) { const k = f.replace(/\s+/g, '').toLowerCase(); counts.set(k, (counts.get(k) || 0) + 1); }
-    const loud = [...counts].filter(([, n]) => n >= 4).sort((a, b) => b[1] - a[1]);
-    if (loud.length) report(69, 'WARN', doc.file, 1, `the same fact printed ${loud[0][1]} times: ${loud.slice(0, 3).map(([k, n]) => `${k} (${n})`).join(', ')}`, 'Say each fact once, where it does work; cut the restatements');
+    const bodyAt = doc.tags.findIndex((t) => !t.close && t.name === 'body');
+    const stack = [];
+    const seen = new Map();
+    let uid = 0;
+    const regionOf = () => {
+      const r = stack.find((e) => REGION69.test(e.name));
+      if (r) return r.id;
+      const band = stack.find((e, i) => i > 0 && (stack[i - 1].name === 'body' || stack[i - 1].name === 'main') && e.name !== 'main');
+      return band ? band.id : 'root';
+    };
+    for (let i = Math.max(bodyAt, 0); i < doc.tags.length; i++) {
+      const t = doc.tags[i];
+      if (t.close) { const at = stack.map((e) => e.name).lastIndexOf(t.name); if (at >= 0) stack.length = at; }
+      else if (!t.selfClosing) stack.push({ name: t.name, id: uid++ });
+      const next = doc.tags[i + 1];
+      if (/^(script|style|template|noscript)$/.test(t.name) && !t.close) continue;
+      const chunk = doc.masked.slice(t.end, next ? next.pos : doc.masked.length)
+        .replace(/&pound;/g, '£').replace(/&euro;/g, '€').replace(/&nbsp;|&#160;/g, ' ');
+      if (!chunk.trim()) continue;
+      const region = regionOf();
+      for (const f of chunk.match(FACT69) || []) {
+        const k = f.replace(/\s+/g, '').toLowerCase();
+        if (!seen.has(k)) seen.set(k, new Set());
+        seen.get(k).add(region);
+      }
+    }
+    const loud = [...seen].map(([k, s]) => [k, s.size]).filter(([, n]) => n >= 4).sort((a, b) => b[1] - a[1]);
+    if (loud.length) report(69, 'WARN', doc.file, 1, `the same fact printed in ${loud[0][1]} sections: ${loud.slice(0, 3).map(([k, n]) => `${k} (${n})`).join(', ')}`, 'Say each fact once, where it does work; cut the restatements');
   }
 }
 

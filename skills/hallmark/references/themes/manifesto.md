@@ -9,6 +9,7 @@ posture: committed
 keywords: manifesto, statement, declaration, principles, beliefs, mission, movement, protest, cause, campaign, activism, advocacy, values, take a stand, bold launch, defiant, punk, record label
 material: warm charcoal, condensed uppercase caps at 9rem leaded tight, a quiet grotesque body, one fighting red
 signature: a three-line block of condensed caps locked into one solid mass against the left margin, with a single red word in it
+pictured: Manifesto, Ledge hero
 ---
 
 # Manifesto

@@ -9,6 +9,7 @@ posture: restrained
 keywords: inference, model, llm, ai tool, agent, voice, synthesis, api, gpu, serverless, runtime, developer, console, research lab, climate model, ml platform, dev tools, premium
 material: a cool-violet ground with a faint blueprint grid, one built light artefact, lowercase serif heads, molten brass
 signature: one hand-built light source standing in dead space, lit from inside, under a lowercase serif headline with one coloured verb
+pictured: Conversational FAQ, Stage hero
 ---
 
 # Lumen

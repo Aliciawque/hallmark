@@ -9,6 +9,7 @@ posture: restrained
 keywords: almanac, yearbook, field guide, reference, handbook, manual, index, catalogue, encyclopedia, data, figures, tables, statistics, research, dataset, records, directory, glossary, specifications
 material: cool slate stock, two rule weights, Hanken Grotesk heads over Newsreader prose, tabular figures in mono, one library-stamp blue
 signature: a hairline table with one firm rule under its head and figures lined up to the decimal
+pictured: Spec Sheet, Settled hero
 ---
 
 # Almanac

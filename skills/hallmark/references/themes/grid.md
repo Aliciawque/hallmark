@@ -9,6 +9,7 @@ posture: committed
 keywords: identity, brand system, wayfinding, signage, design studio, type specimen, editorial grid, institution, museum, archive, index, directory, systems, modular, swiss, grotesque, manual, programme, poster
 material: a cool near-white sheet with an exposed 12-column hairline grid, one heavy lowercase grotesk, one signal ink spent on geometry
 signature: the visible column rails running behind everything, including across the one flooded plate
+pictured: Index-First, Ledge hero
 ---
 
 # Grid

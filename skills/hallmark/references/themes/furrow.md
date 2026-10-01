@@ -9,6 +9,7 @@ posture: committed
 keywords: farm, agriculture, land, field, livestock, crop, records, compliance, fleet, field service, rural, contractor, hectares, yard, outdoors, seasonal, working, units
 material: warm office paper, an ink-ruled ledger, Red Hat Display at 600, one tangerine record mark and a yellow ear tag
 signature: the ledger row, a mono time first and a chip last, under a single ink rule
+pictured: Workbench, Stage hero
 ---
 
 # Furrow

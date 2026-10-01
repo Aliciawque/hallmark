@@ -9,6 +9,7 @@ posture: restrained
 keywords: fashion, atelier, couture, fragrance, gallery, exhibition, museum, ceramics, furniture, homeware, architecture, design studio, lookbook, collection, craft, small-batch, made by hand, brand story, luxury, object
 material: warm plaster paper, umber ink, a bold Sentient crown over Hanken Grotesk, hairlines and air, one cool slate signal
 signature: a large weighted serif line over a hairline-framed object with its placard set small beneath it
+pictured: Catalogue, Settled hero
 ---
 
 # Atelier

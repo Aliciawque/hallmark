@@ -9,6 +9,7 @@ posture: drenched
 keywords: couture, atelier, fashion, collection, season, dye, textile, silk, wool, linen, garment, fitting, boutique, lookbook, designer, luxury, slow fashion, craft, stockists
 material: a whole page dyed mustard saffron, near-black ink, cream plates, Zodiak Italic on every head, a cropped giant letterform
 signature: one enormous italic letter cropped by the section edge in a deeper saffron, with cream plates numbered along the fold
+pictured: Catalogue, Stage hero
 ---
 
 # Saffron

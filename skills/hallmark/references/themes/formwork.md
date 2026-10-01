@@ -9,6 +9,7 @@ posture: restrained
 keywords: construction, concrete, skatepark, contractor, civil, landscape, foundry, industrial, fabrication, workshop, engineering, cast, welded, builders, hardware, tools, site, heavy
 material: a poured concrete surface with board lines and tie holes, condensed caps in ink, one safety orange on plates and numbers, drawings built from a radius
 signature: an orange plate button on a three-pixel cast shadow, set on a concrete surface that shows the lines of its boards
+pictured: Split Studio, Ledge hero
 ---
 
 # Formwork

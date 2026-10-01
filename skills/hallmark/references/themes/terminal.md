@@ -9,6 +9,7 @@ posture: committed
 keywords: cli, terminal, shell, command-line, tui, self-hosted, open-source, binary, ssh, sysadmin, devops, homelab, install script, package manager, repl, retro, phosphor, hacker
 material: green-black ground, phosphor-green ink on one hue, every glyph JetBrains Mono, box-drawn chrome, square corners
 signature: a typed command with its prompt and a block caret, framed in box-drawing rules on one green hue
+pictured: Long Document set as a man page, Stage hero
 ---
 
 # Terminal

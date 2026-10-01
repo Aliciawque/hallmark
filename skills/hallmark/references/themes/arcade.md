@@ -9,6 +9,7 @@ posture: full-palette
 keywords: game, indie, studio, launch party, demo night, hackathon, festival, meetup, retro, pixel, arcade, nostalgia, synth, lo-fi, toy, zine, club night, loud
 material: an aubergine CRT with a visible grille, marquee lettering, ember and acid chevron side art, a pixel HUD
 signature: the lit marquee band with an RGB-split wordmark over a chevron side-art panel
+pictured: Marquee Hero, Poster hero
 ---
 
 # Arcade

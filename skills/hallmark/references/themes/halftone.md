@@ -9,6 +9,7 @@ posture: committed
 keywords: drinks, soda, food brand, print shop, zine, magazine, record label, packaging, campaign, label, bottle, screen print, bold, one colour, retail, craft, loud, fruit
 material: cream stock, one spot ink through a dot screen, a fat slab display, three-pixel rules and a nutrition panel as the only box
 signature: a fruit drawn as a screened disc in the spot colour, dense on one side and fading to nothing on the other
+pictured: Stat-Led, Settled hero
 ---
 
 # Halftone

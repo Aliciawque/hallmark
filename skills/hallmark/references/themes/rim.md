@@ -9,6 +9,7 @@ posture: committed
 keywords: space, satellite, earth observation, orbit, imagery, ground station, telemetry, hardware, schedule, utc, infrastructure, mission, sensor, monitoring, instrument, night, dark, measured
 material: warm black paper, one disc lit along a third of its edge, Switzer medium, mono for every measurement, zero radius
 signature: the black disc with a hard-edged conic rim, and a 1px horizon rule with something rising under it
+pictured: Map / Diagram, Stage hero
 ---
 
 # Rim

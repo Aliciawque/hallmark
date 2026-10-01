@@ -9,6 +9,7 @@ posture: committed
 keywords: treasury, banking, fintech, payments, reconciliation, ledger, accounting, close, audit, balance, cash management, payouts, settlement, compliance, controller, bookkeeping, invoicing, payroll
 material: a ruled navy sheet with money columns, tabular mono on every figure, two inks with one job each, totals footed under a double rule
 signature: a column of mono figures closing on a total under a double rule, with an as-of line beneath it
+pictured: Workbench, Settled hero
 ---
 
 # Ledger

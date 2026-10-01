@@ -9,6 +9,7 @@ posture: full-palette
 keywords: venue, gigs, festival, music, label, print studio, bar, club, poster, tickets, events, nightlife, two-colour, screenprint, punk, zine, loud, listings, door
 material: warm newsprint stock, a wide shouted grotesk, two transparent flat inks that print a third where they cross, tickets and stamps
 signature: two flat ink shapes overlapping behind or beside the headline, the overlap printing a third colour, nothing out of register
+pictured: Marquee Hero, Poster hero
 ---
 
 # Overprint

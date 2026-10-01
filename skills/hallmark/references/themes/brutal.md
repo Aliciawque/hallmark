@@ -9,6 +9,7 @@ posture: committed
 keywords: brutalist, raw, bold, high-contrast, statement, agency, studio, portfolio, streetwear, drop, zine, type-forward, graphic design, poster, festival, collective, no-nonsense, uncompromising
 material: an engineered near-white sheet carved by 3px near-black rules, giant uppercase Albert Sans 700, zero radius, one acid-yellow fill
 signature: a solid ink block butted against a bordered paper block with one acid-yellow bar between them
+pictured: Split Studio, Ledge hero
 ---
 
 # Brutal

@@ -9,6 +9,7 @@ posture: drenched
 keywords: fruit, food box, grocer, market, delivery, weekly, seasonal, farm shop, subscription, produce, veg box, cheerful, family, treats, stall, orchard, local, fresh
 material: a forest green ground with real chroma, peach controls, Manrope heavy from headline to footnote, drawn fruit with a ripeness bar
 signature: a drawn fruit on the green with an 8px ripeness gradient under it, and one white card for the thing you pay for
+pictured: Bento Grid, Settled hero
 ---
 
 # Squeeze

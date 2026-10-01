@@ -9,6 +9,7 @@ posture: restrained
 keywords: farm, orchard, cider, winery, harvest, seasonal, food, almanac, produce, vineyard, calendar, market, craft drink, label, bottle, rural, slow, sun
 material: cream paper with a ring of cream rays, warm brown ink, a low vermilion sun, gold hairlines, panels drawn as bottle labels
 signature: a solid vermilion disc sitting in the empty centre of a ring of pale conic rays, with a label panel ruled in gold beside it
+pictured: Stat-Led, Settled hero
 ---
 
 # Solstice

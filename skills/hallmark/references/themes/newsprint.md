@@ -9,6 +9,7 @@ posture: restrained
 keywords: newspaper, broadsheet, journalism, publication, magazine, newsletter, op-ed, opinion, essay, longform, column, reportage, press, gazette, review, dispatch, literary
 material: warm cream stock, a Zilla Slab head over Spectral columns, hairlines and a double rule, one dried-brick mark
 signature: a slab-serif drop cap opening a lede split into hairline-ruled columns under a double rule
+pictured: Front Page (an unlisted shape), Settled hero
 ---
 
 # Newsprint

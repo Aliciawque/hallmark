@@ -9,6 +9,7 @@ posture: committed
 keywords: grower, mushroom, fungi, farm, food, producer, fermentation, wine, natural wine, wine bar, bottle shop, cellar, preserves, dark, culture, night market, harvest, subscription, small batch
 material: coffee-ground black under a warm grain, cream Young Serif, one oyster pink, the product drawn in code on brick shelves
 signature: a drawn row of the product on a brick shelf (caps, bottles or jars), each name in cream serif and its price in pink
+pictured: Conversational FAQ, Poster hero
 ---
 
 # Spore

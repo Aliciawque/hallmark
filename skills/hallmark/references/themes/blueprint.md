@@ -9,6 +9,7 @@ posture: drenched
 keywords: architecture, architect, engineering, construction, structural, interiors, planning, surveying, cad, drafting, fabrication, prefab, developer, technical, spec, permit, renovation, build, drawings, studio
 material: prussian-blue sheet under a two-pitch grid, white line drawing, a fixed title block, dimension strings and hatch fills
 signature: the fixed title block in the sheet's corner, with every figure on the page dimensioned like a drawing
+pictured: Bento Grid set as one drawing sheet, Stage hero
 ---
 
 # Blueprint

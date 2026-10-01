@@ -9,6 +9,7 @@ posture: full-palette
 keywords: school, programme, workshop, maker, course, bootcamp, academy, apply, admissions, tuition, timetable, bauhaus, craft, design education, studio, residency, cohort, prospectus
 material: a warm putty grey ground, a blue circle, a red triangle and a yellow square, heavy geometric capitals, 2px and 3px black rules
 signature: the three primary shapes cropped large beside the headline and repeated at 11px as the bullets of every list
+pictured: Prospectus (an unlisted shape), Poster hero
 ---
 
 # Werkstatt

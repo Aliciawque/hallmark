@@ -9,6 +9,7 @@ posture: full-palette
 keywords: stickers, print, merch, shop, maker, creator, diy, craft, vinyl, packaging, labels, small business, ecommerce, fun, loud, pink, cut, ship, order
 material: a warm off-white sheet, hot pink and lime cut shapes with thick white die-cut borders and hard offset shadows, a heavy display face
 signature: a tilted die-cut shape, white-bordered, sitting proud of the page on a hard shadow beside the headline
+pictured: Bento Grid set as a sticker sheet, Poster hero
 ---
 
 # Sticker

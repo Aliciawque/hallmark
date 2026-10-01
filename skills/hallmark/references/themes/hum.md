@@ -9,6 +9,7 @@ posture: full-palette
 keywords: daily, habit, streak, practice, learning, curiosity, mood, energy, friendship, community, kids, family, game, puzzle, creative, character, mascot, playful, alive
 material: cream pulled toward pear-yellow, three accents that never blend, one rounded sans, round corners everywhere, a press you can feel
 signature: the pear-yellow pill with a solid colour edge that lifts on hover and presses down on click
+pictured: Bento Grid, Ledge hero
 ---
 
 # Hum

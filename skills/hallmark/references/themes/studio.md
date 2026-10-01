@@ -9,6 +9,7 @@ posture: restrained
 keywords: design studio, creative studio, branding, brand identity, art direction, agency, portfolio, case study, selected work, editorial design, typography, creative direction, graphic design, considered, curatorial
 material: cool studio-white, a roughened roman serif at scale, hairlines and air, one cadmium-orange rectangle
 signature: an Erode headline set huge with its chipped edges legible, over a hairline, and one cadmium-orange rectangle beneath it
+pictured: Case-study index (an unlisted shape), Settled hero
 ---
 
 # Studio

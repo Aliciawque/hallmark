@@ -127,15 +127,25 @@ function observe(checkFold, meta) {
       'overflow-x: clip on html and body; find the overflowing block');
   }
 
-  for (const el of document.querySelectorAll('a, button, [role="button"], nav a')) {
+  for (const el of document.querySelectorAll('a, button, [role="button"]')) {
     if (!visible(el)) continue;
     const text = (el.textContent || '').trim();
     if (!text) continue;
+    if ([...el.querySelectorAll('*')].some((d) => !d.closest('svg') && /^(block|flex|grid|list-item|table)$/.test(getComputedStyle(d).display))) continue;
     const cs = getComputedStyle(el);
     const lh = parseFloat(cs.lineHeight) || parseFloat(cs.fontSize) * 1.4;
-    const range = document.createRange();
-    range.selectNodeContents(el);
-    const tops = [...range.getClientRects()].filter((r) => r.width > 0 && r.height > 0).map((r) => r.top).sort((a, b) => a - b);
+    const tops = [];
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+      const host = n.parentElement;
+      if (!n.textContent.trim() || !host || host.closest('svg')) continue;
+      const hr = host.getBoundingClientRect();
+      if (hr.width <= 2 || hr.height <= 2) continue;
+      const range = document.createRange();
+      range.selectNodeContents(n);
+      for (const r of range.getClientRects()) if (r.width > 0 && r.height > 0) tops.push(r.top);
+    }
+    tops.sort((a, b) => a - b);
     let lines = tops.length ? 1 : 0;
     for (let i = 1; i < tops.length; i++) if (tops[i] - tops[i - 1] > lh * 0.6) lines++;
     if (lines > 1) {

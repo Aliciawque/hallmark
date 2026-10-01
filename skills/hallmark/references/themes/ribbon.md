@@ -9,6 +9,7 @@ posture: committed
 keywords: sleep, sound, soundscape, audio, night, rest, calm, wellness, meditation, white noise, ambient, listen, headphones, wind down, bedtime, quiet, breathing, app, subscription
 material: warm off-white paper, a light italic serif, pills and rules, and a ribbon of hairline strands in copper and teal whose thickness means loudness
 signature: the ribbon: a dozen hairline paths in two colours sharing one undulating centre line, fading into the paper at both ends
+pictured: Narrative Workflow, Stage hero
 ---
 
 # Ribbon

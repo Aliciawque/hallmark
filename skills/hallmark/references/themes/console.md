@@ -9,6 +9,7 @@ posture: restrained
 keywords: lab, laboratory, protocol, science, research, observability, monitoring, version control, audit, compliance, instruments, data, devtools, engineering, telemetry, record, operations, dark, developer
 material: blue-black ground in three lightness steps, Host Grotesk for reading, mono for what was measured, amber for a person and a cool blue for an instrument
 signature: a hairline panel cut into a grid by 1px gaps, a reading in mono with its unit and time, and one amber button
+pictured: Bento Grid, Stage hero
 ---
 
 # Console

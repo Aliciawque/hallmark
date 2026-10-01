@@ -9,6 +9,7 @@ posture: restrained
 keywords: ai tool, generative, model playground, render, pipeline, observability, console, dark mode, nocturnal, late-night, after-hours, moody, cinematic, cerebral, calm, technical, midnight
 material: midnight-blue ground, cool near-white ink, thin Geist at scale, one azure signal, depth in lightness steps
 signature: a Geist 300 headline set large and airy over layered blue-dark surfaces seamed by hairlines
+pictured: Narrative Workflow, Settled hero
 ---
 
 # Midnight

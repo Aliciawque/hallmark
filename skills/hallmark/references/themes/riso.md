@@ -9,6 +9,7 @@ posture: committed
 keywords: risograph, riso, print fair, zine, small press, letterpress, poster, art book, spot colour, illustration, indie press, diy, print studio, handmade
 material: pink stock, two spot inks a hair out of register, heavy Public Sans over Newsreader, grain on the ink
 signature: one focal word overprinted in blue and pink echoes two pixels out of register
+pictured: Conversational FAQ, Settled hero
 ---
 
 # Riso

@@ -9,6 +9,7 @@ posture: committed
 keywords: ski, mountain, resort, snow, winter, outdoor, sport, trail, lift, race, alpine, tickets, season pass, conditions, weather, club, active, bold
 material: snow-white paper, cobalt runs and buttons, black condensed caps, blue and red and black grade marks, one cobalt band sweeping the hero
 signature: a headline in condensed black caps beside a mountain profile drawn in ink, with the runs on it in cobalt
+pictured: Marquee Hero, Ledge hero
 ---
 
 # Piste

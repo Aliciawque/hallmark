@@ -9,6 +9,7 @@ posture: committed
 keywords: generative, ai creative, music, song, video, image, voice, art, make, create, compose, render, imagine, prompt, studio, playground, expressive, warm, daylight, consumer creative
 material: warm off-white paper under two terracotta blooms, Figtree throughout, one roman Gambarino line, raised warm cards
 signature: warm light on light paper, a plain sans headline with one serif sentence beneath it, the made thing on a raised warm card
+pictured: Narrative Workflow, Stage hero
 ---
 
 # Bloom

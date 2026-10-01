@@ -9,6 +9,7 @@ posture: full-palette
 keywords: record label, podcast, comedy, indie, zine, poster, illustrator, games, hot sauce, merch, streetwear, cassette, vinyl, live show, festival, loud, maximalist, scrappy
 material: tinted paper, a duo-tone pair that competes instead of blending, Big Shoulders Display 800 in its heavy width, 2px rules, a flat ink shadow offset four pixels
 signature: a mustard tile with a 4px hard ink shadow beside an oxblood tile with the same, an ornament divider between them
+pictured: Split Studio, Poster hero
 ---
 
 # Carnival

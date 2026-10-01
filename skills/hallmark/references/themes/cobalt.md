@@ -9,6 +9,7 @@ posture: restrained
 keywords: api, sdk, cli, dev tool, developer platform, docs, documentation, infrastructure, backend, database, observability, webhooks, type-safe, open source, ship, deploy, developer experience, technical
 material: cool engineered near-white, hairlines instead of boxes, Familjen Grotesk over IBM Plex Sans, a graphite code surface in JetBrains Mono, one electric cobalt signal
 signature: a graphite request and response pair under a filename caption, with one cobalt syntax token, hairline-framed on cool white
+pictured: Map / Diagram, Settled hero
 ---
 
 # Cobalt

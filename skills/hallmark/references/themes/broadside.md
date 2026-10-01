@@ -9,6 +9,7 @@ posture: committed
 keywords: auction, sale, market, fair, event, one night, announcement, town, notice, poster, bill, lots, machinery, tools, festival, fete, hammer, date, venue, tickets
 material: grained cream stock, ink rules at one point or five, wood type stacked three faces deep, one vermilion, everything centred
 signature: a bill set to the measure: big lines fitted edge to edge under a five-point rule, three vermilion diamonds dividing one bill from the next
+pictured: Bill stack, Poster hero
 ---
 
 # Broadside

@@ -9,6 +9,7 @@ posture: committed
 keywords: farm, apiary, honey, cidery, orchard, seed, nursery, herbalist, botanical, tea, preserves, single-origin, seasonal, harvest, small-maker, csa, provenance, grown, field, homestead
 material: oat paper, green ink, a sturdy Vollkorn head, a leaf-green signal, clay kept inside hand-built craft
 signature: the season bar, twelve months as one ruled bar with the in-season months filled leaf green and the current month marked by a hairline
+pictured: Conversational FAQ, Settled hero
 ---
 
 # Garden

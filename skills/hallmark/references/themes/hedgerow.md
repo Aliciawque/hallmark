@@ -8,12 +8,13 @@ accent: chromatic-green 115
 posture: drenched
 keywords: distillery, gin, brewery, forager, botanicals, nature reserve, walking, trail, seeds, plants, nursery, hedge, countryside, field guide, provenance, harvest, batch, seasonal, map, miles
 material: deep hedge green, one chartreuse for every line the code draws, Prata names, Manrope for the reading, a leaf as the unit of quantity
-signature: a specimen drawn in 1.2px chartreuse lines beside its name in Prata, the distance to it as a row of leaves
+signature: a specimen drawn in 1.2px chartreuse lines beside its name in Prata, one real quantity from the brief (miles, a count) as a row of leaves
+pictured: Field guide (an unlisted shape), Stage hero
 ---
 
 # Hedgerow
 
-A hedge-green ground, cream Prata names, Manrope for reading, and one chartreuse that draws every specimen, every ring on the map and the one button. The signature is a specimen drawn in 1.2px chartreuse lines beside its name, the distance to it as a row of leaves.
+A hedge-green ground, cream Prata names, Manrope for reading, and one chartreuse that draws every specimen, every ring on the map and the one button. The signature is a specimen drawn in 1.2px chartreuse lines beside its name, with one real quantity from the brief counted out as a row of leaves.
 
 ## Tokens
 
@@ -59,7 +60,7 @@ The guide is still. A tag appears on hover, a specimen redraws on click, a slide
 
 ## Voice
 
-A field guide's: the plant, where it grows, how far, when to pick it. Miles to one decimal. Provenance as a sentence, never a badge.
+A field guide's: the plant and where it grows, then how far and when only where the brief knows; never invent a distance or a month. Miles to one decimal. Provenance as a sentence, never a badge.
 
 ## Do-nots
 

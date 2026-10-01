@@ -9,6 +9,7 @@ posture: restrained
 keywords: saas, platform, billing, payments, dashboard, b2b, startup, product, pricing, analytics, fintech, workflow, team, onboarding, trust, warm, human, calm
 material: warm grey paper, one coral signal, General Sans throughout, soft pills
 signature: an ink-filled pill beside an outlined one, and nothing else on the page is coloured
+pictured: Map / Diagram, Settled hero
 ---
 
 # Coral

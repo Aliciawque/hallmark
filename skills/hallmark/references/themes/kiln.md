@@ -9,6 +9,7 @@ posture: full-palette
 keywords: kiln, ceramics, pottery, firing, glaze, heat, temperature, studio, craft, sensor, monitor, hardware, iot, warmth, dark, glow, schedule, workshop
 material: a near-black ground, a seven-step heat ramp from ash to white heat drawn inside grained plates, Fraunces at full optical size, one smoked plate for the controls
 signature: a rounded plate whose lower corner burns from oxblood through ember to white while the page around it stays cold
+pictured: Feature Stack, Stage hero
 ---
 
 # Kiln

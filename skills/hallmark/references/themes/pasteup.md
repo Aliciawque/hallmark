@@ -9,6 +9,7 @@ posture: committed
 keywords: zine, fair, market, festival, print fair, book fair, exhibitors, riso, punk, diy, collective, gig, poster, workshop, night market, flea, indie, community, launch, loud
 material: kraft board with a fibre wash, the headline cut into ink strips and taped down at a slight tilt, one photocopier blue, a round sticker, a rubber stamp, halftone prints, a serif galley for the reading
 signature: the headline pasted up as tilted ink strips held down with tape, every strip the same ink
+pictured: Marquee Hero, Poster hero
 ---
 
 # Paste-up

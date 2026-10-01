@@ -9,6 +9,7 @@ posture: restrained
 keywords: running, marathon, race, training, fitness, gym, team, league, fixtures, standings, scoreboard, athletics, performance, splits, sportswear, club, match, tournament
 material: cool concrete paper, blue-black ink, uppercase Saira Condensed, tabular mono figures, one volt stripe
 signature: a split-time figure set larger than its label beside a single volt lane stripe
+pictured: Stat-Led, Ledge hero
 ---
 
 # Sport

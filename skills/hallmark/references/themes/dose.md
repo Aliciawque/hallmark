@@ -9,6 +9,7 @@ posture: committed
 keywords: health, medication, pharmacy, care, family, reminders, schedule, app, mobile, medicine, patients, clinic, prescription, tracking, calm, trust, routine, elderly
 material: white paper with pale green tint bands, one pharmacy green, a rounded grotesk, dose pills in a week grid, the app bleeding off its slot
 signature: a week grid of small green pills, filled when taken and outlined when due, beside a rounded green cross
+pictured: Map / Diagram, Settled hero
 ---
 
 # Dose

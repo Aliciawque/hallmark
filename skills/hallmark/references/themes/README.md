@@ -29,6 +29,11 @@ signature: the ink-filled pill beside an outlined one, and nothing else coloured
 - `posture`: `restrained`, `committed`, `full-palette` or `drenched`.
 - `keywords`: the words in a brief that route here, lowercase, comma-separated, ten to twenty.
 - `material` and `signature`: one line each; the deal prints them.
+- `pictured`: written by `scripts/picture.mjs`, the shape and hero posture of the page in the theme's picture, so a build knows which composition is already taken.
+
+## The picture
+
+Every theme ships `<slug>.jpg` beside its file: the first screen and one lower screen of a finished page built in the theme with the skill, each at 1440 x 900, scaled to 960 wide and stacked (`node scripts/picture.mjs <slug> <page.html> <y of the lower screen>`). The page must sweep clean, its lower screen must show the theme's material (the signature object, its rules, its plates), never an empty slot, and the page must be one a designer would sign. A build reads the picture with the file and takes its scale, density, colour balance and objects, never its composition. A theme without a picture validates with a warning.
 
 ## The body, in order, 3.5 to 6 KB
 
