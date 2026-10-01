@@ -140,7 +140,7 @@ function deal() {
   });
   if (recent.length) console.log(`avoid: ${recent.map((r) => `${r.theme || '?'} (${r.axes || 'no axes'})`).join(' · ')}`);
   else console.log('avoid: nothing logged yet (first run for this project)');
-  console.log(`next: node <skill-dir>/scripts/theme.mjs scaffold <slug> to write tokens.css and print the base rules`);
+  console.log(`next: look at the three pictures side by side and pick the material this brief wants, then node <skill-dir>/scripts/theme.mjs scaffold <slug> to write tokens.css and print the base rules`);
 }
 
 const PAPER_BANDS = new Set(['light', 'mid', 'dark']);

@@ -88,7 +88,7 @@ Check in order; the first match wins.
 node <skill-dir>/scripts/theme.mjs deal --genre <genre> --brief "<the brief>" [--log .hallmark/log.json]
 ```
 
-The script reads the catalog index and the log, applies Rotation (two consecutive systems differ on paper band, display class or accent band; siblings in the log count as occupied) and deals three candidates that fit the brief's words, one line each, with a reproducible seed. Pick one of the three, say which and why in one clause, and load only `references/themes/<slug>.md`. Re-deal only when the user asks (`--reroll 1`). No Node: read `references/themes/index.json`, apply the same rule by hand, and stamp `deal: manual`.
+The script reads the catalog index and the log, applies Rotation (two consecutive systems differ on paper band, display class or accent band; siblings in the log count as occupied) and deals three candidates that fit the brief's words, one line each, with a reproducible seed. Look at the three pictures, pick one, say which and why in one clause, and load only `references/themes/<slug>.md`. Re-deal only when the user asks (`--reroll 1`). No Node: read `references/themes/index.json`, apply the same rule by hand, and stamp `deal: manual`.
 
 A catalog theme is a material, not a plan: it says what the page is made of, never what the page contains or in what order. Two pages in one theme should not share a section sequence.
 

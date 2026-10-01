@@ -2,6 +2,7 @@
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, dirname, relative, basename, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { spawnSync } from 'node:child_process';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -257,6 +258,17 @@ for (const f of MD) if (!reach.has(f) && basename(f) !== 'README.md') add('warn'
 
 const skillBytes = Buffer.byteLength(read(SKILL));
 if (skillBytes > 20480) add('warn', SKILL, 1, 'size', `SKILL.md is ${skillBytes} bytes; keep it under 20 KB`);
+
+const exemplarDir = join(ROOT, 'references', 'exemplars');
+const clean = [...(existsSync(exemplarDir) ? readdirSync(exemplarDir).filter((n) => n.endsWith('.html')).map((n) => join(exemplarDir, n)) : []),
+  ...['eyebrow-pass', 'tailwind-pass'].map((n) => join(ROOT, 'scripts', 'fixtures', n)).filter(existsSync)];
+for (const target of clean) {
+  const run = spawnSync(process.execPath, [join(ROOT, 'scripts', 'sloplint.mjs'), target, '--json'], { encoding: 'utf8' });
+  let s = null;
+  try { s = JSON.parse(run.stdout).summary; } catch {}
+  if (!s) add('error', target, 1, 'lint', 'sloplint did not run on this file');
+  else if (s.fails || s.reflex || s.warns) add('error', target, 1, 'lint', `must lint clean, has ${s.fails} FAIL, ${s.reflex} REFLEX, ${s.warns} WARN`);
+}
 
 const shown = ONLY_ERRORS ? findings.filter((x) => x.level === 'error') : findings;
 const errors = findings.filter((x) => x.level === 'error').length;
