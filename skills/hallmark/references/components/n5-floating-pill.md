@@ -68,26 +68,15 @@ The outer is `position: sticky; top: 0; z-index: var(--z-sticky-nav)`. Use `blur
 (() => {
   const nav = document.querySelector(".nav");
   if (!nav) return;
-  const THRESHOLD = 80;
-  let floating = false;
-  let ticking = false;
-  const update = () => {
-    const next = window.scrollY > THRESHOLD;
-    if (next !== floating) {
-      floating = next;
-      nav.classList.toggle("is-floating", floating);
-    }
-  };
-  window.addEventListener("scroll", () => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => { update(); ticking = false; });
-  }, { passive: true });
-  update();
+  const sentinel = document.createElement("div");
+  sentinel.setAttribute("aria-hidden", "true");
+  sentinel.style.cssText = "position:absolute;top:0;left:0;width:1px;height:80px;pointer-events:none";
+  document.body.prepend(sentinel);
+  new IntersectionObserver(([entry]) => nav.classList.toggle("is-floating", !entry.isIntersecting)).observe(sentinel);
 })();
 ```
 
-Three discipline points: `passive: true` (the listener never calls `preventDefault`, so the main thread stays free for scrolling); a `requestAnimationFrame` throttle (at most one update per paint); the flip guard (the class changes once per state change, not once per scroll event).
+An observer on an 80px sentinel at the top of the page flips the class once per change: no scroll listener, no throttle, nothing running while the reader scrolls (`craft.md` § 5).
 
 ##### What breaks it
 
@@ -96,9 +85,8 @@ Three discipline points: `passive: true` (the listener never calls `preventDefau
 3. `backdrop-filter: none` in the floating state: it snaps. `blur(0)` transitions.
 4. Letting the nav height change between states: content jitter, the most damaging mistake in this pattern.
 5. Different durations per property ("speed up the radius", "delay the shadow"): reads as broken even though everything moves. One curve.
-6. A `scroll` listener without `{ passive: true }` or without the rAF throttle: both kill mobile scroll performance.
-7. A threshold of 0: the morph fires on the slightest scroll. Use 60px or more.
-8. No flip guard: toggling the class on every scroll event thrashes layout.
+6. A `scroll` listener where the sentinel would do: it runs on every frame to answer a question that changes twice.
+7. A sentinel shorter than 60px: the morph fires on the slightest scroll.
 
 One orchestrated morph and nothing else: the polish is the single curve and the height-constant arithmetic.
 

@@ -2,7 +2,7 @@
 
 Modular blocks of varying sizes laid out as an irregular grid. Each block is a feature, a figure the user gave, an image or a supplied quote. Rhythm comes from size variation, not card uniformity.
 
-- **Heading:** centred display in a fixed-height hero, not a full viewport.
+- **Heading:** a display head over the grid's first row; the hero is one screen and the grid starts inside it or right under it (44c), never a tall empty band.
 - **Body:** asymmetric grid, 8 to 15 blocks of mixed spans (1×1, 2×1, 1×2, 2×2); image-bearing tracks `minmax(0, 1fr)` (50).
 - **Divider:** one gap of 12 to 24px; no rules; the grid is the rhythm.
 - **Button:** an outlined chip in the hero; inside a tile, a typographic link carrying a verb.

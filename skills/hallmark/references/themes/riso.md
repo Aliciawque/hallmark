@@ -28,7 +28,7 @@ Pink stock, Public Sans 900 heads over a Newsreader body, blue and yellow spot i
   --font-outlier: "Geist Mono", ui-monospace, monospace;
   --radius-card: 2px; --radius-pill: 2px; --rule-hair: 1px;
   --shadow-card: none; --texture-opacity: 0.06;
-  --tracking-display: -0.04em; --display-weight: 900;
+  --tracking-display: -0.015em; --display-weight: 900;
 }
 ```
 
@@ -42,7 +42,7 @@ Pink stock, Public Sans 900 heads over a Newsreader body, blue and yellow spot i
 
 - The off-register overprint, the theme's move: a focal word carries a blue echo nudged up-left 2px and a pink echo nudged down-right 2px, both multiplied over the ink, per `texture.md` § Misregistration: one focal word per page, in the hero head, offset 1 to 3px (the signature; stamp `waive 38iii`).
 - Grain, declared: the `texture.md` § Grain recipe, page-wide at `--texture-opacity` 0.06, never above 0.08, up to 0.15 on a plate, under 0.05 beneath running text. Grain and misregistration are the theme's two artifacts; nothing else.
-- Blue and yellow are the only inks; where they cross, multiply makes a third for free. Both under 15% of a viewport.
+- Blue and yellow are the only inks; where they cross on white or on a plate, multiply makes a third for free. On the pink stock the yellow prints opaque (multiplied over pink it turns mustard). Both under 15% of a viewport.
 - Hairlines, a yellow `<mark>` band at x-height in running text and never inside a heading, solid rectangles at 2px, zero shadow; depth comes from overprint and rule.
 - The control pair: a blue-filled rectangle with paper text beside one outlined in ink, both 2px. The object family: plates. A print plate with a grained fill, a stockist list, a run sheet, a poster crop in a hairline frame.
 

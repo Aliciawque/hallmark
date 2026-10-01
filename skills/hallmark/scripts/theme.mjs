@@ -220,9 +220,8 @@ button, input, select, textarea { font: inherit; }
 [data-slot] { position: relative; overflow: hidden; }
 [data-slot] > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
 [data-slot]:has(> img) > :not(img) { display: none !important; }
-@media (min-width: 1920px) { :root { --gutter: 200px; } }
 @media (max-width: 60rem) { :root { --gutter: 24px; --section-gap: 96px; } }
-@media (max-width: 40rem) { :root { --gutter: 16px; --section-gap: 72px; } }
+@media (max-width: 40rem) { :root { --gutter: 16px; --section-gap: 72px; --gap-columns: 16px; } }
 @media (prefers-reduced-motion: reduce) { *:not(.keep-motion), *:not(.keep-motion)::before, *:not(.keep-motion)::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }`;
 
 const SLOTS_JS = `window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(\`[data-slot="\${k}"]\`); if (!s) continue; const im = new Image(); im.src = v; im.alt = ''; s.prepend(im); } };`;
@@ -246,7 +245,8 @@ function scaffold() {
   const out = join(dir, 'tokens.css');
   if (existsSync(out) && !has('force')) { console.error(`${out} exists; pass --force to overwrite it`); process.exit(1); }
   mkdirSync(dir, { recursive: true });
-  const css = `:root {\n${SCALE}\n${tokens}\n}\n`;
+  const scale = header && header.paper.band === 'dark' ? SCALE.replace('--color-error: oklch(52% 0.19 27); --color-success: oklch(50% 0.12 150);', '--color-error: oklch(72% 0.15 27); --color-success: oklch(76% 0.13 150);') : SCALE;
+  const css = `:root {\n${scale}\n${tokens}\n}\n`;
   writeFileSync(out, css);
   const stamp = custom
     ? `/* Hallmark · shape: <shape> · genre: <genre> · custom: draw n/7 (seed <slug>·<date>·r0)\n * hero: <posture> · nav: <shape> · footer: <shape> · enrichment: <none or the file> · signature: <the one move>\n * axes: <paper>/<display>/<accent> · posture: <posture> · contrast: pass · fold: pass · v${VERSION} */`

@@ -29,7 +29,7 @@ Grained cream stock, ink rules at one point or five, Six Caps fitted to the meas
   --radius-card: 0; --radius-pill: 0; --rule-hair: 1px; --rule-bar: 5px;
   --shadow-card: none;
   --tracking-display: 0.02em;
-  --grain: 0.16;
+  --grain: 0.08;
 }
 ```
 
@@ -37,13 +37,13 @@ One dial, the colourway, stated in the stamp (`broadside: bill`).
 
 | Colourway | Stock | Ink | Accent |
 | --- | --- | --- | --- |
-| `bill` (default) | cream oklch(93% 0.02 85), grain multiplied at 16% | oklch(18% 0.01 50) | vermilion oklch(46% 0.19 32) |
-| `inked` | oklch(17% 0.01 60), grain screened at 20% | cream oklch(93% 0.02 85) | vermilion lifted to oklch(62% 0.19 32); paper band becomes dark |
-| `red-bill` | vermilion oklch(52% 0.19 32), grain multiplied at 18% | cream oklch(95% 0.03 85), 4.8:1 on the red | cream; posture becomes drenched |
+| `bill` (default) | cream oklch(93% 0.02 85), grain multiplied at 8% | oklch(18% 0.01 50) | vermilion oklch(46% 0.19 32) |
+| `inked` | oklch(17% 0.01 60), grain screened at 8% | cream oklch(93% 0.02 85) | vermilion lifted to oklch(62% 0.19 32); paper band becomes dark |
+| `red-bill` | vermilion oklch(52% 0.19 32), grain multiplied at 8% | cream oklch(95% 0.03 85), 4.8:1 on the red | cream; posture becomes drenched |
 
 ## Faces
 
-- **Six Caps** 400, uppercase, line-height 0.88, `--tracking-display`: the loudest line and every big number, 250px down to 30px in a row. Lines marked to fit are sized by the code until they fill the measure.
+- **Six Caps** 400, uppercase, line-height 0.88, `--tracking-display`: the loudest line and every big number, 250px down to 30px in a row. Each fitted line is its own element that never wraps (`white-space: nowrap`, the 55b guard), sized by the code until it fills the measure.
 - **Rye** 400, uppercase: one line per bill, and the wordmark at 22 to 26px. **Bevan** 400, uppercase: the third line, estimates, machine names, condition lines at 15 to 24px. All roman.
 - **Archivo Narrow** 400 and 600, 13 to 22px, line-height 1.45, for the small print and everything read. Labels, table heads, captions and meta are Archivo Narrow 500 at 13 to 14px, sentence case, untracked, in `--color-muted`. Mono appears only inside code; figures are Six Caps, or Archivo Narrow tabular in a row.
 
@@ -51,10 +51,10 @@ One dial, the colourway, stated in the stamp (`broadside: bill`).
 
 - Rules: `--rule-bar` in ink above a bill, a section or a table; `--rule-hair` in ink under a running head; `--rule-hair` in `--color-rule` between rows. Nothing between one and five.
 - The diamond: a filled diamond in vermilion, three in a row as the divider between one bill and the next, one at each stop of a timeline. The only ornament; never above a heading, never in a line of meta.
-- The post: a 3px ink border with a 1px keyline 3px inside it. Machines, days, the bid box, the form, an open drawer. Square corners, always. The control pair: an ink-filled block in the narrow face, capitals untracked, beside a vermilion one; there is no outline button.
+- The post: a 3px ink border with a 1px keyline 3px inside it. Machines, days, the bid box, the form, an open drawer. Square corners, always. The control pair: one ink-filled block in the narrow face, capitals untracked, beside the same block drawn as a post (3px ink border, no fill); one fill per screen.
 - Tickets: a numbered stub with a dashed tear line, the current one printed in vermilion. Vermilion type sits on the paper or paper-2.
 - Grain: one SVG noise layer over the page at `--grain` (texture.md § 1), multiplied on paper, screened on ink. The only texture.
-- Centre: bills, headings, posts and figures are centred. Rows, ladders, catalogues and forms are left.
+- Centre: bills, headings, posts and figures are centred, because a bill is printed on its centre line; rows, ladders, catalogues and forms are left. The stamp answers F15 and names the centred axis as the material. The three wood faces are the printer's case: stamp `waive 37` (four families; guard: the display faces are the bill).
 
 ## Motion
 

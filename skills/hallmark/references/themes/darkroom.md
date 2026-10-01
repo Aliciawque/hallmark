@@ -27,7 +27,7 @@ A near-black wall under a fine grain, Sofia Sans Extra Condensed capitals at hai
   --font-display: "Sofia Sans Extra Condensed", ui-sans-serif, sans-serif; --font-body: "Barlow", ui-sans-serif, sans-serif;
   --font-outlier: "Overpass Mono", ui-monospace, monospace;
   --radius-card: 0; --radius-pill: 0; --rule-hair: 1px; --shadow-card: none;
-  --tracking-display: -0.005em; --grain: 0.3;
+  --tracking-display: -0.005em; --grain: 0.08;
 }
 ```
 
@@ -41,7 +41,7 @@ Three colourways, stated in the stamp (`darkroom: amber`).
 
 ## Faces
 
-- **Display:** Sofia Sans Extra Condensed uppercase, 200 at poster size and up to 400 as a head gets smaller, line-height 0.9, `--tracking-display`, roman, one weight per head. The hairline at scale is the look and it is never bolded.
+- **Display:** Sofia Sans Extra Condensed uppercase, 200 at poster size and up to 400 as a head gets smaller, line-height 1.0 (the floor for capitals that wrap, 55a), `--tracking-display`, roman, one weight per head. The hairline at scale is the look and it is never bolded.
 - **Body:** Barlow 300 for prose, 400 under 16px, roman throughout. Controls follow the display's capitals in its 500 at 16px, tracked 0.04em.
 - **Labels, captions, table heads, meta:** Barlow 400 one step smaller, sentence case; the plate number and date under a print are this voice. Overpass Mono sets exposure figures (stop, seconds, grade), negative and edition numbers, and code; never a caption.
 

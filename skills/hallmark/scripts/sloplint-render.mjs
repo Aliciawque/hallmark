@@ -20,7 +20,7 @@ async function shoot(page, file, tag, fullPage) {
 }
 
 export async function renderCheck(htmlFiles, metaIn) {
-  const meta = { genre: null, postureByFile: {}, stage: 'page', ...(metaIn || {}) };
+  const meta = { genre: null, postureByFile: {}, heroPostureByFile: {}, stage: 'page', ...(metaIn || {}) };
   const heroOnly = meta.stage === 'hero';
   let puppeteer = null;
   const { createRequire } = await import('node:module');
@@ -81,7 +81,7 @@ export async function renderCheck(htmlFiles, metaIn) {
           await shoot(page, file, `${prefix}${w}x${h}`, false);
           await page.evaluate(async () => { for (let y = 0; y < document.documentElement.scrollHeight; y += 800) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 15)); } window.scrollTo(0, 0); });
           await new Promise((r) => setTimeout(r, 200));
-          const res = await page.evaluate(observeSpace, w === 1440, heroOnly);
+          const res = await page.evaluate(observeSpace, w === 1440, heroOnly, meta.heroPostureByFile[file] || '');
           for (const f of res) findings.push({ ...f, file, line: 1, evidence: `[${w}px] ${f.evidence}` });
         }
       } catch (e) {
@@ -314,7 +314,8 @@ function observe(checkFold, meta) {
   return out;
 }
 
-function observeSpace(atLaptop, heroOnly) {
+function observeSpace(atLaptop, heroOnly, heroPosture) {
+  const freeFold = /^(poster|ledge|banner)$/.test(heroPosture || '');
   const out = [];
   const push = (gate, grade, evidence, fix) => out.push({ gate: String(gate), grade, evidence, fix });
   const vw = window.innerWidth, vh = window.innerHeight;
@@ -340,9 +341,10 @@ function observeSpace(atLaptop, heroOnly) {
     const boxes = [h1, ...seen.filter((e) => Math.abs(abs(e).left - abs(h1).left) < 40)].map(abs);
     textBox = { top: Math.min(...boxes.map((b) => b.top)), bottom: Math.max(...boxes.map((b) => b.bottom), cta ? abs(cta).bottom : 0), left: Math.min(...boxes.map((b) => b.left)), right: Math.max(...boxes.map((b) => b.right)) };
     let bestA = 0;
+    const clipped = (el) => { const r = el.getBoundingClientRect(); let L = r.left, T = r.top, R = r.right, B = r.bottom; for (let p = el.parentElement; p && p !== document.body; p = p.parentElement) { const cs = getComputedStyle(p); if (/hidden|clip/.test(`${cs.overflow} ${cs.overflowX} ${cs.overflowY}`)) { const q = p.getBoundingClientRect(); L = Math.max(L, q.left); T = Math.max(T, q.top); R = Math.min(R, q.right); B = Math.min(B, q.bottom); } } R = Math.min(R, vw); return { top: T + scrollY, bottom: B + scrollY, left: L, right: R, w: Math.max(0, R - L), h: Math.max(0, B - T) }; };
     for (const e of hero.querySelectorAll('svg, canvas, img, figure, video, picture, [data-slot], [class*="fig"], [class*="visual"], [class*="device"], [class*="demo"], [class*="shot"], [class*="illus"], [class*="panel"]')) {
       if (!vis(e) || e.closest('nav') || e.contains(h1)) continue;
-      const b = abs(e); const a = b.w * b.h;
+      const b = clipped(e); const a = b.w * b.h;
       if (b.w > 160 && b.h > 120 && a > bestA && b.w < vw * 0.95 && b.left >= textBox.right - 40) { fig = b; bestA = a; }
     }
   }
@@ -375,11 +377,11 @@ function observeSpace(atLaptop, heroOnly) {
     }
     if (!heroOnly && secs.length > 9) push(59, 'WARN', `${secs.length} sections`, 'Five to eight sections a page; merge or cut');
 
-    if (heroEnd != null) {
+    if (heroEnd != null && !freeFold) {
       if (heroEnd > vh + 8) push('44c', 'REFLEX', `hero runs past the 1440x900 fold (hero ends at ${Math.round(heroEnd)}px)`, 'Size the display and the visual so the hero is one screen');
       else if (heroEnd < vh * 0.84 && secs.length > 1) push('44c', 'REFLEX', `hero ends at ${Math.round(heroEnd)}px of a 900px screen`, 'Fill the first screen with the visual or the headline, not with copy');
     }
-    if (fig && textBox) {
+    if (fig && textBox && !freeFold) {
       const off = Math.round((fig.top + fig.bottom) / 2 - (textBox.top + textBox.bottom) / 2);
       const gap = Math.round(fig.left - textBox.right);
       if (Math.abs(off) > 60) push('44c', 'REFLEX', `hero visual centre is ${off}px from the text block centre`, 'Align the visual beside the text');
@@ -389,7 +391,7 @@ function observeSpace(atLaptop, heroOnly) {
 
     if (textBox && textBox.left < 120) push('44d', 'FAIL', `hero text starts ${Math.round(textBox.left)}px from the edge at 1920`, 'Cap the container at 1360 to 1520px and centre it');
     if (heroEnd != null && heroEnd > vh + 8) push('44d', 'FAIL', `hero runs past the 1920x1080 screen (hero ends at ${Math.round(heroEnd)}px)`, 'Cap vw-sized visuals and display sizes');
-    const wide = [...document.querySelectorAll('p, h1, h2, h3, li')].filter((e) => vis(e) && (e.innerText || '').trim().length > 40 && e.getBoundingClientRect().width > 1600);
+    const wide = [...document.querySelectorAll('p, h1, h2, h3, li')].filter((e) => vis(e) && !e.querySelector('p, h1, h2, h3, h4, div, figure, ul, ol, table, section') && (e.innerText || '').trim().length > 40 && e.getBoundingClientRect().width > 1600);
     if (wide.length) push('44d', 'FAIL', `${wide.length} text blocks wider than 1600px at 1920`, 'Cap the container; hold the measure');
   }
   return out;

@@ -27,13 +27,13 @@ A warm near-black ground, Anton uppercase up to 9rem leaded at 0.86 and slammed 
   --font-display: "Anton", "Impact", sans-serif; --font-body: "Public Sans", ui-sans-serif, system-ui, sans-serif;
   --font-outlier: "JetBrains Mono", ui-monospace, monospace;
   --radius-card: 0; --radius-pill: 0; --rule-hair: 1px; --rule-bar: 3px; --shadow-card: none;
-  --tracking-display: 0.005em; --lh-tight: 0.86; --text-display: clamp(4rem, 8vw + 1rem, 9rem);
+  --tracking-display: 0; --lh-tight: 0.92; --text-display: clamp(4rem, 8vw + 1rem, 9rem);
 }
 ```
 
 ## Faces
 
-- **Display:** Anton 400, one weight, uppercase only, at `--text-display`, leaded at `--lh-tight` so a three-line block locks into one mass, slammed left. One red word on the whole page, inside the hero block, in `--color-accent-text`: the signature (stamp `waive 38iii`). Every other head is one colour.
+- **Display:** Anton 400, one weight, uppercase only, at `--text-display`, leaded at `--lh-tight` so a three-line block locks into one mass, slammed left; each line is its own element that never wraps (`white-space: nowrap`, stamp `waive 55b`), because Anton's capitals touch below 0.92. One red word on the whole page, inside the hero block, in `--color-accent-text`: the signature (stamp `waive 38iii`). Every other head is one colour.
 - **Body:** Public Sans 400, 600, 700, set small and plain at a 56ch measure in `--color-ink-2`.
 - **Labels, captions, table heads, meta, dates, folios:** Public Sans 500 one step smaller, sentence case, `--color-muted`. Mono appears only inside code.
 

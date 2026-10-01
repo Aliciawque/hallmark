@@ -4,7 +4,7 @@ Loaded only when the picked theme earns texture (affinity table below) or a cust
 
 ## The budget (binds on every artifact)
 
-- **One artifact family per page.** Grain OR halftone OR misregistration OR scanline OR deckle; combinations are mud.
+- **One artifact family per page.** Grain OR halftone OR misregistration OR scanline OR deckle; combinations are mud. A risograph print is one family: its grain and its misregistration come from the same drum.
 - **Tokened opacity, declared in the token block:** `--texture-opacity` <= 0.08 page-wide, <= 0.15 scoped to a card or plate. Under running body text, <= 0.05 or nothing.
 - **Never animated.** No drifting grain, no pulsing dots; the one exception is E7's slow-drift knob on its abstract background, which is E7's budget, not this file's.
 - **`pointer-events: none` and `aria-hidden="true"`** on every overlay; texture never intercepts input, and the retro signal is atmosphere, never a drawn monitor bezel (47a).
@@ -12,18 +12,19 @@ Loaded only when the picked theme earns texture (affinity table below) or a cust
 
 ## 1 · Grain (paper)
 
-The feTurbulence data-URI from assets.md, tokenized:
+A speck grain, tokenised:
 
 ```css
-:root { --texture-opacity: 0.06; }
+:root { --texture-opacity: 0.08; }
+.grained { position: relative; isolation: isolate; }
 .grained::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
-  opacity: var(--texture-opacity); mix-blend-mode: multiply;
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+  background-size: 200px 200px; opacity: var(--texture-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 9 -4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
 }
 ```
 
-Hero or one accent card; page-wide only on Riso at <= 0.08. On dark papers multiply goes invisible: swap to `mix-blend-mode: overlay` at half the opacity.
+The colour matrix turns the noise into discrete specks (alpha is the noise times nine, minus four), so the grain reads at 1x inside the budget; untreated `feTurbulence` at these opacities is a haze nobody sees. On a dark ground the specks must be light: change the matrix's first three rows to `0 0 0 0 1` so each speck is white, keep the opacity. One plate, one accent card, or the page at 0.08 or less when the theme names grain.
 
 ## 2 · Halftone (dot field)
 
@@ -80,16 +81,9 @@ One edge, one element class per page (a ticket edge, a stamp perforation). Never
 
 ## Affinity - who earns texture
 
-| Earns it | The artifact |
-| --- | --- |
-| Riso | grain (page <= 0.08) + misregistration (its signature) |
-| Carnival | halftone plates + hard-offset kit (its own, see spec) |
-| Arcade | the CRT stack: aperture grille + scanline + vignette + tight bloom (atmosphere, never a bezel). Applied once at page level, never per component. The starfield is banned. |
-| Ledger | the sheet's own ruling: banded, columnar, or journal (its own, see spec) |
-| Newsprint | the faintest fibre grain, card-scoped, off by default |
-| Custom draws with print lineage | pick ONE artifact that the drawn direction historically used |
+A theme earns texture when its Material section names an artifact; a custom draw earns it when its lineage is print (risograph, letterpress, ticket stock, line printer), and then it picks the one artifact that lineage used. The budget above binds every theme, whatever its file says: page-wide grain at 0.08 or less, 0.15 inside one plate, 0.05 or nothing under running text. Examples: Riso's grain and misregistration, Halftone's dot screen inside its fruit, Paste-up's fibre wash on the board, Darkroom's film grain over the wall, Arcade's scanlines (atmosphere, never a bezel), Ledger's ruled bands.
 
-**Banned regardless:** Specimen, Atelier, Cobalt, and the rest of the modern-minimal cluster (their specs ban texture explicitly); atmospheric's canvas is blooms, not grain. **Ledger is the cluster's one exception**, and only for its own ruling: a flat tonal band structure that carries no grain, no chroma, and no noise. When a theme spec and this file disagree, the spec wins.
+**Never:** a texture a theme does not name, grain on a modern-minimal page, two artifact families on one page, or a texture as ambience over everything because the page felt flat.
 
 ## Reduced motion and accessibility
 

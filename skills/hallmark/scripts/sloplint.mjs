@@ -849,6 +849,7 @@ function reasonIsBoilerplate(reason) {
 
 let WAIVED = new Set();
 let ANSWERED = new Set();
+let DISMISSED = new Set();
 
 const findings = [];
 function report(gate, grade, file, line, evidence, fix) {
@@ -863,11 +864,12 @@ function report(gate, grade, file, line, evidence, fix) {
     else if (tier === 'reflex') grade = waived ? 'WAIVED' : 'REFLEX';
   }
   if (tier === 'finish' && ANSWERED.has(b)) grade = 'ANSWERED';
+  if (grade === 'WARN' && (DISMISSED.has(b) || DISMISSED.has(gateNumber(b)))) grade = 'DISMISSED';
   findings.push({ gate: g, grade, tier, file: rel(file), line: line || 1, evidence: trunc(String(evidence)), fix });
 }
 
 function applyWaivers(ctx, dir) {
-  WAIVED = new Set(); ANSWERED = new Set();
+  WAIVED = new Set(); ANSWERED = new Set(); DISMISSED = new Set();
   const re = /\/\*\s*Hallmark\s*·\s*waive\s+(\d{1,2}[a-z]{0,3}|F\d+)\s*·\s*([^·*]+?)\s*·\s*([^*]+?)\s*\*\//gi;
   const claims = [...ctx.stampText.matchAll(re)].map((m) => ({
     id: m[1], evidence: m[2].trim(), reason: m[3].trim(), raw: m[0],
@@ -876,7 +878,6 @@ function applyWaivers(ctx, dir) {
   const wellFormed = new Set(claims.map((c) => c.raw));
   const malformed = [...ctx.stampText.matchAll(/\/\*[^*]*Hallmark[^*]*·\s*waive\b[^*]*\*\//gi)]
     .map((m) => m[0]).filter((raw) => !wellFormed.has(raw));
-  if (!claims.length && !malformed.length) return;
   const reasons = new Map();
   for (const c of claims) {
     const key = c.reason.toLowerCase();
@@ -948,9 +949,20 @@ function applyWaivers(ctx, dir) {
     }
     ANSWERED.add(id);
   }
+
+  const disRe = /\/\*\s*Hallmark\s*·\s*dismissed\s+(\d{1,2}[a-z]{0,3}|F\d+)\s*·\s*([^*]+?)\s*\*\//gi;
+  for (const m of ctx.stampText.matchAll(disRe)) {
+    const reason = m[2].trim();
+    const bad = reason.length < 24 ? 'reason under 24 characters' : reasonIsBoilerplate(reason) ? 'boilerplate reason' : null;
+    if (bad) {
+      findings.push({ gate: baseGate(m[1]), grade: 'WAIVER', tier: tierOf(m[1]), file: rel(file), line: 1, evidence: trunc(`dismissal of ${m[1]} REJECTED (${bad})`), fix: 'Two · -separated fields: /* Hallmark · dismissed <gate> · <what you checked and why the warning is wrong here> */' });
+      continue;
+    }
+    DISMISSED.add(baseGate(m[1]));
+  }
 }
 
-const GRADE_RANK = { FAIL: 0, REFLEX: 1, WAIVER: 2, WARN: 3, WAIVED: 4, ANSWERED: 5, NOTE: 6 };
+const GRADE_RANK = { FAIL: 0, REFLEX: 1, WAIVER: 2, WARN: 3, WAIVED: 4, ANSWERED: 5, DISMISSED: 6, NOTE: 7 };
 
 function gateSortKey(g) {
   const f = /^F(\d+)$/.exec(g);
@@ -2309,11 +2321,18 @@ const TEXT_TAGS = new Set(['p', 'span', 'li', 'small', 'a', 'div', 'figcaption',
 function check63(ctx) {
   for (const doc of ctx.docs) {
     const dotLines = new Set(); const arrowLines = new Set(); let dotCount = 0;
+    const tickerRanges = [];
+    for (let i = 0; i < doc.tags.length; i++) {
+      const t = doc.tags[i];
+      if (t.close || t.selfClosing || !/marquee|ticker|tape|crawl/i.test(getAttr(t.attrs, 'class') || '')) continue;
+      const inner = innerOf(doc, i);
+      if (inner) tickerRanges.push([t.pos, inner.endPos]);
+    }
     for (let i = 0; i < doc.tags.length; i++) {
       const t = doc.tags[i];
       if (t.close || t.selfClosing || !TEXT_TAGS.has(t.name)) continue;
       const cls = getAttr(t.attrs, 'class') || '';
-      if (/marquee|ticker|tape|crawl/i.test(cls)) continue;
+      if (/marquee|ticker|tape|crawl/i.test(cls) || tickerRanges.some(([a, b]) => t.pos > a && t.pos < b)) continue;
       const inner = innerOf(doc, i);
       if (!inner) continue;
       if (/<(p|div|li|section|article|ul|ol|table)\b/i.test(inner.inner)) continue;
@@ -2649,7 +2668,8 @@ const isSmallCaps67 = (prop, v) => (/^font-variant(-caps)?$/.test(prop) && /\b(a
   || (prop === 'font-feature-settings' && /\b(smcp|c2sc)\b/.test(v));
 function check67(ctx) {
   const bySel = mergedDeclsBySelector(ctx);
-  const upperDisplay = bySel.some((r) => HEADING_SEL.test(r.selector) && !LABEL67.test(r.selector) && r.decls.some((d) => d.prop === 'text-transform' && /uppercase/.test(d.value)));
+  const displayish = (r) => HEADING_SEL.test(r.selector) || /display|title|headline|bill|poster|banner/i.test(r.selector) || r.decls.some((d) => (d.prop === 'font-family' || d.prop === 'font') && /--font-display/.test(d.value)) || (fontSizePxOf(r, ctx) || 0) >= 28;
+  const upperDisplay = bySel.some((r) => displayish(r) && !LABEL67.test(r.selector) && r.decls.some((d) => d.prop === 'text-transform' && /uppercase/.test(d.value)));
   const isUpper = (v) => v != null && /uppercase/.test(resolveVars(v, ctx.tokens));
   const seen = new Set();
   for (const r of bySel) {
@@ -2839,8 +2859,20 @@ function check58Static(ctx) {
     const sections = doc.tags.filter((t) => !t.close && t.name === 'section').length;
     const fullPage = sections >= 5 || doc.tags.some((t) => !t.close && t.name === 'footer');
     if (!fullPage || doc.kind !== 'html') continue;
-    const total = doc.text.split(/\s+/).filter((w) => /[A-Za-z0-9]/.test(w)).length;
-    if (total < 250 || total > 450) report(58, 'WARN', doc.file, 1, `${total} visible words on the page (250 to 450 expected)`, total > 450 ? 'Cut copy: one idea per screen, sections become objects' : 'A page this short is a section; fill the slots or cut the sections');
+    const countWords = (t) => t.split(/\s+/).filter((w) => /[A-Za-z0-9]/.test(w)).length;
+    let hiddenWords = 0, hiddenEnd = -1;
+    for (let i = 0; i < doc.tags.length; i++) {
+      const t = doc.tags[i];
+      if (t.close || t.selfClosing || t.pos < hiddenEnd) continue;
+      const cls = getAttr(t.attrs, 'class') || '';
+      if (!(/(^|\s)(sr-only|visually-hidden|screen-reader-text|skip|skip-link)(\s|$)/i.test(cls) || /aria-hidden\s*=\s*["']?true/i.test(t.attrs) || /(^|\s)hidden(\s|=|$)/i.test(t.attrs))) continue;
+      const inner = innerOf(doc, i);
+      if (!inner) continue;
+      hiddenWords += countWords(plainText(inner.inner));
+      hiddenEnd = inner.endPos;
+    }
+    const total = countWords(doc.text) - hiddenWords;
+    if (total > 450) report(58, 'WARN', doc.file, 1, `${total} visible words on the page (450 at most)`, 'Cut copy: one idea per screen, sections become objects');
   }
 }
 
@@ -3648,6 +3680,7 @@ function shareProjects(contexts) {
 
 const waiversByDir = new Map();
 const postureByFile = {};
+const heroPostureByFile = {};
 const contexts = [];
 for (const [dir, g] of groups) {
   const cssFiles = [];
@@ -3692,7 +3725,8 @@ for (const [dir, g] of groups) {
     ...docs.flatMap((d) => d.styles.map((st) => head40(st.css))),
   ].join('\n');
   const posture = (/posture:\s*(restrained|committed|full-palette|drenched)/i.exec(stampText)?.[1] || 'restrained').toLowerCase();
-  for (const d of docs) postureByFile[d.file] = posture;
+  const heroPosture = (/hero:\s*(settled|banner|poster|ledge|corridor|stage)\b/i.exec(stampText)?.[1] || '').toLowerCase();
+  for (const d of docs) { postureByFile[d.file] = posture; heroPostureByFile[d.file] = heroPosture; }
   const allCss = cssFiles.map((c) => c.raw).join('\n') + '\n'
     + docs.map((d) => d.styles.map((s) => s.css).join('\n')).join('\n');
   const tokensOnly = !docs.length && rules.length > 0 && rules.every(isTokenRule);
@@ -3701,7 +3735,7 @@ for (const [dir, g] of groups) {
 shareProjects(contexts);
 for (const [dir, ctx] of contexts) {
   applyWaivers(ctx, dir);
-  waiversByDir.set(dir, { WAIVED, ANSWERED });
+  waiversByDir.set(dir, { WAIVED, ANSWERED, DISMISSED });
   for (const check of CHECKS) {
     try { check(ctx); } catch (e) {
       console.error(`sloplint: internal error in ${check.name} for ${dir}: ${e.message}`);
@@ -3713,12 +3747,13 @@ if (opts.render) {
   const htmlFiles = files.filter((f) => extname(f).toLowerCase() === '.html');
   try {
     const mod = await import(new URL('./sloplint-render.mjs', import.meta.url).href);
-    const extra = await mod.renderCheck([...htmlFiles, ...opts.urls], { genre: opts.genre, postureByFile, stage: opts.stage });
-    const allWaivers = { WAIVED: new Set([...waiversByDir.values()].flatMap((x) => [...x.WAIVED])), ANSWERED: new Set([...waiversByDir.values()].flatMap((x) => [...x.ANSWERED])) };
+    const extra = await mod.renderCheck([...htmlFiles, ...opts.urls], { genre: opts.genre, postureByFile, heroPostureByFile, stage: opts.stage });
+    const allWaivers = { WAIVED: new Set([...waiversByDir.values()].flatMap((x) => [...x.WAIVED])), ANSWERED: new Set([...waiversByDir.values()].flatMap((x) => [...x.ANSWERED])), DISMISSED: new Set([...waiversByDir.values()].flatMap((x) => [...(x.DISMISSED || [])])) };
     for (const f of extra) {
       const w = /^https?:/.test(f.file) ? allWaivers : waiversByDir.get(dirname(f.file));
       WAIVED = w ? w.WAIVED : new Set();
       ANSWERED = w ? w.ANSWERED : new Set();
+      DISMISSED = w ? (w.DISMISSED || new Set()) : new Set();
       report(f.gate, f.grade === 'REFLEX' ? 'FAIL' : f.grade, f.file, f.line, f.evidence, f.fix);
     }
   } catch (e) {
@@ -3752,6 +3787,7 @@ const warns = count('WARN');
 const waived = count('WAIVED');
 const rejected = count('WAIVER');
 const answered = count('ANSWERED');
+const dismissed = count('DISMISSED');
 const notes = count('NOTE');
 
 const tally = [`${fails} FAIL`];
@@ -3760,11 +3796,12 @@ tally.push(`${warns} WARN`);
 if (waived) tally.push(`${waived} WAIVED`);
 if (rejected) tally.push(`${rejected} REJECTED`);
 if (answered) tally.push(`${answered} ANSWERED`);
+if (dismissed) tally.push(`${dismissed} DISMISSED`);
 if (notes) tally.push(`${notes} NOTE`);
 
 if (opts.json) {
   console.log(JSON.stringify({
-    summary: { fails, reflex, warns, waived, rejected, answered, notes, files: files.length },
+    summary: { fails, reflex, warns, waived, rejected, answered, dismissed, notes, files: files.length },
     findings: unique,
   }, null, 2));
 } else {

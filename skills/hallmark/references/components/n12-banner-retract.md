@@ -32,7 +32,7 @@ A coloured banner stacked above one real nav. Scrolling down, the banner slides 
 main { padding-top: calc(var(--banner-height) + 64px + var(--space-xl)); }
 ```
 
-JS: track the scroll direction; past 48px going down add `.is-compact`, going up remove it, near the top always show. Dismiss sets `--banner-height: 0px` on `documentElement.style` and adds `.is-dismissed`. The handler is rAF-throttled and passive. A second sticky element on the page docks under `calc(var(--banner-height) + 64px)` (56).
+JS: one passive scroll listener, throttled to one read per animation frame (direction is the one thing an observer cannot tell you); track the scroll direction; past 48px going down add `.is-compact`, going up remove it, near the top always show. Dismiss sets `--banner-height: 0px` on `documentElement.style` and adds `.is-dismissed`. The handler is rAF-throttled and passive. A second sticky element on the page docks under `calc(var(--banner-height) + 64px)` (56).
 
 ## Knobs
 

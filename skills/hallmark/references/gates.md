@@ -27,7 +27,7 @@ A Reflex gate is waived in the CSS stamp block, below the critique line:
 
 Three fields: the gate, the **guard evidence**, the reason. sloplint re-derives the guard itself; a build that cannot state its guard usually finds the guard does not hold. Floor gates cannot be waived (a waiver naming one is rejected and the gate fires). One waiver per gate. The reason is about this page: under 24 characters, boilerplate, or shared word for word with another waiver is rejected. Waivers append to `.hallmark/log.json`; the same gate waived on three consecutive builds is a house style, not an exception.
 
-A Finish finding is answered the same way: `/* Hallmark · answered F3 · the display head is one word and cannot wrap */`.
+A Finish finding is answered the same way: `/* Hallmark · answered F3 · the display head is one word and cannot wrap */`. A `WARN` is a suspicion: confirm it and fix it, or dismiss it on the record, `/* Hallmark · dismissed 58 · the window holds a five-row table, counted twice across the sticky pane */`, and the linter reports it as `DISMISSED`.
 
 ## 3. Pre-emit critique
 
@@ -91,7 +91,7 @@ One line each. `a`/`b` clauses share a number and carry their own tier. Genre no
 | 34 | Floor | M/R | Horizontal scroll at any width 320 to 1920; `overflow-x` missing on `html` and `body`; `100vw` widths | `overflow-x: clip` on both, `width: 100%` |
 | 44a | Reflex | R/J | Hero padding ratio off its posture: Settled, Banner, Corridor, Stage want block-end at least 1.3 times block-start; Ledge inverts; Poster waives when anchored | bottom-heavy padding |
 | 44b | Floor | R/J | Headline, lede, primary CTA and the visual's focal point not all visible at 1280 x 800 without scrolling | pull the display clamp down, tighten leading, two-line lede, trim padding |
-| 44c | Reflex | R/J | At 1440 x 900 the next section starts above y 760 or below y 900, or the hero visual's vertical centre is more than 60px from the text block's, or its left edge more than 120px from the text, or it is pinned to the viewport edge. Guard: Poster or Ledge posture, or a stamped full-bleed E1 | visual beside the text, hero fills its screen and only its screen |
+| 44c | Reflex | R/J | At 1440 x 900 the next section starts above y 760 or below y 900, or the hero visual's vertical centre is more than 60px from the text block's, or its left edge more than 120px from the text, or it is pinned to the viewport edge. Guard: Poster, Ledge or Banner posture, or a stamped full-bleed E1 | visual beside the text, hero fills its screen and only its screen |
 | 44d | Floor | M/R | At 1920 x 1080 the container has no `max-width`, gutters under 120px, a grid gains columns, or the hero no longer fits | cap 1360 to 1520 and centre; hold column counts; cap `vw` visuals |
 | 50 | Floor | M | Image-bearing grid track using bare `1fr`; display head without `overflow-wrap: break-word; min-width: 0` | `minmax(0, 1fr)`; `break-word`, never `anywhere` |
 | 53 | Floor | M | CSS-only radio tabs at `position: absolute; top: 0` with no JS guard (scroll-jumps on every click) | radios in flow at zero size, or a handler with `preventScroll` |
@@ -206,7 +206,7 @@ The thread that built the page is its weakest reviewer. Spawn a reviewer with no
 
 **The hero review** runs the same way, once, at Step 6, before any section below the fold exists. Give the reviewer the four `hero-*` screenshots that `sloplint --render --stage hero` wrote, the stamp's first two lines, and the Picks block's Material and Signature rows. Its brief:
 
-> Review the first screen of a page that is still being built. You did not build it. First line: `ship` or `fix`. Then at most five findings, one line each, worst first: does the headline say something only this product could say, in seven words or fewer; is the visual beside the text, real or a labelled slot, and does it hold its half of the screen; does anything read as a template (a centred stack, a pill or label above the headline, a gradient blob, a drawn dashboard, two buttons where one would do); is the signature move on this screen; does the type carry the theme at this size. Do not fix anything.
+> Review the first screen of a page that is still being built. You did not build it. First line: `ship` or `fix`. Then at most five findings, one line each, worst first: does the headline say something only this product could say, in seven words or fewer; is the visual beside the text, real or a labelled slot, and does it hold its half of the screen; does anything read as a template (a centred stack, a pill or label above the headline, a gradient blob, a drawn dashboard, two filled buttons side by side; a primary with a quiet text link beside it is fine); is the signature move on this screen; does the type carry the theme at this size. Do not fix anything.
 
 Fix, recapture with `--stage hero`, and build the sections once the answer is `ship`. Record `hero-review: ship after 1 fix` in the stamp's finish-review field.
 

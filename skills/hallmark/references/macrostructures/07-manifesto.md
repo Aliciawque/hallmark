@@ -4,8 +4,8 @@ Polemical large type. The page tells the reader what to believe before it tells 
 
 - **Heading:** uppercase display, tilted slightly (`-2deg` to `-4deg`) or set straight; one weight and one colour throughout, stress from a line break, never from a coloured or italic word (38i, 38iii); `line-height` 1.0 or more when it can wrap (55a). A theme whose signature is an accented word stamps the 38iii waiver and places it once, in the hero.
 - **Body:** short paragraphs, each one assertion, large enough to read across the room.
-- **Divider:** changes of paper between sections; no hairlines.
-- **Button:** one oversized solid block in the accent, far below the fold. In the fold the one visible action is the nav's link, and the stamp says so (44b).
+- **Divider:** changes of paper between sections, or the theme's own rules; never a card.
+- **Button:** one solid block in the accent; the fold carries it beside or under the declaration (44b), and it returns at the foot as the page's last word.
 - **Image:** none, or one high-contrast black-and-white photograph as a section bleed.
 - **Reveal:** horizontal sweep on section entry.
 

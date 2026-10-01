@@ -2,7 +2,7 @@
 
 Uniform grid of variations of the same thing: typefaces, palettes, SKUs. The page is a visual index of inventory.
 
-- **Heading:** the wordmark and one line; no large display.
+- **Heading:** one line at the theme's display scale over the grid; the products lead, so the heading never pushes the first row below the fold.
 - **Body:** a grid of same-sized cards, 3 to 5 per row, each one variant of the core product; image tracks `minmax(0, 1fr)` (50).
 - **Divider:** hairline rules between rows.
 - **Button:** a link inside each card to its detail page; no global CTA. The fold's one visible action is the first card's link (44b).

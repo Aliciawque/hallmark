@@ -36,15 +36,15 @@ Everything above the Floor is a **Reflex** gate: a default a model falls into, w
 ## Flow
 
 0. Pre-flight: read the project before asking anything.
-1. Ask once: audience, use, tone, material, vibe.
+1. Ask once: material, audience, use, tone.
 2. Shape: design the page, then name what you designed.
 3. Direction: deal a theme (the default) or derive a world (only when asked for custom).
 4. Load `references/craft.md`, the genre file, the theme file, and `gates.md` § 1 to § 4.
 5. The Picks block, once, then a beat before code.
-6. Build: tokens, stamp, `tokens.css`, log append.
+6. Build: the hero first, then the page; stamp, `tokens.css`, log.
 7. Sweep: sloplint with render, the judged gates, the fresh-context review.
 
-Harness: this file runs as written in Claude Code. Codex CLI and OpenCode read [`references/flow.md`](references/flow.md) § Harnesses before Step 0. Any other harness follows this file on the Floor with sequential tool calls and chat-text questions.
+Codex CLI and OpenCode read [`references/flow.md`](references/flow.md) § Harnesses before Step 0; any other harness runs this file with sequential tool calls and questions in chat.
 
 ### 0. Pre-flight
 
@@ -94,7 +94,7 @@ A catalog theme is a material, not a plan: it says what the page is made of, nev
 
 ### 4. Load
 
-Exactly these, for a page build: [`references/craft.md`](references/craft.md) (type, colour, layout, motion, copy, section openings, demo slots, hero discipline, finish) · `references/genres/<genre>.md` · `references/themes/<slug>.md` (or `direction.md` on a custom run) · [`references/gates.md`](references/gates.md) § 1 to § 4.
+Exactly these, for a page build: [`references/craft.md`](references/craft.md) (type, colour, layout, motion, copy, section openings, demo slots, the hero, finish) · `references/genres/<genre>.md` · `references/themes/<slug>.md` and its picture `<slug>.jpg`, a first screen and a lower screen of one page in the theme: take its scale, density, colour balance and objects, never its composition (or `direction.md` on a custom run) · [`references/gates.md`](references/gates.md) § 1 to § 4.
 
 Only when the build needs them, each in `references/`: one macrostructure file and the picked archetype files (Step 2) · `hero-enrichment.md` then one `enrichment/` file, when the image-need check says yes · `microinteractions.md` for stateful UI · `interaction-and-states.md` for forms · `responsive.md` for an unusual layout · `texture.md` when the theme earns texture · `scroll-choreography.md` for a scroll story · `dark-mode.md` when both modes are asked for · `data-viz.md` for charts · `fonts.md` on custom or studied runs · `assets.md` and `imagery-kit.md` when an enrichment needs an external asset · `comp.md` on signal 9 · `design-md.md` when asked to lock the system.
 
@@ -128,15 +128,14 @@ Emit code that satisfies the theme and the shape. Always:
 - **Hero first.** Write the nav and the hero, run `node <skill-dir>/scripts/sloplint.mjs <file> --render --stage hero` (the fold at three widths, the hero's words, the visual's place, four first-screen shots), then the hero review in fresh context (`gates.md` § 6). Build the sections only once the hero ships: a hero rewrite after eight sections exist costs eight sections.
 
 - **Start from the scaffold.** `node <skill-dir>/scripts/theme.mjs scaffold <slug>` (`--custom` on a derived run) writes `tokens.css` with the theme's tokens and the shared scale, and prints the base rules the Floor already decided (clipping, focus, reduced motion, browser surfaces, the slot contract) under a stamp skeleton. Paste them, fill the stamp, and write only the page.
-- **One idea per screen.** Hero: headline (seven words or fewer, 50 characters or fewer), one sentence (twelve words or fewer), one or two actions. A section: a heading of three to five words, at most one line, then its object (a slot, a figure, a drawn thing, a list of four or fewer, a table of five rows or fewer). Five to eight sections, footer included. 250 to 450 visible words on the page.
+- **One idea per screen.** Hero: headline (seven words or fewer, 50 characters or fewer), one sentence (twelve words or fewer), one or two actions. A section: a heading of three to five words, at most one line, then its object (a slot, a figure, a drawn thing, a list of four or fewer, a table of five rows or fewer). Five to eight sections, footer included; 450 visible words at most, fewer when the brief has less to say. Never pad to a count.
 - **Show, do not describe.** At least two `data-slot` containers on a product page: the hero visual and a demo strip. The user's images fill them; otherwise a designed placeholder in the theme's colours with a corner label (`craft.md` § Demo slots). Never a grey box, never a fake screenshot with invented figures.
 - **The fold.** The hero is the first screen and only the first screen at 1440 x 900 and 1920 x 1080, its visual beside the text (centres within 60px, 48 to 120px apart), never pinned in a corner. Fill a short hero with the visual or the headline, never with more copy.
 - **Room.** 120px or more between sections at desktop, varied; 32 to 48px from a heading to its content; 24 to 40px between grid items. More space above a heading than below it.
 - **Page invariants.** One primary button style, one container width, one column gap for every multi-column section, one radius per nesting level, and never more centred heading groups than left-aligned ones. A subhead over 120 characters is set left-aligned.
-- **Tokens.** OKLCH for every colour; the theme's `:root` block; a 4pt spacing scale with semantic names; the three named easings; `--dur-*`; `--radius-*`; `--z-*`.
 - **Type.** The theme's display and body faces, two families (three with one outlier role). Display tracking -0.02 to -0.04em, line-height 1.0 to 1.15; body 16px or more at 1.5 to 1.65, 45 to 75ch. Headlines roman. Labels, captions, table heads and nav links in the body face, sentence case, untracked, never capitals (67), never mono unless mono is the material (64). A head is one weight and one colour throughout; the accented word is a tell (38iii).
 - **States and motion.** Eight states on every interactive element; `transform` and `opacity` only; one orchestrated reveal per page, 0.4 to 0.8s, visible by default; exits at 60 to 75% of the enter; nothing bounces.
-- **Browser surfaces.** Theme `::selection`, `caret-color`, `scrollbar-color`, the focus ring, underline offset and thickness, and tabular numerals on figures. The cheapest sign a page was built rather than assembled.
+- **Browser surfaces.** Keep the scaffold's `::selection`, `caret-color`, `scrollbar-color` and focus ring; add tabular numerals wherever figures compare. The cheapest sign a page was built rather than assembled.
 - **Stamp.** Line 1 of CSS:
 
 ```css
@@ -147,7 +146,7 @@ Emit code that satisfies the theme and the shape. Always:
 ```
 
 then any `waive` and `answered` lines, then a custom run's direction contract. Everything the linter reads sits in the first 40 lines.
-- **`tokens.css`** at the project root (the scaffold writes it) with every `--color-*`, `--font-*`, `--space-*`, `--text-*`, `--ease-*`, `--dur-*`, `--rule-*` and `--radius-*` token, imported by the page. On a `design.md` project, refresh its `## Exports` per [`references/export-formats.md`](references/export-formats.md).
+- **`tokens.css`** is the scaffold's, at the project root, imported by the page; every colour, face, space, size, easing, duration, rule, radius and z level is a token in it. On a `design.md` project, refresh its `## Exports` per [`references/export-formats.md`](references/export-formats.md).
 - **Existing stylesheets are append-only.** Keep `@tailwind` and `@import "tailwindcss"` where they are, add Hallmark's `:root` below them, reuse the project's own token names where they exist. A full rewrite only on explicit request.
 - **Log.** Append to `.hallmark/log.json`, newest first, trimmed to 20:
 

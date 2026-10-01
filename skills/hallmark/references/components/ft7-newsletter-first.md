@@ -29,7 +29,7 @@ The form (label, input, submit) is the *primary* element of the footer; wordmark
 .foot-news__meta { display: flex; gap: var(--space-lg); list-style: none; padding: 0; margin: 0; font-size: var(--text-sm); color: var(--color-muted); }
 ```
 
-The page's one filled primary is above the fold; the footer submit takes the secondary style (F4). Input and button share a height (39a).
+When the form is the page's main action (a petition, a mailing list that is the product), the submit is the page's primary style; otherwise the one filled primary lives above and the footer submit is secondary (F4). Input and button share a height (39a).
 
 *Anti-pattern:* Ft7 when the page never said "subscribe" above the fold. If you did not ask, do not ambush: take Ft2 instead.
 

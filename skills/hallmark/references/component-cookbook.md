@@ -109,6 +109,8 @@ The knob values live **inside each archetype file** (`## Knobs`), next to the co
 | terminal | **Ft4 Dense colophon** | Ft2 |
 | docs / reference | **Ft3 Index columns** | Ft1 |
 
+**A theme's motion rule outranks these defaults:** a theme that says nothing else moves (Hum) takes a still footer, never the marquee.
+
 **Default away from Ft3.** The four-column index footer is the machine fingerprint when used reflexively (Product, Company, Resources and Legal columns, a social row, a tiny copyright; gate 42). Reach for Ft3 only when the page is a hub or a docs root with a genuine sitemap; default to Ft1, Ft2, Ft4, Ft5, Ft6, Ft7 or Ft8 otherwise.
 
 ---

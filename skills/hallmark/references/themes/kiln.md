@@ -7,7 +7,7 @@ display: high-contrast-serif Fraunces
 accent: warm 45
 posture: full-palette
 keywords: kiln, ceramics, pottery, firing, glaze, heat, temperature, studio, craft, sensor, monitor, hardware, iot, warmth, dark, glow, schedule, workshop
-material: a near-black ground, a seven-step heat ramp from ash to white heat drawn inside grained plates, Fraunces at full optical size, one frosted plate
+material: a near-black ground, a seven-step heat ramp from ash to white heat drawn inside grained plates, Fraunces at full optical size, one smoked plate for the controls
 signature: a rounded plate whose lower corner burns from oxblood through ember to white while the page around it stays cold
 ---
 
@@ -38,7 +38,7 @@ Three colourways, set once per page and named in the stamp (`kiln: ember`).
 | Colourway | Ground, ink, accent |
 | --- | --- |
 | `ember` (default) | the block above |
-| `bisque` | ground `oklch(96.5% 0.014 80)`, ink `oklch(20% 0.02 40)`, accent `oklch(54% 0.17 62)` with the ground as its text; the ramp starts at `oklch(90% 0.035 75)`; the frosted plate turns to milk glass `oklch(99% 0.005 80 / 0.62)` |
+| `bisque` | ground `oklch(96.5% 0.014 80)`, ink `oklch(20% 0.02 40)`, accent `oklch(54% 0.17 62)` with the ground as its text; the ramp starts at `oklch(90% 0.035 75)`; the smoked plate turns to a bone plate in paper-2 |
 | `reduction` | ground `oklch(21% 0.06 22)`, ink `oklch(95% 0.02 85)`, accent `oklch(84% 0.12 62)`; the ramp begins at the ground |
 
 ## Faces
@@ -50,8 +50,8 @@ Three colourways, set once per page and named in the stamp (`kiln: ember`).
 ## Material
 
 - The heat panel: a plate at `--radius-card` whose background is one radial gradient in `oklch` from `--heat-6` at a corner out through the ramp to `--heat-0`, plus a small white bloom at the same origin, under a 14% grain overlay (`texture.md` § Grain). Two such fields on a page at most, both inside plates, never on the ground.
-- The frosted plate: one panel with `backdrop-filter: blur(16px)`, a 1px `--color-rule` edge and `--shadow-card`, beside a heat panel on the ground, never inside one (gate 4), never with a title bar; its UI fills are ink at 8%.
-- Rules 1px at 12%; radii 28px plates, 20px cones, 16px the frosted plate; the ground is flat and cold.
+- The smoked plate: one flat panel in `--color-paper-2` with a 1px `--color-rule` edge and `--shadow-card`, beside a heat panel on the ground, never inside one (gate 4), never with a title bar, never blurred (the genre refuses glass, and beside a plate there is nothing behind it to blur). Its UI fills are the ramp's cool end; the readout's figures are tabular.
+- Rules 1px at 12%; radii 28px plates, 20px cones, 16px the smoked plate; the ground is flat and cold.
 - The control pair: an accent-filled pill 50px tall beside a ghost pill with a 1px inset `--color-rule`. The one interactive object: a temperature slider whose 2px track and 28px thumb recolour its plate along the ramp.
 
 ## Motion
@@ -82,7 +82,7 @@ Calm and physical: degrees, cones, minutes, the schedule.
     radial-gradient(in oklch 130% 120% at 88% 104%, var(--heat-6) 0%, var(--heat-5) 10%, var(--heat-4) 24%, var(--heat-3) 40%, var(--heat-2) 60%, var(--heat-1) 82%, var(--heat-0) 100%); }
 .plate::after { content: ""; position: absolute; inset: 0; opacity: 0.14; mix-blend-mode: overlay; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-.frost { border-radius: 16px; background: oklch(18% 0.02 40 / 0.55); backdrop-filter: blur(16px); border: 1px solid var(--color-rule); box-shadow: var(--shadow-card); }
+.smoke { border-radius: 16px; background: var(--color-paper-2); border: 1px solid var(--color-rule); box-shadow: var(--shadow-card); }
 .btn { display: inline-flex; align-items: center; height: 50px; padding: 0 24px; border-radius: var(--radius-pill); font-weight: 500; background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--ghost { background: transparent; color: var(--color-ink); box-shadow: inset 0 0 0 1px var(--color-rule); }
 ::selection { background: oklch(70% 0.2 45 / 0.35); }

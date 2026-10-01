@@ -17,7 +17,7 @@ Hairline rules, fleurons, drop caps, double rules; italic inside running body co
 
 ## Refused here
 
-Gradient-filled pills; a centred-everything hero (the genre is left-biased or asymmetric); glass (the medium is paper); pure black or white paper and ink.
+Gradient-filled pills; a centred-everything hero (the genre is left-biased or asymmetric, unless the theme's material is a centred bill); glass (the medium is paper); pure black or white paper and ink.
 
 ## Chrome that fits
 
