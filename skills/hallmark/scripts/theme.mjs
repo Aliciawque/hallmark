@@ -264,7 +264,7 @@ function scaffold() {
   console.log('@import url("./tokens.css");');
   console.log(BASE);
   console.log('');
-  console.log('and once, before </body>:');
+  console.log('and, only if the page has data-slot containers, once before </body>:');
   console.log('');
   console.log(`<script>${SLOTS_JS}</script>`);
 }

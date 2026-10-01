@@ -65,7 +65,9 @@ export async function renderCheck(htmlFiles, metaIn) {
     for (const file of htmlFiles) {
       const page = await browser.newPage();
       try {
+        await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]).catch(() => {});
         await page.goto(isUrl(file) ? file : 'file://' + file, { waitUntil: 'networkidle0', timeout: 30000 }).catch(() => {});
+        await page.evaluate(async () => { document.documentElement.classList.add('shot'); if (document.fonts) await document.fonts.ready; }).catch(() => {});
         const pageMeta = { genre: meta.genre, posture: meta.postureByFile[file] || 'restrained' };
         const prefix = heroOnly ? 'hero-' : '';
         for (const width of heroOnly ? [375, 1280] : WIDTHS) {
@@ -358,16 +360,17 @@ function observeSpace(atLaptop, heroOnly, heroPosture) {
     while ((n = tw.nextNode())) {
       const p = n.parentElement; if (!p || !vis(p) || p.closest('script, style, noscript, svg')) continue;
       const t = n.textContent.trim(); if (!t) continue;
-      words.push({ y: p.getBoundingClientRect().top + scrollY, c: t.split(/\s+/).length });
+      const pr = p.getBoundingClientRect(); const c = t.split(/\s+/).filter((w) => /[A-Za-z0-9]{2,}|\d/.test(w)).length; if (c) words.push({ top: pr.top + scrollY, bottom: pr.bottom + scrollY, c });
     }
     const H = document.documentElement.scrollHeight;
     let maxWords = 0, at = 0;
-    for (let y = 0; y < H; y += 50) { const w = words.filter((x) => x.y >= y && x.y < y + 900).reduce((a, b) => a + b.c, 0); if (w > maxWords) { maxWords = w; at = y; } }
+    for (let y = 0; y < H; y += 50) { const w = Math.round(words.reduce((a, x) => { const h = Math.max(1, x.bottom - x.top); const ov = Math.max(0, Math.min(x.bottom, y + 900) - Math.max(x.top, y)); return a + x.c * Math.min(1, ov / h); }, 0)); if (w > maxWords) { maxWords = w; at = y; } }
     if (maxWords > 95) push(58, 'FAIL', `${maxWords} words on one screen (from y=${at})`, 'One idea per screen: cut to about 80 words, make the section an object');
     else if (maxWords > 80) push(58, 'WARN', `${maxWords} words on one screen (from y=${at})`, 'Close to the 80-word screen budget');
     if (stack > 2) push(58, 'FAIL', `hero carries ${stack} text blocks before its actions`, 'Headline, one sentence, actions; delete the rest');
 
-    const content = (s) => { let top = Infinity, bottom = -Infinity; for (const c of s.querySelectorAll('*')) { if (!vis(c)) continue; if (!(c.innerText || '').trim() && !/^(SVG|IMG|CANVAS|VIDEO)$/.test(c.tagName) && getComputedStyle(c).backgroundColor === 'rgba(0, 0, 0, 0)') continue; if (c.children.length && !/^(SVG)$/.test(c.tagName) && getComputedStyle(c).backgroundColor === 'rgba(0, 0, 0, 0)') continue; const b = abs(c); top = Math.min(top, b.top); bottom = Math.max(bottom, b.bottom); } if (top === Infinity) { const b = abs(s); return b; } return { top, bottom }; };
+    const clipAbs = (el, stop) => { const r0 = el.getBoundingClientRect(); let T = r0.top, B = r0.bottom; for (let q = el.parentElement; q && q !== document.body; q = q.parentElement) { const cs = getComputedStyle(q); if (/hidden|clip/.test(`${cs.overflow} ${cs.overflowY}`)) { const qr = q.getBoundingClientRect(); T = Math.max(T, qr.top); B = Math.min(B, qr.bottom); } if (q === stop) break; } return { top: T + scrollY, bottom: B + scrollY }; };
+    const content = (s) => { let top = Infinity, bottom = -Infinity; for (const c of s.querySelectorAll('*')) { if (!vis(c)) continue; if (!(c.innerText || '').trim() && !/^(SVG|IMG|CANVAS|VIDEO)$/.test(c.tagName) && getComputedStyle(c).backgroundColor === 'rgba(0, 0, 0, 0)') continue; if (c.children.length && ![...c.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()) && !/^(SVG)$/.test(c.tagName) && getComputedStyle(c).backgroundColor === 'rgba(0, 0, 0, 0)') continue; const b = clipAbs(c, s); if (b.bottom <= b.top) continue; top = Math.min(top, b.top); bottom = Math.max(bottom, b.bottom); } if (top === Infinity) { const b = abs(s); return b; } return { top, bottom }; };
     const gaps = [];
     for (let i = 0; !heroOnly && i < secs.length - 1; i++) gaps.push(Math.round(content(secs[i + 1]).top - content(secs[i]).bottom));
     const real = gaps.filter((g) => g > -50);
@@ -378,6 +381,23 @@ function observeSpace(atLaptop, heroOnly, heroPosture) {
     }
     if (!heroOnly && secs.length > 9) push(59, 'WARN', `${secs.length} sections`, 'Five to eight sections a page; merge or cut');
 
+    if (hero && !freeFold && !/^corridor$/.test(heroPosture || '')) {
+      const hb = abs(hero);
+      let cTop = Infinity, cBottom = -Infinity;
+      for (const c of hero.querySelectorAll('*')) {
+        if (!vis(c) || c.closest('nav, header > nav') || c === hero) continue;
+        const cs = getComputedStyle(c);
+        const painted = (c.innerText || '').trim() || /^(SVG|IMG|CANVAS|VIDEO|PICTURE)$/.test(c.tagName) || cs.backgroundColor !== 'rgba(0, 0, 0, 0)' || cs.backgroundImage !== 'none' || parseFloat(cs.borderTopWidth) > 0;
+        if (!painted || /fixed|sticky/.test(cs.position)) continue;
+        const b = abs(c); cTop = Math.min(cTop, b.top); cBottom = Math.max(cBottom, Math.min(b.bottom, hb.bottom));
+      }
+      let navBottom = hb.top;
+      for (const n of document.querySelectorAll('header, nav, [class*="nav"], [class*="bar"]')) { if (!vis(n) || hero.contains(n) && !/fixed|sticky/.test(getComputedStyle(n).position)) continue; const cs = getComputedStyle(n); const b = abs(n); if ((/fixed|sticky/.test(cs.position) || hero.contains(n)) && b.top <= hb.top + 40 && b.bottom < hb.top + 220) navBottom = Math.max(navBottom, b.bottom); }
+      const after = secs.find((x) => x !== hero && !hero.contains(x) && abs(x).top >= hb.bottom - 4);
+      const bottomEdge = after ? Math.min(content(after).top, hb.bottom + 240) : hb.bottom;
+      const topPad = cTop - navBottom, bottomPad = bottomEdge - cBottom;
+      if (isFinite(topPad) && isFinite(bottomPad) && topPad > 24 && bottomPad < topPad * 1.3 - 8) push('44a', 'REFLEX', `hero padding ${Math.round(topPad)}px above, ${Math.round(bottomPad)}px below`, 'Bottom-heavy: block-end at least 1.3 times block-start (a Ledge inverts it; say Ledge in the stamp)');
+    }
     if (heroEnd != null && !freeFold) {
       if (heroEnd > vh + 8) push('44c', 'REFLEX', `hero runs past the 1440x900 fold (hero ends at ${Math.round(heroEnd)}px)`, 'Size the display and the visual so the hero is one screen');
       else if (heroEnd < vh * 0.84 && secs.length > 1) push('44c', 'REFLEX', `hero ends at ${Math.round(heroEnd)}px of a 900px screen`, 'Fill the first screen with the visual or the headline, not with copy');

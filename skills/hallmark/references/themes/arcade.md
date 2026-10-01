@@ -46,7 +46,7 @@ Two dials, each stated in the stamp (`arcade: ember/grille`).
 
 ## Material
 
-- The CRT stack once, at page level, `aria-hidden`: the screen layer, a scanline `repeating-linear-gradient` (2px clear, 1px dark at low alpha), a corner vignette, and a tight phosphor bloom (`text-shadow` at 0.02 to 0.06em in the element's own ink) on marquee lettering and HUD text only. Budget in `texture.md` § Scanline. Never a bezel.
+- The CRT stack once, at page level, `aria-hidden`: the screen layer, a scanline `repeating-linear-gradient` (2px clear, 1px dark at low alpha), a corner vignette, and a tight phosphor bloom (`text-shadow` at 0.02 to 0.06em in the element's own ink) only on the Bungee marquee lettering and HUD text only. Budget in `texture.md` § Scanline. Never a bezel.
 - The side art: stacked chevrons at 22 degrees from one `repeating-linear-gradient` in the two inks, clipped to a panel with `clip-path`. That is the whole object; never an image.
 - The RGB split on marquee lettering: a 1 to 2px red offset and a matching cyan offset, zero blur. It replaces the flat drop shadow.
 - `--rule-bar` rules and near-square radii; depth is a hard zero-blur offset shadow, never blur.
@@ -55,7 +55,7 @@ Two dials, each stated in the stamp (`arcade: ember/grille`).
 
 ## Motion
 
-Press physics over 120ms ease-out, one `steps(1)` blink at about 1.06s on a single attract prompt, the RGB split widening 1px on hover for interactive marquee lettering. The grille, scanline and vignette are static.
+Press physics over 120ms ease-out, one attract prompt that blinks on a `steps(1)` beat for four beats, then holds lit (never an open-ended blink, never under reduced motion), the RGB split widening 1px on hover for interactive marquee lettering. The grille, scanline and vignette are static.
 
 ## Voice
 

@@ -2,7 +2,7 @@
 name: Newsprint
 slug: newsprint
 genre: editorial
-paper: light 92 50
+paper: light 93.5 80
 display: slab-serif Zilla Slab
 accent: warm 28
 posture: restrained
@@ -19,7 +19,7 @@ Warm cream stock, a Zilla Slab 700 head over Spectral columns split by a hairlin
 
 ```css
 :root {
-  --color-paper: oklch(92% 0.045 50); --color-paper-2: oklch(89.5% 0.045 50); --color-paper-3: oklch(86.5% 0.045 48);
+  --color-paper: oklch(93.5% 0.022 80); --color-paper-2: oklch(91% 0.024 80); --color-paper-3: oklch(88% 0.026 78);
   --color-ink: oklch(15% 0.030 25); --color-ink-2: oklch(20% 0.030 28); --color-muted: oklch(46% 0.022 35);
   --color-rule: oklch(68% 0.030 40); --color-rule-2: oklch(35% 0.020 35);
   --color-accent: oklch(32% 0.10 28); --color-accent-ink: oklch(92% 0.045 50); --color-accent-text: oklch(45% 0.13 30); --color-focus: oklch(48% 0.18 30);
@@ -39,7 +39,7 @@ Warm cream stock, a Zilla Slab 700 head over Spectral columns split by a hairlin
 
 ## Material
 
-- Columns split by a hairline: longform flows in two or three columns with `column-rule: 1px solid var(--color-rule)`, never as one wide wall.
+- Columns split by a hairline: the lede flows in two or three columns with `column-rule: 1px solid var(--color-rule)`, never as one wide wall, and stays short enough that its screen holds 80 words or fewer (58); the long text belongs to the article, not the front page.
 - The double rule: two 1px lines in `--color-rule-2` with a 2px gap, the heaviest divider the theme owns; hairlines carry ordinary breaks, the double rule the major ones.
 - The drop cap: a Zilla Slab initial floated about three lines tall in `--color-ink` or brick, one per page.
 - Rules and whitespace, no cards: radius 0, no shadow. A pulled line hangs between two hairlines with a brick indent. The brick under 5%: a rule tick, a section marker, the link, a folio, never a fill.

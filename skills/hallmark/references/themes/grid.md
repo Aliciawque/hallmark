@@ -26,7 +26,7 @@ A cool near-white sheet with its 12-column hairline grid left visible, Archivo 8
   --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif; --font-body: var(--font-display);
   --font-outlier: ui-monospace, monospace;
   --radius-card: 0; --radius-pill: 0; --rule-hair: 1px; --shadow-card: none;
-  --tracking-display: -0.045em; --display-weight: 800;
+  --tracking-display: -0.015em; --display-weight: 800;
 }
 ```
 

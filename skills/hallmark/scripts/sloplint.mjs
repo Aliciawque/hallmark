@@ -763,11 +763,11 @@ const TIERS = new Map(Object.entries({
   '2': 'floor', '4': 'floor', '10': 'floor', '15': 'floor', '17': 'floor', '18': 'floor', '19': 'floor',
   '20': 'floor', '26': 'floor', '27': 'floor', '28': 'floor', '30': 'floor', '33': 'floor', '34': 'floor',
   '39': 'floor', '40': 'floor', '41': 'floor', '46': 'floor', '48': 'floor', '49': 'floor', '50': 'floor',
-  '53': 'floor', '54': 'floor', '56': 'floor', '58': 'floor', '62': 'floor', '63': 'floor', '67': 'floor',
+  '53': 'floor', '54': 'floor', '56': 'floor', '58': 'floor', '62': 'floor', '63': 'floor', '67': 'floor', '70': 'floor',
   '1': 'reflex', '3': 'reflex', '6': 'reflex', '7': 'reflex', '8': 'reflex', '9': 'reflex', '11': 'reflex',
   '12': 'reflex', '16': 'reflex', '22': 'reflex', '23': 'reflex', '24': 'reflex', '25': 'reflex', '29': 'reflex',
   '37': 'reflex', '38': 'reflex', '42': 'reflex', '44': 'reflex', '47': 'reflex', '55': 'reflex', '59': 'reflex',
-  '64': 'reflex', '65': 'reflex', '66': 'reflex', '68': 'reflex',
+  '64': 'reflex', '65': 'reflex', '66': 'reflex', '68': 'reflex', '69': 'reflex',
   '32': 'ledger',
   '2a': 'floor', '2b': 'reflex', '6a': 'floor', '6b': 'reflex', '7a': 'floor', '7b': 'reflex',
   '10a': 'floor', '10b': 'reflex', '24a': 'floor', '24b': 'reflex', '26a': 'floor', '26b': 'reflex',
@@ -1005,7 +1005,7 @@ function styleIndex(ctx) {
       const tagM = /^([a-zA-Z][\w-]*)/.exec(cleaned);
       const tag = tagM ? tagM[1].toLowerCase() : null;
       if (!classes.length && !tag) continue;
-      entries.push({ classes, tag, decls: r.decls, state: /:(hover|active|focus|focus-visible|focus-within|disabled|checked|visited|target)\b/i.test(compound) });
+      entries.push({ classes, tag, decls: r.decls, state: /:(hover|active|focus|focus-visible|focus-within|disabled|checked|visited|target)\b|::?(before|after|marker|placeholder|selection|backdrop)\b/i.test(compound) });
     }
   }
   ctx._styleIdx = entries;
@@ -2931,6 +2931,30 @@ function check68(ctx) {
   }
 }
 
+function check69(ctx) {
+  for (const doc of ctx.docs) {
+    if (doc.kind !== 'html') continue;
+    const text = doc.text.replace(/\s+/g, ' ');
+    const facts = text.match(/(?:[£$€¥]\s?\d[\d,.]*|\d[\d,.]*\s?(?:pm|am|MAD|kg|g|ml|km|mi|miles|%)\b|\b\d{1,2}:\d{2}\b)/gi) || [];
+    const counts = new Map();
+    for (const f of facts) { const k = f.replace(/\s+/g, '').toLowerCase(); counts.set(k, (counts.get(k) || 0) + 1); }
+    const loud = [...counts].filter(([, n]) => n >= 4).sort((a, b) => b[1] - a[1]);
+    if (loud.length) report(69, 'WARN', doc.file, 1, `the same fact printed ${loud[0][1]} times: ${loud.slice(0, 3).map(([k, n]) => `${k} (${n})`).join(', ')}`, 'Say each fact once, where it does work; cut the restatements');
+  }
+}
+
+function check70(ctx) {
+  const SUCCESS = /(["'`])\s*(?:sent|thanks|thank you|reserved|booked|you're on the list|you are on the list|subscribed|we'll be in touch|request received|done)\b[^"'`]{0,60}\1/i;
+  for (const doc of ctx.docs) {
+    const js = (doc.scripts && typeof doc.scripts === 'string') ? doc.scripts : (doc.src.match(/<script\b[^>]*>([\s\S]*?)<\/script>/gi) || []).join('\n');
+    if (!/<form\b|type\s*=\s*["']submit/i.test(doc.src) || !js) continue;
+    const m = SUCCESS.exec(js);
+    if (!m) continue;
+    if (/\bfetch\s*\(|XMLHttpRequest|navigator\.sendBeacon|\.submit\s*\(\s*\)|axios|\$\.ajax/.test(js)) continue;
+    report(70, 'WARN', doc.file, doc.lineOf ? doc.lineOf(doc.src.indexOf(m[0]) >= 0 ? doc.src.indexOf(m[0]) : 0) : 1, `a script prints success ("${trunc(m[0].replace(/["'`]/g, ''), 30)}") with no request behind it`, 'No success state until the form posts somewhere; an empty data-endpoint and a handoff note');
+  }
+}
+
 function check47Placeholders(ctx) {
   for (const doc of ctx.docs) {
     const m = PLACEHOLDER_IMG.exec(doc.src);
@@ -3632,7 +3656,7 @@ const CHECKS = [check1, check2, check3, check3Stripe, check4, check6a, check7, c
   check25, check26, check27, check28, check30, check33, check34, check37, check38a,
   check39, check40_41, check42, check42Footer, check46, check47, check48, check49,
   check50, check50Wrap, check53, check54, check55, check56, checkCopyTell, check62, check63, check64, check65, check67, check38c,
-  check19Tells, check58Static, check68, check42TwoButton, check47Placeholders, check65Tailwind, check29Glow, check11Lift, check15Fade,
+  check19Tells, check58Static, check68, check69, check70, check42TwoButton, check47Placeholders, check65Tailwind, check29Glow, check11Lift, check15Fade,
   checkF1, checkF2, checkF3, checkF4, checkF5, checkF6, checkF7, checkF7Pills, checkF8, checkF9, checkF15, checkF16,
   checkTailwind, checkComponentText];
 

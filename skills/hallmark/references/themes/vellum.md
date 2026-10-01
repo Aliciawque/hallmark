@@ -51,7 +51,7 @@ Three colourways, stated in the stamp (`vellum: parchment`).
 - Rules: 1px `--color-rule` hairlines inside tables, 1px ink on a section's top, and `4px double` ink above an index or a colophon.
 - Radius 2px everywhere, no pills, no shadows; the stamp's register ring is a `box-shadow` of ground then pigment, a print, not a lift.
 - The control pair: a pigment-filled primary with parchment text beside a ghost with a 1px ink border, both 2px radius.
-- Objects: the edge-to-edge wordmark over its double rule, the pigment band (a full-bleed accent block with an inset double keyline), the ledger (lot numbers at 30px in pigment, tabular figures right-aligned), the day strip (ruled boxes with display numerals), the woodcut seal (text on a circle path) and one stamp at -7°. A stamp or a seal carries a fact, a date or a frame number, or does not appear.
+- Objects: the edge-to-edge wordmark over its double rule, the pigment band (a full-bleed accent block with an inset double keyline), the ledger (row numbers at 30px in pigment, headed No., tabular figures right-aligned), the day strip (ruled boxes with display numerals), the woodcut seal (text on a circle path) and one stamp at -7°. A stamp or a seal carries a fact, a date or a frame number, or does not appear.
 
 ## Motion
 
@@ -59,7 +59,7 @@ Still. A hover underline in pigment, the primary deepening to `--color-accent-de
 
 ## Voice
 
-Ledger-plain and dated: the lot, the price paid, the hour, the room. Never *artisanal*, never *curated*.
+Ledger-plain and dated: the item, the price paid, the hour, the room. Never *artisanal*, never *curated*.
 
 ## Do-nots
 

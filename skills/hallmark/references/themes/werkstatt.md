@@ -51,7 +51,7 @@ Three colourways, set once per page and named in the stamp (`werkstatt: putty`).
 - Rules do the structure: `--rule-box` ink lines box the shops grid and cross it, `--rule-bar` ink under a nav and over every table, `--rule-hair` `--color-rule` between rows. No card has a background; a cell is what the rules enclose.
 - The three shapes, drawn in CSS (a circle by radius, a triangle by clip-path, a square with an 8 degree tilt): at 150 to 220px as cropped forms beside the headline and shop names; at 11px as list bullets, each colour meaning one shop; a 4px ink line is the fourth shop's mark.
 - Zero radius, zero shadow, no texture; the only gradient is a warm grey ramp inside a placeholder with a tag in its corner. The isometric house is 2px ink lines, never shaded.
-- The control pair: a transparent `--rule-bar` ink-bordered button beside an ink-filled one, both uppercase Karla 600 at 13px tracked 0.04em, following the display's capitals; the yellow square lends its colour to a third, on dark grounds only.
+- The control pair: a transparent `--rule-bar` ink-bordered button beside an ink-filled one, both uppercase Karla 600 at 13px tracked 0.04em, following the display's capitals; on a dark band the filled one turns yellow with ink type, which is the same primary in that band's colour, not a third control (one filled recipe per band, F4).
 - The timetable: a grid with 92px rows coloured per shop and an outlined cell for open bench time. Blue and red cells take the light ink `--color-accent-ink`, the red deepened to `--color-accent-2-deep`; the yellow cell takes black type, the black cell putty.
 
 ## Motion

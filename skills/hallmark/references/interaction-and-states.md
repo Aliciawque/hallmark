@@ -13,7 +13,7 @@ Loaded for forms and stateful controls. `craft.md` § 9 and gate 39a own the inp
 | Disabled | Not interactive | Reduced opacity (0.55) + `cursor: not-allowed` + `aria-disabled` |
 | Loading | Processing | Inline spinner or progress, label stays readable |
 | Error | Failed state | Red border, error icon, message, `aria-invalid` |
-| Success | Completed | The result itself, visible; an inline icon from the page's set at most; no toast (16) |
+| Success | Completed | The result itself, from the server's answer; an inline icon from the page's set at most; no toast (16); no success state at all where no request was made (70) |
 
 If any of these is missing on a production element, the element isn't finished.
 
