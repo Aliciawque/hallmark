@@ -89,5 +89,5 @@ A pharmacist's plainness: the name, the dose, the time, who it is for. Reassurin
 .card { background: var(--color-paper); border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
 .band { background: var(--color-paper-2); }
 .time { font: 500 44px/1 var(--font-outlier); letter-spacing: -0.02em; color: var(--color-accent); }
-::selection { background: oklch(50% 0.13 160 / 0.25); }
+::selection { background: color-mix(in oklab, var(--color-accent) 25%, transparent); }
 ```

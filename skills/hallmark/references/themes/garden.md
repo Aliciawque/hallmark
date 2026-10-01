@@ -40,7 +40,7 @@ Warm oat paper, a near-black green ink, Vollkorn heads over Hanken Grotesk, one 
 
 ## Material
 
-- The season bar (the signature): twelve months as one bar ruled in 1px hairlines, the months in season filled leaf green under `--color-accent-ink`, the rest left as paper with the month in `--color-muted`, and the current month marked by a 1px ink hairline that runs past the bar's edges. It shows the real season of the thing sold, or it does not appear.
+- The season bar (the signature): twelve months as one bar ruled in 1px hairlines, the months in season filled leaf green under `--color-accent-ink`, the rest left as paper with the month in `--color-muted`, and the current month marked by a 1px ink hairline that runs past the bar's edges. It shows the real season of the thing sold, or it does not appear; a brief that gives one date fills one month and says what the month is ("poured in September") in a caption under the bar, so it never reads as a month picker.
 - Hand-built botanical craft: the imagery is pure CSS and hand-authored SVG (a honeycomb wash, a jar of amber, corked vials, a pressed leaf, a drawn specimen beside its caption), never a stock photo. It is the thing being sold, not decoration, and not the signature.
 - Tint bands, not boxed cards: soft full-bleed washes in `--tint-moss` or `--tint-clay`; structure is 1px hairlines plus whitespace, never a drop-shadowed box. Flat paper, no texture.
 - Every neutral carries a green cast (hue 90 to 152), no pure grey. Leaf-green stays under 5% of a viewport. Clay lives inside the craft, almost never as chrome.
@@ -49,7 +49,7 @@ Warm oat paper, a near-black green ink, Vollkorn heads over Hanken Grotesk, one 
 
 ## Motion
 
-Nothing moves except state: one hover on a piece of craft, a jar filling or a leaf tilting, on transform and opacity only. No reveal, no stagger, no parallax.
+Nothing moves except state: a control's hover, and where a piece of craft is itself a link or a button, one hover on it (a jar filling, a leaf tilting), on transform and opacity only. No reveal, no stagger, no parallax.
 
 ## Voice
 
@@ -71,6 +71,7 @@ Warm, honest, seasonal, unhurried. Say the ridge, the flower, the pour date, the
 
 ```css
 body { font-family: var(--font-body); font-variant-numeric: oldstyle-nums; color: var(--color-ink-2); }
+h1, h2, h3, .display, .season, td { font-variant-numeric: lining-nums tabular-nums; }
 .display { font: 700 clamp(2.25rem, 4vw + 1rem, 5rem)/1.05 var(--font-display); letter-spacing: var(--tracking-display); color: var(--color-ink); }
 .tag { font-size: 0.8125rem; font-weight: 500; color: var(--color-muted); }
 .season { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); border: var(--rule-hair) solid var(--color-rule-2); }
@@ -81,5 +82,5 @@ body { font-family: var(--font-body); font-variant-numeric: oldstyle-nums; color
 .band--moss { background: var(--tint-moss); }
 .btn--solid { border-radius: var(--radius-pill); background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--line { border-radius: var(--radius-pill); border: var(--rule-hair) solid var(--color-rule-2); color: var(--color-ink); }
-::selection { background: oklch(47% 0.130 140 / 0.22); }
+::selection { background: color-mix(in oklab, var(--color-accent) 22%, transparent); }
 ```

@@ -22,7 +22,7 @@ Binds on every output, in every harness, on every model. None of it is waivable.
 6. Every interactive element has `:focus-visible`, appearing instantly. (26a, 15)
 7. Every animation has a `prefers-reduced-motion: reduce` fallback, and content is visible with scripting off. (27, 62)
 8. Never an invented metric, testimonial, logo wall or case-study count. (46a)
-9. Never an eyebrow, and never a label in tracked capitals or small caps: labels, captions, table heads, tags and nav links are the body face, a step smaller, sentence case, untracked. (54, 67)
+9. Never an eyebrow, and never a label in tracked capitals or small caps: labels, captions, table heads, tags and nav links are the body face (or the label face the theme names), a step smaller, sentence case, untracked. (54, 67)
 10. Never middle-dot-joined meta strings, arrows glued to link text, or decorative status dots. (63)
 11. Never a purple-to-blue gradient, a card inside a card, an emoji as an icon, or a hand-drawn browser or OS window. (2a, 4, 30a, 47a)
 12. The hero's headline, one sentence and primary action are all visible at 1280 x 800 without scrolling. (44b)
@@ -50,7 +50,7 @@ Codex CLI and OpenCode read [`references/flow.md`](references/flow.md) § Harnes
 
 Read the existing project before asking the user anything. Signals, in order: `design.md` or `DESIGN.md` at the root (a locked system; it overrides everything below and inverts the variety rule, pages share it); `.hallmark/brand-spec.md` or a brief naming a real brand (run [`references/brand-truth.md`](references/brand-truth.md), never theme a real brand from memory); the font stack in `package.json`, Google Fonts links or Tailwind config; the palette in `:root`, Tailwind colours or a tokens file; motion libraries in the dependencies; the spacing scale; the framework; an Inspo MCP server on the session (`mcp__inspo__*` tools present: signal 8, the archive builds and Hallmark sweeps, see [`references/flow.md`](references/flow.md) § Signal 8); `TOGETHER_API_KEY` in the environment (signal 9, unlocks the comp step).
 
-Output one block with file:line citations, what Hallmark preserves and what it introduces, and cache it in `.hallmark/preflight.json` (re-scan on "refresh pre-flight" or a newer `package.json`; never cache signal 8). Edge cases, one line each, are in [`references/flow.md`](references/flow.md) § Pre-flight.
+Output one block with file:line citations, what Hallmark preserves and what it introduces, and cache it in `.hallmark/preflight.json`. Caching and edge cases, one line each, are in [`references/flow.md`](references/flow.md) § Pre-flight.
 
 ### 1. Ask once
 
@@ -60,7 +60,7 @@ One message, even on a five-word brief:
 
 Skipped fields are opt-outs: infer them, state the inferences in one line at the top of the reply, stamp them. No follow-up ladders. Material is never inferred: what was not given is a slot or is absent.
 
-**Genre** is picked here, silently, from the brief: *AI tool, generative, music, video, voice, dark, atmospheric* → **atmospheric**; *SaaS, enterprise, API, platform, developer tool, infra, B2B* → **modern-minimal**; *fun, consumer, casual, family, community, onboarding* → **playful**; otherwise **editorial**. Two non-default signals: ask one either-or.
+**Genre** is picked here, silently, from the brief: *AI tool, generative, music, video, voice, dark, atmospheric* → **atmospheric**; *SaaS, enterprise, API, platform, developer tool, infra, B2B* → **modern-minimal**; *fun, consumer, casual, family, community, onboarding* → **playful**; otherwise **editorial**. Two non-default signals: a named theme's genre settles it, else ask one either-or.
 
 **Scope** is checked here too. A brief naming one element (button, input, card, modal, nav, footer, tab strip, chip) or saying "just the X" is a component: read [`references/flow.md`](references/flow.md) § Component scope and skip macrostructure, chrome, enrichment and the log.
 
@@ -70,9 +70,9 @@ Skipped fields are opt-outs: infer them, state the inferences in one line at the
 
 Decide the page's shape, how it opens, how sections separate, what the nav and footer do, how tall the hero stands and what carries it. You are designing, not filling a form. The catalogs exist for when you want a starting point: 21 page shapes in [`references/macrostructures.md`](references/macrostructures.md), navs, footers and section archetypes in [`references/component-cookbook.md`](references/component-cookbook.md), enrichment in [`references/hero-enrichment.md`](references/hero-enrichment.md). Take a named shape and load only that one file; never read a whole catalog.
 
-**Rotation.** Read `.hallmark/log.json` (newest first). The page's shape must differ from the last three builds; the nav and footer must not repeat the last three shapes; the hero posture, enrichment and section opening must not repeat the previous run. The theme deal in Step 3 handles the theme axis for you. **The mirror test:** would this exact combination have come out for a neighbouring brief in the same category? If yes, change one decision and say which in the Picks block.
+**Rotation.** Read `.hallmark/log.json` (newest first). The page's shape must differ from the last three builds; the nav and footer must not repeat the last three shapes; the hero posture, a non-`none` enrichment and the section opening must not repeat the previous run. The theme deal in Step 3 handles the theme axis for you. **The mirror test:** would this exact combination have come out for a neighbouring brief in the same category? If yes, change one decision and say which in the Picks block.
 
-**Signature.** Every page has one move a visitor would describe to a friend: an object, a composition, an interaction, built from the inventory's strongest real thing. Decide it here; it goes in the Picks block and the stamp, and the reviewer checks it is on the page. A page without one is a template with good tokens.
+**Signature.** Every page has one move a visitor would describe to a friend: an object, a composition, an interaction, built from the inventory's strongest real thing. Decide it here; it goes in the Picks block and the stamp, it shows on the first screen (a slot's caption counts), and the reviewer checks it. A page without one is a template with good tokens.
 
 Decide all of this and hold it. It is said once, at Step 5.
 
@@ -90,15 +90,15 @@ node <skill-dir>/scripts/theme.mjs deal --genre <genre> --brief "<the brief>" [-
 
 The script reads the catalog index and the log, applies Rotation (two consecutive systems differ on paper band, display class or accent band; siblings in the log count as occupied) and deals three candidates that fit the brief's words, one line each, with a reproducible seed. Look at the three pictures, pick one, say which and why in one clause, and load only `references/themes/<slug>.md`. Re-deal only when the user asks (`--reroll 1`). No Node: read `references/themes/index.json`, apply the same rule by hand, and stamp `deal: manual`.
 
-A catalog theme is a material, not a plan: it says what the page is made of, never what the page contains or in what order. Two pages in one theme should not share a section sequence.
+A catalog theme is a material, not a plan: it says what the page is made of, never what the page contains or in what order. Two pages in one theme should not share a section sequence. Where the theme and a shape, genre, craft or enrichment file disagree on material, controls or motion, the theme wins; nothing beats the Floor.
 
 ### 4. Load
 
-Exactly these, for a page build: [`references/craft.md`](references/craft.md) (type, colour, layout, motion, copy, section openings, demo slots, the hero, finish) · `references/genres/<genre>.md` · `references/themes/<slug>.md` and its picture `<slug>.jpg`, a first screen and a lower screen of one page in the theme: take its scale, density, colour balance and objects, never its composition (or `direction.md` on a custom run) · [`references/gates.md`](references/gates.md) § 1 to § 4.
+Exactly these, for a page build: [`references/craft.md`](references/craft.md) (type, colour, layout, motion, copy, section openings, demo slots, the hero, finish) · `references/genres/<genre>.md` · `references/themes/<slug>.md` and its picture `<slug>.jpg`, a first screen and a lower screen of one page in the theme: take its scale, density, colour balance and objects, never its section order or layout (or `direction.md` on a custom run) · [`references/gates.md`](references/gates.md) § 1 to § 4.
 
-Only when the build needs them, each in `references/`: one macrostructure file and the picked archetype files (Step 2) · `hero-enrichment.md` then one `enrichment/` file, when the image-need check says yes · `microinteractions.md` for stateful UI · `interaction-and-states.md` for forms · `responsive.md` for an unusual layout · `texture.md` when the theme earns texture · `scroll-choreography.md` for a scroll story · `dark-mode.md` when both modes are asked for · `data-viz.md` for charts · `fonts.md` on custom or studied runs · `assets.md` and `imagery-kit.md` when an enrichment needs an external asset · `comp.md` on signal 9 · `design-md.md` when asked to lock the system.
+Only when the build needs them, each in `references/`: one macrostructure file and the picked archetype files (Step 2) · `hero-enrichment.md` when the hero wants imagery (its image-need check names the one `enrichment/` file) · `microinteractions.md` for stateful UI · `interaction-and-states.md` for forms · `responsive.md` for an unusual layout · `texture.md` when the theme earns texture · `scroll-choreography.md` for a scroll story · `dark-mode.md` when both modes are asked for · `data-viz.md` for charts · `fonts.md` on custom or studied runs · `assets.md` and `imagery-kit.md` when an enrichment needs an external asset · `comp.md` on signal 9 · `design-md.md` when asked to lock the system.
 
-Loading more is the largest avoidable cost; `gates.md` § 5 and § 6 wait for Step 7.
+Loading more is the largest avoidable cost; `gates.md` § 5 waits for Step 7, § 6 for the reviews.
 
 ### 5. The Picks block
 
@@ -125,17 +125,17 @@ On signal 9, [`references/comp.md`](references/comp.md) runs here: two comps of 
 
 Emit code that satisfies the theme and the shape. Always:
 
-- **Start from the scaffold.** `node <skill-dir>/scripts/theme.mjs scaffold <slug>` (`--custom` on a derived run) writes `tokens.css` with the theme's tokens and the shared scale, and prints the base rules the Floor already decided (clipping, focus, reduced motion, browser surfaces, the slot contract) under a stamp skeleton. Paste them, fill the stamp, and write only the page.
-- **Read the exemplar** for the genre, `references/exemplars/<genre>.html`, once: a finished page in another theme that passes every gate. Take how its stamp, tokens, slots, states and openings are written; never its shape, theme or copy.
+- **Start from the scaffold.** `node <skill-dir>/scripts/theme.mjs scaffold <slug>` (`--custom` on a derived run) writes `tokens.css` with the theme's tokens and the shared scale, and prints the base rules the Floor already decided under a stamp skeleton. Paste them, fill the stamp, and write only the page.
+- **Read the exemplar** for the genre, `references/exemplars/<genre>.html`, once: a finished page in another theme that passes every gate. Take how its stamp, tokens, slots, states and openings are written; never its shape, theme or copy. Skip it when it is in your theme.
 - **Hero first.** Write the nav and the hero, run `node <skill-dir>/scripts/sloplint.mjs <file> --render --stage hero` (the fold at three widths, the hero's words, the visual's place, four first-screen shots), then the hero review in fresh context (`gates.md` § 6). Build the sections only once the hero ships: a hero rewrite after eight sections exist costs eight sections.
-- **One idea per screen.** Hero: headline (seven words or fewer, 50 characters or fewer), one sentence (twelve words or fewer), one or two actions. A section: a heading of three to five words, at most one line, then its object (a slot, a figure, a drawn thing, a list of four or fewer, a table of five rows or fewer). Five to eight sections, footer included; 450 visible words at most, fewer when the brief has less to say. Never pad to a count.
+- **One idea per screen.** Hero: headline (seven words or fewer, 50 characters or fewer), one sentence (twelve words or fewer), one or two actions. A section: a heading of three to five words, at most one line, then its object (a slot, a figure, a drawn thing, a list of four or fewer, a table of five rows or fewer). Four to eight sections, footer included; 450 visible words at most, fewer when the brief has less to say. Never pad to a count.
 - **Show, do not describe.** On a product page with material or "leave slots": at least two `data-slot` containers, the hero visual and a demo strip; with neither, the page shows what is real (Step 2). The user's images fill them; otherwise a designed placeholder in the theme's colours with a corner label (`craft.md` § Demo slots). Never a grey box, never a fake screenshot with invented figures.
-- **The fold.** The hero is the first screen and only the first screen at 1440 x 900 and 1920 x 1080, its visual beside the text (centres within 60px, 48 to 120px apart), never pinned in a corner.
+- **The fold.** The hero is the first screen and only the first screen at 1440 x 900 and 1920 x 1080, its visual beside the text (centres within 60px, 48 to 120px apart), never pinned in a corner; a Banner hero shares it with the first section.
 - **Room.** 120px or more between sections at desktop, varied; 32 to 48px from a heading to its content; 24 to 40px between grid items. More space above a heading than below it.
-- **Page invariants.** One primary button style, one container width, one column gap for every multi-column section, one radius per nesting level, and never more centred heading groups than left-aligned ones. A subhead over 120 characters is set left-aligned.
-- **Type.** The theme's faces, two families (three with one outlier role); display tracking and leading per `craft.md` § 1; body 16px or more at 1.5 to 1.65, 45 to 75ch; heads roman. Labels, captions, table heads and nav links in the body face, sentence case, untracked, never capitals (67), never mono unless mono is the material (64). A head is one weight and one colour throughout; the accented word is a tell (38iii).
-- **States and motion.** Eight states on every interactive element; `transform` and `opacity` only; one orchestrated reveal per page, 0.4 to 0.8s, visible by default; exits at 60 to 75% of the enter; nothing bounces.
-- **Browser surfaces.** Keep the scaffold's `::selection`, `caret-color`, `scrollbar-color` and focus ring; add tabular numerals wherever figures compare. The cheapest sign a page was built rather than assembled.
+- **Page invariants.** One primary button style, one container width, one column gap for every multi-column section below the hero, one radius per nesting level, and never more centred heading groups than left-aligned ones. A subhead over 120 characters is set left-aligned.
+- **Type.** The theme's faces, two families (three with one outlier role); display tracking and leading per `craft.md` § 1; body 16px or more at 1.5 to 1.65, 45 to 75ch; heads roman. Labels per Floor 9, never mono unless mono is the material (64). A head is one weight and one colour throughout; the accented word is a tell (38iii).
+- **States and motion.** Eight states on every interactive element; `transform` and `opacity` only; at most one orchestrated reveal per page, none where the theme keeps still, 0.4 to 0.8s, visible by default; exits at 60 to 75% of the enter; nothing bounces.
+- **Browser surfaces.** Keep the scaffold's `::selection`, `caret-color`, `scrollbar-color` and focus ring; add tabular numerals wherever figures compare.
 - **Stamp.** Line 1 of CSS:
 
 ```css
@@ -162,11 +162,11 @@ then any `waive` and `answered` lines, then a custom run's direction contract. E
 
 1. `node <skill-dir>/scripts/sloplint.mjs <files> --genre <genre> --render` (add `--scope component` on a component; in a framework project with a dev server running, add `--url http://localhost:<port>/<route>`). Fix every FAIL, re-run until clean. The render tier writes the screenshots you need next; do not run Chrome by hand.
 2. Load [`references/gates.md`](references/gates.md) § 5 and walk the J and R/J gates. Confirm or dismiss every WARN. Fix every open Floor finding; fix or waive every Reflex one; answer every Finish one.
-3. Review in fresh context per `gates.md` § 6: a subagent with the artifact, the screenshots, the stamp's theme or contract, and the gate table. Act on its first word (`recapture`, `rebuild`, `fix`, `ship`). Two rounds is the ceiling.
+3. Review in fresh context per `gates.md` § 6, which lists its inputs. Act on its first word (`recapture`, `rebuild`, `fix`, `ship`). Two rounds is the ceiling.
 4. Close with the material ask: every slot, its size and what belongs there, then the one piece of material that would most improve the page ("two screenshots of the import screen would replace both demo placeholders").
 5. Update the Picks block's last row with the real outcome (`Floor 0 FAIL · Reflex 2 (1 waived: 47b) · finish-review: subagent, 3 resolved`). A fabricated pass is itself slop.
 
-Verification is budgeted: one batched inspection, one fix batch, at most one confirming round, then stop polishing. Endless single-issue re-render loops are their own failure mode.
+Verification is budgeted: one batched inspection, one fix batch, at most one confirming round, then stop polishing.
 
 ## Branches
 

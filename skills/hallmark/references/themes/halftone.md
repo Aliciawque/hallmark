@@ -86,5 +86,5 @@ The label: the fruit, the grams of sugar, the fridge by street. Blunt, sweet and
 .panel { border: var(--rule-bar) solid var(--color-ink); background: var(--color-paper-2); }
 .panel hr { border: 0; border-top: 8px solid var(--color-ink); }
 .list { border-top: var(--rule-bar) solid var(--color-ink); } .list > li { border-bottom: var(--rule-hair) solid var(--color-rule); }
-::selection { background: oklch(52% 0.21 30 / 0.3); }
+::selection { background: color-mix(in oklab, var(--color-accent) 30%, transparent); }
 ```

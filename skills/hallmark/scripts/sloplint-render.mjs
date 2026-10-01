@@ -351,14 +351,33 @@ function observeSpace(atLaptop, heroOnly, heroPosture) {
     const seen = [];
     for (const e of texts) { if (seen.some((o) => o.contains(e) || e.contains(o))) continue; seen.push(e); }
     stack = seen.length;
-    const boxes = [h1, ...seen.filter((e) => Math.abs(abs(e).left - abs(h1).left) < 40)].map(abs);
+    const ink = (el) => { let L = Infinity, T = Infinity, R = -Infinity, B = -Infinity; const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT); for (let t = w.nextNode(); t; t = w.nextNode()) { if (!t.textContent.trim() || t.parentElement.closest('svg')) continue; const rg = document.createRange(); rg.selectNodeContents(t); for (const q of rg.getClientRects()) { if (!q.width || !q.height) continue; L = Math.min(L, q.left); T = Math.min(T, q.top); R = Math.max(R, q.right); B = Math.max(B, q.bottom); } } return L === Infinity ? abs(el) : { top: T + scrollY, bottom: B + scrollY, left: L, right: R }; };
+    const boxes = [h1, ...seen.filter((e) => Math.abs(abs(e).left - abs(h1).left) < 40)].map(ink);
     textBox = { top: Math.min(...boxes.map((b) => b.top)), bottom: Math.max(...boxes.map((b) => b.bottom), cta ? abs(cta).bottom : 0), left: Math.min(...boxes.map((b) => b.left)), right: Math.max(...boxes.map((b) => b.right)) };
     let bestA = 0;
     const clipped = (el) => { const r = el.getBoundingClientRect(); let L = r.left, T = r.top, R = r.right, B = r.bottom; for (let p = el.parentElement; p && p !== document.body; p = p.parentElement) { const cs = getComputedStyle(p); if (/hidden|clip/.test(`${cs.overflow} ${cs.overflowX} ${cs.overflowY}`)) { const q = p.getBoundingClientRect(); L = Math.max(L, q.left); T = Math.max(T, q.top); R = Math.min(R, q.right); B = Math.min(B, q.bottom); } } R = Math.min(R, vw); return { top: T + scrollY, bottom: B + scrollY, left: L, right: R, w: Math.max(0, R - L), h: Math.max(0, B - T) }; };
-    for (const e of hero.querySelectorAll('svg, canvas, img, figure, video, picture, [data-slot], [class*="fig"], [class*="visual"], [class*="device"], [class*="demo"], [class*="shot"], [class*="illus"], [class*="panel"]')) {
-      if (!vis(e) || e.closest('nav') || e.contains(h1)) continue;
+    const beside = (b) => b.left >= textBox.right - 40 || b.right <= textBox.left + 40;
+    const consider = (e) => {
+      if (!vis(e) || e.closest('nav') || e.contains(h1) || seen.some((t) => e.contains(t))) return;
       const b = clipped(e); const a = b.w * b.h;
-      if (b.w > 160 && b.h > 120 && a > bestA && b.w < vw * 0.95 && b.left >= textBox.right - 40) { fig = b; bestA = a; }
+      if (b.w > 160 && b.h > 120 && a > bestA && b.w < vw * 0.95 && beside(b)) { fig = b; fig.el = e; bestA = a; }
+    };
+    for (const e of hero.querySelectorAll('svg, canvas, img, figure, video, picture, [data-slot], [class*="fig"], [class*="visual"], [class*="device"], [class*="demo"], [class*="shot"], [class*="illus"], [class*="panel"]')) consider(e);
+    if (!fig) {
+      const heroBg = getComputedStyle(hero).backgroundColor;
+      for (const e of hero.querySelectorAll('div, span, aside, i, b')) {
+        const cs = getComputedStyle(e);
+        if (cs.backgroundImage !== 'none' || (cs.backgroundColor !== 'rgba(0, 0, 0, 0)' && cs.backgroundColor !== heroBg) || parseFloat(cs.borderTopWidth) > 0) consider(e);
+      }
+    }
+    if (fig) {
+      fig.side = fig.left >= textBox.right - 40 ? 'right' : 'left';
+      let lca = h1.parentElement;
+      while (lca && !lca.contains(fig.el)) lca = lca.parentElement;
+      let col = h1;
+      while (col.parentElement && col.parentElement !== lca) col = col.parentElement;
+      const cb = abs(col);
+      fig.colEdge = fig.side === 'right' ? Math.max(textBox.right, cb.right) : Math.min(textBox.left, cb.left);
     }
   }
 
@@ -391,7 +410,7 @@ function observeSpace(atLaptop, heroOnly, heroPosture) {
     }
     if (!heroOnly && secs.length > 9) push(59, 'WARN', `${secs.length} sections`, 'Five to eight sections a page; merge or cut');
 
-    if (hero && !freeFold && !/^corridor$/.test(heroPosture || '')) {
+    if (hero && !/^(poster|ledge)$/.test(heroPosture || '')) {
       const hb = abs(hero);
       let cTop = Infinity, cBottom = -Infinity;
       for (const c of hero.querySelectorAll('*')) {
@@ -414,9 +433,10 @@ function observeSpace(atLaptop, heroOnly, heroPosture) {
     }
     if (fig && textBox && !freeFold) {
       const off = Math.round((fig.top + fig.bottom) / 2 - (textBox.top + textBox.bottom) / 2);
-      const gap = Math.round(fig.left - textBox.right);
+      const gap = Math.round(fig.side === 'right' ? fig.left - fig.colEdge : fig.colEdge - fig.right);
+      const edge = Math.round(fig.side === 'right' ? vw - fig.right : fig.left);
       if (Math.abs(off) > 60) push('44c', 'REFLEX', `hero visual centre is ${off}px from the text block centre`, 'Align the visual beside the text');
-      if (gap > 120 || (fig.right > vw - 8 && gap > 48)) push('44c', 'REFLEX', `hero visual sits ${gap}px from the text and ${Math.round(vw - fig.right)}px from the viewport edge`, 'Bring the visual to within 48 to 120px of the text; never pin it to the corner');
+      if (gap > 120 || (edge < 8 && gap > 48)) push('44c', 'REFLEX', `hero visual sits ${gap}px from the text and ${edge}px from the viewport edge`, 'Bring the visual to within 48 to 120px of the text; never pin it to the corner');
     }
   } else {
 

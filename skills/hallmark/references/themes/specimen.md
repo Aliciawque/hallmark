@@ -76,5 +76,5 @@ Editorial, hand-set, lightly literary. Verbs over adjectives; name the face, the
 .btn--primary { background: var(--color-ink); color: var(--color-paper); }
 .btn--secondary { border: 1px solid var(--color-ink); color: var(--color-ink); }
 a { text-decoration-color: var(--color-accent); text-underline-offset: 0.18em; }
-::selection { background: oklch(46% 0.17 262 / 0.22); }
+::selection { background: color-mix(in oklab, var(--color-accent) 22%, transparent); }
 ```

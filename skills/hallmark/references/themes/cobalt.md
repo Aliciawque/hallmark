@@ -37,7 +37,7 @@ Cool near-white paper ruled with hairlines, Familjen Grotesk heads over IBM Plex
 
 - **Display:** Familjen Grotesk 500 and 600, `--tracking-display`, roman. Flared terminals keep it from reading as a default grotesk.
 - **Body:** IBM Plex Sans 400 and 500, body only.
-- **Labels, captions, table heads, status, meta:** Familjen Grotesk 500 one step smaller, sentence case, in `--color-muted`. Never mono.
+- **Labels, captions, table heads, status, meta:** Familjen Grotesk 500 one step smaller, sentence case, in `--color-muted`, the theme's label face. Never mono.
 - **Code register:** JetBrains Mono 400 and 500, lowercase, for code blocks, commands, the request and response object, and syntax tokens. Mono is this theme's material only there, because the content is code; never a label, a head or a chip.
 
 ## Material
@@ -77,5 +77,5 @@ h1, h2, .display { font-family: var(--font-display); font-weight: 600; letter-sp
 .graphite figcaption { font: 500 0.8125rem/1.4 var(--font-display); color: var(--color-graphite-ink); padding: 0.5rem 1rem; border-bottom: var(--rule-hair) solid var(--color-rule-2); }
 .code { font: 400 0.875rem/1.6 var(--font-outlier); } .code .token { color: var(--color-accent-2); }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-radius: var(--radius-input); }
-::selection { background: oklch(51% 0.20 256 / 0.22); }
+::selection { background: color-mix(in oklab, var(--color-accent) 22%, transparent); }
 ```

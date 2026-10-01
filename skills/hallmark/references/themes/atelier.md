@@ -74,5 +74,5 @@ h1, .display { font: var(--display-weight) clamp(2.75rem, 6vw + 1rem, 6.25rem)/1
 .lede::first-letter { float: left; font: var(--display-weight) 3.9em/0.82 var(--font-display); padding: 0.06em 0.08em 0 0; color: var(--color-accent); }
 .btn { border: var(--rule-hair) solid var(--color-ink); border-radius: var(--radius-pill); padding: 0.75rem 1.5rem; color: var(--color-ink); }
 a { color: inherit; text-decoration-color: var(--color-accent); text-underline-offset: 0.2em; }
-::selection { background: oklch(40% 0.080 250 / 0.22); }
+::selection { background: color-mix(in oklab, var(--color-accent) 22%, transparent); }
 ```

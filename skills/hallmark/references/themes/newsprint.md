@@ -77,5 +77,5 @@ Specific, declarative, a dry editorial wit. Name the section, the date, the fact
 .btn--primary { background: var(--color-ink); color: var(--color-paper); }
 .btn--secondary { border-block: 1px solid var(--color-ink); color: var(--color-ink); }
 a { color: var(--color-accent-text); text-decoration-color: var(--color-accent); text-underline-offset: 0.16em; }
-::selection { background: oklch(32% 0.10 28 / 0.2); }
+::selection { background: color-mix(in oklab, var(--color-accent) 20%, transparent); }
 ```

@@ -92,5 +92,5 @@ The bill on the wall: the room, the door time, the price, sold out or free.
 .btn--secondary { box-shadow: inset 0 0 0 2px var(--color-ink); color: var(--color-ink); }
 .list { border-top: var(--rule-bar) solid var(--color-ink); } .list > li { border-bottom: var(--rule-hair) solid var(--color-rule); }
 .stamp { display: inline-block; border: 2px solid var(--color-ink); outline: 1px solid var(--color-ink); outline-offset: -5px; padding: 6px 12px; rotate: -2deg; }
-::selection { background: oklch(73% 0.18 55 / 0.4); }
+::selection { background: color-mix(in oklab, var(--color-accent-2) 40%, transparent); }
 ```

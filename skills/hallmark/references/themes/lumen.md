@@ -57,7 +57,7 @@ Two drops, stated in the stamp (`lumen: night`); consecutive Lumen pages use dif
 
 ## Motion
 
-The night light pulses 3% in intensity on a 4s period and never rotates; the day light reveals once over 320ms then holds. The verb underline draws in over 320ms after a 900ms delay. Nothing else moves: no rising heads, no stagger.
+The night light pulses 3% in intensity on an 8s period (an ambient loop, `craft.md` § 5) and never rotates; the day light reveals once over 320ms then holds. The verb underline draws in over 320ms after a 900ms delay. Nothing else moves: no rising heads, no stagger.
 
 ## Voice
 
@@ -83,10 +83,10 @@ body { font-family: var(--font-body); font-variant-numeric: tabular-nums; color:
 h1, h2, h3, nav, .btn, .label { text-transform: lowercase; }
 h1, h2, h3 { font: 400 clamp(2.5rem, 5vw + 1rem, 5rem)/1.05 var(--font-display); letter-spacing: var(--tracking-display); }
 .readout { font-family: var(--font-outlier); font-size: 12px; text-transform: lowercase; font-variant-numeric: tabular-nums; color: var(--color-muted); }
-.lamp { border: 1px solid var(--color-rule); border-radius: var(--radius-card); overflow: hidden; background: radial-gradient(circle at 50% 60%, oklch(76% 0.17 50 / 0.6), transparent 70%) var(--color-paper-2); }
+.lamp { border: 1px solid var(--color-rule); border-radius: var(--radius-card); overflow: hidden; background: radial-gradient(circle at 50% 60%, color-mix(in oklab, var(--color-accent) 60%, transparent), transparent 70%) var(--color-paper-2); }
 .verb { color: var(--color-accent-2); }
 .verb::after { content: ""; display: block; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: left; transition: transform 320ms var(--ease-out) 900ms; }
 .is-in .verb::after { transform: scaleX(1); }
 .btn--primary { border-radius: var(--radius-pill); background: var(--color-accent); color: var(--color-accent-ink); }
-::selection { background: oklch(76% 0.17 50 / 0.3); }
+::selection { background: color-mix(in oklab, var(--color-accent) 30%, transparent); }
 ```

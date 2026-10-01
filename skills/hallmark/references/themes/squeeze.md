@@ -24,6 +24,7 @@ Forest green with real chroma, peach controls, Manrope from 500 to 800 and nothi
   --color-ink: oklch(99% 0.005 90); --color-ink-2: oklch(94% 0.020 120); --color-muted: oklch(88% 0.035 150); --color-rule: oklch(50% 0.09 160);
   --color-accent: oklch(84% 0.10 55); --color-accent-ink: oklch(30% 0.06 40); --color-focus: oklch(88% 0.14 85);
   --color-card: oklch(97% 0.012 85); --color-card-ink: oklch(24% 0.05 160);
+  --color-shade: oklch(20% 0.05 160); --ripe-0: oklch(80% 0.12 130); --ripe-1: oklch(84% 0.12 85); --ripe-2: oklch(70% 0.17 40);
   --font-display: "Manrope", ui-sans-serif, system-ui, sans-serif; --font-body: var(--font-display);
   --font-outlier: "IBM Plex Mono", ui-monospace, monospace;
   --radius-card: 20px; --radius-pill: 999px; --rule-hair: 1px; --rule-bar: 2px;
@@ -71,11 +72,11 @@ The stall-holder's: the fruit, the farm, the day it comes, what ripe feels like 
 ```css
 .display { font: 800 var(--text-display)/0.98 var(--font-display); letter-spacing: var(--tracking-display); }
 .card { background: var(--color-card); color: var(--color-card-ink); border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
-.fruit { position: relative; width: 64px; height: 64px; border-radius: 50%; box-shadow: inset -6px -8px 14px oklch(20% 0.05 160 / 0.16);
-  background: radial-gradient(circle at 35% 32%, var(--f2), var(--f1) 62%, color-mix(in oklab, var(--f1) 70%, oklch(20% 0.05 160))); }
-.ripe { height: 8px; border-radius: 4px; background: oklch(99% 0.005 90 / 0.14); overflow: hidden; }
-.ripe i { display: block; height: 100%; width: var(--w); background: linear-gradient(90deg, oklch(80% 0.12 130), oklch(84% 0.12 85), oklch(70% 0.17 40)); }
+.fruit { position: relative; width: 64px; height: 64px; border-radius: 50%; box-shadow: inset -6px -8px 14px color-mix(in oklab, var(--color-shade) 16%, transparent);
+  background: radial-gradient(circle at 35% 32%, var(--f2), var(--f1) 62%, color-mix(in oklab, var(--f1) 70%, var(--color-shade))); }
+.ripe { height: 8px; border-radius: 4px; background: color-mix(in oklab, var(--color-ink) 14%, transparent); overflow: hidden; }
+.ripe i { display: block; height: 100%; width: var(--w); background: linear-gradient(90deg, var(--ripe-0), var(--ripe-1), var(--ripe-2)); }
 .btn { border-radius: 14px; padding: 0.8rem 1.25rem; font-weight: 700; border: var(--rule-bar) solid var(--color-ink); }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
-::selection { background: oklch(84% 0.10 55 / 0.45); color: var(--color-card-ink); }
+::selection { background: color-mix(in oklab, var(--color-accent) 45%, transparent); color: var(--color-card-ink); }
 ```

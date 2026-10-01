@@ -83,5 +83,5 @@ h1, h2 { font-family: var(--font-display); font-weight: 800; text-transform: upp
 .hard { border: var(--rule-bar) solid var(--color-ink); border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
 .tile--a { background: var(--color-accent); color: var(--color-accent-ink); }
 .tile--b { background: var(--color-accent-2); color: var(--color-paper); }
-::selection { background: oklch(86% 0.18 95 / 0.6); }
+::selection { background: color-mix(in oklab, var(--color-accent) 60%, transparent); }
 ```

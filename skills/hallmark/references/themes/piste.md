@@ -88,5 +88,5 @@ The morning report: the hour, the depth in centimetres, the lifts open, the run 
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--secondary { box-shadow: inset 0 0 0 var(--rule-bar) var(--color-ink); color: var(--color-ink); }
 th { border-bottom: var(--rule-bar) solid var(--color-ink); font: 500 14px var(--font-body); text-align: left; }
-::selection { background: oklch(52% 0.25 265 / 0.3); }
+::selection { background: color-mix(in oklab, var(--color-accent) 30%, transparent); }
 ```

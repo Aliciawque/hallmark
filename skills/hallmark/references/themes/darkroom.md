@@ -88,5 +88,5 @@ Lab notes: the roll, the frame, the grade, the minute. Exact numbers, short line
 @media (max-width: 40rem) { .hang { flex-wrap: wrap; } .print { flex-basis: 100%; } }
 .btn { font-family: var(--font-display); font-weight: 500; font-size: 16px; letter-spacing: 0.04em; text-transform: uppercase; padding: 12px 20px; border: 1px solid var(--color-ink); color: var(--color-ink); background: transparent; }
 .btn--primary { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-accent-ink); }
-::selection { background: oklch(78% 0.16 68 / 0.35); }
+::selection { background: color-mix(in oklab, var(--color-accent) 35%, transparent); }
 ```

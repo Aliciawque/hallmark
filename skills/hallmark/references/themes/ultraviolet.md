@@ -83,6 +83,6 @@ Lowercase, short, exact: the bar count, the key, the percent, the price. It talk
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--secondary { box-shadow: inset 0 0 0 1.5px var(--color-ink); color: var(--color-ink); }
 .wave rect { fill: var(--color-dim); } .wave rect.on { fill: var(--color-accent); }
-.disc .face { fill: var(--color-ink); } .disc .groove { fill: none; stroke: oklch(30% 0.03 300); } .disc .label { fill: var(--color-accent); } .disc .hole { fill: var(--color-paper); }
-::selection { background: oklch(50% 0.25 290 / 0.25); }
+.disc .face { fill: var(--color-ink); } .disc .groove { fill: none; stroke: var(--color-ink-2); } .disc .label { fill: var(--color-accent); } .disc .hole { fill: var(--color-paper); }
+::selection { background: color-mix(in oklab, var(--color-accent) 25%, transparent); }
 ```

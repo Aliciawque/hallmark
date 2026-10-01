@@ -74,6 +74,8 @@ function readLog(p) {
 const triple = (t) => `${t.paper.band}/${t.display.class}/${t.accent.band}`;
 const sameTriple = (a, b) => a === b;
 const words = (s) => (s || '').toLowerCase().replace(/[^a-z0-9\s-]/g, ' ').split(/\s+/).filter((w) => w.length > 2);
+const ASK = new Set(['build', 'make', 'create', 'design', 'need', 'want', 'please', 'page', 'site', 'website', 'landing', 'called', 'for', 'and', 'the', 'with', 'that', 'this', 'our', 'your']);
+const briefWords = (s) => words(s).filter((w) => !ASK.has(w));
 const hueGap = (a, b) => { const d = Math.abs(((a - b) % 360 + 360) % 360); return Math.min(d, 360 - d); };
 
 function seededRand(key) {
@@ -112,8 +114,8 @@ function deal() {
   const recentNames = new Set(recent.map((r) => String(r.theme || '').toLowerCase()));
   const lastAxes = recent[0] && recent[0].axes ? String(recent[0].axes) : null;
   const occupiedAxes = new Set(recent.map((r) => r.axes).filter(Boolean));
-  const bw = new Set(words(brief));
-  const slug = words(brief).slice(0, 4).join('-') || 'brief';
+  const bw = new Set(briefWords(brief));
+  const slug = briefWords(brief).slice(0, 4).join('-') || 'brief';
   const seedBase = `${slug}·${new Date().toISOString().slice(0, 10)}`;
   const seedKey = `${seedBase}·r${reroll}`;
   const rand = seededRand(seedBase);

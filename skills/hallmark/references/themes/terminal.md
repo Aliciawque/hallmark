@@ -80,5 +80,5 @@ body { font-family: var(--font-body); font-variant-numeric: tabular-nums; }
 .btn { border-radius: 0; padding: 0.6rem 1rem; font: 500 0.9375rem/1 var(--font-body); }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--secondary { border: 1px solid var(--color-ink-2); color: var(--color-ink); }
-::selection { background: oklch(78% 0.19 138 / 0.35); color: var(--color-ink); }
+::selection { background: color-mix(in oklab, var(--color-accent) 35%, transparent); color: var(--color-ink); }
 ```

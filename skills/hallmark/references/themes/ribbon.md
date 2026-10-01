@@ -80,12 +80,12 @@ Calm and specific: the hour, the sound, how loud.
 
 ```css
 .display { font: italic 300 var(--text-display)/1.02 var(--font-display); font-variation-settings: "opsz" 72; letter-spacing: var(--tracking-display); font-synthesis: none; }
-.ribbon { display: block; width: 100%; mask: linear-gradient(90deg, transparent, oklch(18% 0.004 80) 15% 85%, transparent); }
+.ribbon { display: block; width: 100%; mask: linear-gradient(90deg, transparent, var(--color-ink) 15% 85%, transparent); }
 .ribbon path { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.3; }
 .ribbon .a { color: var(--color-strand-a); } .ribbon .b { color: var(--color-strand-b); }
 .pill { display: inline-flex; gap: 10px; padding: 12px 20px; border-radius: var(--radius-pill); border: 1px solid var(--color-rule); background: var(--color-paper-2); font: 500 14px var(--font-body); }
 .pill--accent { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
 .band { background: var(--color-band); color: var(--color-band-ink); }
-.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-strand-a); box-shadow: 0 0 0 4px oklch(69% 0.07 80 / 0.22); }
-::selection { background: oklch(44% 0.075 190 / 0.22); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-strand-a); box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-strand-a) 22%, transparent); }
+::selection { background: color-mix(in oklab, var(--color-accent) 22%, transparent); }
 ```

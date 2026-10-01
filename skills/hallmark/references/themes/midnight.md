@@ -76,5 +76,5 @@ Cool, spare, a touch cerebral. Name the command or the number. Never hype.
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--secondary { border: 1px solid var(--color-rule-2); color: var(--color-ink); }
 a:hover { text-decoration-color: var(--color-accent); text-underline-offset: 0.2em; }
-::selection { background: oklch(72% 0.16 220 / 0.3); color: var(--color-ink); }
+::selection { background: color-mix(in oklab, var(--color-accent) 30%, transparent); color: var(--color-ink); }
 ```

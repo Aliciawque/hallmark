@@ -25,6 +25,7 @@ An aubergine CRT ground carrying a grille, a scanline and a vignette, Bungee mar
   --color-rule: oklch(32% 0.04 315);
   --color-accent: oklch(66% 0.215 40); --color-accent-2: oklch(88% 0.195 115); --color-accent-ink: oklch(15% 0.035 315);
   --color-focus: oklch(88% 0.195 115);
+  --color-crt-r: oklch(63% 0.24 25); --color-crt-g: oklch(80% 0.25 140); --color-crt-b: oklch(60% 0.24 265); --color-crt-c: oklch(78% 0.14 200); --color-shade: oklch(8% 0.02 315);
   --font-display: "Bungee", "Impact", sans-serif; --font-body: "Chivo", ui-sans-serif, sans-serif; --font-outlier: "Silkscreen", monospace;
   --radius-card: 4px; --radius-pill: 0; --rule-hair: 1px; --rule-bar: 2px;
   --shadow-card: 6px 6px 0 var(--color-accent-2);
@@ -78,11 +79,11 @@ Coin-op plain: the credit, the night, the machine, the buzzer.
 ```css
 body::after { content: ""; position: fixed; inset: 0; z-index: 40; pointer-events: none;
   background-image:
-    repeating-linear-gradient(to right, oklch(63% 0.24 25 / 0.05) 0 1px, oklch(80% 0.25 140 / 0.05) 1px 2px, oklch(60% 0.24 265 / 0.05) 2px 3px),
-    repeating-linear-gradient(to bottom, transparent 0 2px, oklch(8% 0.02 315 / 0.16) 2px 3px),
-    radial-gradient(120% 90% at 50% 50%, transparent 55%, oklch(8% 0.02 315 / 0.45) 100%); }
+    repeating-linear-gradient(to right, color-mix(in oklab, var(--color-crt-r) 5%, transparent) 0 1px, color-mix(in oklab, var(--color-crt-g) 5%, transparent) 1px 2px, color-mix(in oklab, var(--color-crt-b) 5%, transparent) 2px 3px),
+    repeating-linear-gradient(to bottom, transparent 0 2px, color-mix(in oklab, var(--color-shade) 16%, transparent) 2px 3px),
+    radial-gradient(120% 90% at 50% 50%, transparent 55%, color-mix(in oklab, var(--color-shade) 45%, transparent) 100%); }
 .marquee { font-family: var(--font-display); text-transform: uppercase; color: var(--color-ink);
-  text-shadow: -1.5px 0 0 oklch(63% 0.24 25), 1.5px 0 0 oklch(78% 0.14 200), 0 0 0.05em var(--color-accent); }
+  text-shadow: -1.5px 0 0 var(--color-crt-r), 1.5px 0 0 var(--color-crt-c), 0 0 0.05em var(--color-accent); }
 .side-art { background: repeating-linear-gradient(22deg, var(--color-accent) 0 18px, var(--color-accent-2) 18px 36px); clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%); }
 .hud { font-family: var(--font-outlier); font-size: 12px; font-variant-numeric: tabular-nums; color: var(--color-accent-2); }
 .btn { background: var(--color-accent); color: var(--color-accent-ink); border: var(--rule-bar) solid var(--color-ink); border-radius: var(--radius-card);

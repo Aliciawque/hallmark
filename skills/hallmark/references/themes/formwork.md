@@ -26,6 +26,7 @@ A warm grey concrete surface that keeps its board lines and tie holes, Oswald ca
   --color-rule: oklch(64% 0.01 80);
   --color-accent: oklch(66% 0.21 38); --color-accent-ink: oklch(18% 0.005 270); --color-focus: oklch(42% 0.15 38);
   --color-accent-deep: oklch(48% 0.17 38);
+  --color-tie: oklch(58% 0.01 80); --color-seam-light: oklch(97% 0.01 80); --color-seam-dark: oklch(8% 0.01 80);
   --texture-opacity: 0.08;
   --font-display: "Oswald", ui-sans-serif, sans-serif; --font-body: "Archivo", ui-sans-serif, sans-serif;
   --font-outlier: "Archivo Narrow", ui-sans-serif, sans-serif;
@@ -81,13 +82,13 @@ The foreman's sheet: the radius in millimetres, the pour number, the week, the l
 
 ```css
 body { background-color: var(--color-paper); background-image:
-    radial-gradient(circle at 22px 48px, oklch(58% 0.01 80) 4px, oklch(64% 0.01 80) 5px, transparent 6.5px),
-    repeating-linear-gradient(180deg, transparent 0 94px, oklch(97% 0.01 80 / 0.22) 94px 95px, oklch(8% 0.01 80 / 0.10) 95px 97px);
+    radial-gradient(circle at 22px 48px, var(--color-tie) 4px, var(--color-paper-3) 5px, transparent 6.5px),
+    repeating-linear-gradient(180deg, transparent 0 94px, color-mix(in oklab, var(--color-seam-light) 22%, transparent) 94px 95px, color-mix(in oklab, var(--color-seam-dark) 10%, transparent) 95px 97px);
   background-size: 480px 288px, 100% 96px; }
 .display { font: 700 var(--text-display)/1 var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-display); }
 .plate { padding: 14px 32px; font: 600 15px var(--font-display); letter-spacing: 0.04em; text-transform: uppercase; background: var(--color-accent); color: var(--color-accent-ink);
   box-shadow: 0 3px 0 var(--color-accent-deep); transition: translate 120ms ease-out, box-shadow 120ms ease-out; }
 .plate:active { translate: 0 3px; box-shadow: 0 0 0 var(--color-accent-deep); }
 .card { background: var(--color-plate); border: var(--rule-bar) solid var(--color-ink); box-shadow: var(--shadow-card); }
-::selection { background: oklch(66% 0.21 38 / 0.35); }
+::selection { background: color-mix(in oklab, var(--color-accent) 35%, transparent); }
 ```

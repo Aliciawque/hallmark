@@ -85,5 +85,5 @@ body { background-color: var(--color-paper); background-position: var(--sheet-in
 .dim { font-family: var(--font-outlier); font-size: 12px; color: var(--color-muted); font-variant-numeric: tabular-nums; }
 .btn { border: 1px solid var(--color-rule); color: var(--color-ink); background: transparent; padding: 13px 20px; font-weight: 500; }
 .btn--primary { background: var(--color-ink); color: var(--color-accent-ink); border-color: var(--color-ink); }
-::selection { background: oklch(97% 0.01 240 / 0.28); }
+::selection { background: color-mix(in oklab, var(--color-ink) 28%, transparent); }
 ```

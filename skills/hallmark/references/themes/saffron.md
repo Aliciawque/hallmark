@@ -84,6 +84,6 @@ The atelier's register: the piece, the cloth weight, the bath, the hour of the f
 .btn--secondary { background: transparent; color: var(--color-ink); box-shadow: inset 0 0 0 1px var(--color-ink); }
 .plate { background: var(--color-plate); color: var(--color-ink); }
 .letter { position: absolute; right: -80px; top: -210px; font: italic 400 1150px/1 var(--font-display); color: var(--color-paper-3); pointer-events: none; user-select: none; }
-.cloth { background: linear-gradient(162deg, oklch(97.5% 0.025 90) 0%, oklch(94% 0.045 88) 40%, oklch(88% 0.08 86) 76%, oklch(80% 0.12 84) 100%); }
+.cloth { background: linear-gradient(162deg, var(--color-plate) 0%, color-mix(in oklab, var(--color-plate) 85%, var(--color-paper)) 40%, color-mix(in oklab, var(--color-plate) 60%, var(--color-paper)) 76%, color-mix(in oklab, var(--color-plate) 35%, var(--color-paper)) 100%); }
 ::selection { background: var(--color-ink); color: var(--color-paper); }
 ```

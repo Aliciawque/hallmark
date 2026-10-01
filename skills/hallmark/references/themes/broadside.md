@@ -86,5 +86,5 @@ An auctioneer's bill: the date, the place, the lot, the estimate, without reserv
 .diamonds { text-align: center; color: var(--color-accent); letter-spacing: 1em; font-size: 12px; } .diamonds::before { content: "\25C6 \25C6 \25C6"; }
 .btn { background: var(--color-ink); color: var(--color-paper); padding: 18px 54px; font-weight: 600; font-size: 14px; letter-spacing: 0; text-transform: uppercase; border-radius: 0; }
 .btn--accent { background: var(--color-accent); color: var(--color-accent-ink); }
-::selection { background: oklch(46% 0.19 32 / 0.3); }
+::selection { background: color-mix(in oklab, var(--color-accent) 30%, transparent); }
 ```

@@ -82,10 +82,10 @@ The studio speaking plainly: the cloth, the width, the days per stage, the Satur
 .label { font: 500 12px/1.3 var(--font-body); color: var(--color-muted); }
 .count { font: 500 12px/1 var(--font-outlier); font-variant-numeric: tabular-nums; }
 .comb { background-image: repeating-linear-gradient(90deg, var(--color-thread) 0 1px, transparent 1px 12px); }
-.band { background: var(--color-accent) repeating-linear-gradient(90deg, oklch(95% 0.015 85 / 0.16) 0 1px, transparent 1px 12px); color: var(--color-accent-ink); }
+.band { background: var(--color-accent) repeating-linear-gradient(90deg, color-mix(in oklab, var(--color-paper) 16%, transparent) 0 1px, transparent 1px 12px); color: var(--color-accent-ink); }
 .btn { display: inline-flex; align-items: center; padding: 16px 26px; font: 500 14px/1 var(--font-body); background: var(--color-accent); color: var(--color-accent-ink); }
 .link { font-weight: 500; font-size: 14px; padding: 6px 0; border-bottom: 2px solid currentColor; }
 .sample { border: 1px dashed var(--color-rule); }
 .bar { height: 32px; background: var(--color-accent); color: var(--color-accent-ink); display: flex; align-items: center; padding: 0 12px; }
-::selection { background: oklch(38% 0.15 275 / 0.25); }
+::selection { background: color-mix(in oklab, var(--color-accent) 25%, transparent); }
 ```

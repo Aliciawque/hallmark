@@ -77,5 +77,5 @@ Contemporary, lightly literary. Verbs over adjectives; name the piece, the issue
 .folio .numeral { font-family: var(--font-display); font-weight: 700; }
 .btn--primary { border-radius: 0; background: var(--color-ink); color: var(--color-paper); }
 .tag { background: var(--color-accent); color: var(--color-accent-ink); border-radius: 0; }
-::selection { background: oklch(50% 0.160 35 / 0.25); }
+::selection { background: color-mix(in oklab, var(--color-accent) 25%, transparent); }
 ```

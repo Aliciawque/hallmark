@@ -1511,8 +1511,9 @@ function check25(ctx) {
       const m = /^([\d.]+)ch$/.exec(resolveVars(d.value, ctx.tokens).trim());
       if (m) {
         const ch = parseFloat(m[1]);
-        if (ch < 45 || ch > 75) {
-          report(25, 'WARN', r.file, d.line, `measure ${ch}ch on ${r.selector} (45-75ch range)`, 'Set prose measure between 45 and 75ch');
+        const floor = /lede|hero|caption|figcaption|__line|__sub|subhead|tagline/i.test(r.selector) ? 28 : 45;
+        if (ch < floor || ch > 75) {
+          report(25, 'WARN', r.file, d.line, `measure ${ch}ch on ${r.selector} (${floor}-75ch range)`, 'Set prose measure between 45 and 75ch; a one-sentence lede or caption from 28ch');
         }
       }
     }
@@ -2363,7 +2364,7 @@ function check64(ctx) {
   if (monoIsMaterial(ctx)) return;
   const monoFam = (v) => /mono|courier|jetbrains|plex mono|geist mono|commit|fira code|space mono|dm mono|roboto mono|source code|silkscreen/i.test(firstFamily(resolveVars(v, ctx.tokens)));
   const LABELISH = /label|caption|meta|eyebrow|kicker|tag\b|badge|chip|small|folio|footnote|legend|\bth\b|thead|figcaption|overline|dateline|byline|credit|note\b/i;
-  const DATAISH = /code|pre\b|kbd|samp|num|figure|stat|price|value|data|tabular|counter|timer|clock|coord|amount|total|score|version|hash|\bid\b|sku|time|date|hour|utc|eta|lot\b|edition|ref\b|dimension|measure|reading|plate-?no|tag-?no/i;
+  const DATAISH = /code|pre\b|kbd|samp|num|figure|stat|price|value|data|tabular|counter|timer|clock|coord|amount|total|score|version|hash|\bid\b|sku|time|date|hour|utc|eta|lot\b|edition|ref\b|dimension|measure|reading|plate-?no|tag-?no|url|uri\b|path|endpoint|command|cmd|snippet|install/i;
   const seen = new Set();
   for (const r of ctx.rules) {
     if (r.keyframes || r.selector === '@font-face' || isTokenRule(r)) continue;
@@ -2400,12 +2401,26 @@ function checkF15(ctx) {
   const gaps = new Map();
   for (const r of ctx.rules) {
     if (r.keyframes || r.media) continue;
-    const cols = r.decls.find((d) => d.prop === 'grid-template-columns' && /\s/.test(d.value.trim()) && !/^repeat\(\s*auto/.test(d.value.trim()));
+    const cols = r.decls.find((d) => d.prop === 'grid-template-columns' && trackCount(d.value) > 1 && !/^repeat\(\s*auto/.test(d.value.trim()));
     if (!cols) continue;
     const gap = r.decls.find((d) => /^(gap|column-gap)$/.test(d.prop));
     if (gap) { const v = resolveVars(gap.value, ctx.tokens).split(/\s+/).pop(); const px = maxPxIn(v); if (px != null && px >= 16) gaps.set(v, r.selector); }
   }
   if (gaps.size > 2) report('F15', 'WARN', ctx.cssFiles[0]?.file || ctx.docs[0]?.file, 1, `${gaps.size} different column gaps across multi-column sections (${[...gaps.keys()].join(', ')})`, 'One column gap for every multi-column section');
+}
+
+function trackCount(v) {
+  const t = v.replace(/\[[^\]]*\]/g, ' ').trim();
+  const rep = /^repeat\(\s*(\d+)/.exec(t);
+  if (rep) return Number(rep[1]);
+  let depth = 0, n = 0, inTok = false;
+  for (const ch of t) {
+    if (ch === '(') depth++;
+    else if (ch === ')') depth--;
+    if (depth === 0 && /\s/.test(ch)) inTok = false;
+    else if (!inTok) { inTok = true; n++; }
+  }
+  return n;
 }
 
 function checkF16(ctx) {
@@ -2714,7 +2729,7 @@ function check67(ctx) {
     if ((caps && (labelish || smallCaps || tracked || small)) || (tracked && (labelish || small))) {
       seen.add(key);
       const what = smallCaps ? 'small caps' : upper ? 'uppercase' : 'letter-spaced';
-      report(67, 'FAIL', r.file, r.line, `${r.selector}: ${what}${tracked ? ` tracked ${em}em` : ''}${px != null ? ` at ${Math.round(px)}px` : ''} in a label role`, 'Labels, captions, table heads, nav links and meta are the body face, a step smaller, sentence case, untracked');
+      report(67, 'FAIL', r.file, r.line, `${r.selector}: ${what}${tracked ? ` tracked ${em}em` : ''}${px != null ? ` at ${Math.round(px)}px` : ''} in a label role`, 'Labels, captions, table heads, nav links and meta are the body face (or the theme\'s label face), a step smaller, sentence case, untracked');
     }
   }
   check67Html(ctx);
@@ -2765,6 +2780,32 @@ function accentedHeads(ctx) {
     if (!marked || seen.has(r.selector)) continue;
     seen.add(r.selector);
     out.push({ r, head: m[1] });
+  }
+  const marks = (r) => r.decls.some((d) => (/^(color|background|background-color|-webkit-text-stroke|font-weight|text-decoration|text-decoration-color|border-bottom|box-shadow|font-style)$/.test(d.prop) && !INHERITED38.test(d.value.trim())));
+  for (const doc of ctx.docs) {
+    for (let i = 0; i < doc.tags.length; i++) {
+      const t = doc.tags[i];
+      if (t.close || !/^h[1-3]$/.test(t.name)) continue;
+      const inner = innerOf(doc, i);
+      if (!inner) continue;
+      const headLen = plainText(inner.inner).replace(/\s+/g, '').length || 1;
+      const spans = [...inner.inner.matchAll(/<(span|em|strong|b|i|mark)\b[^>]*\bclass\s*=\s*["']([^"']+)["'][^>]*>([\s\S]*?)<\/\1>/gi)];
+      const cover = (cls) => spans.filter((x) => x[2].split(/\s+/).includes(cls)).reduce((n, x) => n + plainText(x[3]).replace(/\s+/g, '').length, 0) / headLen;
+      for (const m of spans) {
+        if (!/[A-Za-z0-9]/.test(plainText(m[3]))) continue;
+        for (const cls of m[2].split(/\s+/).filter(Boolean)) {
+          if (cover(cls) >= 0.8) continue;
+          for (const r of ctx.rules) {
+            if (r.keyframes || isTokenRule(r) || seen.has(r.selector)) continue;
+            if (!r.selector.split(',').some((part) => !/::?(before|after)\b/.test(part) && baseSelector(part).trim() === `.${cls}`)) continue;
+            if (r.decls.some((d) => (d.prop === 'display' && /^(block|flex|grid|table)/.test(d.value.trim())) || (d.prop === 'position' && /absolute|fixed/.test(d.value)))) continue;
+            if (!marks(r)) continue;
+            seen.add(r.selector);
+            out.push({ r, head: t.name });
+          }
+        }
+      }
+    }
   }
   ctx._acc38 = out;
   return out;

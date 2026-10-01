@@ -75,5 +75,5 @@ Plain and unit-bearing: 214 ha, 6.1 t/ha, 12 days withdrawal, GBP per hectare. N
 .tag { display: inline-grid; place-items: center; width: 54px; height: 44px; border-radius: 6px 6px 10px 10px; background: var(--color-tag); color: var(--color-tag-ink); font: 500 14px var(--font-outlier); }
 .btn { border-radius: var(--radius-pill); padding: 0.625rem 1rem; font-weight: 600; border: 1px solid var(--color-rule); background: var(--color-paper-2); }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
-::selection { background: oklch(70% 0.19 40 / 0.3); }
+::selection { background: color-mix(in oklab, var(--color-accent) 30%, transparent); }
 ```

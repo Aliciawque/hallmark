@@ -28,7 +28,7 @@ Pink stock, Public Sans 900 heads over a Newsreader body, blue and yellow spot i
   --font-display: "Public Sans", ui-sans-serif, sans-serif; --font-body: "Newsreader", serif;
   --font-outlier: "Geist Mono", ui-monospace, monospace;
   --radius-card: 2px; --radius-pill: 2px; --rule-hair: 1px;
-  --shadow-card: none; --texture-opacity: 0.06;
+  --shadow-card: none; --texture-opacity: 0.045;
   --tracking-display: -0.015em; --display-weight: 900;
 }
 ```
@@ -41,8 +41,8 @@ Pink stock, Public Sans 900 heads over a Newsreader body, blue and yellow spot i
 
 ## Material
 
-- The off-register overprint, the theme's move: a focal word carries a blue echo nudged up-left 2px and a pink echo nudged down-right 2px, both multiplied over the ink, per `texture.md` § Misregistration: one focal word per page, in the hero head, offset 1 to 3px (the signature; stamp `waive 38iii`).
-- Grain, declared: the `texture.md` § Grain recipe, page-wide at `--texture-opacity` 0.06, never above 0.08, up to 0.15 on a plate, under 0.05 beneath running text. Grain and misregistration are the theme's two artifacts; nothing else.
+- The off-register overprint, the theme's move: a focal word carries a blue echo nudged up-left 2px and a pink echo nudged down-right 2px, printed behind the ink so the word stays black and only the fringes show colour, per `texture.md` § Misregistration: one focal word per page, in the hero head, offset 1 to 3px (the signature; stamp `waive 38iii`).
+- Grain, declared: the `texture.md` § Grain recipe, one page-wide layer at `--texture-opacity` 0.045 (it sits under running text, so it stays under 0.05), up to 0.15 on a plate. Grain and misregistration are the theme's two artifacts; nothing else.
 - Blue and yellow are the only inks; where they cross on white or on a plate, multiply makes a third for free. On the pink stock the yellow prints opaque (multiplied over pink it turns mustard). Both under 15% of a viewport.
 - Hairlines, a yellow `<mark>` band at x-height in running text and never inside a heading, solid rectangles at 2px, zero shadow; depth comes from overprint and rule.
 - The control pair: a blue-filled rectangle with paper text beside one outlined in ink, both 2px. The object family: plates. A print plate with a grained fill, a stockist list, a run sheet, a poster crop in a hairline frame.
@@ -71,13 +71,13 @@ Specific, hand-set, a little literary. Verbs and counts over adjectives: name th
 
 ```css
 .display { font: var(--display-weight) var(--text-display)/0.92 var(--font-display); letter-spacing: var(--tracking-display); }
-.misreg { position: relative; }
-.misreg::before, .misreg::after { content: attr(data-text); position: absolute; inset: 0; mix-blend-mode: multiply; pointer-events: none; }
+.misreg { position: relative; display: inline-block; isolation: isolate; }
+.misreg::before, .misreg::after { content: attr(data-text); position: absolute; inset: 0; z-index: -1; white-space: nowrap; pointer-events: none; }
 .misreg::before { color: var(--color-accent); transform: translate(-2px, -2px); }
 .misreg::after { color: var(--color-echo); transform: translate(2px, 2px); }
 mark { background: var(--color-accent-2); color: var(--color-ink); }
 .btn { border-radius: var(--radius-card); padding: 0.7rem 1.2rem; font: 700 0.9375rem/1 var(--font-display); }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--secondary { border: 1.5px solid var(--color-ink); color: var(--color-ink); }
-::selection { background: oklch(78% 0.18 95 / 0.6); color: var(--color-ink); }
+::selection { background: color-mix(in oklab, var(--color-accent-2) 60%, transparent); color: var(--color-ink); }
 ```

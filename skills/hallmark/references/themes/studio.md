@@ -75,5 +75,5 @@ Spare, a little literary. Verbs over adjectives; name the work, the discipline, 
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--secondary { border: 1px solid var(--color-rule); color: var(--color-ink); }
 a:hover { text-decoration-color: var(--color-accent); text-underline-offset: 0.2em; }
-::selection { background: oklch(68% 0.17 52 / 0.25); }
+::selection { background: color-mix(in oklab, var(--color-accent) 25%, transparent); }
 ```

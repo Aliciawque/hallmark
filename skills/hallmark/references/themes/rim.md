@@ -88,5 +88,5 @@ Measured and exact: the pass, the time in UTC, the area in square kilometres, th
 .tile { background: radial-gradient(circle at 30% 30%, var(--color-disc-2), transparent 60%), radial-gradient(circle at 75% 70%, var(--color-paper-2), transparent 55%) var(--color-disc); }
 .btn { border-radius: 0; padding: 0.625rem 1rem; font-weight: 500; border: 1px solid var(--color-rule); }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
-::selection { background: oklch(72% 0.17 45 / 0.35); color: var(--color-ink); }
+::selection { background: color-mix(in oklab, var(--color-accent) 35%, transparent); color: var(--color-ink); }
 ```

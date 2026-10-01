@@ -86,5 +86,5 @@ A field guide's: the plant and where it grows, then how far and when only where 
 .btn { border-radius: var(--radius-pill); padding: 14px 26px; font-weight: 700; font-size: 14px;
   background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--secondary { background: transparent; color: var(--color-accent); border: 1.5px solid var(--color-accent); }
-::selection { background: oklch(86% 0.19 115 / 0.3); color: var(--color-ink); }
+::selection { background: color-mix(in oklab, var(--color-accent) 30%, transparent); color: var(--color-ink); }
 ```

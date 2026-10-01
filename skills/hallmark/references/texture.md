@@ -43,16 +43,16 @@ Placeholder image regions, plate fills, section bands. Never under or overlappin
 Riso's signature, portable to any print-lineage custom:
 
 ```css
-.misreg { position: relative; }
+.misreg { position: relative; display: inline-block; isolation: isolate; }
 .misreg::before, .misreg::after {
-  content: attr(data-text); position: absolute; inset: 0;
-  mix-blend-mode: multiply; pointer-events: none;
+  content: attr(data-text); position: absolute; inset: 0; z-index: -1;
+  white-space: nowrap; pointer-events: none;
 }
 .misreg::before { color: var(--color-accent);   transform: translate(-2px, -2px); }
 .misreg::after  { color: var(--color-accent-2); transform: translate(2px, 2px); }
 ```
 
-**1-2 focal words per page, never every heading.** The echo colours are the theme's declared spot inks; the offset stays 1-3px (more reads broken, not printed). May settle once on load (<= 400ms, reduced-motion static); never loops.
+**1-2 focal words per page, never every heading.** The span is an inline block so the copies sit on the glyphs whatever the head's line-height, and they print behind the ink so the word keeps its colour; only the fringes carry the echoes. The echo colours are the theme's declared spot inks (`--color-accent` and `--color-accent-2` here, or the theme's own echo tokens); the offset stays 1-3px (more reads broken, not printed). May settle once on load (<= 400ms, reduced-motion static); never loops.
 
 ## 4 · Scanline (CRT)
 

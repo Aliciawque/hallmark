@@ -82,12 +82,12 @@ The almanac: the hour of light, the pressing day, the orchard by name. Never a t
 .display { font: 400 var(--text-display)/0.98 var(--font-display); letter-spacing: var(--tracking-display); text-wrap: balance; }
 .rays { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .rays::before { content: ""; position: absolute; width: 2600px; height: 2600px; right: -600px; top: -1300px; border-radius: 50%;
-  background: repeating-conic-gradient(var(--color-paper-3) 0 4.5deg, transparent 4.5deg 9deg, oklch(92% 0.04 80) 9deg 12deg, transparent 12deg 18deg);
-  mask: radial-gradient(circle, transparent 0 320px, oklch(27% 0.05 50) 340px 1300px, transparent 1300px); }
+  background: repeating-conic-gradient(var(--color-paper-3) 0 4.5deg, transparent 4.5deg 9deg, color-mix(in oklab, var(--color-paper) 50%, var(--color-paper-3)) 9deg 12deg, transparent 12deg 18deg);
+  mask: radial-gradient(circle, transparent 0 320px, var(--color-ink) 340px 1300px, transparent 1300px); }
 .sun { display: inline-block; width: 1em; height: 1em; border-radius: 50%; background: var(--color-accent); }
 .label { background: var(--color-paper-2); border: var(--rule-bar) solid var(--color-ink); outline: 1px solid var(--color-gold); outline-offset: -7px; text-align: center; box-shadow: var(--shadow-card); }
 .small { font: 600 12.5px var(--font-outlier); color: var(--color-muted); }
 .btn { padding: 15px 30px; font: 600 14px var(--font-outlier); background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--secondary { background: none; color: var(--color-ink); padding: 15px 0 6px; border-bottom: var(--rule-bar) solid var(--color-ink); }
-::selection { background: oklch(74% 0.14 75 / 0.4); }
+::selection { background: color-mix(in oklab, var(--color-gold) 40%, transparent); }
 ```

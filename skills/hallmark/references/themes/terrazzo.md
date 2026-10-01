@@ -92,5 +92,5 @@ A catalogue's plainness: the count, the drawer, the code, the size at one to one
 .drawer-band { background: var(--color-ink); color: var(--color-paper); padding: 16px; }
 .frame { background: var(--color-plate); border: var(--rule-bar) solid var(--color-ink); box-shadow: var(--shadow-card); }
 .code { font: 500 12px var(--font-outlier); color: var(--color-muted); }
-::selection { background: oklch(78% 0.14 85 / 0.45); }
+::selection { background: color-mix(in oklab, var(--color-chip-ochre) 45%, transparent); }
 ```

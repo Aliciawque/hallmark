@@ -79,12 +79,12 @@ Calm and physical: degrees, cones, minutes, the schedule.
 ```css
 .display { font: 400 var(--text-display)/1.02 var(--font-display); font-variation-settings: "opsz" 144; letter-spacing: var(--tracking-display); }
 .plate { position: relative; overflow: hidden; border-radius: var(--radius-card); color: var(--heat-6); isolation: isolate; background-color: var(--heat-1);
-  background-image: radial-gradient(in oklch 40% 30% at 86% 104%, oklch(99% 0.02 95 / 0.7), transparent 70%),
+  background-image: radial-gradient(in oklch 40% 30% at 86% 104%, color-mix(in oklab, var(--heat-6) 70%, transparent), transparent 70%),
     radial-gradient(in oklch 130% 120% at 88% 104%, var(--heat-6) 0%, var(--heat-5) 10%, var(--heat-4) 24%, var(--heat-3) 40%, var(--heat-2) 60%, var(--heat-1) 82%, var(--heat-0) 100%); }
 .plate::after { content: ""; position: absolute; inset: 0; opacity: 0.14; mix-blend-mode: overlay; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
 .smoke { border-radius: 16px; background: var(--color-paper-2); border: 1px solid var(--color-rule); }
 .btn { display: inline-flex; align-items: center; height: 50px; padding: 0 24px; border-radius: var(--radius-pill); font-weight: 500; background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--ghost { background: transparent; color: var(--color-ink); box-shadow: inset 0 0 0 1px var(--color-rule); }
-::selection { background: oklch(70% 0.2 45 / 0.35); }
+::selection { background: color-mix(in oklab, var(--color-accent) 35%, transparent); }
 ```

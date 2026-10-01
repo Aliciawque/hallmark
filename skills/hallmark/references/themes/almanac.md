@@ -78,5 +78,5 @@ td.num { font-family: var(--font-outlier); font-variant-numeric: tabular-nums; t
 tbody tr:nth-child(even) { background: var(--color-paper-2); }
 .label { font: 500 0.8125rem/1.3 var(--font-body); color: var(--color-muted); }
 a { color: var(--color-accent); text-underline-offset: 0.15em; }
-::selection { background: oklch(38% 0.135 250 / 0.22); }
+::selection { background: color-mix(in oklab, var(--color-accent) 22%, transparent); }
 ```

@@ -73,11 +73,11 @@ Warm, daylight, expressive, specific: say the verb (make, hum, describe) and say
 ```css
 body { background: var(--color-paper); color: var(--color-ink-2); font-family: var(--font-body); }
 body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
-  background: radial-gradient(42% 38% at 72% 16%, oklch(54% 0.13 35 / 0.10), transparent 70%),
-              radial-gradient(46% 40% at 18% 90%, oklch(64% 0.09 55 / 0.07), transparent 72%); }
+  background: radial-gradient(42% 38% at 72% 16%, color-mix(in oklab, var(--color-accent) 10%, transparent), transparent 70%),
+              radial-gradient(46% 40% at 18% 90%, color-mix(in oklab, var(--color-accent-2) 7%, transparent), transparent 72%); }
 .display { font: var(--display-weight) clamp(2.75rem, 6vw + 1rem, 5.75rem)/1.06 var(--font-display); letter-spacing: var(--tracking-display); color: var(--color-ink); }
 .lede--serif { font: 400 1.5rem/1.35 var(--font-outlier); font-style: normal; }
 .card { background: var(--color-paper-2); border: var(--rule-hair) solid var(--color-rule); border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-radius: var(--radius-pill); }
-::selection { background: oklch(54% 0.13 35 / 0.25); }
+::selection { background: color-mix(in oklab, var(--color-accent) 25%, transparent); }
 ```

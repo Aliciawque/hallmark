@@ -259,6 +259,16 @@ for (const f of MD) if (!reach.has(f) && basename(f) !== 'README.md') add('warn'
 const skillBytes = Buffer.byteLength(read(SKILL));
 if (skillBytes > 20480) add('warn', SKILL, 1, 'size', `SKILL.md is ${skillBytes} bytes; keep it under 20 KB`);
 
+for (const f of themeFiles) {
+  const src = read(f);
+  const hint = /## Build hint[\s\S]*?```css\n([\s\S]*?)```/.exec(src);
+  if (!hint) continue;
+  const at = src.indexOf(hint[1]);
+  for (const m of hint[1].matchAll(/(?:^|[{;])\s*(?!--)([a-z-]+)\s*:([^;{}]*)/g)) {
+    if (/oklch\(|#[0-9a-fA-F]{3,8}\b|rgba?\(|hsla?\(/.test(m[2])) add('error', f, lineAt(src, at + m.index), 'literal', `build hint sets ${m[1]} with a colour literal; route it through a token (48)`);
+  }
+}
+
 const exemplarDir = join(ROOT, 'references', 'exemplars');
 const clean = [...(existsSync(exemplarDir) ? readdirSync(exemplarDir).filter((n) => n.endsWith('.html')).map((n) => join(exemplarDir, n)) : []),
   ...['eyebrow-pass', 'tailwind-pass'].map((n) => join(ROOT, 'scripts', 'fixtures', n)).filter(existsSync)];

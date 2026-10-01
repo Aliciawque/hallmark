@@ -83,11 +83,11 @@ body { position: relative; isolation: isolate; }
 body::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: 0.5; mix-blend-mode: multiply; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.02 0.03' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.45 0 0 0 0 0.3 0 0 0 0.28 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E"); }
 .display { font-family: var(--font-display); text-transform: uppercase; line-height: 1.1; letter-spacing: var(--tracking-display); }
-.strip { position: relative; display: inline-block; background: var(--color-ink); color: var(--color-paper); padding: 0.06em 0.24em 0.02em; line-height: 1; transform: rotate(var(--r, -1deg)); box-shadow: 0 2px 0 oklch(18% 0.01 60 / 0.15); }
+.strip { position: relative; display: inline-block; background: var(--color-ink); color: var(--color-paper); padding: 0.06em 0.24em 0.02em; line-height: 1; transform: rotate(var(--r, -1deg)); box-shadow: 0 2px 0 color-mix(in oklab, var(--color-ink) 15%, transparent); }
 .strip::after { content: ""; position: absolute; top: -0.12em; left: -0.18em; width: 1.1em; height: 0.32em; background: var(--color-tape); transform: rotate(-8deg); }
 .btn { font: 500 15px var(--font-body); padding: 13px 18px; background: var(--color-ink); color: var(--color-paper); box-shadow: 4px 4px 0 var(--color-accent); }
 .btn--sheet { background: var(--color-paper-3); color: var(--color-ink); box-shadow: 4px 4px 0 var(--color-ink); }
 .price { font: 700 13px var(--font-outlier); font-variant-numeric: tabular-nums; }
 .print { position: relative; background: var(--color-paper-3); padding: 12px 12px 42px; box-shadow: var(--shadow-sheet); transform: rotate(var(--r, -2deg)); }
-::selection { background: oklch(43% 0.12 250 / 0.3); }
+::selection { background: color-mix(in oklab, var(--color-accent) 30%, transparent); }
 ```

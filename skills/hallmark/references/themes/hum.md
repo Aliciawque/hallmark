@@ -25,7 +25,7 @@ Cream pulled toward pear-yellow, three accents that never blend, Chillax for eve
   --color-rule: oklch(88% 0.014 95);
   --color-accent: oklch(86% 0.18 95); --color-accent-deep: oklch(72% 0.16 95); --color-accent-ink: oklch(20% 0.012 250);
   --color-accent-2: oklch(54% 0.17 235); --color-accent-3: oklch(68% 0.24 18);
-  --color-mint: oklch(80% 0.16 150); --color-lavender: oklch(74% 0.16 305); --color-focus: oklch(54% 0.17 235);
+  --color-mint: oklch(80% 0.16 150); --color-glow: oklch(76% 0.20 95); --color-lavender: oklch(74% 0.16 305); --color-focus: oklch(54% 0.17 235);
   --font-display: "Chillax", "Geist", ui-rounded, ui-sans-serif, sans-serif; --font-body: var(--font-display);
   --font-outlier: "Geist Mono", ui-monospace, monospace;
   --radius-card: 20px; --radius-input: 12px; --radius-pill: 999px; --rule-hair: 1px;
@@ -73,10 +73,10 @@ Warm, smart, casual, direct. Sentence case, verbs over nouns, honest numbers onl
 ```css
 h1, h2, h3 { font-weight: var(--display-weight); letter-spacing: var(--tracking-display); }
 .btn { background: var(--color-accent); color: var(--color-accent-ink); font-weight: 600; border: 0; border-radius: var(--radius-pill);
-  box-shadow: 0 4px 0 0 var(--color-accent-deep), 0 6px 12px -3px oklch(76% 0.20 95 / 0.45);
+  box-shadow: 0 4px 0 0 var(--color-accent-deep), 0 6px 12px -3px color-mix(in oklab, var(--color-glow) 45%, transparent);
   transition: transform 140ms var(--ease-spring), box-shadow 140ms var(--ease-spring); }
-.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 0 var(--color-accent-deep), 0 12px 22px -4px oklch(76% 0.20 95 / 0.45); }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 0 var(--color-accent-deep), 0 12px 22px -4px color-mix(in oklab, var(--color-glow) 45%, transparent); }
 .btn:active { transform: translateY(3px); box-shadow: 0 1px 0 0 var(--color-accent-deep); transition-duration: 70ms; }
 a { color: var(--color-accent-2); }
-::selection { background: oklch(86% 0.18 95 / 0.6); color: var(--color-ink); }
+::selection { background: color-mix(in oklab, var(--color-accent) 60%, transparent); color: var(--color-ink); }
 ```

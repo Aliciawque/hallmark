@@ -1,6 +1,6 @@
 # Gates
 
-The one list of what Hallmark refuses. Read § 1 to § 3 before emitting (the pre-emit pass), § 4 and § 5 at Step 7. `scripts/sloplint.mjs` implements every gate tagged M; the tier map in the script is derived from this file, and this file wins on any disagreement.
+The one list of what Hallmark refuses. Load § 1 to § 4 at Step 4: § 1 to § 3 drive the pre-emit pass, § 4 the build; § 5 waits for the Step 7 walk, § 6 for the hero review and the finish review. `scripts/sloplint.mjs` implements every gate tagged M; the tier map in the script is derived from this file, and this file wins on any disagreement.
 
 ## 1. How a gate binds
 
@@ -66,7 +66,7 @@ One line each. `a`/`b` clauses share a number and carry their own tier. Genre no
 | Gate | Tier | Class | The tell | The fix |
 | --- | --- | --- | --- | --- |
 | 1 | Reflex | M | Inter, Roboto, Open Sans, Poppins, Lato or a system face as the display | a display face from the theme or `fonts.md` |
-| 25 | Reflex | M | Prose `max-width` outside 45 to 75ch | `max-width: 65ch` |
+| 25 | Reflex | M | Running prose `max-width` outside 45 to 75ch; a one-sentence lede or caption may sit from 28ch | `max-width: 65ch` |
 | 37 | Reflex | M | More than three font families | display, body, one outlier |
 | 38i | Floor | M | One italic word inside an otherwise roman heading | a line break, or the whole head set one way |
 | 38ii | Reflex | M | An italic display system. Guard: declared on `--font-display`, applied to every head at that level, true italic with `font-synthesis: none` | roman display |
@@ -83,13 +83,13 @@ One line each. `a`/`b` clauses share a number and carry their own tier. Genre no
 | 3 | Reflex | M | Card tells: three equal columns of icon-above-heading tiles, an icon in a rounded tile above a heading, a thick coloured side stripe on a card | vary widths and heights, inline icons, hairline or no border |
 | 4 | Floor | M | A card inside a card | one containment layer |
 | 6a | Floor | M | Hero sized in `vh` | `dvh` or `svh` |
-| 6b | Reflex | J | Hero runs 92dvh or taller outside a stamped Poster, or title, lede, CTA and mark all sit on one centred axis. Guard: a `hero:` posture is stamped and 44b passes. **at**, **pl** reach the centred canvas as their normal answer | at most two centred elements; break one alignment |
+| 6b | Reflex | J | Hero runs 92dvh or taller on a page with no stamped `hero:` posture, or title, lede, CTA and mark all sit on one centred axis. Guard: 44b passes. **at**, **pl** reach the centred canvas as their normal answer | at most two centred elements; break one alignment |
 | 8 | Reflex | J | The AI template (hero, three features, CTA, footer) or the same shape as one of the last three logged builds | build differently; read `.hallmark/log.json` |
 | 9 | Reflex | J | Every section separated the same way with the same gap | climb different rungs of the surface ladder in different places |
 | 24a | Floor | M | Raw `padding`, `margin` or `gap` length where a `--space-*` token exists for it | the token |
 | 24b | Reflex | M | Off-scale spacing values. Guard: at most three, each an optical nudge | the scale |
 | 34 | Floor | M/R | Horizontal scroll at any width 320 to 1920; `overflow-x` missing on `html` and `body`; `100vw` widths | `overflow-x: clip` on both, `width: 100%` |
-| 44a | Reflex | R/J | Hero padding ratio off its posture: Settled, Banner, Corridor, Stage want block-end at least 1.3 times block-start; Ledge inverts; Poster waives when anchored | bottom-heavy padding |
+| 44a | Reflex | R/J | Hero padding ratio off its posture, measured on what is painted: from the nav's bottom to the hero's first content, against the hero's last content to the next section's first. Settled, Banner, Corridor, Stage want the second at least 1.3 times the first; Ledge inverts; Poster waives when anchored | bottom-heavy padding |
 | 44b | Floor | R/J | Headline, lede, primary CTA and the visual's focal point not all visible at 1280 x 800 without scrolling | pull the display clamp down, tighten leading, two-line lede, trim padding |
 | 44c | Reflex | R/J | At 1440 x 900 the next section starts above y 760 or below y 900, or the hero visual's vertical centre is more than 60px from the text block's, or its left edge more than 120px from the text, or it is pinned to the viewport edge. Guard: Poster, Ledge or Banner posture, or a stamped full-bleed E1 | visual beside the text, hero fills its screen and only its screen |
 | 44d | Floor | M/R | At 1920 x 1080 the container has no `max-width`, gutters under 120px, a grid gains columns, or the hero no longer fits | cap 1360 to 1520 and centre; hold column counts; cap `vw` visuals |
@@ -155,7 +155,7 @@ One line each. `a`/`b` clauses share a number and carry their own tier. Genre no
 
 ### Finish (F-checks, never block)
 
-F1 straight quotes in prose · F2 `...` for an ellipsis · F3 no `text-wrap: balance` on display heads · F4 more than one filled-primary button recipe on a page (dialogs count as their own page) · F5 an icon in a coloured coin · F6 display-size figures without tabular numerals · F7 one container recipe stamped on six or more selectors · F8 more than one scroll-choreography pattern · F9 fake-human avatar hotlinks (this half is a FAIL) or person-keyword stock URLs · F10 a Lottie where CSS or SVG would do · F11 a highlighter band at the baseline instead of behind the x-height, or an underline thicker than 2px or offset more than 2px · F12 a flex row of unequal heights without `align-items: center` · F13 the outlier face carrying more than one role · F14 a helper-text slot with no reserved `min-height: 1lh` · F15 page invariants broken: more than one primary button style, more than one container width, more than one column gap, more than one radius per nesting level, or more centred heading groups than left-aligned ones · F16 browser surfaces unthemed: no `::selection`, no `caret-color`, no `scrollbar-color` on a page with a committed palette.
+F1 straight quotes in prose · F2 `...` for an ellipsis · F3 no `text-wrap: balance` on display heads · F4 more than one filled-primary button recipe on a page (dialogs count as their own page) · F5 an icon in a coloured coin · F6 display-size figures without tabular numerals · F7 one container recipe stamped on six or more selectors · F8 more than one scroll-choreography pattern · F9 fake-human avatar hotlinks (this half is a FAIL) or person-keyword stock URLs · F10 a Lottie where CSS or SVG would do · F11 a highlighter band at the baseline instead of behind the x-height, or an underline thicker than 2px or offset more than 2px · F12 a flex row of unequal heights without `align-items: center` · F13 the outlier face carrying more than one role · F14 a helper-text slot with no reserved `min-height: 1lh` · F15 page invariants broken: more than one primary button style, more than one container width, more than one column gap below the hero, more than one radius per nesting level, or more centred heading groups than left-aligned ones · F16 browser surfaces unthemed: no `::selection`, no `caret-color`, no `scrollbar-color` on a page with a committed palette.
 
 ## 5. Judged clauses
 
@@ -215,9 +215,9 @@ The thread that built the page is its weakest reviewer. Spawn a reviewer with no
 
 **The hero review** runs the same way, once, at Step 6, before any section below the fold exists. Give the reviewer the four `hero-*` screenshots that `sloplint --render --stage hero` wrote, the stamp's first two lines, the Picks block's Material and Signature rows, and on a theme build the theme's picture. Its brief:
 
-> Review the first screen of a page that is still being built. You did not build it. First line: `ship` or `fix`. Then at most five findings, one line each, worst first: does the headline say something only this product could say, in seven words or fewer; is the visual beside the text, real or a labelled slot, and does it hold its half of the screen; does anything read as a template (a centred stack, a pill or label above the headline, a gradient blob, a drawn dashboard, two filled buttons side by side; a primary with a quiet text link beside it is fine); is the signature move on this screen; does the type carry the theme at this size; if you have the theme's picture, is this first screen as finished as its first screen, in a composition of its own. Do not fix anything.
+> Review the first screen of a page that is still being built. You did not build it. First line: `ship` or `fix`. Then at most five findings, one line each, worst first: does the headline say something only this product could say, in seven words or fewer; is the visual beside the text, real or a labelled slot, and does it hold its half of the screen (on a Poster or Banner hero the type is the visual: does it fill the screen); does anything read as a template (a centred stack, a pill or label above the headline, a gradient blob, a drawn dashboard standing in for a product, two filled buttons side by side; a filled primary beside an outlined or text action that goes somewhere else is the control pair, and a slot's sketch of the product's own structure is its placeholder, neither a finding); is the signature move on this screen; does the type carry the theme at this size; if you have the theme's picture, is this first screen as finished as its first screen, in a composition of its own. Do not fix anything.
 
-Fix, recapture with `--stage hero`, and build the sections once the answer is `ship`. Record `hero-review: ship after 1 fix` in the stamp's finish-review field.
+Fix, recapture with `--stage hero`, send the recaptures back to be scored, and build the sections once the answer is `ship`. Two rounds is the ceiling here too: after the second, fix what is still owed, record what stays open (`hero-review: fix after 2 rounds, 1 open: the void at 1920`), and build on. Record the verdict in the stamp's finish-review field.
 
 Score the return: fix what is real, mark each finding `resolved`, `partial` or `unresolved` with a reason, recapture the same files, and send the recaptures back to be scored, not re-reviewed. Two rounds is the ceiling. Record `finish-review: subagent · 4 findings · 3 resolved 1 unresolved · gap: none` in the stamp. No subagents: re-read the artifact cold, run the same brief against yourself, and record `finish-review: in-thread`.
 

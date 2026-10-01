@@ -88,5 +88,5 @@ th { font-size: 12px; font-weight: 500; color: var(--color-muted); }
 .total { border-top: 1px solid var(--color-rule); }
 .foot::after { content: ""; display: block; height: 3px; border-top: 1px solid var(--color-ink); border-bottom: 1px solid var(--color-ink); }
 .btn--primary { border-radius: var(--radius-input); background: var(--color-accent); color: var(--color-accent-ink); }
-::selection { background: oklch(78% 0.12 185 / 0.3); }
+::selection { background: color-mix(in oklab, var(--color-accent) 30%, transparent); }
 ```

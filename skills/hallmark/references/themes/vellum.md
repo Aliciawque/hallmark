@@ -88,5 +88,5 @@ body::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: 
 .stamp { display: inline-block; transform: rotate(-7deg); padding: 7px 11px; font-size: 12px; text-align: center; color: var(--color-accent);
   border: 1.5px solid var(--color-accent); border-radius: 2px; box-shadow: 0 0 0 2px var(--color-paper), 0 0 0 3px var(--color-accent); }
 .ledger .num { font-family: var(--font-outlier); font-variant-numeric: tabular-nums; text-align: right; }
-::selection { background: oklch(42% 0.16 275 / 0.22); }
+::selection { background: color-mix(in oklab, var(--color-accent) 22%, transparent); }
 ```

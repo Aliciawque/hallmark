@@ -87,5 +87,5 @@ A lab notebook kept by a careful person: the value, its unit, the time, who sign
 .reading { font-family: var(--font-outlier); font-size: 12.5px; font-variant-numeric: tabular-nums; color: var(--color-cool); }
 .btn { border-radius: var(--radius-pill); padding: 9px 14px; font-weight: 500; border: 1px solid var(--color-rule); background: var(--color-paper-2); }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
-::selection { background: oklch(78% 0.14 80 / 0.25); }
+::selection { background: color-mix(in oklab, var(--color-accent) 25%, transparent); }
 ```

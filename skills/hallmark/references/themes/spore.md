@@ -83,9 +83,9 @@ body::after { content: ""; position: fixed; inset: 0; z-index: 40; pointer-event
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.6 0 0 0 0 0.55 0 0 0 0 0.45 0 0 0 0.35 0'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E"); }
 .display { font: 400 var(--text-display)/1.02 var(--font-display); letter-spacing: var(--tracking-display); }
 .cap .stem { fill: var(--color-ink-2); } .cap .top { fill: var(--c); } .cap .hi { fill: var(--color-ink); opacity: 0.35; }
-.gills { height: 26px; background: repeating-linear-gradient(90deg, var(--color-ink-2) 0 1px, transparent 1px 5px); mask: linear-gradient(180deg, oklch(15% 0.01 60 / 0.7), transparent); }
+.gills { height: 26px; background: repeating-linear-gradient(90deg, var(--color-ink-2) 0 1px, transparent 1px 5px); mask: linear-gradient(180deg, color-mix(in oklab, var(--color-paper) 70%, transparent), transparent); }
 .shelf { border-bottom: 2px solid var(--color-paper-3); }
 .btn { border-radius: var(--radius-pill); padding: 13px 24px; font-weight: 600; background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--secondary { background: transparent; color: var(--color-ink); box-shadow: inset 0 0 0 1.5px var(--color-ink-2); }
-::selection { background: oklch(77% 0.09 30 / 0.3); }
+::selection { background: color-mix(in oklab, var(--color-accent) 30%, transparent); }
 ```

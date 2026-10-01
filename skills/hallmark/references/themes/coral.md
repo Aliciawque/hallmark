@@ -73,5 +73,5 @@ Declarative, warm, specific: the number, the product, the outcome. Never hype.
 .btn--primary { background: var(--color-ink); color: var(--color-paper); }
 .btn--secondary { border: 1px solid var(--color-rule); color: var(--color-ink); }
 a:hover { text-decoration-color: var(--color-accent); text-underline-offset: 0.2em; }
-::selection { background: oklch(52% 0.165 28 / 0.25); }
+::selection { background: color-mix(in oklab, var(--color-accent) 25%, transparent); }
 ```
