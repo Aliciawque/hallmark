@@ -9,6 +9,45 @@ const isUrl = (t) => /^https?:\/\//.test(t);
 const slugOf = (t) => isUrl(t) ? t.replace(/^https?:\/\//, '').replace(/[^\w.-]+/g, '-').replace(/-+$/, '') : basename(t, '.html');
 
 const SHOTS = [];
+function contrast(a, b) {
+  const lin = (c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
+  const Y = (c) => 0.2126 * lin(c[0]) + 0.7152 * lin(c[1]) + 0.0722 * lin(c[2]);
+  const x = Y(a), y = Y(b);
+  return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
+}
+
+async function pixelBehind(page, probe) {
+  try {
+    const rect = await page.evaluate((n) => {
+      const el = document.querySelector(`[data-hm-probe="${n}"]`);
+      if (!el) return null;
+      el.scrollIntoView({ block: 'center' });
+      for (const [k, v] of [['color', 'transparent'], ['text-shadow', 'none'], ['-webkit-text-stroke', '0'], ['text-decoration-color', 'transparent']]) el.style.setProperty(k, v, 'important');
+      const r = el.getBoundingClientRect();
+      const x = Math.max(0, r.left), y = Math.max(0, r.top);
+      return { x, y, width: Math.min(r.right, innerWidth) - x, height: Math.min(r.bottom, innerHeight) - y };
+    }, probe);
+    if (!rect || rect.width < 2 || rect.height < 2) return null;
+    await new Promise((r) => setTimeout(r, 60));
+    const data = await page.screenshot({ clip: rect, encoding: 'base64' });
+    return await page.evaluate(async (b64, n) => {
+      const el = document.querySelector(`[data-hm-probe="${n}"]`);
+      if (el) for (const k of ['color', 'text-shadow', '-webkit-text-stroke', 'text-decoration-color']) el.style.removeProperty(k);
+      const img = new Image();
+      img.src = 'data:image/png;base64,' + b64;
+      await img.decode();
+      const c = document.createElement('canvas');
+      c.width = img.width; c.height = img.height;
+      const x = c.getContext('2d');
+      x.drawImage(img, 0, 0);
+      const d = x.getImageData(0, 0, c.width, c.height).data;
+      const ch = [[], [], []];
+      for (let i = 0; i < d.length; i += 4) { ch[0].push(d[i]); ch[1].push(d[i + 1]); ch[2].push(d[i + 2]); }
+      return ch.map((a) => a.sort((p, q) => p - q)[a.length >> 1] / 255);
+    }, data, probe);
+  } catch { return null; }
+}
+
 async function shoot(page, file, tag, fullPage) {
   try {
     const dir = isUrl(file) ? join(process.cwd(), '.hallmark', 'shots') : join(dirname(file), '.hallmark', 'shots');
@@ -77,7 +116,17 @@ export async function renderCheck(htmlFiles, metaIn) {
           if (width === 1280) await shoot(page, file, `${prefix}1280x800`, false);
           if (width === 375) await shoot(page, file, heroOnly ? 'hero-375x812' : '375', !heroOnly);
           const res = await page.evaluate(observe, width === 1280, pageMeta);
-          for (const f of res) findings.push({ ...f, file, line: 1, evidence: `[${width}px] ${f.evidence}` });
+          const measured = new Map();
+          for (const f of res) {
+            if (f.probe == null) continue;
+            if (!measured.has(f.probe)) measured.set(f.probe, await pixelBehind(page, f.probe));
+            const bg = measured.get(f.probe);
+            if (!bg) continue;
+            const real = contrast(f.fg, bg);
+            if (real >= f.threshold - 0.05) f.drop = true;
+            else f.evidence = f.evidence.replace(/computed contrast [\d.]+:1/, `contrast ${real.toFixed(2)}:1 against the pixels behind`).replace(/\([\d.]+:1\)$/, `(${real.toFixed(2)}:1)`);
+          }
+          for (const f of res) if (!f.drop) { const { probe, fg, threshold, drop, ...rest } = f; findings.push({ ...rest, file, line: 1, evidence: `[${width}px] ${f.evidence}` }); }
         }
         for (const [w, h] of [[1440, 900], [1920, 1080]]) {
           await page.setViewport({ width: w, height: h });
@@ -114,7 +163,7 @@ export async function renderCheck(htmlFiles, metaIn) {
 function observe(checkFold, meta) {
   meta = meta || { genre: null, posture: 'restrained' };
   const out = [];
-  const push = (gate, grade, evidence, fix) => out.push({ gate: String(gate), grade, evidence, fix });
+  const push = (gate, grade, evidence, fix, extra) => out.push({ gate: String(gate), grade, evidence, fix, ...(extra || {}) });
   const describe = (el) => {
     const cls = (el.className && typeof el.className === 'string') ? '.' + el.className.trim().split(/\s+/).slice(0, 2).join('.') : '';
     return el.tagName.toLowerCase() + cls;
@@ -233,7 +282,7 @@ function observe(checkFold, meta) {
     const seenSel = new Set();
     for (const el of document.querySelectorAll('body *')) {
       if (reported >= 10) break;
-      if (!visible(el)) continue;
+      if (!visible(el) || el.closest('svg')) continue;
       const hasText = [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim().length > 2);
       if (!hasText) continue;
       const cs = getComputedStyle(el);
@@ -244,24 +293,27 @@ function observe(checkFold, meta) {
       const weight = parseInt(cs.fontWeight, 10) || 400;
       const large = size >= 24 || (size >= 18 && weight >= 700);
       const threshold = large ? 3.0 : 4.5;
-      const r = ratio(fg, bg);
       const key = describe(el);
+      const stops = gradStops(el, bg);
+      if (stops.length && !seenSel.has(key)) {
+        const rs = stops.map((c) => ratio(fg, c));
+        const worst = Math.min(...rs), best = Math.max(...rs);
+        if (best < threshold - 0.05) { seenSel.add(key); reported++; push(40, 'FAIL', `contrast ${best.toFixed(2)}:1 at best over the gradient behind ${key}`, 'Raise the contrast to threshold, or give the text its own ground'); }
+        else if (worst < threshold - 0.05) { seenSel.add(key); reported++; push(40, 'WARN', `contrast drops to ${worst.toFixed(2)}:1 over the gradient behind ${key}`, 'Check the text where the gradient is darkest or lightest; give the label its own ground'); }
+        continue;
+      }
+      const r = ratio(fg, bg);
       if (r < threshold - 0.05 && !seenSel.has(key)) {
         seenSel.add(key);
         reported++;
+        el.setAttribute('data-hm-probe', String(reported));
+        const probe = { probe: reported, fg: [fg.r, fg.g, fg.b], threshold };
         push(40, 'FAIL', `computed contrast ${r.toFixed(2)}:1 < ${threshold}:1 on ${key}`,
-          'Raise the contrast to threshold');
+          'Raise the contrast to threshold', probe);
         const btnish = el.closest('a, button, [class*="btn"], [class*="cta"]');
         if (btnish && r < 1.6) {
           push(41, 'FAIL', `button text ~ button fill on ${key} (${r.toFixed(2)}:1)`,
-            'Use accent-ink or paper for the label');
-        }
-      } else if (!seenSel.has(key)) {
-        const worst = gradStops(el, bg).reduce((m, c) => Math.min(m, ratio(fg, c)), Infinity);
-        if (worst < threshold - 0.05) {
-          seenSel.add(key);
-          reported++;
-          push(40, 'WARN', `contrast drops to ${worst.toFixed(2)}:1 over the gradient behind ${key}`, 'Check the text where the gradient is darkest or lightest; give the label its own ground');
+            'Use accent-ink or paper for the label', probe);
         }
       }
     }

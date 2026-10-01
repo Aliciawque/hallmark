@@ -22,7 +22,7 @@ A warm grey concrete surface that keeps its board lines and tie holes, Oswald ca
 :root {
   --color-paper: oklch(74% 0.008 80); --color-paper-2: oklch(69% 0.009 80); --color-paper-3: oklch(64% 0.01 80);
   --color-plate: oklch(81% 0.008 80);
-  --color-ink: oklch(18% 0.005 270); --color-ink-2: oklch(30% 0.006 80); --color-muted: oklch(36% 0.008 80);
+  --color-ink: oklch(18% 0.005 270); --color-ink-2: oklch(30% 0.006 80); --color-muted: oklch(32% 0.008 80);
   --color-rule: oklch(64% 0.01 80);
   --color-accent: oklch(66% 0.21 38); --color-accent-ink: oklch(18% 0.005 270); --color-focus: oklch(42% 0.15 38);
   --color-accent-deep: oklch(48% 0.17 38);

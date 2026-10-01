@@ -85,6 +85,13 @@ function readLog(p) {
   try { const j = JSON.parse(readFileSync(p, 'utf8')); return Array.isArray(j) ? j : (j.runs || []); } catch { return []; }
 }
 
+function contrastOf(f, b) {
+  const rgb = ([L, C, H]) => { const h = H * Math.PI / 180, x = C * Math.cos(h), y = C * Math.sin(h); const l = (L + 0.3963377774 * x + 0.2158037573 * y) ** 3, m = (L - 0.1055613458 * x - 0.0638541728 * y) ** 3, s2 = (L - 0.0894841775 * x - 1.2914855480 * y) ** 3; return [4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s2, -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s2, -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s2].map((c) => Math.min(1, Math.max(0, c))); };
+  const Y = (c) => 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+  const a = Y(rgb(f)), c = Y(rgb(b));
+  return (Math.max(a, c) + 0.05) / (Math.min(a, c) + 0.05);
+}
+
 const triple = (t) => `${t.paper.band}/${t.display.class}/${t.accent.band}`;
 const sameTriple = (a, b) => a === b;
 const words = (s) => (s || '').toLowerCase().replace(/[^a-z0-9\s-]/g, ' ').split(/\s+/).filter((w) => w.length > 2);
@@ -317,6 +324,10 @@ function validate(files) {
       if (!existsSync(f.replace(/\.md$/, '.jpg'))) console.log(`${f}: note, no picture yet (scripts/picture.mjs)`);
       if (!/waive 22/.test(src)) for (const m of fence.matchAll(/(--color-(?:paper|paper-2|paper-3|ink|ink-2|muted|rule|rule-2)):\s*oklch\(\s*[\d.]+%\s+([\d.]+)/g)) if (Number(m[2]) < 0.005) problems.push(`${m[1]} chroma ${m[2]} is under the 0.005 floor (gate 22), or the file names waive 22`);
       for (const k of ['--color-paper', '--color-ink', '--color-muted', '--color-rule', '--color-accent', '--color-accent-ink', '--color-focus', '--font-display', '--font-body', '--radius-card', '--tracking-display']) if (!fence.includes(k + ':')) problems.push(`token block lacks ${k}`);
+      const tok = {};
+      for (const m of fence.matchAll(/(--color-[\w-]+):\s*oklch\(\s*([\d.]+)%\s+([\d.]+)\s+([\d.]+)\s*\)/g)) tok[m[1]] = [Number(m[2]) / 100, Number(m[3]), Number(m[4])];
+      const pairs = [['--color-ink-2', '--color-paper'], ['--color-muted', '--color-paper'], ['--color-muted', '--color-paper-2'], ['--color-accent-ink', '--color-accent']];
+      for (const [fg, bg] of pairs) if (tok[fg] && tok[bg]) { const r = contrastOf(tok[fg], tok[bg]); if (r < 4.5) problems.push(`${fg} on ${bg} is ${r.toFixed(2)}:1, under 4.5 (gate 40)`); }
       if (problems.length) { bad++; console.log(`${f}: ${problems.join('; ')}`); } else console.log(`${f}: ok (${e.name}, ${triple(e)}, ${src.length} bytes)`);
     } catch (err) { bad++; console.log(`${f}: ${err.message}`); }
   }

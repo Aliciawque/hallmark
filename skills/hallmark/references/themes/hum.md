@@ -24,8 +24,8 @@ Cream pulled toward pear-yellow, three accents that never blend, Chillax for eve
   --color-ink: oklch(20% 0.012 250); --color-ink-2: oklch(28% 0.012 250); --color-muted: oklch(48% 0.012 250);
   --color-rule: oklch(88% 0.014 95);
   --color-accent: oklch(86% 0.18 95); --color-accent-deep: oklch(72% 0.16 95); --color-accent-ink: oklch(20% 0.012 250);
-  --color-accent-2: oklch(54% 0.17 235); --color-accent-3: oklch(68% 0.24 18);
-  --color-mint: oklch(80% 0.16 150); --color-glow: oklch(76% 0.20 95); --color-lavender: oklch(74% 0.16 305); --color-focus: oklch(54% 0.17 235);
+  --color-accent-2: oklch(51% 0.17 235); --color-accent-3: oklch(68% 0.24 18);
+  --color-mint: oklch(80% 0.16 150); --color-glow: oklch(76% 0.20 95); --color-lavender: oklch(74% 0.16 305); --color-focus: oklch(51% 0.17 235);
   --font-display: "Chillax", "Geist", ui-rounded, ui-sans-serif, sans-serif; --font-body: var(--font-display);
   --font-outlier: "Geist Mono", ui-monospace, monospace;
   --radius-card: 20px; --radius-input: 12px; --radius-pill: 999px; --rule-hair: 1px;
