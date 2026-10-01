@@ -5,7 +5,7 @@ A heavy full width bar: a 2px ink rule beneath, the wordmark in the display face
 
 ```html
 <header class="nav-slab">
-  <a class="slab-mark" href="/" aria-label="Studio, home">STUDIO</a>
+  <a class="slab-wordmark" href="/" aria-label="Studio, home">STUDIO</a>
   <nav class="slab-nav" aria-label="Primary">
     <ul><li><a href="/catalog">Catalog</a></li><li><a href="/voice">Voice</a></li><li><a href="/work">Work</a></li></ul>
   </nav>
@@ -14,7 +14,7 @@ A heavy full width bar: a 2px ink rule beneath, the wordmark in the display face
 ```
 ```css
 .nav-slab { display: flex; align-items: center; gap: var(--space-md); padding: var(--space-sm) var(--gutter); border-bottom: 2px solid var(--color-ink); background: var(--color-paper); }
-.slab-mark { font-family: var(--font-display); font-weight: 800; letter-spacing: 0.04em; text-decoration: none; }
+.slab-wordmark { font-family: var(--font-display); font-weight: 800; letter-spacing: 0.04em; text-decoration: none; }
 .slab-nav ul { display: flex; gap: var(--space-md); list-style: none; padding: 0; margin: 0 0 0 auto; }
 .slab-nav a { font-size: var(--text-sm); font-weight: 700; text-decoration: none; }
 ```

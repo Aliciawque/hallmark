@@ -2658,13 +2658,17 @@ function fontSizePxOf(r, ctx) {
 const LABEL67 = /label|caption|meta|eyebrow|kicker|tag\b|badge|chip|small|folio|footnote|legend|\bth\b|thead|figcaption|overline|dateline|byline|credit|note\b|\bnav\b|menu|link|pill|status|unit|smallcaps|count|placard/i;
 const CONTROL67 = /btn|button|cta|\.sign\b|plate|control/i;
 const EXEMPT67_NAME = /^(wordmark|marquee|ticker|logo|brand|abbr|logo-?(mark|type|text)|brand-?(mark|name|type))$/i;
-const exemptName67 = (n) => !!n && EXEMPT67_NAME.test(n.split('--')[0].split('__').pop());
+const EXEMPT67_PART = /(^|[-_])(wordmark|marquee|ticker|logotype|logo|brand)([-_]|$)/i;
+const exemptName67 = (n) => !!n && (EXEMPT67_NAME.test(n.split('--')[0].split('__').pop()) || EXEMPT67_PART.test(n));
+const SCROLLER67 = /(^|[-_])(marquee|ticker)([-_]|$)/i;
 function exempt67(sel) {
   return sel.split(',').some((part) => {
-    const comp = baseSelector(part).split(/[\s>+~]+/).filter(Boolean).pop() || '';
+    const comps = baseSelector(part).split(/[\s>+~]+/).filter(Boolean);
+    const comp = comps[comps.length - 1] || '';
     const names = (comp.match(/\.[a-zA-Z_][\w-]*/g) || []).map((c) => c.slice(1));
     names.push((/^[a-zA-Z][\w-]*/.exec(comp) || [''])[0]);
-    return names.some(exemptName67);
+    if (names.some(exemptName67)) return true;
+    return comps.slice(0, -1).some((c) => (c.match(/\.[a-zA-Z_][\w-]*/g) || []).some((x) => SCROLLER67.test(x.slice(1))));
   });
 }
 function inherited67(bySel, sel, prop) {
