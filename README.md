@@ -61,7 +61,7 @@ Each page is self-contained HTML and CSS, stamped in its first CSS comment with 
   </tr>
 </table>
 
-Browse the full set at [usehallmark.com](https://www.usehallmark.com) or under [`site/_tests/`](site/_tests/). The pages there predate v2 and show the earlier gates.
+The fifteen featured examples on [usehallmark.com](https://www.usehallmark.com) were rebuilt with v2.3, one run each from a fixed brief, and lint clean; their sources are in [`site/examples/`](site/examples/). The other pages there and the test pages under [`site/_tests/`](site/_tests/) predate v2.
 
 ---
 

@@ -106,7 +106,7 @@ When the brief gives no shape, offer three shapes from different families (grid-
 | agency, studio, case studies, portfolio | Portfolio Grid · Split Studio · Index-First |
 | personal one-pager, about-me, resume | Long Document · Letter · Index-First |
 | restaurant, café, bar, food, menu | Photographic · Long Document · Catalogue |
-| fashion, apparel, beauty, lookbook | Photographic · Catalogue · Marquee Hero |
+| fashion, apparel, beauty, lookbook | Photographic (with real photographs) · Catalogue · Marquee Hero |
 | fintech, banking, payments, trading | Stat-Led · Workbench · Long Document |
 | manifesto, campaign, cause, advocacy | Manifesto · Quote-Led · Stat-Led |
 | editorial, foundry, magazine, type | Specimen · Long Document · Type Specimen |

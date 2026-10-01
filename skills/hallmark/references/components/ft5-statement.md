@@ -1,6 +1,6 @@
 ### Ft5 · Statement
 One large display sentence dominates the footer: a closing line, not a sitemap. Wordmark, minimal links and copyright sit beneath in the body face, a step smaller. The sentence is concrete and pairs with the page's argument; a slogan is gate 19 filler.
-*Use when:* the page wants a *closing line*: editorial, manifesto, atmospheric.
+*Use when:* the page wants a *closing line*: editorial, manifesto, atmospheric, and still has a fact it has not used; on a thin brief whose facts are all spent, Ft2's one line instead.
 *Don't confuse with:* Ft1 Mast-headed (which leads with the wordmark, not a sentence).
 
 ```html

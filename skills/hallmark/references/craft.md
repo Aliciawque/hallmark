@@ -7,7 +7,7 @@ The one file every page build reads. Type, colour, layout, hero, motion, copy, s
 Type carries the page. Two families: a display face and a body face. A third is one **outlier** register (a wordmark, a headline figure, code) and it carries exactly one role; a second role makes it a third body font (37, F13). Same family at different weights is one family.
 
 - **Extremes read as chosen.** Weight 300 beside 800, or 400 beside 700. A 500 or 600 display works only when the display face differs from the body face.
-- **A ratio, not increments.** 1.25 by default (1.333 or 1.5 for more drama), built from a 16px body. At most five sizes on a page; hierarchy past that comes from weight and colour.
+- **A ratio, not increments.** 1.25 by default (1.333 or 1.5 for more drama), built from a 16px body. At most five sizes in running use, plus a wordmark size if the theme names one; hierarchy past that comes from weight and colour.
 - **Display:** tracking -0.02 to -0.04em on a regular-width face, 0 to -0.015em on a condensed or very heavy one (they are drawn tight already; two letters touching is a fault, not a style), line-height 1.0 to 1.15 (tighter as it grows; 1.2 reads as inherited; a mixed-case poster head may close to 0.92). Uppercase heads that can wrap never go under 1.0 (55). A head is one weight, one style and one colour throughout; one word set apart by italic, colour, weight or a highlight is the accented word, the field's most-named tell after the eyebrow (38). Stress comes from a line break or a second line at a second size. Default display size `clamp(2.75rem, 5vw + 1rem, 5.25rem)`; cap 5.5rem, 6rem on display-heavy themes, 7rem only for a single word; a poster-scale theme or shape (Manifesto, Broadside, Marquee Hero, a Poster hero) sizes with the screen, `clamp(4rem, 9vw, 12rem)`, so the poster fills 1920 as it fills 1440, while the fold still holds the headline, one sentence and the action.
 - **Body:** 16px minimum (14px never for body), line-height 1.5 to 1.65, measure 45 to 75ch (`max-width: 65ch`) (25). Never all-caps body, never justified without hyphenation, never tracking above 0.05em on body.
 - **Labels, captions, table heads, meta, tags, chips, nav links:** the body face, a step smaller, sentence case, untracked (67). Never uppercase, never small caps, never letter-spaced. Mono only when the content is code, a figure or a measurement, or when mono is the theme's material (64). Capitals belong to a wordmark and to a theme whose display voice is uppercase; there a control may follow the display's case at 0.04em of tracking or less.
@@ -27,7 +27,7 @@ Font sourcing for a custom or studied run is in `fonts.md`; a catalog theme has 
 - **The accent is a signal, not a fill.** Under 5% of any viewport under the default Restrained posture (23): an active nav item, a focus ring, a link underline on hover, the primary control's border or text, one small square beside a heading. If you want more, that is the reflex.
 - **Postures.** Restrained (above). **Committed:** one colour carries 30 to 60% of the surface through `--color-field` or the paper family; the accent proper stays a signal. **Full palette:** three or four named roles (field, signal, seal, ink), each with a job and a footprint. **Drenched:** the surface is the colour; ink and rules derive from it. A posture is declared in the stamp before code; a declared surface colour is not accent footprint.
 - **Contrast.** Body 4.5:1 (target 7:1) or APCA Lc 60; large text, icons, focus rings and component boundaries 3:1 or Lc 45 (40). Where you cannot render, keep the two lightnesses 15% or more apart. Every rule that paints a dark surface swaps its text colour in the same rule (41). Grey text never sits on a coloured surface: tint it from the hue or use paper.
-- **Bans:** two-stop gradients only, and never purple-blue, purple-pink, cyan-on-dark (2a); no glow shadows on dark, no chromatic halos or spotlights (29); no alpha as a colour's definition (alpha modifies overlays and shadows); no red-green as the only signal.
+- **Bans:** gradients of two or three stops only, and never purple-blue, purple-pink, cyan-on-dark (2a); no glow shadows on dark, no chromatic halos or spotlights (29); no alpha as a colour's definition (alpha modifies overlays and shadows); no red-green as the only signal.
 - **Dark mode** is opt-in and derived, never inverted: paper 12 to 18, ink 92 to 96, elevation lighter by about 3% L per level, accent chroma down 0.02 to 0.04 with L up 5 to 10, hue fixed. `dark-mode.md` has the per-token table when both modes are asked for.
 
 ## 3. Layout and space
@@ -76,6 +76,7 @@ Every posture, every hero:
 ## 5. Motion
 
 - **Who decides.** The theme's Motion section; a shape's reveal runs only where the theme allows one, and the genre's default holds only where the theme is silent.
+- **End states.** Under `prefers-reduced-motion: reduce` every reveal shows its end state at once, and the render tier shoots that way, so a rule that draws in on scroll must already be drawn there.
 - **Only `transform` and `opacity`** (10). Blur, `clip-path`, mask and shadow may join when they stay smooth on the element alone.
 - **Three easings, tokenised:** `--ease-out: cubic-bezier(0.16, 1, 0.3, 1)` for things arriving, `--ease-in: cubic-bezier(0.7, 0, 0.84, 0)` for things leaving, `--ease-in-out: cubic-bezier(0.65, 0, 0.35, 1)` for toggles. The browser's `ease` and `linear` (outside progress) read as uncrafted; overshoot on UI state is dated (12).
 - **Three durations:** `--dur-micro` 120ms (press, tick, colour), `--dur-short` 220ms (hover, tooltip, menu), `--dur-long` 420ms (modal, drawer, accordion, page reveal). Exits run 60 to 75% of the enter. Stagger 30 to 50ms between rows, 60 to 100ms between blocks, 500ms total, one-shot, never re-fired on scroll.
@@ -125,8 +126,10 @@ A slot is a container carrying `data-slot="<name>"` (`hero`, `demo-2`, `demo-3`,
 ```css
 [data-slot] { position: relative; overflow: hidden; }
 [data-slot] > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
-[data-slot]:has(> img) > :not(img) { display: none !important; }
+[data-slot]:has(> img) > :not(img):not([data-keep]) { display: none !important; }
 ```
+
+A child that must stay once the image lands (a plate number, a credit) carries `data-keep` and sits above the image (`z-index: 2`).
 
 ```js
 window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.prepend(im); } };
@@ -150,6 +153,7 @@ Where slots go: the hero visual on any product page, beside the text; a demo str
 The last 2% that separates set from generated. sloplint's F-checks report most of it; answer each one, never ship it unread.
 
 - **Controls.** One filled primary per page, dialogs counted as their own page (F4); secondaries outlined or typographic and never higher contrast than the primary; navbar actions quieter than the hero's action. Marketing controls 44 to 52px tall; app UI 32 to 40px with a 44px hit target via an inset pseudo-element and 48px on coarse pointers; at most two button sizes, at least 6px apart; inputs match the height of their adjacent button (39). Icon-bearing controls take asymmetric padding. Any non-primary form action (change photo, resend code) takes the smaller size and a secondary style. Delete uses a secondary style unless deleting is the page's one action.
+- **Links that go nowhere yet.** An action whose URL the brief does not give points at the section of this page that does the most of it (`#lookbook`), and the handoff names the URL it needs; never an invented route.
 - **Forms that post nowhere yet.** A form whose endpoint the brief does not give carries an empty `data-endpoint` and never prints a success state: no "Sent", "Reserved" or "You're on the list" for a request that did not happen (70). The handoff names the endpoint it needs.
 - **Inputs.** Constant border width across states; the focus ring is an `outline` with an offset (inset on inputs), never a border change; disabled by `opacity: 0.55` and `cursor: not-allowed` and the native attribute; reserve `min-height: 1lh` under the field for helper text (F14); 16px on mobile; a `name` on every control and a `<label>` or `aria-label`; an explicit `type` on every `<button>`; a custom chevron on selects; native checkbox, radio and toggle styled by state in CSS, never toggled by script.
 - **Type finish.** Hanging punctuation on pull quotes (`::before` with the opening quote translated -100%). Tabular numerals on anything that columns (F6). Balanced heads, pretty body (F3). A testimonial exists only when the user supplied it (46a); its card bottom-aligns the attribution, and the avatar is the real person or nothing.

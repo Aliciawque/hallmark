@@ -242,7 +242,7 @@ button, input, select, textarea { font: inherit; }
 .num, .figure, td.num { font-variant-numeric: tabular-nums; }
 [data-slot] { position: relative; overflow: hidden; }
 [data-slot] > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
-[data-slot]:has(> img) > :not(img) { display: none !important; }
+[data-slot]:has(> img) > :not(img):not([data-keep]) { display: none !important; }
 @media (max-width: 60rem) { :root { --gutter: 24px; --section-gap: 96px; } }
 @media (max-width: 40rem) { :root { --gutter: 16px; --section-gap: 72px; --gap-columns: 16px; } }
 @media (prefers-reduced-motion: reduce) { *:not(.keep-motion), *:not(.keep-motion)::before, *:not(.keep-motion)::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }`;
