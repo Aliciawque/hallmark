@@ -16,7 +16,7 @@ const has = (k) => args.includes('--' + k);
 function usage() {
   console.error(`usage:
   node theme.mjs deal --genre <g> --brief "<brief>" [--log .hallmark/log.json] [--n 3] [--reroll 0] [--json]
-  node theme.mjs scaffold <slug> [--dir .] [--force]
+  node theme.mjs scaffold <slug> [--dealt "<n>/3, seed <seed>"] [--dir .] [--force]
   node theme.mjs scaffold --custom [--dir .] [--force]
   node theme.mjs check --axes "<paper>/<display>/<accent>" [--face "<display face>"] [--hue <accent hue>] [--log .hallmark/log.json]
   node theme.mjs index
@@ -138,11 +138,11 @@ function deal() {
   console.log(`deal: ${seedKey} · genre ${genre}${reroll ? ` · reroll ${reroll}` : ''}`);
   picked.forEach((s, i) => {
     const why = s.hits.length ? `fits: ${s.hits.slice(0, 4).join(', ')}` : (s.t.genre === genre ? 'genre fit' : 'adjacent genre');
-    console.log(`${i + 1}. ${s.t.name} · ${triple(s.t)} · ${s.t.material} · ${why} · ${s.t.file}${s.t.picture ? ` + ${s.t.picture}` : ''}`);
+    console.log(`${i + 1}. ${s.t.name} · ${triple(s.t)} · ${s.t.material} · ${why} · ${s.t.file}${s.t.picture ? ` + ${s.t.picture}` : ''}${s.t.pictured ? ` (pictured as ${s.t.pictured})` : ''}`);
   });
   if (recent.length) console.log(`avoid: ${recent.map((r) => `${r.theme || '?'} (${r.axes || 'no axes'})`).join(' · ')}`);
   else console.log('avoid: nothing logged yet (first run for this project)');
-  console.log(`next: look at the three pictures side by side and pick the material this brief wants, then node <skill-dir>/scripts/theme.mjs scaffold <slug> to write tokens.css and print the base rules`);
+  console.log(`next: look at the three pictures side by side and pick the material this brief wants (a picture in your own shape asks for a different section order), then node <skill-dir>/scripts/theme.mjs scaffold <slug> --dealt "<n>/${n}, seed ${seedKey}"`);
 }
 
 const PAPER_BANDS = new Set(['light', 'mid', 'dark']);
@@ -252,7 +252,7 @@ function scaffold() {
   writeFileSync(out, css);
   const stamp = custom
     ? `/* Hallmark · shape: <shape> · genre: <genre> · custom: draw n/7 (seed <slug>·<date>·r0)\n * hero: <posture> · nav: <shape> · footer: <shape> · enrichment: <none or the file> · signature: <the one move>\n * axes: <paper>/<display>/<accent> · posture: <posture> · contrast: pass · fold: pass · v${VERSION} */`
-    : `/* Hallmark · shape: <shape> · genre: ${header.genre} · theme: ${name} (deal n/3, seed <from the deal>)\n * hero: <posture> · nav: <shape> · footer: <shape> · enrichment: <none or the file> · signature: <the one move>\n * axes: ${triple(header)} · posture: ${header.posture} · contrast: pass · fold: pass · v${VERSION} */`;
+    : `/* Hallmark · shape: <shape> · genre: ${header.genre} · theme: ${name} (${flag('dealt', '') ? `deal ${flag('dealt', '')}` : 'by request'})\n * hero: <posture> · nav: <shape> · footer: <shape> · enrichment: <none or the file> · signature: <the one move>\n * axes: ${triple(header)} · posture: ${header.posture} · contrast: pass · fold: pass · v${VERSION} */`;
   console.log(`wrote ${out} (${custom ? 'the shared scale; fill every --color-* and --font-* from direction.md § B and § C before building' : `${name} tokens plus the shared scale`})`);
   if (!custom) {
     const pic = join(THEMES, `${slug}.jpg`);

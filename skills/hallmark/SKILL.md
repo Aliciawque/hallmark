@@ -44,7 +44,7 @@ Everything above the Floor is a **Reflex** gate: a default a model falls into, w
 6. Build: the hero first, then the page; stamp, `tokens.css`, log.
 7. Sweep: sloplint with render, the judged gates, the fresh-context review.
 
-Codex CLI and OpenCode read [`references/flow.md`](references/flow.md) § Harnesses before Step 0; any other harness runs this file with sequential tool calls and questions in chat.
+Codex CLI and OpenCode read [`references/flow.md`](references/flow.md) § Harnesses first; other harnesses run this file as written.
 
 ### 0. Pre-flight
 
@@ -66,7 +66,7 @@ Skipped fields are opt-outs: infer them, state the inferences in one line at the
 
 ### 2. Shape
 
-**Material first.** Before the shape, write the inventory in one line: *real* (every concrete thing the brief and the project supply: the name, the claim, numbers, places, dates, inputs and outputs, images), *slots* (what the user will hand over later), *absent* (every proof the page will not have: logos, quotes, metrics nobody gave). The shape follows it: shapes built on screenshots (Bento, Workbench, Feature Stack) need two real visuals or the user's "leave slots"; with neither, choose a shape that carries type and facts (Long Document, Letter, Index-First, Manifesto, a spec sheet). Pages read as generated when they have nothing to show and pretend otherwise.
+**Material first.** Before the shape, write the inventory in one line: *real* (every concrete thing the brief and the project supply: the name, the claim, numbers, places, dates, inputs and outputs, images), *slots* (what the user will hand over later), *absent* (every proof the page will not have: logos, quotes, metrics nobody gave). The shape follows it: shapes built on screenshots (Bento, Workbench, Feature Stack) need two real visuals or the user's "leave slots"; with neither, choose a shape that carries type and facts (Long Document, Letter, Index-First, Manifesto, a spec sheet built on `components/f3-tabular-spec-sheet.md`). Pages read as generated when they have nothing to show and pretend otherwise.
 
 Decide the page's shape, how it opens, how sections separate, what the nav and footer do, how tall the hero stands and what carries it. You are designing, not filling a form. The catalogs exist for when you want a starting point: 21 page shapes in [`references/macrostructures.md`](references/macrostructures.md), navs, footers and section archetypes in [`references/component-cookbook.md`](references/component-cookbook.md), enrichment in [`references/hero-enrichment.md`](references/hero-enrichment.md). Take a named shape and load only that one file; never read a whole catalog.
 
@@ -125,12 +125,12 @@ On signal 9, [`references/comp.md`](references/comp.md) runs here: two comps of 
 
 Emit code that satisfies the theme and the shape. Always:
 
-- **Start from the scaffold.** `node <skill-dir>/scripts/theme.mjs scaffold <slug>` (`--custom` on a derived run) writes `tokens.css` with the theme's tokens and the shared scale, and prints the base rules the Floor already decided under a stamp skeleton. Paste them, fill the stamp, and write only the page.
-- **Read the exemplar** for the genre, `references/exemplars/<genre>.html`, once: a finished page in another theme that passes every gate. Take how its stamp, tokens, slots, states and openings are written; never its shape, theme or copy. Skip it when it is in your theme.
+- **Start from the scaffold.** `node <skill-dir>/scripts/theme.mjs scaffold <slug>` (with the deal's `--dealt`; `--custom` on a derived run) writes `tokens.css` with the theme's tokens and the shared scale, and prints the base rules the Floor already decided under a stamp skeleton. Paste them, fill the stamp, and write only the page.
+- **Read the exemplar** for the genre, `references/exemplars/<genre>.html`, once: a finished page in another theme that passes every gate. Take how its stamp, tokens, slots, states and openings are written; never its shape, theme or copy. Skip it if it is in your theme.
 - **Hero first.** Write the nav and the hero, run `node <skill-dir>/scripts/sloplint.mjs <file> --render --stage hero` (the fold at three widths, the hero's words, the visual's place, four first-screen shots), then the hero review in fresh context (`gates.md` § 6). Build the sections only once the hero ships: a hero rewrite after eight sections exist costs eight sections.
 - **One idea per screen.** Hero: headline (seven words or fewer, 50 characters or fewer), one sentence (twelve words or fewer), one or two actions. A section: a heading of three to five words, at most one line, then its object (a slot, a figure, a drawn thing, a list of four or fewer, a table of five rows or fewer). Four to eight sections, footer included; 450 visible words at most, fewer when the brief has less to say. Never pad to a count.
 - **Show, do not describe.** On a product page with material or "leave slots": at least two `data-slot` containers, the hero visual and a demo strip; with neither, the page shows what is real (Step 2). The user's images fill them; otherwise a designed placeholder in the theme's colours with a corner label (`craft.md` § Demo slots). Never a grey box, never a fake screenshot with invented figures.
-- **The fold.** The hero is the first screen and only the first screen at 1440 x 900 and 1920 x 1080, its visual beside the text (centres within 60px, 48 to 120px apart), never pinned in a corner; a Banner hero shares it with the first section.
+- **The fold.** The hero is the first screen and only the first screen at 1440 x 900 and 1920 x 1080, its visual beside the text (centres within 60px, 48 to 120px apart), never pinned in a corner; a Banner shares it with the first section.
 - **Room.** 120px or more between sections at desktop, varied; 32 to 48px from a heading to its content; 24 to 40px between grid items. More space above a heading than below it.
 - **Page invariants.** One primary button style, one container width, one column gap for every multi-column section below the hero, one radius per nesting level, and never more centred heading groups than left-aligned ones. A subhead over 120 characters is set left-aligned.
 - **Type.** The theme's faces, two families (three with one outlier role); display tracking and leading per `craft.md` § 1; body 16px or more at 1.5 to 1.65, 45 to 75ch; heads roman. Labels per Floor 9, never mono unless mono is the material (64). A head is one weight and one colour throughout; the accented word is a tell (38iii).
@@ -160,7 +160,7 @@ then any `waive` and `answered` lines, then a custom run's direction contract. E
 
 ### 7. Sweep
 
-1. `node <skill-dir>/scripts/sloplint.mjs <files> --genre <genre> --render` (add `--scope component` on a component; in a framework project with a dev server running, add `--url http://localhost:<port>/<route>`). Fix every FAIL, re-run until clean. The render tier writes the screenshots you need next; do not run Chrome by hand.
+1. `node <skill-dir>/scripts/sloplint.mjs <files> --genre <genre> --render` (add `--scope component` on a component; in a framework project with a dev server running, add `--url http://localhost:<port>/<route>`). Fix every FAIL, re-run until clean. The render tier writes the screenshots; never run Chrome by hand.
 2. Load [`references/gates.md`](references/gates.md) § 5 and walk the J and R/J gates. Confirm or dismiss every WARN. Fix every open Floor finding; fix or waive every Reflex one; answer every Finish one.
 3. Review in fresh context per `gates.md` § 6, which lists its inputs. Act on its first word (`recapture`, `rebuild`, `fix`, `ship`). Two rounds is the ceiling.
 4. Close with the material ask: every slot, its size and what belongs there, then the one piece of material that would most improve the page ("two screenshots of the import screen would replace both demo placeholders").

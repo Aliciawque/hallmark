@@ -3011,11 +3011,17 @@ function check69(ctx) {
 }
 
 function check70(ctx) {
-  const SUCCESS = /(["'`])\s*(?:sent|thanks|thank you|reserved|booked|you're on the list|you are on the list|subscribed|we'll be in touch|request received|done)\b[^"'`]{0,60}\1/i;
+  const SUCCESS = /\b(sent|thanks|thank you|reserved|booked|on the list|subscribed|in touch|received|confirmed|ordered|chosen|on its way|signed up|all set|you're in|you are in|done)\b/i;
+  const NEG = /\b(not|nothing|no|never|isn't|wasn't|didn't|cannot|can't|failed|try again|soon)\b/i;
   for (const doc of ctx.docs) {
     const js = (doc.scripts && typeof doc.scripts === 'string') ? doc.scripts : (doc.src.match(/<script\b[^>]*>([\s\S]*?)<\/script>/gi) || []).join('\n');
     if (!/<form\b|type\s*=\s*["']submit/i.test(doc.src) || !js) continue;
-    const m = SUCCESS.exec(js);
+    let m = null;
+    for (const x of js.matchAll(/(["'`])((?:(?!\1)[^\\\n]|\\.){4,140})\1/g)) {
+      const str = x[2];
+      const head = str.trim().split(/\s+/).slice(0, 4).join(' ');
+      if (str.trim().split(/\s+/).length >= 2 && SUCCESS.test(head) && !NEG.test(str)) { m = [x[0]]; break; }
+    }
     if (!m) continue;
     if (/\bfetch\s*\(|XMLHttpRequest|navigator\.sendBeacon|\.submit\s*\(\s*\)|axios|\$\.ajax/.test(js)) continue;
     report(70, 'WARN', doc.file, doc.lineOf ? doc.lineOf(doc.src.indexOf(m[0]) >= 0 ? doc.src.indexOf(m[0]) : 0) : 1, `a script prints success ("${trunc(m[0].replace(/["'`]/g, ''), 30)}") with no request behind it`, 'No success state until the form posts somewhere; an empty data-endpoint and a handoff note');

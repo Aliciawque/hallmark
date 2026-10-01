@@ -1,7 +1,7 @@
 ### N12 · Announcement banner and retracting nav
 A coloured banner stacked above one real nav. Scrolling down, the banner slides up out of view and the bar docks to the top; scrolling up brings it back. A dismiss control removes it for good and zeroes its height so no gap remains. The banner's colour is what stops it reading as two navs.
 *Use when:* there is a real, time-bound announcement (a launch, a sale, shipping) worth a strip over a product or commerce page.
-*Not:* a second row of links (the two-bar smell this exists to avoid); a static strip that never moves. One line, one link, one dismiss; no glyph before the text (63); the height is never animated, the whole `.nav` translates.
+*Not:* a second row of links (the two-bar smell this exists to avoid); a static strip that never moves (on a theme that keeps still, the bar simply scrolls away with the page instead). One line, one link, one dismiss; no glyph before the text (63); the height is never animated, the whole `.nav` translates.
 
 ```html
 <header class="nav" id="nav">

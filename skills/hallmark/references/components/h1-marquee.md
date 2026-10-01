@@ -12,7 +12,7 @@ A single statement fills the fold; one sentence and one action sit small at its 
 ```css
 .hero-marquee { min-height: 80dvh; display: grid; align-content: end; gap: var(--space-lg); padding: 0 var(--gutter) var(--space-2xl); }
 .hero-marquee__foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--space-md); max-width: 60rem; }
-.display-xxl { font-size: clamp(3.5rem, 8vw, 7rem); line-height: 1; letter-spacing: -0.03em; max-width: 12ch; overflow-wrap: break-word; min-width: 0; text-wrap: balance; }
+.display-xxl { font-size: clamp(4rem, 9vw, 12rem); line-height: 1; letter-spacing: var(--tracking-display); max-width: 12ch; overflow-wrap: break-word; min-width: 0; text-wrap: balance; }
 ```
 
 ## Knobs

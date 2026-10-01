@@ -1,6 +1,6 @@
 ### HP4 · Decorative numeral
 
-A huge edition number, year or chapter set at display scale in a hero corner. The numeral means something: issue 22, year 2026, chapter 03, version 0.8. Roman, never italic: a display-scale figure is display type, and an italic one is an italic display system (38ii) with everything that entails.
+A huge edition number, year or chapter set at display scale behind or beside the hero's head, never as the hero's visual pinned in a corner. The numeral means something: issue 22, year 2026, chapter 03, version 0.8. Roman, never italic: a display-scale figure is display type, and an italic one is an italic display system (38ii) with everything that entails.
 
 *Use when:* the page has a real edition, issue, chapter or version semantic: magazines, journals, archived work, dated essays.
 *Avoid when:* the numeral has no anchor. A random "42" in the corner is decoration text (66). If you cannot name what the number is, drop it.

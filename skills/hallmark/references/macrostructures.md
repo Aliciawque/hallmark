@@ -15,7 +15,7 @@ Twenty-one named landing-page shapes. Each is a complete fingerprint (heading pl
 - **07 · Manifesto.** Polemical large type. The page tells the reader what to believe before it tells them what to buy. [`macrostructures/07-manifesto.md`](macrostructures/07-manifesto.md)
 - **08 · Photographic.** A single huge image dominates each fold. Text is small annotation, not headline. The design says look before it says read. [`macrostructures/08-photographic.md`](macrostructures/08-photographic.md)
 - **09 · Quote-Led.** The hero is a quote the user supplied, with its attribution. The headline is someone else's voice. [`macrostructures/09-quote-led.md`](macrostructures/09-quote-led.md)
-- **10 · Specimen.** Large serif display, asymmetric spans, hairline rules, a typographic CTA, generous whitespace. Editorial and foundry briefs only. [`macrostructures/10-specimen.md`](macrostructures/10-specimen.md)
+- **10 · Specimen.** Large serif display, asymmetric spans, hairline rules, a typographic CTA, generous whitespace. Only for briefs about type, publishing or writing (a foundry, a journal, a press); the editorial genre alone does not qualify. [`macrostructures/10-specimen.md`](macrostructures/10-specimen.md)
 - **11 · Catalogue.** Uniform grid of variations of the same thing: typefaces, palettes, SKUs. The page is a visual index of inventory. [`macrostructures/11-catalogue.md`](macrostructures/11-catalogue.md)
 - **12 · Letter.** First-person, written, intimate. Opens with a greeting. Reads as a personal note from the founder. [`macrostructures/12-letter.md`](macrostructures/12-letter.md)
 - **13 · Index-First.** The page is a list of links. No hero image, no narrative flow. Navigation as design. [`macrostructures/13-index-first.md`](macrostructures/13-index-first.md)
@@ -71,7 +71,7 @@ For non-SaaS work (Editorial, Manifesto, Letter, Long Document, Quote-Led) this 
 0. **Read the material inventory** (SKILL.md Step 2). A shape built on screenshots or figures needs them, real or as slots the user asked for; with neither, pick a shape that carries type and facts.
 1. **Read the brief.** Note any words that strongly signal one shape ("data heavy", "tell a story", "a list of links", "many small features", "personal note").
 2. **Read `.hallmark/log.json`** (newest first) and the `shape:` field of any Hallmark stamp in the project; the last three shapes are excluded.
-3. **Match the brief to a shape** using the "Reach for it" lines. Most briefs match two to four; pick the one most distant from the logged shapes, and check the mirror test in SKILL.md Step 2.
+3. **Match the brief to a shape** using the index lines above and § Domain to trio below, then open only the file you land on. Most briefs match two to four; pick the one most distant from the logged shapes, and check the mirror test in SKILL.md Step 2.
 4. **State the pick once**, in the Picks block's Shape row, then write the code with the stamp's `shape:` field set. The stamp reads `/* Hallmark · shape: <shape> · genre: <genre> · theme: <theme> ... */`; the full form is in SKILL.md Step 6.
 5. If genuinely torn, offer three from different families (§ Domain to trio, below) and let the user pick.
 
@@ -83,9 +83,9 @@ Two pages Hallmark builds for two different briefs must look like different site
 
 **2. Body composition.** Single column · Two-column asymmetric (wide body, narrow margin for captions) · Multi-column justified with hyphenation · Marginalia (sidenotes in the outer margin) · Three equal columns (reference density) · Full-bleed with margin reset (65ch body, pull quotes and images bleed) · Asymmetric spans (2-1-3 ratios on a grid).
 
-**3. Divider language.** Hairline rule (0.5 to 1px, inset or full-bleed) · Ornament (a fleuron, a dot, a mark) · Negative space (the gap is the divider) · Bleed-colour block (a paper change is the edge) · Double rule. Pick one and let it run the whole page.
+**3. Divider language.** Hairline rule (0.5 to 1px, inset or full-bleed) · Ornament (a fleuron, a dot, a mark) · Negative space (the gap is the divider) · Bleed-colour block (a paper change is the edge) · Double rule. Pick one language for the page and vary its weight and placement by seam (9): the same rule at the same gap at every seam is the template.
 
-**4. Button voice.** Outlined · Unstyled link (an underlined word) · Oversized solid · Typographic only (a word in a weight, no box) · Form as CTA (the action is fill-this-field).
+**4. Button voice.** Solid (one filled primary) · Outlined · Unstyled link (an underlined word) · Oversized solid · Typographic only (a word in a weight, no box) · Form as CTA (the action is fill-this-field).
 
 **5. Image treatment.** Full-bleed · Tightly cropped to the grid · Inline with the text · Margin-aligned · None.
 
@@ -114,4 +114,4 @@ When the brief gives no shape, offer three shapes from different families (grid-
 | conference, event, speaker | Marquee Hero · Manifesto · Photographic |
 | no signal at all | Bento Grid · Long Document · Manifesto |
 
-Developer docs and developer marketing are different briefs (a walkthrough wants Workbench; the landing wants Bento plus Stat-Led), as are a one-pager and a case-study portfolio; ask one question when it is ambiguous. A vague tone word ("modern", "clean") is not an answer; re-ask with the trio. Whichever of the three is most distant from the last logged shape is the right pick.
+Developer docs and developer marketing are different briefs (a walkthrough wants Workbench; the landing wants Bento plus Stat-Led), as are a one-pager and a case-study portfolio; ask one question when it is ambiguous. A vague tone word ("modern", "clean") is read through the genre and stated as an inference, never a second question (SKILL.md Step 1). Whichever of the three is most distant from the last logged shape is the right pick.

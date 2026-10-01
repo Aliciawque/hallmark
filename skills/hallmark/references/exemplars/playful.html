@@ -257,7 +257,7 @@ button, input, select, textarea { font: inherit; }
 <h2 class="band__title" id="sizes-title">Four sizes, from £12</h2>
 <p>Tap a size to see how full the crate gets.</p>
 </div>
-<form class="card box" action="#" method="post">
+<form class="card box" action="#" method="post" data-endpoint="">
 <fieldset class="box__pick">
 <legend>Box size</legend>
 <label class="chip"><input type="radio" name="size" value="1" checked>Small</label>
@@ -321,8 +321,10 @@ button, input, select, textarea { font: inherit; }
 const box = document.querySelector('.box');
 if (box) box.addEventListener('submit', (e) => {
 e.preventDefault();
-const size = box.querySelector('input[name="size"]:checked');
-box.querySelector('.box__status').textContent = (size ? size.parentElement.textContent.trim() : 'Your') + ' box chosen. The first one arrives on a Thursday.';
+const status = box.querySelector('.box__status');
+const endpoint = box.dataset.endpoint;
+if (!endpoint) { status.textContent = 'Ordering opens soon. Nothing was sent.'; return; }
+fetch(endpoint, { method: 'POST', body: new FormData(box) }).then((r) => { status.textContent = r.ok ? 'Your box is ordered. The first one arrives on a Thursday.' : 'That did not go through. Try again in a minute.'; }).catch(() => { status.textContent = 'That did not go through. Try again in a minute.'; });
 });
 })();
 window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.prepend(im); } };

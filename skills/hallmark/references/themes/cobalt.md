@@ -61,7 +61,7 @@ Declarative, technical, specific: name the endpoint, the command, the number. No
 - Never a warm accent; the signal is cobalt at hue 256.
 - Never a pill or gradient button; one solid cobalt button at 6px plus typographic links.
 - Never a floating pill nav; chrome is a flush bar with a single hairline.
-- Never fake code; a snippet compiles, resolves or returns, and an invented endpoint is the theme's worst failure.
+- Never fake code; a snippet compiles, resolves or returns, and an invented endpoint is the theme's worst failure. A brief with no endpoint still gets the pair: its own command or call as written, against `example.com`, with the field names it gives and sample values.
 - Never a second dark beat; two graphite bands turn the light theme into a striped one.
 
 ## Build hint

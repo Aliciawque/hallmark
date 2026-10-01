@@ -12,7 +12,7 @@ The same page shape (say, Bento Grid) can be built from many combinations of the
 
 ### Heroes
 
-- **H1 · Marquee.** A single statement fills the fold. No subhead; the primary action is the fold's one other visible control. [`components/h1-marquee.md`](components/h1-marquee.md)
+- **H1 · Marquee.** A single statement fills the fold; one sentence and the primary action sit small at its foot. [`components/h1-marquee.md`](components/h1-marquee.md)
 - **H2 · Split.** Headline, one sentence and the action on one side; one visual on the other, beside the text: a capture plate, a clipped demo video, a built illustration or a photograph, each with its enrichment recipe. [`components/h2-split-diptych.md`](components/h2-split-diptych.md)
 - **H3 · Quote led.** A pull-quote with attribution is the hero, both the user's material. The headline is borrowed credibility. [`components/h3-quote-led.md`](components/h3-quote-led.md)
 - **H4 · Stat led.** One figure the user gave, with its unit, is the hero. A small qualifier line below says what it means. [`components/h4-stat-led.md`](components/h4-stat-led.md)

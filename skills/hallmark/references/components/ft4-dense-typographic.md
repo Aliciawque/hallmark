@@ -5,12 +5,13 @@ One block of text, credits, references, licence and address, in the body face a 
 
 ```html
 <footer class="foot-dense">
-  <p>Set in the display and body faces named in the stamp. MIT licensed. 137 Marlow Street, 2026.</p>
+  <div class="foot-dense__inner"><p>Set in the display and body faces named in the stamp. MIT licensed. 137 Marlow Street, 2026.</p></div>
 </footer>
 ```
 ```css
-.foot-dense { padding: var(--space-2xl) var(--gutter); max-width: 65ch; font-size: var(--text-sm); color: var(--color-muted); line-height: 1.6; }
-.foot-dense p { margin: 0; }
+.foot-dense { padding-block: var(--space-2xl); }
+.foot-dense__inner { max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); }
+.foot-dense p { max-width: 65ch; margin: 0; font-size: var(--text-sm); color: var(--color-muted); line-height: 1.6; }
 ```
 
 ## Knobs

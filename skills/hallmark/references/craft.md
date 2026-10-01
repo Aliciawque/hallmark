@@ -13,7 +13,7 @@ Type carries the page. Two families: a display face and a body face. A third is 
 - **Labels, captions, table heads, meta, tags, chips, nav links:** the body face, a step smaller, sentence case, untracked (67). Never uppercase, never small caps, never letter-spaced. Mono only when the content is code, a figure or a measurement, or when mono is the theme's material (64). Capitals belong to a wordmark and to a theme whose display voice is uppercase; there a control may follow the display's case at 0.04em of tracking or less.
 - **Headline sizing by copy length.** Count the rendered `h1`: 20 characters or fewer, full display (a single word may grow to 7rem); 21 to 50, display; 51 to 90, one step down (`--text-display-s`) or split at the sense break with `<br>`; over 90, rewrite. Self-written headlines aim for seven words and 50 characters.
 - **Heading measure rides on the element**, in `ch`: display ~20ch, display-s ~24ch, 4xl ~30ch, 3xl ~35ch, 2xl ~40ch, xl ~45ch. Never a `max-width` on the heading group's wrapper.
-- **Required:** `font-display: swap`; fallback metrics with `size-adjust` and the override properties; `font-variant-numeric: tabular-nums` on any figures that compare; `text-wrap: balance` on heads, `pretty` on ledes and body; curly quotes, a true ellipsis, a non-breaking space inside unit pairs (`10 MB`, `⌘ K`) in a proportional face (in mono the unit sits outside the mono span or takes a plain space, since a mono space is a full cell). No `--` and no em or en dash anywhere in rendered copy; a comma, a colon or a full stop does the work.
+- **Required:** `font-display: swap`; a fallback stack of the same build (a grotesk falls back to `system-ui`, a serif to Georgia), with `size-adjust` and the overrides only where the face's metrics are published, never guessed; `font-variant-numeric: tabular-nums` on any figures that compare; `text-wrap: balance` on heads, `pretty` on ledes and body; curly quotes, a true ellipsis, a non-breaking space inside unit pairs (`10 MB`, `⌘ K`) in a proportional face (in mono the unit sits outside the mono span or takes a plain space, since a mono space is a full cell). No `--` and no em or en dash anywhere in rendered copy; a comma, a colon or a full stop does the work.
 - **Wordmark.** May take a different face from the body; on tone-rich themes it should. Collapse to one family only when the body voice is the brand (a letter, a manifesto, a long document).
 - **Load only the weights you use.** Never synthesise bold or italic.
 
@@ -75,6 +75,7 @@ Every posture, every hero:
 
 ## 5. Motion
 
+- **Who decides.** The theme's Motion section; a shape's reveal runs only where the theme allows one, and the genre's default holds only where the theme is silent.
 - **Only `transform` and `opacity`** (10). Blur, `clip-path`, mask and shadow may join when they stay smooth on the element alone.
 - **Three easings, tokenised:** `--ease-out: cubic-bezier(0.16, 1, 0.3, 1)` for things arriving, `--ease-in: cubic-bezier(0.7, 0, 0.84, 0)` for things leaving, `--ease-in-out: cubic-bezier(0.65, 0, 0.35, 1)` for toggles. The browser's `ease` and `linear` (outside progress) read as uncrafted; overshoot on UI state is dated (12).
 - **Three durations:** `--dur-micro` 120ms (press, tick, colour), `--dur-short` 220ms (hover, tooltip, menu), `--dur-long` 420ms (modal, drawer, accordion, page reveal). Exits run 60 to 75% of the enter. Stagger 30 to 50ms between rows, 60 to 100ms between blocks, 500ms total, one-shot, never re-fired on scroll.
@@ -93,6 +94,7 @@ Words are design material. Specific verbs (`Save changes`, never `Submit`); labe
 - **Openers.** Name the place, the date, the vertical, the number the user gave, the input the product reads. Refuse the verb-less claim. Never *Built for the modern team*, *Unleash*, *Where A meets B*, *Empower*, *Reimagine*, *Supercharge*, *seamless*, *robust*, *effortless*, *next-generation*, *world-class*, *In today's landscape* (19). The rebuttal cadence (*Not a feature. A platform.*) is fine once and a tic three times.
 - **Buttons:** the verb of the action. `Continue` only as the secondary step of a flow. **Errors:** what happened (past tense), why if known, what to do (imperative); no *Oops*, no exclamation marks, no humour in a frustration path. **Empty states:** one line naming what is empty, one on why it matters, one action. **Loading:** spinner alone under 2s, plus *Loading…* past it, plus honest progress past 10s.
 - **Never** placeholder people (Jane Doe), startup clichés (Acme, Nexus), *Click here*, *Enter your email below*, *Quietly trusted by*, a version string in marketing copy, or a number the user did not give (46a).
+- **Sample data** inside a code surface or a slot's sketch uses the reserved `example.com`, the field names the brief gives and values that read as samples (`Example Domain`, a word count that matches the text shown); never a figure a visitor could take as a claim.
 - **Punctuation is typeset:** curly quotes, `…`, a proper apostrophe, no `--`, no em or en dash (a comma, a colon, a full stop or parentheses instead), non-breaking spaces before units. Periods on every standalone sentence, none on list items, consistently.
 
 ## 7. Opening a section
@@ -103,7 +105,7 @@ The reflex is a small caps label above the heading, and the reflex is the tell (
 2. **The heading announces itself.** Move the subject into its first two words. Usually the best move; the label existed because the heading was vague.
 3. **A lead-in inside the paragraph**, in a heavier weight, never on its own line.
 4. **A drop cap.** One per page, first paragraph only.
-5. **A rule that does more than rule**: hairline, fleuron, double rule, colour edge, or pure gap; one divider language down the whole page.
+5. **A rule that does more than rule**: hairline, fleuron, double rule, colour edge, or pure gap; one divider language down the page, varied in weight and placement from seam to seam (9).
 6. **A numeral at graphic scale** (8 to 18rem), one per page, only when the number is real (an issue, a year, a version, a chapter).
 7. **A real `<ol>`** with `counter()` when the sequence is genuine.
 8. **A caption below** the content instead of above it: a plate in a catalogue, not a slide title.

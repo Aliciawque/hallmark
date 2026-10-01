@@ -12,7 +12,7 @@ Numbered stages flow vertically: a heading, one paragraph, sometimes a small vis
 ```css
 .steps { list-style: none; counter-reset: stage; margin: 0; padding: 0; display: grid; gap: var(--space-xl); }
 .steps > li { counter-increment: stage; }
-.steps > li > h3::before { content: counter(stage) ". "; font-family: var(--font-body); font-weight: 400; }
+.steps > li > h3::before { content: counter(stage) ". "; }
 ```
 
 ## Knobs

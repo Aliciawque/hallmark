@@ -5,7 +5,7 @@ A single large spatial diagram organises the page: flowchart, floor plan, networ
 - **Heading:** a small orientation phrase above or beside the map.
 - **Body:** the map itself, nodes and edges, with a legend.
 - **Divider:** none inside; the diagram is one composition.
-- **Button:** links inside nodes; one outlined CTA below the map.
+- **Button:** links inside nodes; one CTA below the map, in the theme's control pair.
 - **Image:** the map is the image: hand-built SVG with hover states, labelled or `aria-hidden` with a text legend carrying every fact (33). Geometry that is geometry is a first-class medium (47c).
 - **Reveal:** node-by-node ink-on as the map enters the viewport, capped at five nodes, once.
 
