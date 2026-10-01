@@ -14,12 +14,12 @@ The default is typography only. Match the brief against this table and act on th
 
 | Brief signal | Image strategy |
 | --- | --- |
-| e-commerce, shop, store, product catalogue, brand, fashion, lookbook | Real product photos; a `data-slot` placeholder until the user provides them |
+| e-commerce, shop, store, product catalogue, brand, fashion, lookbook | Real product photos; until the user provides them, one hero slot and the range in type (68) |
 | photography, portfolio, gallery, artist | Imagery is the page; slots until the user provides it |
-| food, restaurant, menu, dish, coffee, wine, recipe | A hero photo and product crops; slots until the user provides them |
+| food, restaurant, menu, dish, coffee, wine, recipe | A hero photo and product crops; until the user provides them, one hero slot and the dishes in type (68) |
 | team, staff, about us, portraits, hiring, careers | A team `data-slot` sized for the user's real photos; kit avatars ([`imagery-kit.md`](imagery-kit.md) § Categories) may hold the slot with no name, title or quote attached; never pravatar, dicebear or unsplash faces (F9) |
-| travel, hotel, destination, real estate, listing, property | A cover photo and tile photos; slots until the user provides them |
-| news, blog, magazine, journal, publication | A feature image per post; slots until the user provides them |
+| travel, hotel, destination, real estate, listing, property | A cover photo and tile photos; until the user provides them, one cover slot and the places in type (68) |
+| news, blog, magazine, journal, publication | A feature image per post; until the user provides them, one slot on the lead post and the rest in type (68) |
 | API, docs, changelog, CLI, library, SDK, package | No imagery. Typography only; code blocks if needed |
 | SaaS landing, platform, dashboard, developer tool | A real capture in a slot: E4 (screenshot) or E1 (demo video). No capture, a designed placeholder (`craft.md` § 8), never a drawn mockup (47c) |
 | atmospheric, slow and editorial | E7 (a two-colour gradient with grain) or E6 (one small loop), built in-page at tier A or B; any external asset obeys [`imagery-kit.md`](imagery-kit.md) (no URL outside its manifest) and [`assets.md` § Placeholder strategy](assets.md) |

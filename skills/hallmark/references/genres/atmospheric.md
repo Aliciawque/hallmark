@@ -7,7 +7,7 @@ The AI-creative and after-dark product page: generative music, video, image, voi
 - **Display:** a weighty sans or a roman classical serif, plain English, tight tracking. Never italic.
 - **Body:** the same family at 400, light ink on dark paper.
 - **Accent:** one warm hue, used in the canvas treatment, on focus rings and on small tags; never on display text.
-- **Layout:** centred or near-centred heroes are the normal answer; the canvas is the design and the type sits on it.
+- **Layout:** a centred hero is the normal answer when the type is the visual (a Poster or Banner posture); with a visual, it stands beside the text (44c). The canvas is the design and the type sits on it.
 - **Motion:** fade only; the atmosphere does the work.
 - **Copy:** direct, slightly poetic, specific: *Make a house song about quitting your job.*
 

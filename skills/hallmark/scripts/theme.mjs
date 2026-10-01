@@ -136,8 +136,8 @@ function deal() {
 
   const scored = themes.map((t) => {
     let fit = 0; const hits = [];
-    for (const k of t.keywords) { const kw = k.split(/\s+/); if (kw.every((w) => bw.has(w))) { fit += 2; hits.push(k); } }
-    if (t.genre === genre) fit += 3; else fit -= 2;
+    for (const k of t.keywords) { const kw = k.split(/\s+/); if (kw.every((w) => bw.has(w))) { fit += 3; hits.push(k); } }
+    if (t.genre === genre) fit += 2; else fit -= 1;
     const blocked = recentNames.has(t.name.toLowerCase()) || (lastAxes && sameTriple(lastAxes, triple(t)));
     const sibling = occupiedAxes.has(triple(t));
     if (sibling && !blocked) fit -= 1;
@@ -270,7 +270,7 @@ function scaffold() {
   console.log(`wrote ${out} (${custom ? 'the shared scale; fill every --color-* and --font-* from direction.md § B and § C before building' : `${name} tokens plus the shared scale`})`);
   if (!custom) {
     const pic = join(THEMES, `${slug}.jpg`);
-    if (existsSync(pic)) console.log(`look at ${pic}: the material at full size${header.pictured ? `, from a page built as ${header.pictured}` : ''}. Take its scale, density and objects; build a different hero and a different section order.`);
+    if (existsSync(pic)) console.log(`look at ${pic}: the material at full size${header.pictured ? `, from a page built as ${header.pictured}` : ''}. Take its scale, density and objects, not its layout or its section order.`);
   }
   console.log('');
   console.log('paste under the stamp, before any rule of your own:');

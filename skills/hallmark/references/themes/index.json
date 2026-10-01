@@ -128,7 +128,11 @@
     "made by hand",
     "brand story",
     "luxury",
-    "object"
+    "object",
+    "hotel",
+    "boutique hotel",
+    "hospitality",
+    "stay"
    ],
    "material": "warm plaster paper, umber ink, a bold Sentient crown over Hanken Grotesk, hairlines and air, one cool slate signal",
    "signature": "a large weighted serif line over a hairline-framed object with its placard set small beneath it",
@@ -533,7 +537,12 @@
     "moody",
     "black and white",
     "night",
-    "print shop"
+    "print shop",
+    "travel",
+    "places",
+    "destination",
+    "journey",
+    "landscape"
    ],
    "material": "near-black wall with a fine grain, hairline extra-condensed capitals, one amber safelight, greyscale prints hung edge to edge",
    "signature": "prints hung edge to edge on the near-black wall at one height, each with its plate number and date beneath in the body face",
@@ -620,7 +629,10 @@
     "lookbook",
     "brand story",
     "journal",
-    "considered"
+    "considered",
+    "travel",
+    "city guide",
+    "guide"
    ],
    "material": "warm cream, a heavy condensed grotesque slammed left, 1px hairlines, roman-numeral folios, one coral mark",
    "signature": "a condensed headline hard against the left margin, answered by one serif-italic pulled line between two hairlines",
@@ -2121,7 +2133,14 @@
     "status",
     "operations",
     "schedule",
-    "mobility"
+    "mobility",
+    "travel",
+    "trip",
+    "journey",
+    "itinerary",
+    "booking",
+    "flights",
+    "airport"
    ],
    "material": "cool grey paper, all-mono type, 2px ink borders, a black signage plate with amber figures, one cobalt",
    "signature": "the black sign plate with a giant amber exit number and a hazard stripe along its foot",

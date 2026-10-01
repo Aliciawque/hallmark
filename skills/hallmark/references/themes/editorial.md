@@ -6,7 +6,7 @@ paper: light 94 75
 display: display-condensed Bricolage Grotesque
 accent: warm 35
 posture: restrained
-keywords: magazine, editorial, feature, culture, fashion, design annual, interview, longform, publication, issue, contemporary, art direction, profile, lookbook, brand story, journal, considered
+keywords: magazine, editorial, feature, culture, fashion, design annual, interview, longform, publication, issue, contemporary, art direction, profile, lookbook, brand story, journal, considered, travel, city guide, guide
 material: warm cream, a heavy condensed grotesque slammed left, 1px hairlines, roman-numeral folios, one coral mark
 signature: a condensed headline hard against the left margin, answered by one serif-italic pulled line between two hairlines
 pictured: Specimen, Settled hero

@@ -6,7 +6,7 @@ paper: light 95 250
 display: mono Space Mono
 accent: cool 264
 posture: committed
-keywords: transit, metro, rail, station, wayfinding, departures, timetable, live, map, commute, city, platform, signage, logistics, status, operations, schedule, mobility
+keywords: transit, metro, rail, station, wayfinding, departures, timetable, live, map, commute, city, platform, signage, logistics, status, operations, schedule, mobility, travel, trip, journey, itinerary, booking, flights, airport
 material: cool grey paper, all-mono type, 2px ink borders, a black signage plate with amber figures, one cobalt
 signature: the black sign plate with a giant amber exit number and a hazard stripe along its foot
 pictured: Board and strip map (an unlisted shape), Settled hero

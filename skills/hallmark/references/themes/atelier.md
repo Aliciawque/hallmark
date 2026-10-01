@@ -6,7 +6,7 @@ paper: light 94 60
 display: roman-serif Sentient
 accent: cool 250
 posture: restrained
-keywords: fashion, atelier, couture, fragrance, gallery, exhibition, museum, ceramics, furniture, homeware, architecture, design studio, lookbook, collection, craft, small-batch, made by hand, brand story, luxury, object
+keywords: fashion, atelier, couture, fragrance, gallery, exhibition, museum, ceramics, furniture, homeware, architecture, design studio, lookbook, collection, craft, small-batch, made by hand, brand story, luxury, object, hotel, boutique hotel, hospitality, stay
 material: warm plaster paper, umber ink, a bold Sentient crown over Hanken Grotesk, hairlines and air, one cool slate signal
 signature: a large weighted serif line over a hairline-framed object with its placard set small beneath it
 pictured: Catalogue, Settled hero

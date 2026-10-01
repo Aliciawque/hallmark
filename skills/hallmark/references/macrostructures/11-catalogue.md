@@ -6,7 +6,7 @@ Uniform grid of variations of the same thing: typefaces, palettes, SKUs. The pag
 - **Body:** a grid of same-sized cards, 3 to 5 per row, each one variant of the core product; image tracks `minmax(0, 1fr)` (50).
 - **Divider:** hairline rules between rows.
 - **Button:** a link inside each card to its detail page; no global CTA. The fold's one visible action is the first card's link (44b).
-- **Image:** a specimen thumbnail or a swatch per card.
+- **Image:** a specimen thumbnail or a swatch per card when the user gave the images; otherwise each card is set in type (the name, the one fact, the price) around a drawn swatch or mark, never a row of empty frames (68).
 - **Reveal:** none.
 
 Reach for it for foundries, palette tools, font shops, colour systems, capsule collections.

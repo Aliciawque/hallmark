@@ -45,11 +45,11 @@ Warm off-white paper under two fixed terracotta blooms, Figtree throughout with 
 - Two warm blooms and no more, fixed and static: `--color-accent` top-right at about 10% alpha, `--color-accent-2` bottom-left at about 7%, each 25 to 40% of the viewport. Sunlight on paper, the genre's light-paper exception; the whole canvas treatment.
 - Elevated warm surfaces, not hairlines: `--color-paper-2` and `--color-paper-3` over `--shadow-card` (a warm ink shadow with offset and blur) and a `--color-rule` edge; depth is that step and that shadow.
 - Soft pills on controls, 14px on surfaces. The control pair: a terracotta-filled pill with `--color-accent-ink` text beside a hairline-outlined pill in ink. The accent stays under 8% of any viewport: that pill, links, small tags.
-- The object family is the studio card: the made thing (a waveform, a frame, a canvas) on a raised warm surface, drawn in CSS and SVG, lit by the bloom. Every neutral carries a warm cast, hue 40 to 72. No texture, no glass.
+- The object family is the studio card: the made thing (a waveform, a frame, a canvas) on a raised warm surface, drawn in CSS and SVG, lit by the bloom. Every neutral carries a warm cast, hue 40 to 72. No texture and no glass, except a speck grain at 0.03 inside the bloom layer alone, which keeps the blooms from banding into rings at 1920.
 
 ## Motion
 
-One settle: the studio card fades in once over 400ms ease-out. Hover lifts a card 2px with its shadow deepening. One line may type in once, then stays. The blooms never move; no slide, no bounce, no parallax.
+One settle: the studio card fades in once over 400ms ease-out. Hover deepens a card's shadow, and nothing else moves. One line may type in once, then stays. The blooms never move; no slide, no bounce, no parallax.
 
 ## Voice
 
