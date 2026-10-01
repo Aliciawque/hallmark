@@ -91,7 +91,7 @@ The outline starts transparent at 2 px so when the focus ring appears, the box g
 | **Active / typing** | Same as focus. Don't add a separate "typing" state. | Focus already says "active here". A second signal is noise. |
 | **Filled** | Same as default, the value carries the state. Optionally a subtle ink-2 border to visually distinguish from empty. | Don't fight the user's content with a styled chrome change. |
 | **Disabled** | `opacity: 0.55` · `cursor: not-allowed` · placeholder `var(--color-rule-2)` · `aria-disabled="true"` · `tabindex="-1"` | Three independent signals (opacity + cursor + colour) so no single channel carries the whole load. |
-| **Error** | `border-color: var(--color-error, oklch(58% 0.20 25))` · helper-text replaced by error message · `aria-invalid="true"` · an error icon from the page's icon set in the right-edge slot | Border colour flip is OK *because* helper-text and aria signal it too. Never colour alone. |
+| **Error** | `border-color: var(--color-error)` · helper-text replaced by error message · `aria-invalid="true"` · an error icon from the page's icon set in the right-edge slot | Border colour flip is OK *because* helper-text and aria signal it too. Never colour alone. |
 | **Success** | Subtle accent-coloured border (3 % chroma above default) · a check icon from the page's icon set · auto-clear if user re-edits | Quiet; success doesn't deserve celebration unless it was hard. |
 | **Loading** (validating, async) | Inline spinner at the right edge replacing the standard glyph slot · field stays editable but submit disabled | Don't lock the user out of the field. They may want to fix what they typed. |
 

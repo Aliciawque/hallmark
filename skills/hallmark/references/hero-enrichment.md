@@ -17,7 +17,7 @@ The default is typography only. Match the brief against this table and act on th
 | e-commerce, shop, store, product catalogue, brand, fashion, lookbook | Real product photos; a `data-slot` placeholder until the user provides them |
 | photography, portfolio, gallery, artist | Imagery is the page; slots until the user provides it |
 | food, restaurant, menu, dish, coffee, wine, recipe | A hero photo and product crops; slots until the user provides them |
-| team, staff, about us, portraits, hiring, careers | Kit avatars ([`imagery-kit.md`](imagery-kit.md) § avatar, with their paired names) until the user provides real people; never pravatar, dicebear or unsplash faces (F9) |
+| team, staff, about us, portraits, hiring, careers | A team `data-slot` sized for the user's real photos; kit avatars ([`imagery-kit.md`](imagery-kit.md) § Categories) may hold the slot with no name, title or quote attached; never pravatar, dicebear or unsplash faces (F9) |
 | travel, hotel, destination, real estate, listing, property | A cover photo and tile photos; slots until the user provides them |
 | news, blog, magazine, journal, publication | A feature image per post; slots until the user provides them |
 | SaaS landing, platform, dashboard, developer tool | A real capture in a slot: E4 (screenshot) or E1 (demo video). No capture, a designed placeholder (`craft.md` § 8), never a drawn mockup (47c) |

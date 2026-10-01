@@ -31,6 +31,7 @@ Every Hallmark output writes these tokens (or a subset, if the page doesn't use 
 | `--color-field` | colour | (Committed posture only: the carried colour) |
 | `--color-accent-2` | colour | (a second ink, only on a theme that names it) |
 | `--color-focus` | colour | (often = accent at higher chroma) |
+| `--color-error` / `--color-success` | colour | form states; the scaffold's defaults, a theme may override |
 | `--font-display` | font | `"Fraunces", ui-serif, Georgia, serif` |
 | `--font-body` | font | `"Geist", ui-sans-serif, system-ui, sans-serif` |
 | `--font-outlier` | font | `"Geist Mono", ui-monospace, monospace` |
@@ -38,7 +39,7 @@ Every Hallmark output writes these tokens (or a subset, if the page doesn't use 
 | `--text-xs` … `--text-display` | length | 1.25 (major-third) ratio scale |
 | `--ease-out` / `--ease-in` / `--ease-in-out` | easing | `cubic-bezier(0.16, 1, 0.3, 1)` etc. |
 | `--dur-micro` / `--dur-short` / `--dur-long` | time | `120ms` / `220ms` / `420ms` |
-| `--rule-hair` / `--rule-fine` | length | `1px` / `2px` |
+| `--rule-hair` / `--rule-bar` | length | `1px` / `2px` to `5px` (a theme that draws heavy rules names `--rule-bar`) |
 | `--radius-card` / `--radius-pill` / `--radius-input` | length | varies per theme |
 | `--shadow-card` | shadow | varies per theme |
 | `--z-base` … `--z-tooltip` | integer | 1, 10, 100, 200, 300, 400, 500, 600 |

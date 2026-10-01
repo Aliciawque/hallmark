@@ -58,6 +58,7 @@ Riso's signature, portable to any print-lineage custom:
 Arcade's recipe; the retro signal is atmosphere, never a drawn monitor bezel (47a):
 
 ```css
+:root { --scanline: oklch(from var(--color-ink) l c h / 0.06); }
 body::after { content: ""; position: fixed; inset: 0; z-index: var(--z-raised);
   pointer-events: none;
   background: repeating-linear-gradient(transparent 0 2px, var(--scanline) 2px 3px); }

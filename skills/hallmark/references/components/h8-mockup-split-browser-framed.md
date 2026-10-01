@@ -7,7 +7,7 @@ Headline left, one real capture right, set like a plate in a catalogue: a `<figu
 <section class="hero-plate">
   <div class="hero-plate__copy"><h1>…</h1><p>…</p><a class="cta-outline" href="#">…</a></div>
   <figure class="hero-plate__figure">
-    <div class="hero-plate__capture" data-slot="hero"><!-- the user's capture, or the theme's placeholder (craft § 8) --></div>
+    <div class="hero-plate__capture" data-slot="hero"><!-- the user's capture, or the theme's placeholder (`craft.md` § 8) --></div>
     <figcaption>…</figcaption>
   </figure>
 </section>

@@ -1,7 +1,7 @@
 ### F3 · Tabular spec sheet
 Each row is a feature: name, value, note. Hairline rules between rows, tabular numerals.
 *Use when:* features compare as numbers.
-*Not:* F1 (rhythmic, not tabular); a card around a table (craft § 9). Every value is the user's and carries its source; a row with neither is dropped (46a).
+*Not:* F1 (rhythmic, not tabular); a card around a table (`craft.md` § 9). Every value is the user's and carries its source; a row with neither is dropped (46a).
 
 ```html
 <table class="spec-sheet">
@@ -27,4 +27,4 @@ Each row is a feature: name, value, note. Hairline rules between rows, tabular n
 
 ## Mobile
 
-- Below 40rem: the table scrolls sideways in a wrapper (craft § 9); the note column drops.
+- Below 40rem: the table scrolls sideways in a wrapper (`craft.md` § 9); the note column drops.

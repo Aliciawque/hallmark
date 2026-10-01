@@ -85,11 +85,21 @@ if (!picked.length) {
   process.exit(1);
 }
 
+const { execFileSync } = await import("node:child_process");
 try {
-  const { execFileSync } = await import("node:child_process");
   execFileSync(process.execPath, [path.join(HERE, "theme.mjs"), "index"], { stdio: DRY ? "ignore" : "inherit" });
 } catch {
   console.log("  (theme index not rebuilt; run node scripts/theme.mjs index)");
+}
+const gate = (label, argv) => {
+  try { execFileSync(process.execPath, argv, { stdio: "pipe" }); return true; }
+  catch (e) { console.log(`\n${label} failed:\n${String(e.stdout || "").trim()}`); return false; }
+};
+const themeFiles = fs.readdirSync(path.join(SKILL_ROOT, "references", "themes")).filter((f) => f.endsWith(".md")).map((f) => path.join(SKILL_ROOT, "references", "themes", f));
+const clean = gate("refcheck", [path.join(HERE, "refcheck.mjs"), "--errors"]) & gate("theme validate", [path.join(HERE, "theme.mjs"), "validate", ...themeFiles]);
+if (!clean && !has("--force")) {
+  console.log("\nNothing installed. Fix the findings above, or pass --force to install anyway.");
+  process.exit(1);
 }
 console.log(`Hallmark installer${DRY ? " (dry run)" : ""} · payload: ${PAYLOAD.join(", ")}`);
 

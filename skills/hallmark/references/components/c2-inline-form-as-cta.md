@@ -1,7 +1,7 @@
 ### C2 · Inline form as CTA
 The CTA is the form: one email field and a verb button on the same rule. No separate sign-up page.
 *Use when:* the action is collecting an email.
-*Not:* a two-step flow ("Continue" is for a second step); a field and a button sharing one border (craft § 9); a button that says "Submit" (craft § 6).
+*Not:* a two-step flow ("Continue" is for a second step); a field and a button sharing one border (`craft.md` § 9); a button that says "Submit" (`craft.md` § 6).
 
 ```html
 <form class="cta-form" action="/subscribe" method="post">

@@ -82,7 +82,7 @@ The same SKILL.md, references, gates and scripts run in **Claude Code**, **Codex
 node skills/hallmark/scripts/sloplint.mjs <file-or-dir> --genre <genre> --render
 ```
 
-One command installs a lean copy (skill, references, scripts, about 1.2 MB, never the marketing site) everywhere it belongs, rebuilding the theme index on the way:
+One command installs a lean copy (skill, references, scripts, never the marketing site) everywhere it belongs. On the way it rebuilds the theme index and runs `scripts/refcheck.mjs`, which reads every reference file for dead links, missing sections, retired gate numbers, unknown tokens, stale stamps and sample copy that breaks a gate; the install stops if it finds one:
 
 ```bash
 node skills/hallmark/scripts/install.mjs
