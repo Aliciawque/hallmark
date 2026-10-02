@@ -8,6 +8,6 @@ Then the findings, ranked by cost to the page, at most eight, one line each: the
 
 Then one answer to the question no gate can: does the stamp's contract or theme describe the page in front of you? Name the largest gap, or say there is none.
 
-On a redesign you also get the `before` screenshots. Add one answer: what did the old page do better? Name anything a visitor could do, read or find before that is harder now; if nothing, say so.
+On a redesign you also get the `before` screenshots, and the content is fixed: never ask for copy, an action or a visual the old page did not have. Add one answer: what did the old page do better? Name anything a visitor could do, read or find before that is harder now; if nothing, say so. On a polish you get only the full pages at 1440, before and after: the layout was kept on purpose, so ask one thing, whether anything still reads as machine-made, in at most five findings.
 
 Close with one line naming what must not be diluted while fixing. Do not fix anything.

@@ -118,6 +118,10 @@ export async function renderCheck(htmlFiles, metaIn) {
       try {
         const scriptErrors = [];
         page.on('pageerror', (e) => scriptErrors.push(String((e && e.message) || e).split('\n')[0]));
+        const lost = new Set();
+        const lostName = (u) => { try { const x = new URL(u); return x.protocol === 'file:' ? x.pathname.split('/').pop() : x.host; } catch { return String(u).slice(0, 40); } };
+        page.on('requestfailed', (r) => { if (['stylesheet', 'font'].includes(r.resourceType())) lost.add(lostName(r.url())); });
+        page.on('response', (r) => { try { if (r.status() >= 400 && ['stylesheet', 'font'].includes(r.request().resourceType())) lost.add(lostName(r.url())); } catch {} });
         await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]).catch(() => {});
         const nav = await page.goto(isUrl(file) ? file : 'file://' + file, { waitUntil: isUrl(file) ? 'networkidle0' : 'load', timeout: 30000 }).then((r) => ({ r }), (e) => ({ e }));
         if (nav.e && !/timeout/i.test(nav.e.message)) throw nav.e;
@@ -213,6 +217,7 @@ export async function renderCheck(htmlFiles, metaIn) {
           if (cut.words >= 40) findings.push({ gate: 'F25', grade: 'WARN', file, line: 1, evidence: `[375px] ${cut.words} words shown at 1440 are hidden on a phone (first: "${cut.first}")`, fix: 'If it matters, make it work on a phone; if it does not, cut it everywhere' });
         }
         if (scriptErrors.length) findings.push({ gate: 'render', grade: 'FAIL', file, line: 1, evidence: `a script threw on load: ${scriptErrors[0].slice(0, 90)}`, fix: 'Fix the script; a page that throws ships half-working' });
+        if (lost.size) findings.push({ gate: 'render', grade: 'WARN', file, line: 1, evidence: `the shots show a fallback: fonts or stylesheets did not load (${[...lost].slice(0, 2).join(', ')})`, fix: 'Recapture when the host answers or the path is right; never review or sign off a fallback face' });
       } catch (e) {
         console.error(`render tier: failed on ${file}: ${e.message}`);
         failed.push({ file, message: e.message });

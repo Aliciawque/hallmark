@@ -2097,7 +2097,7 @@ function check49(ctx) {
       if (t.close || t.selfClosing) continue;
       const cls = getAttr(t.attrs, 'class') || '';
       const clickable = t.name === 'button' || (t.name === 'a' && /btn|cta|button|nav/i.test(cls))
-        || /(^|\s)(btn|cta|button)(\s|$|__|--)/i.test(cls);
+        || (/(^|\s)(btn|button)(\s|$|__|--)/i.test(cls) && !/^(section|header|footer|main|article|aside|nav|form|ul|ol)$/.test(t.name));
       if (!clickable) continue;
       const inner = innerOf(doc, i);
       if (!inner) continue;
@@ -2348,8 +2348,13 @@ function checkCopyTell(ctx) {
     const prose = maskedProse(doc);
     const m = /\w\s--\s\w|[\u2014\u2013]|&mdash;|&ndash;|&#8212;|&#8211;/.exec(prose);
     if (m) report(19, 'FAIL', doc.file, doc.lineOf(m.index), `dash "${m[0]}" in copy`, 'A comma, a colon, a full stop or parentheses; never a dash');
-    const buzz = /\b(seamless(ly)?|robust|empower(s|ing)?|supercharge[sd]?|best[- ]in[- ]class|industry[- ]leading|mission[- ]critical|future[- ]proof(ed)?|unleash(es|ed|ing)?|elevate[sd]?|effortless(ly)?|unlock(s|ing)?|next[- ]generation|world[- ]class|cutting[- ]edge|streamline[sd]?|revolutioni[sz]e[sd]?|game[- ]chang(er|ing)|enterprise[- ]grade|quietly (trusted|in use)|built for the modern|in today's)\b/i.exec(prose);
-    if (buzz) report(19, 'FAIL', doc.file, doc.lineOf(buzz.index), `buzzword "${buzz[0]}"`, 'Say what the product does, in its own nouns');
+    const seenBuzz = new Set();
+    for (const buzz of prose.matchAll(new RegExp(/\b(seamless(ly)?|robust|empower(s|ing)?|supercharge[sd]?|best[- ]in[- ]class|industry[- ]leading|mission[- ]critical|future[- ]proof(ed)?|unleash(es|ed|ing)?|elevate[sd]?|effortless(ly)?|unlock(s|ing)?|next[- ]generation|world[- ]class|cutting[- ]edge|streamline[sd]?|revolutioni[sz]e[sd]?|game[- ]chang(er|ing)|enterprise[- ]grade|quietly (trusted|in use)|built for the modern|in today's)\b/.source, 'gi'))) {
+      const word = buzz[0].toLowerCase();
+      if (seenBuzz.has(word) || seenBuzz.size >= 8) continue;
+      seenBuzz.add(word);
+      report(19, 'FAIL', doc.file, doc.lineOf(buzz.index), `buzzword "${buzz[0]}"`, 'Say what the product does, in its own nouns');
+    }
     const cadence = prose.match(/(^|[.!?]\s+)(not|no)\s+[a-z][^.!?\n]{0,40}[.]\s+(just|only|a|an)?\s*[a-z][^.!?\n]{0,40}[.]/gi) || [];
     if (cadence.length >= 3) report(19, 'FAIL', doc.file, doc.lineOf(prose.indexOf(cadence[0].trim()) || 0), `rebuttal cadence repeated ${cadence.length} times ("${trunc(cadence[0].trim(), 40)}")`, 'Once is voice; three times is a tic');
   }
@@ -2956,6 +2961,14 @@ function check19Tells(ctx) {
       const m = re.exec(prose);
       if (m) tell(m.index, what, m[0]);
     }
+    const stock = [];
+    for (let i = 0; i < doc.tags.length; i++) {
+      const t = doc.tags[i];
+      if (t.close || t.name !== 'a') continue;
+      const label = plainText(innerOf(doc, i)?.inner || '').replace(/[\u2192\u203a\u00bb]|->/g, '').trim();
+      if (/^(learn more|read more|find out more|click here|more info|see more)$/i.test(label)) stock.push({ t, label });
+    }
+    if (stock.length >= 2) report(19, 'WARN', doc.file, stock[0].t.line, `stock link label "${stock[0].label}" x${stock.length}`, 'Say where each link goes: the thing it opens, in its own noun');
     for (let i = 0; i < doc.tags.length; i++) {
       const t = doc.tags[i];
       if (t.close || !/^h[1-6]$/.test(t.name)) continue;
@@ -4078,7 +4091,12 @@ function wiringOf(src) {
   const w = { handlers: [], links: [], fields: [], hooks: [], ids: [], scripts: [] };
   const val = String.raw`("[^"]*"|'[^']*'|\{(?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})*\})`;
   for (const m of body.matchAll(new RegExp(String.raw`(?<![\w-])(on[A-Z]\w*|on:[\w|]+|@[a-z][\w.:-]*|v-on:[\w.:-]+|on(?:click|submit|change|input|keydown|keyup|blur|focus))\s*=\s*` + val, 'g'))) w.handlers.push(`${m[1]}=${squash(m[2])}`);
-  for (const m of body.matchAll(new RegExp(String.raw`(?<![\w:-])(?:href|to|action)\s*=\s*` + val, 'g'))) { const v = squash(m[1]).replace(/^["']|["']$/g, '').replace(/^\.\//, ''); if (v && v !== '#') w.links.push(v); }
+  for (const m of body.matchAll(new RegExp(String.raw`(?<![\w:-])(?:href|to|action)\s*=\s*` + val, 'g'))) {
+    const tag = (/<([A-Za-z][\w.-]*)[^<]*$/.exec(body.slice(Math.max(0, m.index - 600), m.index)) || [])[1] || '';
+    if (/^(link|base|use|image|script|style)$/i.test(tag)) continue;
+    const v = squash(m[1]).replace(/^["']|["']$/g, '').replace(/^\.\//, '');
+    if (v && v !== '#') w.links.push(v);
+  }
   for (const m of body.matchAll(/(?<![\w-])name\s*=\s*["']([^"']+)["']/g)) {
     const tag = (/<([A-Za-z][\w.-]*)[^<]*$/.exec(body.slice(Math.max(0, m.index - 600), m.index)) || [])[1] || '';
     if (!/^(meta|slot|iframe|param|a|map|object|link)$/i.test(tag)) w.fields.push(m[1]);
@@ -4146,7 +4164,7 @@ if (opts.kept) {
     const outside = Object.keys(was.files || {}).filter((f) => !(f in now.files) && existsSync(resolve(f)));
     if (was.files) was.wiring = unionWiring(Object.entries(was.files).filter(([f]) => !outside.includes(f)).map(([, w]) => w));
     const stamps = contexts.map(([, c]) => c.stampText).join('\n');
-    const allowed = [...stamps.matchAll(/\/\*\s*Hallmark\s*·\s*dropped\s+([^·*]+?)\s*·\s*([^*]+?)\s*\*\//gi)].filter((m) => m[2].trim().length >= 12).flatMap((m) => m[1].split(',').map((t) => t.trim().replace(/^[`"']|[`"']$/g, '').toLowerCase()).filter(Boolean));
+    const allowed = [...stamps.matchAll(/\/\*\s*Hallmark\s*·\s*(dropped|reworded)\s+([^·*]+?)\s*·\s*([^*]+?)\s*\*\//gi)].filter((m) => m[3].trim().length >= 12).flatMap((m) => (m[1].toLowerCase() === 'reworded' ? [...m[2].matchAll(/"([^"]+)"/g)].map((q) => q[1]) : m[2].split(',')).map((t) => t.trim().replace(/^[`"']|[`"']$/g, '').toLowerCase()).filter(Boolean));
     const acked = {};
     const gone = (a, b, cat) => (a || []).filter((x) => {
       if ((b || []).includes(x)) return false;
@@ -4180,7 +4198,7 @@ if (opts.kept) {
       wordsWas += b.words || 0; wordsNow += a.words || 0;
     }
     const list = (set, n = 8) => { const a = [...set]; return a.slice(0, n).map((x) => trunc(x, 48)).join(', ') + (a.length > n ? ` and ${a.length - n} more` : ''); };
-    const fix = 'Restore each one, or record it in the stamp: /* Hallmark · dropped <item>, <item> · <the reason, in the user\'s words> */';
+    const fix = 'Restore each one, or record it in the stamp: /* Hallmark · dropped <item>, <item> · <the reason> */';
     total['script hooks'] = new Set(); hard['script hooks'] = new Set();
     for (const [f, h] of Object.entries(was.scripts || {})) {
       if (outside.includes(f)) continue;
@@ -4207,7 +4225,7 @@ if (opts.kept) {
       }
     }
     for (const [k, set] of Object.entries(hard)) if (set.size) report('kept', 'FAIL', SNAP, 1, k === 'script hooks' ? `a script still queries what its page no longer has: ${list(set)}` : k === 'forms' ? `a form lost what it had before: ${list(set)}` : `${k} the page had before and no longer has: ${list(set)}`, k === 'script hooks' ? 'Keep the ids, classes and attributes scripts query, or change the script with the markup' : fix);
-    for (const [k, set] of Object.entries(soft)) if (set.size) report('kept', 'WARN', SNAP, 1, `${k} gone or reworded since the before record: ${list(set)}`, 'Confirm each was meant to go, restore it, or record it as dropped in the stamp');
+    for (const [k, set] of Object.entries(soft)) if (set.size) report('kept', 'WARN', SNAP, 1, `${k} gone or reworded since the before record: ${list(set)}`, 'Restore it, or record it in the stamp: /* Hallmark · reworded "<old>" to "<new>" · <the gate that named it> */ or dropped <item> · <the reason>');
     if (wordsWas > 80 && wordsNow < wordsWas * 0.6) report('kept', 'WARN', SNAP, 1, `the pages hold ${wordsNow} words where they held ${wordsWas}`, 'Check that no section of content was dropped');
     if (skipped.length) report('kept', 'WARN', SNAP, 1, `not compared, because this run did not render them: ${list(skipped, 4)}`, 'Render the same pages or URLs the before record holds');
     if (outside.length) report('kept', 'WARN', SNAP, 1, `not compared, because this run did not read them: ${list(outside, 4)}`, 'Run --kept on the same target as --before');

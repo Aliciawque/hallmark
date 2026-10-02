@@ -92,4 +92,4 @@ An observer on an 80px sentinel at the top of the page flips the class once per 
 
 ## Mobile
 
-- Below 60rem: the morph is off and the links go behind a menu control; wordmark, menu and action stay in the pill. Below 40rem: a corner chip, wordmark left, menu right.
+- Below 60rem: the morph is off and links that no longer fit go behind a menu control (two or three short ones that fit stay in the pill, `craft.md` § 9); wordmark, menu and action stay in the pill. Below 40rem: a corner chip, wordmark left, menu right.

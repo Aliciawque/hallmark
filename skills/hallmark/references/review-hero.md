@@ -13,4 +13,6 @@ Then at most five findings, one line each, worst first. Ask:
 - Does the type carry the theme at this size?
 - With the theme's picture: is this first screen as finished as its first screen, in a composition of its own?
 
+On a redesign the page's content is fixed and what sits below the first screen is the old page, not yet rebuilt: neither is a finding. Never ask for copy, an action or a visual the page does not have; say in one line what the owner could supply.
+
 What the theme file prescribes (its blooms, its control pair) or refuses is not a finding. Do not fix anything.
