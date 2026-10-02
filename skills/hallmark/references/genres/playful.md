@@ -21,6 +21,6 @@ Saturated consumer pinks and violets without a declared posture; Comic-style fac
 
 ## Chrome that fits
 
-A heavy slab bar, a dense bar with rounded knobs, a banner, a marquee footer. A masthead or a blur pill fights the register. Affinities, not assignments.
+A heavy slab bar, a dense bar with rounded knobs, a banner, a marquee footer. A masthead or a blurred pill fights the register; a solid pill does not. Affinities, not assignments.
 
 Stamp: `genre: playful`.

@@ -1287,10 +1287,15 @@ function check11(ctx) {
 
 function check12(ctx) {
   const uiSel = /:hover|:active|:focus|\b(btn|button|modal|dialog|tooltip|dropdown|menu|popover|toast|tab|input|select|switch|toggle|accordion)\b/i;
+  const playful = ctx.genre === 'playful' || /genre:\s*playful/.test(ctx.stampText || '');
+  const declared = playful && /--ease-spring/.test(Object.keys(ctx.tokens).join(' '));
+  const springHome = (r) => /primary|cta|press|character|mascot|hero__btn|btn--solid|btn--main/i.test(r.selector);
+  const springSels = new Set();
   for (const r of ctx.rules) {
     if (!uiSel.test(r.selector)) continue;
     for (const d of r.decls) {
       if (!/transition|animation/.test(d.prop)) continue;
+      if (declared && /var\(--ease-spring\)/.test(d.value) && springHome(r) && (springSels.add(baseSelector(r.selector).split(':')[0]), springSels.size <= 2)) continue;
       const re = /cubic-bezier\(\s*([-\d.]+)\s*,\s*([-\d.]+)\s*,\s*([-\d.]+)\s*,\s*([-\d.]+)\s*\)/g;
       let m;
       while ((m = re.exec(resolveVars(d.value, ctx.tokens)))) {

@@ -39,7 +39,7 @@ Cream pulled toward pear-yellow, three accents that never blend, Chillax for eve
 
 - **Display:** Chillax 600, `--tracking-display`, sentence case.
 - **Body:** Chillax 400 with 500 for inline emphasis; no serif anywhere.
-- **Labels, captions, table heads, meta, units, ordinals:** Chillax 500 one step smaller, sentence case, `--color-muted`. Mono appears only inside code.
+- **Labels, captions, table heads, meta, units, ordinals:** Chillax 500 one step smaller, sentence case, `--color-muted`; an ordinal sits outside its heading as the list's counter, and a number inside a heading takes the heading's weight and colour. Mono appears only inside code.
 
 ## Material
 
@@ -50,7 +50,7 @@ Cream pulled toward pear-yellow, three accents that never blend, Chillax for eve
 
 ## Motion
 
-Spring posture declared: gate 12 is waived on the primary CTA and on the one character moment only, both on `--ease-spring`; everything else eases out on `--ease-snap`. The press runs 140ms on hover, 70ms on active, no `scale()`. Cards lift 4px over 220ms. The character mark breathes at rest on a 4s period. Nothing else moves: no count-up, no staggered heads, no burst.
+Spring posture declared: gate 12 allows the spring on the primary CTA and on the one character moment only, both on `--ease-spring`, with no waiver; everything else eases out on `--ease-snap`. The press runs 140ms on hover, 70ms on active, no `scale()`. Cards lift 4px over 220ms. The character mark breathes at rest on a 4s period. Nothing else moves: no count-up, no staggered heads, no burst.
 
 ## Voice
 

@@ -3,7 +3,7 @@ import { existsSync, mkdirSync } from 'node:fs';
 import { join, dirname, basename, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const WIDTHS = [320, 375, 414, 768, 1280, 1920];
+const WIDTHS = [320, 375, 414, 768, 1024, 1280, 1920];
 const CHROMES = ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', '/Applications/Chromium.app/Contents/MacOS/Chromium', '/usr/bin/google-chrome', '/usr/bin/google-chrome-stable', '/usr/bin/chromium', '/usr/bin/chromium-browser', '/snap/bin/chromium', 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'];
 const isUrl = (t) => /^https?:\/\//.test(t);
 const slugOf = (t) => isUrl(t) ? t.replace(/^https?:\/\//, '').replace(/[^\w.-]+/g, '-').replace(/-+$/, '') : basename(t, '.html');
@@ -563,6 +563,12 @@ function observeSpace(atLaptop, heroOnly, heroPosture) {
     }
     if (!heroOnly && secs.length > 9) push(59, 'WARN', `${secs.length} sections`, 'Four to eight sections a page; merge or cut');
     if (!heroOnly) {
+      for (const sl of document.querySelectorAll('[data-slot]')) {
+        const cs = getComputedStyle(sl);
+        if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+        const r = sl.getBoundingClientRect();
+        if (r.width < 40 || r.height < 40) { push('F18', 'WARN', `slot "${sl.getAttribute('data-slot')}" renders at ${Math.round(r.width)} x ${Math.round(r.height)}px`, 'The slot collapsed: give it a width from its track and a real aspect-ratio, never a percentage of a shrink-to-fit parent'); break; }
+      }
       for (const e of document.querySelectorAll('p, li, dd, td, th, h2, h3, h4, figcaption, blockquote')) {
         if (!vis(e) || e.closest('nav, svg, [aria-hidden="true"]')) continue;
         const t = (e.innerText || '').trim();

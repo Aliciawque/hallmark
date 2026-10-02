@@ -1,6 +1,6 @@
 ### N5 · Floating pill
 A rounded, content-sized nav, visibly detached from the edges, `--space-md` from the top, a blurred backdrop and a hairline ring. It is a pill from the first paint, or it starts as a full bar and morphs into the pill once the reader scrolls.
-*Use when:* modern-minimal or atmospheric pages where the hero has a surface or imagery for the blur to sit over; the morph only when one kinetic moment earns its place on the page.
+*Use when:* modern-minimal or atmospheric pages where the hero has a surface or imagery for the blur to sit over, or a playful page with the pill on solid paper and no blur; the morph only when one kinetic moment earns its place on the page.
 *Not:* N9 (edge-aligned, in flow); N2 (a corner chip). A pill 95% of the viewport wide is a full width bar with round ends; if the links push it past 720px, drop a link or use N9.
 
 ```html

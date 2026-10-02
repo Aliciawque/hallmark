@@ -10,18 +10,18 @@ Loaded at Step 4, only when the hero may carry imagery. Run the image-need check
 
 ## Image-need check: does this brief want imagery at all?
 
-The default is typography only. Match the brief against this table and act on the first row that fires:
+The default is typography only. Match the brief against this table and act on the first row that fires; the product decides the row, not its subject (an app about bread takes the app row):
 
 | Brief signal | Image strategy |
 | --- | --- |
+| API, docs, changelog, CLI, library, SDK, package | No imagery. Typography only; code blocks if needed |
+| SaaS landing, app, platform, dashboard, developer tool | A real capture in a slot: E4 (screenshot) or E1 (demo video). No capture, a designed placeholder (`craft.md` § 8), never a drawn mockup (47c) |
 | e-commerce, shop, store, product catalogue, brand, fashion, lookbook | Real product photos; until the user provides them, one hero slot and the range in type (68) |
 | photography, portfolio, gallery, artist | Imagery is the page; slots until the user provides it |
 | food, restaurant, menu, dish, coffee, wine, recipe | A hero photo and product crops; until the user provides them, one hero slot and the dishes in type (68) |
 | team, staff, about us, portraits, hiring, careers | A team `data-slot` sized for the user's real photos; kit avatars ([`imagery-kit.md`](imagery-kit.md) § Categories) may hold the slot with no name, title or quote attached; never pravatar, dicebear or unsplash faces (F9) |
 | travel, hotel, destination, real estate, listing, property | A cover photo and tile photos; until the user provides them, one cover slot and the places in type (68) |
 | news, blog, magazine, journal, publication | A feature image per post; until the user provides them, one slot on the lead post and the rest in type (68) |
-| API, docs, changelog, CLI, library, SDK, package | No imagery. Typography only; code blocks if needed |
-| SaaS landing, platform, dashboard, developer tool | A real capture in a slot: E4 (screenshot) or E1 (demo video). No capture, a designed placeholder (`craft.md` § 8), never a drawn mockup (47c) |
 | atmospheric, slow and editorial | E7 (a two-colour gradient with grain) or E6 (one small loop), built in-page at tier A or B; any external asset obeys [`imagery-kit.md`](imagery-kit.md) (no URL outside its manifest) and [`assets.md` § Placeholder strategy](assets.md) |
 | agency, studio | E8 photography, or none |
 | manifesto, essay, letter, foundry, type specimen, broadside | No imagery. Display typography is the design |
