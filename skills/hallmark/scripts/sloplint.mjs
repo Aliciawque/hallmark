@@ -4311,7 +4311,7 @@ let compareNote = null;
 if (opts.kept && opts.render && !renderNotRun) {
   try {
     const mod = await import(new URL('./sloplint-render.mjs', import.meta.url).href);
-    const made = mod.writeCompare([...files.filter((f) => extname(f).toLowerCase() === '.html'), ...opts.urls], keptNote ? keptNote.replace(/^kept: /, 'Kept: ').replace('; before ', '. Before: ').replace(', now ', '; now: ') + '.' : null);
+    const made = mod.writeCompare([...files.filter((f) => extname(f).toLowerCase() === '.html'), ...opts.urls], keptNote ? keptNote.replace(/^kept: /, 'Kept: ').replace(/; before (\d+) FAIL, (\d+) REFLEX, now (\d+) FAIL, (\d+) REFLEX/, '. Floor findings: $1 before, $3 now. Reflex findings: $2 before, $4 now') + '.' : null);
     if (made.length) compareNote = `compare: ${made.map(rel).join(', ')} shows before and after side by side`;
   } catch {}
 }
