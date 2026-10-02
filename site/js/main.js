@@ -38,6 +38,15 @@ document.querySelectorAll(".reveal").forEach((el) => el.classList.add("is-in"));
   // On touch devices, the autoplay attribute already runs the loop.
 }
 
+/* Reduced motion: hold every autoplaying demo loop on its first frame. */
+if (reduced) {
+  document.querySelectorAll("video[autoplay]").forEach((video) => {
+    video.removeAttribute("autoplay");
+    video.loop = false;
+    try { video.pause(); video.currentTime = 0; } catch (_) {}
+  });
+}
+
 /* — Theme registry ————————————————————————————————————— */
 const THEMES = {
   hum: "Hum",
@@ -801,10 +810,10 @@ const ordinalEl   = document.querySelector("[data-theme-ordinal]");
 const themeKeys   = Object.keys(THEMES);
 const totalThemes = themeKeys.length;
 
-function setPressed(theme) {
+function setSelected(theme) {
   dots.forEach((btn) => {
     const active = btn.dataset.themeBtn === theme;
-    btn.setAttribute("aria-pressed", active ? "true" : "false");
+    btn.setAttribute("aria-selected", active ? "true" : "false");
   });
   const themeName = THEMES[theme] || "Specimen";
   const genre = THEME_GENRES[theme] || "editorial";
@@ -828,11 +837,12 @@ function applyTheme(theme) {
   const apply = () => {
     root.dataset.theme = theme;
     swapArchetypes(theme);
-    setPressed(theme);
+    setSelected(theme);
     try { localStorage.setItem(STORAGE_KEY, theme); } catch (e) { }
   };
   if (!reduced && document.startViewTransition) {
-    document.startViewTransition(apply);
+    const vt = document.startViewTransition(apply);
+    if (vt && vt.ready) vt.ready.catch(() => {});
   } else {
     apply();
   }
@@ -846,14 +856,15 @@ const stored = (() => {
 })();
 const initial = THEMES[queried] ? queried
   : THEMES[stored] ? stored
-    : (root.dataset.theme || "hum");
+    : THEMES[root.dataset.theme] ? root.dataset.theme
+      : "hum";
 
 // First paint — populate slots without a transition (no flash).
-// Run swapArchetypes BEFORE setPressed so the footer template is materialised
-// before setPressed writes the current-theme name into it.
+// Run swapArchetypes BEFORE setSelected so the footer template is materialised
+// before setSelected writes the current-theme name into it.
 root.dataset.theme = initial;
 swapArchetypes(initial);
-setPressed(initial);
+setSelected(initial);
 try { localStorage.setItem(STORAGE_KEY, initial); } catch (e) { }
 
 dots.forEach((btn) => {
@@ -1089,14 +1100,13 @@ dots.forEach((btn) => {
     lastConfirmed = root.dataset.theme;
     clearTimeout(previewTimer);
     previewTimer = setTimeout(() => {
+      if (root.dataset.theme !== lastConfirmed) return;
       if (currentLabel) currentLabel.textContent = THEMES[btn.dataset.themeBtn];
     }, 80);
   });
   btn.addEventListener("mouseleave", () => {
     clearTimeout(previewTimer);
-    if (currentLabel && root.dataset.theme === lastConfirmed) {
-      currentLabel.textContent = THEMES[lastConfirmed];
-    }
+    if (currentLabel) currentLabel.textContent = THEMES[root.dataset.theme];
   });
 });
 
