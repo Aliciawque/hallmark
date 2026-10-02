@@ -1,5 +1,5 @@
 ### H2 · Split
-Headline, one sentence and the action on one side; one visual on the other, beside the text (vertical centres within 60px, 48 to 120px apart, 44c). The visual is the page's proof, so it is real material or a labelled slot, never a drawn product (47c).
+Headline, one sentence and the action on one side; one visual on the other, beside the text (vertical centres within 60px, 48 to 120px apart, 44c). The visual is the page's proof, so it is real material, a labelled slot, or a built drawing of the thing itself where the theme builds one, never a drawn screen or dashboard (47c).
 *Use when:* the claim has something to show.
 *Not:* H6 (the photograph fills the fold); a visual pinned to the viewport corner beside a text block hugging the opposite edge, the most recognisable machine-made hero there is.
 

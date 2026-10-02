@@ -60,7 +60,7 @@ One message, even on a five-word brief:
 
 Skipped fields are opt-outs: infer them, state the inferences in one line at the top of the reply, stamp them. No follow-up ladders. Material is never inferred: what was not given is a slot or is absent.
 
-**Genre** is picked here, silently, from the brief: *AI tool, generative, music, video, voice, dark, atmospheric* → **atmospheric**; *SaaS, enterprise, API, platform, developer tool, infra, B2B* → **modern-minimal**; *fun, consumer, casual, family, community, onboarding* → **playful**; otherwise **editorial**. Two non-default signals: a named theme's genre settles it, else ask one either-or.
+**Genre** is picked here, silently, from the brief: *AI tool, generative, music, video, voice, dark, atmospheric* → **atmospheric**; *SaaS, enterprise, API, platform, developer tool, infra, B2B* → **modern-minimal**; *fun, consumer, casual, family, community, onboarding* → **playful**; otherwise **editorial**. A named theme's genre wins; else, on two non-default signals, ask one either-or.
 
 **Scope** is checked here too. A brief naming one element (button, input, card, modal, nav, footer, tab strip, chip) or saying "just the X" is a component: read [`references/flow.md`](references/flow.md) § Component scope and skip macrostructure, chrome, enrichment and the log.
 

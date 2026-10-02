@@ -16,6 +16,7 @@ The default is typography only. Match the brief against this table and act on th
 | --- | --- |
 | API, docs, changelog, CLI, library, SDK, package | No imagery. Typography only; code blocks if needed |
 | SaaS landing, app, platform, dashboard, developer tool | A real capture in a slot: E4 (screenshot) or E1 (demo video). No capture, a designed placeholder (`craft.md` § 8), never a drawn mockup (47c) |
+| music, record, EP, album, release, label, band | The release's cover in a slot, or the theme's drawn record or tape; never a stock studio photo |
 | e-commerce, shop, store, product catalogue, brand, fashion, lookbook | Real product photos; until the user provides them, one hero slot and the range in type (68) |
 | photography, portfolio, gallery, artist | Imagery is the page; slots until the user provides it |
 | food, restaurant, menu, dish, coffee, wine, recipe | A hero photo and product crops; until the user provides them, one hero slot and the dishes in type (68) |

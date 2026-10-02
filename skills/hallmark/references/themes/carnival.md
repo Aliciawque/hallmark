@@ -8,13 +8,13 @@ accent: chromatic-yellow 95
 posture: full-palette
 keywords: record label, podcast, comedy, indie, zine, poster, illustrator, games, hot sauce, merch, streetwear, cassette, vinyl, live show, festival, loud, maximalist, scrappy
 material: tinted paper, a duo-tone pair that competes instead of blending, Big Shoulders Display 800 in its heavy width, 2px rules, a flat ink shadow offset four pixels
-signature: a mustard tile with a 4px hard ink shadow beside an oxblood tile with the same, an ornament divider between them
+signature: the duo, mustard against oxblood, each on a 4px hard ink shadow, given to whatever the page pairs (two formats, two acts, two dates), never a fixed pair of tiles
 pictured: Split Studio, Poster hero
 ---
 
 # Carnival
 
-Tinted paper, two accents that compete across surfaces and never blend, Big Shoulders Display 800, 2px rules, and a 4px ink shadow with zero blur. The signature is a mustard tile and an oxblood tile side by side, each on its hard shadow, an ornament between them.
+Tinted paper, two accents that compete across surfaces and never blend, Big Shoulders Display 800, 2px rules, and a 4px ink shadow with zero blur. The signature is the duo: mustard and oxblood competing on two objects the brief itself pairs, each on its hard shadow, an ornament between them; the pair of plain tiles in the picture is one answer, not the layout.
 
 ## Tokens
 

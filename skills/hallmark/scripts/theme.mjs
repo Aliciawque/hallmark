@@ -238,7 +238,8 @@ h1, h2, h3 { margin: 0; font-family: var(--font-display); letter-spacing: var(--
 h1 { max-width: 20ch; } h2 { max-width: 30ch; } h3 { max-width: 40ch; }
 p { margin: 0; text-wrap: pretty; }
 p:not([class]) { max-width: 65ch; }
-img, svg, video { max-width: 100%; height: auto; display: block; }
+img, video { max-width: 100%; height: auto; display: block; }
+svg { display: block; }
 button, input, select, textarea { font: inherit; }
 .container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); box-sizing: border-box; }
 .num, .figure, td.num { font-variant-numeric: tabular-nums; }
@@ -287,7 +288,8 @@ function scaffold() {
   console.log(stamp);
   console.log('/* Hallmark · pre-emit critique: P_ H_ E_ S_ R_ V_ · weakest: _, <what you did about it> */');
   console.log('@import url("./tokens.css");');
-  console.log(BASE);
+  const own = !custom && /## Build hint[\s\S]*?(::selection\s*\{[^}]*\})/.exec(readFileSync(join(THEMES, `${slug}.md`), 'utf8'));
+  console.log(own ? BASE.replace(/::selection \{[^}]*\}/, own[1].replace(/\s+/g, ' ')) : BASE);
   console.log('');
   console.log('and, only if the page has data-slot containers, once before </body>:');
   console.log('');
