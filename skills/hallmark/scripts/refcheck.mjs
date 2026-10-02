@@ -317,6 +317,25 @@ for (const [name, ok, msg] of existsSync(FIX) ? expectations : []) {
   else if (!ok(j)) add('error', target, 1, 'fixture', msg);
 }
 
+const REPO = resolve(ROOT, '..', '..');
+const pkgFile = join(REPO, 'package.json');
+if (existsSync(pkgFile)) {
+  let pkg = null;
+  try { pkg = JSON.parse(read(pkgFile)); } catch {}
+  if (pkg && pkg.name === 'hallmark') {
+    if (pkg.version !== VERSION) add('error', pkgFile, 1, 'version', `package.json says ${pkg.version} where SKILL.md says ${VERSION}`);
+    const docs = ['README.md', 'ROADMAP.md', ...(existsSync(join(REPO, 'docs')) ? readdirSync(join(REPO, 'docs')).filter((n) => n.endsWith('.md')).map((n) => join('docs', n)) : [])].map((n) => join(REPO, n)).filter(existsSync);
+    for (const f of docs) {
+      const src = read(f);
+      for (const m of src.matchAll(/\]\(([^)\s]+)\)/g)) {
+        const t = m[1].split('#')[0].split('?')[0];
+        if (!t || /^(https?:|mailto:|data:)/.test(m[1])) continue;
+        if (!existsSync(resolve(dirname(f), t))) add('error', f, lineAt(src, m.index), 'link', `${m[1]} does not resolve`);
+      }
+    }
+  }
+}
+
 const shown = ONLY_ERRORS ? findings.filter((x) => x.level === 'error') : findings;
 const errors = findings.filter((x) => x.level === 'error').length;
 const warns = findings.length - errors;
