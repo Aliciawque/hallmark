@@ -40,7 +40,25 @@ Signals: the brief names one element (button, input, form, card, modal, dropdown
 .btn:active, .btn.is-active { transform: translateY(1px); }
 ```
 
-Stamp: `/* Hallmark · component: <type> · genre: <genre> · theme: <theme> · states: 8 · contrast: pass · v2.4.0 */`. Sweep: `sloplint --scope component`, which runs the Floor tier minus the page-only gates.
+Stamp: `/* Hallmark · component: <type> · genre: <genre> · theme: <theme> · states: 8 · contrast: pass · v2.5.0 */`. Sweep: `sloplint --scope component`, which runs the Floor tier minus the page-only gates.
+
+## App screens
+
+A dashboard, an admin, a settings page, a tool: a screen someone works in rather than reads. Signals: the brief says app, dashboard, admin, console, settings or tool; the target sits behind a sign-in; the screen is tables, forms and controls. The bar is earned familiarity: the tool disappears into the task, and someone fluent in the category trusts it at once. The marketing rules step aside: no shape from `macrostructures.md`, no hero or fold, no screen word budget, no section rhythm, no slots, no enrichment, no reveal on load. `sloplint --scope app` skips their gates (1, 6, 8, 9, 32, 42, 44, 46b, 58, 59, 66 and 68) and reads control heights on the app range. Everything else binds, the Floor first: tokens, contrast, focus, states, no eyebrow, no tracked-caps label on a table head, no invented figure.
+
+What takes their place:
+
+- **The theme lends its palette, its faces, its radius and one signature move,** never its layout, navigation or ornament. One family is often right, and a familiar sans or a system face is allowed here; the type scale is fixed, at a ratio of 1.125 to 1.2, with no fluid heads and no display face on labels, buttons or data.
+- **Colour is restrained.** The accent marks the primary action, the current selection and state, nothing else; a second neutral carries sidebars, toolbars and panels.
+- **The shell is the project's own.** A new one is a top bar; a sidebar is earned by more than about seven destinations, never reached for by reflex, and it collapses to a menu under 60rem. Standard patterns (tabs, breadcrumbs, a command palette) beat invented ones, and a modal is the last answer, after inline editing and disclosure.
+- **Density is the design.** Controls 32 to 40px with a 44px hit target, one container recipe, tables before cards (a table may run wider than any prose measure), and `craft.md` § 9 for controls, inputs, tables and stat rows.
+- **Every region that loads data has four states:** loading (a skeleton in the shape of what is coming), empty (what belongs here and the one action that fills it), error (what broke and what to do) and full, per `interaction-and-states.md`. A build that draws only the full state has drawn a quarter of the screen.
+- **State lives in the URL** (filters, tabs, pagination), and a destructive action is undone or confirmed.
+- **Motion is state, never decoration:** `--dur-micro` and `--dur-short`, nothing orchestrated.
+- **Figures are the product's own.** A stat is a figure and its label in tabular numerals; no icon tile, no gradient, no trend arrow nobody measured (46a).
+- **The signature** is still owed: the one object this tool is known by (the ledger, the timeline, the queue), not a greeting above four stat cards.
+
+The Picks block drops Shape, Hero and Sections and names the screen instead: `Screen · transactions table with an inline filter row · states: loading, empty, error`. The stamp says `shape: app screen`, which sloplint and the edit-time hook read as the app scope, and the log entry carries `scope: app`.
 
 ## Signal 8: the archive builds, Hallmark sweeps
 
@@ -57,7 +75,7 @@ Enter at Step 7 over the files the archive wrote, with five differences:
 ```css
 /* Hallmark · checked: 2026-09-22 · genre: modern-minimal (inferred)
  * floor: 0 FAIL · fixed: 6 (2, 7, 22, 27, 38, 54) · structural: 2 printed (8, 42)
- * built: external (reference archive) · v2.4.0 */
+ * built: external (reference archive) · v2.5.0 */
 ```
 
 The fresh-context review still runs, one round, with the narrower question: *does anything here read as machine-made?* Close with the counts: `Swept 4 files · fixed 6 · 2 structural findings printed · Floor 0 FAIL`.

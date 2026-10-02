@@ -7,7 +7,7 @@ import { createHash } from 'node:crypto';
 const HERE = dirname(fileURLToPath(import.meta.url));
 const THEMES = join(HERE, '..', 'references', 'themes');
 const INDEX = join(THEMES, 'index.json');
-const VERSION = '2.4.0';
+const VERSION = '2.5.0';
 const args = process.argv.slice(2);
 const cmd = args[0];
 const flag = (k, d = null) => { const i = args.indexOf('--' + k); const v = i >= 0 ? args[i + 1] : undefined; return v !== undefined && !String(v).startsWith('--') ? v : d; };
@@ -76,14 +76,18 @@ function addLog() {
   try { entry = JSON.parse(flag('entry', '')); } catch { entry = null; }
   if (!entry || Array.isArray(entry) || typeof entry !== 'object') { console.error('--entry takes one JSON object, the build\'s log entry'); process.exit(2); }
   if (!entry.date) entry.date = new Date().toISOString().slice(0, 10);
-  const missing = ['shape', 'theme', 'axes', 'hero', 'nav', 'footer', 'enrichment', 'entry', 'fingerprint', 'signature', 'brief'].filter((k) => !entry[k]);
+  if (!entry.mode) entry.mode = 'build';
+  if (!['build', 'redesign'].includes(entry.mode)) { console.error('mode is build or redesign'); process.exit(2); }
+  if (entry.mode === 'redesign' && !['polish', 'restyle', 'full'].includes(entry.depth)) { console.error('a redesign entry names its depth: polish, restyle or full'); process.exit(2); }
+  const composed = entry.scope !== 'app' && (entry.mode === 'build' || entry.depth === 'full');
+  const missing = [...(composed ? ['shape', 'axes', 'hero', 'nav', 'footer', 'enrichment', 'entry', 'fingerprint', 'signature'] : []), 'theme', 'brief'].filter((k) => !entry[k]);
   if (existsSync(file)) { try { JSON.parse(readFileSync(file, 'utf8')); } catch { console.error(`${file} is not valid JSON; fix it or move it aside, nothing was written`); process.exit(1); } }
   const next = [entry, ...readLog(file)].slice(0, 20);
   mkdirSync(dirname(file), { recursive: true });
   const tmp = `${file}.${process.pid}.tmp`;
   writeFileSync(tmp, JSON.stringify(next, null, 1) + '\n');
   renameSync(tmp, file);
-  console.log(`logged ${entry.shape || '?'} in ${entry.theme || '?'} at the top of ${file} (${next.length} of 20)${missing.length ? `; missing ${missing.join(', ')}, which Rotation reads, so log them` : ''}`);
+  console.log(`logged ${entry.mode === 'redesign' ? `a ${entry.depth} redesign` : entry.shape || '?'} in ${entry.theme || '?'} at the top of ${file} (${next.length} of 20)${missing.length ? `; missing ${missing.join(', ')}, which Rotation reads, so log them` : ''}`);
 }
 
 function readLog(p) {

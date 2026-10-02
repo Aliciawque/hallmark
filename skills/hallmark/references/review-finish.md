@@ -8,4 +8,6 @@ Then the findings, ranked by cost to the page, at most eight, one line each: the
 
 Then one answer to the question no gate can: does the stamp's contract or theme describe the page in front of you? Name the largest gap, or say there is none.
 
+On a redesign you also get the `before` screenshots. Add one answer: what did the old page do better? Name anything a visitor could do, read or find before that is harder now; if nothing, say so.
+
 Close with one line naming what must not be diluted while fixing. Do not fix anything.

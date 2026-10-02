@@ -1,17 +1,19 @@
 #!/usr/bin/env node
 /* sloplint: Hallmark's mechanical gate checker. Zero dependencies, Node 18+. Gate ids and tiers: references/gates.md. */
-import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync, existsSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, extname, dirname, basename, resolve } from 'node:path';
 
 const GENRES = ['editorial', 'modern-minimal', 'atmospheric', 'playful'];
 const args = process.argv.slice(2);
-const opts = { genre: null, scope: 'page', json: false, render: false, tier: null, stage: 'page', urls: [], paths: [] };
+const opts = { genre: null, scope: 'page', json: false, render: false, tier: null, stage: 'page', before: false, kept: false, urls: [], paths: [] };
 for (let i = 0; i < args.length; i++) {
   const a = args[i];
   if (a === '--genre') { opts.genre = args[++i]; }
   else if (a === '--scope') { opts.scope = args[++i]; }
   else if (a === '--json') { opts.json = true; }
   else if (a === '--render') { opts.render = true; }
+  else if (a === '--before') { opts.before = true; }
+  else if (a === '--kept') { opts.kept = true; }
   else if (a === '--tier') { opts.tier = args[++i]; }
   else if (a === '--stage') { opts.stage = args[++i]; }
   else if (a === '--url') { opts.urls.push(args[++i]); opts.render = true; }
@@ -20,7 +22,8 @@ for (let i = 0; i < args.length; i++) {
   else opts.paths.push(a);
 }
 function usage() {
-  console.error('usage: node sloplint.mjs <file-or-dir ...> [--genre editorial|modern-minimal|atmospheric|playful] [--scope page|component] [--stage hero|page] [--json] [--render] [--url http://localhost:3000] [--tier floor]');
+  console.error('usage: node sloplint.mjs <file-or-dir ...> [--genre editorial|modern-minimal|atmospheric|playful] [--scope page|component|app] [--stage hero|page] [--json] [--render] [--url http://localhost:3000] [--tier floor] [--before | --kept]');
+  console.error('--before records what the target says and does (.hallmark/before.json, screenshots in .hallmark/before); --kept checks a redesign against that record');
   console.error('reads .html and .css, plus .jsx .tsx .vue .svelte .astro (Tailwind class strings, cn/clsx/cva calls); skips node_modules, dist, build, coverage and dot folders');
 }
 if (!opts.paths.length && !opts.urls.length) { usage(); process.exit(2); }
@@ -29,9 +32,10 @@ if (opts.urls.some((u) => !/^https?:\/\//.test(u || ''))) { console.error('--url
 if (opts.genre && !GENRES.includes(opts.genre)) {
   console.error(`--genre must be one of: ${GENRES.join(', ')}`); process.exit(2);
 }
-if (!['page', 'component'].includes(opts.scope)) {
-  console.error('--scope must be page or component'); process.exit(2);
+if (!['page', 'component', 'app'].includes(opts.scope)) {
+  console.error('--scope must be page, component or app'); process.exit(2);
 }
+if (opts.before && opts.kept) { console.error('--before records and --kept compares; pass one'); process.exit(2); }
 
 const DOC_EXT = new Set(['.html', '.jsx', '.tsx', '.vue', '.svelte', '.astro']);
 const BUILD_DIRS = new Set(['dist', 'build', 'coverage']);
@@ -781,6 +785,8 @@ const trunc = (s, n = 72) => (s.length > n ? s.slice(0, n - 1) + '…' : s);
 const PAGE_ONLY = new Set(['3', '8', '9', '25', '28', '32', '34', '42', '44', '46b', '47b', '47c', '49', '50', '54', '55', '56', '58', '59', '65', '66', '68', '69', '71', 'F7', 'F8', 'F15', 'F16', 'F20']);
 const gateNumber = (id) => (/^(\d{1,2})/.exec(String(id)) || [])[1] || null;
 const pageOnly = (id) => PAGE_ONLY.has(String(id)) || PAGE_ONLY.has(gateNumber(id));
+const APP_SKIP = new Set(['1', '6', '8', '9', '32', '42', '44', '46b', '58', '59', '66', '68', 'F8', 'F15', 'F20']);
+const appSkip = (id) => APP_SKIP.has(String(id)) || APP_SKIP.has(gateNumber(id));
 
 const TIERS = new Map(Object.entries({
   '2': 'floor', '4': 'floor', '10': 'floor', '15': 'floor', '17': 'floor', '18': 'floor', '19': 'floor',
@@ -797,7 +803,7 @@ const TIERS = new Map(Object.entries({
   '28a': 'floor', '28b': 'reflex', '30a': 'floor', '30b': 'reflex', '38i': 'floor', '38ii': 'reflex', '38iii': 'reflex',
   '39a': 'floor', '39b': 'reflex', '44a': 'reflex', '44b': 'floor', '44c': 'reflex', '44d': 'floor',
   '46a': 'floor', '46b': 'reflex', '47a': 'floor', '47b': 'reflex', '47c': 'reflex', '49a': 'floor', '49b': 'reflex',
-  '55a': 'floor', '55b': 'reflex', '71': 'reflex', '72': 'reflex', '73': 'floor', '74': 'reflex',
+  '55a': 'floor', '55b': 'reflex', '71': 'reflex', '72': 'reflex', '73': 'floor', '74': 'reflex', '75': 'reflex', '76': 'floor',
 }));
 
 const HERO_SKIP = new Set(['8', '9', '32', '59', 'F8', 'F15']);
@@ -873,15 +879,23 @@ function reasonIsBoilerplate(reason) {
 let WAIVED = new Set();
 let ANSWERED = new Set();
 let DISMISSED = new Set();
+let VERBATIM = false;
+let APPSCREEN = false;
+let LAYOUT_KEPT = false;
+const STRUCTURAL = new Set(['6b', '8', '9', '32', '42', '44a', '44c', '58']);
+const COPY_GATES = new Set(['19', '58', '69']);
 
 const findings = [];
 function report(gate, grade, file, line, evidence, fix) {
   const g = String(gate);
   if (opts.scope === 'component' && pageOnly(g)) return;
+  if ((opts.scope === 'app' || APPSCREEN) && appSkip(g)) return;
   if (opts.stage === 'hero' && HERO_SKIP.has(String(g))) return;
   const tier = tierOf(g);
   const b = baseGate(g);
   const waived = WAIVED.has(b) || WAIVED.has(gateNumber(b));
+  if (VERBATIM && COPY_GATES.has(gateNumber(b)) && (grade === 'FAIL' || grade === 'WARN')) grade = 'NOTE';
+  if (LAYOUT_KEPT && (STRUCTURAL.has(b) || STRUCTURAL.has(gateNumber(b))) && grade !== 'NOTE') grade = 'NOTE';
   if (grade === 'FAIL') {
     if (tier === 'ledger') grade = 'NOTE';
     else if (tier === 'reflex') grade = waived ? 'WAIVED' : 'REFLEX';
@@ -889,11 +903,14 @@ function report(gate, grade, file, line, evidence, fix) {
   if (tier === 'finish' && grade !== 'FAIL' && ANSWERED.has(b)) grade = 'ANSWERED';
   if (grade === 'WARN' && (DISMISSED.has(b) || DISMISSED.has(gateNumber(b)))) grade = 'DISMISSED';
   if (grade === 'WARN' && tier === 'reflex' && waived) grade = 'WAIVED';
-  findings.push({ gate: g, grade, tier, file: rel(file), line: line || 1, evidence: trunc(String(evidence), 120), fix });
+  findings.push({ gate: g, grade, tier, file: rel(file), line: line || 1, evidence: trunc(String(evidence), g === 'kept' ? 400 : 120), fix });
 }
 
 function applyWaivers(ctx, dir) {
   WAIVED = new Set(); ANSWERED = new Set(); DISMISSED = new Set();
+  VERBATIM = /\bcopy:\s*verbatim\b/i.test(ctx.stampText);
+  APPSCREEN = /\bshape:\s*app screen\b/i.test(ctx.stampText);
+  LAYOUT_KEPT = /\bredesign:\s*(?:polish|restyle)\b/i.test(ctx.stampText);
   const re = /\/\*\s*Hallmark\s*·\s*waive\s+(\d{1,2}[a-z]{0,3}|F\d+)\s*·\s*([^·*]+?)\s*·\s*([^*]+?)\s*\*\//gi;
   const claims = [...ctx.stampText.matchAll(re)].map((m) => ({
     id: m[1], evidence: m[2].trim(), reason: m[3].trim(), raw: m[0],
@@ -3782,13 +3799,70 @@ function checkComponentText(ctx) {
   }
 }
 
+function checkF21(ctx) {
+  for (const doc of ctx.docs) {
+    if (doc.kind !== 'html') continue;
+    let prev = 0;
+    for (const m of doc.src.matchAll(/<h([1-6])\b[^>]*>([\s\S]*?)<\/h\1>/gi)) {
+      const level = Number(m[1]);
+      if (prev && level > prev + 1) {
+        report('F21', 'WARN', doc.file, doc.lineOf(m.index), `h${prev} is followed by h${level} ("${trunc(m[2].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(), 32)}")`, 'Step heading levels one at a time; size a head with CSS, never with its level');
+        break;
+      }
+      prev = level;
+    }
+  }
+}
+
+function checkF22(ctx) {
+  for (const r of ctx.rules) {
+    const j = r.decls.find((d) => d.prop === 'text-align' && /^justify\b/.test(d.value.trim()));
+    if (j && !r.decls.some((d) => d.prop === 'hyphens' && /auto/.test(d.value))) { report('F22', 'WARN', r.file, j.line, `justified text without hyphenation on ${r.selector}`, 'Set it left, or add hyphens: auto'); return; }
+  }
+  for (const doc of ctx.docs) {
+    const m = /class(?:Name)?\s*=\s*["'][^"']*(?<![\w-])text-justify(?![\w-])/.exec(doc.src);
+    if (m && !/(?<![\w-])hyphens-auto(?![\w-])/.test(doc.src)) { report('F22', 'WARN', doc.file, doc.lineOf(m.index), 'justified text without hyphenation (text-justify)', 'Set it left, or add hyphens-auto'); return; }
+  }
+}
+
+function checkF23(ctx) {
+  for (const doc of ctx.docs) {
+    const prose = maskedProse(doc);
+    const hits = [...prose.matchAll(/\u2014|&mdash;|&#8212;|\s--\s/g)];
+    const chars = prose.replace(/\s+/g, ' ').length;
+    if (hits.length >= 8 && hits.length * 500 >= chars) report('F23', 'WARN', doc.file, doc.lineOf(hits[0].index), `${hits.length} em dashes in ${chars} characters of copy`, 'A comma, a colon, a full stop or parentheses; the dash at this density reads as generated');
+  }
+}
+
+function checkF24(ctx) {
+  for (const doc of ctx.docs) {
+    if (doc.kind !== 'html' || !/<html\b/i.test(doc.src)) continue;
+    const missing = [];
+    const html = /<html\b([^>]*)>/i.exec(doc.src);
+    if (!html || !getAttr(html[1], 'lang')) missing.push('lang on <html>');
+    if (!/<title\b[^>]*>\s*[^<\s][^<]*<\/title>/i.test(doc.src)) missing.push('a <title>');
+    if (!/<meta\b[^>]*\bname\s*=\s*["']description["'][^>]*>/i.test(doc.src)) missing.push('a meta description');
+    if (missing.length) report('F24', 'WARN', doc.file, 1, `the document lacks ${missing.join(', ')}`, 'Name the language, title the page in its own words, and describe it in one sentence for link previews');
+  }
+}
+
+function check76(ctx) {
+  for (const doc of ctx.docs) {
+    if (doc.kind !== 'html') continue;
+    for (const m of doc.src.matchAll(/<img\b([^>]*)>/gi)) {
+      const src = getAttr(m[1], 'src');
+      if ((src == null || !src.trim() || src.trim() === '#') && !getAttr(m[1], 'srcset') && !hasAttr(m[1], 'data-src')) { report('76', 'FAIL', doc.file, doc.lineOf(m.index), 'an <img> with no source', 'Give it the real image, make it a data-slot placeholder, or remove it'); break; }
+    }
+  }
+}
+
 const CHECKS = [check1, check2, check3, check3Stripe, check4, check6a, check7, check10, check10Motion, check11,
   check12, check15, check17, check18, check19, check20, check22, check23, check24, check24a,
   check25, check26, check27, check28, check30, check33, check34, check37, check38a,
   check39, check40_41, check42, check42Footer, check46, check47, check48, check49,
   check50, check50Wrap, check53, check54, check55, check56, checkCopyTell, check62, check63, check64, check65, check67, check38c,
   check19Tells, check58Static, check68, check69, check70, check42TwoButton, check47Placeholders, check65Tailwind, check29Glow, check11Lift, check15Fade,
-  checkF1, checkF2, checkF3, checkF4, checkF5, checkF6, checkF7, checkF7Pills, checkF8, checkF9, checkF15, checkF16,
+  checkF1, checkF2, checkF3, checkF4, checkF5, checkF6, checkF7, checkF7Pills, checkF8, checkF9, checkF15, checkF16, checkF21, checkF22, checkF23, checkF24, check76,
   checkTailwind, checkComponentText];
 
 const files = opts.paths.length ? collectFiles(opts.paths) : [];
@@ -3944,7 +4018,7 @@ for (const [dir, g] of groups) {
 shareProjects(contexts);
 for (const [key, ctx] of contexts) {
   applyWaivers(ctx, key);
-  waiversByKey.set(key, { WAIVED, ANSWERED, DISMISSED });
+  waiversByKey.set(key, { WAIVED, ANSWERED, DISMISSED, VERBATIM, APPSCREEN, LAYOUT_KEPT });
   for (const check of CHECKS) {
     try { check(ctx); } catch (e) {
       console.error(`sloplint: internal error in ${check.name} for ${rel(key)}: ${e.message}`);
@@ -3953,24 +4027,127 @@ for (const [key, ctx] of contexts) {
 }
 
 let renderNotRun = null;
+let domInventories = {};
 if (opts.render) {
   const htmlFiles = files.filter((f) => extname(f).toLowerCase() === '.html');
   if (!htmlFiles.length && !opts.urls.length) renderNotRun = 'no HTML page to render; pass --url for a running dev server';
   else try {
     const mod = await import(new URL('./sloplint-render.mjs', import.meta.url).href);
-    const extra = await mod.renderCheck([...htmlFiles, ...opts.urls], { genre: opts.genre, postureByFile, heroPostureByFile, stage: opts.stage });
-    const allWaivers = { WAIVED: new Set([...waiversByKey.values()].flatMap((x) => [...x.WAIVED])), ANSWERED: new Set([...waiversByKey.values()].flatMap((x) => [...x.ANSWERED])), DISMISSED: new Set([...waiversByKey.values()].flatMap((x) => [...(x.DISMISSED || [])])) };
+    const extra = await mod.renderCheck([...htmlFiles, ...opts.urls], { genre: opts.genre, postureByFile, heroPostureByFile, stage: opts.stage, scope: opts.scope === 'app' || [...waiversByKey.values()].some((x) => x.APPSCREEN) ? 'app' : opts.scope, before: opts.before });
+    domInventories = extra.inventories || {};
+    const allWaivers = { WAIVED: new Set([...waiversByKey.values()].flatMap((x) => [...x.WAIVED])), ANSWERED: new Set([...waiversByKey.values()].flatMap((x) => [...x.ANSWERED])), DISMISSED: new Set([...waiversByKey.values()].flatMap((x) => [...(x.DISMISSED || [])])), VERBATIM: [...waiversByKey.values()].some((x) => x.VERBATIM), APPSCREEN: [...waiversByKey.values()].some((x) => x.APPSCREEN), LAYOUT_KEPT: [...waiversByKey.values()].some((x) => x.LAYOUT_KEPT) };
     for (const f of extra) {
       const w = /^https?:/.test(f.file) ? allWaivers : (waiversByKey.get(f.file) || waiversByKey.get(dirname(f.file)));
       WAIVED = w ? w.WAIVED : new Set();
       ANSWERED = w ? w.ANSWERED : new Set();
       DISMISSED = w ? (w.DISMISSED || new Set()) : new Set();
+      VERBATIM = !!(w && w.VERBATIM);
+      APPSCREEN = !!(w && w.APPSCREEN);
+      LAYOUT_KEPT = !!(w && w.LAYOUT_KEPT);
       report(f.gate, f.grade === 'REFLEX' ? 'FAIL' : f.grade, f.file, f.line, f.evidence, f.fix);
     }
-    for (const x of extra.failed || []) { WAIVED = new Set(); ANSWERED = new Set(); DISMISSED = new Set(); report('render', 'FAIL', x.file, 1, `the page did not render (${trunc(x.message, 60)}); its render gates did not run`, 'Fix the page or the URL and rerun; an unrendered page is never a pass'); }
+    for (const x of extra.failed || []) { WAIVED = new Set(); ANSWERED = new Set(); DISMISSED = new Set(); VERBATIM = false; APPSCREEN = false; LAYOUT_KEPT = false; report('render', 'FAIL', x.file, 1, `the page did not render (${trunc(x.message, 60)}); its render gates did not run`, 'Fix the page or the URL and rerun; an unrendered page is never a pass'); }
     if (extra.notRun) renderNotRun = extra.notRun;
   } catch (e) {
     renderNotRun = e.message;
+  }
+}
+
+const SNAP = join(process.cwd(), '.hallmark', 'before.json');
+const squash = (t) => t.replace(/\s+/g, ' ').trim();
+const escRe = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+function wiringOf(src) {
+  const body = src.replace(/<!--[\s\S]*?-->/g, '');
+  const w = { handlers: [], links: [], fields: [], hooks: [], ids: [] };
+  const val = String.raw`("[^"]*"|'[^']*'|\{(?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})*\})`;
+  for (const m of body.matchAll(new RegExp(String.raw`(?<![\w-])(on[A-Z]\w*|on:[\w|]+|@[a-z][\w.:-]*|v-on:[\w.:-]+|on(?:click|submit|change|input|keydown|keyup|blur|focus))\s*=\s*` + val, 'g'))) w.handlers.push(`${m[1]}=${squash(m[2])}`);
+  for (const m of body.matchAll(new RegExp(String.raw`(?<![\w:-])(?:href|to|action)\s*=\s*` + val, 'g'))) { const v = squash(m[1]).replace(/^["']|["']$/g, '').replace(/^\.\//, ''); if (v && v !== '#') w.links.push(v); }
+  for (const m of body.matchAll(/(?<![\w-])name\s*=\s*["']([^"']+)["']/g)) {
+    const tag = (/<([A-Za-z][\w.-]*)[^<]*$/.exec(body.slice(Math.max(0, m.index - 600), m.index)) || [])[1] || '';
+    if (!/^(meta|slot|iframe|param|a|map|object|link)$/i.test(tag)) w.fields.push(m[1]);
+  }
+  for (const m of body.matchAll(/\bregister\(\s*["']([\w.-]+)["']/g)) w.fields.push(m[1]);
+  for (const m of body.matchAll(/\bdata-(?:testid|test|cy|qa|track[\w-]*|analytics[\w-]*|event[\w-]*|gtm[\w-]*)\s*=\s*["']([^"']+)["']/g)) w.hooks.push(m[1]);
+  for (const m of body.matchAll(/(?<![\w-])id\s*=\s*["']([^"'{}\s]+)["']/g)) w.ids.push(m[1]);
+  return w;
+}
+function danglingHooks(docs) {
+  const markup = docs.map((d) => (d.raw || d.src).replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')).join('\n');
+  let js = docs.map((d) => [...(d.raw || d.src).matchAll(/<script\b(?![^>]*\bsrc\s*=)[^>]*>([\s\S]*?)<\/script>/gi)].map((m) => m[1]).join('\n')).join('\n');
+  const local = new Set();
+  for (const d of docs) for (const m of (d.raw || d.src).matchAll(/<script\b[^>]*\bsrc\s*=\s*["']([^"']+)["']/gi)) {
+    if (/^(?:https?:)?\/\//.test(m[1])) continue;
+    const f = resolve(dirname(d.file), m[1].split('?')[0]);
+    if (existsSync(f)) local.add(f);
+  }
+  for (const f of local) { try { js += '\n' + readFileSync(f, 'utf8'); } catch {} }
+  const sels = new Set();
+  for (const m of js.matchAll(/getElementById\(\s*["'`]([\w-]+)["'`]/g)) sels.add('#' + m[1]);
+  for (const m of js.matchAll(/(?:querySelector(?:All)?|closest|matches)\(\s*["'`]([^"'`]+)["'`]/g)) for (const t of m[1].matchAll(/#[\w-]+|\.[A-Za-z_][\w-]*|\[data-[\w-]+/g)) sels.add(t[0][0] === '[' ? t[0] + ']' : t[0]);
+  const has = (sel) => sel[0] === '#' ? new RegExp(`(?<![\\w-])id\\s*=\\s*["']${escRe(sel.slice(1))}["']`).test(markup)
+    : sel[0] === '.' ? new RegExp(`(?<![\\w-])class(?:Name)?\\s*=\\s*["'][^"']*(?<![\\w-])${escRe(sel.slice(1))}(?![\\w-])`).test(markup)
+      : markup.includes(sel.slice(1, -1));
+  return [...sels].filter((x) => !has(x)).sort();
+}
+function takeInventory() {
+  const docs = [...new Set(contexts.flatMap(([, c]) => c.docs))];
+  const wiring = { handlers: new Set(), links: new Set(), fields: new Set(), hooks: new Set(), ids: new Set() };
+  for (const d of docs) { const w = wiringOf(d.raw || d.src); for (const k of Object.keys(wiring)) for (const v of w[k]) wiring[k].add(v); }
+  const pages = {};
+  for (const [file, inv] of Object.entries(domInventories)) if (inv) pages[/^https?:/.test(file) ? file : rel(file)] = inv;
+  return { wiring: Object.fromEntries(Object.entries(wiring).map(([k, v]) => [k, [...v].sort()])), dangling: danglingHooks(docs), pages };
+}
+let keptLine = null;
+if (opts.kept) {
+  let was = null;
+  try { was = JSON.parse(readFileSync(SNAP, 'utf8')); } catch {}
+  WAIVED = new Set(); ANSWERED = new Set(); DISMISSED = new Set(); VERBATIM = false; APPSCREEN = false; LAYOUT_KEPT = false;
+  if (!was) report('kept', 'FAIL', SNAP, 1, 'no before record here; --kept has nothing to compare against', 'Run sloplint with --before from this folder before the redesign starts');
+  else {
+    const now = takeInventory();
+    const stamps = contexts.map(([, c]) => c.stampText).join('\n');
+    const allowed = [...stamps.matchAll(/\/\*\s*Hallmark\s*·\s*dropped\s+([^·*]+?)\s*·\s*([^*]+?)\s*\*\//gi)].filter((m) => m[2].trim().length >= 12).flatMap((m) => m[1].split(',').map((t) => t.trim().replace(/^[`"']|[`"']$/g, '').toLowerCase()).filter(Boolean));
+    const acked = {};
+    const gone = (a, b, cat) => (a || []).filter((x) => {
+      if ((b || []).includes(x)) return false;
+      if (allowed.some((t) => x.toLowerCase() === t || x.toLowerCase().includes(t))) { if (cat) (acked[cat] ||= new Set()).add(x); return false; }
+      return true;
+    });
+    const hard = { links: new Set(), fields: new Set(), 'form actions': new Set(), handlers: new Set(), 'test hooks': new Set() };
+    const soft = { headings: new Set(), figures: new Set(), images: new Set(), ids: new Set() };
+    const total = { links: new Set(was.wiring.links), fields: new Set(was.wiring.fields), handlers: new Set(was.wiring.handlers), 'test hooks': new Set(was.wiring.hooks), headings: new Set(), figures: new Set() };
+    for (const x of gone(was.wiring.links, now.wiring.links, 'links')) hard.links.add(x);
+    for (const x of gone(was.wiring.fields, now.wiring.fields, 'fields')) hard.fields.add(x);
+    for (const x of gone(was.wiring.handlers, now.wiring.handlers, 'handlers')) hard.handlers.add(x);
+    for (const x of gone(was.wiring.hooks, now.wiring.hooks, 'test hooks')) hard['test hooks'].add(x);
+    for (const x of gone(was.wiring.ids, now.wiring.ids)) soft.ids.add(x);
+    const skipped = [];
+    let wordsWas = 0, wordsNow = 0;
+    for (const [k, b] of Object.entries(was.pages || {})) {
+      const a = now.pages[k];
+      if (!a) { skipped.push(k); continue; }
+      for (const x of b.links || []) total.links.add(x);
+      for (const x of b.fields || []) total.fields.add(x);
+      for (const x of b.headings || []) total.headings.add(x);
+      for (const x of b.figures || []) total.figures.add(x);
+      for (const x of gone(b.links, [...a.links, ...now.wiring.links], 'links')) hard.links.add(x);
+      for (const x of gone(b.fields, [...a.fields, ...now.wiring.fields], 'fields')) hard.fields.add(x);
+      for (const x of gone(b.actions, a.actions)) hard['form actions'].add(x);
+      for (const x of gone(b.headings, a.headings, 'headings')) soft.headings.add(x);
+      for (const x of gone(b.figures, a.figures, 'figures')) soft.figures.add(x);
+      for (const x of gone(b.images, a.images)) soft.images.add(x);
+      wordsWas += b.words || 0; wordsNow += a.words || 0;
+    }
+    const list = (set, n = 8) => { const a = [...set]; return a.slice(0, n).map((x) => trunc(x, 48)).join(', ') + (a.length > n ? ` and ${a.length - n} more` : ''); };
+    const fix = 'Restore each one, or record it in the stamp: /* Hallmark · dropped <item>, <item> · <the reason, in the user\'s words> */';
+    for (const [k, set] of Object.entries(hard)) if (set.size) report('kept', 'FAIL', SNAP, 1, `${k} the page had before and no longer has: ${list(set)}`, fix);
+    const unhooked = gone(now.dangling, was.dangling || []);
+    if (unhooked.length) report('kept', 'FAIL', SNAP, 1, `a script still queries ${list(unhooked)}, which the markup no longer has`, 'Keep the ids, classes and data attributes scripts query, or change the script with the markup');
+    for (const [k, set] of Object.entries(soft)) if (set.size) report('kept', 'WARN', SNAP, 1, `${k} gone or reworded since the before record: ${list(set)}`, 'Confirm each was meant to go, restore it, or record it as dropped in the stamp');
+    if (wordsWas > 80 && wordsNow < wordsWas * 0.6) report('kept', 'WARN', SNAP, 1, `the pages hold ${wordsNow} words where they held ${wordsWas}`, 'Check that no section of content was dropped');
+    if (skipped.length) report('kept', 'WARN', SNAP, 1, `not compared, because this run did not render them: ${list(skipped, 4)}`, 'Render the same pages or URLs the before record holds');
+    const lostOf = (k) => (hard[k] || soft[k]).size;
+    keptLine = { parts: ['links', 'fields', 'handlers', 'test hooks', 'headings', 'figures'].filter((k) => total[k].size).map((k) => { const d = acked[k] ? acked[k].size : 0; return `${k} ${Math.max(0, total[k].size - lostOf(k) - d)}/${total[k].size}${d ? ` (${d} dropped on record)` : ''}`; }), was: was.summary || null };
   }
 }
 
@@ -4012,16 +4189,29 @@ if (answered) tally.push(`${answered} ANSWERED`);
 if (dismissed) tally.push(`${dismissed} DISMISSED`);
 if (notes) tally.push(`${notes} NOTE`);
 
+let beforeLine = null;
+if (opts.before) {
+  const inv = takeInventory();
+  mkdirSync(dirname(SNAP), { recursive: true });
+  writeFileSync(SNAP, JSON.stringify({ v: 1, at: new Date().toISOString(), scope: opts.scope, summary: { fails, reflex, warns }, ...inv }, null, 1) + '\n');
+  beforeLine = `before: recorded ${new Set([...inv.wiring.links, ...Object.values(inv.pages).flatMap((p) => p.links)]).size} links, ${new Set([...inv.wiring.fields, ...Object.values(inv.pages).flatMap((p) => p.fields)]).size} fields, ${inv.wiring.handlers.length} handlers, ${inv.wiring.hooks.length} test hooks${Object.keys(inv.pages).length ? ` and ${Object.keys(inv.pages).length} rendered page(s)` : ''} in ${rel(SNAP)}; --kept checks a redesign against it`;
+}
+const keptNote = keptLine ? `kept: ${keptLine.parts.join(', ') || 'nothing recorded'}${keptLine.was ? `; before ${keptLine.was.fails} FAIL, ${keptLine.was.reflex} REFLEX, now ${fails} FAIL, ${reflex} REFLEX` : ''}` : null;
 const scopeNote = `${files.length} file(s)${opts.urls.length ? ` and ${opts.urls.length} URL(s)` : ''}${opts.stage === 'hero' ? ' (hero stage)' : ''}`;
 const renderNote = opts.render ? (renderNotRun ? `render tier not run: ${renderNotRun}` : null) : null;
 if (opts.json) {
   console.log(JSON.stringify({
-    summary: { fails, reflex, warns, waived, rejected, answered, dismissed, notes, files: files.length, render: opts.render ? (renderNotRun ? `not run: ${renderNotRun}` : 'ran') : 'off' },
+    summary: { fails, reflex, warns, waived, rejected, answered, dismissed, notes, files: files.length, render: opts.render ? (renderNotRun ? `not run: ${renderNotRun}` : 'ran') : 'off', ...(keptNote ? { kept: keptNote } : {}), ...(beforeLine ? { before: beforeLine } : {}) },
     findings: unique,
   }, null, 2));
 } else {
   if (!unique.length) console.log(`sloplint: clean. 0 FAIL, 0 REFLEX, 0 WARN across ${scopeNote}.`);
-  else {
+  else if (opts.before) {
+    const by = new Map();
+    for (const f of unique) { const k = `${f.grade} ${f.gate}`; if (!by.has(k)) by.set(k, []); by.get(k).push(f); }
+    for (const [k, list] of by) console.log(`  ${k}${list.length > 1 ? ` x${list.length}` : ''} ${list.slice(0, 2).map((f) => `${f.file}:${f.line} ${trunc(f.evidence, 64)}`).join('; ')} | fix: ${list[0].fix}`);
+    console.log(`sloplint: ${tally.join(', ')} across ${scopeNote}, grouped by gate; run without --before for every line.`);
+  } else {
     const byFile = new Map();
     for (const f of unique) { if (!byFile.has(f.file)) byFile.set(f.file, []); byFile.get(f.file).push(f); }
     const told = new Set();
@@ -4037,5 +4227,7 @@ if (opts.json) {
     console.log(`sloplint: ${tally.join(', ')} across ${scopeNote}.`);
   }
   if (renderNote) console.log(renderNote);
+  if (keptNote) console.log(keptNote);
+  if (beforeLine) console.log(beforeLine);
 }
-process.exit(fails > 0 || reflex > 0 ? 1 : 0);
+process.exit(!opts.before && (fails > 0 || reflex > 0) ? 1 : 0);

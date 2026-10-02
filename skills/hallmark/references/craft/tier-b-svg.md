@@ -89,7 +89,7 @@ The breath comes from `@property --bake` interpolating a number into `scaleY()`;
 ```css
 /* Hallmark · shape: Long Document · genre: editorial · theme: Editorial (deal 3/3, seed small-bakery-lisbon·2026-10-02·r0)
  * hero: Settled · nav: wordmark and two links · footer: letter close · enrichment: E5 illustration, tier B SVG, 60 lines, still · signature: the loaf drawn beside the first line, scored in coral
- * axes: light/display-condensed/warm · posture: restrained · contrast: pass · fold: pass · v2.4.0 */
+ * axes: light/display-condensed/warm · posture: restrained · contrast: pass · fold: pass · v2.5.0 */
 ```
 
 The next bakery brief gets a different loaf (another curvature and score pattern) or a different subject altogether (a boule, a baguette, a flatbread), and Rotation never lets E5 follow E5 (SKILL.md Step 2).

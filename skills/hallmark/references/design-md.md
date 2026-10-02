@@ -1,6 +1,6 @@
 # design.md: the locked system
 
-Loaded only when the user asks to lock the current build's system into a portable file. A build never writes `design.md` on its own; `tokens.css` already makes every build portable, and the Picks block offers the lock in one line.
+Loaded when the user asks to lock the current build's system into a portable file, or when a redesign reaches more than one page (`redesign.md`). A single build never writes `design.md` on its own; `tokens.css` already makes every build portable, and the Picks block offers the lock in one line.
 
 ## Triggers
 

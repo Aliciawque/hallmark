@@ -9,6 +9,7 @@ const isUrl = (t) => /^https?:\/\//.test(t);
 const slugOf = (t) => isUrl(t) ? t.replace(/^https?:\/\//, '').replace(/[^\w.-]+/g, '-').replace(/-+$/, '') : basename(t, '.html');
 
 const SHOTS = [];
+let SHOT_DIR = 'shots';
 const frames = (page) => page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)))).catch(() => {});
 function contrast(a, b) {
   const lin = (c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
@@ -51,7 +52,7 @@ async function pixelBehind(page, probe) {
 
 async function shoot(page, file, tag, fullPage) {
   try {
-    const dir = isUrl(file) ? join(process.cwd(), '.hallmark', 'shots') : join(dirname(file), '.hallmark', 'shots');
+    const dir = isUrl(file) ? join(process.cwd(), '.hallmark', SHOT_DIR) : join(dirname(file), '.hallmark', SHOT_DIR);
     mkdirSync(dir, { recursive: true });
     const out = join(dir, `${slugOf(file)}-${tag}.png`);
     await page.screenshot({ path: out, fullPage });
@@ -61,8 +62,10 @@ async function shoot(page, file, tag, fullPage) {
 
 export async function renderCheck(htmlFiles, metaIn) {
   const failed = [];
-  const meta = { genre: null, postureByFile: {}, heroPostureByFile: {}, stage: 'page', ...(metaIn || {}) };
+  const meta = { genre: null, postureByFile: {}, heroPostureByFile: {}, stage: 'page', scope: 'page', before: false, ...(metaIn || {}) };
   const heroOnly = meta.stage === 'hero';
+  SHOT_DIR = meta.before ? 'before' : 'shots';
+  const inventories = {};
   let puppeteer = null;
   const { createRequire } = await import('node:module');
   const { pathToFileURL } = await import('node:url');
@@ -152,7 +155,8 @@ export async function renderCheck(htmlFiles, metaIn) {
         if (!heroOnly) {
           await page.setViewport({ width: 1440, height: 900 });
           await frames(page);
-          const quality = await page.evaluate(observeQuality).catch(() => []);
+          inventories[file] = await page.evaluate(inventory).catch(() => null);
+          const quality = await page.evaluate(observeQuality, meta.scope).catch(() => []);
           const hidden = await page.evaluate(observeOcclusion).catch(() => []);
           for (const f of [...quality, ...hidden]) findings.push({ ...f, file, line: 1, evidence: `[1440px] ${f.evidence}` });
           await page.evaluate(() => { window.scrollTo(0, 0); if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); });
@@ -188,7 +192,33 @@ export async function renderCheck(htmlFiles, metaIn) {
     return true;
   });
   kept.failed = failed;
+  kept.inventories = inventories;
   return kept;
+}
+
+function inventory() {
+  const base = location.pathname.slice(0, location.pathname.lastIndexOf('/') + 1);
+  const key = (raw) => {
+    try {
+      const u = new URL(raw, location.href);
+      if (!/^(https?|file):$/.test(u.protocol)) return raw.trim();
+      if (u.origin !== location.origin) return u.href;
+      if (u.pathname === location.pathname && u.search === location.search && u.hash) return u.hash;
+      return (location.protocol === 'file:' && u.pathname.startsWith(base) ? u.pathname.slice(base.length) : u.pathname) + u.search + u.hash;
+    } catch { return raw.trim(); }
+  };
+  const uniq = (a) => [...new Set(a.filter(Boolean))];
+  const text = (el) => (el.innerText || el.textContent || '').replace(/\s+/g, ' ').trim();
+  const quiet = (el) => !!el.closest('script, style, noscript, template');
+  const links = uniq([...document.querySelectorAll('a[href]')].map((a) => a.getAttribute('href')).filter((h) => h && h.trim() && h.trim() !== '#').map(key));
+  const fields = uniq([...document.querySelectorAll('input[name], select[name], textarea[name], button[name]')].map((f) => f.getAttribute('name')));
+  const actions = uniq([...document.querySelectorAll('form[action]')].map((f) => `${(f.getAttribute('method') || 'get').toLowerCase()} ${key(f.getAttribute('action'))}`));
+  const headings = uniq([...document.querySelectorAll('h1, h2, h3, h4')].filter((h) => !quiet(h)).map((h) => text(h).toLowerCase()).filter((t) => t.length > 1));
+  const body = text(document.body);
+  const figures = uniq((body.match(/[$€£¥]\s?\d[\d,.]*\+?[kKmM]?|\b\d[\d,.]*\s?%|\b\d[\d,.]*[kKmM]?\+(?=\s|$)|\b\d{1,3}(?:,\d{3})+\b|\b\d{1,2}[:.]\d{2}\s?(?:am|pm)?\b/gi) || []).map((t) => t.replace(/\s+/g, '').toLowerCase()));
+  const images = uniq([...document.querySelectorAll('img[src]')].map((i) => (i.getAttribute('src') || '').split('?')[0].split('/').pop()));
+  const controls = document.querySelectorAll('button, [role="button"], input[type="submit"], input[type="button"], select, textarea, input:not([type="hidden"])').length;
+  return { links, fields, actions, headings, figures, images, controls, words: body ? body.split(' ').length : 0 };
 }
 
 function focusRing() {
@@ -259,6 +289,18 @@ function observe(checkFold, meta) {
   if (document.documentElement.scrollWidth > window.innerWidth + 1) {
     push(34, 'FAIL', `horizontal scroll: scrollWidth ${document.documentElement.scrollWidth} > viewport ${window.innerWidth}`,
       'overflow-x: clip on html and body; find the overflowing block');
+  }
+
+  if (window.innerWidth === 375) {
+    const flush = [...document.querySelectorAll('p, li, h1, h2, h3, blockquote, dd')].find((el) => {
+      if (!visible(el) || el.closest('nav, pre, table, [data-slot]')) return false;
+      const own = [...el.childNodes].filter((n) => n.nodeType === 3 && n.textContent.trim().length >= 20);
+      if (own.reduce((n, t) => n + t.textContent.trim().length, 0) < 40) return false;
+      let left = Infinity, right = -Infinity;
+      for (const t of own) { const range = document.createRange(); range.selectNodeContents(t); for (const r of range.getClientRects()) { if (r.width < 2) continue; left = Math.min(left, r.left); right = Math.max(right, r.right); } }
+      return right - left > 120 && right <= window.innerWidth + 1 && (left < 8 || right > window.innerWidth - 8);
+    });
+    if (flush) push(72, 'REFLEX', `text runs to the edge of the screen (${describe(flush)})`, 'Give the page a gutter: 16px or more at each side on a phone');
   }
 
   for (const el of document.querySelectorAll('a, button, [role="button"], [role="tab"]')) {
@@ -615,7 +657,7 @@ function observeSpace(atLaptop, heroOnly, heroPosture) {
   return out;
 }
 
-function observeQuality() {
+function observeQuality(scope) {
   const out = [];
   const push = (gate, grade, evidence, fix) => out.push({ gate: String(gate), grade, evidence, fix });
   const vis = (el) => { const cs = getComputedStyle(el); if (cs.display === 'none' || cs.visibility === 'hidden' || parseFloat(cs.opacity) === 0) return false; const r = el.getBoundingClientRect(); return r.width > 1 && r.height > 1; };
@@ -693,8 +735,8 @@ function observeQuality() {
   if (tight.length) push(72, 'REFLEX', `text crowds the edge of its box: ${tight.join('; ')}`, 'Pad the box: max(8px, 0.5em) at the sides, max(4px, 0.3em) above and below');
 
   const controls = all.filter((el) => (el.tagName === 'BUTTON' || el.getAttribute('role') === 'button' || (el.tagName === 'A' && /btn|button|cta/i.test(String(el.className))) || (el.tagName === 'INPUT' && /^(submit|button|text|email|search|tel|url|password|number)$/.test(el.type))) && !el.closest('nav, header, dialog, [role="dialog"], [data-slot], [role="tablist"]') && (el.tagName === 'INPUT' || (el.innerText || '').trim()));
-  const offSize = controls.map((el) => ({ el, h: el.getBoundingClientRect().height })).filter((c) => c.h > 8 && (c.h < 42 || c.h > 54));
-  if (offSize.length) push('39b', 'REFLEX', `control height outside 44 to 52px: ${offSize.slice(0, 3).map((c) => `${name(c.el)} ${Math.round(c.h)}px`).join(', ')}`, 'Marketing controls stand 44 to 52px; app UI 32 to 40px with a 44px hit target');
+  const offSize = controls.map((el) => ({ el, h: el.getBoundingClientRect().height })).filter((c) => c.h > 8 && (c.h < (scope === 'app' ? 30 : 42) || c.h > 54));
+  if (offSize.length) push('39b', 'REFLEX', `control height outside ${scope === 'app' ? '32 to 52px' : '44 to 52px'}: ${offSize.slice(0, 3).map((c) => `${name(c.el)} ${Math.round(c.h)}px`).join(', ')}`, 'Marketing controls stand 44 to 52px; app UI 32 to 40px with a 44px hit target');
 
   const cv = document.createElement('canvas'); cv.width = cv.height = 1;
   const cx = cv.getContext('2d', { willReadFrequently: true });
@@ -719,13 +761,24 @@ function observeQuality() {
   if (weak.length) push(40, 'FAIL', `a field's edge is under 3:1 against what surrounds it: ${weak.slice(0, 3).join(', ')}`, 'Draw the field in --color-muted, or fill it a step off the surface it sits on');
 
   const weights = new Map();
+  const strained = [];
   const tw = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   for (let t = tw.nextNode(); t; t = tw.nextNode()) {
     const host = t.parentElement; const txt = t.textContent.trim();
     if (!txt || !host || quiet(host) || host.closest('svg') || !vis(host)) continue;
-    const w = Math.round((parseFloat(getComputedStyle(host).fontWeight) || 400) / 100) * 100;
+    const hs = getComputedStyle(host);
+    const w = Math.round((parseFloat(hs.fontWeight) || 400) / 100) * 100;
     weights.set(w, (weights.get(w) || 0) + txt.length);
+    if (strained.length >= 4 || txt.length < 3 || host.closest('sup, sub, [data-slot], figure svg') || strained.some((x) => x.el === host)) continue;
+    const size = parseFloat(hs.fontSize) || 16;
+    const prose = !!host.closest('p, li, dd, blockquote') && txt.length > 60;
+    const lh = parseFloat(hs.lineHeight);
+    if (size < 11 || (prose && size < 12)) strained.push({ el: host, why: `${name(host)} at ${Math.round(size * 10) / 10}px` });
+    else if (prose && lh && lh / size < 1.3 && host.getBoundingClientRect().height > lh * 2.2) strained.push({ el: host, why: `${name(host)} leaded ${(lh / size).toFixed(2)}` });
   }
+  if (strained.length) push(75, 'REFLEX', `text that strains the eye: ${strained.map((x) => x.why).join(', ')}`, 'Running text 12px or more (16px for body), functional text 11px or more, multi-line prose leaded 1.3 or more');
+  const dead = [...document.querySelectorAll('img')].filter((el) => !quiet(el) && el.complete && el.naturalWidth === 0 && !el.closest('[data-slot]') && (el.currentSrc || el.getAttribute('src')));
+  if (dead.length) push(76, 'FAIL', `an image that does not load: ${dead.slice(0, 3).map((el) => (el.getAttribute('src') || '').split('/').pop().slice(0, 40)).join(', ')}`, 'Point it at a file that exists, make it a data-slot placeholder, or remove it');
   const used = [...weights].filter(([, n]) => n >= 30).map(([w]) => w).sort((a, b) => a - b);
   if (used.length > 3) push('F19', 'WARN', `${used.length} font weights in running use (${used.join(', ')})`, 'Three weights at most, display and body together, picked as extremes');
 

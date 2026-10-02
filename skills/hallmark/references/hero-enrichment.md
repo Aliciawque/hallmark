@@ -114,7 +114,7 @@ The enrichment and polish go on the stamp's second line, in the `enrichment:` fi
 ```css
 /* Hallmark · shape: Workbench · genre: modern-minimal · theme: Cobalt (deal 1/3, seed tracejam·2026-09-22·r0)
  * hero: Stage · nav: edge-aligned · footer: colophon line · enrichment: E1 demo capture, clip right, 16/10, hairline · polish: HP4 numeral, issue 22 · signature: the trace runs off the page
- * axes: light/grotesk-sans/cool · posture: restrained · contrast: pass · fold: pass · v2.4.0 */
+ * axes: light/grotesk-sans/cool · posture: restrained · contrast: pass · fold: pass · v2.5.0 */
 ```
 
 No polish, omit `polish:`. No enrichment, write `enrichment: none`. Never fake either. The log entry's `enrichment` field carries the same value so Rotation can read it.

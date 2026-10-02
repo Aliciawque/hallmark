@@ -91,17 +91,34 @@ node skills/hallmark/scripts/install.mjs
 
 | Harness | Install location | Invoke |
 | --- | --- | --- |
-| Claude Code | `~/.claude/skills/hallmark` | `/hallmark <brief>` or just describe the build |
-| Codex CLI | `~/.agents/skills/hallmark` | `$hallmark <brief>` or implicit |
-| OpenCode | auto-discovers the copies above | `/hallmark <brief>` or implicit |
+| Claude Code | `~/.claude/skills/hallmark` | `/hallmark <brief>`, `/hallmark redesign <path>`, or just describe the build |
+| Codex CLI | `~/.agents/skills/hallmark` | `$hallmark <brief>`, `$hallmark redesign <path>`, or implicit |
+| OpenCode | auto-discovers the copies above | `/hallmark <brief>`, `/hallmark redesign <path>`, or implicit |
 
 On Claude Code, `node skills/hallmark/scripts/install-hook.mjs` wires the Floor gates into a PostToolUse hook so a failing artifact is reported the moment it is written; the taste gates wait for the end-of-build sweep, so the hook never nags. `--global`, `--print` and `--remove` do what they say.
 
 ---
 
-## The verbs
+## Redesign
 
-Auditing a page, redesigning one, studying a reference and dealing variants are separate skills (`/audit`, `/redesign`, `/study`, `/variants`) in a companion pack that installs beside Hallmark and reads its gates and craft files, so they never drift from the build skill. Hallmark itself does one job: build.
+Hallmark runs by itself when you ask for something new. For a page, a site or an app that already exists, say the verb:
+
+```
+/hallmark redesign ./src/app
+/hallmark audit ./index.html
+```
+
+A redesign keeps what the page says and does and changes how it looks, at the depth you ask for:
+
+| Depth | Stays | Changes |
+| --- | --- | --- |
+| **polish** | the system and the layout | only what reads as generated: the tells, contrast, states, motion |
+| **restyle** | the layout | colour, type, radius, shadow, motion, the controls |
+| **full** | the content and the wiring | the system and the composition |
+
+Before it touches anything, `sloplint --before` lints the page and records every link, form field, handler, test hook, heading and figure. After the build, `sloplint --kept` fails the redesign if any of them went missing, a fresh-context reviewer compares the new screens with the old ones, and the project's own build and tests have to pass. The handoff is a before and after: findings, what was kept, what changed, and anything dropped, with the reason on the record. `audit` stops after the report and edits nothing.
+
+Dashboards, admin screens and tools are app screens: the landing-page rules (hero, fold, section rhythm) step aside and density, tables and the four data states take over. Small edits to an existing design are not Hallmark runs; the edit-time hook below keeps the Floor on them in the background.
 
 ---
 
@@ -111,7 +128,12 @@ Auditing a page, redesigning one, studying a reference and dealing variants are 
 npx skills add nutlope/hallmark
 ```
 
-Re-run any time to update, or copy [`SKILL.md`](skills/hallmark/SKILL.md), [`references/`](skills/hallmark/references/) and [`scripts/`](skills/hallmark/scripts/) into your harness's skills folder. Worked examples in [`docs/recipes.md`](docs/recipes.md).
+Re-run any time to update. Worked examples in [`docs/recipes.md`](docs/recipes.md).
+
+- **One harness only:** `npx skills add nutlope/hallmark --agent claude-code` (or `codex`, `opencode`, `cursor`, `github-copilot`).
+- **By hand:** copy the whole [`skills/hallmark/`](skills/hallmark/) folder (`SKILL.md`, `references/` and `scripts/` together) into your harness's skills folder: `~/.claude/skills/`, `~/.agents/skills/`, or `.cursor/skills/` in a project. Any harness that reads Agent Skills can run it; Claude Code, Codex CLI and OpenCode are the three it is tuned and tested on.
+- **If it does not fire on its own,** name it: *use hallmark to build ...*. Smaller models rarely pick up a skill unprompted.
+- **Models:** the flow leans on long instructions, tool calls and, for the reviews, subagents. It is tuned on current Claude and GPT models; small local models tend to stall partway.
 
 ---
 

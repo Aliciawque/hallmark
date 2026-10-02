@@ -1,7 +1,8 @@
 ---
 name: hallmark
-description: "Design skill for pages, sites and components that look made, not generated. Deals a theme from its catalog or derives a world, sets type, colour, layout and motion to a hard floor, builds, then lints and reviews the result. Use when the user asks to build, design, style or lay out a page, landing page, site, app screen or UI component, or invokes Hallmark by name."
-version: 2.4.0
+description: "Design skill for pages, sites, app screens and components that look made, not generated. Builds new UI from a dealt theme or a derived world on a hard floor, then lints and reviews it; `redesign <path>` does the same to an existing page, site or app and keeps its content and wiring. Use when the user asks to build or design new UI, asks to redesign or restyle a whole page, site or app, says one looks generic or AI-generated, or invokes Hallmark by name. Not for small edits to an existing design."
+argument-hint: "<brief> | redesign <path> | audit <path>"
+version: 2.5.0
 ---
 
 # Hallmark
@@ -37,12 +38,14 @@ Above the Floor, a **Reflex** gate is a default a model falls into, which a buil
 
 0. Pre-flight: read the project before asking anything.
 1. Ask once: material, audience, use, tone.
-2. Shape: design the page, then name what you designed.
-3. Direction: deal a theme (the default) or derive a world (only when asked for custom).
-4. Load `references/craft.md`, the genre file, the theme file, and `gates.md` § 1 to § 4.
-5. The Picks block, once, then a beat before code.
+2. Shape: design the page, then name it.
+3. Direction: deal a theme, or derive a world when asked for custom.
+4. Load the craft, genre and theme files and `gates.md` § 1 to § 4.
+5. The Picks block, once.
 6. Build: the hero first, then the page; stamp, `tokens.css`, log.
-7. Sweep: `sloplint --render` until clean, the judged gates (`gates.md` § 5), the finish review (§ 6), the material ask.
+7. Sweep: `sloplint --render` until clean, the judged gates, the finish review, the material ask.
+
+**Verbs.** `redesign <target>`, `audit <target>`, or a plain ask to redesign, restyle or polish an existing page, site or app: read [`references/redesign.md`](references/redesign.md) first; it stands in for Steps 0 to 2 and adds a before and an after. A small edit to an existing design is not a Hallmark run.
 
 Codex CLI and OpenCode read [`references/flow.md`](references/flow.md) § Harnesses first; other harnesses run this file as written.
 
@@ -62,11 +65,11 @@ Skipped fields are opt-outs: infer them, state the inferences in one line at the
 
 **Genre** is picked here, silently, from the brief: *AI tool, generative, music, video, voice, dark, atmospheric* → **atmospheric**; *SaaS, enterprise, API, platform, developer tool, infra, B2B* → **modern-minimal**; *playful, fun, friendly, soft, kids, games, community* → **playful**; otherwise **editorial**, which holds most consumer and family briefs. The picked theme's genre wins from Step 4 on (genre file, stamp, `--genre`); when two non-default genres fire, add one either-or to the Step 1 message, or on go ahead pick and say so.
 
-**Scope** is checked here too. A brief naming one element (button, input, card, modal, nav, footer, tab strip, chip) or saying "just the X" is a component: read [`references/flow.md`](references/flow.md) § Component scope and skip macrostructure, chrome, enrichment and the log.
+**Scope** is checked here too. A brief naming one element (button, input, card, modal, nav, footer, tab strip, chip) or saying "just the X" is a component: read [`references/flow.md`](references/flow.md) § Component scope and skip macrostructure, chrome, enrichment and the log. A screen someone works in (a dashboard, an admin, settings, a tool) is an app screen: § App screens.
 
 ### 2. Shape
 
-**Material first.** Before the shape, write the inventory in one line: *real* (every concrete thing the brief and the project supply: the name, the claim, numbers, places, dates, inputs and outputs, images), *slots* (what the user will hand over later), *absent* (every proof the page will not have: logos, quotes, metrics nobody gave). The shape follows it: shapes built on screenshots (Bento, Workbench, Feature Stack) need two real visuals or the user's "leave slots"; with neither, choose a shape that carries type and facts (Long Document, Letter, Index-First, Manifesto, a spec sheet built on `components/f3-tabular-spec-sheet.md`). Pages read as generated when they have nothing to show and pretend otherwise.
+**Material first.** Before the shape, write the inventory in one line: *real* (every concrete thing the brief and the project supply: the name, the claim, numbers, places, dates, images), *slots* (what the user will hand over later), *absent* (every proof the page will not have: logos, quotes, metrics nobody gave). The shape follows it: shapes built on screenshots (Bento, Workbench, Feature Stack) need two real visuals or the user's "leave slots"; with neither, choose a shape that carries type and facts (Long Document, Letter, Index-First, Manifesto, a spec sheet built on `components/f3-tabular-spec-sheet.md`).
 
 Decide the page's shape, how it opens, how sections separate, what the nav and footer do, how tall the hero stands and what carries it. You are designing, not filling a form. For a starting point: 21 page shapes in [`references/macrostructures.md`](references/macrostructures.md), navs, footers and sections in [`references/component-cookbook.md`](references/component-cookbook.md), enrichment in [`references/hero-enrichment.md`](references/hero-enrichment.md); load only the one file you pick, never a whole catalog.
 
@@ -74,7 +77,7 @@ Decide the page's shape, how it opens, how sections separate, what the nav and f
 
 **Signature.** Every page has one move a visitor would describe to a friend: an object, a composition, an interaction, built from the inventory's strongest real thing. Decide it here and fit it to the dealt theme's objects; it goes in the Picks block and the stamp, it shows on the first screen (a slot's caption counts), and the reviewer checks it. A page without one is a template with good tokens.
 
-Decide all of this and hold it. It is said once, at Step 5.
+Decide all of this and hold it; it is said once, at Step 5.
 
 ### 3. Direction
 
@@ -88,7 +91,7 @@ Check in order; the first match wins.
 node <skill-dir>/scripts/theme.mjs deal --genre <genre> --brief "<the brief>" [--log .hallmark/log.json]
 ```
 
-It deals three themes that fit the brief and clear Rotation (consecutive systems differ on paper band, display class or accent band), with a reproducible seed. Look at the three pictures, pick the one whose material can carry what the brief asks for (motion, photographs, code), say which and why, and load only `references/themes/<slug>.md`. Re-deal only when the user asks (`--reroll 1`). No Node: read `references/themes/index.json`, apply the same rule by hand, and stamp `deal: manual`.
+It deals three themes that fit the brief and clear Rotation, with a reproducible seed. Look at the three pictures, pick the one whose material can carry what the brief asks for (motion, photographs, code), say which and why, and load only `references/themes/<slug>.md`. Re-deal only when the user asks (`--reroll 1`). No Node: read `references/themes/index.json`, apply the same rule by hand, and stamp `deal: manual`.
 
 A catalog theme is a material, not a plan: it never sets what the page contains or in what order, and two pages in one theme should not share a section sequence. Where the theme and a shape, genre, craft or enrichment file disagree on material, controls or motion, the theme wins; the Floor and the user's own words beat both.
 
@@ -105,7 +108,7 @@ Loading more is the largest avoidable cost; `gates.md` § 5 waits for Step 7, §
 The run's only prose recital of its decisions, and the user's five-second redirect window:
 
 ```markdown
-**Hallmark · v2.4.0**
+**Hallmark · v2.5.0**
 
 - **Shape** · Workbench (last 3: Bento, Long Document, Manifesto) · genre modern-minimal
 - **Theme** · Coral, dealt 2/3 (warm grey, one coral signal, General Sans, soft pills) · clears Cobalt on paper band
@@ -119,7 +122,7 @@ The run's only prose recital of its decisions, and the user's five-second redire
 
 A custom run's rows are in `direction.md` R.7. Then one quiet line: *System portable? Say `lock the system` for a `design.md`.* Skip it in component scope or when `design.md` exists.
 
-On signal 9, [`references/comp.md`](references/comp.md) runs here; absent the key the step does not exist.
+On signal 9, `comp.md` runs here.
 
 ### 6. Build
 
@@ -127,7 +130,7 @@ Emit code that satisfies the theme and the shape. Always:
 
 - **Start from the scaffold.** `node <skill-dir>/scripts/theme.mjs scaffold <slug>` (with the deal's `--dealt`; `--custom` on a derived run) writes `tokens.css` (the theme's tokens and the shared scale) and `base.css` (the rules the Floor already decided), and prints the stamp skeleton and the two imports that open the page's stylesheet. Fill the stamp and write only the page.
 - **Read [`references/patterns.md`](references/patterns.md) once:** controls in all eight states, a slot, a missing fact, a form that posts nowhere yet, one reveal, figures that compare, written to pass the gates. Take their shape, never their copy.
-- **Hero first.** Write the nav and the hero, run `node <skill-dir>/scripts/sloplint.mjs <file> --render --stage hero`, then the hero review in fresh context (`gates.md` § 6). Build the sections only once the hero ships: a hero rewrite after eight sections exist costs eight sections.
+- **Hero first.** Write the nav and the hero, run `node <skill-dir>/scripts/sloplint.mjs <file> --render --stage hero`, then the hero review in fresh context (`gates.md` § 6). Build the sections only once the hero ships.
 - **One idea per screen.** Hero: headline (seven words or fewer, 50 characters or fewer), one sentence (twelve words or fewer), one or two actions. A section: a heading of three to five words, at most one line, then its object (a slot, a figure, a drawn thing, a list of four or fewer, a table of five rows or fewer). Four to eight sections, footer included; 450 visible words at most, fewer when the brief has less to say. Never pad to a count.
 - **Show, do not describe.** On a product page with material or "leave slots": at least two `data-slot` containers, the hero visual (unless the theme's own object holds the hero) and a demo strip (or one capture per stage where the shape stages the product); with neither, the page shows what is real (Step 2). The user's images fill them; otherwise a designed placeholder in the theme's colours with a corner label (`craft.md` § Demo slots). Never a grey box or a fake screenshot with invented figures.
 - **The fold.** The hero is the first screen and only the first screen at 1440 x 900 and 1920 x 1080, its visual beside the text (centres within 60px, 48 to 120px apart), never pinned in a corner; a Banner shares it with the first section.
@@ -136,7 +139,7 @@ Emit code that satisfies the theme and the shape. Always:
 - **Type.** The theme's faces, at most two families (three with one outlier role); display tracking and leading per `craft.md` § 1; body 16px or more at 1.5 to 1.65, 45 to 75ch; heads roman; labels never mono unless mono is the material (64). A head is one weight and one colour throughout; the accented word is a tell (38iii).
 - **States and motion.** Eight states on every interactive element; `transform` and `opacity` only; at most one orchestrated reveal per page, none where the theme keeps still, 0.4 to 0.8s, visible by default; exits at 60 to 75% of the enter; nothing bounces.
 - **Browser surfaces.** Keep the scaffold's selection, caret, scrollbar and focus rules; tabular numerals wherever figures compare.
-- **Stamp.** Line 1 of CSS is the scaffold's stamp skeleton with every field filled (`hero: Stage · nav: edge-aligned · signature: live pricing table in the hero slot`), then the critique line (`gates.md` § 3), any `waive` and `answered` lines, and a custom run's direction contract. Everything the linter reads sits in the first 40 lines.
+- **Stamp.** Line 1 of CSS is the scaffold's stamp skeleton with every field filled, then the critique line (`gates.md` § 3), any `waive` and `answered` lines, and a custom run's direction contract. Everything the linter reads sits in the first 40 lines.
 - **`tokens.css`** is the scaffold's, at the project root, imported by the page; on a `design.md` project, refresh its `## Exports` ([`references/export-formats.md`](references/export-formats.md)).
 - **Existing stylesheets are append-only:** keep the Tailwind directives where they are, import `tokens.css` and `base.css` below them, reuse the project's own token names; rewrite only on request.
 - **Log.** `node <skill-dir>/scripts/theme.mjs log --entry '<json>'` puts the build atop `.hallmark/log.json`: `shape`, `theme`, `axes`, `hero`, `nav`, `footer`, `enrichment`, `entry` (the section opening), `fingerprint` (`Hanging|Asymmetric spans|Hairline|Outlined|Margin-aligned|None`), `signature`, `waived`, `brief`; it names any field you left out.
@@ -145,7 +148,7 @@ Emit code that satisfies the theme and the shape. Always:
 
 1. `node <skill-dir>/scripts/sloplint.mjs <files> --genre <genre> --render` (add `--scope component` on a component; in a framework project with a dev server running, add `--url http://localhost:<port>/<route>`). Fix every FAIL, re-run until clean. The render tier writes the screenshots; never run Chrome by hand.
 2. Load [`references/gates.md`](references/gates.md) § 5 and walk the J and R/J gates. Confirm or dismiss every WARN. Fix every open Floor finding; fix or waive every Reflex one; answer every Finish one.
-3. The finish review in fresh context (`gates.md` § 6): hand the reviewer its brief file and the inputs it lists, act on its first word (`recapture`, `rebuild`, `fix`, `ship`), and score the fixes yourself.
+3. The finish review in fresh context (`gates.md` § 6): hand the reviewer its brief file and its inputs, act on its first word (`recapture`, `rebuild`, `fix`, `ship`), and score the fixes yourself.
 4. Close with the material ask: every slot, its size and what belongs there, then the one piece of material that would most improve the page.
 5. Update the Picks block: any row the build changed, and the last row with the real outcome (`Floor 0 FAIL · Reflex 2 (1 waived: 47b) · finish-review: subagent, 3 resolved`). A fabricated pass is itself slop.
 
@@ -153,4 +156,4 @@ Verification is budgeted: one batched inspection, one fix batch, at most one con
 
 ## Branches
 
-[`references/flow.md`](references/flow.md) holds them; read only the section you are in: component scope, signal 8 (the archive builds, Hallmark sweeps), comp before build, the Codex and OpenCode levers, the pre-flight edge cases, **fast mode** (`--fast`, or a brief that says quick, rough or prototype) and the edit-time hook. In an existing project, name the files you will touch before touching them, and never delete a route or a component tree without a file-level plan the user approved.
+[`references/flow.md`](references/flow.md) holds them; read only the section you are in: component scope, app screens, signal 8 (the archive builds, Hallmark sweeps), comp before build, the Codex and OpenCode levers, the pre-flight edge cases, **fast mode** (`--fast`, or a brief that says quick, rough or prototype) and the edit-time hook. In an existing project, name the files you will touch first, and never delete a route or a component tree without a file-level plan the user approved.
