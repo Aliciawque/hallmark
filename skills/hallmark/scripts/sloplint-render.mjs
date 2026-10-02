@@ -255,7 +255,7 @@ export function writeCompare(targets, note) {
     const has = (side, slug, tag) => existsSync(join(dir, side, `${slug}-${tag}.png`));
     const pages = slugs.filter((x) => has('before', x, '1440x900') && has('shots', x, '1440x900'));
     if (!pages.length) continue;
-    const pair = (slug, tag, label, cls) => (has('before', slug, tag) && has('shots', slug, tag) ? `<div class="pair ${cls}"><figure><img src="before/${esc(slug)}-${tag}.png" alt="${esc(slug)} before, ${label}" loading="lazy"><figcaption>Before, ${label}</figcaption></figure><figure><img src="shots/${esc(slug)}-${tag}.png" alt="${esc(slug)} after, ${label}" loading="lazy"><figcaption>After, ${label}</figcaption></figure></div>` : '');
+    const pair = (slug, tag, label, cls) => (has('before', slug, tag) && has('shots', slug, tag) ? `<div class="pair ${cls}"><figure><img src="before/${esc(slug)}-${tag}.png" alt="${esc(slug)} before, ${label}"><figcaption>Before, ${label}</figcaption></figure><figure><img src="shots/${esc(slug)}-${tag}.png" alt="${esc(slug)} after, ${label}"><figcaption>After, ${label}</figcaption></figure></div>` : '');
     const body = pages.map((x) => `<section><h2>${esc(x)}</h2>${pair(x, '1440x900', 'first screen at 1440', '')}${pair(x, '1440-full', 'whole page at 1440', '')}${pair(x, '375', 'whole page on a phone', 'phone')}</section>`).join('\n');
     const html = `<!doctype html>
 <html lang="en">
