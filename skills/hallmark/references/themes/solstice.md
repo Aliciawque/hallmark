@@ -43,7 +43,7 @@ The sun is vermilion at hue 15, never clay; the gold is a hairline, never a fill
 
 ## Faces
 
-- **Display:** Yeseva One 400, roman, line-height 0.98, `--tracking-display`; 50px for section heads, 80 to 120 for the page, 28 to 54 for figures, tabular. One colour per head.
+- **Display:** Yeseva One 400, roman, line-height 1.0, `--tracking-display`; 50px for section heads, up to 84 for the page, 28 to 54 for figures, tabular. One colour per head.
 - **Body:** Archivo 400 and 500, 16 to 17px, line-height 1.55, in ink-2.
 - **Small print:** Archivo Narrow 600 at 12.5 to 13.5px, sentence case, untracked, the outlier, for dates, axis labels and months. Captions, meta and table heads: Archivo 500 one step smaller, sentence case. No mono.
 
@@ -53,7 +53,7 @@ The sun is vermilion at hue 15, never clay; the gold is a hairline, never a fill
 - The disc: a circle of the sun colour. As a badge it takes a 2px ink border and an inner ring of paper; a badge carries a fact, a date or a frame number, or does not appear. As the setting sun it is a half circle on a base line.
 - The label: a panel with a `--rule-bar` ink border and an inner gold rule 6px in, centred text, a date in the serif with a gold rule under it; the one shadow is `--shadow-card`, hard.
 - Rules `--rule-bar` ink across the top of a section, `--rule-hair` paper-3 between rows, 2px gold under a heading inside a panel. No radius on boxes; circles are circles and everything else is square.
-- Drawings in ink with cream fills: a hill as one bezier with trees as circles, a bottle as a path; the sun is the one colour in them. Charts are hours of light: a gold bar ending in a sun.
+- Drawings in ink with cream fills: a hill as one bezier with trees as circles, a bottle as a path; the sun is the one colour in them. Charts are hours of light: a gold rule ending in a sun.
 - The control pair: a sun-filled button in Narrow 600 beside a plain 2px ink underline, no box.
 
 ## Motion
@@ -79,7 +79,7 @@ The almanac: the hour of light, the pressing day, the orchard by name. Never a t
 ```
 
 ```css
-.display { font: 400 var(--text-display)/0.98 var(--font-display); letter-spacing: var(--tracking-display); text-wrap: balance; }
+.display { font: 400 var(--text-display)/1 var(--font-display); letter-spacing: var(--tracking-display); text-wrap: balance; }
 .rays { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .rays::before { content: ""; position: absolute; width: 2600px; height: 2600px; right: -600px; top: -1300px; border-radius: 50%;
   background: repeating-conic-gradient(var(--color-paper-3) 0 4.5deg, transparent 4.5deg 9deg, color-mix(in oklab, var(--color-paper) 50%, var(--color-paper-3)) 9deg 12deg, transparent 12deg 18deg);
@@ -87,7 +87,7 @@ The almanac: the hour of light, the pressing day, the orchard by name. Never a t
 .sun { display: inline-block; width: 1em; height: 1em; border-radius: 50%; background: var(--color-accent); }
 .label { background: var(--color-paper-2); border: var(--rule-bar) solid var(--color-ink); outline: 1px solid var(--color-gold); outline-offset: -7px; text-align: center; box-shadow: var(--shadow-card); }
 .small { font: 600 12.5px var(--font-outlier); color: var(--color-muted); }
-.btn { padding: 15px 30px; font: 600 14px var(--font-outlier); background: var(--color-accent); color: var(--color-accent-ink); }
-.btn--secondary { background: none; color: var(--color-ink); padding: 15px 0 6px; border-bottom: var(--rule-bar) solid var(--color-ink); }
+.btn { padding: var(--space-md) var(--space-xl); font: 600 var(--text-sm)/1 var(--font-outlier); background: var(--color-accent); color: var(--color-accent-ink); }
+.btn--secondary { background: none; color: var(--color-ink); padding: var(--space-lg) 0 var(--space-xs); border-bottom: var(--rule-bar) solid var(--color-ink); }
 ::selection { background: color-mix(in oklab, var(--color-gold) 40%, transparent); }
 ```

@@ -44,11 +44,11 @@ A midnight-blue ground, cool near-white ink, Geist 300 set large and airy over t
 - Radius 8px, small and even, on surfaces, controls, chips and inputs alike; neither pill nor ruler-sharp.
 - The signal under 5%: the one primary control, a link hover, an active nav item, a single large figure. Never a wash, never a gradient, never a second light.
 - The control pair: an azure-filled primary with `--color-accent-ink` text beside a secondary bordered in `--color-rule-2`, both at 8px.
-- The object family: instrument panels. A console pane, a run log, a metric strip, a settings sheet, each a `paper-2` surface with a hairline seam and a plain Geist header. Nothing glass, nothing blurred; sections far apart, one idea per screen.
+- The object family: instrument panels. A console pane, a run log, a metric strip, a settings sheet, each a `paper-2` surface with a hairline seam and a plain Geist header. Nothing glass, nothing blurred.
 
 ## Motion
 
-One settle: the hero fades from 0.6 to 1 over 420ms ease-out, once, from an already-visible default. Hover: an azure underline grows under a link; a border lifts to `--color-rule-2` on a focusable surface. No slide, no parallax, no autoplay.
+One settle: the hero fades from 0.6 to 1 over `--dur-long` on `--ease-out`, once, from an already-visible default. Hover: a link's underline turns azure; a border lifts to `--color-rule-2` on a focusable surface. No slide, no parallax, no autoplay.
 
 ## Voice
 
@@ -70,11 +70,11 @@ Cool, spare, a touch cerebral. Name the command or the number. Never hype.
 
 ```css
 .display { font: var(--display-weight) var(--text-display)/1.05 var(--font-display); letter-spacing: var(--tracking-display); color: var(--color-ink); }
-.panel { background: var(--color-paper-2); border: 1px solid var(--color-rule); border-radius: var(--radius-card); }
-.panel--raised { background: var(--color-paper-3); box-shadow: var(--shadow-card); }
-.btn { border-radius: var(--radius-card); padding: 0.7rem 1.1rem; font-weight: 500; }
+.panel { background: var(--color-paper-2); color: var(--color-ink); border: 1px solid var(--color-rule); border-radius: var(--radius-card); }
+.panel--raised { background: var(--color-paper-3); color: var(--color-ink); border-color: transparent; box-shadow: var(--shadow-card); }
+.btn { border-radius: var(--radius-card); padding: var(--space-sm) var(--space-md); font-weight: 500; }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--secondary { border: 1px solid var(--color-rule-2); color: var(--color-ink); }
-a:hover { text-decoration-color: var(--color-accent); text-underline-offset: 0.2em; }
+a:hover { text-decoration-color: var(--color-accent); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 30%, transparent); color: var(--color-ink); }
 ```

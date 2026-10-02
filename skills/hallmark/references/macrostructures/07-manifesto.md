@@ -7,7 +7,7 @@ Polemical large type. The page tells the reader what to believe before it tells 
 - **Divider:** changes of paper between sections, or the theme's own rules; never a card.
 - **Button:** one solid block in the accent; the fold carries it beside or under the declaration (44b), and it returns at the foot as the page's last word.
 - **Image:** none, or one high-contrast black-and-white photograph as a section bleed.
-- **Reveal:** horizontal sweep on section entry.
+- **Reveal:** one horizontal sweep, on the first claim below the fold; the rest is simply there.
 
 Reach for it for repositioning announcements, mission-led indie products, a studio's beliefs page.
 
@@ -23,6 +23,6 @@ Avoid for checkout, pricing or a product tour. Manifesto sells agreement; a call
 ```
 
 **Sample opening lines** (manifestos commit; they do not hedge):
-> *"We are a studio. We are not a platform."* Defines by refusal, one colour (Meridian, test 04).
+> *"We are a studio. We are not a platform."* Defines by refusal, one colour (Meridian).
 > *"We design products that last twelve years. We do not design products that need replacing every two."* A concrete number, a paired declaration.
 > *"Lightness above weight."* A one-line principle, no explanation.

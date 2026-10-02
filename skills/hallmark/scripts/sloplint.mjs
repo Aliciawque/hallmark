@@ -84,8 +84,28 @@ function parseCss(source, file, lineOffset = 0) {
     return lo + 1 + lineOffset;
   };
   const rules = [];
+  const flatBody = (s, e) => {
+    const out = src.slice(s, e).split('');
+    let depth = 0, edge = -1;
+    for (let i = 0; i < out.length; i++) {
+      const c = out[i];
+      if (c === '{') {
+        if (depth === 0) for (let k = edge + 1; k < i; k++) if (out[k] !== '\n') out[k] = ' ';
+        depth++; out[i] = ' ';
+      } else if (c === '}') {
+        depth = Math.max(0, depth - 1); out[i] = ' ';
+        if (depth === 0) edge = i;
+      } else if (depth > 0) { if (c !== '\n') out[i] = ' '; }
+      else if (c === ';') edge = i;
+    }
+    return out.join('');
+  };
+  const nestSel = (sel, parent) => {
+    const p = parent.includes(',') ? `:is(${parent})` : parent;
+    return sel.split(/,(?![^(]*\))/).map((part) => part.includes('&') ? part.trim().replace(/&/g, p) : `${p} ${part.trim()}`).join(', ');
+  };
   const makeRule = (selector, s, e, media, keyframes) => {
-    const body = src.slice(s, e);
+    const body = flatBody(s, e);
     const decls = [];
     let off = 0;
     for (const part of body.split(';')) {
@@ -101,7 +121,7 @@ function parseCss(source, file, lineOffset = 0) {
     }
     return { selector, decls, media: media || null, keyframes: keyframes || null, file, line: lineOf(s) };
   };
-  const walk = (start, end, media, keyframes) => {
+  const walk = (start, end, media, keyframes, parent = null) => {
     let i = start;
     while (i < end) {
       while (i < end && /[\s;]/.test(src[i])) i++;
@@ -122,7 +142,8 @@ function parseCss(source, file, lineOffset = 0) {
       if (selector.startsWith('@')) {
         if (/^@(media|supports|layer|container|scope)/i.test(selector)) {
           const q = /^@media/i.test(selector) ? selector.replace(/^@media/i, '').trim() : media;
-          walk(blockStart, blockEnd, q, keyframes);
+          if (parent) rules.push(makeRule(parent, blockStart, blockEnd, q, keyframes));
+          walk(blockStart, blockEnd, q, keyframes, parent);
         } else if (/^@(-webkit-)?keyframes/i.test(selector)) {
           const name = selector.replace(/^@(-webkit-)?keyframes/i, '').trim();
           walk(blockStart, blockEnd, media, name || 'anon');
@@ -133,7 +154,9 @@ function parseCss(source, file, lineOffset = 0) {
           walk(blockStart, blockEnd, media, keyframes);
         }
       } else {
-        rules.push(makeRule(selector, blockStart, blockEnd, media, keyframes));
+        const sel = parent && !keyframes ? nestSel(selector, parent) : selector;
+        rules.push(makeRule(sel, blockStart, blockEnd, media, keyframes));
+        if (!keyframes && src.slice(blockStart, blockEnd).includes('{')) walk(blockStart, blockEnd, media, keyframes, sel);
       }
       i = k;
     }
@@ -713,10 +736,10 @@ function contrastRatio(a, b) {
   return (hi + 0.05) / (lo + 0.05);
 }
 
+const TOKEN_SEL = /^(?:html|:root)?(?:\[data-(?:theme|mode|scheme)[^\]]*\]|:root|:not\([^)]*\))*$/i;
 function isTokenRule(rule) {
-  return /:root|\[data-theme/i.test(rule.selector)
-    || basename(rule.file).toLowerCase() === 'tokens.css'
-    || rule.selector === '@font-face' || rule.selector === '@theme';
+  if (rule.selector === '@font-face' || rule.selector === '@theme' || basename(rule.file).toLowerCase() === 'tokens.css') return true;
+  return rule.selector.split(',').every((p) => { const t = p.trim(); return t && TOKEN_SEL.test(t); });
 }
 
 function buildTokens(rules) {
@@ -755,7 +778,7 @@ function pxOf(value) {
 const rel = (f) => f.startsWith(process.cwd()) ? f.slice(process.cwd().length + 1) : f;
 const trunc = (s, n = 72) => (s.length > n ? s.slice(0, n - 1) + '…' : s);
 
-const PAGE_ONLY = new Set(['3', '4', '17', '18', '19', '20', '25', '28', '28a', '28b', '33', '34', '42', '46', '46a', '46b', '47', '47a', '47b', '47c', '49', '49a', '49b', '50', '53', '54', '55', '55a', '55b', '56', '58', '62', '63', '65', '66', 'F7', 'F8', 'F15', 'F16']);
+const PAGE_ONLY = new Set(['3', '8', '9', '25', '28', '32', '34', '42', '44', '46b', '47b', '47c', '49', '50', '54', '55', '56', '58', '59', '65', '66', '68', '69', '71', 'F7', 'F8', 'F15', 'F16', 'F20']);
 const gateNumber = (id) => (/^(\d{1,2})/.exec(String(id)) || [])[1] || null;
 const pageOnly = (id) => PAGE_ONLY.has(String(id)) || PAGE_ONLY.has(gateNumber(id));
 
@@ -774,7 +797,7 @@ const TIERS = new Map(Object.entries({
   '28a': 'floor', '28b': 'reflex', '30a': 'floor', '30b': 'reflex', '38i': 'floor', '38ii': 'reflex', '38iii': 'reflex',
   '39a': 'floor', '39b': 'reflex', '44a': 'reflex', '44b': 'floor', '44c': 'reflex', '44d': 'floor',
   '46a': 'floor', '46b': 'reflex', '47a': 'floor', '47b': 'reflex', '47c': 'reflex', '49a': 'floor', '49b': 'reflex',
-  '55a': 'floor', '55b': 'reflex',
+  '55a': 'floor', '55b': 'reflex', '71': 'reflex', '72': 'reflex', '73': 'floor', '74': 'reflex',
 }));
 
 const HERO_SKIP = new Set(['8', '9', '32', '59', 'F8', 'F15']);
@@ -863,10 +886,10 @@ function report(gate, grade, file, line, evidence, fix) {
     if (tier === 'ledger') grade = 'NOTE';
     else if (tier === 'reflex') grade = waived ? 'WAIVED' : 'REFLEX';
   }
-  if (tier === 'finish' && ANSWERED.has(b)) grade = 'ANSWERED';
+  if (tier === 'finish' && grade !== 'FAIL' && ANSWERED.has(b)) grade = 'ANSWERED';
   if (grade === 'WARN' && (DISMISSED.has(b) || DISMISSED.has(gateNumber(b)))) grade = 'DISMISSED';
   if (grade === 'WARN' && tier === 'reflex' && waived) grade = 'WAIVED';
-  findings.push({ gate: g, grade, tier, file: rel(file), line: line || 1, evidence: trunc(String(evidence)), fix });
+  findings.push({ gate: g, grade, tier, file: rel(file), line: line || 1, evidence: trunc(String(evidence), 120), fix });
 }
 
 function applyWaivers(ctx, dir) {
@@ -886,7 +909,7 @@ function applyWaivers(ctx, dir) {
   }
 
   const pageWords = new Set(
-    (ctx.stampText + ' ' + ctx.docs.map((d) => d.text).join(' '))
+    (ctx.stampText.replace(/\/\*\s*Hallmark\s*·\s*(?:waive|answered|dismissed)\b[^*]*\*\//gi, ' ') + ' ' + ctx.docs.map((d) => d.text).join(' '))
       .toLowerCase().match(/[a-z]{4,}/g) || []
   );
   const file = ctx.cssFiles[0]?.file || ctx.docs[0]?.file || dir;
@@ -913,6 +936,7 @@ function applyWaivers(ctx, dir) {
         : 'Floor is never waivable');
       continue;
     }
+    if (/^\d+$/.test(c.id) && [...TIERS.keys()].some((k) => k !== c.id && gateNumber(k) === c.id)) { rejectAt(c, `name the clause (${[...TIERS.keys()].filter((k) => k !== c.id && gateNumber(k) === c.id).join(' or ')})`); continue; }
     if (WAIVED.has(b)) { rejectAt(c, 'one waiver per gate'); continue; }
     if (c.reason.length < 24) { rejectAt(c, 'reason under 24 characters'); continue; }
     if (reasonIsBoilerplate(c.reason)) { rejectAt(c, 'boilerplate reason'); continue; }
@@ -1110,6 +1134,19 @@ function gradientTextRules(ctx) {
   }
   return out;
 }
+function withoutPatterns(value) {
+  let out = '', i = 0;
+  const re = /repeating-(?:linear|radial|conic)-gradient\(/gi;
+  let m;
+  while ((m = re.exec(value))) {
+    out += value.slice(i, m.index);
+    let depth = 1, k = m.index + m[0].length;
+    while (k < value.length && depth > 0) { if (value[k] === '(') depth++; else if (value[k] === ')') depth--; k++; }
+    i = k; re.lastIndex = k;
+  }
+  return out + value.slice(i);
+}
+
 function check2(ctx) {
   const textRules = new Set();
   for (const { r, clip, grad } of gradientTextRules(ctx)) {
@@ -1122,7 +1159,9 @@ function check2(ctx) {
     if (textRules.has(r.selector)) continue;
     for (const d of r.decls) {
       if (!/gradient\(/i.test(d.value)) continue;
-      const banned = bannedGradient(gradientHues(d.value, ctx), ctx);
+      const washes = withoutPatterns(d.value);
+      if (!/gradient\(/i.test(washes)) continue;
+      const banned = bannedGradient(gradientHues(washes, ctx), ctx);
       if (banned) report('2a', 'FAIL', r.file, d.line, `${banned} gradient on ${r.selector}`, 'One anchor hue; drop the gradient');
     }
   }
@@ -1249,10 +1288,10 @@ function check10(ctx) {
   for (const r of ctx.rules) {
     for (const d of r.decls) {
       if (d.prop === 'transition' && /(^|,)\s*all[\s,]|^all$|^all\s/.test(d.value.trim())) {
-        report(10, 'FAIL', r.file, d.line, `transition: all on ${r.selector}`, 'List the transitioned properties explicitly');
+        report('10a', 'FAIL', r.file, d.line, `transition: all on ${r.selector}`, 'List the transitioned properties explicitly');
       }
       if (d.prop === 'transition-property' && /\ball\b/.test(d.value)) {
-        report(10, 'FAIL', r.file, d.line, `transition-property: all on ${r.selector}`, 'List the transitioned properties explicitly');
+        report('10a', 'FAIL', r.file, d.line, `transition-property: all on ${r.selector}`, 'List the transitioned properties explicitly');
       }
     }
   }
@@ -1309,7 +1348,7 @@ function check12(ctx) {
 }
 
 function check10Motion(ctx) {
-  const hardRe = /(?<![\w-])(width|height|top|left|right|bottom|inset(?:-[a-z-]+)?|flex-basis|grid-template-(?:columns|rows))(?![\w-])/;
+  const hardRe = /(?<![\w-])(width|height|top|left|right|bottom|inset(?:-[a-z-]+)?|flex-basis|grid-template-columns)(?![\w-])/;
   const softRe = /(?<![\w-])(margin(?:-[a-z]+)?|padding(?:-[a-z]+)?)(?![\w-])/;
   const a11ySel = /skip|sr-only|visually-hidden/i;
   for (const r of ctx.rules) {
@@ -1342,8 +1381,9 @@ function check10Motion(ctx) {
 function check15(ctx) {
   for (const r of ctx.rules) {
     if (!/:focus(-visible|-within)?\b/.test(r.selector)) continue;
+    const withinOnly = !/:focus(-visible)?(?![\w-])/.test(r.selector);
     for (const d of r.decls) {
-      if (d.prop === 'transition' && /outline|box-shadow|opacity|all/.test(d.value)) {
+      if (d.prop === 'transition' && (withinOnly ? /outline|box-shadow|\ball\b/ : /outline|box-shadow|opacity|\ball\b/).test(d.value)) {
         report(15, 'FAIL', r.file, d.line, `focus ring transition on ${r.selector}`, 'Remove the transition; rings appear instantly');
       }
     }
@@ -1362,7 +1402,7 @@ function check17(ctx) {
 
 function check18(ctx) {
   const autoish = /carousel|marquee|ticker|rotate|slider|scroll|auto/i;
-  const paused = ctx.rules.some((r) => /:hover|:focus/.test(r.selector) && r.decls.some((d) => d.prop === 'animation-play-state' && /paused/.test(d.value)));
+  const paused = ctx.rules.some((r) => /:hover|:focus|\[data-loop\]/.test(r.selector) && r.decls.some((d) => d.prop === 'animation-play-state' && /paused/.test(d.value)));
   for (const r of ctx.rules) {
     if (r.keyframes || !autoish.test(r.selector)) continue;
     for (const d of r.decls) {
@@ -1380,7 +1420,6 @@ function check19(ctx) {
       [/\b(jane doe|john smith|john doe|example user)\b/i, 'placeholder name'],
       [/\bAcme\b/, 'startup cliche name'],
       [/\bNexus\b/, 'startup cliche name'],
-      [/\bUnleash\b/, 'startup cliche name'],
     ];
     for (const [re, label] of patterns) {
       const m = re.exec(t);
@@ -1582,7 +1621,7 @@ function check28(ctx) {
           report('28b', 'FAIL', doc.file, t.line, 'video without poster', 'Add a poster frame; guard: below the fold and not the LCP');
         }
         if ((getAttr(t.attrs, 'loading') || '').toLowerCase() === 'lazy' && firstMedia) {
-          report('28a', 'WARN', doc.file, t.line, 'lazy-loaded hero video', 'fetchpriority=high on the LCP element');
+          report('28a', 'WARN', doc.file, t.line, 'lazy-loaded hero video', 'Never lazy on the LCP video; preload its poster with fetchpriority=high');
         }
         firstMedia = false;
       }
@@ -1679,15 +1718,15 @@ function check34(ctx) {
   const file = ctx.cssFiles[0]?.file || ctx.docs[0]?.file;
   const both = clipped.has('html') && clipped.has('body');
   if (!both && hidden) {
-    report(34, 'WARN', hidden.file, hidden.line, `overflow-x: hidden on ${hidden.sel} (breaks sticky)`, 'Use overflow-x: clip on both html and body, never hidden');
+    report(34, 'FAIL', hidden.file, hidden.line, `overflow-x: hidden on ${hidden.sel} (breaks sticky)`, 'Use overflow-x: clip on both html and body, never hidden');
   } else if (!both && file && ctx.docs.length && pageish && !hiddenUtil.length) {
     const where = clipped.size ? `overflow-x: clip on ${[...clipped][0]} only` : 'no overflow-x: clip on html and body';
     report(34, 'FAIL', file, 1, where, 'overflow-x: clip on both html and body');
   }
   for (const r of ctx.rules) {
     for (const d of r.decls) {
-      if (/^(width|min-width)$/.test(d.prop) && /^100vw$/.test(d.value.trim())) {
-        report(34, 'WARN', r.file, d.line, `${d.prop}: 100vw on ${r.selector} (scrollbar overflow)`, 'width: 100% with container padding');
+      if (/^(width|min-width)$/.test(d.prop) && /(^|[^\w.-])100vw\b/.test(d.value)) {
+        report(34, 'FAIL', r.file, d.line, `${d.prop}: ${trunc(d.value, 28)} on ${r.selector} (scrollbar overflow)`, 'width: 100% with container padding');
       }
     }
   }
@@ -1723,15 +1762,15 @@ function check38a(ctx) {
     }
   }
 
-  const emNormalized = ctx.rules.some((r) =>
-    /(^|[\s,])(em|i)\b/.test(r.selector)
-    && r.decls.some((d) => d.prop === 'font-style' && /normal/.test(d.value)));
-  if (emNormalized) return;
+  const normSel = ctx.rules.filter((r) => /(^|[\s,>+~])(em|i)\b/.test(r.selector)
+    && r.decls.some((d) => d.prop === 'font-style' && /normal/.test(d.value))).flatMap((r) => r.selector.split(',').map((x) => x.trim()));
+  const normalised = (level, classes) => normSel.some((sel) => /^(em|i)$/.test(sel) || new RegExp(`(^|[\\s,>+~])h${level}\\b`).test(sel) || classes.some((c) => sel.includes('.' + c)));
   for (const doc of ctx.docs) {
-    const re = /<h([1-6])\b[^>]*>([\s\S]*?)<\/h\1>/gi;
+    const re = /<h([1-6])\b([^>]*)>([\s\S]*?)<\/h\1>/gi;
     let m;
     while ((m = re.exec(doc.src))) {
-      if (/<(em|i)\b/i.test(m[2])) {
+      const classes = ((/class\s*=\s*["']([^"']*)["']/i.exec(m[2]) || [])[1] || '').split(/\s+/).filter(Boolean);
+      if (/<(em|i)\b/i.test(m[3]) && !normalised(m[1], classes)) {
         report('38i', 'FAIL', doc.file, doc.lineOf(m.index), `<em>/<i> inside <h${m[1]}>`, 'Roman headers; emphasis via weight or accent');
       }
     }
@@ -1963,12 +2002,6 @@ function check47(ctx) {
 
 function check48(ctx) {
   const colorLit = /#[0-9a-fA-F]{3,8}\b|(?<![\w-])rgba?\(|(?<![\w-])hsla?\(|(?<![\w-])oklch\(/;
-  const oklchCount = new Map();
-  const warnOklch = (file, line, evidence) => {
-    const n = (oklchCount.get(file) || 0) + 1;
-    oklchCount.set(file, n);
-    if (n <= 6) report(48, 'WARN', file, line, evidence, 'Lift the value into the token block');
-  };
   for (const [prop, val] of Object.entries(ctx.tokens)) {
     if (/^--(font|color)-/.test(prop) && /FILL ME/i.test(val)) {
       const tr = ctx.rules.find((r) => isTokenRule(r) && r.decls.some((d) => d.prop === prop));
@@ -2001,8 +2034,7 @@ function check48(ctx) {
         if (c.alpha === 0) continue;
         const isOklch = m[0].toLowerCase().startsWith('oklch');
         const ev = `${isOklch ? 'oklch' : 'colour'} literal ${trunc(m[0], 30)} outside tokens (${d.prop} on ${trunc(r.selector, 30)})`;
-        if (isOklch) warnOklch(r.file, d.line, ev);
-        else report(48, 'FAIL', r.file, d.line, ev, 'Lift the value into the token block');
+        report(48, 'FAIL', r.file, d.line, ev, 'Lift the value into the token block');
       }
     }
   }
@@ -2014,14 +2046,8 @@ function check48(ctx) {
       if (lit && parseColor(lit[0])) {
         const isOklch = lit[0].toLowerCase().startsWith('oklch');
         const ev = `inline-style colour literal ${trunc(lit[0], 30)}`;
-        if (isOklch) warnOklch(doc.file, doc.lineOf(m.index), ev);
-        else report(48, 'FAIL', doc.file, doc.lineOf(m.index), ev, 'Lift the value into the token block');
+        report(48, 'FAIL', doc.file, doc.lineOf(m.index), ev, 'Lift the value into the token block');
       }
-    }
-  }
-  for (const [file, n] of oklchCount) {
-    if (n > 6) {
-      report(48, 'WARN', file, 1, `+${n - 6} more oklch literals outside tokens in this file`, 'Lift the values into the token block');
     }
   }
 }
@@ -2259,11 +2285,12 @@ function check55(ctx) {
     const lhD = r.decls.find((d) => d.prop === 'line-height');
     if (!lhD) continue;
     const lh = parseFloat(resolveVars(lhD.value, ctx.tokens));
-    if (Number.isNaN(lh) || lh >= 1.0) continue;
+    if (Number.isNaN(lh) || lh >= 1.02) continue;
     const bigType = r.decls.some((d) => d.prop === 'font-size' && (pxOf(resolveVars(d.value, ctx.tokens)) ?? 0) >= 28);
     if (!displayish && !bigType) continue;
     const nowrap = r.decls.some((d) => d.prop === 'white-space' && /nowrap/.test(d.value));
-    report(nowrap ? '55b' : '55a', 'FAIL', r.file, lhD.line, `uppercase + line-height ${lh} on ${r.selector} (cap collision)`, 'Line-height 1.0 minimum for caps heads');
+    if (!nowrap && lh >= 1.0) continue;
+    report(nowrap ? '55b' : '55a', 'FAIL', r.file, lhD.line, `uppercase + line-height ${lh} on ${r.selector} (cap collision)`, nowrap ? 'A single-line caps lockup holds 1.02 or more' : 'Line-height 1.0 minimum for caps heads that can wrap');
   }
 }
 
@@ -2286,7 +2313,7 @@ function checkCopyTell(ctx) {
     const prose = maskedProse(doc);
     const m = /\w\s--\s\w|[\u2014\u2013]|&mdash;|&ndash;|&#8212;|&#8211;/.exec(prose);
     if (m) report(19, 'FAIL', doc.file, doc.lineOf(m.index), `dash "${m[0]}" in copy`, 'A comma, a colon, a full stop or parentheses; never a dash');
-    const buzz = /\b(seamless(ly)?|robust|empower(s|ing)?|supercharge[sd]?|elevate[sd]?|effortless(ly)?|unlock(s|ing)?|next[- ]generation|world[- ]class|cutting[- ]edge|streamline[sd]?|revolutioni[sz]e[sd]?|game[- ]chang(er|ing)|enterprise[- ]grade|quietly (trusted|in use)|built for the modern|in today's)\b/i.exec(prose);
+    const buzz = /\b(seamless(ly)?|robust|empower(s|ing)?|supercharge[sd]?|best[- ]in[- ]class|industry[- ]leading|mission[- ]critical|future[- ]proof(ed)?|unleash(es|ed|ing)?|elevate[sd]?|effortless(ly)?|unlock(s|ing)?|next[- ]generation|world[- ]class|cutting[- ]edge|streamline[sd]?|revolutioni[sz]e[sd]?|game[- ]chang(er|ing)|enterprise[- ]grade|quietly (trusted|in use)|built for the modern|in today's)\b/i.exec(prose);
     if (buzz) report(19, 'FAIL', doc.file, doc.lineOf(buzz.index), `buzzword "${buzz[0]}"`, 'Say what the product does, in its own nouns');
     const cadence = prose.match(/(^|[.!?]\s+)(not|no)\s+[a-z][^.!?\n]{0,40}[.]\s+(just|only|a|an)?\s*[a-z][^.!?\n]{0,40}[.]/gi) || [];
     if (cadence.length >= 3) report(19, 'FAIL', doc.file, doc.lineOf(prose.indexOf(cadence[0].trim()) || 0), `rebuttal cadence repeated ${cadence.length} times ("${trunc(cadence[0].trim(), 40)}")`, 'Once is voice; three times is a tic');
@@ -2298,9 +2325,20 @@ function monoIsMaterial(ctx) {
   return mono(ctx.tokens['--font-display']) || mono(ctx.tokens['--font-body']);
 }
 
-const HIDE_OK = /tooltip|popover|menu|dropdown|modal|dialog|toast|overlay|backdrop|sheet|drawer|panel|:hover|:focus|:not\(|::before|::after|\.is-|\[hidden|\[aria-hidden|sr-only|visually-hidden|skip|placeholder|::marker|\[data-slot/i;
+const HIDE_OK = /tooltip|popover|menu|dropdown|modal|dialog|toast|overlay|backdrop|sheet|drawer|panel|:hover|:focus|:checked|:target|\[open|\[aria-(?:expanded|selected|current|pressed)|::before|::after|\.is-|\[hidden|\[aria-hidden|sr-only|visually-hidden|skip|placeholder|::marker|\[data-slot/i;
+function startingStyleText(css) {
+  let out = '';
+  for (const m of css.matchAll(/@starting-style\s*\{/gi)) {
+    let depth = 1, k = m.index + m[0].length;
+    while (k < css.length && depth > 0) { if (css[k] === '{') depth++; else if (css[k] === '}') depth--; k++; }
+    out += css.slice(m.index, k) + ' ';
+    const open = css.lastIndexOf('{', m.index - 1), close = css.lastIndexOf('}', m.index - 1);
+    if (open > close) out += css.slice(Math.max(close + 1, 0), open) + ' ';
+  }
+  return out;
+}
 function check62(ctx) {
-  const hasStartingStyle = /@starting-style/i.test(ctx.allCss);
+  const starting = startingStyleText(ctx.allCss);
   const jsScoped = (sel) => /(^|[\s,])(html|body)?\.js\b|\[data-js|\.no-js|html\.has-js/i.test(sel);
   const animatedNames = new Map();
   for (const r of ctx.rules) if (r.keyframes) {
@@ -2310,10 +2348,10 @@ function check62(ctx) {
   const animatesVisible = (name) => (animatedNames.get(name) || []).some((r) => /to|100%/.test(r.selector) && r.decls.some((d) => d.prop === 'opacity' && parseFloat(d.value) === 1));
   const seen = new Set();
   for (const r of ctx.rules) {
-    if (r.keyframes || r.media || r.selector === '@font-face') continue;
+    if (r.keyframes || (r.media && /\bprint\b/i.test(r.media)) || r.selector === '@font-face') continue;
     const hidden = r.decls.find((d) => (d.prop === 'opacity' && parseFloat(resolveVars(d.value, ctx.tokens)) === 0) || (d.prop === 'visibility' && /hidden/.test(d.value)));
     if (!hidden) continue;
-    if (HIDE_OK.test(r.selector) || jsScoped(r.selector) || hasStartingStyle) continue;
+    if (HIDE_OK.test(r.selector.replace(/:not\([^)]*\)/g, '')) || jsScoped(r.selector) || (starting && starting.includes(r.selector))) continue;
     const revealish = /reveal|fade|animate|aos|in-view|inview|appear|enter|rise|slide|stagger|observe|lazy/i.test(r.selector) || r.decls.some((d) => d.prop === 'transform' && /translate|scale/.test(d.value));
     if (!revealish) continue;
     const anim = r.decls.find((d) => d.prop === 'animation' || d.prop === 'animation-name');
@@ -2392,8 +2430,9 @@ function check65(ctx) {
   const cream = p.L >= 0.9 && p.C >= 0.006 && p.H >= 55 && p.H <= 105;
   const clay = a.C >= 0.08 && a.H >= 15 && a.H <= 55;
   const disp = firstFamily(resolveVars(ctx.tokens['--font-display'] || '', ctx.tokens));
-  const hcSerif = /bodoni|didot|didone|playfair|fraunces|instrument serif|cormorant|dm serif|libre caslon display|abril|prata|gloock|newsreader|editorial new|gt sectra|canela|freight/i.test(disp);
-  if (cream && clay && hcSerif) report(65, 'FAIL', ctx.cssFiles[0]?.file || ctx.docs[0]?.file, 1, `the named look: cream paper (L ${Math.round(p.L * 100)}%, hue ${Math.round(p.H)}) + ${disp} + a clay accent (hue ${Math.round(a.H)})`, 'Move one axis, the accent first; or stamp the theme as asked for by name');
+  const hcSerif = /bodoni|didot|didone|playfair|fraunces|instrument serif|cormorant|dm serif|libre caslon display|abril|prata|gloock|newsreader|editorial new|gt sectra|canela|freight|yeseva|rozha|boska|melodrama/i.test(disp);
+  const catalogTheme = /theme:\s*(?!custom\b)[A-Z][\w-]*\s*\((?:deal|by request)/.test(ctx.stampText);
+  if (cream && clay && hcSerif && !catalogTheme) report(65, 'FAIL', ctx.cssFiles[0]?.file || ctx.docs[0]?.file, 1, `the named look: cream paper (L ${Math.round(p.L * 100)}%, hue ${Math.round(p.H)}) + ${disp} + a clay accent (hue ${Math.round(a.H)})`, 'Move one axis, the accent first; or stamp the theme as asked for by name');
 }
 
 function checkF15(ctx) {
@@ -2402,14 +2441,14 @@ function checkF15(ctx) {
     if (r.keyframes || r.media || !/container|wrap|inner|shell|content|section|page|main/i.test(r.selector)) continue;
     for (const d of r.decls) if (d.prop === 'max-width') { const px = maxPxIn(resolveVars(d.value, ctx.tokens)); if (px && px >= 900) widths.set(px, r.selector); }
   }
-  if (widths.size > 2) report('F15', 'WARN', ctx.cssFiles[0]?.file || ctx.docs[0]?.file, 1, `${widths.size} container widths on one page (${[...widths.keys()].join(', ')}px)`, 'One container width, applied by the same two-element pattern in every section');
+  if (widths.size > 1) report('F15', 'WARN', ctx.cssFiles[0]?.file || ctx.docs[0]?.file, 1, `${widths.size} container widths on one page (${[...widths.keys()].join(', ')}px)`, 'One container width, applied by the same two-element pattern in every section');
   const gaps = new Map();
   for (const r of ctx.rules) {
-    if (r.keyframes || r.media) continue;
+    if (r.keyframes || r.media || /hero|masthead|fold/i.test(r.selector)) continue;
     const cols = r.decls.find((d) => d.prop === 'grid-template-columns' && trackCount(d.value) > 1 && !/^repeat\(\s*auto/.test(d.value.trim()));
     if (!cols) continue;
     const gap = r.decls.find((d) => /^(gap|column-gap)$/.test(d.prop));
-    if (gap) { const v = resolveVars(gap.value, ctx.tokens).split(/\s+/).pop(); const px = maxPxIn(v); if (px != null && px >= 16) gaps.set(v, r.selector); }
+    if (gap) { const v = resolveVars(gap.value, ctx.tokens).split(/\s+/).pop(); const px = maxPxIn(v); if (px != null && px >= 24) gaps.set(v, r.selector); }
   }
   if (gaps.size > 2) report('F15', 'WARN', ctx.cssFiles[0]?.file || ctx.docs[0]?.file, 1, `${gaps.size} different column gaps across multi-column sections (${[...gaps.keys()].join(', ')})`, 'One column gap for every multi-column section');
 }
@@ -2726,7 +2765,7 @@ function check67(ctx) {
     if (heading && !control) continue;
     const key = baseSelector(r.selector);
     if (seen.has(key)) continue;
-    const small = px != null && px < 15;
+    const small = px != null && px <= 15;
     if (control && !labelish) {
       if (!upper && !smallCaps) { if (!(tracked && small)) continue; }
       else if (upperDisplay && (em == null || em <= 0.045)) continue;
@@ -2951,9 +2990,9 @@ function check42TwoButton(ctx) {
     if (controls.length < 2) continue;
     const fillOf = (c) => { const decls = styleFor(ctx, c.cls, c.t.name, true); let raw = null; for (const d of decls) if (d.prop === 'background-color' || d.prop === 'background') raw = d.value; if (!raw || /--color-paper\b/.test(raw)) return false; const bg = resolveVars(raw, ctx.tokens); return !/^(none|transparent|inherit|initial|unset)$/i.test(bg.trim()) && !/transparent/i.test(bg) && !/var\(--color-paper/.test(raw); };
     const firstFilled = fillOf(controls[0]);
-    if (firstFilled && fillOf(controls[1])) { report(42, 'WARN', doc.file, controls[1].t.line, `two filled buttons side by side in the hero: "${trunc(controls[0].label, 20)}" and "${trunc(controls[1].label, 20)}"`, 'One filled primary per screen; the second action is outlined or a typographic link'); continue; }
+    if (firstFilled && fillOf(controls[1])) { report('F4', 'WARN', doc.file, controls[1].t.line, `two filled buttons side by side in the hero: "${trunc(controls[0].label, 20)}" and "${trunc(controls[1].label, 20)}"`, 'One filled primary per screen; the second action is outlined or a typographic link'); continue; }
     if (!SECOND_CTA.test(controls[1].label) || !firstFilled) continue;
-    report(42, 'WARN', doc.file, controls[1].t.line, `the two-button hero: "${trunc(controls[0].label, 20)}" then "${controls[1].label}"`, 'One action in the hero; the second button is the template speaking');
+    report(19, 'WARN', doc.file, controls[1].t.line, `the stock second action in the hero: "${trunc(controls[0].label, 20)}" then "${controls[1].label}"`, 'One action in the hero; the second button is the template speaking');
   }
 }
 
@@ -2967,7 +3006,7 @@ function check68(ctx) {
       if (t.close || !/\bdata-slot\s*=/.test(t.attrs)) continue;
       const inner = t.selfClosing ? null : innerOf(doc, i);
       if (inner && /<img\b[^>]*\bsrc\s*=\s*["'][^"']+["']/i.test(inner.inner)) continue;
-      slots.push({ i, t, parent: (doc.parentOf ? doc.parentOf(i) : null) });
+      slots.push({ i, t });
     }
     if (slots.length > 5) report(68, 'FAIL', doc.file, slots[5].t.line, `${slots.length} empty slots on one page`, 'Two to four slots carry a page; set the rest in type, names and facts in a list or table');
     const byRun = new Map();
@@ -3054,7 +3093,7 @@ function check65Tailwind(ctx) {
     if (!isTokenRule(r) || r.selector === '@font-face') continue;
     for (const d of r.decls) {
       const m = TAILWIND_HEX.exec(d.value);
-      if (m) report(65, 'WARN', r.file, d.line, `default Tailwind palette ${m[0]} on ${d.prop}`, 'Mix the colour for this page in OKLCH; a stock swatch is the AI look');
+      if (m) report(74, 'WARN', r.file, d.line, `default Tailwind palette ${m[0]} on ${d.prop}`, 'Mix the colour for this page in OKLCH; a stock swatch is the AI look');
     }
   }
 }
@@ -3700,7 +3739,7 @@ function checkTailwind(ctx) {
     const pal = new Map();
     let palAt = null;
     for (const it of list) for (const p of it.info.pal) if (!pal.has(p)) { pal.set(p, it); if (pal.size === 5) palAt = it; }
-    if (palAt) report(65, 'WARN', doc.file, palAt.line, `default palette instead of theme tokens: ${pal.size} distinct palette classes (${[...pal.keys()].slice(0, 4).join(' ')})`, 'Extend the Tailwind theme with the Hallmark tokens and use those names');
+    if (palAt) report(74, 'WARN', doc.file, palAt.line, `default palette instead of theme tokens: ${pal.size} distinct palette classes (${[...pal.keys()].slice(0, 4).join(' ')})`, 'Extend the Tailwind theme with the Hallmark tokens and use those names');
     const scaled = list.filter((it) => it.info.hScale);
     if (scaled.length >= 3) report(11, 'WARN', doc.file, scaled[2].line, `hover scale on ${scaled.length} elements in this file (${scaled.slice(0, 3).map((it) => it.info.hScale).join(', ')})`, 'One hover signal per element; not every card grows');
     const first = new Set(['section', 'header'].map((n) => doc.tags.findIndex((t) => !t.close && t.name === n)).filter((x) => x >= 0));
@@ -3811,47 +3850,50 @@ function shareProjects(contexts) {
   }
 }
 
-const waiversByDir = new Map();
+const waiversByKey = new Map();
 const postureByFile = {};
 const heroPostureByFile = {};
 const contexts = [];
-for (const [dir, g] of groups) {
+const parsedDocs = new Map();
+const docOf = (f) => {
+  if (parsedDocs.has(f)) return parsedDocs.get(f);
+  let doc = null;
+  try { doc = parseDoc(f, readFileSync(f, 'utf8')); } catch (e) { console.error(`sloplint: skipped ${rel(f)}, it could not be parsed (${e.message})`); }
+  parsedDocs.set(f, doc);
+  return doc;
+};
+function buildContext(key, cssList, docList) {
   const cssFiles = [];
   const rules = [];
   const docs = [];
-  const inGroup = new Set([...g.css, ...g.html]);
+  const inGroup = new Set([...cssList, ...docList.map((d) => d.file)]);
   const pending = [];
-  for (const f of g.css) {
+  for (const f of cssList) {
     const raw = readFileSync(f, 'utf8');
     cssFiles.push({ file: f, raw });
     rules.push(...parseCss(raw, f));
     pending.push(...importsOf(raw, dirname(f)));
   }
-  for (const f of g.html) {
-    const raw = readFileSync(f, 'utf8');
-    let doc;
-    try { doc = parseDoc(f, raw); } catch (e) {
-      console.error(`sloplint: skipped ${rel(f)}, it could not be parsed (${e.message})`);
-      continue;
-    }
+  for (const doc of docList) {
     docs.push(doc);
-    for (const s of doc.styles) {
-      rules.push(...parseCss(s.css, f, s.lineOffset));
-      pending.push(...importsOf(s.css, dirname(f)));
+    for (const st of doc.styles) {
+      rules.push(...parseCss(st.css, doc.file, st.lineOffset));
+      pending.push(...importsOf(st.css, dirname(doc.file)));
     }
-    pending.push(...linksOf(doc, dirname(f)));
+    pending.push(...linksOf(doc, dirname(doc.file)));
   }
+  const reached = new Set();
   while (pending.length) {
     const p = pending.shift();
     if (inGroup.has(p) || extname(p).toLowerCase() !== '.css' || !existsSync(p)) continue;
     inGroup.add(p);
+    reached.add(p);
     let raw;
     try { raw = readFileSync(p, 'utf8'); } catch { continue; }
     cssFiles.push({ file: p, raw, attached: true });
     rules.push(...parseCss(raw, p));
     pending.push(...importsOf(raw, dirname(p)));
   }
-
   const head40 = (t) => t.split('\n').slice(0, 40).join('\n');
   const stampText = [
     ...cssFiles.map((c) => head40(c.raw)),
@@ -3861,37 +3903,64 @@ for (const [dir, g] of groups) {
   const heroPosture = (/hero:\s*(settled|banner|poster|ledge|corridor|stage)\b/i.exec(stampText)?.[1] || '').toLowerCase();
   for (const d of docs) { postureByFile[d.file] = posture; heroPostureByFile[d.file] = heroPosture; }
   const allCss = cssFiles.map((c) => c.raw).join('\n') + '\n'
-    + docs.map((d) => d.styles.map((s) => s.css).join('\n')).join('\n');
+    + docs.map((d) => d.styles.map((st) => st.css).join('\n')).join('\n');
   const tokensOnly = !docs.length && rules.length > 0 && rules.every(isTokenRule);
-  contexts.push([dir, { rules, tokens: buildTokens(rules), docs, cssFiles, genre: opts.genre, stampText, allCss, posture, tokensOnly }]);
+  contexts.push([key, { rules, tokens: buildTokens(rules), docs, cssFiles, genre: opts.genre, stampText, allCss, posture, tokensOnly }]);
+  return reached;
+}
+for (const [dir, g] of groups) {
+  const docs = g.html.map(docOf).filter(Boolean);
+  const pages = docs.filter((d) => d.kind === 'html');
+  const parts = docs.filter((d) => d.kind !== 'html');
+  if (!pages.length) { buildContext(dir, g.css, parts); continue; }
+  const used = new Set();
+  for (const page of pages) {
+    const linked = new Set();
+    const queue = [...linksOf(page, dirname(page.file)), ...page.styles.flatMap((st) => importsOf(st.css, dirname(page.file)))];
+    while (queue.length) {
+      const q = queue.shift();
+      if (linked.has(q) || !existsSync(q) || extname(q).toLowerCase() !== '.css') continue;
+      linked.add(q);
+      try { queue.push(...importsOf(readFileSync(q, 'utf8'), dirname(q))); } catch {}
+    }
+    const own = pages.length === 1 ? g.css : g.css.filter((c) => linked.has(c));
+    own.forEach((c) => used.add(c));
+    for (const c of linked) used.add(c);
+    buildContext(page.file, own, [page]);
+  }
+  const rest = g.css.filter((c) => !used.has(c));
+  if (rest.length || parts.length) buildContext(dir, rest, parts);
 }
 shareProjects(contexts);
-for (const [dir, ctx] of contexts) {
-  applyWaivers(ctx, dir);
-  waiversByDir.set(dir, { WAIVED, ANSWERED, DISMISSED });
+for (const [key, ctx] of contexts) {
+  applyWaivers(ctx, key);
+  waiversByKey.set(key, { WAIVED, ANSWERED, DISMISSED });
   for (const check of CHECKS) {
     try { check(ctx); } catch (e) {
-      console.error(`sloplint: internal error in ${check.name} for ${dir}: ${e.message}`);
+      console.error(`sloplint: internal error in ${check.name} for ${rel(key)}: ${e.message}`);
     }
   }
 }
 
+let renderNotRun = null;
 if (opts.render) {
   const htmlFiles = files.filter((f) => extname(f).toLowerCase() === '.html');
-  try {
+  if (!htmlFiles.length && !opts.urls.length) renderNotRun = 'no HTML page to render; pass --url for a running dev server';
+  else try {
     const mod = await import(new URL('./sloplint-render.mjs', import.meta.url).href);
     const extra = await mod.renderCheck([...htmlFiles, ...opts.urls], { genre: opts.genre, postureByFile, heroPostureByFile, stage: opts.stage });
-    const allWaivers = { WAIVED: new Set([...waiversByDir.values()].flatMap((x) => [...x.WAIVED])), ANSWERED: new Set([...waiversByDir.values()].flatMap((x) => [...x.ANSWERED])), DISMISSED: new Set([...waiversByDir.values()].flatMap((x) => [...(x.DISMISSED || [])])) };
+    const allWaivers = { WAIVED: new Set([...waiversByKey.values()].flatMap((x) => [...x.WAIVED])), ANSWERED: new Set([...waiversByKey.values()].flatMap((x) => [...x.ANSWERED])), DISMISSED: new Set([...waiversByKey.values()].flatMap((x) => [...(x.DISMISSED || [])])) };
     for (const f of extra) {
-      const w = /^https?:/.test(f.file) ? allWaivers : waiversByDir.get(dirname(f.file));
+      const w = /^https?:/.test(f.file) ? allWaivers : (waiversByKey.get(f.file) || waiversByKey.get(dirname(f.file)));
       WAIVED = w ? w.WAIVED : new Set();
       ANSWERED = w ? w.ANSWERED : new Set();
       DISMISSED = w ? (w.DISMISSED || new Set()) : new Set();
       report(f.gate, f.grade === 'REFLEX' ? 'FAIL' : f.grade, f.file, f.line, f.evidence, f.fix);
     }
-    for (const x of extra.failed || []) { WAIVED = new Set(); ANSWERED = new Set(); DISMISSED = new Set(); report('render', 'FAIL', x.file, 1, `the render tier crashed on this page (${trunc(x.message, 60)}); its gates did not run`, 'Fix the page error, or rerun; a crashed render is never a pass'); }
+    for (const x of extra.failed || []) { WAIVED = new Set(); ANSWERED = new Set(); DISMISSED = new Set(); report('render', 'FAIL', x.file, 1, `the page did not render (${trunc(x.message, 60)}); its render gates did not run`, 'Fix the page or the URL and rerun; an unrendered page is never a pass'); }
+    if (extra.notRun) renderNotRun = extra.notRun;
   } catch (e) {
-    console.error(`render tier unavailable (${e.message}); static checks only`);
+    renderNotRun = e.message;
   }
 }
 
@@ -3933,26 +4002,30 @@ if (answered) tally.push(`${answered} ANSWERED`);
 if (dismissed) tally.push(`${dismissed} DISMISSED`);
 if (notes) tally.push(`${notes} NOTE`);
 
+const scopeNote = `${files.length} file(s)${opts.urls.length ? ` and ${opts.urls.length} URL(s)` : ''}${opts.stage === 'hero' ? ' (hero stage)' : ''}`;
+const renderNote = opts.render ? (renderNotRun ? `render tier not run: ${renderNotRun}` : null) : null;
 if (opts.json) {
   console.log(JSON.stringify({
-    summary: { fails, reflex, warns, waived, rejected, answered, dismissed, notes, files: files.length },
+    summary: { fails, reflex, warns, waived, rejected, answered, dismissed, notes, files: files.length, render: opts.render ? (renderNotRun ? `not run: ${renderNotRun}` : 'ran') : 'off' },
     findings: unique,
   }, null, 2));
 } else {
-  if (!unique.length) {
-    console.log(`sloplint: clean. 0 FAIL, 0 REFLEX, 0 WARN across ${files.length} file(s)${opts.urls.length ? ` and ${opts.urls.length} URL(s)` : ''}${opts.stage === 'hero' ? ' (hero stage)' : ''}.`);
-  } else {
-    const wGate = Math.max(4, ...unique.map((f) => String(f.gate).length));
-    const wGrade = Math.max(5, ...unique.map((f) => f.grade.length));
-    const wWhere = Math.max(9, ...unique.map((f) => `${f.file}:${f.line}`.length));
-    console.log(`${'GATE'.padEnd(wGate)}  ${'GRADE'.padEnd(wGrade)}  ${'WHERE'.padEnd(wWhere)}  EVIDENCE`);
-    for (const f of unique) {
-      console.log(`${String(f.gate).padEnd(wGate)}  ${f.grade.padEnd(wGrade)}  ${`${f.file}:${f.line}`.padEnd(wWhere)}  ${f.evidence}`);
-      if (f.grade !== 'WAIVED' && f.grade !== 'ANSWERED') {
-        console.log(`${''.padEnd(wGate)}  ${''.padEnd(wGrade)}  ${''.padEnd(wWhere)}  fix: ${f.fix}`);
+  if (!unique.length) console.log(`sloplint: clean. 0 FAIL, 0 REFLEX, 0 WARN across ${scopeNote}.`);
+  else {
+    const byFile = new Map();
+    for (const f of unique) { if (!byFile.has(f.file)) byFile.set(f.file, []); byFile.get(f.file).push(f); }
+    const told = new Set();
+    for (const [file, list] of byFile) {
+      console.log(file);
+      for (const f of list) {
+        const key = `${f.gate}|${f.fix}`;
+        const fix = f.grade !== 'WAIVED' && f.grade !== 'ANSWERED' && f.grade !== 'DISMISSED' && !told.has(key) ? ` | fix: ${f.fix}` : '';
+        told.add(key);
+        console.log(`  ${f.grade} ${f.gate} :${f.line} ${f.evidence}${fix}`);
       }
     }
-    console.log(`\n${tally.join(', ')} across ${files.length} file(s)${opts.urls.length ? ` and ${opts.urls.length} URL(s)` : ''}${opts.stage === 'hero' ? ' (hero stage)' : ''}.`);
+    console.log(`sloplint: ${tally.join(', ')} across ${scopeNote}.`);
   }
+  if (renderNote) console.log(renderNote);
 }
 process.exit(fails > 0 || reflex > 0 ? 1 : 0);

@@ -1,7 +1,7 @@
 ### F4 · Step sequence
 Numbered stages flow vertically: a heading, one paragraph, sometimes a small visual.
 *Use when:* the product is a workflow, not a single moment.
-*Not:* F2 (unnumbered, synced). The number is a `counter()` inline in the heading, never a typed span above it (54); it is set in the body face, never mono (64).
+*Not:* F2 (unnumbered, synced). The number is a `counter()` inline in the heading, never a typed span above it (54); it takes the heading's face, never mono (64).
 
 ```html
 <ol class="steps">

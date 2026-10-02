@@ -48,7 +48,7 @@ Warm cream, Bricolage Grotesque 800 at width 75 slammed against the left margin,
 
 ## Motion
 
-One clip reveal: the pulled line's two hairlines draw in from the left once over 400ms ease-out. Hover grows a coral underline under a link. Nothing else moves.
+One clip reveal: the pulled line's two hairlines draw in from the left once over `--dur-long` on `--ease-out`. Hover grows a coral underline under a link. Nothing else moves.
 
 ## Voice
 
@@ -71,10 +71,10 @@ Contemporary, lightly literary. Verbs over adjectives; name the piece, the issue
 ```css
 .display { font: var(--display-weight) clamp(2.5rem, 5vw + 0.75rem, 4.75rem)/1 var(--font-display); color: var(--color-ink);
   font-variation-settings: "wdth" 75, "opsz" 96; letter-spacing: var(--tracking-display); }
-.pull { font: italic 500 clamp(1.5rem, 2.5vw, 2.25rem)/1.25 var(--font-outlier); padding: 1.25rem 0 1.25rem 1.5rem;
+.pull { font: italic 500 clamp(1.5rem, 2.5vw, 2.25rem)/1.25 var(--font-outlier); padding: var(--space-lg) 0 var(--space-lg) var(--space-lg);
   border-block: var(--rule-hair) solid var(--color-rule); border-inline-start: 3px solid var(--color-accent); }
-.folio { font-size: 0.8125rem; color: var(--color-muted); }
-.folio .numeral { font-family: var(--font-display); font-weight: 700; }
+.folio { font-size: var(--text-xs); color: var(--color-muted); }
+.folio .numeral { font-family: var(--font-display); font-weight: var(--display-weight); }
 .btn--primary { border-radius: 0; background: var(--color-ink); color: var(--color-paper); }
 .tag { background: var(--color-accent); color: var(--color-accent-ink); border-radius: 0; }
 ::selection { background: color-mix(in oklab, var(--color-accent) 25%, transparent); }

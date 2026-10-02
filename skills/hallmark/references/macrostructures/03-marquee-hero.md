@@ -2,7 +2,7 @@
 
 The hero is the page above the fold. A single statement or visual fills the viewport. Below the fold the page becomes something else (a list, a grid, prose).
 
-- **Heading:** display fills the fold at `clamp(4rem, 10vw, 9rem)` (`craft.md` § 1), hugging the container's edges; `line-height` 1.0 or more when it can wrap (55a).
+- **Heading:** display fills the fold at `clamp(4rem, 10vw, 9rem)` (`craft.md` § 1), hugging the container's edges; an uppercase head that can wrap keeps `line-height` 1.0 or more (55a).
 - **Body:** below the fold, a list of work or one content block; the hero does not continue.
 - **Divider:** a thick rule between hero and below-fold, or a hard change of paper.
 - **Button:** one action in the fold under the statement, with the one sentence (Floor 12, 13): a typographic link or a single button. The statement owns the screen; the action and the sentence sit small at its foot.

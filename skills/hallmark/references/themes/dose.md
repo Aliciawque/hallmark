@@ -44,13 +44,13 @@ Committed: the paper family is the green; paper-2 and paper-3 are tint bands, wh
 ## Faces
 
 - **Display:** Schibsted Grotesk 700, `--tracking-display`, line-height 1.02, up to 88px; sentence case, roman. Prices and the one big count at 700 with -0.035em.
-- **Body:** Instrument Sans 400, 500 and 600, 14 to 18px, line-height 1.5.
+- **Body:** Instrument Sans 400 and 500, 16 to 18px, line-height 1.5.
 - **Labels, captions, table heads, meta:** Instrument Sans 500 one step smaller, sentence case. Mono (JetBrains Mono 500) is kept for the clock and the dose only, `08:00` and `500 mg`; it never sets a caption, a tab or a table head.
 
 ## Material
 
-- Radii that read as an app: 8px on controls and inputs, 12 to 14px on cards, 999 on pills. Hairlines at 1px; a panel's edge is a `0 0 0 1px` ring rather than a border.
-- The pill: a 46 by 18 capsule, green when taken, outlined 1.5px green when due, grey when missed. The week grid of pills is the object family, and so is the four-step timeline where the open step is an outlined ring.
+- Radii that read as an app: 8px on controls and inputs, 12px on cards, 999 on pills. Hairlines at 1px; a panel's edge is a `0 0 0 1px` ring rather than a border.
+- The pill: a 46 by 18 capsule, green when taken, outlined 1.5px green when due, grey when missed. The week grid of pills is the object family, and so is a step timeline where the open step is an outlined ring.
 - The cross: a plus with rounded ends in green, drawn as an SVG, large or small as the wordmark's mark. It is the only illustration.
 - Tint bands: paper-2 and paper-3 as bands; white cards sit on tint with the one soft shadow. No gradient and no mesh.
 - The app: it bleeds off the edge of its slot or sits in a plain 12px plate, never inside a drawn phone bezel, never with a notch or a bar.
@@ -58,7 +58,7 @@ Committed: the paper family is the green; paper-2 and paper-3 are tint bands, wh
 
 ## Motion
 
-One settle: the reminder card fades in once over 400ms ease-out. A pill fills on tap in 150ms ease-out; the next-dose clock does not tick. Nothing autoplays, nothing pulses.
+One settle: the reminder card fades in once over `--dur-long` on `--ease-out`. A pill fills on tap over `--dur-micro`; the next-dose clock does not tick. Nothing autoplays, nothing pulses.
 
 ## Voice
 
@@ -75,12 +75,12 @@ A pharmacist's plainness: the name, the dose, the time, who it is for. Reassurin
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@700&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@700&family=Instrument+Sans:wght@400;500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 ```
 
 ```css
 .display { font: 700 var(--text-display)/1.02 var(--font-display); letter-spacing: var(--tracking-display); text-wrap: balance; }
-.btn { height: 52px; padding: 0 24px; border-radius: var(--radius-input); font: 600 15px var(--font-body); }
+.btn { height: 52px; padding: 0 var(--space-lg); border-radius: var(--radius-input); font: 500 var(--text-md) var(--font-body); }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--secondary { box-shadow: inset 0 0 0 1.5px var(--color-rule); color: var(--color-ink); }
 .pill { display: inline-flex; width: 46px; height: 18px; border-radius: var(--radius-pill); background: var(--color-accent); }
@@ -88,6 +88,6 @@ A pharmacist's plainness: the name, the dose, the time, who it is for. Reassurin
 .pill--missed { background: var(--color-missed); }
 .card { background: var(--color-paper); border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
 .band { background: var(--color-paper-2); }
-.time { font: 500 44px/1 var(--font-outlier); letter-spacing: -0.02em; color: var(--color-accent); }
+.time { font: 500 var(--text-3xl)/1 var(--font-outlier); letter-spacing: -0.02em; color: var(--color-accent); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 25%, transparent); }
 ```

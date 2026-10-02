@@ -37,7 +37,8 @@ const gatesSrc = read(join(ROOT, 'references', 'gates.md'));
 const GATES = new Map();
 for (const m of gatesSrc.matchAll(/^\|\s*(\d{1,2}(?:[a-d]|i{1,3})?)\s*\|\s*(Floor|Reflex|Ledger)\s*\|/gm)) GATES.set(m[1], m[2].toLowerCase());
 const FCHECKS = new Set([...gatesSrc.matchAll(/\b(F\d{1,2})\s/g)].map((m) => m[1]));
-const retiredLine = (/Gates ([\d, and]+) were merged/.exec(gatesSrc) || [])[1] || '';
+const retiredLine = (/Retired numbers stay retired:\*\*\s*([\d, and]+) are never reused/.exec(gatesSrc) || [])[1] || '';
+if (!retiredLine) findings.push({ level: 'error', file: 'references/gates.md', line: 1, rule: 'gate', msg: 'the retired-numbers sentence is missing or reworded; refcheck reads it' });
 const RETIRED = new Set((retiredLine.match(/\d+/g) || []));
 const NUMBERS = new Set([...GATES.keys()].map((k) => k.match(/^\d+/)[0]));
 
@@ -74,7 +75,7 @@ for (const f of MD) {
   }
   for (const m of src.matchAll(PAREN_LIST)) {
     if (/[\w-]/.test(src[m.index - 1] || '')) continue;
-    if (/^\d+$/.test(m[1]) && Number(m[1]) > 67) continue;
+    if (/^\d+$/.test(m[1]) && Number(m[1]) > 99) continue;
     check(m[1], m.index);
   }
 }
@@ -152,9 +153,6 @@ for (const block of ['SCALE', 'CUSTOM_TOKENS']) {
   const m = new RegExp(`const ${block} = \`([\\s\\S]*?)\`;`).exec(theme);
   if (m) for (const t of tokenNames(m[1])) CANON.add(t);
 }
-const exportSrc = read(join(ROOT, 'references', 'export-formats.md'));
-const taxonomy = exportSrc.slice(exportSrc.indexOf('## Token taxonomy'), exportSrc.indexOf('## Format 1'));
-for (const m of taxonomy.matchAll(/`(--[a-z][\w-]*)`/g)) CANON.add(m[1]);
 const THEME_DIR = join(ROOT, 'references', 'themes');
 const themeFiles = MD.filter((f) => dirname(f) === THEME_DIR && basename(f) !== 'README.md');
 const themeCount = new Map();
@@ -173,13 +171,13 @@ for (const f of MD) {
   const isTheme = dirname(f) === THEME_DIR;
   const local = tokenNames(src);
   for (const { text, at } of codeOf(src)) {
-    for (const m of text.matchAll(/var\(\s*(--[a-z][\w-]*)/g)) {
+    for (const m of text.matchAll(/var\(\s*(--[a-z][\w-]*)\s*(,)?/g)) {
       const t = m[1];
       const line = lineAt(src, at + m.index);
       if (PHANTOM.has(t) && !local.has(t)) add('error', f, line, 'token', `${t} does not exist; use ${PHANTOM.get(t)}`);
-      else if (!CANON.has(t) && !local.has(t) && !isTheme) {
+      else if (!m[2] && !CANON.has(t) && !local.has(t) && !isTheme) {
         const n = themeCount.get(t) || 0;
-        add('warn', f, line, 'token', n ? `${t} exists only in ${n} theme(s); a shared file cannot rely on it` : `${t} is not in the token vocabulary (export-formats.md § Token taxonomy)`);
+        add('warn', f, line, 'token', n ? `${t} exists only in ${n} theme(s); a shared file cannot rely on it` : `${t} is not in the token vocabulary (export-formats.md § The token set)`);
       }
     }
   }
@@ -257,7 +255,7 @@ for (const f of [...reach]) {
 for (const f of MD) if (!reach.has(f) && basename(f) !== 'README.md') add('warn', f, 1, 'orphan', 'no file reachable from SKILL.md names this file');
 
 const skillBytes = Buffer.byteLength(read(SKILL));
-if (skillBytes > 20480) add('warn', SKILL, 1, 'size', `SKILL.md is ${skillBytes} bytes; keep it under 20 KB`);
+if (skillBytes > 19000) add('error', SKILL, 1, 'size', `SKILL.md is ${skillBytes} bytes; keep it at 19,000 or under so the 5,000 tokens a harness re-attaches after compaction still hold Step 7`);
 
 for (const f of themeFiles) {
   const src = read(f);
@@ -269,7 +267,7 @@ for (const f of themeFiles) {
   }
 }
 
-const exemplarDir = join(ROOT, 'references', 'exemplars');
+const exemplarDir = join(ROOT, 'scripts', 'fixtures', 'exemplars');
 const clean = [...(existsSync(exemplarDir) ? readdirSync(exemplarDir).filter((n) => n.endsWith('.html')).map((n) => join(exemplarDir, n)) : []),
   ...['eyebrow-pass', 'tailwind-pass'].map((n) => join(ROOT, 'scripts', 'fixtures', n)).filter(existsSync)];
 for (const target of clean) {
@@ -278,6 +276,41 @@ for (const target of clean) {
   try { s = JSON.parse(run.stdout).summary; } catch {}
   if (!s) add('error', target, 1, 'lint', 'sloplint did not run on this file');
   else if (s.fails || s.reflex || s.warns) add('error', target, 1, 'lint', `must lint clean, has ${s.fails} FAIL, ${s.reflex} REFLEX, ${s.warns} WARN`);
+}
+
+const ATLAS_BAD = [
+  [/\b(?:tiny|small)\s+(?:\w+\s+)?caps\b/i, 'labels in small capitals (67)'],
+  [/\bcaps\s+(?:labels|placards)\b/i, 'labels in capitals (67)'],
+  [/\b(?:wide|generous)\s+tracking\b/i, 'letter-spaced type (67)'],
+  [/(?<!\bno |\bno outer )\bglow(?:s|ing)?\b/i, 'a glow (29)'],
+  [/(?<!\bno )\bhalo\b/i, 'a halo (29)'],
+  [/backdrop-filter/i, 'glass (29)'],
+  [/\b(?:cyan|purple|violet)-to-/i, 'a gradient gate 2a refuses'],
+];
+const atlasFile = join(ROOT, 'scripts', 'atlas.json');
+try {
+  for (const entry of JSON.parse(read(atlasFile))) {
+    const text = JSON.stringify(entry);
+    for (const [re, why] of ATLAS_BAD) if (re.test(text)) add('error', atlasFile, 1, 'atlas', `${entry.name} prescribes ${why}`);
+  }
+} catch (e) { add('error', atlasFile, 1, 'atlas', `atlas.json does not parse (${e.message})`); }
+
+const FIX = join(ROOT, 'scripts', 'fixtures');
+const lintJson = (t) => { const r = spawnSync(process.execPath, [join(ROOT, 'scripts', 'sloplint.mjs'), t, '--json'], { encoding: 'utf8' }); try { return JSON.parse(r.stdout); } catch { return null; } };
+const gatesOf = (j) => new Set(j.findings.map((x) => String(x.gate)));
+const expectations = [
+  ['eyebrow-fail', (j) => j.findings.filter((x) => x.gate === '54' && x.grade === 'FAIL').length === 6, 'gate 54 must FAIL six times'],
+  ['eyebrow-pass', (j) => !j.findings.some((x) => x.gate === '54'), 'gate 54 must not fire'],
+  ['waiver', (j) => ['fails:0', 'reflex:0', 'waived:5', 'rejected:2', 'answered:1', 'notes:1'].every((kv) => { const [k, v] = kv.split(':'); return j.summary[k] === Number(v); }), 'must report fails 0, reflex 0, waived 5, rejected 2, answered 1, notes 1'],
+  ['slopped.html', (j) => ['1', '2a', '4', '7b', '10a', '15', '19', '20', '22', '46a', '48', '54'].every((g) => gatesOf(j).has(g)), 'must fire 1, 2a, 4, 7b, 10a, 15, 19, 20, 22, 46a, 48 and 54'],
+  ['tailwind-fail', (j) => ['67', '54', '64', '10a', '12', '11', '2a', '2b', '29', '6a', '34', '48', '74', '3'].every((g) => gatesOf(j).has(g)), 'must fire 67, 54, 64, 10a, 12, 11, 2a, 2b, 29, 6a, 34, 48, 74 and 3'],
+];
+for (const [name, ok, msg] of existsSync(FIX) ? expectations : []) {
+  const target = join(FIX, name);
+  if (!existsSync(target)) { add('error', target, 1, 'fixture', 'missing'); continue; }
+  const j = lintJson(target);
+  if (!j) add('error', target, 1, 'fixture', 'sloplint did not run on this fixture');
+  else if (!ok(j)) add('error', target, 1, 'fixture', msg);
 }
 
 const shown = ONLY_ERRORS ? findings.filter((x) => x.level === 'error') : findings;

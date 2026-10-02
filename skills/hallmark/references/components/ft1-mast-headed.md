@@ -1,7 +1,7 @@
 ### Ft1 · Mast-headed
 A wordmark and tagline anchor a single horizontal band. Two or three small links beside, address or licence below.
 *Use when:* the page has heavy content; the footer should be quiet and singular.
-*Don't confuse with:* Ft2 Inline-rule (which is even more reduced).
+*Not:* Ft2 (even more reduced).
 
 ```html
 <footer class="foot-mast">
@@ -27,4 +27,6 @@ A wordmark and tagline anchor a single horizontal band. Two or three small links
 - Tagline: italic display · roman body · none
 - Links: a row with gaps · a two-line stack · a vertical hairline between each
 
-*Mobile:* below 60rem the grid stacks: wordmark, tagline, then the links wrapping to two lines.
+## Mobile
+
+- Below 60rem: the grid stacks into wordmark, tagline, then the links, which wrap to two lines.

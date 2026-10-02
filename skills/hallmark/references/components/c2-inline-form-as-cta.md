@@ -7,7 +7,7 @@ The CTA is the form: one email field and a verb button on the same rule. No sepa
 <form class="cta-form" method="post" data-endpoint="">
   <label for="email">Email address</label>
   <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
-  <button type="submit">Send the letter</button>
+  <button class="btn" type="submit">Send the letter</button>
   <p class="cta-form__help" aria-live="polite"></p>
 </form>
 ```
@@ -20,7 +20,7 @@ The CTA is the form: one email field and a verb button on the same rule. No sepa
 .cta-form__help { grid-column: 1 / -1; min-height: 1lh; margin: 0; font-size: var(--text-sm); color: var(--color-muted); }
 ```
 
-`data-endpoint` stays empty until the brief gives the endpoint; until then the form validates and never prints a success (`craft.md` § 9, gate 70).
+The button takes the page's control states (`patterns.md`) at the field's 44px. `data-endpoint` stays empty until the brief gives the endpoint; until then the form validates and says that nothing was sent, never a success (`craft.md` § 9, gate 70).
 
 ## Knobs
 

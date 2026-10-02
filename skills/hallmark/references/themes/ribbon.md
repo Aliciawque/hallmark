@@ -34,18 +34,18 @@ Warm off-white paper, Newsreader italic 300 at every display size, pills for eve
 }
 ```
 
-One dial, the colourway, stated in the stamp (`ribbon: dawn`). One strand is warm and one cool; the accent comes from the cool strand on light paper and the warm one on dark.
+One dial, the colourway, stated in the stamp (`ribbon: dawn`). One strand is warm and one cool; the accent comes from the cool strand on dawn and from the warm one on the other two.
 
 | Colourway | Paper | Ink | Strands and accent |
 | --- | --- | --- | --- |
-| `dawn` (default) | `oklch(98.5% 0.006 85)` | `oklch(18% 0.004 80)` | copper `oklch(69% 0.07 80)` and teal `oklch(58% 0.085 188)`; accent teal `oklch(44% 0.075 190)` |
+| `dawn` (default) | `oklch(98.5% 0.006 85)` | `oklch(18% 0.005 80)` | copper `oklch(69% 0.07 80)` and teal `oklch(58% 0.085 188)`; accent teal `oklch(44% 0.075 190)` |
 | `two-in-the-morning` | navy `oklch(21% 0.034 252)` | `oklch(93% 0.010 85)` | peach `oklch(86% 0.06 55)` and ice `oklch(80% 0.07 240)`; accent peach `oklch(84% 0.085 55)` with the navy as its text |
 | `moss` | sage `oklch(89% 0.034 140)` | `oklch(22% 0.03 150)` | ochre `oklch(72% 0.13 75)` and deep teal `oklch(46% 0.07 195)`; accent ochre `oklch(48% 0.115 70)` |
 
 ## Faces
 
-- **Display:** Newsreader italic 300 at opsz 72, `--tracking-display`, line-height 1.02; no roman at display size. Declared italic system, gate 38ii waived: on `--font-display`, every head, true italic, `font-synthesis: none`. A head is one weight and one colour; big figures are the display italic too.
-- **Body:** Figtree 400, 16px, line-height 1.55 to 1.6, measure 40 to 46ch, in `--color-muted` rather than ink.
+- **Display:** Newsreader italic 300 at opsz 72, `--tracking-display`, line-height 1.02; no roman head at any level. Declared italic system (stamp `waive 38ii`): on `--font-display`, every head at every level, true italic, `font-synthesis: none`. A head is one weight and one colour; big figures are the display italic too.
+- **Body:** Figtree 400, 16px, line-height 1.55 to 1.6, measure 45 to 50ch, in `--color-muted` rather than ink.
 - **Labels, captions, table heads, meta:** Figtree 500 one step smaller, sentence case, in `--color-muted`. JetBrains Mono only inside code and on figures that compare, tabular.
 
 ## Material
@@ -59,7 +59,7 @@ One dial, the colourway, stated in the stamp (`ribbon: dawn`). One strand is war
 
 ## Motion
 
-Slow and breathing: the ribbon drifts 6px sideways on a 12s ease-in-out loop that reduced motion stops; a slider redraws its ribbon on input. Nothing else moves on its own: no reveals, no parallax, no counters.
+Slow and breathing: the ribbon drifts 6px sideways on a 12s `--ease-in-out` loop, the theme's one ambient loop: it stops under reduced motion and off-screen and carries a visible pause control. A slider redraws its ribbon on input. Nothing else moves on its own: no reveals, no parallax, no counters.
 
 ## Voice
 
@@ -75,15 +75,16 @@ Calm and specific: the hour, the sound, how loud.
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@1,6..72,300;1,6..72,400&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@1,6..72,300&family=Figtree:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 ```
 
 ```css
-.display { font: italic 300 var(--text-display)/1.02 var(--font-display); font-variation-settings: "opsz" 72; letter-spacing: var(--tracking-display); font-synthesis: none; }
+h1, h2, h3, .display { font-family: var(--font-display); font-style: italic; font-weight: 300; font-variation-settings: "opsz" 72; font-synthesis: none; }
+.display { font-size: var(--text-display); line-height: 1.02; letter-spacing: var(--tracking-display); }
 .ribbon { display: block; width: 100%; mask: linear-gradient(90deg, transparent, var(--color-ink) 15% 85%, transparent); }
 .ribbon path { fill: none; stroke: currentColor; stroke-width: 0.8; opacity: 0.3; }
 .ribbon .a { color: var(--color-strand-a); } .ribbon .b { color: var(--color-strand-b); }
-.pill { display: inline-flex; gap: 10px; padding: 12px 20px; border-radius: var(--radius-pill); border: 1px solid var(--color-rule); background: var(--color-paper-2); font: 500 14px var(--font-body); }
+.pill { display: inline-flex; align-items: center; gap: var(--space-xs); padding: var(--space-sm) var(--space-lg); border-radius: var(--radius-pill); border: 1px solid var(--color-rule); background: var(--color-paper-2); font: 500 var(--text-sm)/1.5 var(--font-body); }
 .pill--accent { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
 .band { background: var(--color-band); color: var(--color-band-ink); }
 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-strand-a); box-shadow: 0 0 0 4px color-mix(in oklab, var(--color-strand-a) 22%, transparent); }

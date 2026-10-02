@@ -36,7 +36,7 @@ const DRY = has("--dry-run");
 function copyDir(src, dest) {
   fs.mkdirSync(dest, { recursive: true });
   for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
-    if (entry.name === ".DS_Store" || entry.name === ".hallmark" || entry.name === "node_modules") continue;
+    if (entry.name === ".DS_Store" || entry.name === ".hallmark" || entry.name === "node_modules" || entry.name === "fixtures") continue;
     const s = path.join(src, entry.name);
     const d = path.join(dest, entry.name);
     if (entry.isDirectory()) copyDir(s, d);
@@ -87,7 +87,7 @@ if (!picked.length) {
 
 const { execFileSync } = await import("node:child_process");
 try {
-  execFileSync(process.execPath, [path.join(HERE, "theme.mjs"), "index"], { stdio: DRY ? "ignore" : "inherit" });
+  if (!DRY) execFileSync(process.execPath, [path.join(HERE, "theme.mjs"), "index"], { stdio: "inherit" });
 } catch {
   console.log("  (theme index not rebuilt; run node scripts/theme.mjs index)");
 }
@@ -108,7 +108,6 @@ for (const key of picked) {
   console.log(`\n${t.label}:`);
 
   if (key === "opencode" && !has("--copy")) {
-
     const willHaveCompat = picked.includes("claude") || picked.includes("codex") ||
       fs.existsSync(TARGETS.claude.dir) || fs.existsSync(TARGETS.codex.dir);
     if (willHaveCompat) {

@@ -14,7 +14,7 @@ pictured: Narrative Workflow, Stage hero
 
 # Loom
 
-Ecru paper, a Caslon head over a Hanken Grotesk body, one deep indigo that arrives as a band, a bar or a button and never as a wash, and a comb of 1px vertical threads at a 12px pitch as the only texture. Sand and oat are the other cloths and appear only as swatches.
+Ecru paper, a Caslon head over a Hanken Grotesk body, one deep indigo that arrives as a band, a bar or a button and never as a wash, and a comb of 1px vertical threads at a 12px pitch as the only texture. Sand (`--color-paper-3`) and oat are the other cloths and appear only as swatches.
 
 ## Tokens
 
@@ -57,7 +57,7 @@ Three colourways, set once per page and named in the stamp (`loom: ecru`).
 
 ## Motion
 
-Nothing moves except state. Hover raises a link's 2px underline into `--color-accent`; a swatch's stripes shift one step on hover, 200ms ease-out, once.
+Nothing moves except state. Hover raises a link's 2px underline into `--color-accent`; a swatch that is a link shifts its stripes one step on hover, over `--dur-short` on `--ease-out`, once.
 
 ## Voice
 
@@ -74,7 +74,7 @@ The studio speaking plainly: the cloth, the width, the days per stage, the Satur
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Hanken+Grotesk:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;1,400&family=Hanken+Grotesk:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 ```
 
 ```css
@@ -83,9 +83,9 @@ The studio speaking plainly: the cloth, the width, the days per stage, the Satur
 .count { font: 500 12px/1 var(--font-outlier); font-variant-numeric: tabular-nums; }
 .comb { background-image: repeating-linear-gradient(90deg, var(--color-thread) 0 1px, transparent 1px 12px); }
 .band { background: var(--color-accent) repeating-linear-gradient(90deg, color-mix(in oklab, var(--color-paper) 16%, transparent) 0 1px, transparent 1px 12px); color: var(--color-accent-ink); }
-.btn { display: inline-flex; align-items: center; padding: 16px 26px; font: 500 14px/1 var(--font-body); background: var(--color-accent); color: var(--color-accent-ink); }
-.link { font-weight: 500; font-size: 14px; padding: 6px 0; border-bottom: 2px solid currentColor; }
+.btn { display: inline-flex; align-items: center; padding: var(--space-md) var(--space-lg); font: 500 var(--text-sm)/1 var(--font-body); background: var(--color-accent); color: var(--color-accent-ink); }
+.link { font-weight: 500; font-size: var(--text-sm); padding: var(--space-2xs) 0; border-bottom: 2px solid currentColor; }
 .sample { border: 1px dashed var(--color-rule); }
-.bar { height: 32px; background: var(--color-accent); color: var(--color-accent-ink); display: flex; align-items: center; padding: 0 12px; }
+.bar { height: 32px; background: var(--color-accent); color: var(--color-accent-ink); display: flex; align-items: center; padding: 0 var(--space-sm); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 25%, transparent); }
 ```

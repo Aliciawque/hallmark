@@ -33,7 +33,7 @@ Snow-white paper, Barlow Condensed 800 caps in black, cobalt for the runs, the b
 }
 ```
 
-Committed: cobalt is `--color-field` and carries a band, a column and a block; the accent on buttons and stars stays a signal. Three grounds, stated in the stamp (`piste: snow`).
+Committed: cobalt is `--color-field` and carries a band, a column and a block; the accent on buttons and runs stays a signal. Three grounds, stated in the stamp (`piste: snow`).
 
 | Ground | Paper and ink | Cobalt and the marks |
 | --- | --- | --- |
@@ -43,14 +43,14 @@ Committed: cobalt is `--color-field` and carries a band, a column and a block; t
 
 ## Faces
 
-- **Display:** Barlow Condensed 800, uppercase, line-height 1.0 when a head can wrap (55a) and 0.92 only on a single nowrap line, `--tracking-display`, up to 7.25rem on a Marquee or Ledge hero; every head and every figure. Roman.
+- **Display:** Barlow Condensed 800, uppercase, line-height 1.0 when a head can wrap (55a) and 0.92 only on a single nowrap line, `--tracking-display`, up to 7.25rem on a poster-scale hero; every head and every figure. Roman.
 - **Body:** Barlow 400 and 500, 16 to 19px, line-height 1.5.
-- **Signs and buttons:** Barlow Condensed 700, uppercase, tracked 0.04em, 14 to 16px, following the display's capitals. Table heads, captions and meta: Barlow 500 one step smaller, sentence case, untracked. No mono outside code.
+- **Signs and buttons:** Barlow Condensed 800, uppercase, tracked 0.04em, 16px, following the display's capitals. Table heads, captions and meta: Barlow 500 one step smaller, sentence case, untracked. No mono outside code.
 
 ## Material
 
-- Rules `--rule-bar` ink on top of a table and under a nav; `--rule-hair` in paper-3 between rows. Radius 0: signs are cut, tables are ruled, cards are rare.
-- The sign: a strip of condensed caps with one end cut to a point by clip-path, filled cobalt, red or black, or outlined 2px. Signs are the nav items, in the display's capitals at 16px or more tracked 0.04em at most; a tag smaller than that is a sign in sentence case (67).
+- Rules `--rule-bar` ink under a table's head and under a nav; `--rule-hair` in paper-3 between rows. Radius 0: signs are cut, tables are ruled, cards are rare.
+- The sign: a strip of condensed caps with one end cut to a point by clip-path, filled cobalt, red or black, or outlined 2px. Signs are the nav items, in the display's capitals at 16px or more tracked 0.04em at most; a tag smaller than that is a sign in sentence case, untracked (67).
 - Grade marks: 10px discs in blue, red or black that mean a piste's grade and nothing else. A disc never decorates a label.
 - The mountain: one SVG polyline of six to ten points in ink for the profile and two or three curved cobalt paths for the runs on it; that is the whole drawing, under 40 lines. Snow-depth bars are plain rects. The cobalt band sweeping the hero is a single wide SVG path.
 - Shadow: none on chrome; the soft `--shadow-card` under the one framed report.
@@ -75,18 +75,18 @@ The morning report: the hour, the depth in centimetres, the lifts open, the run 
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@800&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
 ```
 
 ```css
 .display { font: 800 var(--text-display)/1 var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-display); text-wrap: balance; }
-.sign { display: inline-flex; align-items: center; height: 34px; padding: 0 22px 0 14px; font: 700 14px var(--font-display); letter-spacing: 0.04em; text-transform: uppercase;
+.sign { display: inline-flex; align-items: center; height: 34px; padding: 0 var(--space-lg) 0 var(--space-sm); font: 800 var(--text-md) var(--font-display); letter-spacing: 0.04em; text-transform: uppercase;
   background: var(--color-accent); color: var(--color-accent-ink); clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%); }
 .grade { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--color-accent); }
 .profile { fill: none; stroke: var(--color-ink); stroke-width: 2; stroke-linejoin: round; } .run { fill: none; stroke: var(--color-accent); stroke-width: 3; }
-.btn { padding: 16px 28px; font: 700 16px var(--font-display); letter-spacing: 0.04em; text-transform: uppercase; }
+.btn { padding: var(--space-md) var(--space-lg); font: 800 var(--text-md) var(--font-display); letter-spacing: 0.04em; text-transform: uppercase; }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--secondary { box-shadow: inset 0 0 0 var(--rule-bar) var(--color-ink); color: var(--color-ink); }
-th { border-bottom: var(--rule-bar) solid var(--color-ink); font: 500 14px var(--font-body); text-align: left; }
+th { border-bottom: var(--rule-bar) solid var(--color-ink); font: 500 var(--text-sm) var(--font-body); text-align: left; }
 ::selection { background: color-mix(in oklab, var(--color-accent) 30%, transparent); }
 ```

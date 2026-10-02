@@ -42,14 +42,14 @@ Three colourways, stated in the stamp (`darkroom: amber`).
 
 ## Faces
 
-- **Display:** Sofia Sans Extra Condensed uppercase, 200 at poster size and up to 400 as a head gets smaller, line-height 1.0 (the floor for capitals that wrap, 55a), `--tracking-display`, roman, one weight per head. The hairline at scale is the look and it is never bolded.
-- **Body:** Barlow 300 for prose, 400 under 16px, roman throughout. Controls follow the display's capitals in its 500 at 16px, tracked 0.04em.
+- **Display:** Sofia Sans Extra Condensed uppercase, 200 at poster size and 400 on a smaller head, line-height 1.0 (the floor for capitals that wrap, 55a), `--tracking-display`, roman, one weight per head. The hairline at scale is the look and it is never bolded.
+- **Body:** Barlow 300 for prose, 400 under 16px, roman throughout. Controls follow the display's capitals in its 400 at 16px, tracked 0.04em.
 - **Labels, captions, table heads, meta:** Barlow 400 one step smaller, sentence case; the plate number and date under a print are this voice. Overpass Mono sets exposure figures (stop, seconds, grade), negative and edition numbers, and code; never a caption.
 
 ## Material
 
 - Grain once, fixed, over the whole page at `--grain`: the speck recipe of texture.md § 1 with light specks, since dark specks vanish on the wall. No vignette, no bloom, no amber wash; depth is lightness, ground 9, plate 13, surface 17.
-- The hang, the one object family: prints butted edge to edge in a row, all one height so tops and bottoms run level, widths following each picture's ratio; no frame, no mat, no gap. Beneath each, its plate number and date, flush with the print's left edge. A series shown before its prints arrive is a row of slots by design: stamp `waive 68` and name the series.
+- The hang, the one object family: prints butted edge to edge in a row, all one height so tops and bottoms run level, widths following each picture's ratio; no frame, no mat, no gap. Beneath each, its plate number and date, flush with the print's left edge. A series whose prints have not arrived is a row of slots only when the user said leave slots: stamp `waive 68` and name the series.
 - A print is greyscale: a photograph under `filter: grayscale(1)`, or a placeholder graded within `--g0` to `--g5`. A step wedge appears only on a photography page, and only as a scale that measures something real (a paper grade, a test strip's seconds).
 - The safelight is scarce: a line, a figure, a caption on hover and the one filled control. `--color-accent-deep` is the quieter fill, under ink text.
 - The control pair: a 1px ink-outlined secondary beside an amber-filled primary with ground-coloured text, uppercase, radius 0.
@@ -57,7 +57,7 @@ Three colourways, stated in the stamp (`darkroom: amber`).
 
 ## Motion
 
-Still as a print. A print may come up from `--g1` to full over 600ms once, as in the tray; hover moves its caption to the accent.
+Still as a print. A print may come up from `--g1` to full over `--dur-long` once, as in the tray; hover on a print that links moves its caption to the accent.
 
 ## Voice
 
@@ -74,7 +74,7 @@ Lab notes: the roll, the frame, the grade, the minute. Exact numbers, short line
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Sofia+Sans+Extra+Condensed:wght@200..500&family=Barlow:wght@300;400&family=Overpass+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sofia+Sans+Extra+Condensed:wght@200;400&family=Barlow:wght@300;400&family=Overpass+Mono:wght@400&display=swap" rel="stylesheet">
 ```
 
 ```css
@@ -83,10 +83,10 @@ Lab notes: the roll, the frame, the grade, the minute. Exact numbers, short line
 .print { flex: var(--r, 1.5) 1 0; min-width: 0; margin: 0; }
 .print > [data-slot] { aspect-ratio: var(--r, 1.5); background: linear-gradient(165deg, var(--g4), var(--g2) 55%, var(--g0)); }
 .print img { filter: grayscale(1); }
-.print figcaption { padding-top: 10px; font: 400 var(--text-xs)/1.4 var(--font-body); color: var(--color-muted); }
-.print:hover figcaption { color: var(--color-accent); }
+.print figcaption { padding-top: var(--space-xs); font: 400 var(--text-xs)/1.4 var(--font-body); color: var(--color-muted); }
+.print:has(a):hover figcaption { color: var(--color-accent); }
 @media (max-width: 40rem) { .hang { flex-wrap: wrap; } .print { flex-basis: 100%; } }
-.btn { font-family: var(--font-display); font-weight: 500; font-size: 16px; letter-spacing: 0.04em; text-transform: uppercase; padding: 12px 20px; border: 1px solid var(--color-ink); color: var(--color-ink); background: transparent; }
+.btn { font-family: var(--font-display); font-weight: 400; font-size: var(--text-md); letter-spacing: 0.04em; text-transform: uppercase; padding: var(--space-sm) var(--space-lg); border: 1px solid var(--color-ink); color: var(--color-ink); background: transparent; }
 .btn--primary { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-accent-ink); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 35%, transparent); }
 ```

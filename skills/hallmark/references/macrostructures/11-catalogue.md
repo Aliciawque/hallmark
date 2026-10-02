@@ -16,6 +16,6 @@ Avoid for narrative brands. Catalogue treats every item as equal, wrong for a pr
 Code: [`../components/f6-product-card-grid.md`](../components/f6-product-card-grid.md).
 
 **Sample opening lines** (inventory headers: dated, with a count):
-> *"Today's loaves."* Two words, ownership of the day (Maple Street Bread, test 03).
+> *"Today's loaves."* Two words, ownership of the day (Maple Street Bread).
 > *"Five collections, in store now."* The count and the where.
 > *"Thirty-eight pieces this spring, every one hand-stitched."* Count, season, qualifier; no adjectives.

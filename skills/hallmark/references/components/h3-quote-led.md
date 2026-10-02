@@ -5,14 +5,14 @@ A pull quote with its attribution is the hero. The headline is borrowed.
 
 ```html
 <section class="hero-quote">
-  <blockquote class="hero-quote__text"><p>“…”</p></blockquote>
+  <blockquote class="hero-quote__text"><p>…”</p></blockquote>
   <p class="hero-quote__by"><cite>…</cite></p>
   <a class="link" href="#">Read the case</a>
 </section>
 ```
 ```css
 .hero-quote { min-height: 70dvh; display: grid; align-content: center; gap: var(--space-lg); padding: var(--space-2xl) var(--gutter); }
-.hero-quote__text { margin: 0; font-family: var(--font-display); font-size: var(--text-display-s); line-height: 1.1; max-width: 24ch; }
+.hero-quote__text { margin: 0; font-family: var(--font-display); font-size: var(--text-display-s); line-height: 1.1; letter-spacing: var(--tracking-display); max-width: 24ch; }
 .hero-quote__text p { position: relative; }
 .hero-quote__text p::before { content: "“"; position: absolute; transform: translateX(-100%); }
 .hero-quote__by { margin: 0; font-size: var(--text-sm); color: var(--color-muted); }
@@ -23,7 +23,7 @@ A pull quote with its attribution is the hero. The headline is borrowed.
 
 - Quote face: display roman · display italic (whole quote) · body, large
 - Attribution: beneath · margin aligned · right flush
-- Length: 80 characters or fewer · 80 to 160
+- Length: 80 characters or fewer · 81 to 160
 
 ## Mobile
 

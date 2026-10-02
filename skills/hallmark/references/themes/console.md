@@ -46,12 +46,12 @@ One dial, the colourway, stated in the stamp (`console: night`). In every colour
 ## Faces
 
 - **Display:** Host Grotesk 600, `--tracking-display`, line-height 1.05, roman.
-- **Body:** Host Grotesk 400, 15 to 16px, line-height 1.55 to 1.6, in `--color-muted`. The document: Source Serif 4 at opsz 60, weight 400, for the printed method and its letterhead only.
-- **Labels, captions, table heads, chips, meta:** Host Grotesk 500 one step smaller, sentence case, in `--color-muted`. JetBrains Mono at 10.5 to 12.5px is for what an instrument or the system wrote: readings with their unit, ids, diffs, the audit log, the timer, every figure tabular.
+- **Body:** Host Grotesk 400 at 16px, line-height 1.55 to 1.6, in `--color-muted`. The document: Source Serif 4 at opsz 60, weight 400, for the printed method and its letterhead only.
+- **Labels, captions, table heads, chips, meta:** Host Grotesk 500 one step smaller, sentence case, in `--color-muted`. JetBrains Mono at 13px is for what an instrument or the system wrote: readings with their unit, ids, diffs, the audit log, the timer, every figure tabular.
 
 ## Material
 
-- Hairline panels: a surface is a 1px `--color-rule` with `--color-paper-2` inside, radius 10 (12 for grids, 6 for controls). A grid is one panel cut by 1px gaps of ground, never separate cards with air between them.
+- Hairline panels: a surface is a 1px `--color-rule` with `--color-paper-2` inside, radius 10 (6 for controls). A grid is one panel cut by 1px gaps that show the rule, never separate cards with air between them.
 - Three steps, no lamp: ground at 14%, panel at 17.5%, and the deepest surface at 11% for terminals and a rail. No shadow, no glow, no bloom, no spotlight.
 - Drawn data: sparklines, rings, Gantts and diffs are the pictures. No illustration, no photograph.
 - The chip: Host Grotesk 500 at 11px, sentence case, inside a 1px rule at radius 4, tinted `--color-accent-soft` or `--color-cool-soft` by meaning. It carries state only; a dot inside it means live and nothing else.
@@ -60,7 +60,7 @@ One dial, the colourway, stated in the stamp (`console: night`). In every colour
 
 ## Motion
 
-Instrumental. A timer counts down and its ring follows; a sparkline draws once from seeded data. No reveals, no parallax, no hover lifts, nothing that appends on its own.
+Instrumental. A timer counts down once a person starts it, and its ring follows; a sparkline draws once from seeded data. No reveals, no parallax, no hover lifts, nothing that appends on its own.
 
 ## Voice
 
@@ -76,16 +76,16 @@ A lab notebook kept by a careful person: the value, its unit, the time, who sign
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400&display=swap" rel="stylesheet">
 ```
 
 ```css
 .display { font: 600 var(--text-display)/1.05 var(--font-display); letter-spacing: var(--tracking-display); }
 .panel { background: var(--color-paper-2); border: 1px solid var(--color-rule); border-radius: var(--radius-card); }
-.grid { display: grid; gap: 1px; background: var(--color-rule); border: 1px solid var(--color-rule); border-radius: 12px; overflow: hidden; }
+.grid { display: grid; gap: 1px; background: var(--color-rule); border: 1px solid var(--color-rule); border-radius: var(--radius-card); overflow: hidden; }
 .grid > * { background: var(--color-paper-2); }
-.reading { font-family: var(--font-outlier); font-size: 12.5px; font-variant-numeric: tabular-nums; color: var(--color-cool); }
-.btn { border-radius: var(--radius-pill); padding: 9px 14px; font-weight: 500; border: 1px solid var(--color-rule); background: var(--color-paper-2); }
+.reading { font-family: var(--font-outlier); font-size: var(--text-xs); font-variant-numeric: tabular-nums; color: var(--color-cool); }
+.btn { border-radius: var(--radius-pill); padding: var(--space-sm) var(--space-md); font-weight: 500; border: 1px solid var(--color-rule); background: var(--color-paper-2); }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 25%, transparent); }
 ```

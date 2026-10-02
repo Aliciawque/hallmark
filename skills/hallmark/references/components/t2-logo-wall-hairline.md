@@ -1,7 +1,7 @@
 ### T2 · Logo wall (hairline)
 A row of the user's customer logos, monochromatic, separated by hairline rules. No card boxes, no shadows, no line above it (`Trusted by` is an eyebrow, 54). The logos are the user's files; with none supplied the row is one `data-slot="logos"` placeholder per `craft.md` § 8, sized to the count the user gave, and never a run of empty `<img>` or invented customers (46a). No count given, no section.
 *Use when:* the user named recognisable customers and wants them surfaced quietly.
-*Don't confuse with:* the default six-logo box grid; this version refuses card boxes.
+*Not:* the default six-logo grid of boxes; this row has no card boxes.
 
 ```html
 <!-- with files: one <li> per logo the user supplied -->
@@ -13,7 +13,7 @@ A row of the user's customer logos, monochromatic, separated by hairline rules. 
 </section>
 
 <!-- without files: the placeholder at the row's real height -->
-<section class="logo-wall" data-slot="logos" style="--logo-count: 5">
+<section class="logo-wall" data-slot="logos" data-alt="…" style="--logo-count: 5">
   <p class="slot-label">Your customer logos, five</p>
 </section>
 ```
@@ -33,4 +33,6 @@ A fixed `--logo-count` holds the column count above 1440 (44d); `auto-fit` would
 - Logo treatment: monochrome ink · ghosted at 0.7
 - Divider: vertical hairline · none
 
-*Mobile:* below 60rem half the count per row, split evenly, and the hairline pattern resets to the new row; below 40rem two per row at 20px tall.
+## Mobile
+
+- Below 60rem: half the count per row, split evenly, and the hairline pattern resets to the new rows. Below 40rem: two per row at 20px tall.

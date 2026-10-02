@@ -6,7 +6,7 @@ Filterable cards of projects. Studio and designer homepages where the work is th
 - **Body:** a responsive grid of project cards, same size or with slight size variation; image tracks `minmax(0, 1fr)` (50).
 - **Divider:** the filter row above the grid; no internal rules.
 - **Button:** a link inside each card ("View the case study"); no global CTA. The fold's one visible action is the first card's link (44b).
-- **Image:** a thumbnail per card, from the user's work.
+- **Image:** a thumbnail per card, from the user's work; until it arrives, the projects are set in type with one slot at most (68).
 - **Reveal:** card fade on filter change.
 
 Reach for it for design studios, agencies, photographer portfolios, any creative business where the work is the pitch.

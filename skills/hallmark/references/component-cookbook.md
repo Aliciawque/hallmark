@@ -1,14 +1,14 @@
 # Component cookbook
 
-Fifty component archetypes you can compose into any page shape. Every entry: a *shape*, a one-line "use when", a one-line "don't confuse with", and a short structural sketch (DOM plus minimal CSS). Pick from this file when you are building a section and do not know which shape to reach for.
+The component archetypes, one file each: what it is, *Use when*, *Not* (what it is mistaken for), a structural sketch, its knobs and, where something changes, a mobile line. Pick here when you are building a section and do not know which shape to reach for.
 
 The same page shape (say, Bento Grid) can be built from many combinations of these archetypes. The shape from `macrostructures.md` picks the *page*; this file picks the *components inside it*.
 
 ---
 
-## Archetype index, load ONLY the picks you need
+## Archetype index: load only the picks you need
 
-**Pick your archetype names here, then read ONLY those individual files** from `references/components/`. Do not load the whole cookbook. A build has five to eight sections chosen for the brief, footer included, and no default sequence: the hero, the sections and the footer are each decided, and a nav only when the page needs one.
+**Pick your archetype names here, then read only those files** from `references/components/`. Do not load the whole cookbook. A build has four to eight sections chosen for the brief, footer included, and no default sequence: the hero, the sections and the footer are each decided, and a nav only when the page needs one.
 
 ### Heroes
 
@@ -31,7 +31,7 @@ The same page shape (say, Bento Grid) can be built from many combinations of the
 
 ### Feature blocks
 
-- **F1 · Bento grid.** An asymmetric grid of 8 to 15 tiles in mixed spans (1×1, 2×1, 1×2, 2×2). Visual rhythm from size. [`components/f1-bento-grid.md`](components/f1-bento-grid.md)
+- **F1 · Bento grid.** An asymmetric grid of six to nine tiles in mixed spans (1×1, 2×1, 1×2, 2×2). Visual rhythm from size. [`components/f1-bento-grid.md`](components/f1-bento-grid.md)
 - **F2 · Sticky scroll stack.** A sticky left pane and a scrolling right pane that cycles through related screenshots. [`components/f2-sticky-scroll-stack.md`](components/f2-sticky-scroll-stack.md)
 - **F3 · Tabular spec sheet.** Each row is a feature; columns hold name, value, footnote. Hairline rules between rows, tabular numerals. [`components/f3-tabular-spec-sheet.md`](components/f3-tabular-spec-sheet.md)
 - **F4 · Step sequence.** Numbered stages flow vertically. Each stage has a heading, a paragraph, sometimes a small visual. [`components/f4-step-sequence.md`](components/f4-step-sequence.md)
@@ -41,9 +41,9 @@ The same page shape (say, Bento Grid) can be built from many combinations of the
 ### CTAs / signups
 
 - **C1 · Outlined chip.** A bordered, transparent button with a typographic verb ("Save changes"). [`components/c1-outlined-chip.md`](components/c1-outlined-chip.md)
-- **C2 · Inline form as CTA**: The CTA is the form, one email field and a verb button on the same rule. No separate sign-up page. [`components/c2-inline-form-as-cta.md`](components/c2-inline-form-as-cta.md)
-- **C3 · Typographic link**: A verb phrase with a 1px underline. No box, no fill, no arrow. [`components/c3-typographic-link.md`](components/c3-typographic-link.md)
-- **C4 · Sticky bottom bar.** A horizontal bar pinned to the viewport bottom, holding a CTA and a brief reassurance line. [`components/c4-sticky-bottom-bar.md`](components/c4-sticky-bottom-bar.md)
+- **C2 · Inline form as CTA.** The CTA is the form, one email field and a verb button on the same rule. No separate sign-up page. [`components/c2-inline-form-as-cta.md`](components/c2-inline-form-as-cta.md)
+- **C3 · Typographic link.** A verb phrase with a 1px underline. No box, no fill, no arrow. [`components/c3-typographic-link.md`](components/c3-typographic-link.md)
+- **C4 · Sticky bottom bar.** A horizontal bar pinned to the viewport bottom, holding a CTA and one fact. [`components/c4-sticky-bottom-bar.md`](components/c4-sticky-bottom-bar.md)
 
 ### Testimonials / proof
 
@@ -63,18 +63,18 @@ Every block here is built from the user's material: their quote, their name, the
 - **Ft5 · Statement.** One large display sentence dominates the footer: a concrete closing line, not a sitemap. Wordmark, minimal links and copyright sit beneath, a step smaller. [`components/ft5-statement.md`](components/ft5-statement.md)
 - **Ft6 · Letter close.** Closes the page like a letter: a sign-off, a name, a date. Optional postscript beneath. Sets the page as a piece of writing rather than a product. [`components/ft6-letter-close.md`](components/ft6-letter-close.md)
 - **Ft7 · Newsletter first.** The form (label, input, submit) is the *primary* element of the footer; wordmark, links and copyright sit beneath, a step smaller. For brands that publish and have already offered a subscription above. [`components/ft7-newsletter-first.md`](components/ft7-newsletter-first.md)
-- **Ft8 · Marquee scroll.** A horizontal infinite-scroll line repeating one short phrase in sentence case with a dot between repeats, paused on hover and focus. Sport, manifesto and playful voices. [`components/ft8-marquee-scroll.md`](components/ft8-marquee-scroll.md)
+- **Ft8 · Marquee scroll.** A horizontal infinite-scroll line repeating one short phrase in sentence case with a dot between repeats, paused on hover and focus and by a visible control; loud voices on a theme that allows an ambient loop. [`components/ft8-marquee-scroll.md`](components/ft8-marquee-scroll.md)
 
 ### Navigation
 
 - **N2 · Floating chip.** A small fixed chip in a corner: wordmark and a single action ("Try it"). Does not sit in document flow. [`components/n2-floating-chip.md`](components/n2-floating-chip.md)
-- **N3 · Side rail.** A thin vertical strip on the left edge, wordmark rotated, plus named section links with `aria-current`; never the default nav, only where a sticky object earns it. [`components/n3-side-rail.md`](components/n3-side-rail.md)
-- **N5 · Floating pill.** A content-sized pill detached from the edges, blur backdrop, hairline ring; from the first paint, or morphing from a full bar once the reader scrolls (one DOM, one curve, constant height). [`components/n5-floating-pill.md`](components/n5-floating-pill.md)
+- **N3 · Side rail.** A thin vertical strip on one edge, wordmark rotated, plus named section links with `aria-current`; never the default nav, only where a sticky object earns it. [`components/n3-side-rail.md`](components/n3-side-rail.md)
+- **N5 · Floating pill.** A content-sized pill detached from the edges, in a hairline ring on solid paper (a backdrop blur only on atmospheric pages); from the first paint, or morphing from a full bar once the reader scrolls (one DOM, one curve, constant height). [`components/n5-floating-pill.md`](components/n5-floating-pill.md)
 - **N6 · Newspaper masthead.** Full-width header: a large centred wordmark on the top row, a thin issue and date line above or below in the body face, an optional inline link row beneath, a double rule under the whole thing. [`components/n6-newspaper-masthead.md`](components/n6-newspaper-masthead.md)
-- **N7 · Brutal slab.** A heavy, full-width nav with a 2px solid border-bottom, an all-caps wordmark and a heavy sentence-case link row; dense rhythm, no shadow, no rounded corners. [`components/n7-brutal-slab.md`](components/n7-brutal-slab.md)
+- **N7 · Brutal slab.** A heavy, full-width nav with a 2px solid border-bottom, a wordmark that may be capitals and a heavy sentence-case link row; dense rhythm, no shadow, no rounded corners. [`components/n7-brutal-slab.md`](components/n7-brutal-slab.md)
 - **N8 · Terminal command.** A nav formatted as a CLI prompt: `> studio --catalog --voice --get`. The links are command flags; a cursor may end the typed line and nothing else on the page blinks. [`components/n8-terminal-command.md`](components/n8-terminal-command.md)
 - **N9 · Edge-aligned.** Wordmark at one edge, one action or two text links at the other, nothing between. The first nav for a page with one or two destinations. [`components/n9-edge-aligned-minimal.md`](components/n9-edge-aligned-minimal.md)
-- **N1 · Three-section bar.** Wordmark left, a centred cluster of three to five links (some with small dropdowns), sign-in and one filled action right. The reflex product bar (42): only for four or more real top-level destinations, named in the stamp. [`components/n1-three-section-bar.md`](components/n1-three-section-bar.md)
+- **N1 · Three-section bar.** Wordmark left, a centred cluster of three to five links (some with small dropdowns), sign-in and one quiet action right. The reflex product bar (42): only for four or more real top-level destinations, named in the stamp. [`components/n1-three-section-bar.md`](components/n1-three-section-bar.md)
 - **N11 · Mega-menu panel.** A top bar whose triggers open a full-width multi-column panel (icon, title and description per item, grouped, plus a feature card); the page dims behind a scrim. For platforms and hubs with many grouped destinations. [`components/n11-mega-menu.md`](components/n11-mega-menu.md)
 - **N12 · Announcement banner + retracting nav.** A coloured promo banner stacked above one real nav; the banner retracts on scroll-down, returns on scroll-up, dismisses via ×. The banner is not a second nav (colour contrast keeps them distinct). [`components/n12-banner-retract.md`](components/n12-banner-retract.md)
 - **N13 · Command palette.** A spotlight dialog of grouped, keyboard-navigable results opened by ⌘K; triggered by a visible search pill in the bar, or by one small `Menu ⌘K` control with no other nav for keyboard-first audiences. [`components/n13-inline-cmdk-pill.md`](components/n13-inline-cmdk-pill.md)
@@ -150,7 +150,7 @@ Two breakpoints to know:
 - **60rem (about 960px)**: the *layout* breakpoint. Multi-column grids collapse to a single column. Tilts and clip effects drop. Sticky panes unstick.
 - **40rem (about 640px)**: the *typography* breakpoint. Display sizes shrink one step. Side-margin labels move inline. Annotations consolidate.
 
-Below 60rem the archetype must still feel like itself (same hierarchy, same tone, same rhythm) in a stacked single-column form. Below 40rem the page is a phone; treat space like a luxury.
+Below 60rem the archetype must still feel like itself (same hierarchy, same tone, same rhythm) in a stacked single-column form. Below 40rem the page is a phone: one column, the scaffold's 16px gutter, sections at `--section-gap`.
 
 An archetype file carries a mobile line only where something changes at one of these widths; no line means the sketch already stacks.
 

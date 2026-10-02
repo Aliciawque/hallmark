@@ -50,14 +50,14 @@ Three colourways, set once per page and named in the stamp (`kiln: ember`).
 
 ## Material
 
-- The heat panel: a plate at `--radius-card` whose background is one radial gradient in `oklch` from `--heat-6` at a corner out through the ramp to `--heat-0`, plus a small white bloom at the same origin, under a 14% grain overlay (`texture.md` § Grain). Two such fields on a page at most, both inside plates, never on the ground.
-- The smoked plate: one flat panel in `--color-paper-2` with a 1px `--color-rule` edge and no shadow (a border and a soft shadow never share a box), beside a heat panel on the ground, never inside one (gate 4), never with a title bar, never blurred (the genre refuses glass, and beside a plate there is nothing behind it to blur). Its UI fills are the ramp's cool end; the readout's figures are tabular.
+- The heat panel: a plate at `--radius-card` whose background is one radial gradient in `oklch` from `--heat-6` at a corner out through the ramp to `--heat-0`, plus a small white bloom at the same origin, under a 14% grain overlay (`texture.md` § Grain). Two such fields on a page at most (the genre's two blooms), both inside plates, never on the ground.
+- The smoked plate: one flat panel in `--color-paper-2` with a 1px `--color-rule` edge and no shadow, beside a heat panel on the ground, never inside one (gate 4), never with a title bar, never blurred. Its UI fills are the ramp's cool end; the readout's figures are tabular.
 - Rules 1px at 12%; radii 28px plates, 20px cones, 16px the smoked plate; the ground is flat and cold.
 - The control pair: an accent-filled pill 50px tall beside a ghost pill with a 1px inset `--color-rule`. The one interactive object: a temperature slider whose 2px track and 28px thumb recolour its plate along the ramp.
 
 ## Motion
 
-Slow and thermal: plate colours interpolate over 400ms ease-out when the slider moves. Nothing else moves; the grain and the heat are static, nothing pulses.
+Slow and thermal: plate colours interpolate over `--dur-long` on `--ease-out` when the slider moves. Nothing else moves; the grain and the heat are static, nothing pulses.
 
 ## Voice
 
@@ -67,8 +67,7 @@ Calm and physical: degrees, cones, minutes, the schedule.
 
 - Never the heat gradient on the page ground or behind a headline; heat belongs inside a plate.
 - Never orange type: the accent is only ever a fill (one pill, one readout's well), and every letter stays cream.
-- Never a hard-edged or square plate; Kiln is 28px and larger.
-- Never one coloured or italic word inside a head; break the line instead.
+- Never a hard-edged or square plate; a heat plate is 28px or rounder.
 
 ## Build hint
 
@@ -77,14 +76,14 @@ Calm and physical: degrees, cones, minutes, the schedule.
 ```
 
 ```css
-.display { font: 400 var(--text-display)/1.02 var(--font-display); font-variation-settings: "opsz" 144; letter-spacing: var(--tracking-display); }
+.display { font: 400 min(var(--text-display), 4.5rem)/1.02 var(--font-display); font-variation-settings: "opsz" 144; letter-spacing: var(--tracking-display); }
 .plate { position: relative; overflow: hidden; border-radius: var(--radius-card); color: var(--heat-6); isolation: isolate; background-color: var(--heat-1);
   background-image: radial-gradient(in oklch 40% 30% at 86% 104%, color-mix(in oklab, var(--heat-6) 70%, transparent), transparent 70%),
     radial-gradient(in oklch 130% 120% at 88% 104%, var(--heat-6) 0%, var(--heat-5) 10%, var(--heat-4) 24%, var(--heat-3) 40%, var(--heat-2) 60%, var(--heat-1) 82%, var(--heat-0) 100%); }
 .plate::after { content: ""; position: absolute; inset: 0; opacity: 0.14; mix-blend-mode: overlay; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
 .smoke { border-radius: 16px; background: var(--color-paper-2); border: 1px solid var(--color-rule); }
-.btn { display: inline-flex; align-items: center; height: 50px; padding: 0 24px; border-radius: var(--radius-pill); font-weight: 500; background: var(--color-accent); color: var(--color-accent-ink); }
+.btn { display: inline-flex; align-items: center; height: 50px; padding: 0 var(--space-lg); border-radius: var(--radius-pill); font-weight: 500; background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--ghost { background: transparent; color: var(--color-ink); box-shadow: inset 0 0 0 1px var(--color-rule); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 35%, transparent); }
 ```

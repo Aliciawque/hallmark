@@ -49,7 +49,7 @@ Cool slate stock ruled in two weights, Hanken Grotesk heads over Newsreader pros
 
 ## Motion
 
-Nothing moves except state: a row tints on hover, a link underlines. No reveal, no count-up, no marquee.
+Nothing moves except state: a row that links tints on hover, a link underlines. No reveal, no count-up, no marquee.
 
 ## Voice
 
@@ -66,17 +66,17 @@ Declarative, dated, exact: cite the figure, the edition, the source, the unit. N
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 ```
 
 ```css
 body { background: var(--color-paper); color: var(--color-ink-2); font-family: var(--font-body); }
 h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: var(--tracking-display); color: var(--color-ink); }
-thead th { border-bottom: var(--rule-bar) solid var(--color-rule-2); font: 500 0.875rem/1.3 var(--font-body); text-align: left; }
+thead th { border-bottom: var(--rule-bar) solid var(--color-rule-2); font: 500 var(--text-sm)/1.3 var(--font-body); text-align: left; }
 td { border-top: var(--rule-hair) solid var(--color-rule); }
 td.num { font-family: var(--font-outlier); font-variant-numeric: tabular-nums; text-align: right; }
 tbody tr:nth-child(even) { background: var(--color-paper-2); }
-.label { font: 500 0.8125rem/1.3 var(--font-body); color: var(--color-muted); }
+.label { font: 500 var(--text-xs)/1.3 var(--font-body); color: var(--color-muted); }
 a { color: var(--color-accent); text-underline-offset: 0.15em; }
 ::selection { background: color-mix(in oklab, var(--color-accent) 22%, transparent); }
 ```

@@ -54,7 +54,7 @@ Three drawers, stated in the stamp (`terrazzo: off-white`).
 - Rules `--rule-bar` ink on the top of a table and around a framed object; `--rule-hair` paper-2 between rows. Radius 0 everywhere; only a dot chip is round.
 - Shadow: a hard `16px 16px 0` in paper-2 under a framed object, no blur.
 - The control pair: an ink-filled primary with paper text beside a `--rule-bar` inset ink outline. Nothing coloured is a button on off-white paper.
-- The object family is the drawer: a sample card (a photo slot, a code in mono, six facts), a drawer front (a pull bar and a label strip), a cabinet inside an ink band, a table where each row carries its chips as bullets.
+- The object family is the drawer: a sample card (a photo slot, a code in mono, its facts as a `<dl>`), a drawer front (a pull bar and a label strip), a cabinet inside an ink band, a table where each row carries its chips as bullets.
 - Rust is the accent and the only chip ink that reaches a figure or a highlighted row; ochre, olive and navy live in chips. Coloured area stays under a twentieth of any screen.
 
 ## Motion
@@ -86,10 +86,10 @@ A catalogue's plainness: the count, the drawer, the code, the size at one to one
 .chip--ochre { background: var(--color-chip-ochre); } .chip--olive { background: var(--color-chip-olive); } .chip--navy { background: var(--color-chip-navy); }
 .chip--dot { border-radius: 50%; } .chip--sq { rotate: 14deg; } .chip--tri { clip-path: polygon(50% 0, 100% 100%, 0 100%); }
 .chip--hex { clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0 50%); }
-.btn { padding: 16px 26px; font: 500 15px var(--font-body); border-radius: 0; }
+.btn { padding: var(--space-md) var(--space-lg); font: 500 15px/1.25 var(--font-body); border-radius: 0; }
 .btn--primary { background: var(--color-ink); color: var(--color-paper); }
 .btn--secondary { box-shadow: inset 0 0 0 var(--rule-bar) var(--color-ink); color: var(--color-ink); }
-.drawer-band { background: var(--color-ink); color: var(--color-paper); padding: 16px; }
+.drawer-band { background: var(--color-ink); color: var(--color-paper); padding: var(--space-md); }
 .frame { background: var(--color-plate); border: var(--rule-bar) solid var(--color-ink); box-shadow: var(--shadow-card); }
 .code { font: 500 12px var(--font-outlier); color: var(--color-muted); }
 ::selection { background: color-mix(in oklab, var(--color-chip-ochre) 45%, transparent); }

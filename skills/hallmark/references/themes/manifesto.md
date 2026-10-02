@@ -14,7 +14,7 @@ pictured: Manifesto, Ledge hero
 
 # Manifesto
 
-A warm near-black ground, Anton uppercase up to 9rem leaded at 0.86 and slammed to the left margin, a Public Sans body at 1rem, and one red word inside the hero block. The whole drama is the gap between 9rem caps and 1rem body.
+A warm near-black ground, Anton uppercase up to 9rem leaded at 0.92 and slammed to the left margin, a Public Sans body at 1rem, and one red word inside the hero block. The whole drama is the gap between 9rem caps and 1rem body.
 
 ## Tokens
 
@@ -34,8 +34,8 @@ A warm near-black ground, Anton uppercase up to 9rem leaded at 0.86 and slammed 
 
 ## Faces
 
-- **Display:** Anton 400, one weight, uppercase only, at `--text-display`, leaded at `--lh-tight` so a three-line block locks into one mass, slammed left; each line is its own element that never wraps (`white-space: nowrap`, stamp `waive 55b`), because Anton's capitals touch below 0.92. One red word on the whole page, inside the hero block, in `--color-accent-text`: the signature (stamp `waive 38iii`). Every other head is one colour.
-- **Body:** Public Sans 400, 600, 700, set small and plain at a 56ch measure in `--color-ink-2`.
+- **Display:** Anton 400, one weight, uppercase only, at `--text-display`, leaded at `--lh-tight` so a three-line block locks into one mass, slammed left; each line is its own element that never wraps (`white-space: nowrap`, stamp `waive 55b`), because Anton's capitals touch below 0.92; any other head that can wrap leads at 1.02 (55a). One red word on the whole page, inside the hero block, in `--color-accent-text`: the signature (stamp `waive 38iii`). Every other head is one colour.
+- **Body:** Public Sans 400 and 600, set small and plain at a 56ch measure in `--color-ink-2`.
 - **Labels, captions, table heads, meta, dates, folios:** Public Sans 500 one step smaller, sentence case, `--color-muted`. Mono appears only inside code.
 
 ## Material
@@ -48,7 +48,7 @@ A warm near-black ground, Anton uppercase up to 9rem leaded at 0.86 and slammed 
 
 ## Motion
 
-One clip reveal: the hero block clip-reveals upward once (`clip-path: inset()`, never a soft fade) over 500ms. Nothing else moves; no bounce, no parallax, no red pulsing.
+One clip reveal: the hero block clip-reveals upward once (`clip-path: inset()`, never a soft fade) over `--dur-long`. Nothing else moves; no bounce, no parallax, no red pulsing.
 
 ## Voice
 
@@ -58,25 +58,26 @@ Imperative, short, declarative: fighting words, verbs over adjectives, one red w
 
 - Never a second accent; red is the only colour.
 - Never a red flood beyond the single inverted surface; red is a signal, not a background.
-- Never a light ground; the broadside is dark.
+- Never a light ground; the sheet stays dark.
 - Never ornament: no fleurons, stickers, hard-offset shadows or tinted-paper tricks.
 - Never a serif, lowercase or title-case display; the voice is uppercase and declarative.
 
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 ```
 
 ```css
 body { font-family: var(--font-body); color: var(--color-ink-2); }
 .display { font: 400 var(--text-display)/var(--lh-tight) var(--font-display); text-transform: uppercase;
   letter-spacing: var(--tracking-display); color: var(--color-ink); }
+.display > span { display: block; white-space: nowrap; }
 .display .hot { color: var(--color-accent-text); }
 .rule-red { height: var(--rule-bar); background: var(--color-accent); border: 0; }
 .btn--primary { border-radius: 0; background: var(--color-accent); color: var(--color-accent-ink); font-weight: 600; }
 .btn--secondary { border-radius: 0; border: var(--rule-hair) solid var(--color-ink-2); color: var(--color-ink); font-weight: 600; }
-.reveal { clip-path: inset(0 0 100% 0); transition: clip-path 500ms var(--ease-out); }
-.reveal.is-in { clip-path: inset(0 0 0 0); }
+.reveal { animation: wipe var(--dur-long) var(--ease-out) both; }
+@keyframes wipe { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0); } }
 ::selection { background: var(--color-accent); color: var(--color-accent-ink); }
 ```

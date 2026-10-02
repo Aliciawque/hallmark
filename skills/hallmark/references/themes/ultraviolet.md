@@ -50,14 +50,14 @@ Three colourways, set once per page and named in the stamp (`ultraviolet: lavend
 
 - Hairlines: 1px `--color-rule` between list rows and under a nav; pills and outlined controls carry 1.5px. No borders on cards; a surface is a step to `--color-paper-2`.
 - Pills for every control and chip at `--radius-pill`; slots at 16px; nothing square. The app bleeds off the edge of its slot or sits in a plain 16px plate, never inside a drawn phone bezel.
-- The control pair: a violet-filled pill (`--color-accent` with `--color-accent-ink` text) beside an inset-outlined one (`box-shadow: inset 0 0 0 1.5px var(--color-ink)`). An ink-filled pill is the third state, for the nav.
+- The control pair: a violet-filled pill (`--color-accent` with `--color-accent-ink` text) beside an inset-outlined one (`box-shadow: inset 0 0 0 1.5px var(--color-ink)`).
 - The waveform: a row of 2px bars in `--color-dim` with the played portion in `--color-accent`, drawn as SVG rects, never an image; it sits inside list rows, tempo readouts and slots.
 - The record: a drawn vinyl disc (a near-black face, concentric groove strokes, a violet label with lowercase Outfit text, a paper-coloured spindle hole), the theme's one illustration. It stands beside the headline or inside a slot; it never spins in a loop.
-- Shadow stance: none on paper, the whisper `--shadow-card` under a raised plate. No texture, no blur, no gradient; the placeholder recipe is two violet radial fields inside a slot only.
+- Shadow stance: none on paper, the whisper `--shadow-card` under a raised plate. No texture, no blur, no gradient; the placeholder recipe is two violet radial fields inside a slot only, and the flat paper step on night.
 
 ## Motion
 
-Quick and dry: 150ms colour transitions on pills, a tempo slider that updates a figure live, one settle of the hero over 420ms from an already-visible default. The disc may turn a few degrees on hover, once, and return.
+Quick and dry: `--dur-micro` colour transitions on pills, a tempo slider that updates a figure live, one settle of the hero over `--dur-long` from an already-visible default. The disc is a picture: it never turns on hover.
 
 ## Voice
 
@@ -77,9 +77,9 @@ Lowercase, short, exact: the bar count, the key, the percent, the price. It talk
 ```
 
 ```css
-.display { font: 500 var(--text-display)/1 var(--font-display); letter-spacing: var(--tracking-display); text-transform: lowercase; text-wrap: balance; }
-.pill, .btn { display: inline-flex; align-items: center; gap: 8px; border-radius: var(--radius-pill); font: 500 15px/1 var(--font-display); text-transform: lowercase; }
-.btn { padding: 15px 28px; } .pill { padding: 7px 14px; box-shadow: inset 0 0 0 1.5px var(--color-rule); }
+.display { font: 500 min(var(--text-display), 5rem)/1 var(--font-display); letter-spacing: var(--tracking-display); text-transform: lowercase; text-wrap: balance; }
+.pill, .btn { display: inline-flex; align-items: center; gap: var(--space-xs); border-radius: var(--radius-pill); font: 500 15px/1 var(--font-display); text-transform: lowercase; }
+.btn { padding: var(--space-md) var(--space-lg); } .pill { padding: var(--space-xs) var(--space-md); box-shadow: inset 0 0 0 1.5px var(--color-rule); }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--secondary { box-shadow: inset 0 0 0 1.5px var(--color-ink); color: var(--color-ink); }
 .wave rect { fill: var(--color-dim); } .wave rect.on { fill: var(--color-accent); }

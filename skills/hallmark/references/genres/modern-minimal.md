@@ -4,9 +4,8 @@ The polished product page: SaaS, enterprise, API, platform, developer tool, infr
 
 ## Voice
 
-- **Display:** a grotesk or geometric sans at 500 to 700 with tight tracking (-0.02 to -0.035em).
-- **Body:** the same family at 400; single-family discipline.
-- **Accent:** monochrome (the accent is ink) or one restrained hue on focus rings and one control. No chromatic floods.
+- **Faces** (a theme names its own; this is for a custom run): a grotesk or geometric sans at 500 to 700, tracked -0.02 to -0.035em; the body in the same family at 400 or one plain sans beside it.
+- **Accent:** ink, or one hue on focus rings and one control; colour floods only under a declared posture.
 - **Layout:** two-column heroes (title left, one line right or a slot beside it), generous air, thin visible borders rather than hairlines.
 - **Motion:** minimal; reveals off; the page is composed.
 - **Copy:** declarative, specific, technical. "Built for X" only when X is concrete.

@@ -26,7 +26,7 @@ Newsprint stock, Anybody set wide and heavy in caps, a teal-blue pass and an ora
   --color-accent: oklch(70% 0.09 215); --color-accent-ink: oklch(18% 0.006 60); --color-focus: oklch(45% 0.08 220);
   --color-accent-2: oklch(73% 0.18 55); --color-accent-2-ink: oklch(18% 0.006 60);
   --color-mix: oklch(42% 0.09 113);
-  --blend: multiply; --texture-opacity: 0.07;
+  --blend: multiply; --texture-opacity: 0.05;
   --font-display: "Anybody", ui-sans-serif, sans-serif; --font-body: "Archivo", ui-sans-serif, sans-serif;
   --font-outlier: "Archivo Narrow", ui-sans-serif, sans-serif;
   --radius-card: 0; --radius-pill: 0; --rule-hair: 1px; --rule-bar: 3px;
@@ -40,13 +40,13 @@ Pass 1 (teal-blue) takes the main button and free; pass 2 (orange) takes sold-ou
 | Stock | Paper and ink | The two passes |
 | --- | --- | --- |
 | **Newsprint** (default) | the tokens above, multiply | teal-blue and orange, crossing in olive (`--color-mix`) |
-| **Kraft** | brown `oklch(79% 0.055 75)` under `oklch(22% 0.02 60)`, multiply, grain 0.08 | the same two passes; the brown darkens them, so type stays off the shapes |
-| **Black stock** | `oklch(20% 0.01 280)` under `oklch(95% 0.01 90)`; the blend flips to screen so the overlap goes pale; grain 0.08 | yellow `oklch(88% 0.17 95)` and aqua `oklch(78% 0.13 200)`; fills carry the stock black, focus takes the aqua |
+| **Kraft** | brown `oklch(79% 0.055 75)` under `oklch(22% 0.02 60)`, multiply, grain 0.05 | the same two passes; the brown darkens them, so type stays off the shapes |
+| **Black stock** | `oklch(20% 0.01 280)` under `oklch(95% 0.01 90)`; the blend flips to screen so the overlap goes pale; grain 0.05 | yellow `oklch(88% 0.17 95)` and aqua `oklch(78% 0.13 200)`; fills carry the stock black, focus takes the aqua |
 
 ## Faces
 
-- **Display:** Anybody 800 to 900, set wide (`--display-stretch`, 130 to 150%), uppercase, line-height 1.02, `--tracking-display`, from 40px for a section head to 160px for a door time; figures and prices too. Wide caps need room: a few words a line.
-- **Body:** Archivo 400 to 600, 16 to 17px, line-height 1.5.
+- **Display:** Anybody 900, set wide (`--display-stretch`, 130 to 150%), uppercase, line-height 1.02, `--tracking-display`, from 40px for a section head to 160px for a door time; figures and prices too. Wide caps need room: a few words a line.
+- **Body:** Archivo 400 and 600, 16 to 17px, line-height 1.5.
 - **Small print:** Archivo Narrow 600 at 12 to 13px, sentence case, untracked, for days, hours, table heads and the stub, the theme's outlier. Captions and meta are Archivo. No mono anywhere.
 
 ## Material
@@ -59,7 +59,7 @@ Pass 1 (teal-blue) takes the main button and free; pass 2 (orange) takes sold-ou
 
 ## Motion
 
-The press does not animate. A bill swaps its date on click, a door clock ticks once a second. The shapes print once and stay; nothing reveals, floats or loops.
+The press does not animate. A bill swaps its date on click; a door clock is set on load and does not tick. The shapes print once and stay; nothing reveals, floats or loops.
 
 ## Voice
 
@@ -76,21 +76,21 @@ The bill on the wall: the room, the door time, the price, sold out or free.
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@100..150,800..900&family=Archivo:wght@400;500;600&family=Archivo+Narrow:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@100..150,900&family=Archivo:wght@400;600&family=Archivo+Narrow:wght@600&display=swap" rel="stylesheet">
 ```
 
 ```css
 .display { font: 900 var(--text-display)/1.02 var(--font-display); font-stretch: var(--display-stretch); text-transform: uppercase; letter-spacing: var(--tracking-display); color: var(--color-ink); }
 .print { position: relative; }
-.print > .display { position: relative; z-index: 1; }
+.print > .display { position: relative; z-index: var(--z-base); }
 .pass { position: absolute; mix-blend-mode: var(--blend); pointer-events: none; }
 .pass--1 { background: var(--color-accent); }
 .pass--2 { background: var(--color-accent-2); border-radius: 50%; }
 .small { font: 600 12.5px var(--font-outlier); color: var(--color-muted); }
-.btn { padding: 16px 28px; font: 600 14px var(--font-outlier); letter-spacing: 0.04em; text-transform: uppercase; }
+.btn { padding: var(--space-md) var(--space-lg); font: 600 var(--text-sm) var(--font-outlier); letter-spacing: 0.04em; text-transform: uppercase; }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--secondary { box-shadow: inset 0 0 0 2px var(--color-ink); color: var(--color-ink); }
 .list { border-top: var(--rule-bar) solid var(--color-ink); } .list > li { border-bottom: var(--rule-hair) solid var(--color-rule); }
-.stamp { display: inline-block; border: 2px solid var(--color-ink); outline: 1px solid var(--color-ink); outline-offset: -5px; padding: 6px 12px; rotate: -2deg; }
+.stamp { display: inline-block; border: 2px solid var(--color-ink); outline: 1px solid var(--color-ink); outline-offset: -5px; padding: var(--space-xs) var(--space-sm); rotate: -2deg; }
 ::selection { background: color-mix(in oklab, var(--color-accent-2) 40%, transparent); }
 ```

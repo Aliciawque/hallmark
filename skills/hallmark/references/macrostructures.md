@@ -4,7 +4,7 @@ Twenty-one named landing-page shapes. Each is a complete fingerprint (heading pl
 
 ## The 21 macrostructures, index
 
-**Read only the one file** for the shape you landed on, from `references/macrostructures/`. Do not load the whole catalogue. Slugs are stable; Rotation reads the shape from the stamp and the log. A hero shape may carry one enrichment archetype and one polish pattern from `hero-enrichment.md`, never two polish patterns; nav and footer are part of the shape, settled with the hero. Where a shape's code already lives in `components/`, the shape file points at it instead of repeating it.
+**Read only the one file** for the shape you landed on, from `references/macrostructures/`. Do not load the whole catalogue. Slugs are stable; Rotation reads the shape from the stamp and the log. Nav and footer are part of the shape, settled with the hero. Where a shape's code already lives in `components/`, the shape file points at it instead of repeating it.
 
 - **01 · Bento Grid.** Modular blocks of varying sizes laid out as an irregular grid. Each block is a feature, a figure, an image or a quote the user supplied. Rhythm comes from size variation, not card uniformity. [`macrostructures/01-bento-grid.md`](macrostructures/01-bento-grid.md)
 - **02 · Long Document.** Reads like a memo, a letter or a journal entry. No marketing structure. Continuous prose with inline section heads. The page is literature about the product. [`macrostructures/02-long-document.md`](macrostructures/02-long-document.md)
@@ -20,7 +20,7 @@ Twenty-one named landing-page shapes. Each is a complete fingerprint (heading pl
 - **12 · Letter.** First-person, written, intimate. Opens with a greeting. Reads as a personal note from the founder. [`macrostructures/12-letter.md`](macrostructures/12-letter.md)
 - **13 · Index-First.** The page is a list of links. No hero image, no narrative flow. Navigation as design. [`macrostructures/13-index-first.md`](macrostructures/13-index-first.md)
 - **14 · Narrative Workflow.** Numbered stages tell the story of how the user uses the product over time. Each section is a phase; the page is a process timeline. [`macrostructures/14-narrative-workflow.md`](macrostructures/14-narrative-workflow.md)
-- **15 · Split Studio.** Diptych. Every major block divides the screen, text on one side, proof on the other, alternating direction down the page. [`macrostructures/15-split-studio.md`](macrostructures/15-split-studio.md)
+- **15 · Split Studio.** Diptych. Every major block divides the screen, text on one side, proof on the other; the proof keeps its side and the rows vary by weight. [`macrostructures/15-split-studio.md`](macrostructures/15-split-studio.md)
 - **16 · Feature Stack.** Sticky left pane holding the heading, scroll-synced right pane cycling through related captures. Paced like film. [`macrostructures/16-feature-stack.md`](macrostructures/16-feature-stack.md)
 - **17 · Type Specimen.** The typeface is the design. Foundry pages and design systems where a custom face is the proof. [`macrostructures/17-type-specimen.md`](macrostructures/17-type-specimen.md)
 - **18 · Portfolio Grid.** Filterable cards of projects. Studio and designer homepages where the work is the product. [`macrostructures/18-portfolio-grid.md`](macrostructures/18-portfolio-grid.md)
@@ -58,7 +58,7 @@ When the shape is **Bento Grid, Stat-Led, Workbench or Marquee Hero** and the br
 
 **Every deal deviates twice.** (a) Drop at least one base card and name it (the CTA strip is the usual cut; footer never drops). (b) Either promote a second base card into the hero's place (a spec sheet as the hero object says "the numbers are the pitch"; a worked example as the hero says "watch it work") or reorder one adjacent pair meaningfully (pricing before the example says "the price is the pitch"). State both moves in the Picks block: `deck: -cta +changelog` or `deck: -faq · pricing<example`. A deal that keeps at least five cards still reads complete; below five it is a landing strip, not a landing page: re-add cards or switch shape.
 
-Each card transition uses the theme's vertical spacing, `--space-3xl` or more between cards, varied (59); the section break is the rhythm, no sub-rules.
+Cards part by the three `--section-gap` steps, mixed (59); the section break is the rhythm, no sub-rules.
 
 The deck is not a template you stamp out: the shape determines how each card looks. A Bento Grid page interleaves the spec sheet and the example inside the grid; a Stat-Led page sequences them top to bottom under the figure; a Marquee Hero page lets the marquee carry the claim and the example carry the proof.
 
@@ -72,8 +72,8 @@ For non-SaaS work (Editorial, Manifesto, Letter, Long Document, Quote-Led) this 
 1. **Read the brief.** Note any words that strongly signal one shape ("data heavy", "tell a story", "a list of links", "many small features", "personal note").
 2. **Read `.hallmark/log.json`** (newest first) and the `shape:` field of any Hallmark stamp in the project; the last three shapes are excluded.
 3. **Match the brief to a shape** using the index lines above and § Domain to trio below, then open only the file you land on. Most briefs match two to four; pick the one most distant from the logged shapes, and check the mirror test in SKILL.md Step 2.
-4. **State the pick once**, in the Picks block's Shape row, then write the code with the stamp's `shape:` field set. The stamp reads `/* Hallmark · shape: <shape> · genre: <genre> · theme: <theme> ... */`; the full form is in SKILL.md Step 6.
-5. If genuinely torn, offer three from different families (§ Domain to trio, below) and let the user pick.
+4. **State the pick once**, in the Picks block's Shape row and the stamp's `shape:` field.
+5. If torn, take the domain's trio (§ Domain to trio) and pick the one most distant from the log.
 
 Two pages Hallmark builds for two different briefs must look like different sites, not colour swaps of one template.
 
@@ -93,9 +93,9 @@ Two pages Hallmark builds for two different briefs must look like different site
 
 Fingerprint: one choice per axis, written `Hanging|Asymmetric spans|Hairline|Outlined|Margin-aligned|None`. Two rules: coherence (choices from the same world; a justified newspaper body wants a typographic CTA, not an oversized solid) and anti-repetition (no more than three of six axes shared with any of the last three logged entries).
 
-## Domain to trio, when the user says "you pick"
+## Domain to trio, when the brief names no shape
 
-When the brief gives no shape, offer three shapes from different families (grid-led, document-led, poster-led, product-led) that fit the domain, never three near-twins:
+Three shapes from different families (grid-led, document-led, poster-led, product-led) that fit the domain, never three near-twins; the one most distant from the last logged shape is the pick:
 
 | Domain words | Trio |
 | --- | --- |
@@ -114,4 +114,4 @@ When the brief gives no shape, offer three shapes from different families (grid-
 | conference, event, speaker | Marquee Hero · Manifesto · Photographic |
 | no signal at all | Bento Grid · Long Document · Manifesto |
 
-Developer docs and developer marketing are different briefs (a walkthrough wants Workbench; the landing wants Bento plus Stat-Led), as are a one-pager and a case-study portfolio; ask one question when it is ambiguous. A vague tone word ("modern", "clean") is read through the genre and stated as an inference, never a second question (SKILL.md Step 1). Whichever of the three is most distant from the last logged shape is the right pick.
+Developer docs and developer marketing are different briefs (a walkthrough wants Workbench; the landing wants Bento plus Stat-Led), as are a one-pager and a case-study portfolio; the Step 1 use decides. A vague tone word ("modern", "clean") is read through the genre and stated as an inference, never a second question.

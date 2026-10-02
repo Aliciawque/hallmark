@@ -10,7 +10,7 @@ Made by Together AI.
   <img src="site/OG-hallmark.png" alt="Hallmark, a design skill that refuses to look AI-generated" />
 </p>
 
-Hallmark holds a hard floor and then gets out of the way. It deals three themes from a catalog of forty-nine materials, and a script applies the rotation so consecutive builds cannot converge. When the user asks for **custom** it derives a world made to measure, with an outside draw picking among grounded directions so the model cannot repeat its favourite. It keeps every page to one idea per screen. Then it lints the result against the tells that read as machine-made in 2026: the eyebrow above every heading, the small label in tracked capitals, the one coloured word in a headline, middle-dot meta strings, arrows glued to link text, mono labels as a technical costume, cream paper with a high-contrast serif and a clay accent, a page of empty picture frames, one price said four times, a form that says thanks without sending anything, and content that ships invisible when a script fails.
+Hallmark holds a hard floor and then gets out of the way. It deals three themes from a catalog of forty-nine materials, and a script applies the rotation so consecutive builds cannot converge. When the user asks for **custom** it derives a world made to measure, with an outside draw picking among grounded directions so the model cannot repeat its favourite. It keeps every page to one idea per screen. Then it lints the result against the tells that read as machine-made in 2026: the eyebrow above every heading, the small label in tracked capitals, the one coloured word in a headline, middle-dot meta strings, arrows glued to link text, mono labels as a technical costume, cream paper with a high-contrast serif and a clay accent, a page of empty picture frames, one price said four times, a form that says thanks without sending anything, content that ships invisible when a script fails, text crammed against the edge of its box, and text painted under another element.
 
 The gates come in tiers. The **Floor** never ships: contrast, focus, reduced motion, invented metrics, layout that breaks on a phone, the fold at three widths, the eyebrow. **Reflex** gates are the defaults a language model falls into rather than laws, and a build with an argument may overrule one on the record, with the reason in the CSS stamp and the guard re-derived by the checker. **Finish** checks are craft detail that never blocks a ship. A fresh-context reviewer with no memory of the build gets the last word.
 
@@ -23,8 +23,8 @@ Two pages by Hallmark for two different briefs feel like different sites, not co
 1. Pre-flight reads the project (fonts, palette, framework, a locked `design.md`).
 2. One message asks for the material first (screenshots, photos, real numbers, a quote with a name), then audience, use and tone. Material is never invented: what was not given becomes a designed slot or stays absent.
 3. The page is designed from that inventory, then named; the signature move comes from the strongest real thing. `scripts/theme.mjs deal` prints three themes that fit the brief and clear the log.
-4. The build loads one craft file, one genre file, one theme file with its picture (a finished page in that theme, for scale and density, never composition) and the gate table. `scripts/theme.mjs scaffold` writes the tokens and prints the base rules.
-5. A Picks block states every decision once. One exemplar page for the genre is read for craft.
+4. The build loads one craft file, one genre file, one theme file with its picture (a finished page in that theme, for scale and density, never composition) and the gate table. `scripts/theme.mjs scaffold` writes `tokens.css` and `base.css`, so the page starts with the Floor already in place.
+5. A Picks block states every decision once. A short patterns file shows how controls, slots, forms and reveals are written to pass the gates, without a whole page to copy.
 6. The nav and hero are built alone first, rendered at four sizes and reviewed cold before the rest of the page exists.
 7. `scripts/sloplint.mjs --render` runs the mechanical gates at 320 to 1920 wide, the model walks the judged ones, and a subagent reviews the finished page cold.
 
@@ -83,7 +83,7 @@ The same SKILL.md, references, gates and scripts run in **Claude Code**, **Codex
 node skills/hallmark/scripts/sloplint.mjs <file-or-dir> --genre <genre> --render
 ```
 
-One command installs a lean copy (skill, references, scripts, never the marketing site) everywhere it belongs. On the way it rebuilds the theme index and runs `scripts/refcheck.mjs`, which reads every reference file for dead links, missing sections, retired gate numbers, unknown tokens, stale stamps and sample copy that breaks a gate, and lints the four exemplar pages, which must pass every gate they teach; the install stops if it finds one:
+One command installs a lean copy (skill, references, scripts, never the marketing site) everywhere it belongs. On the way it rebuilds the theme index and runs `scripts/refcheck.mjs`, which reads every reference file for dead links, missing sections, retired gate numbers, unknown tokens, stale stamps and sample copy that breaks a gate, lints four complete pages (one per genre) that must pass every gate, and checks that the deliberately broken fixtures still fail; the install stops if it finds a problem:
 
 ```bash
 node skills/hallmark/scripts/install.mjs

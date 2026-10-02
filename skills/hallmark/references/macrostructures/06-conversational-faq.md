@@ -7,7 +7,7 @@ Bold questions, brief answers. The page reads like an honest interview with the 
 - **Divider:** a hairline between pairs, or no rule and a change of paper.
 - **Button:** a typographic link inside an answer, carrying a verb ("Read the policy"); one outlined CTA at the foot.
 - **Image:** sparse; at most one diagram per long answer.
-- **Reveal:** none on load; a disclosure opens over `--dur-short` with `--ease-out` on `grid-template-rows` from `0fr` to `1fr`.
+- **Reveal:** none on load; a disclosure opens over `--dur-long` with `--ease-out` on `grid-template-rows` from `0fr` to `1fr`.
 
 Reach for it near pricing, for products that meet scepticism, for regulated or educational fields.
 
@@ -23,6 +23,6 @@ Avoid as the primary page. FAQ usually pairs with another shape that opens the p
 ```
 
 **Sample opening lines** (questions are real questions; answers are short and concrete):
-> *"What is this for? A single-binary CLI for parsing log streams from stdin."* Names the form factor and the input (Streampipe, test 02).
+> *"What is this for? A single-binary CLI for parsing log streams from stdin."* Names the form factor and the input (Streampipe).
 > *"How is it different? It runs where the logs are, so nothing leaves the box."* Answers with a fact, not a comparison.
 > *"Who built this? Three of us, in Lisbon, since 2014."* Date, place and count; no marketing.

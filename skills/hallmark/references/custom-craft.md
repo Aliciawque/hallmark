@@ -21,8 +21,8 @@ This file is the index. The guidance lives in `craft/`, one file per tier, with 
 
 What the four recipes share:
 
-1. **`@property` for declarative interpolation.** Animating a typed custom property (`<length>`, `<number>`, `<angle>`, `<color>`) gives composited animation with zero JS. The loaf, the flow line, the architecture diagram's traffic and the mascot's blink all use it.
-2. **Asymmetric `transform: rotate()` for a drawn feel.** The workflow boxes rotate at plus or minus 1°, the mascot's eyes blink 80ms apart, the sprig's leaves sit at +25° and -30°. Symmetry looks algorithmic; controlled asymmetry looks drawn.
+1. **`@property` for declarative interpolation.** Animating a typed custom property (`<length>`, `<number>`, `<angle>`, `<color>`) animates with zero JS. The loaf, the flow line, the architecture diagram's traffic and the mascot's blink all use it.
+2. **Asymmetric `transform: rotate()` for a drawn feel.** The workflow boxes rotate at plus or minus 1°, the mascot's eyes blink `--dur-micro` apart, the sprig's leaves sit at -25° and +30°. Symmetry looks algorithmic; controlled asymmetry looks drawn.
 3. **Opacity layering for secondary detail.** The workflow's second arrow is `--color-muted`; the architecture sub-labels are muted; the sprig veins are 0.6 opacity. The hierarchy of opacity is the hierarchy of attention.
 4. **Labels that are facts.** The architecture diagram's hop labels name real protocols; the workflow's predicates are real. Labels inside drawn work are the body face at a small size, sentence case, untracked (67); mono only on a figure, a measurement or code (64).
 
@@ -46,7 +46,7 @@ Each tier file carries its own list. The cross-tier tells:
 Pick the tier, then read only that file from `references/craft/`. Never load the whole catalogue.
 
 - **Tier A · Pure CSS art**: shapes plus colour at zero bytes; the `clip-path` and `conic-gradient` toolkit and the single-div loaf. [`craft/tier-a-css.md`](craft/tier-a-css.md)
-- **Tier B · Hand-built SVG**: the Figma to SVGOMG pipeline, declarative SVG animation, and the bakery worked example end to end. [`craft/tier-b-svg.md`](craft/tier-b-svg.md)
+- **Tier B · Hand-built SVG**: drawing in code and optimising it, declarative SVG animation, and the bakery worked example end to end. [`craft/tier-b-svg.md`](craft/tier-b-svg.md)
 - **Tier C · Declarative animation**: `@property`, scroll-driven animation, View Transitions, and when Motion or GSAP earns its bundle. [`craft/tier-c-animation.md`](craft/tier-c-animation.md)
 - **Tier D · Three.js / WebGL**: when 3D is justified, the performance budget, and the mandatory non-WebGL fallback. [`craft/tier-d-webgl.md`](craft/tier-d-webgl.md)
 - **Tier E · Generated stills**: the hook script, provenance, and the post-processing discipline. [`craft/tier-e-generated.md`](craft/tier-e-generated.md)

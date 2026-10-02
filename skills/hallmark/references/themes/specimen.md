@@ -35,7 +35,7 @@ Warm oat paper, Bodoni Moda 400 at opsz 96 set enormous so its hairlines nearly 
 ## Faces
 
 - **Display:** Bodoni Moda 400, `"opsz" 96`, `--tracking-display`, up to 5.75rem, line-height 1.02; roman. Set enormous, the hairlines thin to a razor against the stems, and that contrast is the graphic.
-- **Body:** Geist 400 and 500, 62ch, line-height 1.45; the sans under the Didone is the tension. Bodoni Moda italic is a body-level device only (a pulled line at text size, one emphasised word in running text) and never enters a head.
+- **Body:** Geist 400 and 500, 62ch, line-height 1.5; the sans under the Didone is the tension. Bodoni Moda italic is a body-level device only (a pulled line at text size, one emphasised word in running text) and never enters a head.
 - **Labels, captions, folios, table heads, meta:** Geist 500 one step smaller, sentence case, `--color-muted`. Mono is not this theme's material; Geist Mono appears only inside code and on figures that compare.
 
 ## Material
@@ -70,9 +70,9 @@ Editorial, hand-set, lightly literary. Verbs over adjectives; name the face, the
 
 ```css
 .display { font: var(--display-weight) var(--text-display)/1.02 var(--font-display); font-variation-settings: "opsz" var(--display-optical); letter-spacing: var(--tracking-display); }
-.waterfall > * { border-top: var(--rule-hair) solid var(--color-rule); padding-block: 0.5rem; font-family: var(--font-display); font-variation-settings: "opsz" 96; }
+.waterfall > * { border-top: var(--rule-hair) solid var(--color-rule); padding-block: var(--space-xs); font-family: var(--font-display); font-variation-settings: "opsz" 96; }
 .dropcap::first-letter { float: left; font: 400 3.6em/0.82 var(--font-display); color: var(--color-accent); padding-right: 0.08em; }
-.btn { border-radius: 0; padding: 0.7rem 1.2rem; font-weight: 500; }
+.btn { border-radius: 0; padding: var(--space-sm) var(--space-lg); font-weight: 500; }
 .btn--primary { background: var(--color-ink); color: var(--color-paper); }
 .btn--secondary { border: 1px solid var(--color-ink); color: var(--color-ink); }
 a { text-decoration-color: var(--color-accent); text-underline-offset: 0.18em; }

@@ -7,10 +7,11 @@ A bordered, transparent button carrying the verb of the action ("Save changes").
 <a class="cta-outline" href="/studio">Open your studio</a>
 ```
 ```css
-.cta-outline { display: inline-flex; align-items: center; min-height: 44px; padding: var(--space-sm) var(--space-lg); border: var(--rule-hair) solid var(--color-ink); border-radius: var(--radius-input); color: var(--color-ink); text-decoration: none; transition: background-color var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out); }
-.cta-outline:hover { background: var(--color-paper-2); transform: translateY(-1px); }
-.cta-outline:active { transform: translateY(0); }
+.cta-outline { display: inline-flex; align-items: center; min-height: 44px; padding: var(--space-sm) var(--space-lg); border: var(--rule-hair) solid var(--color-ink); border-radius: var(--radius-input, var(--radius-card)); background: transparent; color: var(--color-ink); text-decoration: none; cursor: pointer; transition: background-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out); }
+.cta-outline:hover { background: var(--color-paper-2); }
+.cta-outline:active { transform: translateY(1px); }
 .cta-outline:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.cta-outline:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
 ```
 
 ## Knobs

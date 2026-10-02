@@ -43,8 +43,8 @@ Two colourways, both light, stated in the stamp (`ink: paper` or `ink: board`).
 ## Faces
 
 - **Display:** Epilogue 700, `--tracking-display`, line-height 1.02, up to 4.5rem; the wordmark at 44px and -0.05em. One colour per head.
-- **Body:** Epilogue 400 at 16px, line-height 1.55, in `--color-muted`; row titles, links and pills at 500 to 600.
-- **Labels, captions, table heads, meta:** Epilogue 500 one step smaller, sentence case, untracked. Never mono, never uppercase.
+- **Body:** Epilogue 400 at 16px, line-height 1.55, in `--color-muted`; row titles, links and pills at 600.
+- **Labels, captions, table heads, meta:** Epilogue 400 one step smaller, sentence case, untracked. Never mono, never uppercase.
 - **Outlier:** IBM Plex Mono only inside code and on figures that compare in a column (loan counts, a card number, the rota's times). Big figures and prices are Epilogue 700 in the teal.
 
 ## Material
@@ -54,7 +54,7 @@ Two colourways, both light, stated in the stamp (`ink: paper` or `ink: board`).
 - The one grid: the week in seven columns cut by hairlines, and the rota cut the same way. Both are calendars; nothing else is a grid.
 - The library card: the one yellow surface (`--color-sun`), 8px corners, a dashed rule under its head, and the page's only shadow. Once per page.
 - The map: a grid of 12px rounded blocks in `--color-paper-3` with one ink block for the shop, cut by two paper-coloured roads 8px wide; that is the whole object. Never a photograph.
-- The plane: a single-path paper plane at 22px, in the ink or the teal, the theme's one drawn object. The control pair is an ink-filled primary beside a 1px-bordered secondary on `--color-paper-2`, both at 10px.
+- The plane: a single-path paper plane at 22px, in the ink or the teal, the theme's one pictogram. The control pair is an ink-filled primary beside a 1px-bordered secondary on `--color-paper-2`, both at 10px.
 
 ## Motion
 
@@ -74,19 +74,19 @@ The desk volunteer's: what is in, when it is back, who is on Saturday. Short, ki
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
 ```
 
 ```css
-.display { font: 700 var(--text-display)/1.02 var(--font-display); letter-spacing: var(--tracking-display); }
+.display { font: 700 min(var(--text-display), 4.5rem)/1.02 var(--font-display); letter-spacing: var(--tracking-display); }
 .rows { border-top: 1px solid var(--color-ink); }
-.rows > div { display: grid; gap: 1rem; align-items: center; padding: 13px 0; border-bottom: 1px solid var(--color-rule); font-size: 14px; }
+.rows > div { display: grid; gap: var(--space-md); align-items: center; padding: var(--space-sm) 0; border-bottom: 1px solid var(--color-rule); font-size: var(--text-sm); }
 .rows > div b { font-weight: 600; }
-.pill { display: inline-flex; padding: 6px 11px; border-radius: var(--radius-pill); font-size: 12.5px; font-weight: 600; background: var(--color-paper-3); }
+.pill { display: inline-flex; padding: var(--space-2xs) var(--space-sm); border-radius: var(--radius-pill); font-size: 12.5px; font-weight: 600; background: var(--color-paper-3); }
 .pill--in { background: var(--color-accent-soft); color: var(--color-accent-soft-ink); }
 .pill--out { background: transparent; border: 1px solid var(--color-rule); color: var(--color-muted); }
 .pill--on { background: var(--color-ink); color: var(--color-paper); }
-.btn { border-radius: 10px; padding: 0.7rem 1.125rem; font-weight: 600; border: 1px solid var(--color-rule); background: var(--color-paper-2); }
+.btn { border-radius: 10px; padding: var(--space-sm) var(--space-md); font-weight: 600; border: 1px solid var(--color-rule); background: var(--color-paper-2); }
 .btn--primary { background: var(--color-ink); color: var(--color-paper); border-color: var(--color-ink); }
 .plane path { fill: currentColor; }
 ::selection { background: var(--color-accent-soft); color: var(--color-accent-soft-ink); }

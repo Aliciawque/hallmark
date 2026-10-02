@@ -43,8 +43,8 @@ Warm cream stock, a Zilla Slab 700 head over Spectral columns split by a hairlin
 - Columns split by a hairline: the lede flows in two or three columns with `column-rule: 1px solid var(--color-rule)`, never as one wide wall, and stays short enough that its screen holds 80 words or fewer (58); the long text belongs to the article, not the front page.
 - The double rule: two 1px lines in `--color-rule-2` with a 2px gap, the heaviest divider the theme owns; hairlines carry ordinary breaks, the double rule the major ones.
 - The drop cap: a Zilla Slab initial floated about three lines tall in `--color-ink` or brick, one per page.
-- Rules and whitespace, no cards: radius 0, no shadow. A pulled line hangs between two hairlines with a brick indent. The brick under 5%: a rule tick, a section marker, the link, a folio, never a fill.
-- The control pair: an ink-filled rectangle beside one ruled top and bottom in ink, both square. Texture, if any, is the faintest fibre grain from `texture.md` § Grain, scoped to one card, off by default.
+- Rules and whitespace, no cards: radius 0, no shadow. A pulled line hangs between two hairlines with a brick indent. The brick under 5%: a rule tick, the link, a folio, never a fill.
+- The control pair: an ink-filled rectangle beside one ruled top and bottom in ink, both square. Texture, if any, is the faintest fibre grain from `texture.md` § Grain, scoped to one band, off by default.
 
 ## Motion
 
@@ -52,7 +52,7 @@ Nothing moves except state: a brick underline grows under a link on hover. No re
 
 ## Voice
 
-Specific, declarative, a dry editorial wit. Name the section, the date, the fact.
+Specific, declarative, a dry editorial wit. Name the place, the date, the fact.
 
 ## Do-nots
 
@@ -65,15 +65,15 @@ Specific, declarative, a dry editorial wit. Name the section, the date, the fact
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:ital,wght@0,600;0,700;1,600&family=Spectral:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@700&family=Spectral:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 ```
 
 ```css
 .display { font: var(--display-weight) var(--text-display)/1.05 var(--font-display); letter-spacing: var(--tracking-display); color: var(--color-ink); }
-.rule--double { height: 4px; border-top: 1px solid var(--color-rule-2); border-bottom: 1px solid var(--color-rule-2); }
-.columns { columns: 2; column-gap: 2.5rem; column-rule: 1px solid var(--color-rule); }
+.rule--double { height: 2px; border-top: 1px solid var(--color-rule-2); border-bottom: 1px solid var(--color-rule-2); }
+.columns { columns: 2; column-gap: var(--space-xl); column-rule: 1px solid var(--color-rule); }
 .lede::first-letter { float: left; font: 700 3.4em/0.8 var(--font-display); padding-right: 0.06em; }
-.btn { border-radius: 0; padding: 0.7rem 1.2rem; font: 600 0.9375rem/1 var(--font-display); }
+.btn { border-radius: 0; padding: var(--space-md) var(--space-lg); font: 700 0.9375rem/1 var(--font-display); }
 .btn--primary { background: var(--color-ink); color: var(--color-paper); }
 .btn--secondary { border-block: 1px solid var(--color-ink); color: var(--color-ink); }
 a { color: var(--color-accent-text); text-decoration-color: var(--color-accent); text-underline-offset: 0.16em; }

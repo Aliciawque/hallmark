@@ -17,8 +17,4 @@ A small fixed chip in a corner: wordmark and one verb ("Try it"). Out of documen
 
 - Corner: top right · bottom left · bottom right
 - Content: one action · a theme switch · a search trigger
-- Backdrop: solid paper · blur
-
-## Mobile
-
-- Below 40rem: the action keeps a 44px hit target; the chip sits inside the gutter.
+- Surface: `--color-paper` · `--color-paper-2`

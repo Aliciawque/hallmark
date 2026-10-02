@@ -42,8 +42,8 @@ Three sheets, stated in the stamp (`blueprint: cyanotype`).
 
 ## Faces
 
-- **Display:** Chakra Petch 600 uppercase, line-height 0.98, `--tracking-display`, roman, one weight per head; a whole second line at 300 is the contrast, never one word. Chakra Petch 500 at 12 to 13px, sentence case, is the lettering inside the title block only.
-- **Body:** IBM Plex Sans 300 for prose, 400 and 500 under 16px.
+- **Display:** Chakra Petch 600 uppercase, line-height 1.02 (55a), `--tracking-display`, roman, one weight per head; a whole second line at 300 is the contrast, never one word. Chakra Petch 500 at 12 to 13px, sentence case, is the lettering inside the title block only.
+- **Body:** IBM Plex Sans 300 for prose, 500 under 16px.
 - **Labels, captions, table heads, meta:** IBM Plex Sans 500 one step smaller, sentence case. IBM Plex Mono sets a dimension string (a value with its unit), coordinates, revision numbers and code, nothing else.
 
 ## Material
@@ -56,7 +56,7 @@ Three sheets, stated in the stamp (`blueprint: cyanotype`).
 
 ## Motion
 
-Static, drafted. A dimension line may draw itself on entry (scaleX from the left over 400ms ease-out) once per page; hover on a keylined surface lightens the ground one step.
+Static, drafted. A dimension line may draw itself on entry (scaleX from the left over `--dur-long` on `--ease-out`) once per page; hover on a keylined surface that links darkens the ground one step.
 
 ## Voice
 
@@ -72,18 +72,18 @@ Specification voice: the metre, the fee, the week, the drawing number, a unit on
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;500;600&family=IBM+Plex+Sans:wght@300;400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300;500;600&family=IBM+Plex+Sans:wght@300;500&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 ```
 
 ```css
 body { background-color: var(--color-paper); background-position: var(--sheet-inset) var(--sheet-inset); background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
   background-image: linear-gradient(var(--color-grid-2) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid-2) 1px, transparent 1px), linear-gradient(var(--color-grid) 1px, transparent 1px), linear-gradient(90deg, var(--color-grid) 1px, transparent 1px); }
-.display { font-family: var(--font-display); font-weight: 600; text-transform: uppercase; line-height: 0.98; letter-spacing: var(--tracking-display); }
+.display { font-family: var(--font-display); font-weight: 600; text-transform: uppercase; line-height: 1.02; letter-spacing: var(--tracking-display); }
 .title-block { position: fixed; right: var(--sheet-inset); bottom: var(--sheet-inset); display: flex; border: 1px solid var(--color-rule); background: var(--color-paper); }
-.fig { position: relative; border: 1px solid var(--color-rule); padding: 24px; }
+.fig { position: relative; border: 1px solid var(--color-rule); padding: var(--space-lg); }
 .fig::before { content: ""; position: absolute; inset: 5px; border: 1px solid var(--color-rule-2); pointer-events: none; }
-.dim { font-family: var(--font-outlier); font-size: 12px; color: var(--color-muted); font-variant-numeric: tabular-nums; }
-.btn { border: 1px solid var(--color-rule); color: var(--color-ink); background: transparent; padding: 13px 20px; font-weight: 500; }
+.dim { font-family: var(--font-outlier); font-size: var(--text-xs); color: var(--color-muted); font-variant-numeric: tabular-nums; }
+.btn { border: 1px solid var(--color-rule); color: var(--color-ink); background: transparent; padding: var(--space-sm) var(--space-lg); font-weight: 500; }
 .btn--primary { background: var(--color-ink); color: var(--color-accent-ink); border-color: var(--color-ink); }
 ::selection { background: color-mix(in oklab, var(--color-ink) 28%, transparent); }
 ```

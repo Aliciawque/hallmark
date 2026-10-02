@@ -40,7 +40,7 @@ Signals: the brief names one element (button, input, form, card, modal, dropdown
 .btn:active, .btn.is-active { transform: translateY(1px); }
 ```
 
-Stamp: `/* Hallmark · component: <type> · genre: <genre> · theme: <theme> · states: 8 · contrast: pass · v2.3.0 */`. Sweep: `sloplint --scope component`, which runs the Floor tier minus the page-only gates.
+Stamp: `/* Hallmark · component: <type> · genre: <genre> · theme: <theme> · states: 8 · contrast: pass · v2.4.0 */`. Sweep: `sloplint --scope component`, which runs the Floor tier minus the page-only gates.
 
 ## Signal 8: the archive builds, Hallmark sweeps
 
@@ -57,12 +57,20 @@ Enter at Step 7 over the files the archive wrote, with five differences:
 ```css
 /* Hallmark · checked: 2026-09-22 · genre: modern-minimal (inferred)
  * floor: 0 FAIL · fixed: 6 (2, 7, 22, 27, 38, 54) · structural: 2 printed (8, 42)
- * built: external (reference archive) · v2.3.0 */
+ * built: external (reference archive) · v2.4.0 */
 ```
 
 The fresh-context review still runs, one round, with the narrower question: *does anything here read as machine-made?* Close with the counts: `Swept 4 files · fixed 6 · 2 structural findings printed · Floor 0 FAIL`.
 
 Two edge cases: the archive has written nothing yet (say so and wait; do not start a build); the user asks Hallmark to design anyway (an explicit ask beats the branch; run the ordinary flow and say which you took).
+
+## Fast mode
+
+`--fast`, or a brief that says quick, rough or prototype: "go ahead" at Step 1 with a one-line disclosure, narration capped at three lines, the Finish tier skipped, Reflex gates waivable with a one-line reason. Not relaxed: the Floor, the stamp, `tokens.css`, the log, contrast.
+
+## Edit-time linting
+
+On Claude Code, `node <skill-dir>/scripts/install-hook.mjs` wires sloplint as a PostToolUse hook that reports Floor findings the moment an artifact is written and stays quiet otherwise; Step 7 still runs.
 
 ## Comp before build (signal 9)
 

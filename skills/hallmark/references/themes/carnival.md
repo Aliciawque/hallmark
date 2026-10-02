@@ -44,9 +44,9 @@ One dial, the drop, stated in the stamp (`carnival: diner-sign`): a saturated fi
 
 ## Faces
 
-- **Display:** Big Shoulders Display 800 (its width comes from the face; the Google build has no width axis). All caps, tracked tight: -0.005em on a lone hero word at line-height 0.9 on a single nowrap line, 0.02em on a section head at 1.0 when it can wrap (55a). Loose tracking belongs only to a marquee.
-- **Body:** Golos Text 400, 500 and 700, sentence case, short, present tense, full ink.
-- **Labels, captions, table heads, meta:** Golos Text 500 one step smaller, sentence case; a poster tag may go 700 in an accent colour. Never mono: figures are Golos Text with `tabular-nums`.
+- **Display:** Big Shoulders Display 800 (its width comes from the face; the web build has no width axis). All caps: -0.005em on a lone hero word at line-height 0.9 on a single nowrap line, 0.02em on a section head at 1.0 when it can wrap (55a). Loose tracking belongs only to a marquee.
+- **Body:** Golos Text 400 and 500, sentence case, short, present tense, full ink.
+- **Labels, captions, table heads, meta:** Golos Text 500 one step smaller, sentence case; a poster tag may take an accent colour. Never mono: figures are Golos Text with `tabular-nums`.
 
 ## Material
 
@@ -54,11 +54,12 @@ One dial, the drop, stated in the stamp (`carnival: diner-sign`): a saturated fi
 - The hard offset shadow: `4px 4px 0 var(--color-ink)`, zero blur, on cards, buttons and images. Leave clearance at the page edge so the offset is never clipped.
 - Rules are `--rule-bar` in `--color-accent-2`; radius 2px at most. An accent fill may bleed about 24px past the page max-width on one side, a poster pinned to a wall.
 - Typographic ornaments (✱ ❋ ◆) in an accent colour as dividers, as the bullets of a real list, and as a marquee's repeating separator. Never glued in front of a label or a link.
-- Halftone fills (`texture.md` § Halftone) where the page would otherwise show a photo placeholder, at a fixed small size, never under type. The control pair: one button filled with an accent on its 4px ink shadow beside the same block outlined in ink with the same shadow; one fill per screen (F4).
+- Halftone fills (`texture.md` § Halftone) where the page would otherwise show a photo placeholder, at a fixed small size, never under type.
+- The control pair: one button filled with an accent on its 4px ink shadow beside the same block outlined in ink with the same shadow; one fill per page (F4).
 
 ## Motion
 
-Mostly still, with one horizontal engine: a marquee of ornament-separated words, its content repeated at least twice so the loop reads continuous, paused on hover. Hover swaps colour and shifts the shadow (active slams the offset to 1px), never lifts.
+Mostly still, with one horizontal engine, the theme's one ambient loop: a marquee of ornament-separated words, its content repeated at least twice so the loop reads continuous, a cycle of 8s or longer, paused on hover and focus and by a visible pause control, still under reduced motion and off-screen. Hover swaps colour and nothing else; active slams the offset to 1px; nothing lifts.
 
 ## Voice
 
@@ -74,7 +75,7 @@ Short, loud, declarative. Headlines all caps, six words or fewer, ending in a fu
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Golos+Text:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800&family=Golos+Text:wght@400;500&display=swap" rel="stylesheet">
 ```
 
 ```css

@@ -45,14 +45,14 @@ One dial, the colourway, stated in the stamp (`broadside: bill`).
 ## Faces
 
 - **Six Caps** 400, uppercase, line-height 0.88, `--tracking-display`: the loudest line and every big number, 250px down to 30px in a row. Each fitted line is its own element that never wraps (`white-space: nowrap`, the 55b guard), sized by the code until it fills the measure.
-- **Rye** 400, uppercase: one line per bill, and the wordmark at 22 to 26px. **Bevan** 400, uppercase: the third line, estimates, machine names, condition lines at 15 to 24px. All roman.
-- **Archivo Narrow** 400 and 600, 13 to 22px, line-height 1.45, for the small print and everything read. Labels, table heads, captions and meta are Archivo Narrow 500 at 13 to 14px, sentence case, untracked, in `--color-muted`. Mono appears only inside code; figures are Six Caps, or Archivo Narrow tabular in a row.
+- **Rye** 400, uppercase: one line per bill, and the wordmark at 22 to 26px. **Bevan** 400, uppercase: the third line, estimates, machine names, condition lines at 16 to 24px. All roman.
+- **Archivo Narrow** 400 and 600, 16 to 22px, line-height 1.5, for the small print and everything read. Labels, table heads, captions and meta are Archivo Narrow 500 at 13 to 14px, sentence case, untracked, in `--color-muted`. Mono appears only inside code; figures are Six Caps, or Archivo Narrow tabular in a row.
 
 ## Material
 
 - Rules: `--rule-bar` in ink above a bill, a section or a table; `--rule-hair` in ink under a running head; `--rule-hair` in `--color-rule` between rows. Nothing between one and five.
 - The diamond: a filled diamond in vermilion, three in a row as the divider between one bill and the next, one at each stop of a timeline. The only ornament; never above a heading, never in a line of meta.
-- The post: a 3px ink border with a 1px keyline 3px inside it. Machines, days, the bid box, the form, an open drawer. Square corners, always. The control pair: one ink-filled block in the narrow face, capitals untracked, beside the same block drawn as a post (3px ink border, no fill); one fill per screen.
+- The post: a 3px ink border with a 1px keyline 3px inside it. Machines, days, the bid box, the form, an open drawer. Square corners, always. The control pair: one ink-filled block in the narrow face, capitals untracked, beside the same block drawn as a post (3px ink border, no fill); one fill per page.
 - Tickets: a numbered stub with a dashed tear line, the current one printed in vermilion. Vermilion type sits on the paper or paper-2.
 - Grain: one SVG noise layer over the page at `--grain` (texture.md § 1), multiplied on paper, screened on ink. The only texture.
 - Centre: bills, headings, posts and figures are centred, because a bill is printed on its centre line; rows, ladders, catalogues and forms are left. The stamp answers F15 and names the centred axis as the material. The three wood faces are the printer's case: stamp `waive 37` (four families; guard: the display faces are the bill).
@@ -68,23 +68,23 @@ An auctioneer's bill: the date, the place, the lot, the estimate, without reserv
 ## Do-nots
 
 - Never a ragged big line; a headline that does not fill the measure is fitted or cut.
-- Never a fifth face; Six Caps, Rye, Bevan and the narrow are the printer's whole case.
+- Never a fifth face outside code; Six Caps, Rye, Bevan and the narrow are the printer's whole case.
 - Never a rounded corner; posts, tickets, drawers and buttons are square.
 - Never a second colour; green for sold is a screen, not a bill.
 
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Six+Caps&family=Rye&family=Bevan&family=Archivo+Narrow:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Six+Caps&family=Rye&family=Bevan&family=Archivo+Narrow:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 ```
 
 ```css
-.six { font-family: var(--font-display); text-transform: uppercase; line-height: 0.88; letter-spacing: var(--tracking-display); }
+.six { font-family: var(--font-display); text-transform: uppercase; line-height: 0.88; letter-spacing: var(--tracking-display); white-space: nowrap; }
 .rye { font-family: var(--font-display-2); text-transform: uppercase; line-height: 1; } .bev { font-family: var(--font-display-3); text-transform: uppercase; line-height: 1; }
 .heavy { border-top: var(--rule-bar) solid var(--color-ink); } .thin { border-top: var(--rule-hair) solid var(--color-ink); }
-.post { border: 3px solid var(--color-ink); box-shadow: inset 0 0 0 3px var(--color-paper), inset 0 0 0 4px var(--color-ink); padding: 26px 22px; text-align: center; }
-.diamonds { text-align: center; color: var(--color-accent); letter-spacing: 1em; font-size: 12px; } .diamonds::before { content: "\25C6 \25C6 \25C6"; }
-.btn { background: var(--color-ink); color: var(--color-paper); padding: 18px 54px; font-weight: 600; font-size: 14px; letter-spacing: 0; text-transform: uppercase; border-radius: 0; }
-.btn--accent { background: var(--color-accent); color: var(--color-accent-ink); }
+.post { border: 3px solid var(--color-ink); box-shadow: inset 0 0 0 3px var(--color-paper), inset 0 0 0 4px var(--color-ink); padding: var(--space-lg); text-align: center; }
+.diamonds { text-align: center; color: var(--color-accent); font-size: var(--text-xs); } .diamonds::before { content: "\25C6\2003\25C6\2003\25C6"; }
+.btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 var(--space-xl); border: 3px solid var(--color-ink); background: var(--color-ink); color: var(--color-paper); font: 600 var(--text-sm)/1 var(--font-body); text-transform: uppercase; border-radius: 0; }
+.btn--post { background: transparent; color: var(--color-ink); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 30%, transparent); }
 ```

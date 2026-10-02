@@ -1,7 +1,7 @@
 ### Ft3 · Index-style category list
 Three or four short columns, each headed by a category in the body face one weight up, holding four to six links each, and a colophon line beneath. This is the reflex footer (gate 42): it ships only on a documentation root or a hub with a genuine sitemap, with the site's own category nouns, never a `Product, Company, Resources` set chosen because it is the shape.
 *Use when:* the page is a docs root or a hub and the visitor arrives to navigate.
-*Don't confuse with:* Ft4 Dense typographic (which is one block, not columns).
+*Not:* Ft4 (one block, not columns).
 
 ```html
 <footer class="foot-index">
@@ -14,7 +14,7 @@ Three or four short columns, each headed by a category in the body face one weig
 ```
 ```css
 .foot-index { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap-columns); padding: var(--space-2xl) var(--gutter); border-top: var(--rule-hair) solid var(--color-rule); }
-.foot-index h2 { font-family: var(--font-body); font-size: var(--text-sm); font-weight: 600; margin: 0 0 var(--space-sm); }
+.foot-index h2 { font-family: var(--font-body); font-size: var(--text-sm); font-weight: 600; letter-spacing: 0; margin: 0 0 var(--space-sm); }
 .foot-index ul { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-xs); font-size: var(--text-sm); }
 .foot-index__colophon { grid-column: 1 / -1; font-size: var(--text-sm); color: var(--color-muted); margin: var(--space-lg) 0 0; }
 ```
@@ -25,4 +25,6 @@ Three or four short columns, each headed by a category in the body face one weig
 - Heading style: a heavier weight · ink over muted links · a hairline beneath
 - Colophon: one line · a rule then the line
 
-*Mobile:* below 60rem four columns become two; below 40rem one, with the column heads kept.
+## Mobile
+
+- Below 60rem: four columns become two. Below 40rem: one column, the column heads kept.

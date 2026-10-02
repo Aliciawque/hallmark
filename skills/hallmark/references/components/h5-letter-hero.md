@@ -11,9 +11,9 @@ A first person opening, "Dear reader," then one paragraph. Reads as corresponden
 </section>
 ```
 ```css
-.hero-letter { min-height: 70dvh; display: grid; align-content: center; gap: var(--space-lg); padding: var(--space-2xl) var(--gutter); max-width: 60ch; }
+.hero-letter { min-height: 70dvh; display: grid; align-content: center; gap: var(--space-lg); padding: var(--space-2xl) var(--gutter); }
 .hero-letter__salute { margin: 0; font-family: var(--font-display); font-size: var(--text-xl); }
-.hero-letter__body { margin: 0; font-size: var(--text-lg); line-height: 1.6; }
+.hero-letter__body { margin: 0; max-width: 60ch; font-size: var(--text-lg); line-height: 1.6; }
 .hero-letter__sign { margin: 0; color: var(--color-muted); }
 ```
 

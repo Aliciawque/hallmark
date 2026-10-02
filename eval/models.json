@@ -52,9 +52,5 @@
       "enabled": false
     }
   ],
-  "keyFiles": [
-    "/Users/youssef/Desktop/.env.local",
-    "/Users/youssef/Inspo-design/.env"
-  ],
-  "keyFileNotes": "Verified 2026-07-23: Desktop/.env.local defines ANTHROPIC_API_KEY and TOGETHER_API_KEY; Inspo-design/.env defines TOGETHER_API_KEY. OPENROUTER_API_KEY is NOT present in either file yet; the OpenRouter arms need it exported in the shell or added to a key file before they can run."
+  "keyFiles": []
 }

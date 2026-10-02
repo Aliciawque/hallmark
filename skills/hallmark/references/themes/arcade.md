@@ -42,22 +42,22 @@ Two dials, each stated in the stamp (`arcade: ember/grille`).
 
 ## Faces
 
-- **Marquee:** Bungee 400, uppercase, for strings under 24 characters: the wordmark, the marquee band, a section number, a whole headline line. Never one word inside a head, never a sentence.
-- **Headings and body:** Chivo 400, 700, 900. Section heads at 900 with -0.02em; prose at 400, line-height 1.6.
-- **HUD:** Silkscreen 400 and 700, untracked, alternating the two inks, for the score strip, the credits line and a rank chip: figures with their units, never a heading, a paragraph or a caption. Labels, captions and status are Chivo 500 one step smaller, sentence case.
+- **Marquee:** Bungee 400, uppercase, for strings under 24 characters: the wordmark, the marquee band, a whole headline line. Never one word inside a head, never a sentence.
+- **Headings and body:** Chivo 400, 700, 900. Section heads at 900 with -0.01em; prose at 400, line-height 1.6.
+- **HUD:** Silkscreen 400 and 700, untracked, alternating the two inks, for the score strip, the credits line and a rank chip: figures with their units, never a heading, a paragraph or a caption. Labels, captions and status are Chivo 700 one step smaller, sentence case.
 
 ## Material
 
-- The CRT stack once, at page level, `aria-hidden`: the screen layer, a scanline `repeating-linear-gradient` (2px clear, 1px dark at low alpha), a corner vignette, and a tight phosphor bloom (`text-shadow` at 0.02 to 0.06em in the element's own ink) only on the Bungee marquee lettering and HUD text only. Budget in `texture.md` § Scanline. Never a bezel.
+- The CRT stack once, at page level, `aria-hidden`: the screen layer, a scanline `repeating-linear-gradient` (2px clear, 1px dark at low alpha) and a corner vignette. Budget in `texture.md` § Scanline. Never a bezel.
 - The side art: stacked chevrons at 22 degrees from one `repeating-linear-gradient` in the two inks, clipped to a panel with `clip-path`. That is the whole object; never an image.
 - The RGB split on marquee lettering: a 1 to 2px red offset and a matching cyan offset, zero blur. It replaces the flat drop shadow.
 - `--rule-bar` rules and near-square radii; depth is a hard zero-blur offset shadow, never blur.
 - The press surface: every interactive surface carries `Npx Npx 0` in the answer ink with a `--rule-bar` ink border; hover moves away from the shadow, active slams toward it.
-- Objects: a marquee band, a side-art panel, an attract-screen table, a HUD strip, an instruction card (plain Chivo, a `--rule-bar` rule, no bloom). Two inks alternating, never a third.
+- Objects: a marquee band, a side-art panel, an attract-screen table, a HUD strip, an instruction card (plain Chivo and a `--rule-bar` rule). Two inks alternating, never a third.
 
 ## Motion
 
-Press physics over 120ms ease-out, one attract prompt that blinks on a `steps(1)` beat for four beats, then holds lit (never an open-ended blink, never under reduced motion), the RGB split widening 1px on hover for interactive marquee lettering. The grille, scanline and vignette are static.
+Press physics on `--dur-micro` and `--ease-out`, one attract prompt that blinks on a `steps(1)` beat for four beats, then holds lit (never an open-ended blink, never under reduced motion), the RGB split widening 1px on hover for interactive marquee lettering. The grille, scanline and vignette are static.
 
 ## Voice
 
@@ -68,7 +68,7 @@ Coin-op plain: the credit, the night, the machine, the buzzer.
 - Never Silkscreen on body copy or a heading.
 - Never magenta-and-cyan as the pair and never a radial-gradient starfield; the screen is the texture.
 - Never mix colourways or screens on one page; two dials, set once.
-- Never a soft or blurred shadow, never a gradient on a button, never bloom on body copy.
+- Never a soft or blurred shadow, never a phosphor glow (the RGB split carries the lettering), never a gradient on a button.
 
 ## Build hint
 
@@ -77,16 +77,16 @@ Coin-op plain: the credit, the night, the machine, the buzzer.
 ```
 
 ```css
-body::after { content: ""; position: fixed; inset: 0; z-index: 40; pointer-events: none;
+body::after { content: ""; position: fixed; inset: 0; z-index: var(--z-raised); pointer-events: none;
   background-image:
     repeating-linear-gradient(to right, color-mix(in oklab, var(--color-crt-r) 5%, transparent) 0 1px, color-mix(in oklab, var(--color-crt-g) 5%, transparent) 1px 2px, color-mix(in oklab, var(--color-crt-b) 5%, transparent) 2px 3px),
     repeating-linear-gradient(to bottom, transparent 0 2px, color-mix(in oklab, var(--color-shade) 16%, transparent) 2px 3px),
     radial-gradient(120% 90% at 50% 50%, transparent 55%, color-mix(in oklab, var(--color-shade) 45%, transparent) 100%); }
 .marquee { font-family: var(--font-display); text-transform: uppercase; color: var(--color-ink);
-  text-shadow: -1.5px 0 0 var(--color-crt-r), 1.5px 0 0 var(--color-crt-c), 0 0 0.05em var(--color-accent); }
+  text-shadow: -1.5px 0 0 var(--color-crt-r), 1.5px 0 0 var(--color-crt-c); }
 .side-art { background: repeating-linear-gradient(22deg, var(--color-accent) 0 18px, var(--color-accent-2) 18px 36px); clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%); }
-.hud { font-family: var(--font-outlier); font-size: 12px; font-variant-numeric: tabular-nums; color: var(--color-accent-2); }
+.hud { font-family: var(--font-outlier); font-size: var(--text-xs); font-variant-numeric: tabular-nums; color: var(--color-accent-2); }
 .btn { background: var(--color-accent); color: var(--color-accent-ink); border: var(--rule-bar) solid var(--color-ink); border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card); transition: translate 120ms ease-out, box-shadow 120ms ease-out; }
+  box-shadow: var(--shadow-card); transition: translate var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out); }
 .btn:active { translate: 3px 3px; box-shadow: 2px 2px 0 var(--color-accent-2); }
 ```

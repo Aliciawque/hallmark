@@ -1,6 +1,6 @@
-# Brand truth - never theme a real brand from memory
+# Brand truth: never theme a real brand from memory
 
-Loaded when the brief names a REAL company or brand to build for ("a page for Stripe's docs team", "our site - we're Arc", a company URL as the subject). It is narrow: capture the brand's actual colour and type facts before theming, because model-memory hex values are confidently wrong. **A brand colour recalled from training data is a named failure: memory hex = fail.**
+Loaded when the brief names a real company or brand to build for ("a page for Stripe's docs team", "our site, we're Arc", a company URL as the subject). It is narrow: capture the brand's actual colour and type facts before theming, because model-memory hex values are confidently wrong. **A brand colour recalled from training data is a named failure: memory hex = fail.**
 
 ## The protocol
 
@@ -9,13 +9,13 @@ Loaded when the brief names a REAL company or brand to build for ("a page for St
 3. **Extract, mechanically:**
    - Colours: every hex / rgb / hsl / oklch literal in the fetched CSS plus `<meta name="theme-color">`; cluster to the 3-6 recurring values; identify the primary (most-used saturated value on interactive elements) and the surface family.
    - Type: `font-family` declarations and any Google Fonts / font-service CSS family names (names only, never binaries).
-   - Logo: a pointer via [`assets.md`](assets.md) § Brand logos canon (official asset page, Simple Icons, SVGL); never hotlink from an unrelated site, never redraw a real mark.
+   - Logo: a pointer via [`assets.md`](assets.md) § Brand and customer logos (the brand's own media page, Simple Icons, SVGL); never hotlink from an unrelated site, never redraw a real mark.
 4. **Record** `.hallmark/brand-spec.md`:
 
 ```markdown
 # Brand spec · <brand> · fetched <date>
 source: <URL> (+ CSS files read)
-primary: #635bff        (buttons, links - 41 uses)
+primary: #635bff        (buttons and links, 41 uses)
 surface: #ffffff / #f6f9fc
 ink:     #0a2540
 fonts:   sohne-var (declared), fallback ui-sans-serif
@@ -27,11 +27,11 @@ attestation: derived from the fetched sources above, not from memory
 
 ## Caching and staleness
 
-The spec caches like `preflight.json`: re-used on later runs; refresh when the user says "refresh brand" or the fetch is older than 90 days (say so in one line). It is pre-flight signal source 0.5: design.md still outranks it (a locked system wins over a fetched guess at one).
+The spec caches like `preflight.json`: re-used on later runs; refresh when the user says "refresh brand" or the fetch is older than 90 days (say so in one line). It ranks second in the pre-flight: `design.md` still outranks it (a locked system wins over a fetched guess at one).
 
 ## When fetching is impossible
 
-No fetch tool, blocked site, or the user declines: ask ONCE, in one line - *"I will not guess brand colours from memory. Paste the primary hex (and fonts if you know them), or say 'no brand lock' to build free."* Proceed only on supplied or user-confirmed values; otherwise theme without brand claims (no "brand blue", no company name in the palette comments).
+No fetch tool, blocked site, or the user declines: ask once, in one line: *"I will not guess brand colours from memory. Paste the primary hex (and fonts if you know them), or say 'no brand lock' to build free."* Proceed only on supplied or user-confirmed values; otherwise theme without brand claims (no "brand blue", no company name in the palette comments).
 
 ## What this protocol never does
 

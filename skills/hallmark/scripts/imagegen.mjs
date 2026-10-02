@@ -22,7 +22,7 @@ function parseArgs(argv) {
 function out(obj, code = 0) {
   if (args.json) process.stdout.write(JSON.stringify(obj) + "\n");
   else if (obj.path) console.log(obj.path);
-  else if (obj.message) console.error(obj.message);
+  else if (obj.message || obj.error) console.error(obj.message || obj.error);
   process.exit(code);
 }
 
@@ -44,7 +44,8 @@ const stem = cachePath.replace(/\.png$/, "");
 const metaPath = stem + ".json";
 const pathFor = (i) => (n === 1 ? cachePath : `${stem}-${i + 1}.png`);
 
-if (!args.force && existsSync(cachePath)) {
+const sameRequest = () => { if (!args.out) return true; try { return JSON.parse(readFileSync(metaPath, "utf8")).hash === hash; } catch { return false; } };
+if (!args.force && existsSync(cachePath) && sameRequest()) {
   out({ path: cachePath, cached: true, model, prompt });
 }
 

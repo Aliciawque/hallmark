@@ -28,9 +28,12 @@ function readSettings() {
   }
 }
 
-function isOurs(entry) {
-  return (entry?.hooks ?? []).some((h) => typeof h?.command === "string" && h.command.includes("lint-hook.mjs"));
-}
+const ourHook = (h) => typeof h?.command === "string" && h.command.includes("lint-hook.mjs");
+const withoutOurs = (list) => list.flatMap((e) => {
+  if (!Array.isArray(e?.hooks) || !e.hooks.some(ourHook)) return [e];
+  const rest = e.hooks.filter((h) => !ourHook(h));
+  return rest.length ? [{ ...e, hooks: rest }] : [];
+});
 
 if (has("--print")) {
   console.log(`# add to ${settingsPath} :`);
@@ -42,7 +45,7 @@ const settings = readSettings();
 settings.hooks ??= {};
 settings.hooks.PostToolUse ??= [];
 
-settings.hooks.PostToolUse = settings.hooks.PostToolUse.filter((e) => !isOurs(e));
+settings.hooks.PostToolUse = withoutOurs(settings.hooks.PostToolUse);
 
 if (has("--remove")) {
   writeFileSync(settingsPath, JSON.stringify(settings, null, 2) + "\n");

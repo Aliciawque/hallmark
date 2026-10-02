@@ -43,8 +43,8 @@ Committed: the spot colour carries the screens, the button and the cap; nothing 
 
 ## Faces
 
-- **Display:** Ultra 400, roman, line-height 1.02, `--tracking-display`; 48px for section heads, 78 for the page, 84 to 220 for the one figure; tags at 22 to 24. One colour per head.
-- **Body:** Chivo 400, 13.5 to 17px, line-height 1.55, in ink-2.
+- **Display:** Ultra 400, roman, line-height 1.02, `--tracking-display`; 48px for section heads, `--text-display` for the page's head, 84 to 220 for the one figure; a batch tag's name at 22 to 24. One colour per head.
+- **Body:** Chivo 400, 16 to 17px, line-height 1.55, in ink-2.
 - **Labels, tags, table heads, captions and the panel's small print:** Chivo 500 one step smaller, sentence case, untracked. The label's authority comes from the 3px rules and the fat slab. No mono on the page; figures are Chivo with `tabular-nums`.
 
 ## Material
@@ -80,9 +80,9 @@ The label: the fruit, the grams of sugar, the fridge by street. Blunt, sweet and
 ```css
 .display { font: 400 var(--text-display)/1.02 var(--font-display); letter-spacing: var(--tracking-display); text-wrap: balance; }
 .halftone { background-image: radial-gradient(var(--color-dot) var(--halftone-dot), transparent calc(var(--halftone-dot) + 0.5px)); background-size: var(--halftone-size) var(--halftone-size); }
-.fruit { aspect-ratio: 1; clip-path: circle(50%); mask: linear-gradient(35deg, black 30%, transparent 85%); }
-.btn { padding: 14px 26px; border-radius: var(--radius-input); font: 700 14px var(--font-body); background: var(--color-accent); color: var(--color-accent-ink); }
-.btn--secondary { background: none; color: var(--color-ink); padding: 14px 0 6px; border-radius: 0; border-bottom: var(--rule-bar) solid var(--color-accent); }
+.fruit { aspect-ratio: 1; clip-path: circle(50%); mask: linear-gradient(35deg, var(--color-ink) 30%, transparent 85%); }
+.btn { padding: var(--space-md) var(--space-lg); border-radius: var(--radius-input); font: 700 var(--text-sm) var(--font-body); background: var(--color-accent); color: var(--color-accent-ink); }
+.btn--secondary { background: none; color: var(--color-ink); padding: var(--space-md) 0 var(--space-xs); border-radius: 0; border-bottom: var(--rule-bar) solid var(--color-accent); }
 .panel { border: var(--rule-bar) solid var(--color-ink); background: var(--color-paper-2); }
 .panel hr { border: 0; border-top: 8px solid var(--color-ink); }
 .list { border-top: var(--rule-bar) solid var(--color-ink); } .list > li { border-bottom: var(--rule-hair) solid var(--color-rule); }

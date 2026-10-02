@@ -42,7 +42,7 @@ Three colourways, stated in the stamp (`vellum: parchment`).
 
 ## Faces
 
-- **Display:** Grenze Gotisch 600 for the wordmark and heads, line-height 0.88, `--tracking-display`; 400 for the big figures. The face carries the gothic; nothing else is ornamented.
+- **Display:** Grenze Gotisch 600 for the wordmark and heads, line-height 0.92, `--tracking-display`; 400 for the big figures. The face carries the gothic; nothing else is ornamented.
 - **Body:** Hanken Grotesk 400 and 500 at 16px, line-height 1.5. Nav links are 600.
 - **Labels, captions, table heads, meta:** Hanken Grotesk 500 one step smaller, sentence case. IBM Plex Mono sets only the ledger's comparing figures (prices, weights, lots) and code.
 
@@ -80,12 +80,12 @@ Ledger-plain and dated: the item, the price paid, the hour, the room. Never *art
 body { position: relative; isolation: isolate; }
 body::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: var(--fibre); mix-blend-mode: multiply; pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.012 0.02' numOctaves='3' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 0.62 0 0 0 0 0.52 0 0 0 0 0.36 0 0 0 0.35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E"); }
-.display { font-family: var(--font-display); font-weight: 600; line-height: 0.88; letter-spacing: var(--tracking-display); }
+.display { font-family: var(--font-display); font-weight: 600; line-height: 0.92; letter-spacing: var(--tracking-display); }
 .wordmark { text-align: center; font-size: clamp(84px, 11vw, 160px); line-height: 0.82; }
-.index { border-top: 4px double var(--color-ink); border-bottom: 1px solid var(--color-ink); padding: 10px 0; }
-.btn { border: 1px solid var(--color-accent); background: var(--color-accent); color: var(--color-accent-ink); border-radius: var(--radius-card); padding: 13px 22px; font-weight: 500; }
+.index { border-top: 4px double var(--color-ink); border-bottom: 1px solid var(--color-ink); padding: var(--space-sm) 0; }
+.btn { border: 1px solid var(--color-accent); background: var(--color-accent); color: var(--color-accent-ink); border-radius: var(--radius-card); padding: var(--space-sm) var(--space-lg); font-weight: 500; }
 .btn--ghost { background: transparent; border-color: var(--color-ink); color: var(--color-ink); }
-.stamp { display: inline-block; transform: rotate(-7deg); padding: 7px 11px; font-size: 12px; text-align: center; color: var(--color-accent);
+.stamp { display: inline-block; transform: rotate(-7deg); padding: var(--space-xs) var(--space-sm); font-size: var(--text-xs); text-align: center; color: var(--color-accent);
   border: 1.5px solid var(--color-accent); border-radius: 2px; box-shadow: 0 0 0 2px var(--color-paper), 0 0 0 3px var(--color-accent); }
 .ledger .num { font-family: var(--font-outlier); font-variant-numeric: tabular-nums; text-align: right; }
 ::selection { background: color-mix(in oklab, var(--color-accent) 22%, transparent); }

@@ -34,7 +34,7 @@ Cool studio-white, Erode 500 set huge with its chipped edges legible over a hair
 
 ## Faces
 
-- **Display:** Erode 500, `--tracking-display`, up to 6.25rem, line-height 0.98, two or three lines; roman. A chipped, hand-set edge on every terminal: at display size the letters read impressed into the page, and that texture is the signature. No optical axis: set it big enough that the erosion reads as intent.
+- **Display:** Erode 500, `--tracking-display`, up to 5.25rem, line-height 1.0, two or three lines; roman. A chipped, hand-set edge on every terminal: at display size the letters read impressed into the page, and that texture is the signature. No optical axis: set it big enough that the erosion reads as intent.
 - **Body:** Geist 400 and 500 at a 45 to 75ch measure. The clean sans under a textured serif is the pairing. Erode never sets running text (its edge turns to mud at reading size); Erode italic is a pulled line at text size only.
 - **Labels, captions, dates, roles, disciplines, table heads, folios:** Geist 500 one step smaller, sentence case, `--color-muted`. Mono is not this theme's material; Geist Mono appears only inside code and on figures that compare.
 
@@ -69,9 +69,9 @@ Spare, a little literary. Verbs over adjectives; name the work, the discipline, 
 ```
 
 ```css
-.display { font: var(--display-weight) var(--text-display)/0.98 var(--font-display); letter-spacing: var(--tracking-display); color: var(--color-ink); }
-.index > li { display: grid; grid-template-columns: 1fr auto auto; gap: 2rem; padding: 1rem 0; border-top: 1px solid var(--color-rule); }
-.btn { border-radius: var(--radius-card); padding: 0.7rem 1.2rem; font-weight: 500; }
+.display { font: var(--display-weight) var(--text-display)/1 var(--font-display); letter-spacing: var(--tracking-display); color: var(--color-ink); }
+.index > li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: var(--gap-columns); padding: var(--space-md) 0; border-top: 1px solid var(--color-rule); }
+.btn { border-radius: var(--radius-card); padding: var(--space-sm) var(--space-lg); font-weight: 500; }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--secondary { border: 1px solid var(--color-rule); color: var(--color-ink); }
 a:hover { text-decoration-color: var(--color-accent); text-underline-offset: 0.2em; }

@@ -1,7 +1,7 @@
 ### Ft2 · Inline-rule single line
 A single horizontal line of credits, address and copyright, each its own element with air between. Hairline rule above. No columns, no middle dots (63).
-*Use when:* the page is editorial and the footer is an afterthought.
-*Don't confuse with:* Ft4 Dense typographic (which packs more in).
+*Use when:* the footer states a few facts and navigates nowhere: a product page, or an editorial page whose footer is an afterthought.
+*Not:* Ft4 (packs more in).
 
 ```html
 <footer class="foot-line">
@@ -17,8 +17,10 @@ A single horizontal line of credits, address and copyright, each its own element
 
 ## Knobs
 
-- Order: wordmark, links, credit · credit, wordmark, links
-- Separator: the gap · a vertical hairline (`border-inline-start` on each `p` after the first) · a line break each
+- Order: copyright, address, licence · address, licence, copyright
+- Separator: the gap · a vertical hairline (`border-inline-start` on each `p` after the first)
 - Density: dense · spaced
 
-*Mobile:* below 40rem the items stack into a vertical list and the hairline separator becomes a soft return.
+## Mobile
+
+- Below 40rem: the items stack, one per line, and the vertical hairlines drop.

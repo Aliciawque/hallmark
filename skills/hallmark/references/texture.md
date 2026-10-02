@@ -1,12 +1,12 @@
-# Texture and print artifacts - a budgeted vocabulary
+# Texture and print artifacts: a budgeted vocabulary
 
-Loaded only when the picked theme earns texture (affinity table below) or a custom draw's lineage is print. Texture is a TREATMENT with a budget, never ambience: one artifact family per page, tokened opacity, never animated, never under body text at more than a whisper. Grain smeared everywhere is the tic `flow.md` § Harnesses refuses; grain from this file, on a theme that earns it, is craft.
+Loaded only when the picked theme earns texture (affinity table below) or a custom draw's lineage is print. Texture is a treatment with a budget, never ambience: one artifact family per page, tokened opacity, never animated, never under body text at more than a whisper. Grain smeared everywhere is the tic `flow.md` § Harnesses refuses; grain from this file, on a theme that earns it, is craft.
 
 ## The budget (binds on every artifact)
 
 - **One artifact family per page.** Grain OR halftone OR misregistration OR scanline OR deckle; combinations are mud. A risograph print is one family: its grain and its misregistration come from the same drum. A halftone inside a drawn print or a placeholder is the image, not a page texture, and does not count against the page's one family.
-- **Tokened opacity, declared in the token block:** `--texture-opacity` <= 0.08 page-wide, <= 0.15 scoped to a card or plate. Under running body text, <= 0.05 or nothing.
-- **Never animated.** No drifting grain, no pulsing dots; the one exception is E7's slow-drift knob on its abstract background, which is E7's budget, not this file's.
+- **Tokened opacity, declared in the token block:** `--texture-opacity` <= 0.08 page-wide, <= 0.15 scoped to a card or plate. Under running body text, <= 0.05 or nothing. A low-frequency wash (a base frequency of 0.02 or lower: a fibre, a paper tone) tints rather than specks and may run to 0.12 page-wide, with contrast measured on the result.
+- **Never animated.** No drifting grain, no pulsing dots.
 - **`pointer-events: none` and `aria-hidden="true"`** on every overlay; texture never intercepts input, and the retro signal is atmosphere, never a drawn monitor bezel (47a).
 - **Perf:** pure CSS or a data-URI SVG filter; no image requests for texture (the imagery-kit texture tiles are the only sanctioned files, and they are optional).
 
@@ -28,7 +28,7 @@ The colour matrix turns the noise into discrete specks (alpha is the noise times
 
 ## 2 · Halftone (dot field)
 
-Carnival's recipe, generalized with a size token:
+Carnival's recipe, generalised with a size token:
 
 ```css
 :root { --halftone-size: 12px; --halftone-dot: 1.5px; }
@@ -49,10 +49,10 @@ Riso's signature, portable to any print-lineage custom:
   white-space: nowrap; pointer-events: none;
 }
 .misreg::before { color: var(--color-accent);   transform: translate(-2px, -2px); }
-.misreg::after  { color: var(--color-accent-2); transform: translate(2px, 2px); }
+.misreg::after  { color: var(--color-accent-2, var(--color-focus)); transform: translate(2px, 2px); }
 ```
 
-**1-2 focal words per page, never every heading.** The span is an inline block so the copies sit on the glyphs whatever the head's line-height, and they print behind the ink so the word keeps its colour; only the fringes carry the echoes. The echo colours are the theme's declared spot inks (`--color-accent` and `--color-accent-2` here, or the theme's own echo tokens); the offset stays 1-3px (more reads broken, not printed). May settle once on load (<= 400ms, reduced-motion static); never loops.
+**One focal word per page, in the hero, under the theme's `waive 38iii`; never every heading.** The span is an inline block so the copies sit on the glyphs whatever the head's line-height, and they print behind the ink so the word keeps its colour; only the fringes carry the echoes. The echo colours are the theme's declared spot inks (`--color-accent` and `--color-accent-2` here, or the theme's own echo tokens); the offset stays 1 to 3px (more reads broken, not printed). It may settle once on load over `--dur-long` at most, static under reduced motion; it never loops.
 
 ## 4 · Scanline (CRT)
 
@@ -73,13 +73,13 @@ For plates, tickets, and stubs on print-lineage pages:
 
 ```css
 .deckled { box-shadow: inset 0 0 0 1px var(--color-rule);
-  mask-image: radial-gradient(6px at 0 50%, transparent 97%, black) ;
+  mask-image: radial-gradient(6px at 0 50%, transparent 97%, black);
   mask-size: 12px 24px; mask-repeat: repeat-y; mask-position: left; }
 ```
 
 One edge, one element class per page (a ticket edge, a stamp perforation). Never on cards generally; it is an artifact, not a border style.
 
-## Affinity - who earns texture
+## Affinity: who earns texture
 
 A theme earns texture when its Material section names an artifact; a custom draw earns it when its lineage is print (risograph, letterpress, ticket stock, line printer), and then it picks the one artifact that lineage used. The budget above binds every theme, whatever its file says: page-wide grain at 0.08 or less, 0.15 inside one plate, 0.05 or nothing under running text. Examples: Riso's grain and misregistration, Halftone's dot screen inside its fruit, Paste-up's fibre wash on the board, Darkroom's film grain over the wall, Arcade's scanlines (atmosphere, never a bezel), Ledger's ruled bands.
 

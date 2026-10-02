@@ -76,7 +76,7 @@ python3 eval/serve.py     # then open http://127.0.0.1:4201
 python3 eval/gen-direct.py --brief all --arm all --pack floor --repair 1
 ```
 
-Keys come from the `keyFiles` listed in `models.json` with the process environment as fallback. As of the last check, `OPENROUTER_API_KEY` is not in either key file; export it (or add it to a key file) before running the OpenRouter arms.
+Keys come from the process environment, then from the `keyFiles` listed in `models.json` or in an untracked `models.local.json` (`{"keyFiles": ["/path/to/.env"]}`), KEY=VALUE lines.
 
 Notes:
 

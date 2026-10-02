@@ -5,7 +5,7 @@ Multiple discovery surfaces: featured, latest, by category, by people. The platf
 - **Heading:** a brief positioning line; no display.
 - **Body:** several horizontal rails or grids, each surfacing a different cut of the platform's content.
 - **Divider:** each rail opens with its own `<h2>`, never a label band; a hairline or a change of paper between rails.
-- **Button:** a link at each rail's edge carrying a verb ("See all templates"); rarely a global CTA.
+- **Button:** a link at each rail's edge carrying a verb ("See all templates"); rarely a global CTA, so the fold's one visible action is the first rail's link (44b).
 - **Image:** thumbnails throughout; the page is dense imagery, all of it the platform's real content.
 - **Reveal:** none.
 

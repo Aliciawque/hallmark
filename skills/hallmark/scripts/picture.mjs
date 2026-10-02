@@ -62,5 +62,6 @@ if (shape && hero) {
   const line = `pictured: ${short}, ${hero.trim().split(/[ ,(]/)[0]} hero${way && fallback && way !== fallback ? `, in the ${way} colourway` : ''}`;
   src = /^pictured:.*$/m.test(src) ? src.replace(/^pictured:.*$/m, line) : src.replace(/^(signature:.*)$/m, `$1\n${line}`);
   writeFileSync(themeFile, src);
+  try { const { execFileSync } = await import('node:child_process'); execFileSync(process.execPath, [join(HERE, 'theme.mjs'), 'index'], { stdio: 'ignore' }); } catch {}
 }
 console.log(`${out} (lower screen at y ${y}${shape ? `; ${shape.trim()}, ${hero ? hero.trim() : '?'} hero` : ''})`);

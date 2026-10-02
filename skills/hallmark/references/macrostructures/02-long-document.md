@@ -5,7 +5,7 @@ Reads like a memo, a letter or a journal entry. No marketing structure. Continuo
 - **Heading:** inline with the body; section heads emerge from the paragraph flow as short bold phrases.
 - **Body:** single column, line-height 1.65 or more, measure 60 to 65ch.
 - **Divider:** negative space; the gap is the divider; at most one centred ornament for emphasis.
-- **Button:** a typographic link inside a paragraph, carrying a verb, never a separate block. It is the fold's one visible action, and the stamp says so (44b).
+- **Button:** a typographic link inside a paragraph, carrying a verb, never a separate block. It is the fold's one visible action (44b).
 - **Image:** inline, sized to the measure; never full-bleed.
 - **Reveal:** none. The page is simply there.
 
@@ -19,11 +19,17 @@ Heading: the inline lead-in of [`../craft.md`](../craft.md) § 7, item 3.
 <article class="prose">
   <p class="lede">…</p>
   <h2 class="inline">A small heading.</h2>
-  <p>… <a href="/pricing">See the prices</a> …</p>
+  <p>… <a href="#prices">See the prices</a> …</p>
 </article>
 ```
 
+```css
+.prose { max-width: 65ch; }
+.prose h2.inline { display: inline; font: inherit; font-weight: 700; letter-spacing: normal; }
+.prose h2.inline + p { display: inline; }
+```
+
 **Sample opening lines** (imitate the specificity, not the wording):
-> *"Saturday, 6:14 a.m. The dough went in at midnight."* Opens on a time-stamp; the brand introduces itself as a moment in the day (Maple Street Bread, test 03).
+> *"Saturday, 6:14 a.m. The dough went in at midnight."* Opens on a time-stamp; the brand introduces itself as a moment in the day (Maple Street Bread).
 > *"A monthly publication for people who still read to the end."* Names the cadence and the reader.
 > *"We build one thing, and we have built it for nine years."* A verb, a count, no claim.

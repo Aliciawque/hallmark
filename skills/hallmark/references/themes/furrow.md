@@ -35,7 +35,7 @@ Warm office paper, an ink rule over every list, Red Hat Display 600 over Red Hat
 ## Faces
 
 - **Display:** Red Hat Display 600, `--tracking-display`, line-height 1.0, up to 4rem. One weight and one colour per head.
-- **Body:** Red Hat Text 400 at 15 to 16px, line-height 1.55, in `--color-muted`; Red Hat Text 500 for row titles.
+- **Body:** Red Hat Text 400 at 16px, line-height 1.55, in `--color-muted`; Red Hat Text 500 for row titles.
 - **Labels, captions, table heads, chips, meta:** Red Hat Text 500 one step smaller, sentence case, untracked. Never mono, never uppercase.
 - **Form figures (mono as material):** JetBrains Mono 400 and 500 at 12 to 13px, tabular, only for what gets copied onto a form: times, tag numbers, rates, hectares, litres, prices.
 
@@ -59,7 +59,7 @@ Plain and unit-bearing: 214 ha, 6.1 t/ha, 12 days withdrawal, GBP per hectare. N
 
 - Never yellow for a warning, a highlight or a sale; the tag is the animal, and that is all yellow means.
 - Never a photograph of a field, a tractor or an animal; the map and the tag are drawn.
-- Never a tier table; price is a calculation with the free allowance drawn into it.
+- Never a tier table; price is a calculation.
 - Never tangerine as type; it fills the record mark and the chosen field, with ink on it.
 
 ## Build hint
@@ -69,11 +69,11 @@ Plain and unit-bearing: 214 ha, 6.1 t/ha, 12 days withdrawal, GBP per hectare. N
 ```
 
 ```css
-.display { font: 600 var(--text-display)/1 var(--font-display); letter-spacing: var(--tracking-display); }
+.display { font: 600 min(var(--text-display), 4rem)/1 var(--font-display); letter-spacing: var(--tracking-display); }
 .ledger { border-top: 1px solid var(--color-ink); }
-.ledger > div { display: grid; gap: 1rem; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid var(--color-rule); }
-.tag { display: inline-grid; place-items: center; width: 54px; height: 44px; border-radius: 6px 6px 10px 10px; background: var(--color-tag); color: var(--color-tag-ink); font: 500 14px var(--font-outlier); }
-.btn { border-radius: var(--radius-pill); padding: 0.625rem 1rem; font-weight: 600; border: 1px solid var(--color-rule); background: var(--color-paper-2); }
+.ledger > div { display: grid; gap: var(--space-md); align-items: center; padding: var(--space-sm) 0; border-bottom: 1px solid var(--color-rule); }
+.ear { display: inline-grid; place-items: center; width: 54px; height: 44px; border-radius: 6px 6px 10px 10px; background: var(--color-tag); color: var(--color-tag-ink); font: 500 var(--text-xs) var(--font-outlier); }
+.btn { border-radius: var(--radius-pill); padding: var(--space-sm) var(--space-md); font-weight: 600; border: 1px solid var(--color-rule); background: var(--color-paper-2); }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 30%, transparent); }
 ```

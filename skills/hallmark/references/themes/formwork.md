@@ -47,8 +47,8 @@ Three pours, stated in the stamp (`formwork: cast`). Muted sits on the wall only
 ## Faces
 
 - **Display:** Oswald 700, uppercase, line-height 1.0 where a head can wrap (55a) and 0.92 only on a single nowrap line, `--tracking-display`; 48px for section heads, 84 to 90 for the page, 96 to 120 for figures. One colour per head. Roman.
-- **Body:** Archivo 400 and 500, 14 to 17px, line-height 1.5, in ink-2.
-- **Dimensions:** Archivo Narrow 600 at 12 to 13px, sentence case, tabular, the outlier, for every dimension on a drawing and the week number. Captions, meta and table heads: Archivo 500 one step smaller, sentence case. Plates and slots wear Oswald 600 at 13 to 15px uppercase, tracked 0.04em, following the display's capitals. No mono.
+- **Body:** Archivo 400 and 500, 16 to 17px, line-height 1.5, in ink-2.
+- **Dimensions:** Archivo Narrow 500 at 12 to 13px, sentence case, tabular, the outlier, for every dimension on a drawing and the week number. Captions, meta and table heads: Archivo 500 one step smaller, sentence case. Plates and slots wear Oswald 700 at 13 to 15px uppercase, tracked 0.04em, following the display's capitals. No mono.
 
 ## Material
 
@@ -61,7 +61,7 @@ Three pours, stated in the stamp (`formwork: cast`). Muted sits on the wall only
 
 ## Motion
 
-Concrete does not animate; the pour does. A radius picker redraws the section on click, a pour log lands its loads one by one when pressed, a pin moves where you click. Plates press in 120ms. Nothing on scroll, nothing ambient.
+Concrete does not animate; the pour does. A radius picker redraws the section on click, a pour log lands its loads one by one when pressed, a pin moves where you click. Plates press in `--dur-micro`. Nothing on scroll, nothing ambient.
 
 ## Voice
 
@@ -71,13 +71,13 @@ The foreman's sheet: the radius in millimetres, the pour number, the week, the l
 
 - Never a second accent; a blue link on the wall is a different site.
 - Never a rounded corner; concrete is cast against straight boards.
-- Never a photograph of the thing; the park is a drawing and the photo lives in a slot.
+- Never a photograph of the thing; the structure is a drawing and the photo lives in a slot.
 - Never a soft blurred shadow on a plate; the 3px cast shadow is the material.
 
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@600;700&family=Archivo:wght@400;500&family=Archivo+Narrow:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Archivo:wght@400;500&family=Archivo+Narrow:wght@500&display=swap" rel="stylesheet">
 ```
 
 ```css
@@ -86,8 +86,8 @@ body { background-color: var(--color-paper); background-image:
     repeating-linear-gradient(180deg, transparent 0 94px, color-mix(in oklab, var(--color-seam-light) 22%, transparent) 94px 95px, color-mix(in oklab, var(--color-seam-dark) 10%, transparent) 95px 97px);
   background-size: 480px 288px, 100% 96px; }
 .display { font: 700 var(--text-display)/1 var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-display); }
-.plate { padding: 14px 32px; font: 600 15px var(--font-display); letter-spacing: 0.04em; text-transform: uppercase; background: var(--color-accent); color: var(--color-accent-ink);
-  box-shadow: 0 3px 0 var(--color-accent-deep); transition: translate 120ms ease-out, box-shadow 120ms ease-out; }
+.plate { padding: var(--space-sm) var(--space-xl); font: 700 var(--text-sm)/1.6 var(--font-display); letter-spacing: 0.04em; text-transform: uppercase; background: var(--color-accent); color: var(--color-accent-ink);
+  box-shadow: 0 3px 0 var(--color-accent-deep); transition: translate var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out); }
 .plate:active { translate: 0 3px; box-shadow: 0 0 0 var(--color-accent-deep); }
 .card { background: var(--color-plate); border: var(--rule-bar) solid var(--color-ink); box-shadow: var(--shadow-card); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 35%, transparent); }

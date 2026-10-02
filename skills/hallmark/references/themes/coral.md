@@ -41,7 +41,7 @@ Warm grey paper, warm charcoal ink, General Sans throughout, soft pills, and one
 ## Material
 
 - Soft pills: controls and chips at `--radius-pill`; surfaces at 8px; inputs at 6px. The rounded control vocabulary is the theme's clearest tell.
-- The control pair: an ink-filled primary (`--color-ink` on `--color-paper` text) beside a 1px `--color-rule` outlined secondary. If the coral signal is spent on a fill, the primary takes the accent with `--color-accent-ink`.
+- The control pair: an ink-filled primary (`--color-paper` text on `--color-ink`) beside a 1px `--color-rule` outlined secondary. If the coral signal is spent on a fill, the primary takes the accent with `--color-accent-ink`.
 - Thin visible borders and generous air: 1px `--color-rule` on divisions, the whisper shadow on a surface that is interactive, whitespace doing the luxury work.
 - The one signal under 5%, and nothing else on the page is coloured: a link's hover underline, the focus ring, one figure on paper or paper-2, or one filled control. Never a coral wash, gradient or background band.
 - No texture, no mesh, no blur. Paper, borders and space carry the page.
@@ -57,21 +57,21 @@ Declarative, warm, specific: the number, the product, the outcome. Never hype.
 ## Do-nots
 
 - Never cool paper or a blue signal; warm grey and coral, or it is not this theme.
-- Never a second typeface, a serif, or mono set as display.
+- Never a second text face: no serif, no other sans, no mono as display.
 - Never tight 6px bordered controls on the primary action; Coral is pills.
 - Never a code or terminal treatment as the focal object; Coral leads with type and a slot.
 
 ## Build hint
 
 ```html
-<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
 ```
 
 ```css
-.display { font: var(--display-weight) var(--text-display)/1.05 var(--font-display); letter-spacing: var(--tracking-display); }
-.btn { border-radius: var(--radius-pill); padding: 0.75rem 1.25rem; font-weight: 500; }
+.display { font: var(--display-weight) min(var(--text-display), 4.5rem)/1.05 var(--font-display); letter-spacing: var(--tracking-display); }
+.btn { border: 1px solid transparent; border-radius: var(--radius-pill); padding: var(--space-sm) var(--space-lg); font-weight: 500; }
 .btn--primary { background: var(--color-ink); color: var(--color-paper); }
-.btn--secondary { border: 1px solid var(--color-rule); color: var(--color-ink); }
-a:hover { text-decoration-color: var(--color-accent); text-underline-offset: 0.2em; }
+.btn--secondary { border-color: var(--color-rule); color: var(--color-ink); }
+a { text-underline-offset: 0.2em; } a:hover { text-decoration-color: var(--color-accent); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 25%, transparent); }
 ```

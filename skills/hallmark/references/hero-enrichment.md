@@ -20,10 +20,10 @@ The default is typography only. Match the brief against this table and act on th
 | e-commerce, shop, store, product catalogue, brand, fashion, lookbook | Real product photos; until the user provides them, one hero slot and the range in type (68) |
 | photography, portfolio, gallery, artist | Imagery is the page; slots until the user provides it |
 | food, restaurant, menu, dish, coffee, wine, recipe | A hero photo and product crops; until the user provides them, one hero slot and the dishes in type (68) |
-| team, staff, about us, portraits, hiring, careers | A team `data-slot` sized for the user's real photos; kit avatars ([`imagery-kit.md`](imagery-kit.md) § Categories) may hold the slot with no name, title or quote attached; never pravatar, dicebear or unsplash faces (F9) |
+| team, staff, about us, portraits, hiring, careers | A team `data-slot` sized for the user's real photos, the names and roles set in type (68); never a generated, stock or avatar-service face (F9) |
 | travel, hotel, destination, real estate, listing, property | A cover photo and tile photos; until the user provides them, one cover slot and the places in type (68) |
 | news, blog, magazine, journal, publication | A feature image per post; until the user provides them, one slot on the lead post and the rest in type (68) |
-| atmospheric, slow and editorial | E7 (a two-colour gradient with grain) or E6 (one small loop), built in-page at tier A or B; any external asset obeys [`imagery-kit.md`](imagery-kit.md) (no URL outside its manifest) and [`assets.md` § Placeholder strategy](assets.md) |
+| atmospheric, slow and editorial | E7 (a two-colour gradient with grain) or E6 (one small loop), built in-page at tier A or B; any external asset obeys [`imagery-kit.md`](imagery-kit.md) (no URL outside its manifest) and [`assets.md` § Placeholder order](assets.md) |
 | agency, studio | E8 photography, or none |
 | manifesto, essay, letter, foundry, type specimen, broadside | No imagery. Display typography is the design |
 | anything else, vague or unspecified | Typography only |
@@ -31,9 +31,9 @@ The default is typography only. Match the brief against this table and act on th
 Rules:
 
 - When the user attached an image (or `.hallmark/preflight.json` cached one), use it. Never overwrite it with a placeholder.
-- When the brief sits between a "needs photos" row and a "no imagery" row, ask one short question: *Will you have product photos, or should I leave swappable placeholders?*
+- When the brief sits between a photo row and a no-imagery row, the Step 1 material answer decides: photos or "leave slots" take the photo row, silence takes the type row.
 - A placeholder looks like a placeholder, never like a confident decision. The skill never invents stock photos as if they were the final design.
-- The rows above do not override the genre file or the theme file. Modern-minimal still suppresses decorative kit imagery (`imagery-kit.md` § Anti-patterns), and a theme whose object is hand-built (a drawn jar, a lamp, a record) keeps it in the hero; a capture or photo row then puts its slot below the fold.
+- The rows above do not override the genre file or the theme file. Modern-minimal still suppresses decorative kit imagery (`imagery-kit.md` § Never), and a theme whose object is hand-built (a drawn jar, a lamp, a record) keeps it in the hero; a capture or photo row then puts its slot below the fold.
 
 The tier is chosen after this check says imagery is needed. Skipping the check is what produces a blob illustration on every page.
 
@@ -41,12 +41,12 @@ The tier is chosen after this check says imagery is needed. Skipping the check i
 
 ## The craft tiers
 
-One alphabet, shared with [`custom-craft.md`](custom-craft.md). Typography only is not a tier; it is the answer when no tier is needed. Reach for the highest tier the brief lets you ship in the time you have.
+One alphabet, shared with [`custom-craft.md`](custom-craft.md). Typography only is not a tier; it is the answer when no tier is needed.
 
 | Tier | What | When |
 | --- | --- | --- |
 | **A · CSS art** | Pure CSS shapes, gradients, clip-paths; no asset, no dependency | Geometric shapes, gradient compositions, glyph-style decoration |
-| **B · Hand-built SVG** | Drawn in Figma, optimised, animated declaratively | Illustration past what CSS handles cleanly: a loaf, a mascot, a diagram |
+| **B · Hand-built SVG** | Written by hand, optimised, animated declaratively | Illustration past what CSS handles cleanly: a loaf, a mascot, a diagram |
 | **C · Declarative animation** | Motion on top of A or B; CSS first, a library only for orchestration | A loop, a draw-on, a staggered entrance |
 | **D · WebGL** | Three.js or shaders | Only when the 3D is the product and the user interacts with it |
 | **E · Generated still** | An image model, with provenance and post-processing | Characters or scenes that hand-building cannot reach economically; always post-processed |
@@ -65,11 +65,11 @@ If the brief carries an explicit visual cue, pick from this map:
 - "demo", "show how it works", "product tour": E1 or E2 demo video
 - "platform", "tool", "infra", "dashboard", "developer": E4 screenshot in a figure
 - "shop", "store", "menu", "products", "items": E8 photography (or the F6 product grid)
-- "bakery", "kitchen", "café", "atelier" with a craft brief: E5 custom illustration, tier B
+- "bakery", "kitchen", "café", "atelier" with no photos coming: E5 custom illustration, tier B
 - "agency", "studio", "portfolio": E8 photography or none
 - "manifesto", "essay", "book", "letter": none
 
-If the brief is ambiguous, ask one question: *Add a demo video, an illustration, or keep it typography only? I default to typography only.* Otherwise default to none and state the inference in one sentence, beside the shape inference.
+Otherwise the archetype is none; state the inference in one sentence, beside the shape inference.
 
 ---
 
@@ -79,7 +79,7 @@ Each file carries the recipe: definition, use-when and avoid-when, knobs, a work
 
 - **E1 · Demo video, clipped by the viewport edge**: headline left, a real capture right in a slot, the rightmost 10 to 20% cut off past the viewport. [`enrichment/e1-clipped-demo-video.md`](enrichment/e1-clipped-demo-video.md)
 - **E2 · Demo video, full-bleed muted loop**: video as wallpaper under a ghost overlay; the feel is the message, not the detail. [`enrichment/e2-fullbleed-muted-loop.md`](enrichment/e2-fullbleed-muted-loop.md)
-- **E4 · Screenshot in a figure**: a real capture in a `<figure>` with a caption that states a fact, no drawn chrome, optional tilt and numbered pins. E3 (browser-framed) was folded into it. [`enrichment/e4-floating-no-frame.md`](enrichment/e4-floating-no-frame.md)
+- **E4 · Screenshot in a figure**: a real capture in a `<figure>` with a caption that states a fact, no drawn chrome, optional tilt and numbered pins. [`enrichment/e4-floating-no-frame.md`](enrichment/e4-floating-no-frame.md)
 - **E5 · Custom illustration centrepiece**: one hand-built SVG (tier B) or generated still (tier E) as the hero's single illustrative element. [`enrichment/e5-custom-illustration-centerpiece.md`](enrichment/e5-custom-illustration-centerpiece.md)
 - **E6 · Animated loop**: one small custom CSS or SVG loop, 4s or less, that gives an otherwise still page life. [`enrichment/e6-animated-loop.md`](enrichment/e6-animated-loop.md)
 - **E7 · Abstract background**: a two-colour low-chroma gradient plus feTurbulence grain; paper texture, never aurora. [`enrichment/e7-abstract-background.md`](enrichment/e7-abstract-background.md)
@@ -95,9 +95,7 @@ A hero may carry one polish pattern and one enrichment archetype, never two poli
 
 - **HP1 · Vertical rail title**: a fact runs vertically beside the body. [`enrichment/hp1-vertical-rail-title.md`](enrichment/hp1-vertical-rail-title.md)
 - **HP2 · Marquee overflow**: the h1 bleeds past the viewport edge; short loud titles only. [`enrichment/hp2-marquee-overflow.md`](enrichment/hp2-marquee-overflow.md)
-- **HP4 · Decorative numeral**: a huge roman numeral that means something (issue, year, version, chapter). [`enrichment/hp4-decorative-numeral.md`](enrichment/hp4-decorative-numeral.md)
-
-The cursor spotlight (formerly HP3) is refused by gate 29 and by the atmospheric genre file; it is not a pattern.
+- **HP4 · Decorative numeral**: a huge figure that means something (an issue, a year, a version, a chapter). [`enrichment/hp4-decorative-numeral.md`](enrichment/hp4-decorative-numeral.md)
 
 The sequence:
 
@@ -114,9 +112,9 @@ The sequence:
 The enrichment and polish go on the stamp's second line, in the `enrichment:` field:
 
 ```css
-/* Hallmark · shape: Workbench · genre: modern-minimal · theme: Newsprint (deal 1/3, seed tracejam·2026-09-22·r0)
+/* Hallmark · shape: Workbench · genre: modern-minimal · theme: Cobalt (deal 1/3, seed tracejam·2026-09-22·r0)
  * hero: Stage · nav: edge-aligned · footer: colophon line · enrichment: E1 demo capture, clip right, 16/10, hairline · polish: HP4 numeral, issue 22 · signature: the trace runs off the page
- * axes: light/grotesk-sans/warm · posture: restrained · contrast: pass · fold: pass · v2.1.0 */
+ * axes: light/grotesk-sans/cool · posture: restrained · contrast: pass · fold: pass · v2.4.0 */
 ```
 
 No polish, omit `polish:`. No enrichment, write `enrichment: none`. Never fake either. The log entry's `enrichment` field carries the same value so Rotation can read it.

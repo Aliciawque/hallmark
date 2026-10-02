@@ -49,7 +49,7 @@ Warm off-white paper under two fixed terracotta blooms, Figtree throughout with 
 
 ## Motion
 
-One settle: the studio card fades in once over 400ms ease-out. Hover deepens a card's shadow, and nothing else moves. One line may type in once, then stays. The blooms never move; no slide, no bounce, no parallax.
+One settle: the studio card fades in once over `--dur-long` on `--ease-out`, or one line types in once and stays; never both. Hover deepens the shadow of a card that links, and nothing else moves. The blooms never move; no slide, no bounce, no parallax.
 
 ## Voice
 
@@ -76,7 +76,7 @@ body::before { content: ""; position: fixed; inset: 0; z-index: -1; pointer-even
   background: radial-gradient(42% 38% at 72% 16%, color-mix(in oklab, var(--color-accent) 10%, transparent), transparent 70%),
               radial-gradient(46% 40% at 18% 90%, color-mix(in oklab, var(--color-accent-2) 7%, transparent), transparent 72%); }
 .display { font: var(--display-weight) clamp(2.75rem, 6vw + 1rem, 5.75rem)/1.06 var(--font-display); letter-spacing: var(--tracking-display); color: var(--color-ink); }
-.lede--serif { font: 400 1.5rem/1.35 var(--font-outlier); font-style: normal; }
+.lede--serif { font: 400 var(--text-xl)/1.35 var(--font-outlier); font-style: normal; }
 .card { background: var(--color-paper-2); border: var(--rule-hair) solid var(--color-rule); border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-radius: var(--radius-pill); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 25%, transparent); }

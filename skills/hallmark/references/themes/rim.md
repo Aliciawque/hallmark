@@ -57,7 +57,7 @@ Two colourways, both dark, stated in the stamp (`rim: night` or `rim: station`).
 
 ## Motion
 
-Orbital and steady. A satellite may travel its ellipse on `animateMotion` at 19 to 31 seconds a lap; clocks tick once a second. The disc never pulses; nothing reveals.
+Orbital and steady. A satellite may travel its ellipse on `animateMotion` at 19 to 31 seconds a lap, the theme's ambient loop, with a visible pause control; SMIL escapes the reduced-motion CSS, so a script calls `pauseAnimations()` under reduced motion and off-screen. Clocks update once a minute. The disc never pulses; nothing reveals.
 
 ## Voice
 
@@ -74,19 +74,18 @@ Measured and exact: the pass, the time in UTC, the area in square kilometres, th
 ## Build hint
 
 ```html
-<link href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=switzer@400,500,600&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 ```
 
 ```css
-.display { font: 500 var(--text-display)/1.02 var(--font-display); letter-spacing: var(--tracking-display); }
+.display { font: 500 min(var(--text-display), 4.75rem)/1.02 var(--font-display); letter-spacing: var(--tracking-display); }
 .disc { border-radius: 50%; border: 2px solid transparent;
   background: radial-gradient(circle at 38% 34%, var(--color-disc-2), var(--color-disc) 62%) padding-box,
     conic-gradient(from 200deg, transparent 0 40%, var(--color-rim-2) 52%, var(--color-rim-1) 66% 74%, transparent 88%) border-box; }
 .horizon { height: 1px; background: var(--color-ink); }
 .measure { font-family: var(--font-outlier); font-variant-numeric: tabular-nums; }
 .tile { background: radial-gradient(circle at 30% 30%, var(--color-disc-2), transparent 60%), radial-gradient(circle at 75% 70%, var(--color-paper-2), transparent 55%) var(--color-disc); }
-.btn { border-radius: 0; padding: 0.625rem 1rem; font-weight: 500; border: 1px solid var(--color-rule); }
+.btn { border-radius: 0; padding: var(--space-sm) var(--space-md); font-weight: 500; border: 1px solid var(--color-rule); }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 35%, transparent); color: var(--color-ink); }
 ```

@@ -24,7 +24,7 @@ function fnv1a(str) {
 const args = process.argv.slice(2);
 const flag = (name, dflt) => {
   const i = args.indexOf(`--${name}`);
-  return i !== -1 && args[i + 1] !== undefined ? args[i + 1] : dflt;
+  return i !== -1 && args[i + 1] !== undefined && !String(args[i + 1]).startsWith('--') ? args[i + 1] : dflt;
 };
 const ASK = new Set(['build', 'make', 'create', 'design', 'need', 'want', 'please', 'page', 'site', 'website', 'landing', 'called', 'for', 'and', 'the', 'with', 'that', 'this', 'our', 'your']);
 const briefFlag = flag('brief', null);

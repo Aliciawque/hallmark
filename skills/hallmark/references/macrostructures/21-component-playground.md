@@ -3,9 +3,9 @@
 Interactive code-and-preview blocks are the page's primary content. Each block previews a thing and shows how to copy it.
 
 - **Heading:** each category is a real `<h2>` ("Buttons", "Forms", "Cards") in the display face, sentence case; never a label band.
-- **Body:** alternating preview-and-code blocks, often with a tab row to switch frameworks; the row scrolls sideways under 60rem.
+- **Body:** a preview, then its code, block after block, often with a tab row to switch frameworks; the row scrolls sideways under 60rem.
 - **Divider:** a change of paper per category; hairlines between examples.
-- **Button:** a "Copy" button on every code block, silent on success (16).
+- **Button:** a "Copy" button on every code block; its label swaps to "Copied", never a toast (16).
 - **Image:** none; the previews are the imagery.
 - **Reveal:** none.
 

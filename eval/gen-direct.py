@@ -23,7 +23,7 @@ via score.mjs, and the loop continues up to N rounds or until the cell has
 zero FAILs. Cells without FAILs (or without a usable score.json) are left
 untouched. run-matrix.py orchestrates gen -> score -> gen --repair -> score.
 
-Keys are loaded from the keyFiles listed in eval/models.json (KEY=VALUE lines)
+Keys are loaded from the keyFiles listed in eval/models.json and the untracked eval/models.local.json (KEY=VALUE lines)
 with the process environment as a fallback. Key VALUES are never printed.
 
 Output per cell: eval/runs/<briefId>/<armId>-<pack>/
@@ -505,6 +505,9 @@ def main():
         if not arms:
             sys.exit(f"unknown arm id: {args.arm}")
 
+    local = EVAL_DIR / "models.local.json"
+    if local.exists():
+        models["keyFiles"] = models.get("keyFiles", []) + load_json(local).get("keyFiles", [])
     env = load_key_env(models.get("keyFiles", []))
 
     # Key availability check by NAME only; values never leave memory.

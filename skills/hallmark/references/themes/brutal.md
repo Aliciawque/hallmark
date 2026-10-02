@@ -33,13 +33,13 @@ A near-white sheet carved by 3px near-black rules, uppercase Albert Sans 700 run
 
 ## Faces
 
-- **Display:** Albert Sans 700, uppercase, `--tracking-display`, line-height 1.02 (the floor for multi-line caps), up to 6.5rem. Flush-left, edge-aligned to a rule, allowed to run wide and clip against it. Never centred.
+- **Display:** Albert Sans 700, uppercase, `--tracking-display`, line-height 1.02 (the floor for multi-line caps), up to 6.5rem. Flush-left, edge-aligned to a rule, allowed to run wide and butt against it. Never centred.
 - **Body:** Albert Sans 400 and 500, sentence case.
 - **Labels, captions, table heads, meta:** Albert Sans 500 one step smaller, sentence case, in `--color-muted`; uppercase belongs to the display alone. JetBrains Mono sets only code and real figures that compare (a price column, a spec line); it never sets a caption or a head.
 
 ## Material
 
-- Thick rules are the structure, two weights only: `--rule-bar` boxes sections and figures; `--rule-hair` splits rows inside them. Content sits flush to the border with no inset gutter.
+- Thick rules are the structure, two weights only: `--rule-bar` boxes sections and figures; `--rule-hair` splits rows inside them. Figures and blocks sit flush to the border with no inset gutter; text keeps its padding.
 - Zero radius everywhere: buttons, inputs, blocks, images.
 - Inverted solid blocks, no float: filled rectangles (ink with paper text, acid yellow with ink text, bordered paper) butted against each other and against rules. No shadow; depth is fill and border. The control pair: a `--rule-bar` bordered paper button beside a solid ink button with paper text; hover inverts either instantly.
 - The acid yellow is a fill, never type, a rule or a ring: the one block of colour on the sheet (the signature bar, one filled panel, or a `mark` band in running text), always under ink, never inside a heading, under 5% of any viewport. Near-zero chroma everywhere else makes it the only colour on the page. Focus takes the deep olive `--color-focus`, which holds 3:1 on paper, ink and yellow. No texture, no ornament.
@@ -72,7 +72,7 @@ h1, h2, .display { font-family: var(--font-display); font-weight: var(--display-
 .block { border: var(--rule-bar) solid var(--color-rule); border-radius: 0; }
 .block--ink { background: var(--color-ink); color: var(--color-paper); }
 .bar, p mark { background: var(--color-accent); color: var(--color-accent-ink); }
-.btn { border: var(--rule-bar) solid var(--color-rule); border-radius: 0; padding: 0.75rem 1.25rem; font-weight: 700; transition: none; }
-.btn--ink, .btn:hover { background: var(--color-ink); color: var(--color-paper); }
+.btn { border: var(--rule-bar) solid var(--color-rule); border-radius: 0; padding: var(--space-xs) var(--space-lg); font-weight: 700; transition: none; }
+.btn:hover, .btn--ink { background: var(--color-ink); color: var(--color-paper); } .btn--ink:hover { background: var(--color-paper); color: var(--color-ink); }
 ::selection { background: var(--color-accent); color: var(--color-accent-ink); }
 ```

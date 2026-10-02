@@ -56,7 +56,7 @@
     "spark": "A specification page so confident it numbers its own figures.",
     "system": [
       "Palette/material: cool white; one federal red accent; grey only as hairline rules",
-      "Type/composition: wide grotesque caps for headings, generous tracking; body flush-left under ruled captions",
+      "Type/composition: wide grotesque caps for headings, tracked no wider than 0.04em; body flush-left under ruled captions",
       "Topology/navigation: numbered figures (fig 4.1) anchor every section; nav is a numeric index",
       "Controls/state: controls carry spec numbers; active state is the red rule thickening under the number",
       "Responsive/motion: figures reflow but keep their numbers; motion limited to a measured underline draw"
@@ -120,7 +120,7 @@
     "lineage": "Type-foundry specimen sheets, 19th century",
     "spark": "The typeface is the product, shown at every size it owns, waterfall after waterfall.",
     "system": [
-      "Palette/material: cream broadsheet, ink only; a foundry footer in tiny caps",
+      "Palette/material: cream broadsheet, ink only; a foundry footer in the body face, a step smaller",
       "Type/composition: one family at every size as content; waterfall settings, no placeholder text",
       "Topology/navigation: sized specimens are the sections; a ruled index of point sizes navigates",
       "Controls/state: hover sets the specimen line in the accent weight; controls are ruled boxes",
@@ -290,7 +290,7 @@
     "spark": "Forty identical engravings separated by perforations, and every one of them is treasury-grade.",
     "system": [
       "Palette/material: pale gum-paper ground; each stamp a one-colour engraving; selvedge margins carry plate numbers",
-      "Type/composition: engraved-style serif for denominations; tiny caps for country and series",
+      "Type/composition: engraved-style serif for denominations; country and series in the body face, a step smaller",
       "Topology/navigation: content cells are stamps in a perforated sheet grid; the selvedge is the nav rail",
       "Controls/state: hover lifts a stamp with a soft paper shadow; selection tears it along the perforation",
       "Responsive/motion: the sheet re-grids without breaking perforation rhythm; one lift-and-settle per interaction"
@@ -329,7 +329,7 @@
     "spark": "The schedule table is the layout, and the route arcs are the only decoration allowed aboard.",
     "system": [
       "Palette/material: white with one airline livery colour; buff for the cover panels",
-      "Type/composition: tabular figures everywhere; tiny caps for city codes; flight numbers as anchors",
+      "Type/composition: tabular figures everywhere; city codes as their three letters at the body size, untracked; flight numbers as anchors",
       "Topology/navigation: content is departures rows (time, code, destination, note); tabs like ticket stock navigate",
       "Controls/state: a row highlights in livery colour on hover; selected flights get the margin arrow",
       "Responsive/motion: columns shed politely (note first, code last); rows tick in once like a posted schedule"
@@ -381,7 +381,7 @@
     "spark": "Prussian blue all the way down, white lines doing all the talking, a revision table that never lies.",
     "system": [
       "Palette/material: deep prussian-blue ground; pure white linework; one process-yellow highlight for the current revision",
-      "Type/composition: stencil-adjacent caps in the title block; dimension chains in small mono",
+      "Type/composition: stencil-adjacent lettering in the title block, sentence case; dimension chains in small mono",
       "Topology/navigation: orthographic views structure sections; the title block anchors every page corner",
       "Controls/state: hover thickens a dimension chain; approved states get the checker's initials",
       "Responsive/motion: drawings crop by viewport like a print table; white lines draw in once on first view"
@@ -394,7 +394,7 @@
     "spark": "Depth soundings scattered like seed, land in buff, and a compass rose that has earned its ornament.",
     "system": [
       "Palette/material: pale sea-tint ground with buff landmasses; magenta reserved for lights and warnings",
-      "Type/composition: italic hydrographic labels for water, upright caps for coast; soundings as scattered small numerals",
+      "Type/composition: italic hydrographic labels for water, upright roman for the coast; soundings as scattered small numerals",
       "Topology/navigation: the chart frame with edge scales is the layout; hazards badge in magenta",
       "Controls/state: plotted courses are the selected state; hover shows a bearing line from the rose",
       "Responsive/motion: the frame holds, the chart pans; one course line draws in per section"
@@ -420,7 +420,7 @@
     "spark": "One pressed specimen centered, and a hundred years of annotation slips accumulating around it.",
     "system": [
       "Palette/material: aged white sheet; specimen greens gone khaki; accession-stamp violet as the accent",
-      "Type/composition: typed determinavit labels bottom-right; latin binomials in italic, collectors in caps",
+      "Type/composition: typed determinavit labels bottom-right; latin binomials in italic, collectors' names in the body face",
       "Topology/navigation: one specimen per section, annotations orbit it; the accession number indexes everything",
       "Controls/state: hover lifts an annotation slip; verified state adds the determiner's stamp",
       "Responsive/motion: slips reflow around the specimen, never over it; one slip settles per section"
@@ -485,7 +485,7 @@
     "spark": "Front hook, spine message, back offer: a complete pitch on two square inches.",
     "system": [
       "Palette/material: one saturated ground colour; foil-adjacent gold accents; the striker strip as a texture band",
-      "Type/composition: script wordmark over a condensed caps address line; tiny type that stays proud",
+      "Type/composition: script wordmark over a condensed address line in sentence case; tiny type that stays proud",
       "Topology/navigation: tiny-canvas discipline per section (hook, spine, offer); sections snap like a flipped book",
       "Controls/state: the CTA is the striker strip; press strikes it with a brief spark of the accent",
       "Responsive/motion: the canvas stays small and centered by choice; one flip between faces"
@@ -498,7 +498,7 @@
     "spark": "Ninety-six faders in ranks, and the one that matters is under your hand.",
     "system": [
       "Palette/material: charcoal panel ground; per-function knob colours (red record, green bus, white trim); brushed metal rails",
-      "Type/composition: tiny engraved caps labels under every control; channel numbers in a larger mono",
+      "Type/composition: engraved labels under every control, sentence case, a step smaller; channel numbers in a larger mono",
       "Topology/navigation: vertical channel strips structure content; the master section anchors the page foot",
       "Controls/state: faders and knobs are the controls; state reads as physical position plus one LED dot",
       "Responsive/motion: strips shed to a bussed summary on small screens; meters move, nothing else does"
@@ -537,7 +537,7 @@
     "spark": "A single green trace on a graticule, telling the truth at the speed of light.",
     "system": [
       "Palette/material: deep green-black screen with an etched graticule; phosphor green trace; bone control panel around it",
-      "Type/composition: engraved caps on the panel; measurements in mono; the trace is the display type",
+      "Type/composition: engraved labels on the panel, sentence case; measurements in mono; the trace is the display type",
       "Topology/navigation: one screen per section with its control cluster; V/div and T/div framing as section metadata",
       "Controls/state: rotary knobs and toggle states; the trace responds live to the section's data",
       "Responsive/motion: the screen stays 4:3 and centered; only the trace moves, everything else is bolted down"
@@ -550,7 +550,7 @@
     "spark": "Every switch guarded, every state announced, nothing ambiguous at three in the morning.",
     "system": [
       "Palette/material: dark grey panel; annunciator lenses in amber, green, white; guarded red for irreversible actions",
-      "Type/composition: engraved caps placards; checklist items in a stern grotesque with do/verify columns",
+      "Type/composition: engraved placards in sentence case; checklist items in a stern grotesque with do/verify columns",
       "Topology/navigation: panel groups by system; the checklist rail runs the page in order",
       "Controls/state: switches show physical position; irreversible controls sit under a lift-guard interaction",
       "Responsive/motion: panels stack by system priority; annunciators illuminate, nothing slides"
@@ -563,7 +563,7 @@
     "spark": "A wall of brass jacks, cloth cords, and an operator who knows everyone's number by heart.",
     "system": [
       "Palette/material: dark bakelite and walnut ground; brass jack rings; cloth-cord colours as the accent set",
-      "Type/composition: engraved number plates in caps; the directory in a compact serif with leader dots",
+      "Type/composition: engraved number plates; the directory in a compact serif with leader dots",
       "Topology/navigation: jack fields are the content grid; plugging a cord is following a link",
       "Controls/state: a live connection is a drawn cord; busy states show the jack's brass ring lit",
       "Responsive/motion: jack fields wrap; the cord draw is the one animation and it sags correctly"
@@ -615,7 +615,7 @@
     "spark": "Two reels, a counter you trust more than your watch, and tape you can touch.",
     "system": [
       "Palette/material: brushed aluminium face on charcoal; VU cream dials with red overload wedge; tape brown as the accent",
-      "Type/composition: engraved caps under every switch; the counter in a large odometer mono",
+      "Type/composition: engraved labels under every switch, sentence case; the counter in a large odometer mono",
       "Topology/navigation: transport controls order the page (rewind, play, record sections); the counter is the progress indicator",
       "Controls/state: chunky latching buttons; recording state arms in red and will not be missed",
       "Responsive/motion: the deck face stacks; reels turn only while something actually plays"
@@ -643,23 +643,23 @@
       "Palette/material: deep blue-black dome ground; pinpoint white stars; brass-gold for constellation lines and figures",
       "Type/composition: classical serif with star names in italic; captions like a narrated program",
       "Topology/navigation: constellation lines literally connect content nodes; a coordinate ring frames sections",
-      "Controls/state: hover brightens a star and its lines; the projector beam is the focus state",
-      "Responsive/motion: the dome crops, stars keep their positions; one slow sky rotation, minutes long"
+      "Controls/state: hover brightens a star and its lines; focus takes the projector's brass ring, instantly",
+      "Responsive/motion: the dome crops, stars keep their positions; the sky turns a few degrees with scroll, nothing loops"
     ],
-    "webLeverage": "radial-gradient point stars on layered backgrounds fake a dome with zero images",
+    "webLeverage": "an SVG map of the real sky for the page's date, hairline constellations, no glow",
     "fits": ["AI and science tools", "night products", "observability"] },
 
   { "name": "Midnight diner", "tier": "atmosphere",
     "lineage": "American roadside diners after dark, neon and tungsten",
     "spark": "Neon in the window, tungsten on the counter, pie under glass, and nowhere else open for miles.",
     "system": [
-      "Palette/material: night-blue window ground; warm tungsten pools on formica cream; one neon colour buzzing outside",
-      "Type/composition: a script neon wordmark; menu-board caps with hand-set prices; ticket-stub mono for details",
+      "Palette/material: night-blue window ground; warm tungsten pools on formica cream; one neon colour, flat, as the only saturation",
+      "Type/composition: a script wordmark in the neon colour; menu-board lettering at display size with hand-set prices; ticket-stub mono only for order numbers and prices",
       "Topology/navigation: the counter is the content rail; menu boards are the sections; the register closes the page",
       "Controls/state: specials clip to the board; the neon sign flickers once on hover, steady otherwise",
-      "Responsive/motion: booths stack, the counter persists; light pools stay put, only the neon breathes"
+      "Responsive/motion: booths stack, the counter persists; light pools stay put; nothing loops"
     ],
-    "webLeverage": "layered text-shadow at two radii gives the neon its tube-and-halo glow",
+    "webLeverage": "-webkit-text-stroke over a flat fill draws the neon tube, with no halo",
     "fits": ["late-night products", "food", "hospitality"] },
 
   { "name": "Palm house", "tier": "atmosphere",
@@ -667,12 +667,12 @@
     "spark": "White iron ribs, wet green light, and labels for ten thousand leaves.",
     "system": [
       "Palette/material: humid green field tones under glass-white structure; terracotta pot accents; condensation softness at edges",
-      "Type/composition: engraved botanical serif with latin italics; small zinc-tag caps for labels",
+      "Type/composition: engraved botanical serif with latin italics; zinc-tag labels in sentence case",
       "Topology/navigation: glasshouse bays are the sections, ribs are the dividers; zinc tags navigate species",
       "Controls/state: tags tilt on hover like touched labels; selected specimens get a watering ring",
       "Responsive/motion: bays narrow with the ribs intact; one slow light shift as if a cloud passed"
     ],
-    "webLeverage": "backdrop-filter blur on glass panels gives true depth to the foliage behind",
+    "webLeverage": "thin white SVG ribs drawn over the foliage give the glasshouse its structure, with no blur",
     "fits": ["wellness", "botanical brands", "growth products"] },
 
   { "name": "Reading room", "tier": "atmosphere",
@@ -685,7 +685,7 @@
       "Controls/state: a lamp switches on to focus its desk; hushed states, nothing blinks",
       "Responsive/motion: desks stack in single file; light pools fade up one at a time, then hold"
     ],
-    "webLeverage": "radial-gradient pools scoped per card make the lamplight real and cheap",
+    "webLeverage": "a warm paper tint inside each card is the lamp's pool, with no radial light",
     "fits": ["knowledge tools", "long-form reading", "research"] },
 
   { "name": "Night train", "tier": "atmosphere",
@@ -693,7 +693,7 @@
     "spark": "A corridor of blue night-lights, brass handles, and a timetable that will be true at dawn.",
     "system": [
       "Palette/material: deep railway blue with night-light pools; brass and walnut trims; a linen white for berth cards",
-      "Type/composition: carriage-plate caps with engraved numerals; the timetable in disciplined tabular type",
+      "Type/composition: carriage plates with engraved numerals; the timetable in disciplined tabular type",
       "Topology/navigation: compartments are the sections along a corridor scroll; berth numbers navigate",
       "Controls/state: a compartment door slides open to its content; the occupied state shows a drawn curtain",
       "Responsive/motion: the corridor becomes a vertical run; a slow window-light sweep passes every so often"
@@ -706,12 +706,12 @@
     "spark": "One beam sweeping the dark on schedule, and a keeper who writes the weather down.",
     "system": [
       "Palette/material: storm blue-black ground; the beam's warm white; signal red banding as the single accent",
-      "Type/composition: maritime slab caps for stations; the keeper's log in a handwriting-adjacent serif",
+      "Type/composition: a maritime slab for station names; the keeper's log in a handwriting-adjacent serif",
       "Topology/navigation: the light's characteristic (flash pattern) badges sections; the log rail runs the page",
-      "Controls/state: the beam sweep is the focus indicator; warnings ring the lamp in red banding",
-      "Responsive/motion: the tower column becomes the page spine; the beam sweeps on its stated period, nothing else moves"
+      "Controls/state: focus takes the beam's warm white ring, instantly; warnings ring the lamp in red banding",
+      "Responsive/motion: the tower column becomes the page spine; the beam sweeps on its stated period, 8s or slower, with a pause control; nothing else moves"
     ],
-    "webLeverage": "a conic-gradient rotated by CSS animation is the entire lighthouse beam",
+    "webLeverage": "a conic-gradient rotated by CSS animation is the entire beam, stopped under reduced motion",
     "fits": ["monitoring", "safety products", "coastal brands"] },
 
   { "name": "Public pool", "tier": "atmosphere",
@@ -719,7 +719,7 @@
     "spark": "Chlorine-blue water over a grid of tiles, lane ropes in primary colours, rules painted on the wall.",
     "system": [
       "Palette/material: aqua water field over white tile grid; lane-rope reds and yellows; poolside concrete grey",
-      "Type/composition: painted sign-writer caps for rules; depth markers as big honest numerals",
+      "Type/composition: sign-writer lettering for the rules, sentence case; depth markers as big honest numerals",
       "Topology/navigation: lanes are the content columns; depth markers stage the page from shallow to deep",
       "Controls/state: lane ropes divide interactive zones; hover ripples the water field gently",
       "Responsive/motion: lanes merge politely on small screens; the water caustic shimmer is slow and subtle"
@@ -734,10 +734,10 @@
       "Palette/material: soot-black ground; molten orange-white as the single light source; steel greys between",
       "Type/composition: stencilled industrial caps; batch numbers in heavy mono; warnings set exactly as painted",
       "Topology/navigation: the pour sequence orders sections; batch plates are the anchors",
-      "Controls/state: hot states glow from within; cooled states go iron-grey and matte",
-      "Responsive/motion: the floor stacks by process order; heat shimmer only above genuinely hot elements"
+      "Controls/state: hot states turn molten orange; cooled states go iron-grey and matte",
+      "Responsive/motion: the floor stacks by process order; one heat shimmer, once, above the one hot element"
     ],
-    "webLeverage": "layered box-shadow in stacked oranges makes elements genuinely appear self-lit",
+    "webLeverage": "a stepped fill from white-hot to orange inside an element makes it read as molten, with no outer glow",
     "fits": ["industrial products", "build tools", "heavy workflows"] },
 
   { "name": "Jazz basement", "tier": "atmosphere",
@@ -757,13 +757,13 @@
     "lineage": "Walk-through aquarium tunnels, deep cyan and silhouettes",
     "spark": "You walk on the seafloor, the light does not come from the sun, and something enormous drifts overhead.",
     "system": [
-      "Palette/material: deep cyan-to-navy vertical gradient; silhouette blacks; one bioluminescent accent used sparingly",
-      "Type/composition: rounded oceanic sans with wide tracking for species; depth readouts in mono",
+      "Palette/material: depth as flat bands stepping from teal to navy; silhouette blacks; one bioluminescent accent used sparingly",
+      "Type/composition: a rounded oceanic sans, untracked, for species; depth readouts in mono",
       "Topology/navigation: the tunnel walk orders sections by depth; species tags float at their level",
-      "Controls/state: tags glow the bioluminescent accent on hover; the surface far above is the way back up",
-      "Responsive/motion: the depth gradient persists at any height; silhouettes drift on minutes-long loops"
+      "Controls/state: tags take the bioluminescent accent on hover; the surface far above is the way back up",
+      "Responsive/motion: the depth bands persist at any height; a silhouette drifts once as its section arrives"
     ],
-    "webLeverage": "scroll-driven animation ties the depth gradient and pressure readout to actual scroll position",
+    "webLeverage": "scroll-driven animation steps the depth band and the pressure readout with actual scroll position",
     "fits": ["depth-of-content products", "science", "immersive brands"] },
 
   { "name": "Cinema lobby", "tier": "atmosphere",
@@ -800,17 +800,17 @@
       "Type/composition: a serene wide sans in lowercase, untracked; temperatures as quiet large numerals",
       "Topology/navigation: pools order the sections by temperature; the changing-room threshold is the entry",
       "Controls/state: water states ripple faintly on interaction; occupied pools show a folded towel marker",
-      "Responsive/motion: pools stack down the temperature scale; steam drifts imperceptibly, nothing else"
+      "Responsive/motion: pools stack down the temperature scale; steam fades in once, nothing else moves"
     ],
-    "webLeverage": "multiple blurred radial-gradients composited with opacity animate believable steam",
+    "webLeverage": "one SVG wisp fades in once over a flat warm band; nothing drifts",
     "fits": ["wellness", "premium calm products", "spa brands"] },
 
   { "name": "Blue hour rooftop", "tier": "atmosphere",
     "lineage": "City rooftops at dusk, the grid lighting up below",
-    "spark": "The sky has one gradient left in it, and the city answers with ten thousand windows.",
+    "spark": "The sky has one colour left in it, and the city answers with ten thousand windows.",
     "system": [
-      "Palette/material: dusk gradient from ember to deep blue; window-light amber points; rooftop asphalt greys",
-      "Type/composition: a confident grotesque set sparse and large against the sky; details in small luminous caps",
+      "Palette/material: dusk as two flat bands, ember low and deep blue above; window-light amber points; rooftop asphalt greys",
+      "Type/composition: a confident grotesque set sparse and large against the sky; details in the body face, sentence case",
       "Topology/navigation: the skyline is the section divider; content sits on the parapet line",
       "Controls/state: window lights flicker on as sections arrive; the lit window is the active state",
       "Responsive/motion: the skyline simplifies at small widths; lights come on once, in ones and twos"
@@ -854,7 +854,7 @@
       "Controls/state: the illuminated initial is the section's single interactive jewel; hover catches its gilt",
       "Responsive/motion: the page column stays book-proportioned; the gold catches light once as it enters"
     ],
-    "webLeverage": "a narrow moving linear-gradient masked to the initial makes gold leaf genuinely glint",
+    "webLeverage": "a narrow linear-gradient masked to the initial glints across the gold leaf once, on entry",
     "fits": ["premium editorial", "craft brands", "slow products"] },
 
   { "name": "Telescope array", "tier": "atmosphere",
@@ -872,15 +872,15 @@
 
   { "name": "Submersible viewport", "tier": "atmosphere",
     "lineage": "Deep-sea research submersibles, one acrylic sphere of light",
-    "spark": "Six thousand metres of black water, one instrument glow, and something pale drifting past the glass.",
+    "spark": "Six thousand metres of black water, one lit instrument, and something pale drifting past the glass.",
     "system": [
-      "Palette/material: abyssal near-black; instrument amber and green glows; the viewport's cold blue halo",
+      "Palette/material: abyssal near-black; instrument amber and green as flat lit segments; the viewport ringed in cold blue",
       "Type/composition: instrument mono for depth and heading; species callouts in a pale wide serif",
       "Topology/navigation: the dive profile orders sections by depth; the viewport frames each encounter",
       "Controls/state: sonar pings mark interactive points; the floodlight reveals detail states",
-      "Responsive/motion: the viewport circle holds center at all sizes; drift is continuous but glacial"
+      "Responsive/motion: the viewport circle holds center at all sizes; each encounter drifts in once, glacially"
     ],
-    "webLeverage": "radial-gradient vignette plus animated background-position gives the floodlight its throw",
+    "webLeverage": "a clip-path circle that widens with scroll is the floodlight, with no glow",
     "fits": ["deep-data products", "exploration", "research"] },
 
   { "name": "Orchard stand", "tier": "atmosphere",
@@ -916,7 +916,7 @@
       "Palette/material: marble cream and walnut; brass key-plate gold; hotel-livery deep green as the accent",
       "Type/composition: an elegant engraved serif; room numbers on brass plates",
       "Topology/navigation: the pigeonhole wall is the content grid; the register book is the nav; the bell is the CTA",
-      "Controls/state: a pigeonhole with mail glows softly; the checked-in state hangs the key",
+      "Controls/state: a pigeonhole with mail lights in brass; the checked-in state hangs the key",
       "Responsive/motion: pigeonholes reflow as a smaller wall; the bell dips once when pressed"
     ],
     "webLeverage": "CSS grid dense packing keeps the pigeonhole wall solid at every width",

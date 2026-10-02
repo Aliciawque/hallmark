@@ -2,7 +2,7 @@
 
 The hero is a quote the user supplied, with its attribution. The headline is someone else's voice.
 
-- **Heading:** italic display setting the quote (36 to 60px), attribution below in the body face, one quiet line. The italic is the whole head, declared on the display (38ii guard), never one word.
+- **Heading:** italic display setting the quote at `--text-display-s`, attribution below in the body face, one quiet line. The italic is the whole head, declared on the display (38ii guard), never one word.
 - **Body:** more supplied quotes, case studies or a quiet feature list.
 - **Divider:** a centred quote-mark glyph or a short rule between quotes.
 - **Button:** a typographic link beneath the attribution, carrying a verb ("Read the case study").
@@ -16,6 +16,6 @@ Avoid when the user has not supplied the quote. The quote is the user's, verbati
 Code: [`../components/h3-quote-led.md`](../components/h3-quote-led.md) for the hero; [`../components/t1-pull-quote-with-marginalia.md`](../components/t1-pull-quote-with-marginalia.md) and [`../components/t3-single-huge-quote.md`](../components/t3-single-huge-quote.md) below the fold.
 
 **Sample opening lines** (fixture quotes; on a build only the user's words go here):
-> *"I started listening on a long bus ride. By the third episode I had missed my stop, and I did not mind."* Story-shaped, attributed to a listener (Tide, test 01).
+> *"I started listening on a long bus ride. By the third episode I had missed my stop, and I did not mind."* Story-shaped, attributed to a listener (Tide).
 > *"Restraint, repeated, becomes a signature."* Short and philosophical, signed by the studio.
 > A supplied outcome quote works the same way: the customer's own sentence, the number theirs, the attribution as given.

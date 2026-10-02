@@ -46,7 +46,7 @@ Warm plaster paper, umber ink, Sentient 700 carrying one large line over Hanken 
 
 ## Motion
 
-One entrance: the display line fades in once over 400ms ease-out. A slate underline grows on link hover. Nothing else moves.
+One entrance: the display line fades in once over `--dur-long` on `--ease-out`. A slate underline grows on link hover. Nothing else moves.
 
 ## Voice
 
@@ -63,16 +63,16 @@ Hand-set, literary, object-precise: verbs over adjectives; name the object, the 
 ## Build hint
 
 ```html
-<link href="https://api.fontshare.com/v2/css?f[]=sentient@500,700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=sentient@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500&display=swap" rel="stylesheet">
 ```
 
 ```css
 body { background: var(--color-paper); color: var(--color-ink-2); font-family: var(--font-body); line-height: 1.55; }
 h1, .display { font: var(--display-weight) clamp(2.75rem, 6vw + 1rem, 6.25rem)/1.02 var(--font-display); letter-spacing: var(--tracking-display); color: var(--color-ink); }
-.placard { font: 500 0.8125rem/1.4 var(--font-body); color: var(--color-muted); }
+.placard { font: 500 var(--text-xs)/1.4 var(--font-body); color: var(--color-muted); }
 .lede::first-letter { float: left; font: var(--display-weight) 3.9em/0.82 var(--font-display); padding: 0.06em 0.08em 0 0; color: var(--color-accent); }
-.btn { border: var(--rule-hair) solid var(--color-ink); border-radius: var(--radius-pill); padding: 0.75rem 1.5rem; color: var(--color-ink); }
+.btn { border: var(--rule-hair) solid var(--color-ink); border-radius: var(--radius-pill); padding: var(--space-sm) var(--space-lg); color: var(--color-ink); }
 a { color: inherit; text-decoration-color: var(--color-accent); text-underline-offset: 0.2em; }
 ::selection { background: color-mix(in oklab, var(--color-accent) 22%, transparent); }
 ```

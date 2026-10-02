@@ -42,8 +42,8 @@ One dial, the colourway, stated in the stamp (`hedgerow: hedge`). The drawings f
 ## Faces
 
 - **Display:** Prata 400, its only weight, line-height 1.1, no tracking, roman: names in rows at 15 to 22px, heads at 44 to 66px, a batch number as large as 260px. The wordmark is Prata uppercase tracked 0.04em. One colour per head.
-- **Body:** Manrope 400 and 500, 13.5 to 17px, line-height 1.55, in `--color-ink-2`.
-- **Small print:** Manrope 600 at 12.5 to 13px, sentence case, untracked, in `--color-muted`, for tags and month names; captions, table heads and meta are Manrope 500 one step smaller, sentence case. Mono appears only inside code; figures are Manrope tabular.
+- **Body:** Manrope 400 and 500, 16 to 17px, line-height 1.55, in `--color-ink-2`.
+- **Small print:** Manrope 500 at 12.5 to 13px, sentence case, untracked, in `--color-muted`, for tags, month names, captions, table heads and meta. Mono appears only inside code; figures are Manrope tabular.
 
 ## Material
 
@@ -68,12 +68,12 @@ A field guide's: the plant and where it grows, then how far and when only where 
 - Never a filled or shaded illustration; specimens are lines and dots.
 - Never a bar chart; a quantity is a row of leaves.
 - Never a rounded card; the label is the only box, square, with its double keyline.
-- Never a black ground; the dark is green at 24%, or plum in October.
+- Never a black ground; the dark is green at 24%, or plum on `sloe`.
 
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Prata&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
 ```
 
 ```css
@@ -83,7 +83,7 @@ A field guide's: the plant and where it grows, then how far and when only where 
 .leaf.dried { background: var(--color-muted); }
 .label { background: var(--color-ink); color: var(--color-paper); border: 1.5px solid var(--color-paper);
   box-shadow: inset 0 0 0 6px var(--color-ink), inset 0 0 0 7px var(--color-paper); }
-.btn { border-radius: var(--radius-pill); padding: 14px 26px; font-weight: 700; font-size: 14px;
+.btn { border-radius: var(--radius-pill); padding: var(--space-sm) var(--space-lg); font-weight: 700; font-size: var(--text-sm);
   background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--secondary { background: transparent; color: var(--color-accent); border: 1.5px solid var(--color-accent); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 30%, transparent); color: var(--color-ink); }

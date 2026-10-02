@@ -4,10 +4,9 @@ Consumer, casual, family, community and onboarding-led pages that should feel al
 
 ## Voice
 
-- **Display:** a rounded or geometric sans at 600 to 700 with tight tracking, or a heavy display face on the loud end. Friendly, never childish.
-- **Body:** a plain sans in a slightly muted ink.
+- **Faces** (a theme names its own; this is for a custom run): a rounded or geometric sans at 600 to 700, tight tracking, or a heavy display face on the loud end; friendly, never childish. The body a plain sans in a slightly muted ink.
 - **Accent:** soft and low-chroma by default; a declared Full-palette or Drenched posture lifts chroma to 0.24 across three or four named roles, each with a job.
-- **Layout:** rounded surfaces, 12px cards, 8px inputs, pills; soft offset shadows; tinted alternating bands.
+- **Layout:** rounded surfaces (12px cards, 8px inputs, pills, unless the theme sets its radius), soft offset shadows, tinted alternating bands.
 - **Motion:** responsive to the pointer; one small entrance on the page, its one reveal (`craft.md` § 5); a spring only under a declared spring posture, on the primary CTA and one character moment (gate 12's exception).
 - **Copy:** warm, direct, specific; no quirk for its own sake.
 

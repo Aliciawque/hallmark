@@ -5,7 +5,7 @@ An asymmetric grid of six to nine tiles in mixed spans (1x1, 2x1, 1x2, 2x2). Rhy
 
 ```html
 <section class="bento">
-  <article class="cell span-2x2"><h3>…</h3><figure data-slot="demo-2">…</figure></article>
+  <article class="cell span-2x2"><h3>…</h3><figure data-slot="demo-2" data-alt="…">…</figure></article>
   <article class="cell"><h3>…</h3><p>…</p></article>
   <article class="cell span-2x1"><h3>…</h3><p>…</p></article>
 </section>

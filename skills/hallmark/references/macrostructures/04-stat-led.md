@@ -7,7 +7,7 @@ The hero is a figure the user gave, with the line that says what it means. Every
 - **Divider:** hairline rules between figure blocks; `tabular-nums` everywhere.
 - **Button:** an outlined chip beneath the qualifier, labelled with a verb ("Read the report").
 - **Image:** charts and small data-viz per [`../data-viz.md`](../data-viz.md); no photography.
-- **Reveal:** number-tick on the hero figure, from 0 to the target over about 500ms, legal only because the figure is real.
+- **Reveal:** number-tick on the hero figure, from 0 to the target over `--dur-long`, legal only because the figure is real; the markup holds the final figure, so it reads with scripting off and under reduced motion (62).
 
 Reach for it when the brief says "we have proof in numbers": enterprise and B2B, fundraising, climate and impact pages.
 
@@ -16,6 +16,6 @@ Avoid when the user has not given a number. Every figure on this page is the use
 Code: [`../components/h4-stat-led.md`](../components/h4-stat-led.md) for the hero, [`../components/t4-numbered-stat-strip.md`](../components/t4-numbered-stat-strip.md) for the supporting row.
 
 **Sample opening lines** (the number is the user's; imitate how the words complete it):
-> *"Four seconds. From the alert link to the slow span."* The figure, then what it bought (Tracejam, test 05).
+> *"Four seconds. From the alert link to the slow span."* The figure, then what it bought (Tracejam).
 > *"[the user's count] posts. New CSS you could use today."* A count grounds the page in real volume.
 > *"[the user's rate] faster, so the team can decide late."* A rate, then the behaviour it allows.

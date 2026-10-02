@@ -10,7 +10,7 @@ A standard bar whose triggers open a full width, multi-column panel: an icon, a 
     <nav class="nav__center" aria-label="Primary">
       <div class="mega" data-mega="products"><button class="nav__link" type="button" aria-controls="mega-products" aria-expanded="false">Products</button></div>
     </nav>
-    <div class="nav__right"><a class="btn btn--accent" href="/start">Get started</a></div>
+    <div class="nav__right"><a class="btn btn--quiet" href="/start">Open an account</a></div>
   </div>
   <div class="mega-panel" id="mega-products" data-panel="products">
     <div class="mega-panel__inner">
@@ -24,17 +24,16 @@ A standard bar whose triggers open a full width, multi-column panel: an icon, a 
 ```css
 .nav { position: fixed; inset: 0 0 auto; z-index: var(--z-sticky-nav); }
 .mega-panel { position: absolute; top: 100%; left: 0; right: 0; z-index: var(--z-dropdown); opacity: 0; visibility: hidden; transform: translateY(-10px);
-  background: color-mix(in oklab, var(--color-paper) 96%, transparent); backdrop-filter: blur(20px) saturate(160%);
-  border-bottom: var(--rule-hair) solid var(--color-rule);
-  transition: opacity var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out), visibility 0s linear var(--dur-short); }
-.mega-panel.is-open { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+  background: var(--color-paper); border-bottom: var(--rule-hair) solid var(--color-rule);
+  transition: opacity calc(var(--dur-short) * 0.7) var(--ease-in), transform calc(var(--dur-short) * 0.7) var(--ease-in), visibility 0s linear calc(var(--dur-short) * 0.7); }
+.mega-panel.is-open { opacity: 1; visibility: visible; transform: none; transition: opacity var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out); }
 .mega-panel__inner { max-width: var(--container); margin: 0 auto; padding: var(--space-xl) var(--gutter); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.1fr); gap: var(--gap-columns); }
 .mega-col__head { margin: 0 0 var(--space-sm); font-size: var(--text-sm); color: var(--color-muted); }
 .mega-link { display: flex; gap: var(--space-sm); padding: var(--space-xs); border-radius: var(--radius-card); text-decoration: none; }
 .mega-link:hover, .mega-link:focus-visible { background: var(--color-paper-2); }
-.nav-scrim { position: fixed; inset: 0; z-index: var(--z-sticky); background: oklch(from var(--color-ink) l c h / 0.28); backdrop-filter: blur(2px);
-  opacity: 0; visibility: hidden; transition: opacity var(--dur-short) var(--ease-out), visibility 0s linear var(--dur-short); }
-.nav-scrim.is-active { opacity: 1; visibility: visible; transition-delay: 0s; }
+.nav-scrim { position: fixed; inset: 0; z-index: var(--z-sticky); background: oklch(from var(--color-ink) l c h / 0.28);
+  opacity: 0; visibility: hidden; transition: opacity calc(var(--dur-short) * 0.7) var(--ease-in), visibility 0s linear calc(var(--dur-short) * 0.7); }
+.nav-scrim.is-active { opacity: 1; visibility: visible; transition: opacity var(--dur-short) var(--ease-out); }
 ```
 
 JS: hover opens with a close grace of about `--dur-micro` so the pointer can travel into the panel; click toggles; Escape closes; one panel open at a time; the scrim and `aria-expanded` follow the state.
@@ -43,7 +42,7 @@ JS: hover opens with a close grace of about `--dur-micro` so the pointer can tra
 
 - Columns: 2 · 3 · 4
 - Feature cell: none · a promoted item · a code sample
-- Scrim: dim and blur · dim · none
+- Scrim: dim · none
 - Opens on: hover and click · click only
 
 ## Mobile

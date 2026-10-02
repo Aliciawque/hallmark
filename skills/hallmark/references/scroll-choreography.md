@@ -1,20 +1,20 @@
-# Scroll choreography - the one earned pattern
+# Scroll choreography: the one earned pattern
 
-The default is still none: the reveal-once in `craft.md` § 5 is the page norm. This file is the exception path - a scroll-linked pattern used ONCE, on structure, when the content genuinely has a sequence worth pinning or scrubbing. sloplint check F8 counts pattern families and flags a second one.
+The default is still none: the reveal-once in `craft.md` § 5 is the page norm. This file is the exception: a scroll-linked pattern used once, on structure, when the content has a sequence worth pinning or scrubbing. sloplint's F8 counts pattern families and flags a second one.
 
-## Budget (non-negotiable)
+## Budget
 
 - **One pattern per page.** Two scroll behaviours compete for the same attention.
-- **Never on body text.** Targets are structural: a pinned section, ONE display element, a 2px spine, figures. Prose never moves under the reader.
+- **Never on body text.** Targets are structural: a pinned section, one display element, a 2px spine, figures. Prose never moves under the reader.
 - **Hero entrance rules unchanged.** The page-load orchestration in `craft.md` § 5 stays as is; scroll choreography never replaces it, and no element carries both.
-- **Static end-state mandatory.** Base CSS shows the finished layout. The choreography lives entirely inside `@supports (animation-timeline: view())` + `@media (prefers-reduced-motion: no-preference) and (min-width: 40rem)` - reduced-motion, small screens, and non-supporting browsers get the complete page.
-- **Order footgun:** the `animation` shorthand RESETS `animation-timeline` and `animation-range`. Declare them AFTER `animation`, always.
-- **`linear` is correct here** - scrubbing maps scroll distance to progress 1:1; an easing curve would make the page feel detached from the thumb.
-- A pattern counts as one of the page's three animation primitives (microinteractions.md).
+- **Static end-state mandatory.** Base CSS shows the finished layout. The choreography lives entirely inside `@supports (animation-timeline: view())` and `@media (prefers-reduced-motion: no-preference) and (min-width: 40rem)`; reduced motion, small screens and browsers without support get the complete page.
+- **Order matters:** the `animation` shorthand resets `animation-timeline` and `animation-range`, so declare them after it.
+- **`linear` is correct here:** scrubbing maps scroll distance to progress one to one; an easing curve detaches the page from the thumb.
+- A pattern counts as one of the page's three motion primitives (`microinteractions.md`).
 
-## 1 · Pinned chapter - steps reveal while the section is pinned
+## 1 · Pinned chapter: steps reveal while the section is pinned
 
-The tall track owns a named view-timeline; the pinned pane's steps consume it in slices. (Elements inside a stuck pane cannot drive their own `view()` - they are not moving.)
+The tall track owns a named view-timeline; the pinned pane's steps consume it in slices. (Elements inside a stuck pane cannot drive their own `view()`: they are not moving.)
 
 ```html
 <section class="chapter">
@@ -39,7 +39,7 @@ The tall track owns a named view-timeline; the pinned pane's steps consume it in
 }
 ```
 
-## 2 · Scrub-linked headline - ONE display element, clip wipe
+## 2 · Scrub-linked headline: one display element, clip wipe
 
 For a mid-page statement head (Ft5 / T3 register), never the hero h1 (that is load-orchestration territory). One element per page, ever.
 
@@ -60,7 +60,7 @@ For a mid-page statement head (Ft5 / T3 register), never the hero h1 (that is lo
 }
 ```
 
-## 3 · Progress spine - scroll(root) scaling a 2px rule
+## 3 · Progress spine: `scroll(root)` scaling a 2px rule
 
 Reading progress as a hairline, not a chrome bar. A functional indicator, so `linear` is canon. Hidden below 40rem (it eats the mobile gutter).
 
@@ -77,13 +77,12 @@ Reading progress as a hairline, not a chrome bar. A functional indicator, so `li
 }
 ```
 
-## 4 · Sticky diptych - alternating two-pane pin
+## 4 · Sticky diptych: a two-pane pin
 
-Structure and pin mechanics come from [`components/f2-sticky-scroll-stack.md`](components/f2-sticky-scroll-stack.md) - markup, `--banner-height` offset, and mobile collapse are defined there; do not restate them. This recipe adds only the choreography: the scrolling figures fade in on their own `view()` (they move, so self-timelines work), and consecutive diptychs alternate the pinned side.
+Structure and pin mechanics come from [`components/f2-sticky-scroll-stack.md`](components/f2-sticky-scroll-stack.md): markup, the `--banner-height` offset and the mobile collapse are defined there. This recipe adds only the choreography: the scrolling figures fade in on their own `view()` (they move, so self-timelines work); the pinned side holds from one diptych to the next.
 
 ```css
-/* f2 base: .sticky-stack grid + .pane-sticky pin, per the component file */
-.sticky-stack:nth-of-type(even) .pane-sticky { order: 2; }   /* alternate the pin side */
+/* f2 base: .sticky-stack grid + .pane-sticky pin, per the component file; the pinned side holds down the page (craft.md § 3) */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) and (min-width: 40rem) {
     .pane-scroll figure { animation: fig-in linear both; animation-timeline: view();
@@ -95,7 +94,7 @@ Structure and pin mechanics come from [`components/f2-sticky-scroll-stack.md`](c
 
 ## JS fallback (optional, shared)
 
-When JS is present and `animation-timeline` is not, the one sanctioned fallback is the reveal-once in `craft.md` § 5 - never a scroll listener, never a scrub polyfill:
+When JS is present and `animation-timeline` is not, the one fallback is the reveal-once in `craft.md` § 5, never a scroll listener or a scrub polyfill:
 
 ```html
 <script>
@@ -108,4 +107,4 @@ When JS is present and `animation-timeline` is not, the one sanctioned fallback 
 </script>
 ```
 
-Pair with a 420ms `--ease-out` transition to the end state. Without JS and without support, the base static layout is already the finished page - that is the contract.
+Pair it with a `--dur-long` `--ease-out` transition to the end state, and hide `[data-reveal]` only under the `.js` class the script adds (62). Without script and without support, the static layout is already the finished page.

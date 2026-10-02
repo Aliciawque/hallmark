@@ -6,7 +6,7 @@ A single statement fills the fold; one sentence and one action sit small at its 
 ```html
 <section class="hero-marquee">
   <h1 class="display-xxl">…</h1>
-  <div class="hero-marquee__foot"><p>…</p><a class="link-verb" href="#">…</a></div>
+  <div class="hero-marquee__foot"><p>…</p><a class="link" href="#">…</a></div>
 </section>
 ```
 ```css
@@ -17,7 +17,7 @@ A single statement fills the fold; one sentence and one action sit small at its 
 
 ## Knobs
 
-- Size: 7rem for a single word · 5.5rem for a line
+- Size: the poster clamp shown (`craft.md` § 1) for a head of 20 characters or fewer · `var(--text-display)` for 21 to 50, so the fold still holds the sentence and the action (44b)
 - Alignment: left · centred · right
 - Rule: none · one hairline above · one hairline below
 

@@ -7,18 +7,21 @@ import { createHash } from 'node:crypto';
 const HERE = dirname(fileURLToPath(import.meta.url));
 const THEMES = join(HERE, '..', 'references', 'themes');
 const INDEX = join(THEMES, 'index.json');
-const VERSION = '2.3.0';
+const VERSION = '2.4.0';
 const args = process.argv.slice(2);
 const cmd = args[0];
 const flag = (k, d = null) => { const i = args.indexOf('--' + k); const v = i >= 0 ? args[i + 1] : undefined; return v !== undefined && !String(v).startsWith('--') ? v : d; };
 const has = (k) => args.includes('--' + k);
+const VALUED = new Set(['genre', 'brief', 'log', 'n', 'reroll', 'dealt', 'dir', 'axes', 'face', 'hue', 'entry']);
+const positional = () => { const out = []; for (let i = 1; i < args.length; i++) { const a = args[i]; if (a.startsWith('--')) { if (VALUED.has(a.slice(2))) i++; continue; } out.push(a); } return out; };
+const GENRES = ['editorial', 'modern-minimal', 'atmospheric', 'playful'];
 
 function usage() {
   console.error(`usage:
   node theme.mjs deal --genre <g> --brief "<brief>" [--log .hallmark/log.json] [--n 3] [--reroll 0] [--json]
   node theme.mjs scaffold <slug> [--dealt "<n>/3, seed <seed>"] [--dir .] [--force]
   node theme.mjs scaffold --custom [--dir .] [--force]
-  node theme.mjs check --axes "<paper>/<display>/<accent>" [--face "<display face>"] [--hue <accent hue>] [--log .hallmark/log.json]
+  node theme.mjs check [--axes "<paper>/<display>/<accent>"] [--face "<display face>"] [--hue <accent hue>] [--log .hallmark/log.json]
   node theme.mjs log --entry '<one JSON object>' [--log .hallmark/log.json]
   node theme.mjs index
   node theme.mjs list
@@ -72,12 +75,15 @@ function addLog() {
   let entry;
   try { entry = JSON.parse(flag('entry', '')); } catch { entry = null; }
   if (!entry || Array.isArray(entry) || typeof entry !== 'object') { console.error('--entry takes one JSON object, the build\'s log entry'); process.exit(2); }
+  if (!entry.date) entry.date = new Date().toISOString().slice(0, 10);
+  const missing = ['shape', 'theme', 'axes', 'hero', 'nav', 'footer', 'enrichment', 'entry', 'fingerprint', 'signature', 'brief'].filter((k) => !entry[k]);
+  if (existsSync(file)) { try { JSON.parse(readFileSync(file, 'utf8')); } catch { console.error(`${file} is not valid JSON; fix it or move it aside, nothing was written`); process.exit(1); } }
   const next = [entry, ...readLog(file)].slice(0, 20);
   mkdirSync(dirname(file), { recursive: true });
   const tmp = `${file}.${process.pid}.tmp`;
   writeFileSync(tmp, JSON.stringify(next, null, 1) + '\n');
   renameSync(tmp, file);
-  console.log(`logged ${entry.shape || '?'} in ${entry.theme || '?'} at the top of ${file} (${next.length} of 20)`);
+  console.log(`logged ${entry.shape || '?'} in ${entry.theme || '?'} at the top of ${file} (${next.length} of 20)${missing.length ? `; missing ${missing.join(', ')}, which Rotation reads, so log them` : ''}`);
 }
 
 function readLog(p) {
@@ -93,7 +99,6 @@ function contrastOf(f, b) {
 }
 
 const triple = (t) => `${t.paper.band}/${t.display.class}/${t.accent.band}`;
-const sameTriple = (a, b) => a === b;
 const words = (s) => (s || '').toLowerCase().replace(/[^a-z0-9\s-]/g, ' ').split(/\s+/).filter((w) => w.length > 2);
 const ASK = new Set(['build', 'make', 'create', 'design', 'need', 'want', 'please', 'page', 'site', 'website', 'landing', 'called', 'for', 'and', 'the', 'with', 'that', 'this', 'our', 'your']);
 const briefWords = (s) => words(s).filter((w) => !ASK.has(w));
@@ -113,7 +118,7 @@ function pickFrom(pool, n, exclude) {
   if (!avail.length) return picked;
   picked.push(avail[0]);
   const rest = () => avail.filter((s) => !picked.includes(s));
-  if (rest().length) {
+  if (n >= 2 && rest().length) {
     const best = rest()[0];
     const other = rest().find((s) => s.t.paper.band !== picked[0].t.paper.band && s.fit >= best.fit - 2 && tripleOf(s) !== tripleOf(picked[0]));
     picked.push(other || rest().find((s) => tripleOf(s) !== tripleOf(picked[0])) || best);
@@ -127,6 +132,7 @@ function pickFrom(pool, n, exclude) {
 
 function deal() {
   const genre = flag('genre', 'editorial');
+  if (!GENRES.includes(genre)) { console.error(`unknown genre "${genre}" (valid: ${GENRES.join(', ')})`); process.exit(2); }
   const brief = flag('brief', '');
   const n = Number(flag('n', 3));
   const reroll = Number(flag('reroll', 0));
@@ -146,7 +152,7 @@ function deal() {
     let fit = 0; const hits = [];
     for (const k of t.keywords) { const kw = k.toLowerCase().split(/\s+/).map(stem); if (kw.every((w) => bw.has(w))) { fit += 3; hits.push(k); } }
     if (t.genre === genre) fit += 2; else fit -= 1;
-    const blocked = recentNames.has(t.name.toLowerCase()) || (lastAxes && sameTriple(lastAxes, triple(t)));
+    const blocked = recentNames.has(t.name.toLowerCase()) || (lastAxes && lastAxes === triple(t));
     const sibling = occupiedAxes.has(triple(t));
     if (sibling && !blocked) fit -= 1;
     return { t, fit, hits, blocked, sibling, r: rand() };
@@ -155,16 +161,16 @@ function deal() {
   const previously = new Set();
   for (let r = 0; r < reroll; r++) for (const p of pickFrom(pool, n, previously)) previously.add(p.t.slug);
   const picked = pickFrom(pool, n, previously);
+  if (!picked.length) { console.error(`nothing left to deal at reroll ${reroll}; use a lower --reroll`); process.exit(1); }
 
   if (has('json')) { console.log(JSON.stringify({ seed: seedKey, genre, deal: picked.map((s) => ({ ...s.t, fit: s.fit, hits: s.hits })), avoided: [...recentNames] })); return; }
   console.log(`deal: ${seedKey} · genre ${genre}${reroll ? ` · reroll ${reroll}` : ''}`);
   picked.forEach((s, i) => {
     const why = s.hits.length ? `fits: ${s.hits.slice(0, 4).join(', ')}` : (s.t.genre === genre ? 'genre fit' : 'adjacent genre');
-    console.log(`${i + 1}. ${s.t.name} · ${triple(s.t)} · ${s.t.material} · ${why} · ${s.t.file}${s.t.picture ? ` + ${s.t.picture}` : ''}${s.t.pictured ? ` (pictured as ${s.t.pictured})` : ''}`);
+    console.log(`${i + 1}. ${s.t.name} (${s.t.slug}) · ${triple(s.t)} · ${s.t.material} · ${why}${s.t.picture ? ` · ${s.t.picture}` : ''}${s.t.pictured ? `, pictured as ${s.t.pictured}` : ''}`);
   });
   if (recent.length) console.log(`avoid: ${recent.map((r) => `${r.theme || '?'} (${r.axes || 'no axes'})`).join(' · ')}`);
-  else console.log('avoid: nothing logged yet (first run for this project)');
-  console.log(`next: look at the three pictures side by side and pick the material this brief wants (a picture in your own shape asks for a different section order), then node <skill-dir>/scripts/theme.mjs scaffold <slug> --dealt "<n>/${n}, seed ${seedKey}"`);
+  console.log(`next: look at the pictures, pick the material this brief wants, read references/themes/<slug>.md, then theme.mjs scaffold <slug> --dealt "<n>/${picked.length}, seed ${seedKey}"`);
 }
 
 const PAPER_BANDS = new Set(['light', 'mid', 'dark']);
@@ -174,9 +180,10 @@ const listOf = (set) => [...set].join(', ');
 
 function check() {
   const axes = flag('axes');
-  if (!axes) { usage(); process.exit(2); }
-  const [pb, dc, ab] = axes.split('/').map((s) => s.trim());
-  const unknown = !PAPER_BANDS.has(pb) ? `paper band "${pb}" (valid: ${listOf(PAPER_BANDS)})`
+  if (!axes && !flag('face')) { usage(); process.exit(2); }
+  if (!axes && flag('hue') != null) { console.error('--hue needs --axes (the hue is checked against themes on the same paper band and display class)'); process.exit(2); }
+  const [pb, dc, ab] = (axes || '//').split('/').map((s) => s.trim());
+  const unknown = !axes ? null : !PAPER_BANDS.has(pb) ? `paper band "${pb}" (valid: ${listOf(PAPER_BANDS)})`
     : !DISPLAY_CLASSES.has(dc) ? `display class "${dc}" (valid: ${listOf(DISPLAY_CLASSES)})`
     : !ACCENT_BAND.test(ab || '') ? `accent band "${ab}" (valid: warm, cool, neutral, chromatic-<hue name>)` : null;
   if (unknown) { console.error(`unknown ${unknown}`); process.exit(2); }
@@ -185,7 +192,7 @@ function check() {
   const themes = loadIndex();
   const log = readLog(flag('log', '.hallmark/log.json'));
   let bad = 0;
-  for (const t of themes) {
+  if (axes) for (const t of themes) {
     if (t.paper.band === pb && t.display.class === dc && t.accent.band === ab) { bad++; console.log(`collision: ${t.name} owns ${triple(t)} · move one axis, accent first`); }
   }
   if (face) for (const t of themes) {
@@ -193,11 +200,11 @@ function check() {
     if (tf === face || tf.includes(face) || face.includes(tf)) { bad++; console.log(`collision: ${t.name} already sets its display in ${t.display.face} · pick a face no theme uses (fonts.md)`); }
   }
   if (hue != null) for (const t of themes) {
-    if (t.paper.band === pb && t.display.class === dc && hueGap(t.accent.hue, hue) <= 20) { bad++; console.log(`adjacent: ${t.name} is ${triple(t)} at hue ${t.accent.hue} · move the accent hue 40 degrees or more, or change the display class`); }
+    if (t.paper.band === pb && t.display.class === dc && hueGap(t.accent.hue, hue) <= 20) { bad++; console.log(`adjacent: ${t.name} is ${triple(t)} at hue ${t.accent.hue} · move the accent hue more than 20 degrees (40 reads as another colour), or change the display class`); }
   }
-  const recent = log.slice(0, 3).filter((r) => r.axes === axes);
+  const recent = axes ? log.slice(0, 3).filter((r) => r.axes === axes) : [];
   for (const r of recent) { bad++; console.log(`recent: ${r.theme || 'a build'} on ${r.date || '?'} used ${axes}`); }
-  if (!bad) { console.log(`clear: ${axes}${face ? ` in ${face}` : ''}${hue != null ? ` at hue ${hue}` : ''} lands on no catalog theme and no recent build`); return; }
+  if (!bad) { console.log(axes ? `clear: ${axes}${face ? ` in ${face}` : ''}${hue != null ? ` at hue ${hue}` : ''} lands on no catalog theme and no recent build` : `clear: no catalog theme sets its display in ${flag('face')}`); return; }
   process.exitCode = 1;
 }
 
@@ -217,7 +224,7 @@ const SCALE = `  --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1); --ease-in: cubic-bezier(0.7, 0, 0.84, 0); --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --dur-micro: 120ms; --dur-short: 220ms; --dur-long: 420ms;
   --color-error: oklch(52% 0.19 27); --color-success: oklch(50% 0.12 150);
-  --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap: 144px;
+  --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap-s: 120px; --section-gap: 144px; --section-gap-l: 200px;
   --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;`;
 
 const CUSTOM_TOKENS = `  --color-paper: FILL ME; --color-paper-2: FILL ME; --color-paper-3: FILL ME;
@@ -229,7 +236,7 @@ const CUSTOM_TOKENS = `  --color-paper: FILL ME; --color-paper-2: FILL ME; --col
   --tracking-display: -0.02em;`;
 
 const BASE = `html, body { overflow-x: clip; }
-html { scrollbar-color: var(--color-muted) var(--color-paper); }
+html { scrollbar-color: var(--color-muted) var(--color-paper); scroll-padding-top: var(--space-3xl); }
 body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); font-size: var(--text-md); line-height: 1.55; -webkit-font-smoothing: antialiased; caret-color: var(--color-accent); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 22%, transparent); color: var(--color-ink); }
 :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
@@ -243,18 +250,19 @@ svg { display: block; }
 button, input, select, textarea { font: inherit; }
 .container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); box-sizing: border-box; }
 .num, .figure, td.num { font-variant-numeric: tabular-nums; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 [data-slot] { position: relative; overflow: hidden; }
 [data-slot] > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
 [data-slot]:has(> img) > :not(img):not([data-keep]) { display: none !important; }
-@media (max-width: 60rem) { :root { --gutter: 24px; --section-gap: 96px; } }
-@media (max-width: 40rem) { :root { --gutter: 16px; --section-gap: 72px; --gap-columns: 16px; } }
+@media (max-width: 60rem) { :root { --gutter: 24px; --section-gap-s: 80px; --section-gap: 96px; --section-gap-l: 136px; } }
+@media (max-width: 40rem) { :root { --gutter: 16px; --section-gap-s: 56px; --section-gap: 72px; --section-gap-l: 96px; --gap-columns: 16px; } }
 @media (prefers-reduced-motion: reduce) { *:not(.keep-motion), *:not(.keep-motion)::before, *:not(.keep-motion)::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }`;
 
 const SLOTS_JS = `window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(\`[data-slot="\${k}"]\`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.prepend(im); } };`;
 
 function scaffold() {
   const custom = has('custom');
-  const slug = custom ? null : args.slice(1).find((a) => !a.startsWith('--'));
+  const slug = custom ? null : positional()[0];
   if (!custom && !slug) { usage(); process.exit(2); }
   const dir = resolve(flag('dir', '.'));
   let name = 'custom world';
@@ -269,30 +277,31 @@ function scaffold() {
     tokens = tokenBlockOf(src, file);
   }
   const out = join(dir, 'tokens.css');
-  if (existsSync(out) && !has('force')) { console.error(`${out} exists; pass --force to overwrite it`); process.exit(1); }
+  const baseOut = join(dir, 'base.css');
+  for (const f of [out, baseOut]) if (existsSync(f) && !has('force')) { console.error(`${f} exists; pass --force to overwrite it`); process.exit(1); }
   mkdirSync(dir, { recursive: true });
-  const scale = header && header.paper.band === 'dark' ? SCALE.replace('--color-error: oklch(52% 0.19 27); --color-success: oklch(50% 0.12 150);', '--color-error: oklch(72% 0.15 27); --color-success: oklch(76% 0.13 150);') : SCALE;
-  const css = `:root {\n${scale}\n${tokens}\n}\n`;
+  const dark = header && header.paper.band === 'dark';
+  const scale = dark ? SCALE.replace('--color-error: oklch(52% 0.19 27); --color-success: oklch(50% 0.12 150);', '--color-error: oklch(72% 0.15 27); --color-success: oklch(76% 0.13 150);') : SCALE;
+  const css = `:root {\n${header ? `  color-scheme: ${dark ? 'dark' : 'light'};\n` : ''}${scale}\n${tokens}\n}\n`;
   writeFileSync(out, css);
+  const own = !custom && /## Build hint[\s\S]*?(::selection\s*\{[^}]*\})/.exec(readFileSync(join(THEMES, `${slug}.md`), 'utf8'));
+  writeFileSync(baseOut, (own ? BASE.replace(/::selection \{[^}]*\}/, own[1].replace(/\s+/g, ' ')) : BASE) + '\n');
   const stamp = custom
     ? `/* Hallmark · shape: <shape> · genre: <genre> · theme: custom · direction: "<drawn, n/7>" · vibe: "<4 to 8 words>"\n * paper: oklch(<>) · accent: oklch(<>) · display: <face> · body: <face> · hero: <posture> · nav: <shape> · footer: <shape> · enrichment: <none or the file> · signature: <the one move>\n * axes: <paper>/<display>/<accent> · posture: <posture> · seed: <key> · challenger: <name> (<verdict or raise>) · contract: <after the finish review> · contrast: pass · fold: pass · v${VERSION} */`
     : `/* Hallmark · shape: <shape> · genre: ${header.genre} · theme: ${name} (${flag('dealt', '') ? `deal ${flag('dealt', '')}` : 'by request'})\n * hero: <posture> · nav: <shape> · footer: <shape> · enrichment: <none or the file> · signature: <the one move>\n * axes: ${triple(header)} · posture: ${header.posture} · contrast: pass · fold: pass · v${VERSION} */`;
-  console.log(`wrote ${out} (${custom ? 'the shared scale; fill every --color-* and --font-* from direction.md § B and § C before building' : `${name} tokens plus the shared scale`})`);
-  if (!custom) {
+  console.log(`wrote ${out} (${custom ? 'the shared scale; fill every --color-* and --font-* from direction.md § B and § C before building' : `${name} tokens plus the shared scale`}) and ${baseOut} (the base rules the Floor already decided)`);
+  if (!custom && !flag('dealt', '')) {
     const pic = join(THEMES, `${slug}.jpg`);
     if (existsSync(pic)) console.log(`look at ${pic}: the material at full size${header.pictured ? `, from a page built as ${header.pictured}` : ''}. Take its scale, density and objects, not its layout or its section order.`);
   }
   console.log('');
-  console.log('paste under the stamp, before any rule of your own:');
-  console.log('');
+  console.log('start the page\'s stylesheet with these lines, then write only the page:');
   console.log(stamp);
   console.log('/* Hallmark · pre-emit critique: P_ H_ E_ S_ R_ V_ · weakest: _, <what you did about it> */');
   console.log('@import url("./tokens.css");');
-  const own = !custom && /## Build hint[\s\S]*?(::selection\s*\{[^}]*\})/.exec(readFileSync(join(THEMES, `${slug}.md`), 'utf8'));
-  console.log(own ? BASE.replace(/::selection \{[^}]*\}/, own[1].replace(/\s+/g, ' ')) : BASE);
+  console.log('@import url("./base.css");');
   console.log('');
   console.log('and, only if the page has data-slot containers, once before </body>:');
-  console.log('');
   console.log(`<script>${SLOTS_JS}</script>`);
 }
 
@@ -322,6 +331,14 @@ function validate(files) {
         const isDisplay = /\.display|h1|h2|\.marquee|wordmark/.test(line);
         if (ls && parseFloat(ls[1]) > 0.045) problems.push(`uppercase tracked ${ls[1]}em in the build hint (gate 67)`);
         else if (!isDisplay && /label|caption|meta|\bth\b|small|tag|chip|badge|nav|count/.test(line)) problems.push(`uppercase label rule in the build hint: ${line.trim().slice(0, 60)} (gate 67)`);
+      }
+      const hint = (/## Build hint[\s\S]*?```css\n([\s\S]*?)```/.exec(src) || [])[1] || '';
+      for (const m of hint.matchAll(/(?:transition|animation)[^;{}]*?\b(\d{2,3})ms\b/g)) problems.push(`raw duration ${m[1]}ms in the build hint (use --dur-micro, --dur-short or --dur-long)`);
+      if (/(?:transition|animation)[^;{}]*(?<![-\w])ease(?:-in-out|-in|-out)?\b/.test(hint)) problems.push('bare ease keyword in the build hint (use --ease-out, --ease-in or --ease-in-out)');
+      for (const m of hint.matchAll(/(?<![-\w])(black|white)\b(?!-)/g)) problems.push(`named colour ${m[1]} in the build hint (route it through a token)`);
+      for (const m of hint.matchAll(/\b(?:padding|margin|gap|row-gap|column-gap)(?:-[a-z-]+)?\s*:\s*([^;{}]+)/g)) {
+        const raw = m[1].replace(/var\([^)]*\)/g, ' ').replace(/calc\([^)]*\)/g, ' ');
+        for (const px of raw.match(/(?<![\w.-])(\d+)px\b/g) || []) if ([2, 4, 8, 12, 16, 24, 40, 64, 96, 144].includes(parseInt(px, 10))) problems.push(`raw ${px} spacing in the build hint where a --space-* token exists (24a)`);
       }
       const fence = tokenBlockOf(src, f);
       if (/\/\*/.test(fence)) problems.push('comment inside the token block');

@@ -1,7 +1,7 @@
 ### T1 · Pull-quote with marginalia
 A quote sits in the wide column; the attribution and source link sit in the narrow margin column. The quote and the name are the user's material, verbatim; without both the block does not ship (46a).
 *Use when:* the page already has a marginalia rhythm (editorial, sidenote-led).
-*Don't confuse with:* T3 Single huge quote (which is centred and takes the room).
+*Not:* T3 (centred, and it takes the room).
 
 ```html
 <aside class="proof-margin">
@@ -23,4 +23,6 @@ A quote sits in the wide column; the attribution and source link sit in the narr
 - Attribution: name and role · name and date · name and a source link
 - Marginalia: attribution only · one footnote beside it
 
-*Mobile:* below 60rem the margin column moves under the quote and the columns become one.
+## Mobile
+
+- Below 60rem: one column, the margin column under the quote.

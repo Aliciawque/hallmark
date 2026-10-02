@@ -5,9 +5,9 @@ The typeface is the design. Foundry pages and design systems where a custom face
 - **Heading:** the typeface set at several sizes, demonstrating what it does.
 - **Body:** a progressive demonstration: display size, body size, italic, language coverage, OpenType features.
 - **Divider:** a `<figcaption>` under each specimen; a caption below is legal, a label above is an eyebrow (54).
-- **Button:** an outlined "Buy the family" or "Use it" at the foot.
+- **Button:** one outlined action ("Buy the family") in the fold (44b), returning at the foot.
 - **Image:** none; the typography is the imagery.
-- **Reveal:** type-unmask on the first paint of each specimen block.
+- **Reveal:** one type-unmask, on the first specimen as it paints; the rest is simply there.
 
 Reach for it for type foundries, design systems where a custom face is the differentiator, font product pages.
 

@@ -1,13 +1,13 @@
 ### N7 · Brutal slab
 A heavy full width bar: a 2px ink rule beneath, the wordmark in the display face, a heavy sentence-case link row, no shadow, no radius.
-*Use when:* the genre is playful (Brutal, Manifesto, Sport) or the voice is heavy and declarative.
+*Use when:* the voice is heavy and declarative: a loud playful page, or a theme like Brutal, Manifesto or Sport.
 *Not:* N9 (small, quiet). Radius, soft shadow or blur fight this vocabulary: reach for blur and it is N5. The wordmark may be capitals, tracked 0.04em at most (67 allows the wordmark); the links are sentence case.
 
 ```html
 <header class="nav-slab">
   <a class="slab-wordmark" href="/" aria-label="Studio, home">STUDIO</a>
   <nav class="slab-nav" aria-label="Primary">
-    <ul><li><a href="/catalog">Catalog</a></li><li><a href="/voice">Voice</a></li><li><a href="/work">Work</a></li></ul>
+    <ul><li><a href="/catalog">Catalogue</a></li><li><a href="/voice">Voice</a></li><li><a href="/work">Work</a></li></ul>
   </nav>
   <a class="cta-fill cta-fill--slab" href="/get">Get it</a>
 </header>
@@ -27,4 +27,4 @@ A heavy full width bar: a 2px ink rule beneath, the wordmark in the display face
 
 ## Mobile
 
-- Below 60rem: the links wrap to a second line; the action stays right. Below 40rem: the links go behind a menu; wordmark and menu only.
+- Below 60rem: links that no longer fit go behind a menu; the action stays right. Below 40rem: wordmark and menu only.

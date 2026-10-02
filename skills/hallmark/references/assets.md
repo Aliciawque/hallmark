@@ -1,338 +1,121 @@
-# Assets, sourcing canon for icons, logos, illustrations, photography, video
+# Assets: sources for icons, logos, illustration, photography and video
 
-This file is loaded when an enrichment archetype actually needs an external asset (load-on-demand). It catalogues the *3 to 5 canonical sources per category*, the licence terms, the import patterns, the rules for using them, and the sources to avoid.
+Loaded when an enrichment needs an external asset. Before reaching here, two questions in order: does the brief want imagery at all ([`hero-enrichment.md`](hero-enrichment.md) § Image-need check), and can it be built by hand ([`custom-craft.md`](custom-craft.md))? This file is for when both answers send you here.
 
-**The reflex.** Before reaching here, ask two questions in order: (1) Does the brief actually need imagery at all? See [`hero-enrichment.md` § Image-need detection](hero-enrichment.md). (2) If yes, can it be hand-built? See [`custom-craft.md`](custom-craft.md). The assets in this file are for the moments when both answers send you here.
+## Placeholder order
 
----
+When imagery is needed and the user has not supplied it, take the first that fits:
 
-## Placeholder strategy
+1. **A demo slot** (`craft.md` § 8): a `data-slot` container with a designed placeholder in the theme's colours and one corner label. The default for every product capture and every photo the user will supply.
+2. **The imagery kit** ([`imagery-kit.md`](imagery-kit.md)): manifest-listed washes, brushstrokes, marks and textures, only where a listed file fits.
+3. **A hand-built composition** (tier B in [`custom-craft.md`](custom-craft.md)): a stamp, a mark, a colour-blocked figure, when the kit does not carry the register.
 
-When imagery is needed *and* the user hasn't supplied real assets, pick from this canon, in order. Skipping tiers is the slop move.
+A placeholder reads as a slot, never as content: no random stock photo, no kitten service, no kit image standing in for a real product photo. Alt text (or the slot's `data-alt`) describes the intended subject, so it is already right when the real image lands.
 
-| # | Source | When |
-| --- | --- | --- |
-| 0 | **Demo slot with a designed placeholder** ([`craft.md` § 8](craft.md)) - a `data-slot` container in a theme-fitting frame holding a gradient in the theme's colours and a corner label | Any slot that will hold the user's own screenshot or photo later. The default for product heroes and demo strips; the user drops an image in and the placeholder hides. |
-| 1 | **Hallmark imagery kit** ([`imagery-kit.md`](imagery-kit.md)): manifest-listed assets: washes, brush gestures, wordmark marks, textures, app-screen frames, and studio portraits for a team or byline slot the user will fill with the real person | Brief allows non-photographic imagery, or needs a wordmark mark or an app screenshot. Preferred when a listed asset fits; never emit a kit URL that is not in the manifest. |
-| 2 | **Hand-built SVG composition** (Tier B from custom-craft.md) | Editorial-typographic brief where "imagery" can be a stamp / wordmark / colour-blocked composition. Use when the kit doesn't carry the register. |
-| 3 | **Picsum**, `https://picsum.photos/seed/<seed>/<w>/<h>` | Generic photo slot for scenery or objects, keyword anchoring not critical. Use a deterministic seed (brand name plus slot name) so the same render produces the same image. Never a person, a face or a portrait as social proof (F9). |
-| 4 | **Local `public/placeholder-<type>.{jpg,svg}`** | Self-contained projects with no third-party dependencies. One neutral SVG checked into the repo. |
-
-**Swappability, non-negotiable:**
-
-- Every placeholder image carries an HTML comment immediately above it: `<!-- TODO: Replace with real <thing>, target size: <WxH> -->`.
-- All placeholder URLs reference a single constant, a `--placeholder-base` CSS variable or `PLACEHOLDER_BASE` config constant. User edits one place to swap the entire site.
-- Alt text describes the **intended** subject ("Hand-thrown ceramic mug, top-down on linen") not the placeholder ("Picsum image"). When the user swaps in the real photo, alt is already correct.
-
-**Remote asset safety:**
-
-- Treat third-party image, logo, video, icon, and font URLs as prototype defaults, not production defaults. Before shipping production code, prefer vendored or self-hosted assets unless the user explicitly wants third-party hosting.
-- Do not add a third-party script, tracking pixel, widget, or API dependency as an asset shortcut. Asset sources provide files; they do not get to execute code in the page.
-- When remote assets remain in production, state the privacy and availability tradeoff in the handoff: visitors will request those third-party hosts, and the page depends on their uptime and integrity.
-- For user-supplied brand or customer logos, prefer official asset pages or checked-in files. Do not hotlink a logo from an unrelated site.
-
-**Anti-patterns:**
-
-- Never inline base64 placeholder images (bloats CSS).
-- Never use kittens / lorempixel / "tiger.jpg" / cute-default services. The placeholder must read as an obvious slot, not as content.
-- Never ship a kit image where the brief actually calls for a real product photo (e.g. abstract bottle for an actual coffee-shop hero). The kit is for atmosphere; photos are for subject.
-
----
+**Remote assets** are prototype defaults: before production, prefer vendored or self-hosted files. An asset source supplies files, never scripts, pixels or widgets. When a page keeps third-party hosting, the handoff says so (privacy, uptime). A customer's logo comes from their own asset page or the user's files, never hotlinked from an unrelated site.
 
 ## Icons
 
-### Canon
+| Library | Count | Best for |
+| --- | --- | --- |
+| [Lucide](https://lucide.dev) | 1,600+ | The default for product and developer pages |
+| [Phosphor](https://phosphoricons.com) | 9,000+ in six weights | Several weights of one icon without mixing sets |
+| [Heroicons](https://heroicons.com) | about 300 | Tailwind and shadcn projects |
+| [Tabler](https://tabler.io/icons) | 5,900+ | Breadth, when the others lack a symbol |
+| [Iconoir](https://iconoir.com) | about 1,500 | A lighter, rounder stroke |
 
-| Library | URL | Count | Best for |
-| --- | --- | --- | --- |
-| **[Lucide](https://lucide.dev)** | `lucide.dev` | 1,600+ | Modern SaaS / dev-tool default. The 2026 baseline. Active maintenance. |
-| **[Phosphor Icons](https://phosphoricons.com)** | `phosphoricons.com` | 9,000+ across 6 weights (thin / light / regular / bold / fill / duotone) | Tonal variants without mixing sets. The right pick when you need different *weights* of the same icon for emphasis. |
-| **[Heroicons](https://heroicons.com)** | `heroicons.com` | ~300 | Tailwind / shadcn projects. Tightly curated, opinionated. |
-| **[Tabler Icons](https://tabler-icons.io)** | `tabler-icons.io` | 5,900+ on a 24×24 grid | Breadth, when neither Lucide nor Heroicons covers the symbol you need. |
-| **[Iconoir](https://iconoir.com)** | `iconoir.com` | ~1,500 | Hand-drawn character with a generous free tier. |
-
-### The rules
-
-1. **Pick one library per project.** Mixing Material + Heroicons + Lucide on the same page is the icon-set tell. The linter's gate 30b catches this.
-2. **Sizes 16 / 20 / 24 / 32 only.** Snap to grid. 18-px icons don't exist in this canon.
-3. **Stroke 2 px default** (most libraries' regular weight). Switch to bold (2.5 px) only for icons under 20 px or as emphasis.
-4. **Monochrome with `currentColor`.** Icons inherit text colour. Brand-coloured icons only on the singular primary CTA, not as decoration.
-5. **No emoji-as-icon.** Emoji break alignment, accessibility, and brand consistency. Use a real icon library.
-
-### Import patterns
+1. **One library per page** (30b); a brand or platform mark in at most two slots is the exception.
+2. **Sizes 16, 20, 24 and 32** at the set's own grid, `currentColor`, the regular stroke (bold only under 20px or for emphasis).
+3. **Never an emoji as an icon** (30a), never an icon in a coloured coin (F5).
+4. Avoid Font Awesome's free set (the generic-glyph look), Material Icons outside a Material project, and any pack whose strokes disagree.
 
 ```jsx
-// Lucide, React (most common)
-import { ArrowRight, Check, X } from "lucide-react";
-<ArrowRight size={20} strokeWidth={2} />
-
-// Phosphor, React, with weight prop
-import { ArrowRight } from "@phosphor-icons/react";
-<ArrowRight size={20} weight="regular" />
-
-// Heroicons, React or static HTML
-import { ArrowRightIcon } from "@heroicons/react/24/outline";
-
-// Tabler, vanilla HTML via CDN
-<svg width="20" height="20"><use href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/icons/arrow-right.svg" /></svg>
+import { Check } from "lucide-react";
+<Check size={20} strokeWidth={2} aria-hidden="true" />
 ```
 
-### Avoid
+## Brand and customer logos
 
-- **Font Awesome free**, bloated, dated. the icon-in-a-coin look; 600+ generic glyphs that all read as "I picked the icons before designing the page".
-- **Material Icons in a non-Material project**, gives a Google look that doesn't match anything else.
-- **Icon packs with inconsistent stroke widths**, pick a library whose icons share weight; eclectic mixes read as random.
-- **Emoji as semantic icons**, colour, size, weight, alignment all uncontrolled.
+| Source | Best for |
+| --- | --- |
+| [Simple Icons](https://simpleicons.org) | 3,400+ monochrome SVG marks with each brand's hex |
+| [SVGL](https://svgl.app) | A smaller, hand-checked set |
+| The brand's own media page | Always first when accuracy matters |
 
----
-
-## Brand / company logos
-
-### Canon
-
-| Source | URL | Count | Best for |
-| --- | --- | --- | --- |
-| **[Simple Icons](https://simpleicons.org)** | `simpleicons.org` | 3,400+ | Monochrome SVG plus the official hex per brand. MIT licensed. |
-| **[SVGL](https://svgl.app)** | `svgl.app` | 600+ | Curated, hand-picked, no spam. Higher quality bar than Simple Icons. |
-| **[theSVG](https://thesvg.org)** | `thesvg.org` | 4,000+ with dark/light/mono/wordmark variants | npm + MCP server for AI. Superset over Simple Icons if your stack supports it. |
-| **[Brandfetch](https://brandfetch.com)** | `brandfetch.com` | 22M+ brands | Paid API. Logo + colours + fonts + guardrails. Useful when building a CMS / form that asks "what's your domain?" and back-fills the brand. |
-| **Official brand asset pages** | Per company |, | Always check first if accuracy matters. Most brands ship a media-kit page (e.g., `vercel.com/design`). |
-
-### The rules
-
-0. **A logo wall exists only with the user's own customers or partners** (46a). Without them: a labelled `data-slot="logos"` sized for the count the user gave, or no wall. Never a template's ACME, Initech or Hooli.
-1. **Logo walls: monochrome only.** Use Simple Icons' default colour or the official monochrome variant. Mixed full-colour logos fight the page.
-2. **Height-aligned, not width-aligned.** Pick a baseline (typically 32 to 48 px height) and let the width float. Brand proportions matter; stretching is a tell.
-3. **2 to 3× height as gutter.** Logos need breathing room. A wall with 32-px logos wants 64 to 96-px gutters.
-4. **No hairline borders, no glow halos.** Just the marks on the page.
-
-### Import patterns
+1. **A logo wall exists only with the user's own customers or partners** (46a). Without them: a `data-slot="logos"` sized for the count the user gave, or no wall; never ACME, Initech or Hooli.
+2. **Monochrome**, one treatment per wall (all marks or all wordmarks), aspect ratio kept.
+3. **Height-aligned:** 32 to 48px tall in a wall (20 to 28px in a footer, `craft.md` § 9), gaps two to three times the height, no borders, no halos.
 
 ```html
-<!-- Simple Icons via CDN, easiest -->
-<img src="https://cdn.simpleicons.org/github" alt="GitHub" height="32">
-<img src="https://cdn.simpleicons.org/figma/aaaaaa" alt="Figma" height="32"> <!-- monochrome override -->
-
-<!-- npm -->
-<!-- npm install simple-icons -->
-import { siGithub } from 'simple-icons/icons';
-<svg viewBox="0 0 24 24"><path d={siGithub.path} fill="currentColor" /></svg>
-
-<!-- SVGL via API -->
-<img src="https://api.svgl.app/?slug=vercel" alt="Vercel">
+<img src="https://cdn.simpleicons.org/github/888888" alt="GitHub" height="32">
 ```
 
-### Avoid
+## Generated stills (tier E)
 
-- **Full-colour logo grids.** Visual chaos; reads as 2018.
-- **Stretched / squished marks.** Always preserve aspect ratio.
-- **Mixing wordmarks with marks.** Pick a treatment (all-monogram or all-wordmark) for any single wall.
+Only when the user asked for a generated image and `TOGETHER_API_KEY` is set: [`scripts/imagegen.mjs`](../scripts/imagegen.mjs) calls Together AI (FLUX.1.1 pro by default; `--model` takes another model id Together serves) and writes a provenance sidecar. A model run by hand elsewhere is fine when the user supplies the output. The discipline is in `craft/tier-e-generated.md`:
 
----
+1. **Always post-process:** grain, an asymmetric crop, a colour grade toward the theme's paper. Raw output looks generated.
+2. **Prompt for specifics:** one concrete subject in one pose, a named style (*risograph print*, *ink line drawing*), an off-centre crop, a named light, and a negative clause (*no mesh gradient, no aurora, no symmetric layout, no people smiling at laptops*).
+3. **Stamp the provenance:** `generated: <model> via imagegen.mjs · post-processed`.
+4. **No animation** assembled from stills.
 
-## Generated illustration (the enrichment ladder's generated-still rung; craft tier-e)
+## Library illustration (tier F, last resort)
 
-When characters or specific scenes can't be hand-built economically. **Always post-process.** See [`custom-craft.md`](custom-craft.md) Tier E for full discipline.
+| Source | Licence |
+| --- | --- |
+| [Humaaans](https://www.humaaans.com) | CC0 |
+| [Open Peeps](https://www.openpeeps.com) | CC0 |
+| [unDraw](https://undraw.co) | Free, own licence |
+| [Storyset](https://storyset.com) | Free with attribution |
 
-### Canon
-
-| Model | URL | Cost | Best for | Output |
-| --- | --- | --- | --- | --- |
-| **[Nanobanana 2 / Gemini 2.5 Flash Image](https://ai.google.dev/gemini-api/docs/image-generation)** | Google AI | $0.039 / image | Character consistency across panels, fast iteration, brand-style adherence via reference images, infographics with text | PNG (transparent supported) |
-| **[Recraft V4](https://www.recraft.ai/)** | recraft.ai | ~$0.04 / image | **The only model with production-grade SVG output.** Logos, icons, illustrations that need to scale. | SVG + PNG |
-| **[Midjourney v8](https://www.midjourney.com)** | midjourney.com | ~$0.14 / image | Aesthetic beauty, atmospheric stills, artistic direction | PNG |
-| **[Flux 2](https://blackforestlabs.ai/)** | blackforestlabs.ai | ~$0.03 / image | Photorealism, skin, fabric, product detail, hands | PNG |
-
-### The rules
-
-1. **Always post-process.** Add grain, asymmetric crop, hand-drawn overlays, colour grading. Raw model output reads as AI 100 % of the time.
-2. **Use reference images** for brand consistency. Nanobanana 2's character-consistency feature is its differentiator vs. Midjourney; feed it your brand assets so generations stay on-style.
-3. **Name the model in the Hallmark stamp** (`generated: nanobanana-2 · post-processed`). Provenance matters.
-4. **Verify SynthID watermark** is present on Google-generated images.
-5. **No animation.** None of these models output multi-frame; assemble via custom-craft if motion is needed.
-
-### Avoid
-
-- **Symmetrical compositions**, algorithmic; the AI tell. Always crop asymmetrically.
-- **Smooth-mesh-blob faces**, the 2024 generic AI character look.
-- **Default lighting + blue-tinted backgrounds**, the generic AI aesthetic. Specify brand-anchored colour and unusual lighting in the prompt.
-- **Six fingers / doubled furniture / impossible rooms**, less common in 2026 but still lurking. Inspect.
-- **Shipping unmodified output**, see rule 1.
-
-### Prompting recipe (Nanobanana 2)
-
-```
-Subject: <one specific concrete subject> in <one specific concrete pose>.
-Style: <named style, "risograph print", "1960s editorial illustration",
-        "ink-on-paper line drawing", NOT "modern flat" or "clean illustration">.
-Composition: asymmetric, <off-centre subject>, <unusual crop>.
-Lighting: <named lighting, "side-lit, late afternoon", "overcast diffuse">.
-Reference: <attach brand asset / mood board for character consistency>.
-Constraints: no smooth mesh-gradient, no aurora background, no symmetric layout,
-             no smiling people-on-laptops poses.
-```
-
-A specific prompt produces a specific image. A generic prompt produces the AI tell.
-
----
-
-## Library illustrations (Tier D, not first choice)
-
-When budget and timeline force a shortcut and even a generated still is overkill.
-
-### Canon
-
-| Source | URL | Licence | Best for |
-| --- | --- | --- | --- |
-| **[Storyset](https://storyset.com)** | storyset.com (Freepik) | Free with attribution; paid removes | Animated SVG illustrations with toggleable element animation and on-site colour customisation. Onboarding flows, feature explanations. |
-| **[Humaaans](https://www.humaaans.com)** | humaaans.com (Pablo Stanley) | CC0 | Mix-and-match characters with diverse poses / outfits / skin tones. Hero sections that need humans without stock-photo territory. |
-| **[unDraw](https://undraw.co)** | undraw.co | MIT | Open SVG illustrations with on-export colour swap. Still respected if customised, saturated and instantly recognisable if not. |
-| **[IRA Design](https://www.iradesign.io)** | iradesign.io (Creative Tim) | Free / paid | Moody, sophisticated, isometric scenes for B2B / enterprise. |
-| **[Open Peeps](https://www.openpeeps.com)** | openpeeps.com | CC0 | Hand-drawn character library, naive style. Sits between photography and illustration. |
-
-### The rules
-
-1. **Always customise colour to your brand anchor hue.** The library default colour is the library look. Swap it.
-2. **Crop or recompose** if you can. The unmodified illustration is on a hundred competitor sites; even a crop change differentiates.
-3. **One library per project.** Mixing Storyset + Humaaans + unDraw = visual chaos. Pick one, stick to it.
-4. **Avoid the giveaway poses**, guy on laptop with floating speech bubble, woman in headset on cloud, character holding giant phone. Whatever you saw on Dribbble in 2021, audiences saw too.
-5. **Commission custom for >3 uses.** If the illustration appears in the hero, a feature block, AND promotional material, the per-piece commission cost ($200-$600 freelancer, $399-$999/month subscription for unlimited) wins on brand consistency over libraries.
-
-### Avoid
-
-- **Open Doodles**, dated; the hand-drawn library look reads as a template.
-- **"Modern flat" generic poses**, that whole aesthetic is the AI training-distribution default.
-- **AI-generated illustrations** put through library filters, the worst of both worlds.
-- **Stock photography with character cutouts pasted on top**, fights physics, looks haunted.
-
----
+Recolour to the theme's anchor hue, crop or recompose, one library per page, and none of the giveaway poses (a person on a laptop under a speech bubble, a headset on a cloud, a giant phone). An unmodified library figure is on a hundred other pages.
 
 ## Screenshots
 
-A product capture is a real screenshot in a `<figure>` with a `<figcaption>` that carries a fact (the view, the build, the date), or a `data-slot` placeholder until the user supplies one (`craft.md` § 8). One frame at most, and only with real content inside (47b); never a drawn browser bar, traffic lights, a URL pill or an OS title bar (47a); no tilt; never a styled-div dashboard with invented figures (47c).
+A real capture in a `<figure>` whose `<figcaption>` carries a fact (the view, the build, the date), or a `data-slot` until the user supplies one (`craft.md` § 8). One frame at most and only with real content inside (47b); never a drawn browser bar, traffic lights, a URL pill or an OS title bar (47a); tilt only as E4's knob; never a styled-div dashboard with invented figures (47c).
 
----
+## Video
 
-## Hero / demo video
+The product's own screen recording first; stock footage only for an ambient loop.
 
-### Canon (when you don't have your own footage)
+| Source | Licence |
+| --- | --- |
+| [Mixkit](https://mixkit.co) | Free, no attribution |
+| [Coverr](https://coverr.co) | Free commercial use |
+| [Pexels Videos](https://www.pexels.com/videos/) | Pexels licence |
 
-| Source | URL | Licence | Best for |
-| --- | --- | --- | --- |
-| **[Mixkit](https://mixkit.co)** | mixkit.co (Envato) | No registration, no attribution required, 1080p+ HD | The quality-to-effort sweet spot. |
-| **[Coverr](https://coverr.co)** | coverr.co | Free commercial use | Optimised for hero-section backgrounds and ambient loops. |
-| **[Pexels Videos](https://www.pexels.com/videos/)** | pexels.com/videos | CC0 | Largest free library; 4K available. Volume play. |
-| **[Videvo](https://www.videvo.net)** | videvo.net | Tiered (free + pro) | Community footage + motion graphics. |
-
-### The rules
-
-1. **Codec chain in the `<source>` order: AV1 → WebM VP9 → MP4 H.264.** Browsers pick the first they support. AV1 is 30 to 50 % smaller than H.264 at equivalent quality; H.264 is the universal fallback.
-2. **Always autoplay-muted-loop-playsinline.**
-   ```html
-   <video autoplay muted loop playsinline preload="metadata"
-          poster="/hero-poster.webp" fetchpriority="high">
-     <source src="/hero.av1.mp4"  type='video/mp4; codecs="av01.0.05M.08"'>
-     <source src="/hero.vp9.webm" type="video/webm">
-     <source src="/hero.h264.mp4" type="video/mp4">
-   </video>
-   ```
-3. **Always include a `poster=""`**, prevents layout shift, gives reduced-motion users a static fallback.
-4. **`fetchpriority="high"` on the LCP element.** **Never `loading="lazy"`** on the hero, that kills LCP.
-5. **VTT captions for accessibility.** Even on muted demo loops; people may unmute.
-6. **No sound on autoplay.** Browsers block it anyway, but the principle is firm.
-
-### Compression
-
-- **[ffmpeg](https://ffmpeg.org)** for control:
-  - VP9: `ffmpeg -i input.mp4 -c:v libvpx-vp9 -b:v 0 -crf 30 -c:a libopus -b:a 128k output.webm`
-  - AV1: `ffmpeg -i input.mp4 -c:v libaom-av1 -crf 30 -c:a aac output.mp4`
-  - H.264: `ffmpeg -i input.mp4 -c:v libx264 -preset slow -crf 23 -c:a aac output.mp4`
-- **[HandBrake](https://handbrake.fr)** for GUI / batch: start with the "Vimeo YouTube HQ 1080p" preset, drop bitrate to 3 to 4 Mbps for web.
-
-### Avoid
-
-- **Watermarked stock**, visible "Pexels.com" stamps in the corner.
-- **30 fps labelled as 60 fps**, reveals itself on modern displays.
-- **Music-heavy demos without a mute toggle**, alienates accessibility users and noisy environments.
-- **`loading="lazy"` on hero video**, kills LCP, tanks Core Web Vitals.
-
----
+- Sources in order AV1, VP9 WebM, H.264 MP4; `autoplay muted loop playsinline`, a `poster`, preloaded when the video is the LCP (`<link rel="preload" as="image" href="…" fetchpriority="high">`, since `fetchpriority` does nothing on `<video>`), never `loading="lazy"` on it (28a, 28b).
+- Captions when the video has speech; never sound on autoplay; a visible pause control on a loop over 5 seconds.
+- Compress with ffmpeg: `ffmpeg -i in.mp4 -c:v libvpx-vp9 -b:v 0 -crf 30 -an out.webm` (VP9); `-c:v libx264 -preset slow -crf 23 -an` (H.264).
+- Never watermarked stock, never a music-led demo without a mute control.
 
 ## Photography
 
-### Canon
+| Source | Licence |
+| --- | --- |
+| [Unsplash](https://unsplash.com) | Unsplash licence |
+| [Pexels](https://www.pexels.com) | Pexels licence |
+| [Nappy](https://nappy.co) | Free, curated for representation |
 
-| Source | URL | Licence | Best for |
-| --- | --- | --- | --- |
-| **[Unsplash](https://unsplash.com)** | unsplash.com | CC0 | Largest free collection, moody / cinematic, weekly community uploads. The starting point. |
-| **[Pexels](https://www.pexels.com)** | pexels.com | CC0 | 3.5M+ free photos, diverse photographers. |
-| **[Nappy.co](https://www.nappy.co)** | nappy.co | Free + paid | Curated for diversity and representation. Premium visual direction. |
-| **[Shotstash](https://www.shotstash.com)** | shotstash.com | Free | Lifestyle / minimal aesthetic. Smaller but carefully curated. |
-| **[Open Peeps](https://www.openpeeps.com)** | openpeeps.com | CC0 | Illustrated character library when you want diversity without the photo-stock look. |
-
-### The rules
-
-1. **Always tweak the source.** Gradient overlay, crop, desaturation, blur, or brand-colour wash. The unmodified Unsplash photo is on a hundred competitor sites; even a crop change differentiates.
-2. **Match tone to brief.** Enterprise / B2B: neutral palettes, natural lighting, real workspaces. Consumer / lifestyle: warm lighting, human emotion. Tech / startup: minimal backgrounds, hands-on interaction.
-3. **Diverse representation.** Nappy.co is the best free source for intentional curation; Unsplash and Pexels carry diversity but require search effort.
-4. **Aspect ratios that fit.** Hero photography typically wants 16/9 desktop, 4/3 or 9/16 mobile.
-
-### Avoid
-
-- **Photos with visible logos / trademarks**, copyright risk.
-- **Over-processed HDR**, looks dated, unrealistic.
-- **Staged "team photo" shots**, generic, reads as stock.
-- **Unmodified Unsplash**, a hundred competitor sites used the same photo this week.
-
----
+Change every stock photo (a crop, a grade, a duotone in the theme's inks), match its light to the scene sentence, and keep visible logos out. Never a stock face as social proof (F9), never staged team shots, never over-processed HDR.
 
 ## Backgrounds
 
-A background is a surface, not an asset: the paper token, a change of paper, or one texture artifact under the budget in [`texture.md`](texture.md). The demo-slot placeholders in `craft.md` § 8 are the only gradients the page needs. No mesh generators, no aurora blobs, no orbs, no starfields (29).
+A background is a surface, not an asset: the paper token, a change of paper, or one `texture.md` artifact under its budget. No mesh generators, aurora blobs, orbs or starfields (29).
 
----
+## Lottie and Rive (tier F)
 
-## Lottie / Rive (last resort; craft tier-f)
+Only for character-articulated motion that cannot be built in CSS or SVG; commission rather than pull a community file; under 2 MB; pause and resume controls; a static reduced-motion frame. Spinners, check draws and hover effects are CSS (F10).
 
-### Canon
-
-| Source | URL | Best for |
-| --- | --- | --- |
-| **[LottieFiles](https://lottiefiles.com)** | lottiefiles.com | The Lottie ecosystem. Free + pro tiers; npm + CDN; Figma plugin; AI creator. |
-| **[Rive](https://rive.app)** | rive.app | Interactive real-time animations with state machines. Native runtime; better for app UI micro-interactions than Lottie. |
-
-### The rules
-
-1. **Lottie is last resort.** Reach for it only when complex character motion can't be hand-built. See [`custom-craft.md`](custom-craft.md) Tier F.
-2. **Custom-commissioned over library pulls.** A LottieFiles community animation that fits your brand exists; one that fits *and* doesn't look like every other LottieFiles community animation is rare. Commission ($100-$300 on Upwork; $1,000+ from a studio) for hero work.
-3. **< 2 MB file size.** Anything heavier loses to its own loading state.
-4. **Pause / resume support.** Required for accessibility (motion-sensitive users need control).
-5. **Reduced-motion fallback** to a static keyframe. Required.
-6. **Don't use Lottie for what CSS can do.** Spinning logos, checkmark draws, loading spinners, hover micro-interactions, all CSS territory. The skill catches the "Lottie shortcut" anti-pattern in its slop test.
-
-### Avoid
-
-- **2019-era over-smooth animations.** Looks dated, lacks character.
-- **Animations heavier than the page itself**, 5 MB Lottie files for a 200 KB page.
-- **Animations without pause / resume**, accessibility fail.
-- **LottieFiles community pulls used unmodified**, reads as "I picked this from a library".
-
----
-
-## Quick-reference: which source for which job
+## Which source for which job
 
 | Need | First reach | Second reach |
 | --- | --- | --- |
-| UI icon (chevron, check, X) | Lucide | Phosphor / Heroicons |
-| Brand logo for a wall | Simple Icons | SVGL / theSVG |
-| A hero illustration the brand owns | Hand-build (Tier A or B) | Commission custom |
-| A hero illustration that's character-driven | Nanobanana 2 (generated still) | Commission, then library |
-| An SVG-format illustration that needs to scale | Recraft V4 | Hand-build in Figma → SVG |
-| A photograph with diversity | Nappy.co | Unsplash with manual tone-tweak |
-| A demo video of your product | Custom screen recording | (skip; no stock fits) |
-| A textured background | one `texture.md` artifact under budget | nothing |
-| A character animation | Custom Lottie commission | LottieFiles community + customise |
-| A loading spinner | CSS conic-gradient | (don't reach for Lottie) |
-| A checkmark draw on confirm | SVG `stroke-dasharray` | (don't reach for Lottie) |
-
-When in doubt, build it.
+| UI icon | Lucide | Phosphor or Heroicons |
+| A customer logo | The user's file | Simple Icons |
+| An illustration the brand owns | Hand-built, tier A or B | Commissioned |
+| A character illustration | Generated still, post-processed | Commissioned, then a library |
+| A photograph | The user's | Stock, changed |
+| A product demo | The user's screen recording | A slot |
+| A texture | One `texture.md` artifact | Nothing |
+| A loader or a check draw | CSS or SVG `stroke-dasharray` | Never Lottie |

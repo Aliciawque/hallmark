@@ -1,13 +1,13 @@
 ## 15 · Split Studio
 
-Diptych. Every major block divides the screen, text on one side, proof on the other, alternating direction down the page.
+Diptych. Every major block divides the screen, text on one side, proof on the other, and the proof keeps its side down the page (one mirror at most, never a zigzag, `craft.md` § 3).
 
 - **Heading:** half the screen wide; the other half holds a capture or a supplied quote.
-- **Body:** alternating left-text/right-image and right-text/left-image modules; one column gap for all of them (F15).
+- **Body:** text-and-proof rows that vary by weight, not by side: one lead row gives the proof the larger share, the rest split evenly; one column gap for all of them (F15).
 - **Divider:** a clear gutter between halves; no rules.
 - **Button:** an outlined chip below the text half.
-- **Image:** anchored to the half opposite the text in each row; a real capture or a labelled slot.
-- **Reveal:** the two halves cross-fade in, slightly staggered.
+- **Image:** on the proof side in every row; a real capture or a labelled slot.
+- **Reveal:** the hero's two halves fade in once, 60 to 100ms apart; the rows below are simply there.
 
 Reach for it for SaaS feature pages, developer tools that pair explanation with code, anything where every claim wants a visual proof.
 

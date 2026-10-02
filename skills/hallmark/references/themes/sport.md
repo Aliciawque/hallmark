@@ -36,7 +36,7 @@ Cool concrete paper, blue-black ink, Saira Condensed 700 uppercase heads, JetBra
 ## Faces
 
 - **Display:** Saira Condensed 700, uppercase, `--tracking-display`, line-height 1.02; upright, roman. A true condensed design, so the caps stack without crowding; the tension is in the caps and tracking, not a slant.
-- **Body:** Albert Sans 400, 500 and 600 at a 58ch measure.
+- **Body:** Albert Sans 400 and 500 at a 58ch measure.
 - **Figures:** JetBrains Mono with `font-variant-numeric: tabular-nums` for times, splits, scores and distances, set larger than the label beside them. The stopwatch voice: the only place mono goes, a measurement, not the material.
 - **Labels, captions, table heads, meta, units, bib tags:** Albert Sans 500 one step smaller, sentence case, `--color-muted`; on a volt fill every word is the ink.
 
@@ -67,7 +67,7 @@ Imperative, kinetic, numbered. Caps on the head, sentence case in the body. Nume
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;700;800&family=Albert+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@700&family=Albert+Sans:wght@400;500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 ```
 
 ```css
@@ -76,7 +76,7 @@ Imperative, kinetic, numbered. Caps on the head, sentence case in the body. Nume
 .rule { border-top: var(--rule-bar) solid var(--color-rule-2); }
 .board tr { border-top: var(--rule-hair) solid var(--color-rule); }
 .lane { position: absolute; inset-block: 0; width: 12px; background: var(--color-accent); }
-.btn { border-radius: var(--radius-card); padding: 0.7rem 1.2rem; font: 700 1rem/1 var(--font-display); text-transform: uppercase; }
+.btn { border-radius: var(--radius-card); padding: var(--space-sm) var(--space-lg); border: var(--rule-bar) solid transparent; font: 700 var(--text-md)/1.25 var(--font-display); text-transform: uppercase; }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--secondary { border: 2px solid var(--color-ink); color: var(--color-ink); }
 a:hover { text-decoration-color: var(--color-accent-deep); }

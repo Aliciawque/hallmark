@@ -35,7 +35,7 @@ signature: the ink-filled pill beside an outlined one, and nothing else coloured
 
 Every theme ships `<slug>.jpg` beside its file: the first screen and one lower screen of a finished page built in the theme with the skill, each at 1440 x 900, scaled to 960 wide and stacked (`node scripts/picture.mjs <slug> <page.html> <y of the lower screen>`). The page must sweep clean, its lower screen must show the theme's material (the signature object, its rules, its plates), never an empty slot, and the page must be one a designer would sign. A build reads the picture with the file and takes its scale, density, colour balance and objects, never its composition. A theme without a picture validates with a warning.
 
-## The body, in order, 3.5 to 6 KB
+## The body, in order, 3.5 to 7 KB
 
 1. **One paragraph:** what the theme feels like and what it is not. No brand names, ever: describe the register, never the sites that have it.
 2. **Tokens:** a `:root` block with the real values in OKLCH: paper, paper-2, paper-3, ink, ink-2, muted, rule, accent, accent-ink, focus; the three font tokens; `--radius-card`, `--radius-pill`, `--rule-hair`, `--shadow-card`; `--tracking-display`. No comments inside the block: `theme.mjs scaffold` copies it verbatim into a page's `tokens.css`. A theme with dials (colourways, cabinets) lists the alternates in a short table under the block and says the page states its choice in the stamp.

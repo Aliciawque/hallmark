@@ -22,7 +22,7 @@ Each row is a feature: name, value, note. Hairline rules between rows, tabular n
 
 ## Knobs
 
-- Columns: 2 (name, value) · 3 (with unit) · 4 (with note)
+- Columns: 2 (name, value) · 3 (with a note) · 4 (with a unit and a note)
 - Rules: every row · groups of three · head only
 
 ## Mobile

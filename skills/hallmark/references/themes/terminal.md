@@ -48,7 +48,7 @@ A green-black ground, phosphor-green ink on one hue, every glyph JetBrains Mono,
 
 ## Motion
 
-One live command may type itself once; only then does its caret blink, a 1s `step-end` loop at the end of that line. Nothing else moves: no reveals, no fades.
+One live command may type itself once; only then does its caret blink at the end of that line, 1s `step-end`, five times, then hold solid. Nothing else moves: no reveals, no fades.
 
 ## Voice
 
@@ -70,14 +70,14 @@ Commands, flags, paths and exit codes. Declarative, terse, specific: name the co
 
 ```css
 body { font-family: var(--font-body); font-variant-numeric: tabular-nums; }
-.display { font: var(--display-weight) var(--text-display)/1.1 var(--font-display); letter-spacing: var(--tracking-display); }
+.display { font: var(--display-weight) min(var(--text-display), 4rem)/1.1 var(--font-display); letter-spacing: var(--tracking-display); }
 .block { background: var(--color-paper-2); border: 1px solid var(--color-rule); border-radius: 0; }
 .block--raised { background: var(--color-paper-3); }
 .prompt::before { content: "~/ "; color: var(--color-muted); }
 .cmd::before { content: "$ "; color: var(--color-muted); }
-.cmd.is-live::after { content: "\2588"; color: var(--color-accent); animation: caret 1s step-end infinite; }
+.cmd.is-live::after { content: "\2588"; color: var(--color-accent); animation: caret 1s step-end 5; }
 @keyframes caret { 50% { opacity: 0; } }
-.btn { border-radius: 0; padding: 0.6rem 1rem; font: 500 0.9375rem/1 var(--font-body); }
+.btn { border-radius: 0; padding: var(--space-md); font: 500 0.9375rem/1 var(--font-body); }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--secondary { border: 1px solid var(--color-ink-2); color: var(--color-ink); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 35%, transparent); color: var(--color-ink); }

@@ -41,9 +41,9 @@ Three colourways, set once per page and named in the stamp (`saffron: lot`).
 
 ## Faces
 
-- **Display:** Zodiak Italic 400, `--tracking-display`, line-height 1.04, up to 5rem; nav links in the same italic at 19px. Declared italic system, gate 38ii waived: on `--font-display`, every head, true italic, `font-synthesis: none`. Figures (grams, hours, plate numbers) are the one roman use, Zodiak 700.
-- **Body:** Newsreader 400 and 500 at 17px, line-height 1.45, `"opsz" 16`.
-- **Labels, buttons, captions, table heads:** Hanken Grotesk 500 at 13px, sentence case, untracked, in `--color-muted`. The sans is the outlier and carries only the small strings and the controls; never a head, never prose. No mono anywhere but code.
+- **Display:** Zodiak Italic 400, `--tracking-display`, line-height 1.04, up to 5rem. Declared italic system (stamp `waive 38ii`): on `--font-display`, every head at every level, true italic, `font-synthesis: none`. Figures (grams, hours, plate numbers) are the one roman use, Zodiak 700, and never sit inside a head.
+- **Body:** Newsreader 400 and 500 at 17px, line-height 1.5, `"opsz" 16`.
+- **Labels, nav links, buttons, captions, table heads:** Hanken Grotesk 500 at 13px, sentence case, untracked, in `--color-muted`. The sans is the outlier and carries only the small strings and the controls; never a head, never prose. No mono anywhere but code.
 
 ## Material
 
@@ -56,7 +56,7 @@ Three colourways, set once per page and named in the stamp (`saffron: lot`).
 
 ## Motion
 
-Almost none. One hairline draws in over 300ms as a section enters; the giant letter is fixed. A plate lifts to `--color-paper-2` behind it on hover.
+Almost none. One hairline draws in over `--dur-long` as its section enters; the giant letter is fixed. A plate lifts to `--color-paper-2` behind it on hover.
 
 ## Voice
 
@@ -72,15 +72,14 @@ The atelier's register: the piece, the cloth weight, the bath, the hour of the f
 ## Build hint
 
 ```html
-<link href="https://api.fontshare.com/v2/css?f[]=zodiak@400i,700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Hanken+Grotesk:wght@500&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=zodiak@400i,700&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Hanken+Grotesk:wght@500&display=swap" rel="stylesheet">
 ```
 
 ```css
 .display, h1, h2, h3 { font-family: var(--font-display); font-style: italic; font-weight: 400; font-synthesis: none; letter-spacing: var(--tracking-display); line-height: 1.04; text-wrap: balance; }
 .figure { font-family: var(--font-display); font-style: normal; font-weight: 700; }
-.label { font: 500 13px/1.3 var(--font-outlier); color: var(--color-muted); }
-.btn { display: inline-flex; padding: 15px 26px; font: 500 13px/1 var(--font-outlier); background: var(--color-ink); color: var(--color-paper); }
+.label { font: 500 var(--text-xs)/1.3 var(--font-outlier); color: var(--color-muted); }
+.btn { display: inline-flex; padding: var(--space-md) var(--space-lg); font: 500 var(--text-xs)/1 var(--font-outlier); background: var(--color-ink); color: var(--color-paper); }
 .btn--secondary { background: transparent; color: var(--color-ink); box-shadow: inset 0 0 0 1px var(--color-ink); }
 .plate { background: var(--color-plate); color: var(--color-ink); }
 .letter { position: absolute; right: -80px; top: -210px; font: italic 400 1150px/1 var(--font-display); color: var(--color-paper-3); pointer-events: none; user-select: none; }

@@ -44,15 +44,15 @@ Three colourways, set once per page and named in the stamp (`werkstatt: putty`).
 ## Faces
 
 - **Display:** Jost 700, uppercase, `--tracking-display`, line-height 1.02, up to 6.5rem in the hero and 2.75rem for section heads; the wordmark at 15px tracked 0.04em.
-- **Body:** Karla 400 and 500 at 16px, line-height 1.45; subheads at 20px.
+- **Body:** Karla 400 at 16px, line-height 1.5; subheads at 20px.
 - **Labels, captions, tags, table heads:** Karla 600 at 12.5 to 13px, sentence case, untracked, in `--color-muted`. Mono only inside code; timetable cells and prices are Karla with `tabular-nums`.
 
 ## Material
 
 - Rules do the structure: `--rule-box` ink lines box the shops grid and cross it, `--rule-bar` ink under a nav and over every table, `--rule-hair` `--color-rule` between rows. No card has a background; a cell is what the rules enclose.
 - The three shapes, drawn in CSS (a circle by radius, a triangle by clip-path, a square with an 8 degree tilt): at 150 to 220px as cropped forms beside the headline and shop names; at 11px as the bullets of a list whose items belong to the shops, each colour one shop (a list of one kind takes no bullets); a 4px ink line is the fourth shop's mark.
-- Zero radius, zero shadow, no texture; the only gradient is a warm grey ramp inside a placeholder with a tag in its corner. The isometric house is 2px ink lines, never shaded.
-- The control pair: a transparent `--rule-bar` ink-bordered button beside an ink-filled one, both uppercase Karla 600 at 13px tracked 0.04em, following the display's capitals; on a dark band the filled one turns yellow with ink type, which is the same primary in that band's colour, not a third control (one filled recipe per band, F4).
+- Zero radius, zero shadow, no texture; the only gradient is a warm grey ramp inside a placeholder with a tag in its corner. A drawn building is 2px isometric ink lines, never shaded.
+- The control pair: a transparent `--rule-bar` ink-bordered button beside an ink-filled one, both uppercase Karla 600 at 13px tracked 0.04em, following the display's capitals; on a dark band the filled one turns yellow with ink type, the same primary in that band's colour, not a third control (the stamp answers F4).
 - The timetable: a grid with 92px rows coloured per shop and an outlined cell for open bench time. Blue and red cells take the light ink `--color-accent-ink`, the red deepened to `--color-accent-2-deep`; the yellow cell takes black type, the black cell putty.
 
 ## Motion
@@ -73,7 +73,7 @@ Plain school prose: the shop, the week, the tuition, the deadline.
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;700&family=Karla:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;700&family=Karla:wght@400;600&display=swap" rel="stylesheet">
 ```
 
 ```css
@@ -84,7 +84,7 @@ Plain school prose: the shop, the week, the tuition, the deadline.
 .sh { display: inline-block; width: 11px; height: 11px; vertical-align: middle; }
 .sh--c { border-radius: 50%; background: var(--color-accent); }
 .sh--t { background: var(--color-accent-2); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
-.sh--s { background: var(--color-accent-3); }
+.sh--s { background: var(--color-accent-3); rotate: 8deg; }
 .cell--blue { background: var(--color-accent); color: var(--color-accent-ink); } .cell--red { background: var(--color-accent-2-deep); color: var(--color-accent-ink); }
 .cell--yellow { background: var(--color-accent-3); color: var(--color-ink); } .cell--black { background: var(--color-ink); color: var(--color-paper); }
 .grid { border-top: var(--rule-box) solid var(--color-ink); border-bottom: var(--rule-box) solid var(--color-ink); }

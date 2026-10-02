@@ -34,8 +34,8 @@ Warm oat paper, a near-black green ink, Vollkorn heads over Hanken Grotesk, one 
 
 ## Faces
 
-- **Display:** Vollkorn 600 to 800, roman, `--tracking-display`, up to 5rem: 700 for the hero, 600 for a section head, 800 only on a short line. One weight per head, never italic. A sturdy old-style serif with a dark, warm colour on the page, not a high-contrast serif.
-- **Body:** Hanken Grotesk 400, 500, 600 with `oldstyle-nums`. Newsreader 400 carries long provenance prose at 58ch; Vollkorn never runs as body.
+- **Display:** Vollkorn 700, roman, `--tracking-display`, up to 5rem, one weight for every head, never italic. A sturdy old-style serif with a dark, warm colour on the page, not a high-contrast serif.
+- **Body:** Hanken Grotesk 400 and 500 with `oldstyle-nums`. Newsreader 400 carries long provenance prose at 58ch; Vollkorn never runs as body.
 - **Labels, captions, table heads, meta, lot codes, dates, months:** Hanken Grotesk 500 one step smaller, sentence case, untracked, `--color-muted`: the herbarium tag reads like a caption, never like a stamp. No mono on the page.
 
 ## Material
@@ -49,7 +49,7 @@ Warm oat paper, a near-black green ink, Vollkorn heads over Hanken Grotesk, one 
 
 ## Motion
 
-Nothing moves except state: a control's hover, and where a piece of craft is itself a link or a button, one hover on it (a jar filling, a leaf tilting), on transform and opacity only. No reveal, no stagger, no parallax.
+Nothing moves except state: a control's hover, and where a piece of craft is itself a link or a button, one hover on it (a jar filling, a cork lifting), on transform and opacity only. No reveal, no stagger, no parallax.
 
 ## Voice
 
@@ -60,27 +60,27 @@ Warm, honest, seasonal, unhurried. Say the ridge, the flower, the pour date, the
 - Never grey-sage or slate paper; the ground is warm oat, hue 92.
 - Never a photograph where the craft should be.
 - Never a cool teal or corporate emerald; the green is chlorophyll, hue 140.
-- Never italic or faux-bold Vollkorn; load the real 600 to 800.
+- Never italic or faux-bold Vollkorn; load the real 700.
 - Never clay on a control, a nav or the season bar, never a gradient on the leaf-green control.
 
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@700&family=Hanken+Grotesk:wght@400;500&family=Newsreader:opsz,wght@6..72,400&display=swap" rel="stylesheet">
 ```
 
 ```css
 body { font-family: var(--font-body); font-variant-numeric: oldstyle-nums; color: var(--color-ink-2); }
 h1, h2, h3, .display, .season, td { font-variant-numeric: lining-nums tabular-nums; }
 .display { font: 700 clamp(2.25rem, 4vw + 1rem, 5rem)/1.05 var(--font-display); letter-spacing: var(--tracking-display); color: var(--color-ink); }
-.tag { font-size: 0.8125rem; font-weight: 500; color: var(--color-muted); }
+.tag { font-size: var(--text-xs); font-weight: 500; color: var(--color-muted); }
 .season { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); border: var(--rule-hair) solid var(--color-rule-2); }
-.season > li { position: relative; padding: var(--space-xs) 0; text-align: center; font-size: 0.75rem; color: var(--color-muted); }
+.season > li { position: relative; padding: var(--space-xs) 0; text-align: center; font-size: var(--text-xs); color: var(--color-muted); }
 .season > li + li { border-inline-start: var(--rule-hair) solid var(--color-rule); }
 .season > .in { background: var(--color-accent); color: var(--color-accent-ink); }
-.season > [aria-current]::after { content: ""; position: absolute; inset-block: -8px; left: 50%; width: 1px; background: var(--color-ink); }
+.season > [aria-current]::after { content: ""; position: absolute; inset-block: calc(-1 * var(--space-xs)); left: 50%; width: 1px; background: var(--color-ink); }
 .band--moss { background: var(--tint-moss); }
-.btn--solid { border-radius: var(--radius-pill); background: var(--color-accent); color: var(--color-accent-ink); }
+.btn--solid { border-radius: var(--radius-pill); border: var(--rule-hair) solid var(--color-accent); background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--line { border-radius: var(--radius-pill); border: var(--rule-hair) solid var(--color-rule-2); color: var(--color-ink); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 22%, transparent); }
 ```

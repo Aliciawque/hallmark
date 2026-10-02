@@ -1,7 +1,7 @@
 ### S1 · Ordinal by structure
 When a run of sections is genuinely ordered, the order comes from the markup: a real `<ol>` with `counter()`, the numeral inline at the heading's own size, in the heading's own weight and colour. A small muted `01` stacked above an `<h2>` is an eyebrow in ordinal geometry and gate 54 bans it.
 *Use when:* the content is truly sequential (chapters, steps, issues, a run of numbered work). Not for "the third section on the page", which is a position, not an ordinal.
-*Don't confuse with:* S5 Bottom-anchored (a caption *under* the section); [`../enrichment/hp4-decorative-numeral.md`](../enrichment/hp4-decorative-numeral.md) (one numeral at graphic scale, one per page, not a run).
+*Not:* S5 (a caption under the section); [`../enrichment/hp4-decorative-numeral.md`](../enrichment/hp4-decorative-numeral.md) (one numeral at graphic scale, one per page, not a run).
 
 ```html
 <ol class="chapters">
@@ -24,7 +24,7 @@ When a run of sections is genuinely ordered, the order comes from the markup: a 
 }
 ```
 
-The ordinal is generated on the heading itself, so it reads once, at heading size, in the heading's colour: nothing to mistake for a kicker and nothing a screen reader hears twice.
+The ordinal is generated on the heading itself, so a screen reader hears it once, as part of the heading.
 
 ## Knobs
 

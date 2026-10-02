@@ -14,7 +14,7 @@ Runs in order before any palette work. Each step is one or two written lines; th
 
 **R.1 Reflex check.** Name the category's obvious aesthetic and its tasteful second-order fallback, then reject both in writing: *Reflex check: rejecting sage-and-cream (the category default) and editorial serif on bone (the tasteful fallback).* The default and its predictable opposite are both the rut. Two more altitudes: would the slate you are about to write fit the category's other products unchanged (then it is category gravity), and could someone guess the aesthetic from the category plus what Hallmark always avoids (then the avoidance is the pattern)? If either is obvious, rework.
 
-**R.2 Spent defaults.** Already worn out for the brief family, declared before the slate: warm, bookish, food, family → cream paper, serif display, lamplight amber; tech, developer, AI → near-black, one neon accent, mono labels; editorial, studio, portfolio → bone paper, high-contrast serif, hairlines everywhere; playful, consumer → rounded sans, candy accent on white, blobs; luxury, craft → ivory, letterspaced small caps, no accent; health, science → clinical white, single blue, geometric sans; finance → navy, emerald, tabular mono; events, music → black, duotone photo, condensed caps. A spent look can still be earned by a draw that demands it; drifting there is what is banned.
+**R.2 Spent defaults.** Already worn out for the brief family, declared before the slate: warm, bookish, food, family → cream paper, serif display, lamplight amber; tech, developer, AI → near-black, one neon accent, mono labels; editorial, studio, portfolio → bone paper, high-contrast serif, hairlines everywhere; playful, consumer → rounded sans, candy accent on white, blobs; luxury, craft → ivory, letterspaced small caps, no accent; health, science → clinical white, single blue, geometric sans; finance → navy, emerald, tabular mono; events, music → black, duotone photo, condensed caps. Spent in every family: pill buttons, cream or off-white paper, an italic accent word, `01 / 02 / 03` labels and mono labels, the defaults the field's own guides now name. A spent look can still be earned by a draw that demands it; drifting there is what is banned.
 
 Your own rendition prior is spent too, and it bites at execution rather than selection. Claude renders warm, bookish and child-facing subjects as cream, serif, italic accents and lamplight whatever the draw said; before writing code, re-read the OWN-WORLD block, and if it says cream, paper, parchment, ivory or lamplight on a brief that never pinned them, rework from the world's saturated materials. Codex renders a tight grotesk at 600 on near-white with one blue accent and a bordered soft-shadow card. Gemini renders gradient ramps as material and hover motion on images. Open-weight models revert mid-build: the first viewport commits, section three becomes a card grid on white.
 
@@ -34,7 +34,7 @@ It prints a reproducible line (`draw: n/7 (seed <slug>·<date>·r0) · challenge
 
 **R.6 Colour posture.** Exactly one, with a one-line reason: Restrained (accent under 5%), Committed (one colour carries 30 to 60% through the field or paper tokens), Full palette (three or four named roles with jobs), Drenched (the surface is the colour). Declared in the stamp and the log; gate 23 reads it.
 
-**R.7 The direction contract.** Five blocks, 150 words or fewer, as a comment directly below the stamp and critique line, and mirrored in the Picks block:
+**R.7 The direction contract.** Five blocks, 150 words or fewer, as a comment directly below the stamp and critique line. The Picks block mirrors it and replaces its Theme row with **Direction** (the draw, the challengers, the raise) and **System** (palette, pairing, the catalog coordinates it cleared):
 
 ```
 /* direction contract · seed <key>
@@ -51,9 +51,9 @@ If a block reads like a mood ("elegant, premium feel"), the direction is not dec
 
 The brief's structure itself is the ask and no catalog shape fits (a scroll-assembled poem, a ticket-shaped page). The ritual runs identically; the build may drop the shape catalog, the genre routing and the rotation (a one-off must still not clone a recent bespoke run). It keeps every gate, access and contrast, the font discipline, the OKLCH discipline, one orchestrated motion, the Picks block, the stamp and the log. Bespoke is more judgement, not less, and it is rare; reaching for it on a vanilla brief is over-reach.
 
-## A. The one extra question
+## A. The vibe
 
-Asked with the Step 1 questions, never after: *One more input: the brand's vibe in 4 to 8 words ("archival warmth, hand-set, no varnish" · "industrial precision, cool, technical" · "moss, lichen, soft pink, herbal"), and optionally an anchor colour.* Two words is enough to proceed; a paragraph compresses to eight for the stamp.
+Step 1 already asks for it, with an anchor colour if there is one, never in a second message. Two words are enough to proceed (*archival warmth, hand-set, no varnish*; *moss, lichen, soft pink, herbal*); a paragraph compresses to eight for the stamp.
 
 ## B. Palette construction
 
@@ -73,7 +73,7 @@ A derived system pulls from `fonts.md` and may mix tones (an editorial display o
 
 ## D. Axes and posture
 
-Declare the triple so Rotation reads it like a catalog theme's: paper band (dark under 30% L, mid 30 to 85, light over 85), display class (roman-serif, high-contrast-serif, slab-serif, grotesk-sans, grotesk-heavy, geometric-sans, rounded-sans, display-condensed, display-heavy, mono, pixel, handwritten), accent band (warm 10 to 60°, cool 200 to 300°, neutral under 0.05 chroma, chromatic-<name>), plus the posture. Then:
+Declare the triple so Rotation reads it like a catalog theme's: paper band (dark under 30% L, mid 30 to 85, light over 85), display class (roman-serif, high-contrast-serif, slab-serif, grotesk-sans, grotesk-heavy, geometric-sans, rounded-sans, display-condensed, display-heavy, mono, pixel, handwritten, blackletter), accent band (warm 10 to 60°, cool 200 to 300°, neutral under 0.05 chroma, chromatic-<name>), plus the posture. Then:
 
 ```
 node <skill-dir>/scripts/theme.mjs check --axes "light/roman-serif/cool" --face "Sentient" --hue 250 --log .hallmark/log.json

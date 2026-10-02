@@ -1,12 +1,12 @@
 ### N5 · Floating pill
-A rounded, content-sized nav, visibly detached from the edges, `--space-md` from the top, a blurred backdrop and a hairline ring. It is a pill from the first paint, or it starts as a full bar and morphs into the pill once the reader scrolls.
-*Use when:* modern-minimal or atmospheric pages where the hero has a surface or imagery for the blur to sit over, or a playful page with the pill on solid paper and no blur; the morph only when one kinetic moment earns its place on the page.
+A rounded, content-sized nav, visibly detached from the edges, `--space-md` from the top, in a hairline ring. It is a pill from the first paint, or it starts as a full bar and morphs into the pill once the reader scrolls.
+*Use when:* an atmospheric page, where the pill sits on the blurred backdrop shown, over the canvas; a modern-minimal or playful page takes the same pill on solid `--color-paper` with no `backdrop-filter`. The morph only when one kinetic moment earns its place on the page.
 *Not:* N9 (edge-aligned, in flow); N2 (a corner chip). A pill 95% of the viewport wide is a full width bar with round ends; if the links push it past 720px, drop a link or use N9.
 
 ```html
 <nav class="nav-pill" aria-label="Primary">
   <a class="wordmark" href="/" aria-label="Studio, home">Studio</a>
-  <ul class="nav-pill__links"><li><a href="/catalog">Catalog</a></li><li><a href="/voice">Voice</a></li></ul>
+  <ul class="nav-pill__links"><li><a href="/catalog">Catalogue</a></li><li><a href="/voice">Voice</a></li></ul>
   <a class="btn btn--primary" href="/start">Start</a>
 </nav>
 ```
@@ -35,24 +35,24 @@ One DOM, two visual modes: `.nav` (outer, `position: sticky; top: 0`) owns the b
 
 ##### The four laws
 
-**1. Total nav height stays constant.** If the outer's height changes when the state flips, every pixel below shifts and the page reads as jumping mid-scroll. Compensate the inner's shrink with the outer's `padding-block` so the sum is the same in both states (the 10b guard).
+**1. Total nav height stays constant.** If the outer's height changes when the state flips, every pixel below shifts and the page reads as jumping mid-scroll. Compensate the inner's shrink with the outer's `padding-block` so the sum is the same in both states (the 10b guard): with a 44px control, the table below holds 68px either way.
 
 **2. The visible offset is `transform: translateY()`, never `padding` or `margin`.** The pill sits detached from the viewport top; adding padding to the outer breaks law 1. `transform` leaves layout alone: the pill drops visually and the box stays put.
 
 **3. Cross-fade ownership of every shared visual.** For every property the outer carries at rest (background, border, backdrop-filter, box-shadow), neutralise it in `.is-floating` and put it in the transition list. Forget one, say a stale `backdrop-filter: blur(14px)` on the outer in floating mode, and an invisible blurred strip drags across the viewport behind nothing.
 
-**4. One timing curve across every property.** Eight properties on eight curves read as eight animations. The same eight on `var(--dur-long)` and `var(--ease-out)` read as one motion.
+**4. One timing curve across every property.** Each property on its own curve reads as its own animation; all of them on `var(--dur-long)` and `var(--ease-in-out)`, the toggle easing, read as one motion.
 
 ##### The property morph, one curve
 
 | Element | Property | Default | Floating |
 |---|---|---|---|
-| `.nav` | `padding-block` | `0` | `var(--space-2xs)` |
+| `.nav` | `padding-block` | `0` | `var(--space-xs)` |
 | `.nav` | `background-color` | `color-mix(in oklab, var(--color-paper) 62%, transparent)` | `transparent` |
 | `.nav` | `border-block-end-color` | `var(--color-rule)` | `transparent` |
 | `.nav` | `backdrop-filter` | `saturate(1.4) blur(14px)` | `blur(0)` |
-| `.nav__inner` | `max-width` | `var(--container)` | `58rem` |
-| `.nav__inner` | `min-height` | `60px` | `52px` |
+| `.nav__inner` | `max-width` | `var(--container)` | `45rem` |
+| `.nav__inner` | `min-height` | `68px` | `52px` |
 | `.nav__inner` | `padding-block` | `var(--space-sm)` | `var(--space-2xs)` |
 | `.nav__inner` | `border-radius` | `0` | `var(--radius-pill)` |
 | `.nav__inner` | `background-color` | `transparent` | `color-mix(in oklab, var(--color-paper) 82%, transparent)` |
@@ -60,7 +60,7 @@ One DOM, two visual modes: `.nav` (outer, `position: sticky; top: 0`) owns the b
 | `.nav__inner` | `box-shadow` | `none` | `var(--shadow-card), inset 0 0 0 1px var(--color-rule)` |
 | `.nav__inner` | `transform` | `translateY(0)` | `translateY(var(--space-sm))` |
 
-The outer is `position: sticky; top: 0; z-index: var(--z-sticky-nav)`. Use `blur(0)`, not `none`: `none` snaps, `blur(0)` transitions. `backdrop-filter` transitions are baseline in every current browser.
+The outer is `position: sticky; top: 0; z-index: var(--z-sticky-nav)`. The translucent backgrounds and the `backdrop-filter` rows are the atmospheric recipe; elsewhere both backgrounds are `var(--color-paper)` and the two blur rows go. Use `blur(0)`, not `none`: `none` snaps, `blur(0)` transitions. `backdrop-filter` transitions are baseline in every current browser.
 
 ##### The scroll handler
 
@@ -81,22 +81,15 @@ An observer on an 80px sentinel at the top of the page flips the class once per 
 ##### What breaks it
 
 1. Two `<header>` elements swapped by opacity: double DOM, broken focus order, content that desyncs.
-2. Animating `top` or `margin-top` for the floating offset: layout on every frame. `transform` is the only lever.
-3. `backdrop-filter: none` in the floating state: it snaps. `blur(0)` transitions.
-4. Letting the nav height change between states: content jitter, the most damaging mistake in this pattern.
-5. Different durations per property ("speed up the radius", "delay the shadow"): reads as broken even though everything moves. One curve.
-6. A `scroll` listener where the sentinel would do: it runs on every frame to answer a question that changes twice.
-7. A sentinel shorter than 60px: the morph fires on the slightest scroll.
-
-One orchestrated morph and nothing else: the polish is the single curve and the height-constant arithmetic.
+2. A sentinel shorter than 60px: the morph fires on the slightest scroll.
 
 ## Knobs
 
 - Scroll: always a pill · morphs from a full bar past 80 to 120px
 - Width: content sized · capped at 720px · capped at 560px
-- Backdrop: blur and saturate · solid paper
+- Backdrop: blur and saturate (atmospheric only) · solid paper
 - Anchor: top centre · top right
 
 ## Mobile
 
-- Below 60rem: the morph is off and the links drop; wordmark and action stay in the pill. Below 40rem: a corner chip, wordmark left, menu right.
+- Below 60rem: the morph is off and the links go behind a menu control; wordmark, menu and action stay in the pill. Below 40rem: a corner chip, wordmark left, menu right.

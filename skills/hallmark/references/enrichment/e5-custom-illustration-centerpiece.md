@@ -7,9 +7,9 @@ A hand-built SVG (tier B, the default) or a generated still (tier E, when charac
 
 **Knobs:**
 - Build method (tier A CSS · tier B SVG · tier E generated · tier F library)
-- Animation (none · loop · scroll-linked)
+- Animation (none · loop, held to E6's rules · scroll-linked, as one named pattern in `scroll-choreography.md`)
 - Scale (small accent · dominant)
 
-**Example.** Maple Street Bread, a bakery (test 03-maple-bakery). Letter-style hero copy left ("Saturday, 6:14 a.m. The dough went in at midnight."), a 60-line hand-built SVG loaf right, three paths (body, shade, score marks). `@property --rise` lifts it 4px over 6s, alternating; the score marks draw themselves on first paint via `stroke-dasharray`. Tier B, dominant scale, animation: loop. Reduced motion shows the static loaf.
+**Example.** Maple Street Bread, a bakery. Letter-style hero copy left ("Saturday, 6:14 a.m. The dough went in at midnight."), a 60-line hand-built SVG loaf right, three paths (body, shade, score marks). On a theme that lets something move, `@property --rise` lifts it 4px and back in about 3.8s, the page's one E6 loop under the loop contract (`patterns.md` § A loop that can pause); the score marks draw themselves once on first paint via `stroke-dasharray`. Tier B, dominant scale, animation: loop. Reduced motion shows the static loaf.
 
 How to draw the loaf and animate it with `@property` is in [`custom-craft.md`](../custom-craft.md): the tier B file carries the bakery worked example, and the recipes cover a workflow diagram, a mascot, an architecture diagram and a botanical accent.

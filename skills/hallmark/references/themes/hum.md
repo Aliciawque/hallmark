@@ -44,13 +44,13 @@ Cream pulled toward pear-yellow, three accents that never blend, Chillax for eve
 ## Material
 
 - Round, everywhere: cards at 20px, inputs at 12px, controls as pills. Radius is a per-build lever (28px for kids, 14px for a quiet tool); no corner is ever square.
-- The press: the primary control is a solid colour edge under a soft blurred cast, never a negative spread. Hover lifts 2px and grows the edge to 6px; active presses down 3px and shrinks it to 1px. The secondary is a 1px `--color-rule` pill with no edge.
-- Each accent owns a surface: pear is the primary action, cyan (at L 54, so it reads as type on cream) is links and hover tints, coral is the single high-energy moment as a fill with ink on it. They never blend; mint and lavender at most once each per page.
+- The press: the primary control is a solid colour edge (an offset shadow with no blur) under a soft blurred cast. Hover lifts 2px and grows the edge to 6px; active presses down 3px and shrinks it to 1px. The secondary is a 1px `--color-rule` pill with no edge.
+- Each accent owns a surface: pear is the primary action, cyan (at L 51, so it reads as type on cream) is links and hover tints, coral is the single high-energy moment as a fill with ink on it. They never blend; mint and lavender at most once each per page.
 - Emphasis in running text is a clipped background band with `box-decoration-break: clone` or weight 500; a head is one weight and one colour. One character mark per page, drawn in CSS or SVG, with a personality.
 
 ## Motion
 
-Spring posture declared: gate 12 allows the spring on the primary CTA and on the one character moment only, both on `--ease-spring`, with no waiver; everything else eases out on `--ease-snap`. The press runs 140ms on hover, 70ms on active, no `scale()`. Cards lift 4px over 220ms. The character mark breathes at rest on a 4s period. Nothing else moves: no count-up, no staggered heads, no burst.
+Spring posture declared: gate 12 allows the spring on the primary CTA and on the one character moment only, both on `--ease-spring`, with no waiver; everything else eases out on `--ease-snap`. The press runs `--dur-micro` on hover and half that on active, no `scale()`; a card that is a link lifts 4px over `--dur-short`. The character mark breathes at rest on an 8s period, the theme's one ambient loop: it stops under reduced motion and off-screen, pauses on hover and focus, and carries a visible pause control. Nothing else moves: no count-up, no staggered heads, no burst.
 
 ## Voice
 
@@ -67,16 +67,16 @@ Warm, smart, casual, direct. Sentence case, verbs over nouns, honest numbers onl
 ## Build hint
 
 ```html
-<link href="https://api.fontshare.com/v2/css?f[]=chillax@400,500,600,700&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=chillax@400,500,600&display=swap" rel="stylesheet">
 ```
 
 ```css
 h1, h2, h3 { font-weight: var(--display-weight); letter-spacing: var(--tracking-display); }
-.btn { background: var(--color-accent); color: var(--color-accent-ink); font-weight: 600; border: 0; border-radius: var(--radius-pill);
+.btn--primary { background: var(--color-accent); color: var(--color-accent-ink); font-weight: 600; border: 0; border-radius: var(--radius-pill);
   box-shadow: 0 4px 0 0 var(--color-accent-deep), 0 6px 12px -3px color-mix(in oklab, var(--color-glow) 45%, transparent);
-  transition: transform 140ms var(--ease-spring), box-shadow 140ms var(--ease-spring); }
-.btn:hover { transform: translateY(-2px); box-shadow: 0 6px 0 0 var(--color-accent-deep), 0 12px 22px -4px color-mix(in oklab, var(--color-glow) 45%, transparent); }
-.btn:active { transform: translateY(3px); box-shadow: 0 1px 0 0 var(--color-accent-deep); transition-duration: 70ms; }
+  transition: transform var(--dur-micro) var(--ease-spring), box-shadow var(--dur-micro) var(--ease-spring); }
+.btn--primary:hover { transform: translateY(-2px); box-shadow: 0 6px 0 0 var(--color-accent-deep), 0 12px 22px -4px color-mix(in oklab, var(--color-glow) 45%, transparent); }
+.btn--primary:active { transform: translateY(3px); box-shadow: 0 1px 0 0 var(--color-accent-deep); transition-duration: calc(var(--dur-micro) / 2); }
 a { color: var(--color-accent-2); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 60%, transparent); color: var(--color-ink); }
 ```

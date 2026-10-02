@@ -6,7 +6,7 @@ A fact runs vertically beside the body: the issue and its date, or the wordmark 
 *Avoid when:* the body title is itself big and centred; a vertical rail beside a huge horizontal display makes two competing axes. The rail is the supporting voice; pick one direction.
 
 ```html
-<header class="hero hero--rail">
+<header class="hero hero--rail container">
   <p class="hero__rail">Issue 12, spring 2026</p>
   <div class="hero__body">
     <h1 class="hero__display">A working archive.</h1>
@@ -15,7 +15,7 @@ A fact runs vertically beside the body: the issue and its date, or the wordmark 
 </header>
 ```
 ```css
-.hero--rail { display: grid; grid-template-columns: auto 1fr; gap: var(--space-2xl); padding: var(--space-2xl) var(--gutter); align-items: end; }
+.hero--rail { display: grid; grid-template-columns: auto 1fr; gap: var(--space-2xl); padding-block: var(--space-2xl); align-items: end; }
 .hero__rail { writing-mode: vertical-rl; text-orientation: mixed; font-family: var(--font-body); font-size: var(--text-sm); color: var(--color-ink-2); margin: 0; }
 @media (max-width: 60rem) { .hero--rail { grid-template-columns: 1fr; } .hero__rail { writing-mode: horizontal-tb; order: 2; } }
 ```

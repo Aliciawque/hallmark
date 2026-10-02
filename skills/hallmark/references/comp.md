@@ -1,4 +1,4 @@
-# Comp before build - composing in pixels before composing in CSS
+# Comp before build: composing in pixels before composing in CSS
 
 Loaded at the comp step after the Picks block, and **only** when the pre-flight found both `TOGETHER_API_KEY` and `scripts/imagegen.mjs`. With no key this file never loads, the step never runs, and the build goes from the Picks block straight to Step 6. The comp step is never a blocker, never a dependency, and never something to apologise for skipping.
 
@@ -24,7 +24,7 @@ Loaded at the comp step after the Picks block, and **only** when the pre-flight 
 Two comps, three when the direction genuinely forks. One is not a choice and four is a shopping trip.
 
 ```
-node scripts/imagegen.mjs "<prompt>" --size 1280x800 --n 1 --out .hallmark/comps/c1.png
+node <skill-dir>/scripts/imagegen.mjs "<prompt>" --size 1280x800 --n 1 --out .hallmark/comps/c1.png
 ```
 
 The prompt is built from the direction contract, not from the brief. A prompt that reads like the brief produces the category default in pixels, which is the exact thing R.1 spent its budget refusing. Carry, in this order: the **scene sentence** (R.5), the **direction** in three or four words, the **paper and accent** as plain colour words, the **display class** (not the face name; no generator knows Erode), and the **macrostructure** as a compositional instruction. Then one negative clause naming what the category does, so the generator is pushed off it too.

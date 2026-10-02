@@ -7,8 +7,8 @@ A sticky left pane and a right pane that scrolls through related captures.
 <section class="sticky-stack">
   <div class="pane-sticky"><h3>…</h3><p>…</p></div>
   <div class="pane-scroll">
-    <figure data-slot="demo-2">…</figure>
-    <figure data-slot="demo-3">…</figure>
+    <figure data-slot="demo-2" data-alt="…">…</figure>
+    <figure data-slot="demo-3" data-alt="…">…</figure>
   </div>
 </section>
 ```
@@ -24,9 +24,9 @@ A sticky left pane and a right pane that scrolls through related captures.
 ## Knobs
 
 - Pinned side: left · right
-- Right pane: captures · code · diagram
-- Steps: 3 · 4 · 5
+- Scrolling pane: captures · code · diagram
+- Steps: 2 · 3 · 4
 
 ## Mobile
 
-- Below 60rem: the pane unsticks; text and capture alternate in one column.
+- Below 60rem: the pane unsticks and sits above its captures in one column.

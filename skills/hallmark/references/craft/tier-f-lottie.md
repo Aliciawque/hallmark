@@ -11,7 +11,7 @@ When budget and timeline force a shortcut. The catalogue is in [`assets.md`](../
 - The motion is character-articulated (a five-frame mascot wave, a multi-joint walk cycle) and CSS or SVG cannot reasonably express it
 - The file is custom-commissioned and matches the brand
 - It is under 2 MB
-- Pause and resume are wired
+- A loop stops off-screen, pauses on hover and focus, and past 5 seconds carries a visible pause control (`patterns.md` § A loop that can pause)
 - The `prefers-reduced-motion` fallback is a static keyframe
 
 **Never Lottie for:**

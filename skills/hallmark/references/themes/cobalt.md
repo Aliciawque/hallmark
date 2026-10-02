@@ -50,7 +50,7 @@ Cool near-white paper ruled with hairlines, Familjen Grotesk heads over IBM Plex
 
 ## Motion
 
-One settle: the code surface fades in once over 400ms ease-out; one line of a demo may type in once, then stays. Hover grows a cobalt underline on a link and shifts a hairline to cobalt on a focusable surface. No bounce, no parallax.
+One settle: the code surface fades in once over `--dur-long` on `--ease-out`, or one line of the demo types in once and stays; never both. Hover grows a cobalt underline on a link and shifts a hairline to cobalt on a focusable surface. No bounce, no parallax.
 
 ## Voice
 
@@ -60,22 +60,22 @@ Declarative, technical, specific: name the endpoint, the command, the number. No
 
 - Never a warm accent; the signal is cobalt at hue 256.
 - Never a pill or gradient button; one solid cobalt button at 6px plus typographic links.
-- Never a floating pill nav; chrome is a flush bar with a single hairline.
+- Never a floating pill nav; chrome stays as flat as every other surface.
 - Never fake code; a snippet compiles, resolves or returns, and an invented endpoint is the theme's worst failure. A brief with no endpoint still gets the pair: its own command or call as written, against `example.com`, with the field names it gives and sample values.
 - Never a second dark beat; two graphite bands turn the light theme into a striped one.
 
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600&family=IBM+Plex+Sans:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 ```
 
 ```css
 body { background: var(--color-paper); color: var(--color-ink-2); font-family: var(--font-body); }
 h1, h2, .display { font-family: var(--font-display); font-weight: 600; letter-spacing: var(--tracking-display); color: var(--color-ink); }
 .graphite { background: var(--color-graphite); color: var(--color-graphite-ink); border: var(--rule-hair) solid var(--color-rule-2); border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
-.graphite figcaption { font: 500 0.8125rem/1.4 var(--font-display); color: var(--color-graphite-ink); padding: 0.5rem 1rem; border-bottom: var(--rule-hair) solid var(--color-rule-2); }
-.code { font: 400 0.875rem/1.6 var(--font-outlier); } .code .token { color: var(--color-accent-2); }
+.graphite figcaption { font: 500 var(--text-xs)/1.4 var(--font-display); color: var(--color-graphite-ink); padding: var(--space-xs) var(--space-md); border-bottom: var(--rule-hair) solid var(--color-rule-2); }
+.code { font: 400 var(--text-sm)/1.6 var(--font-outlier); } .code .token { color: var(--color-accent-2); }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-radius: var(--radius-input); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 22%, transparent); }
 ```

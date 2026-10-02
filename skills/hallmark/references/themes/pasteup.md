@@ -58,7 +58,7 @@ The blue reads as type on kraft and carries white type as a fill. Three boards, 
 
 ## Motion
 
-Paper physics only: a button drops 1px into its offset on hover and 4px on press over 90ms. Nothing floats, nothing reveals.
+Paper physics only: a button drops 1px into its offset on hover and 4px on press over `--dur-micro`. Nothing floats, nothing reveals.
 
 ## Voice
 
@@ -85,9 +85,9 @@ body::before { content: ""; position: absolute; inset: 0; z-index: -1; opacity: 
 .display { font-family: var(--font-display); text-transform: uppercase; line-height: 1.1; letter-spacing: var(--tracking-display); }
 .strip { position: relative; display: inline-block; background: var(--color-ink); color: var(--color-paper); padding: 0.06em 0.24em 0.02em; line-height: 1; transform: rotate(var(--r, -1deg)); box-shadow: 0 2px 0 color-mix(in oklab, var(--color-ink) 15%, transparent); }
 .strip::after { content: ""; position: absolute; top: -0.12em; left: -0.18em; width: 1.1em; height: 0.32em; background: var(--color-tape); transform: rotate(-8deg); }
-.btn { font: 500 15px var(--font-body); padding: 13px 18px; background: var(--color-ink); color: var(--color-paper); box-shadow: 4px 4px 0 var(--color-accent); }
+.btn { font: 500 15px/1.2 var(--font-body); padding: var(--space-md); background: var(--color-accent); color: var(--color-accent-ink); box-shadow: 4px 4px 0 var(--color-ink); }
 .btn--sheet { background: var(--color-paper-3); color: var(--color-ink); box-shadow: 4px 4px 0 var(--color-ink); }
 .price { font: 700 13px var(--font-outlier); font-variant-numeric: tabular-nums; }
-.print { position: relative; background: var(--color-paper-3); padding: 12px 12px 42px; box-shadow: var(--shadow-sheet); transform: rotate(var(--r, -2deg)); }
+.print { position: relative; background: var(--color-paper-3); padding: var(--space-sm) var(--space-sm) var(--space-xl); box-shadow: var(--shadow-sheet); transform: rotate(var(--r, -2deg)); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 30%, transparent); }
 ```

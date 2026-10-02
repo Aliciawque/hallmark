@@ -12,7 +12,7 @@ Briefs b5 and b6 are skipped (component and decline probes; the rubric is for
 full pages). Existing judge.json files are skipped unless --force.
 
 The API key is taken from the ANTHROPIC_API_KEY environment variable, or, if
-unset, parsed from the keyFiles listed in eval/models.json. The key value is
+unset, parsed from the keyFiles listed in eval/models.json and the untracked eval/models.local.json. The key value is
 never printed or written anywhere.
 
 Usage:
@@ -90,6 +90,10 @@ def load_env_key(name: str) -> str | None:
         key_files = json.loads(MODELS_JSON.read_text()).get("keyFiles", [])
     except (OSError, json.JSONDecodeError):
         key_files = []
+    try:
+        key_files += json.loads((ROOT / "models.local.json").read_text()).get("keyFiles", [])
+    except (OSError, json.JSONDecodeError):
+        pass
     for kf in key_files:
         try:
             for line in Path(kf).read_text().splitlines():

@@ -35,7 +35,7 @@ Forest green with real chroma, peach controls, Manrope from 500 to 800 and nothi
 
 ## Faces
 
-- **Display:** Manrope 800, `--tracking-display`, line-height 0.98, up to 4.75rem. One colour per head.
+- **Display:** Manrope 800, `--tracking-display`, line-height 1.0, up to 4.75rem. One colour per head.
 - **Body:** Manrope 500 at 16px, line-height 1.55, in `--color-muted`; links and row titles at 700.
 - **Labels, captions, table heads, meta:** Manrope 700 one step smaller, sentence case, untracked. Never mono, never uppercase.
 - **Outlier:** IBM Plex Mono only inside code and on figures that compare in a column.
@@ -50,7 +50,7 @@ Forest green with real chroma, peach controls, Manrope from 500 to 800 and nothi
 
 ## Motion
 
-Cheerful and physical: the crate fills on tap, and the price follows when the user has given one per size; a marquee runs at about 36 seconds a loop, paused on hover. No reveals, no parallax, nothing else loops.
+Cheerful and physical: the crate fills on tap, and the price follows when the user has given one per size; a marquee runs at about 36 seconds a loop and pauses on hover, on focus and from its own pause control. No reveals, no parallax, nothing else loops.
 
 ## Voice
 
@@ -66,17 +66,17 @@ The stall-holder's: the fruit, the farm, the day it comes, what ripe feels like 
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 ```
 
 ```css
-.display { font: 800 var(--text-display)/0.98 var(--font-display); letter-spacing: var(--tracking-display); }
+.display { font: 800 min(var(--text-display), 4.75rem)/1 var(--font-display); letter-spacing: var(--tracking-display); }
 .card { background: var(--color-card); color: var(--color-card-ink); border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
 .fruit { position: relative; width: 64px; height: 64px; border-radius: 50%; box-shadow: inset -6px -8px 14px color-mix(in oklab, var(--color-shade) 16%, transparent);
   background: radial-gradient(circle at 35% 32%, var(--f2), var(--f1) 62%, color-mix(in oklab, var(--f1) 70%, var(--color-shade))); }
 .ripe { height: 8px; border-radius: 4px; background: color-mix(in oklab, var(--color-ink) 14%, transparent); overflow: hidden; }
 .ripe i { display: block; height: 100%; width: var(--w); background: linear-gradient(90deg, var(--ripe-0), var(--ripe-1), var(--ripe-2)); }
-.btn { border-radius: 14px; padding: 0.8rem 1.25rem; font-weight: 700; border: var(--rule-bar) solid var(--color-ink); }
+.btn { border-radius: 14px; padding: var(--space-sm) var(--space-lg); font: 700 var(--text-md)/1.25 var(--font-body); border: var(--rule-bar) solid var(--color-ink); }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 45%, transparent); color: var(--color-card-ink); }
 ```

@@ -18,6 +18,8 @@
 
 **Always a non-WebGL fallback.** When the canvas fails to initialise (no WebGL2, a blocklisted GPU, low-power mode), show a static poster so the page still renders and still reads.
 
+**Motion.** The scene moves when the visitor moves it. Any idle motion is a loop under `craft.md` § 5: the render loop stops under reduced motion and off-screen, and past 5 seconds it carries a visible pause control.
+
 ### Anti-patterns of WebGL
 
 - **Three.js for a stationary product.** No interaction, no justification; an SVG or a photograph.

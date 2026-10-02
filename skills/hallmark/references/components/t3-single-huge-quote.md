@@ -1,7 +1,7 @@
 ### T3 · Single huge quote
 One quote, set big, centred, taking a whole section. No supporting text, no attribution box: the attribution is one quiet line beneath, in the body face. The quote and the name are the user's material, verbatim; without both the block does not ship (46a).
 *Use when:* one quote is so good it earns the room.
-*Don't confuse with:* T1 Pull-quote with marginalia (which is the *side* mate, not the *room*).
+*Not:* T1 (the quote at the side, not the room).
 
 ```html
 <section class="proof-room">
@@ -17,8 +17,10 @@ One quote, set big, centred, taking a whole section. No supporting text, no attr
 
 ## Knobs
 
-- Quote face: serif italic · roman display
+- Quote face: display roman · display italic (the whole quote)
 - Measure: 60ch · 45ch · the container
 - Attribution position: under the quote · a hairline band beneath
 
-*Mobile:* below 40rem the quote drops one size step; the attribution stays one line.
+## Mobile
+
+- Below 40rem: the quote steps down to `--text-xl`; the attribution stays one line.
