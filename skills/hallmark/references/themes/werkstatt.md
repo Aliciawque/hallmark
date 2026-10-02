@@ -6,9 +6,9 @@ paper: mid 80 80
 display: geometric-sans Jost
 accent: cool 265
 posture: full-palette
-keywords: school, programme, workshop, maker, course, bootcamp, academy, apply, admissions, tuition, timetable, bauhaus, craft, design education, studio, residency, cohort, prospectus
+keywords: school, programme, workshop, maker, course, bootcamp, academy, apply, admissions, tuition, timetable, bauhaus, craft, design education, design school, residency, cohort, prospectus
 material: a warm putty grey ground, a blue circle, a red triangle and a yellow square, heavy geometric capitals, 2px and 3px black rules
-signature: the three primary shapes cropped large beside the headline and repeated at 11px as the bullets of every list
+signature: the three primary shapes cropped large beside the headline and repeated at 11px as the bullets of the lists that name the shops
 pictured: Prospectus (an unlisted shape), Poster hero
 ---
 
@@ -43,21 +43,21 @@ Three colourways, set once per page and named in the stamp (`werkstatt: putty`).
 
 ## Faces
 
-- **Display:** Jost 700, uppercase, `--tracking-display`, line-height 0.96, up to 6.5rem in the hero and 2.75rem for section heads; the wordmark at 15px tracked 0.08em.
+- **Display:** Jost 700, uppercase, `--tracking-display`, line-height 1.02, up to 6.5rem in the hero and 2.75rem for section heads; the wordmark at 15px tracked 0.04em.
 - **Body:** Karla 400 and 500 at 16px, line-height 1.45; subheads at 20px.
 - **Labels, captions, tags, table heads:** Karla 600 at 12.5 to 13px, sentence case, untracked, in `--color-muted`. Mono only inside code; timetable cells and prices are Karla with `tabular-nums`.
 
 ## Material
 
 - Rules do the structure: `--rule-box` ink lines box the shops grid and cross it, `--rule-bar` ink under a nav and over every table, `--rule-hair` `--color-rule` between rows. No card has a background; a cell is what the rules enclose.
-- The three shapes, drawn in CSS (a circle by radius, a triangle by clip-path, a square with an 8 degree tilt): at 150 to 220px as cropped forms beside the headline and shop names; at 11px as list bullets, each colour meaning one shop; a 4px ink line is the fourth shop's mark.
+- The three shapes, drawn in CSS (a circle by radius, a triangle by clip-path, a square with an 8 degree tilt): at 150 to 220px as cropped forms beside the headline and shop names; at 11px as the bullets of a list whose items belong to the shops, each colour one shop (a list of one kind takes no bullets); a 4px ink line is the fourth shop's mark.
 - Zero radius, zero shadow, no texture; the only gradient is a warm grey ramp inside a placeholder with a tag in its corner. The isometric house is 2px ink lines, never shaded.
 - The control pair: a transparent `--rule-bar` ink-bordered button beside an ink-filled one, both uppercase Karla 600 at 13px tracked 0.04em, following the display's capitals; on a dark band the filled one turns yellow with ink type, which is the same primary in that band's colour, not a third control (one filled recipe per band, F4).
 - The timetable: a grid with 92px rows coloured per shop and an outlined cell for open bench time. Blue and red cells take the light ink `--color-accent-ink`, the red deepened to `--color-accent-2-deep`; the yellow cell takes black type, the black cell putty.
 
 ## Motion
 
-Static, like a printed prospectus. Hover thickens a link's underline from 2px to 3px; the shapes never move.
+Static, like a printed prospectus. Hover thickens a link's underline from 2px to 3px; the shapes never move, unless the user asks for motion: then they settle once on load and nothing loops.
 
 ## Voice
 
@@ -77,9 +77,9 @@ Plain school prose: the shop, the week, the tuition, the deadline.
 ```
 
 ```css
-.display { font: 700 var(--text-display)/0.96 var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-display); text-wrap: balance; }
+.display { font: 700 var(--text-display)/1.02 var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-display); text-wrap: balance; }
 .label { font: 600 12.5px/1.3 var(--font-body); color: var(--color-muted); }
-.btn { display: inline-flex; align-items: center; gap: 10px; padding: 17px 26px; border: var(--rule-bar) solid var(--color-ink); font: 600 13px/1 var(--font-body); letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-ink); }
+.btn { display: inline-flex; align-items: center; gap: var(--space-xs); padding: var(--space-md) var(--space-lg); border: var(--rule-bar) solid var(--color-ink); font: 600 13px/1 var(--font-body); letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-ink); }
 .btn--primary { background: var(--color-ink); color: var(--color-paper); }
 .sh { display: inline-block; width: 11px; height: 11px; vertical-align: middle; }
 .sh--c { border-radius: 50%; background: var(--color-accent); }

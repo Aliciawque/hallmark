@@ -6,7 +6,7 @@ paper: light 95 85
 display: roman-serif Libre Caslon Text
 accent: cool 275
 posture: committed
-keywords: weaving, textile, linen, wool, studio, cloth, craft, atelier, handmade, natural, indigo, fabric, by the metre, workshop, maker, slow, commission, interiors, samples
+keywords: weaving, textile, linen, wool, weaving studio, cloth, craft, atelier, handmade, natural, indigo, fabric, by the metre, workshop, maker, slow, commission, interiors, samples
 material: ecru paper with a Caslon, a deep indigo, sand and oat as cloth colours, thin rules, a comb of 1px threads as the texture
 signature: a bar of indigo threaded with 1px vertical lines at a 12px pitch, carrying the headline of the section
 pictured: Narrative Workflow, Stage hero

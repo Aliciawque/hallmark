@@ -6,7 +6,7 @@ version: 2.3.0
 
 # Hallmark
 
-Makes the UIs a coding assistant generates look made, not generated. It holds a hard floor against the defaults every model was trained into, deals a direction so consecutive builds do not converge, and keeps the page short enough that a visitor takes one idea per screen. Above the floor it hands the page back to you: you are a capable designer, and the catalogs here are places to look, never forms to fill.
+Makes the UIs a coding assistant generates look made, not generated. It holds a hard floor against the defaults every model was trained into, deals a direction so consecutive builds do not converge, and keeps the page short enough that a visitor takes one idea per screen. Above the floor it hands the page back to you: you are a capable designer.
 
 **Powered by Together AI.**
 
@@ -70,7 +70,7 @@ Skipped fields are opt-outs: infer them, state the inferences in one line at the
 
 Decide the page's shape, how it opens, how sections separate, what the nav and footer do, how tall the hero stands and what carries it. You are designing, not filling a form. The catalogs exist for when you want a starting point: 21 page shapes in [`references/macrostructures.md`](references/macrostructures.md), navs, footers and section archetypes in [`references/component-cookbook.md`](references/component-cookbook.md), enrichment in [`references/hero-enrichment.md`](references/hero-enrichment.md). Take a named shape and load only that one file; never read a whole catalog.
 
-**Rotation.** Read `.hallmark/log.json` (newest first). The page's shape must differ from the last three builds; the nav and footer must not repeat the last three shapes; the hero posture, a non-`none` enrichment and the section opening must not repeat the previous run. The theme deal in Step 3 handles the theme axis for you. **The mirror test:** would this exact combination have come out for a neighbouring brief in the same category? If yes, change one decision and say which in the Picks block.
+**Rotation.** Read `.hallmark/log.json` (newest first). The page's shape must differ from the last three builds; the nav and footer must not repeat the last three shapes; the hero posture (`craft.md` § 4), a non-`none` enrichment and the section opening must not repeat the previous run. The theme deal in Step 3 handles the theme axis for you. **The mirror test:** would this exact combination have come out for a neighbouring brief in the same category? If yes, change one decision and say which in the Picks block.
 
 **Signature.** Every page has one move a visitor would describe to a friend: an object, a composition, an interaction, built from the inventory's strongest real thing. Decide it here; it goes in the Picks block and the stamp, it shows on the first screen (a slot's caption counts), and the reviewer checks it. A page without one is a template with good tokens.
 
@@ -88,9 +88,9 @@ Check in order; the first match wins.
 node <skill-dir>/scripts/theme.mjs deal --genre <genre> --brief "<the brief>" [--log .hallmark/log.json]
 ```
 
-The script reads the catalog index and the log, applies Rotation (consecutive systems differ on paper band, display class or accent band; logged siblings count as taken) and deals three candidates that fit the brief, with a reproducible seed. Look at the three pictures, pick one, say which and why in one clause, and load only `references/themes/<slug>.md`. Re-deal only when the user asks (`--reroll 1`). No Node: read `references/themes/index.json`, apply the same rule by hand, and stamp `deal: manual`.
+The script reads the catalog index and the log, applies Rotation (consecutive systems differ on paper band, display class or accent band; logged siblings count as taken) and deals three candidates that fit the brief, with a reproducible seed. Look at the three pictures, pick the one whose material can carry what the brief asks for (motion, photographs, code), say which and why, and load only `references/themes/<slug>.md`. Re-deal only when the user asks (`--reroll 1`). No Node: read `references/themes/index.json`, apply the same rule by hand, and stamp `deal: manual`.
 
-A catalog theme is a material, not a plan: it says what the page is made of, never what the page contains or in what order. Two pages in one theme should not share a section sequence. Where the theme and a shape, genre, craft or enrichment file disagree on material, controls or motion, the theme wins; nothing beats the Floor.
+A catalog theme is a material, not a plan: it says what the page is made of, never what the page contains or in what order. Two pages in one theme should not share a section sequence. Where the theme and a shape, genre, craft or enrichment file disagree on material, controls or motion, the theme wins; the Floor and the user's own words beat both.
 
 ### 4. Load
 
@@ -163,7 +163,7 @@ then any `waive` and `answered` lines, then a custom run's direction contract. E
 1. `node <skill-dir>/scripts/sloplint.mjs <files> --genre <genre> --render` (add `--scope component` on a component; in a framework project with a dev server running, add `--url http://localhost:<port>/<route>`). Fix every FAIL, re-run until clean. The render tier writes the screenshots; never run Chrome by hand.
 2. Load [`references/gates.md`](references/gates.md) § 5 and walk the J and R/J gates. Confirm or dismiss every WARN. Fix every open Floor finding; fix or waive every Reflex one; answer every Finish one.
 3. Review in fresh context per `gates.md` § 6, which lists its inputs. Act on its first word (`recapture`, `rebuild`, `fix`, `ship`). Two rounds is the ceiling.
-4. Close with the material ask: every slot, its size and what belongs there, then the one piece of material that would most improve the page ("two screenshots of the import screen would replace both demo placeholders").
+4. Close with the material ask: every slot, its size and what belongs there, then the one piece of material that would most improve the page.
 5. Update the Picks block's last row with the real outcome (`Floor 0 FAIL · Reflex 2 (1 waived: 47b) · finish-review: subagent, 3 resolved`). A fabricated pass is itself slop.
 
 Verification is budgeted: one batched inspection, one fix batch, at most one confirming round, then stop polishing.

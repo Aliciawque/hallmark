@@ -6,7 +6,7 @@ paper: light 95 300
 display: geometric-sans Outfit
 accent: cool 290
 posture: committed
-keywords: music, audio, stems, remix, dj, producer, player, streaming, tempo, playlist, creator, app, consumer, lowercase, violet, sound, beats, studio
+keywords: music, audio, stems, remix, dj, producer, player, streaming, tempo, playlist, creator, app, consumer, lowercase, violet, sound, beats, recording studio
 material: lavender paper, one saturated violet, Outfit set lowercase, pills, a drawn record and a bar waveform
 signature: a lowercase headline beside a vinyl disc whose label is the only violet fill
 pictured: Map / Diagram, Stage hero, in the night colourway

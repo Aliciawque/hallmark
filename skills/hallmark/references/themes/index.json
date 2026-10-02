@@ -1,5 +1,5 @@
 {
- "built": "2026-10-01",
+ "built": "2026-10-02",
  "themes": [
   {
    "name": "Almanac",
@@ -67,7 +67,7 @@
    "keywords": [
     "game",
     "indie",
-    "studio",
+    "game studio",
     "launch party",
     "demo night",
     "hackathon",
@@ -173,12 +173,16 @@
     "render",
     "imagine",
     "prompt",
-    "studio",
+    "creative studio",
     "playground",
     "expressive",
     "warm",
     "daylight",
-    "consumer creative"
+    "consumer creative",
+    "portrait",
+    "headshot",
+    "selfie",
+    "retouch"
    ],
    "material": "warm off-white paper under two terracotta blooms, Figtree throughout, one roman Gambarino line, raised warm cards",
    "signature": "warm light on light paper, a plain sans headline with one serif sentence beneath it, the made thing on a raised warm card",
@@ -224,7 +228,7 @@
     "renovation",
     "build",
     "drawings",
-    "studio"
+    "architecture studio"
    ],
    "material": "prussian-blue sheet under a two-pitch grid, white line drawing, a fixed title block, dimension strings and hatch fills",
    "signature": "the fixed title block in the sheet's corner, with every figure on the page dimensioned like a drawing",
@@ -303,7 +307,7 @@
     "high-contrast",
     "statement",
     "agency",
-    "studio",
+    "design studio",
     "portfolio",
     "streetwear",
     "drop",
@@ -542,7 +546,10 @@
     "places",
     "destination",
     "journey",
-    "landscape"
+    "landscape",
+    "portrait",
+    "headshot",
+    "photo studio"
    ],
    "material": "near-black wall with a fine grain, hairline extra-condensed capitals, one amber safelight, greyscale prints hung edge to edge",
    "signature": "prints hung edge to edge on the near-black wall at one height, each with its plate number and date beneath in the body face",
@@ -1024,7 +1031,7 @@
     "glaze",
     "heat",
     "temperature",
-    "studio",
+    "ceramics studio",
     "craft",
     "sensor",
     "monitor",
@@ -1109,7 +1116,7 @@
     "textile",
     "linen",
     "wool",
-    "studio",
+    "weaving studio",
     "cloth",
     "craft",
     "atelier",
@@ -1685,7 +1692,7 @@
     "editorial",
     "magazine",
     "essay",
-    "studio",
+    "type studio",
     "agency",
     "brand story",
     "print",
@@ -1992,7 +1999,7 @@
     "timber",
     "ceramic",
     "interiors",
-    "studio",
+    "interiors studio",
     "showroom",
     "specification",
     "swatches",
@@ -2043,7 +2050,7 @@
     "violet",
     "sound",
     "beats",
-    "studio"
+    "recording studio"
    ],
    "material": "lavender paper, one saturated violet, Outfit set lowercase, pills, a drawn record and a bar waveform",
    "signature": "a lowercase headline beside a vinyl disc whose label is the only violet fill",
@@ -2181,13 +2188,13 @@
     "bauhaus",
     "craft",
     "design education",
-    "studio",
+    "design school",
     "residency",
     "cohort",
     "prospectus"
    ],
    "material": "a warm putty grey ground, a blue circle, a red triangle and a yellow square, heavy geometric capitals, 2px and 3px black rules",
-   "signature": "the three primary shapes cropped large beside the headline and repeated at 11px as the bullets of every list",
+   "signature": "the three primary shapes cropped large beside the headline and repeated at 11px as the bullets of the lists that name the shops",
    "file": "references/themes/werkstatt.md",
    "pictured": "Prospectus (an unlisted shape), Poster hero",
    "picture": "references/themes/werkstatt.jpg"

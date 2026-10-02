@@ -6,7 +6,7 @@ paper: light 96 80
 display: high-contrast-serif Bodoni Moda
 accent: cool 262
 posture: restrained
-keywords: typography, type specimen, foundry, letterform, portfolio, editorial, magazine, essay, studio, agency, brand story, print, publication, craft, considered, literary
+keywords: typography, type specimen, foundry, letterform, portfolio, editorial, magazine, essay, type studio, agency, brand story, print, publication, craft, considered, literary
 material: warm oat paper, a Didone set enormous and thin, hairlines, one cool ink-blue mark
 signature: a single Bodoni Moda word at specimen scale whose hairlines nearly vanish, over a ruled page
 pictured: Type Specimen, Poster hero

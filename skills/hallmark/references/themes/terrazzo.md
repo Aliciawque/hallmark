@@ -6,7 +6,7 @@ paper: light 96 80
 display: geometric-sans Syne
 accent: warm 35
 posture: full-palette
-keywords: materials, library, architects, samples, catalogue, surfaces, stone, timber, ceramic, interiors, studio, showroom, specification, swatches, supplier, drawer, photography, tactile
+keywords: materials, library, architects, samples, catalogue, surfaces, stone, timber, ceramic, interiors, interiors studio, showroom, specification, swatches, supplier, drawer, photography, tactile
 material: off-white paper, wide geometric caps, flat terrazzo chips in rust, ochre, olive and navy scattered from a corner, one black drawer band
 signature: a scatter of eleven-pixel chips drifting in from one corner of a section, and an ink band that holds the sample drawers
 pictured: Stat-Led, Ledge hero

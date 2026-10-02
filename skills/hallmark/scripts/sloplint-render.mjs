@@ -137,6 +137,20 @@ export async function renderCheck(htmlFiles, metaIn) {
           const res = await page.evaluate(observeSpace, w === 1440, heroOnly, meta.heroPostureByFile[file] || '');
           for (const f of res) findings.push({ ...f, file, line: 1, evidence: `[${w}px] ${f.evidence}` });
         }
+        if (!heroOnly) {
+          await page.setViewport({ width: 1440, height: 900 });
+          await page.evaluate(() => { window.scrollTo(0, 0); if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); });
+          const rings = new Set();
+          for (let i = 0; i < 16; i++) {
+            await page.keyboard.press('Tab');
+            await new Promise((r) => setTimeout(r, 40));
+            const ring = await page.evaluate(focusRing);
+            if (!ring || rings.has(ring.key)) continue;
+            rings.add(ring.key);
+            if (ring.ratio != null && ring.ratio < 2.95) { const bg = await pixelsAroundRing(page, ring); if (bg) ring.ratio = contrast(ring.ring, bg); }
+            if (ring.ratio != null && ring.ratio < 2.95) findings.push({ gate: '26a', grade: 'FAIL', file, line: 1, evidence: `[1440px] focus ring ${ring.ratio.toFixed(2)}:1 against what is behind it on ${ring.key}`, fix: 'A ring at 3:1 or better against the surface it is drawn over: --color-focus, or a ring colour per band' });
+          }
+        }
       } catch (e) {
         console.error(`render tier: failed on ${file}: ${e.message}`);
         failed.push({ file, message: e.message });
@@ -158,6 +172,56 @@ export async function renderCheck(htmlFiles, metaIn) {
   });
   kept.failed = failed;
   return kept;
+}
+
+function focusRing() {
+  const el = document.activeElement;
+  if (!el || el === document.body || el === document.documentElement) return null;
+  const cs = getComputedStyle(el);
+  const key = el.tagName.toLowerCase() + (el.classList[0] ? '.' + el.classList[0] : '') + ((el.textContent || '').trim() ? ` "${el.textContent.trim().slice(0, 18)}"` : '');
+  if (cs.outlineStyle === 'none' || !(parseFloat(cs.outlineWidth) > 0)) return { key, ratio: null };
+  const cv = document.createElement('canvas'); cv.width = cv.height = 1;
+  const cx = cv.getContext('2d', { willReadFrequently: true });
+  const rgb = (str) => { cx.clearRect(0, 0, 1, 1); cx.fillStyle = 'rgba(0, 0, 0, 0)'; cx.fillStyle = str; cx.fillRect(0, 0, 1, 1); const d = cx.getImageData(0, 0, 1, 1).data; return [d[0] / 255, d[1] / 255, d[2] / 255, d[3] / 255]; };
+  const lin = (c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
+  const Y = (c) => 0.2126 * lin(c[0]) + 0.7152 * lin(c[1]) + 0.0722 * lin(c[2]);
+  let node = parseFloat(cs.outlineOffset) < 0 ? el : el.parentElement;
+  let bg = null;
+  for (; node && node !== document.documentElement; node = node.parentElement) { const c = rgb(getComputedStyle(node).backgroundColor); if (c[3] >= 0.9) { bg = c; break; } }
+  if (!bg) { const b = rgb(getComputedStyle(document.body).backgroundColor); bg = b[3] > 0 ? b : [1, 1, 1, 1]; }
+  const ring = rgb(cs.outlineColor);
+  if (ring[3] < 0.5) return { key, ratio: null };
+  const a = Y(ring), b = Y(bg);
+  const r = el.getBoundingClientRect();
+  const pad = Math.max(0, parseFloat(cs.outlineOffset)) + parseFloat(cs.outlineWidth) + 3;
+  return { key, ring: ring.slice(0, 3), ratio: (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05), rect: { x: r.left, y: r.top, w: r.width, h: r.height }, pad };
+}
+
+async function pixelsAroundRing(page, ring) {
+  try {
+    await page.evaluate(() => { const el = document.activeElement; if (el) { el.style.setProperty('outline-style', 'none', 'important'); el.style.setProperty('box-shadow', 'none', 'important'); } });
+    await new Promise((r) => setTimeout(r, 40));
+    const vw = await page.evaluate(() => [innerWidth, innerHeight]);
+    const x = Math.max(0, ring.rect.x - ring.pad), y = Math.max(0, ring.rect.y - ring.pad);
+    const clip = { x, y, width: Math.min(vw[0], ring.rect.x + ring.rect.w + ring.pad) - x, height: Math.min(vw[1], ring.rect.y + ring.rect.h + ring.pad) - y };
+    if (clip.width < 4 || clip.height < 4) return null;
+    const data = await page.screenshot({ clip, encoding: 'base64' });
+    return await page.evaluate(async (b64, inner) => {
+      const el = document.activeElement;
+      if (el) { el.style.removeProperty('outline-style'); el.style.removeProperty('box-shadow'); }
+      const img = new Image(); img.src = 'data:image/png;base64,' + b64; await img.decode();
+      const c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
+      const x = c.getContext('2d'); x.drawImage(img, 0, 0);
+      const d = x.getImageData(0, 0, c.width, c.height).data;
+      const ch = [[], [], []];
+      for (let py = 0; py < c.height; py++) for (let px = 0; px < c.width; px++) {
+        if (px >= inner.l && px < inner.r && py >= inner.t && py < inner.b) continue;
+        const i = (py * c.width + px) * 4; ch[0].push(d[i]); ch[1].push(d[i + 1]); ch[2].push(d[i + 2]);
+      }
+      if (!ch[0].length) return null;
+      return ch.map((a) => a.sort((p, q) => p - q)[a.length >> 1] / 255);
+    }, data, { l: ring.rect.x - x, t: ring.rect.y - y, r: ring.rect.x - x + ring.rect.w, b: ring.rect.y - y + ring.rect.h });
+  } catch { return null; }
 }
 
 function observe(checkFold, meta) {

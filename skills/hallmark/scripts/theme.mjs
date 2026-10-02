@@ -97,6 +97,7 @@ const sameTriple = (a, b) => a === b;
 const words = (s) => (s || '').toLowerCase().replace(/[^a-z0-9\s-]/g, ' ').split(/\s+/).filter((w) => w.length > 2);
 const ASK = new Set(['build', 'make', 'create', 'design', 'need', 'want', 'please', 'page', 'site', 'website', 'landing', 'called', 'for', 'and', 'the', 'with', 'that', 'this', 'our', 'your']);
 const briefWords = (s) => words(s).filter((w) => !ASK.has(w));
+const stem = (w) => { let x = w.replace(/(?:ing|ed)$/, ''); if (x.length < 3) x = w; return x.endsWith('ss') ? x : x.replace(/s$/, ''); };
 const hueGap = (a, b) => { const d = Math.abs(((a - b) % 360 + 360) % 360); return Math.min(d, 360 - d); };
 
 function seededRand(key) {
@@ -135,7 +136,7 @@ function deal() {
   const recentNames = new Set(recent.map((r) => String(r.theme || '').toLowerCase()));
   const lastAxes = recent[0] && recent[0].axes ? String(recent[0].axes) : null;
   const occupiedAxes = new Set(recent.map((r) => r.axes).filter(Boolean));
-  const bw = new Set(briefWords(brief));
+  const bw = new Set(briefWords(brief).map(stem));
   const slug = briefWords(brief).slice(0, 4).join('-') || 'brief';
   const seedBase = `${slug}·${new Date().toISOString().slice(0, 10)}`;
   const seedKey = `${seedBase}·r${reroll}`;
@@ -143,7 +144,7 @@ function deal() {
 
   const scored = themes.map((t) => {
     let fit = 0; const hits = [];
-    for (const k of t.keywords) { const kw = k.split(/\s+/); if (kw.every((w) => bw.has(w))) { fit += 3; hits.push(k); } }
+    for (const k of t.keywords) { const kw = k.toLowerCase().split(/\s+/).map(stem); if (kw.every((w) => bw.has(w))) { fit += 3; hits.push(k); } }
     if (t.genre === genre) fit += 2; else fit -= 1;
     const blocked = recentNames.has(t.name.toLowerCase()) || (lastAxes && sameTriple(lastAxes, triple(t)));
     const sibling = occupiedAxes.has(triple(t));

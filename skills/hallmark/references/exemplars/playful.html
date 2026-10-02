@@ -58,7 +58,7 @@ button, input, select, textarea { font: inherit; }
 @media (max-width: 40rem) { :root { --gutter: 16px; } }
 @media (prefers-reduced-motion: reduce) { *:not(.keep-motion), *:not(.keep-motion)::before, *:not(.keep-motion)::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }
 .skip { position: absolute; left: var(--space-md); top: var(--space-md); z-index: var(--z-toast); padding: var(--space-xs) var(--space-md); border-radius: 14px; background: var(--color-card); color: var(--color-card-ink); transform: translateY(-200%); }
-.skip:focus-visible { transform: none; outline-color: var(--color-paper-3); }
+.skip:focus-visible { transform: none; }
 .chip-nav { position: fixed; top: var(--space-md); right: var(--gutter); z-index: var(--z-sticky-nav); display: inline-flex; align-items: center; gap: var(--space-md); padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-lg); border-radius: var(--radius-card); background: var(--color-paper-3); }
 .chip-nav__wordmark { font-size: var(--text-xl); font-weight: 800; letter-spacing: -0.04em; color: var(--color-ink); text-decoration: none; }
 .chip-nav__wordmark:hover { color: var(--color-peach-2); }

@@ -6,7 +6,7 @@ paper: dark 9 30
 display: display-condensed Sofia Sans Extra Condensed
 accent: chromatic-amber 68
 posture: restrained
-keywords: photographer, photography, film, analogue, darkroom, prints, portfolio, exhibition, gallery, edition, commission, cinematographer, negative, archive, monochrome, lab, moody, black and white, night, print shop, travel, places, destination, journey, landscape
+keywords: photographer, photography, film, analogue, darkroom, prints, portfolio, exhibition, gallery, edition, commission, cinematographer, negative, archive, monochrome, lab, moody, black and white, night, print shop, travel, places, destination, journey, landscape, portrait, headshot, photo studio
 material: near-black wall with a fine grain, hairline extra-condensed capitals, one amber safelight, greyscale prints hung edge to edge
 signature: prints hung edge to edge on the near-black wall at one height, each with its plate number and date beneath in the body face
 pictured: Photographic, Ledge hero

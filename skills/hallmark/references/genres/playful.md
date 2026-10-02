@@ -8,7 +8,7 @@ Consumer, casual, family, community and onboarding-led pages that should feel al
 - **Body:** a plain sans in a slightly muted ink.
 - **Accent:** soft and low-chroma by default; a declared Full-palette or Drenched posture lifts chroma to 0.24 across three or four named roles, each with a job.
 - **Layout:** rounded surfaces, 12px cards, 8px inputs, pills; soft offset shadows; tinted alternating bands.
-- **Motion:** responsive to the pointer; one small entrance per section; a spring only under a declared spring posture, on the primary CTA and one character moment (gate 12's exception).
+- **Motion:** responsive to the pointer; one small entrance on the page, its one reveal (`craft.md` § 5); a spring only under a declared spring posture, on the primary CTA and one character moment (gate 12's exception).
 - **Copy:** warm, direct, specific; no quirk for its own sake.
 
 ## Allowed here
