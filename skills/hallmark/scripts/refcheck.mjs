@@ -255,6 +255,10 @@ for (const f of [...reach]) {
 for (const f of MD) if (!reach.has(f) && basename(f) !== 'README.md') add('warn', f, 1, 'orphan', 'no file reachable from SKILL.md names this file');
 
 const skillBytes = Buffer.byteLength(read(SKILL));
+const front = /^---\n([\s\S]*?)\n---\n/.exec(readFileSync(SKILL, 'utf8'));
+const fm = front ? Object.fromEntries(front[1].split('\n').map((l) => /^([a-z-]+):\s*(.*)$/.exec(l)).filter(Boolean).map((m) => [m[1], m[2]])) : {};
+if (!fm.name || !fm.description) add('error', SKILL, 1, 'frontmatter', 'SKILL.md needs name and description in its frontmatter, or installers find no skill');
+else if (!/^"(?:[^"\\]|\\.)*"$/.test(fm.description) || fm.description.length > 1026) add('error', SKILL, 2, 'frontmatter', 'the description must be one double-quoted line of 1,024 characters or fewer; an unquoted colon breaks strict YAML parsers');
 if (skillBytes > 19000) add('error', SKILL, 1, 'size', `SKILL.md is ${skillBytes} bytes; keep it at 19,000 or under so the 5,000 tokens a harness re-attaches after compaction still hold Step 7`);
 
 for (const f of themeFiles) {

@@ -1,6 +1,6 @@
 # Recipes
 
-Eight briefs you can paste into Claude Code, Codex CLI or OpenCode with Hallmark installed. Each is the prompt verbatim and what the skill is expected to infer; the picks are not fixed, because the theme deal rotates against the project's log and two runs of the same brief should not land on the same shape or theme. The rendered pages under [`site/_tests/`](../site/_tests/) were built from these prompts by an earlier version of the skill and predate the v2 gates.
+Nine briefs you can paste into Claude Code, Codex CLI or OpenCode with Hallmark installed. Each is the prompt verbatim and what the skill is expected to infer; the picks are not fixed, because the theme deal rotates against the project's log and two runs of the same brief should not land on the same shape or theme. The rendered pages under [`site/_tests/`](../site/_tests/) were built from these prompts by an earlier version of the skill and predate the v2 gates.
 
 The first recipe is the one to try in a fresh project to see the flow before reading anything else.
 
