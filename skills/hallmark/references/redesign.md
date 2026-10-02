@@ -8,7 +8,7 @@ Loaded when the request opens with `redesign` or `audit`, or plainly asks to red
 - **The wiring.** Every link, form field, action, handler, route, id and test hook; every script, data call and analytics call. Edit markup inside the component that owns it. Never move logic, rename a prop, or drop a `name`, an `id`, a `key`, an `href` or a `data-testid` that a script or a test reads.
 - **The files.** No file deleted, no route removed and no component tree replaced without a file-level plan the user approved, and no test edited to make the redesign pass. Documents in the repo (a README, a brief, a deck) explain the product; they are not page copy. In a git project, start from a clean tree (ask the user to commit or stash; never do it for them), so the redesign is one diff they can read and revert.
 - **The brand.** A logo, a brand colour and a brand face the pre-flight finds stay at every depth unless the user lets them go; a real brand runs `brand-truth.md`. A locked `design.md` is the system at every depth.
-- **The words,** unless a gate names them. Wording that fails a copy gate (19, 58, 63, 69) is tightened from the facts already on the page, and the handoff lists every changed line, before and after. Legal and consent text is never reworded. When the user says to keep every word, stamp `copy: verbatim`: 19, 58 and 69 then report as notes.
+- **The words,** unless a gate names them. Wording that fails a copy gate (19, 58, 63, 69) is tightened from the facts already on the page, and the handoff lists every changed line, before and after. Terms, disclaimers and consent text are never reworded. When the user says to keep every word, stamp `copy: verbatim`: 19, 58 and 69 then report as notes.
 
 ## Depth
 
@@ -58,7 +58,7 @@ Then the build rows the depth reaches: Theme at restyle and full (dealt, `brand`
 
 ## Build
 
-- **Polish** is the sweep in `flow.md` § Signal 8, on the user's own page: fix in place, single elements and tokens, never restructure. Its check stamp opens the stylesheet, with `built: the project · redesign: polish`.
+- **Polish** is `flow.md` § The sweep, on the user's own page: fix in place, single elements and tokens, never restructure, under the check stamp with `built: the project · redesign: polish`.
 - **Where the layout stays** (polish and restyle), the stamp's `redesign:` field tells sloplint to report the layout gates (6b, 8, 9, 32, 42, 44a, 44c, 58) as notes. Print them for the user with the depth that would settle them; do not rebuild them.
 - **Restyle and full** start from the scaffold: `tokens.css` and `base.css` imported below the project's own styles and mapped onto the project's token names (a Tailwind theme, shadcn variables: `export-formats.md`). Pass the depth so the stamp carries it: `theme.mjs scaffold <slug> --redesign <depth>`. A kept brand takes `scaffold --brand --redesign <depth>` and fills the tokens from the palette and faces the pre-flight found (no `check`: the coordinates are the user's); otherwise the deal runs as in Step 3. Then the shared components and the chrome, then the pages, the most visited first, each swept before the next.
 - **More than one page** at restyle or full: lock the system first (`design-md.md`). Every page reads it and the variety rule inverts: pages share theme, type and accent, and differ only in shape. Past three pages, give each page to its own subagent where the harness has them, with `design.md`, the page's files and this file.

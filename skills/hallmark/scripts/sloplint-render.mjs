@@ -195,7 +195,7 @@ export async function renderCheck(htmlFiles, metaIn) {
             });
             return { words: gone.reduce((n, el) => n + flat(el.textContent).split(' ').length, 0), first: gone[0] ? flat(gone[0].textContent).slice(0, 36) : '' };
           }).catch(() => ({ words: 0 }));
-          if (cut.words >= 40) findings.push({ gate: 'F26', grade: 'WARN', file, line: 1, evidence: `[375px] ${cut.words} words shown at 1440 are hidden on a phone (first: "${cut.first}")`, fix: 'If it matters, make it work on a phone; if it does not, cut it everywhere' });
+          if (cut.words >= 40) findings.push({ gate: 'F25', grade: 'WARN', file, line: 1, evidence: `[375px] ${cut.words} words shown at 1440 are hidden on a phone (first: "${cut.first}")`, fix: 'If it matters, make it work on a phone; if it does not, cut it everywhere' });
         }
         if (scriptErrors.length) findings.push({ gate: 'render', grade: 'FAIL', file, line: 1, evidence: `a script threw on load: ${scriptErrors[0].slice(0, 90)}`, fix: 'Fix the script; a page that throws ships half-working' });
       } catch (e) {

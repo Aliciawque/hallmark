@@ -1438,9 +1438,12 @@ function check19(ctx) {
       [/\bAcme\b/, 'startup cliche name'],
       [/\bNexus\b/, 'startup cliche name'],
     ];
+    const title = (/<title\b[^>]*>([^<]*)<\/title>/i.exec(doc.src) || [])[1] || '';
     for (const [re, label] of patterns) {
       const m = re.exec(t);
-      if (m) report(19, 'FAIL', doc.file, doc.lineOf(m.index), `${label}: "${m[0]}"`, 'Use plausible audience-fitting names');
+      if (!m) continue;
+      if (label === 'startup cliche name' && (re.test(title) || (t.match(new RegExp(re.source, 'g')) || []).length >= 3)) continue;
+      report(19, 'FAIL', doc.file, doc.lineOf(m.index), `${label}: "${m[0]}"`, 'Use plausible audience-fitting names');
     }
   }
 }
@@ -3827,26 +3830,17 @@ function checkF22(ctx) {
 
 function checkF23(ctx) {
   for (const doc of ctx.docs) {
-    const prose = maskedProse(doc);
-    const hits = [...prose.matchAll(/\u2014|&mdash;|&#8212;|\s--\s/g)];
-    const chars = prose.replace(/\s+/g, ' ').length;
-    if (hits.length >= 8 && hits.length * 500 >= chars) report('F23', 'WARN', doc.file, doc.lineOf(hits[0].index), `${hits.length} em dashes in ${chars} characters of copy`, 'A comma, a colon, a full stop or parentheses; the dash at this density reads as generated');
-  }
-}
-
-function checkF24(ctx) {
-  for (const doc of ctx.docs) {
     if (doc.kind !== 'html' || !/<html\b/i.test(doc.src)) continue;
     const missing = [];
     const html = /<html\b([^>]*)>/i.exec(doc.src);
     if (!html || !getAttr(html[1], 'lang')) missing.push('lang on <html>');
     if (!/<title\b[^>]*>\s*[^<\s][^<]*<\/title>/i.test(doc.src)) missing.push('a <title>');
     if (!/<meta\b[^>]*\bname\s*=\s*["']description["'][^>]*>/i.test(doc.src)) missing.push('a meta description');
-    if (missing.length) report('F24', 'WARN', doc.file, 1, `the document lacks ${missing.join(', ')}`, 'Name the language, title the page in its own words, and describe it in one sentence for link previews');
+    if (missing.length) report('F23', 'WARN', doc.file, 1, `the document lacks ${missing.join(', ')}`, 'Name the language, title the page in its own words, and describe it in one sentence for link previews');
   }
 }
 
-function checkF25(ctx) {
+function checkF24(ctx) {
   const wide = (value) => resolveVars(value, ctx.tokens).split(/,(?![^(]*\))/).some((layer) => {
     if (/\binset\b/.test(layer)) return false;
     const len = [...layer.replace(/(?:oklch|oklab|rgba?|hsla?|color|color-mix)\([^)]*\)/g, '').matchAll(/(-?\d*\.?\d+)(px|rem|em)?(?=\s|$)/g)].map((m) => parseFloat(m[1]) * (m[2] === 'rem' || m[2] === 'em' ? 16 : 1));
@@ -3856,11 +3850,11 @@ function checkF25(ctx) {
     const sh = r.decls.find((d) => d.prop === 'box-shadow' && d.value.trim() !== 'none');
     if (!sh || !wide(sh.value)) continue;
     const edge = r.decls.find((d) => /^border(?:-(?:top|right|bottom|left|inline|block)(?:-(?:start|end))?)?$/.test(d.prop) && /(?:^|\s)(?:1px|0\.5px|thin|var\(--rule-hair\))(?:\s|$)/.test(d.value) && !/\b(?:none|transparent)\b/.test(d.value));
-    if (edge) { report('F25', 'WARN', r.file, sh.line, `a hairline border under a wide soft shadow on ${r.selector}`, 'Commit to one: a defined edge, or elevation by shadow'); return; }
+    if (edge) { report('F24', 'WARN', r.file, sh.line, `a hairline border under a wide soft shadow on ${r.selector}`, 'Commit to one: a defined edge, or elevation by shadow'); return; }
   }
   for (const doc of ctx.docs) {
     const m = /class(?:Name)?\s*=\s*["'][^"']*(?<![\w:-])border(?![\w-])[^"']*(?<![\w:-])shadow-(?:xl|2xl)(?![\w-])|class(?:Name)?\s*=\s*["'][^"']*(?<![\w:-])shadow-(?:xl|2xl)(?![\w-])[^"']*(?<![\w:-])border(?![\w-])/.exec(doc.raw || doc.src);
-    if (m) { report('F25', 'WARN', doc.file, doc.lineOf ? doc.lineOf(m.index) : 1, 'a hairline border under a wide soft shadow (border with shadow-xl or shadow-2xl)', 'Commit to one: a defined edge, or elevation by shadow'); return; }
+    if (m) { report('F24', 'WARN', doc.file, doc.lineOf ? doc.lineOf(m.index) : 1, 'a hairline border under a wide soft shadow (border with shadow-xl or shadow-2xl)', 'Commit to one: a defined edge, or elevation by shadow'); return; }
   }
 }
 
@@ -3880,7 +3874,7 @@ const CHECKS = [check1, check2, check3, check3Stripe, check4, check6a, check7, c
   check39, check40_41, check42, check42Footer, check46, check47, check48, check49,
   check50, check50Wrap, check53, check54, check55, check56, checkCopyTell, check62, check63, check64, check65, check67, check38c,
   check19Tells, check58Static, check68, check69, check70, check42TwoButton, check47Placeholders, check65Tailwind, check29Glow, check11Lift, check15Fade,
-  checkF1, checkF2, checkF3, checkF4, checkF5, checkF6, checkF7, checkF7Pills, checkF8, checkF9, checkF15, checkF16, checkF21, checkF22, checkF23, checkF24, checkF25, check76,
+  checkF1, checkF2, checkF3, checkF4, checkF5, checkF6, checkF7, checkF7Pills, checkF8, checkF9, checkF15, checkF16, checkF21, checkF22, checkF23, checkF24, check76,
   checkTailwind, checkComponentText];
 
 const files = opts.paths.length ? collectFiles(opts.paths) : [];
@@ -4231,7 +4225,7 @@ let compareNote = null;
 if (opts.kept && opts.render && !renderNotRun) {
   try {
     const mod = await import(new URL('./sloplint-render.mjs', import.meta.url).href);
-    const made = mod.writeCompare([...files.filter((f) => extname(f).toLowerCase() === '.html'), ...opts.urls], keptNote);
+    const made = mod.writeCompare([...files.filter((f) => extname(f).toLowerCase() === '.html'), ...opts.urls], keptNote ? keptNote.replace(/^kept: /, 'Kept: ').replace('; before ', '. Before: ').replace(', now ', '; now: ') + '.' : null);
     if (made.length) compareNote = `compare: ${made.map(rel).join(', ')} shows before and after side by side`;
   } catch {}
 }
