@@ -69,7 +69,7 @@ One line each. `a`/`b` clauses share a number and carry their own tier. Genre no
 | Gate | Tier | Class | The tell | The fix |
 | --- | --- | --- | --- | --- |
 | 1 | Reflex | M | Inter, Roboto, Open Sans, Poppins, Lato or a system face as the display | a display face from the theme or `fonts.md` |
-| 25 | Reflex | M | Running prose `max-width` outside 45 to 75ch; a lede or caption of two sentences or fewer may sit from 28ch | `max-width: 65ch` |
+| 25 | Reflex | M/R | Running prose `max-width` outside 45 to 75ch, or rendered lines of about 88 characters or more over three lines; a lede or caption of two sentences or fewer may sit from 28ch | `max-width: 65ch` |
 | 37 | Reflex | M | More than three font families | display, body, one outlier |
 | 38i | Floor | M | One italic word inside an otherwise roman heading | a line break, or the whole head set one way |
 | 38ii | Reflex | M | An italic display system. Guard: declared on `--font-display`, applied to every head at that level, true italic with `font-synthesis: none` | roman display |
@@ -84,7 +84,7 @@ One line each. `a`/`b` clauses share a number and carry their own tier. Genre no
 
 | Gate | Tier | Class | The tell | The fix |
 | --- | --- | --- | --- | --- |
-| 3 | Reflex | M | Card tells: three equal columns of icon-above-heading tiles, an icon in a rounded tile above a heading, a thick coloured side stripe on a card | vary widths and heights, inline icons, hairline or no border |
+| 3 | Reflex | M/R | Card tells: three equal columns of icon-above-heading tiles, an icon in a rounded tile above a heading, a thick coloured side stripe on a card | vary widths and heights, inline icons, hairline or no border |
 | 4 | Floor | M | A card inside a card | one containment layer |
 | 6a | Floor | M | Hero sized in `vh` | `dvh` or `svh` |
 | 6b | Reflex | J | Hero runs 92dvh or taller on a page with no stamped `hero:` posture, or title, lede, CTA and mark all sit on one centred axis. Guard: 44b passes. **at**, **pl** reach the centred canvas as their normal answer | at most two centred elements; break one alignment |
@@ -109,7 +109,7 @@ One line each. `a`/`b` clauses share a number and carry their own tier. Genre no
 
 | Gate | Tier | Class | The tell | The fix |
 | --- | --- | --- | --- | --- |
-| 19 | Floor | M | Copy tells: placeholder names (Jane Doe), startup clichés (Acme, Nexus), buzzwords (seamless, robust, empower, supercharge, elevate, effortless, unlock, unleash, next-generation, world-class, best-in-class, industry-leading, mission-critical, future-proof), the rebuttal cadence repeated ("Not a feature. A platform." three or more times), "quietly trusted by", em or en dashes, filler openers ("Built for the modern team", "In today's landscape"), a stock second action beside the primary (*Learn more*, *Get started*, *Book a demo*) | say what the product does, in its own nouns |
+| 19 | Floor | M | Copy tells: placeholder names (Jane Doe), startup clichés (Acme, Nexus), buzzwords (seamless, robust, empower, supercharge, elevate, effortless, unlock, unleash, next-generation, world-class, best-in-class, industry-leading, mission-critical, future-proof), the rebuttal cadence repeated ("Not a feature. A platform." three or more times), "quietly trusted by", em or en dashes, filler openers ("Built for the modern team", "In today's landscape"), a stock second action beside the primary (*Learn more*, *Get started*, *Book a demo*). A stock footer line (*All rights reserved*) is a `WARN`, and the page's own name is never a cliché | say what the product does, in its own nouns |
 | 20 | Floor | M | The Hallmark stamp missing from the first lines of CSS (build form or checked form) | write it |
 | 42 | Reflex | M | Chrome by reflex: the AI nav (wordmark left, inline links, button right, hairline under) or the AI footer (four link columns, social row, copyright) without the stamp naming it | decide it and name it (`nav:`, `footer:`), or build another shape |
 | 46a | Floor | M | An invented metric, testimonial, logo wall or case-study count | the user's number, a labelled placeholder, or no slot |
@@ -136,9 +136,9 @@ One line each. `a`/`b` clauses share a number and carry their own tier. Genre no
 | 16 | Reflex | J | A celebratory toast for an effect the user already sees | silent success |
 | 17 | Floor | M | Tooltip focus delay equal to hover delay | hover 800 to 1000ms, focus 0 |
 | 18 | Floor | M | Auto-rotating content with no pause on hover and focus | pause on hover and focus, and a visible pause control on anything moving past 5 seconds |
-| 26a | Floor | M | An interactive element with no `:focus-visible` | ring at 3:1 or better, instant |
+| 26a | Floor | M/R | An interactive element with no `:focus-visible`, a ring under 3:1 against what it is drawn over, or an outline removed with nothing in its place | ring at 3:1 or better, instant |
 | 26b | Reflex | M | Missing `:active` or `:disabled`. Guard: not a form control, no `aria-disabled` anywhere | all eight states |
-| 27 | Floor | M | Any keyframe or transform transition without a `prefers-reduced-motion: reduce` fallback | add it |
+| 27 | Floor | M | Any keyframe or transform transition without a `prefers-reduced-motion: reduce` fallback (`transition: all` over a hover transform counts) | add it |
 | 28a | Floor | M | A video autoplaying without `muted`; `loading="lazy"` on the LCP element | `autoplay muted loop playsinline`; `fetchpriority="high"` on an LCP image, a preloaded poster for an LCP video |
 | 28b | Reflex | M | Video without `poster` or priority hint. Guard: below the fold and not the LCP | add them |
 | 39a | Floor | M | Input states that break: border width shifting between states, a focus ring built from `border`, input height unequal to its adjacent button, disabled by opacity alone | constant border, `outline`, shared height, three disabled channels (opacity, `cursor: not-allowed`, the native attribute) |

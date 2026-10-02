@@ -19,22 +19,27 @@ function contrast(a, b) {
 }
 
 async function pixelBehind(page, probe) {
+  const HIDE = [['color', 'transparent'], ['text-shadow', 'none'], ['-webkit-text-stroke', '0'], ['text-decoration-color', 'transparent']];
+  const restore = () => page.evaluate((n, props) => {
+    const el = document.querySelector(`[data-hm-probe="${n}"]`);
+    if (el) for (const [k] of props) el.style.removeProperty(k);
+    window.scrollTo(0, 0);
+  }, probe, HIDE).catch(() => {});
   try {
-    const rect = await page.evaluate((n) => {
+    const rect = await page.evaluate((n, props) => {
       const el = document.querySelector(`[data-hm-probe="${n}"]`);
       if (!el) return null;
-      el.scrollIntoView({ block: 'center' });
-      for (const [k, v] of [['color', 'transparent'], ['text-shadow', 'none'], ['-webkit-text-stroke', '0'], ['text-decoration-color', 'transparent']]) el.style.setProperty(k, v, 'important');
+      el.scrollIntoView({ block: 'center', behavior: 'instant' });
+      for (const [k, v] of props) el.style.setProperty(k, v, 'important');
       const r = el.getBoundingClientRect();
       const x = Math.max(0, r.left), y = Math.max(0, r.top);
-      return { x, y, width: Math.min(r.right, innerWidth) - x, height: Math.min(r.bottom, innerHeight) - y };
-    }, probe);
-    if (!rect || rect.width < 2 || rect.height < 2) return null;
+      return { x: x + scrollX, y: y + scrollY, width: Math.min(r.right, innerWidth) - x, height: Math.min(r.bottom, innerHeight) - y };
+    }, probe, HIDE);
+    if (!rect || rect.width < 2 || rect.height < 2) { await restore(); return null; }
     await frames(page);
     const data = await page.screenshot({ clip: rect, encoding: 'base64' });
-    return await page.evaluate(async (b64, n) => {
-      const el = document.querySelector(`[data-hm-probe="${n}"]`);
-      if (el) for (const k of ['color', 'text-shadow', '-webkit-text-stroke', 'text-decoration-color']) el.style.removeProperty(k);
+    await restore();
+    return await page.evaluate(async (b64) => {
       const img = new Image();
       img.src = 'data:image/png;base64,' + b64;
       await img.decode();
@@ -46,8 +51,8 @@ async function pixelBehind(page, probe) {
       const ch = [[], [], []];
       for (let i = 0; i < d.length; i += 4) { ch[0].push(d[i]); ch[1].push(d[i + 1]); ch[2].push(d[i + 2]); }
       return ch.map((a) => a.sort((p, q) => p - q)[a.length >> 1] / 255);
-    }, data, probe);
-  } catch { return null; }
+    }, data);
+  } catch { await restore(); return null; }
 }
 
 async function shoot(page, file, tag, fullPage) {
@@ -55,7 +60,7 @@ async function shoot(page, file, tag, fullPage) {
     const dir = isUrl(file) ? join(process.cwd(), '.hallmark', SHOT_DIR) : join(dirname(file), '.hallmark', SHOT_DIR);
     mkdirSync(dir, { recursive: true });
     const ignore = join(dirname(dir), '.gitignore');
-    if (!existsSync(ignore)) writeFileSync(ignore, 'shots/\nbefore/\nbefore.json\ncompare.html\n');
+    if (!existsSync(ignore)) writeFileSync(ignore, 'shots/\nbefore/\nbefore.json\nbefore.txt\ncompare.html\n');
     const out = join(dir, `${slugOf(file)}-${tag}.png`);
     await page.screenshot({ path: out, fullPage });
     SHOTS.push(out);
@@ -117,7 +122,11 @@ export async function renderCheck(htmlFiles, metaIn) {
         const nav = await page.goto(isUrl(file) ? file : 'file://' + file, { waitUntil: isUrl(file) ? 'networkidle0' : 'load', timeout: 30000 }).then((r) => ({ r }), (e) => ({ e }));
         if (nav.e && !/timeout/i.test(nav.e.message)) throw nav.e;
         if (nav.r && isUrl(file) && !nav.r.ok()) throw new Error(`HTTP ${nav.r.status()} from ${file}`);
-        await page.evaluate(async () => { document.documentElement.classList.add('shot'); if (document.fonts) await document.fonts.ready; }).catch(() => {});
+        await page.evaluate(async () => {
+          document.documentElement.classList.add('shot');
+          for (const el of [document.documentElement, document.body]) if (el) el.style.setProperty('scroll-behavior', 'auto', 'important');
+          if (document.fonts) await document.fonts.ready;
+        }).catch(() => {});
         if (isUrl(file)) {
           const stamp = await page.evaluate(async () => { let t = [...document.querySelectorAll('style')].map((x) => x.textContent.slice(0, 4000)).join('\n'); for (const l of document.querySelectorAll('link[rel~="stylesheet"]')) { try { t += '\n' + (await (await fetch(l.href)).text()).slice(0, 4000); } catch {} } return t; }).catch(() => '');
           meta.postureByFile[file] = (/posture:\s*(restrained|committed|full-palette|drenched)/i.exec(stamp)?.[1] || 'restrained').toLowerCase();
@@ -127,6 +136,7 @@ export async function renderCheck(htmlFiles, metaIn) {
         const prefix = heroOnly ? 'hero-' : '';
         for (const width of heroOnly ? [375, 1280] : WIDTHS) {
           await page.setViewport({ width, height: width === 375 && heroOnly ? 812 : 800 });
+          await page.evaluate(() => window.scrollTo(0, 0)).catch(() => {});
           await frames(page);
           if (width === 1280) await shoot(page, file, `${prefix}1280x800`, false);
           if (width === 375) await shoot(page, file, heroOnly ? 'hero-375x812' : '375', !heroOnly);
@@ -145,6 +155,8 @@ export async function renderCheck(htmlFiles, metaIn) {
         }
         for (const [w, h] of [[1440, 900], [1920, 1080]]) {
           await page.setViewport({ width: w, height: h });
+          await page.evaluate(() => window.scrollTo(0, 0)).catch(() => {});
+          await frames(page);
           await shoot(page, file, `${prefix}${w}x${h}`, false);
           if (!heroOnly && w === 1440) {
             await page.evaluate(async () => { for (let y = 0; y < document.documentElement.scrollHeight; y += 800) { window.scrollTo(0, y); await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))); } window.scrollTo(0, 0); });
@@ -163,15 +175,18 @@ export async function renderCheck(htmlFiles, metaIn) {
           for (const f of [...quality, ...hidden]) findings.push({ ...f, file, line: 1, evidence: `[1440px] ${f.evidence}` });
           await page.evaluate(() => { window.scrollTo(0, 0); if (document.activeElement && document.activeElement.blur) document.activeElement.blur(); });
           const rings = new Set();
+          const bare = [];
           for (let i = 0; i < 16; i++) {
             await page.keyboard.press('Tab');
             await frames(page);
             const ring = await page.evaluate(focusRing);
             if (!ring || rings.has(ring.key)) continue;
             rings.add(ring.key);
+            if (ring.bare) { if (bare.length < 4) bare.push(ring.key); continue; }
             if (ring.ratio != null && ring.ratio < 2.95) { const bg = await pixelsAroundRing(page, ring); if (bg) ring.ratio = contrast(ring.ring, bg); }
             if (ring.ratio != null && ring.ratio < 2.95) findings.push({ gate: '26a', grade: 'FAIL', file, line: 1, evidence: `[1440px] focus ring ${ring.ratio.toFixed(2)}:1 against what is behind it on ${ring.key}`, fix: 'A ring at 3:1 or better against the surface it is drawn over: --color-focus, or a ring colour per band' });
           }
+          if (bare.length) findings.push({ gate: '26a', grade: 'FAIL', file, line: 1, evidence: `[1440px] nothing shows keyboard focus on ${bare.join(', ')}`, fix: 'Give every control a :focus-visible ring; never remove an outline without putting one back' });
         }
         if (!heroOnly) {
           await page.setViewport({ width: 1440, height: 900 });
@@ -212,7 +227,7 @@ export async function renderCheck(htmlFiles, metaIn) {
 
   const seen = new Set();
   const kept = findings.filter((f) => {
-    const k = f.gate + '|' + f.evidence.replace(/^\[\d+px\] /, '');
+    const k = f.file + '|' + f.gate + '|' + f.evidence.replace(/^\[\d+px\] /, '');
     if (seen.has(k)) return false;
     seen.add(k);
     return true;
@@ -292,18 +307,31 @@ function inventory() {
   const actions = uniq([...document.querySelectorAll('form[action]')].map((f) => `${(f.getAttribute('method') || 'get').toLowerCase()} ${key(f.getAttribute('action'))}`));
   const headings = uniq([...document.querySelectorAll('h1, h2, h3, h4')].filter((h) => !quiet(h)).map((h) => text(h).toLowerCase()).filter((t) => t.length > 1));
   const body = text(document.body);
-  const figures = uniq((body.match(/[$€£¥]\s?\d[\d,.]*\+?[kKmM]?|\b\d[\d,.]*\s?%|\b\d[\d,.]*[kKmM]?\+(?=\s|$)|\b\d{1,3}(?:,\d{3})+\b|\b\d{1,2}[:.]\d{2}\s?(?:am|pm)?\b/gi) || []).map((t) => t.replace(/\s+/g, '').toLowerCase()));
+  const figures = uniq((body.match(/[$€£¥]\s?\d[\d,.]*\+?[kKmM]?|\b\d[\d,.]*\s?%|\b\d[\d,.]*[kKmM]?\+(?=\s|$)|\b\d{1,3}(?:,\d{3})+\b|\b\d{1,2}[:.]\d{2}\s?(?:am|pm)?\b|\b(?:19|20)\d{2}\b|\b\d+(?:\.\d+)?\s(?:hours?|minutes?|mins?|days?|weeks?|months?|years?|seconds?|ms|km|kg|g|ml|mm|cm|gb|mb|tb|x)\b|\+?\d[\d\s().-]{7,}\d/gi) || []).map((t) => t.replace(/\s+/g, '').toLowerCase()));
   const images = uniq([...document.querySelectorAll('img[src]')].map((i) => (i.getAttribute('src') || '').split('?')[0].split('/').pop()));
   const controls = document.querySelectorAll('button, [role="button"], input[type="submit"], input[type="button"], select, textarea, input:not([type="hidden"])').length;
   return { links, fields, actions, headings, figures, images, controls, words: body ? body.split(' ').length : 0 };
 }
 
 function focusRing() {
-  const el = document.activeElement;
+  let el = document.activeElement;
   if (!el || el === document.body || el === document.documentElement) return null;
+  const box = el.getBoundingClientRect();
+  if (box.width < 4 || box.height < 4) el = el.closest('label') || el.parentElement;
+  if (!el) return null;
+  el.style.setProperty('transition', 'none', 'important');
   const cs = getComputedStyle(el);
   const key = el.tagName.toLowerCase() + (el.classList[0] ? '.' + el.classList[0] : '') + ((el.textContent || '').trim() ? ` "${el.textContent.trim().slice(0, 18)}"` : '');
-  if (cs.outlineStyle === 'none' || !(parseFloat(cs.outlineWidth) > 0)) return { key, ratio: null };
+  if (cs.outlineStyle === 'none' || !(parseFloat(cs.outlineWidth) > 0)) {
+    const active = document.activeElement;
+    const chain = []; for (let n = el, i = 0; n && n !== document.body && i < 5; n = n.parentElement, i++) chain.push(n);
+    const look = () => chain.flatMap((n) => [null, '::before', '::after'].map((ps) => { const c = getComputedStyle(n, ps); return [c.outlineStyle, c.outlineWidth, c.boxShadow, c.borderTopColor, c.borderBottomColor, c.borderLeftColor, c.borderBottomWidth, c.backgroundColor, c.backgroundImage, c.color, c.textDecorationLine, c.opacity].join('|'); })).join('~');
+    const focused = look();
+    active.blur();
+    const rest = look();
+    active.focus({ preventScroll: true });
+    return { key, ratio: null, bare: focused === rest };
+  }
   const cv = document.createElement('canvas'); cv.width = cv.height = 1;
   const cx = cv.getContext('2d', { willReadFrequently: true });
   const rgb = (str) => { cx.clearRect(0, 0, 1, 1); cx.fillStyle = 'rgba(0, 0, 0, 0)'; cx.fillStyle = str; cx.fillRect(0, 0, 1, 1); const d = cx.getImageData(0, 0, 1, 1).data; return [d[0] / 255, d[1] / 255, d[2] / 255, d[3] / 255]; };
@@ -323,16 +351,16 @@ function focusRing() {
 
 async function pixelsAroundRing(page, ring) {
   try {
-    await page.evaluate(() => { const el = document.activeElement; if (el) { el.style.setProperty('outline-style', 'none', 'important'); el.style.setProperty('box-shadow', 'none', 'important'); } });
+    await page.evaluate(() => { let el = document.activeElement; if (el) { const b = el.getBoundingClientRect(); if (b.width < 4 || b.height < 4) el = el.closest('label') || el.parentElement; } if (el) { el.setAttribute('data-hm-ring', ''); el.style.setProperty('outline-style', 'none', 'important'); el.style.setProperty('box-shadow', 'none', 'important'); } });
     await frames(page);
-    const vw = await page.evaluate(() => [innerWidth, innerHeight]);
+    const vw = await page.evaluate(() => [innerWidth, innerHeight, scrollX, scrollY]);
     const x = Math.max(0, ring.rect.x - ring.pad), y = Math.max(0, ring.rect.y - ring.pad);
-    const clip = { x, y, width: Math.min(vw[0], ring.rect.x + ring.rect.w + ring.pad) - x, height: Math.min(vw[1], ring.rect.y + ring.rect.h + ring.pad) - y };
+    const clip = { x: x + vw[2], y: y + vw[3], width: Math.min(vw[0], ring.rect.x + ring.rect.w + ring.pad) - x, height: Math.min(vw[1], ring.rect.y + ring.rect.h + ring.pad) - y };
     if (clip.width < 4 || clip.height < 4) return null;
     const data = await page.screenshot({ clip, encoding: 'base64' });
     return await page.evaluate(async (b64, inner) => {
-      const el = document.activeElement;
-      if (el) { el.style.removeProperty('outline-style'); el.style.removeProperty('box-shadow'); }
+      const el = document.querySelector('[data-hm-ring]');
+      if (el) { el.removeAttribute('data-hm-ring'); el.style.removeProperty('outline-style'); el.style.removeProperty('box-shadow'); }
       const img = new Image(); img.src = 'data:image/png;base64,' + b64; await img.decode();
       const c = document.createElement('canvas'); c.width = img.width; c.height = img.height;
       const x = c.getContext('2d'); x.drawImage(img, 0, 0);
@@ -498,12 +526,13 @@ function observe(checkFold, meta) {
       const large = size >= 24 || (size >= 18 && weight >= 700);
       const threshold = large ? 3.0 : 4.5;
       const key = describe(el);
+      const where = `${key} "${(el.innerText || el.textContent || '').replace(/\s+/g, ' ').trim().slice(0, 24)}"`;
       const stops = gradStops(el, bg);
       if (stops.length && !seenSel.has(key)) {
         const rs = stops.map((c) => ratio(fg, c));
         const worst = Math.min(...rs), best = Math.max(...rs);
-        if (best < threshold - 0.05) { seenSel.add(key); reported++; push(40, 'FAIL', `contrast ${best.toFixed(2)}:1 at best over the gradient behind ${key}`, 'Raise the contrast to threshold, or give the text its own ground'); }
-        else if (worst < threshold - 0.05) { seenSel.add(key); reported++; push(40, 'WARN', `contrast drops to ${worst.toFixed(2)}:1 over the gradient behind ${key}`, 'Check the text where the gradient is darkest or lightest; give the label its own ground'); }
+        if (best < threshold - 0.05) { seenSel.add(key); reported++; push(40, 'FAIL', `contrast ${best.toFixed(2)}:1 at best over the gradient behind ${where}`, 'Raise the contrast to threshold, or give the text its own ground'); }
+        else if (worst < threshold - 0.05) { seenSel.add(key); reported++; push(40, 'WARN', `contrast drops to ${worst.toFixed(2)}:1 over the gradient behind ${where}`, 'Check the text where the gradient is darkest or lightest; give the label its own ground'); }
         continue;
       }
       const r = ratio(fg, bg);
@@ -512,7 +541,7 @@ function observe(checkFold, meta) {
         reported++;
         el.setAttribute('data-hm-probe', String(reported));
         const probe = { probe: reported, fg: [fg.r, fg.g, fg.b], threshold };
-        push(40, 'FAIL', `computed contrast ${r.toFixed(2)}:1 < ${threshold}:1 on ${key}`,
+        push(40, 'FAIL', `computed contrast ${r.toFixed(2)}:1 < ${threshold}:1 on ${where}`,
           'Raise the contrast to threshold', probe);
         const btnish = el.closest('a, button, [class*="btn"], [class*="cta"]');
         if (btnish && r < 1.6) {
@@ -728,8 +757,9 @@ function observeSpace(atLaptop, heroOnly, heroPosture) {
 
     if (textBox && textBox.left < 120) push('44d', 'FAIL', `hero text starts ${Math.round(textBox.left)}px from the edge at 1920`, 'Cap the container at 1360 to 1520px and centre it');
     if (heroEnd != null && heroEnd > vh + 8) push('44d', 'FAIL', `hero runs past the 1920x1080 screen (hero ends at ${Math.round(heroEnd)}px)`, 'Cap vw-sized visuals and display sizes');
-    const wide = [...document.querySelectorAll('p, h1, h2, h3, li')].filter((e) => vis(e) && !e.querySelector('p, h1, h2, h3, h4, div, figure, ul, ol, table, section') && (e.innerText || '').trim().length > 40 && e.getBoundingClientRect().width > 1600);
-    if (wide.length) push('44d', 'FAIL', `${wide.length} text blocks wider than 1600px at 1920`, 'Cap the container; hold the measure');
+    const inkWidth = (e) => { const range = document.createRange(); range.selectNodeContents(e); return range.getBoundingClientRect().width; };
+    const wide = [...document.querySelectorAll('p, h1, h2, h3, li')].filter((e) => vis(e) && !e.querySelector('p, h1, h2, h3, h4, div, figure, ul, ol, table, section') && (e.innerText || '').trim().length > 40 && inkWidth(e) > 1600);
+    if (wide.length) push('44d', 'FAIL', `${wide.length} text block${wide.length > 1 ? 's run' : ' runs'} wider than 1600px at 1920 (first: ${wide[0].tagName.toLowerCase()} "${(wide[0].innerText || '').trim().slice(0, 28)}")`, 'Cap the container; hold the measure');
   }
   return out;
 }
@@ -814,6 +844,40 @@ function observeQuality(scope) {
   const controls = all.filter((el) => (el.tagName === 'BUTTON' || el.getAttribute('role') === 'button' || (el.tagName === 'A' && /btn|button|cta/i.test(String(el.className))) || (el.tagName === 'INPUT' && /^(submit|button|text|email|search|tel|url|password|number)$/.test(el.type))) && !el.closest('nav, header, dialog, [role="dialog"], [data-slot], [role="tablist"]') && (el.tagName === 'INPUT' || (el.innerText || '').trim()));
   const offSize = controls.map((el) => ({ el, h: el.getBoundingClientRect().height })).filter((c) => c.h > 8 && (c.h < (scope === 'app' ? 30 : 42) || c.h > 54));
   if (offSize.length) push('39b', 'REFLEX', `control height outside ${scope === 'app' ? '32 to 52px' : '44 to 52px'}: ${offSize.slice(0, 3).map((c) => `${name(c.el)} ${Math.round(c.h)}px`).join(', ')}`, 'Marketing controls stand 44 to 52px; app UI 32 to 40px with a 44px hit target');
+
+  const long = [];
+  for (const el of all) {
+    if (long.length >= 2 || el.tagName !== 'P' || el.closest('nav, footer, table, figure, [data-slot]')) continue;
+    const t = (el.innerText || '').replace(/\s+/g, ' ').trim();
+    if (t.length < 240) continue;
+    const cs = getComputedStyle(el);
+    const lh = parseFloat(cs.lineHeight) || parseFloat(cs.fontSize) * 1.4;
+    const lines = Math.round(el.getBoundingClientRect().height / lh);
+    if (lines >= 3 && t.length / lines > 88) long.push(`${name(el)} about ${Math.round(t.length / lines)} characters a line`);
+  }
+  if (long.length) push(25, 'REFLEX', `running prose set too wide: ${long.join(', ')}`, 'Cap the measure at 45 to 75ch');
+
+  const tiles = all.find((g) => {
+    if (g.closest('nav, footer, form, table')) return false;
+    const kids = [...g.children].filter(vis);
+    if (kids.length < 3 || kids.length > 4) return false;
+    const rects = kids.map((k) => k.getBoundingClientRect());
+    if (rects.some((r) => Math.abs(r.top - rects[0].top) > 4 || r.width < 160) || Math.max(...rects.map((r) => r.width)) > Math.min(...rects.map((r) => r.width)) * 1.04) return false;
+    return kids.every((k) => {
+      const head = k.querySelector('h2, h3, h4');
+      if (!head) return false;
+      const icon = [...k.querySelectorAll('svg, img, [class*="icon"], span, div, i')].find((n) => {
+        if (n.contains(head) || head.contains(n)) return false;
+        const r = n.getBoundingClientRect();
+        const glyph = (n.textContent || '').trim();
+        const iconish = n.tagName === 'svg' || n.tagName === 'IMG' || /icon/i.test(String(n.className && n.className.baseVal != null ? n.className.baseVal : n.className)) || (glyph.length > 0 && glyph.length <= 2 && /\p{Extended_Pictographic}/u.test(glyph));
+        const media = n.tagName === 'svg' || n.tagName === 'IMG';
+        return iconish && r.height > 8 && r.height <= 96 && (!media || r.width <= 96) && r.bottom <= head.getBoundingClientRect().top + 2;
+      });
+      return !!icon;
+    });
+  });
+  if (tiles) push(3, 'REFLEX', `equal columns of icon-above-heading tiles (${name(tiles)})`, 'Vary the widths, set the icon inline with the heading, or drop the icons');
 
   const cv = document.createElement('canvas'); cv.width = cv.height = 1;
   const cx = cv.getContext('2d', { willReadFrequently: true });

@@ -214,7 +214,7 @@ function parseHtml(file, src, kind = 'html') {
     .replace(/<!--[\s\S]*?-->/g, ' ');
   const text = noScript.replace(/<[^>]*>/g, ' ')
     .replace(/&quot;|&#0?34;/g, '"').replace(/&#0?39;|&apos;/g, "'")
-    .replace(/&hellip;|&#8230;/g, '\u2026').replace(/&mdash;|&#8212;/g, '\u2014')
+    .replace(/&hellip;|&#8230;/g, '\u2026').replace(/&mdash;|&#8212;|&#x2014;/gi, '\u2014').replace(/&ndash;|&#8211;|&#x2013;/gi, '\u2013')
     .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
     .replace(/&nbsp;/g, ' ').replace(/[ \t]+/g, ' ');
   return { file, src, masked, styles, scripts, tags, text, lineOf, kind, comps };
@@ -608,7 +608,8 @@ function ancestorMap(doc) {
 
 function plainText(html) {
   return html.replace(/<[^>]*>/g, ' ')
-    .replace(/&middot;|&#0?183;/g, '·').replace(/&mdash;|&#8212;/g, '\u2014').replace(/&ndash;|&#8211;/g, '\u2013')
+    .replace(/&middot;|&#0?183;|&#x0?b7;/gi, '·').replace(/&bull;|&#8226;|&#x2022;/gi, '•').replace(/&mdash;|&#8212;|&#x2014;/gi, '\u2014').replace(/&ndash;|&#8211;|&#x2013;/gi, '\u2013')
+    .replace(/&rarr;|&#8594;|&#x2192;|&xrarr;|&#10230;/gi, '\u2192').replace(/&raquo;|&#187;|&#xbb;/gi, '\u00bb').replace(/&rsaquo;|&#8250;|&#x203a;/gi, '\u203a')
     .replace(/&nbsp;|&#160;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
     .replace(/&#\d+;|&[a-z]+;/gi, ' ')
     .replace(/\s+/g, ' ').trim();
@@ -888,6 +889,7 @@ const COPY_GATES = new Set(['19', '58', '69']);
 const findings = [];
 function report(gate, grade, file, line, evidence, fix) {
   const g = String(gate);
+  if (opts.before && g === '20') return;
   if (opts.scope === 'component' && pageOnly(g)) return;
   if ((opts.scope === 'app' || APPSCREEN) && appSkip(g)) return;
   if (opts.stage === 'hero' && HERO_SKIP.has(String(g))) return;
@@ -1617,8 +1619,10 @@ function check26(ctx) {
 
 function check27(ctx) {
   const tw = twGroup(ctx);
+  const moves = (r) => r.decls.some((d) => /^(transform|translate|scale|rotate)$/.test(d.prop) && !/^none\b/.test(d.value.trim()));
   const hasMotion = ctx.rules.some((r) => r.keyframes)
-    || ctx.rules.some((r) => r.decls.some((d) => /^transition/.test(d.prop) && /transform/.test(d.value)));
+    || ctx.rules.some((r) => r.decls.some((d) => /^transition/.test(d.prop) && /transform/.test(d.value)))
+    || (ctx.rules.some((r) => r.decls.some((d) => /^transition/.test(d.prop) && /(^|[\s,])all\b/.test(d.value))) && ctx.rules.some((r) => /:(hover|active|focus)/.test(r.selector) && moves(r)));
   if (!hasMotion && !tw.motion) return;
   const hasPRM = ctx.rules.some((r) => r.media && /prefers-reduced-motion/i.test(r.media))
     || ctx.cssFiles.some((f) => /prefers-reduced-motion/i.test(stripComments(f.raw)))
@@ -2180,7 +2184,7 @@ function check53(ctx) {
   }
 }
 
-const EYEBROW_CONTAINER = /^(div|header|section|article|aside|hgroup|li|main|figure|a|body|blockquote)$/;
+const EYEBROW_CONTAINER = /^(div|header|footer|section|article|aside|hgroup|li|main|figure|a|body|blockquote)$/;
 
 const EYEBROW_SKIP_TAGS = /^(figcaption|label|legend|caption|th|dt|summary|option|code|kbd|button|select|nav|time)$/;
 const EYEBROW_ANCESTOR_SKIP = /^(form|fieldset|table|thead|tbody|nav|menu|dl|select|figcaption|label|button)$/;
@@ -2263,7 +2267,7 @@ function check54(ctx) {
       if (t.close || t.selfClosing || !EYEBROW_CONTAINER.test(t.name)) continue;
       const ancestors = anc.get(i) || [];
       if (ancestors.some((n) => EYEBROW_ANCESTOR_SKIP.test(n))) continue;
-      const inOl = ancestors.includes('ol') || t.name === 'li';
+      const inOl = ancestors.includes('ol');
       const kids = directChildren(doc, i);
       for (let k = 0; k < kids.length - 1; k++) {
         const A = kids[k];
@@ -2945,7 +2949,7 @@ function check19Tells(ctx) {
       const line = doc.lineOf(idx);
       if (lines.has(line)) return;
       lines.add(line);
-      report(19, 'FAIL', doc.file, line, `${what}: "${trunc(text, 40)}"`, 'Say what the product does, in its own nouns');
+      report(19, what === 'template footer line' ? 'WARN' : 'FAIL', doc.file, line, `${what}: "${trunc(text, 40)}"`, what === 'template footer line' ? 'A stock line with no legal effect; cut it unless the owner wants it' : 'Say what the product does, in its own nouns');
     };
     for (const [re, what] of TELLS19) {
       const m = re.exec(prose);
@@ -4218,7 +4222,7 @@ if (opts.before) {
   const inv = takeInventory();
   mkdirSync(dirname(SNAP), { recursive: true });
   writeFileSync(SNAP, JSON.stringify({ v: 1, at: new Date().toISOString(), scope: opts.scope, summary: { fails, reflex, warns }, ...inv }, null, 1) + '\n');
-  beforeLine = `before: recorded ${new Set([...inv.wiring.links, ...Object.values(inv.pages).flatMap((p) => p.links)]).size} links, ${new Set([...inv.wiring.fields, ...Object.values(inv.pages).flatMap((p) => p.fields)]).size} fields, ${inv.wiring.handlers.length} handlers, ${inv.wiring.hooks.length} test hooks${Object.keys(inv.pages).length ? ` and ${Object.keys(inv.pages).length} rendered page(s)` : ''} in ${rel(SNAP)}; --kept checks a redesign against it`;
+  beforeLine = `before: recorded ${new Set([...inv.wiring.links, ...Object.values(inv.pages).flatMap((p) => p.links)]).size} links, ${new Set([...inv.wiring.fields, ...Object.values(inv.pages).flatMap((p) => p.fields)]).size} fields, ${inv.wiring.handlers.length} handlers, ${inv.wiring.hooks.length} test hooks, ${new Set(Object.values(inv.scripts).flatMap((h) => h.hooked)).size} script hooks${Object.keys(inv.pages).length ? ` and ${Object.keys(inv.pages).length} rendered page(s)` : ''} in ${rel(SNAP)}; --kept checks a redesign against it`;
 }
 const keptNote = keptLine ? `kept: ${keptLine.parts.join(', ') || 'nothing recorded'}${keptLine.was ? `; before ${keptLine.was.fails} FAIL, ${keptLine.was.reflex} REFLEX, now ${fails} FAIL, ${reflex} REFLEX` : ''}` : null;
 let compareNote = null;
@@ -4242,7 +4246,12 @@ if (opts.json) {
     const by = new Map();
     for (const f of unique) { const k = `${f.grade} ${f.gate}`; if (!by.has(k)) by.set(k, []); by.get(k).push(f); }
     for (const [k, list] of by) console.log(`  ${k}${list.length > 1 ? ` x${list.length}` : ''} ${list.slice(0, 2).map((f) => `${f.file}:${f.line} ${trunc(f.evidence, 64)}`).join('; ')} | fix: ${list[0].fix}`);
-    console.log(`sloplint: ${tally.join(', ')} across ${scopeNote}, grouped by gate; run without --before for every line.`);
+    const every = join(dirname(SNAP), 'before.txt');
+    mkdirSync(dirname(SNAP), { recursive: true });
+    const ignore = join(dirname(SNAP), '.gitignore');
+    if (!existsSync(ignore)) writeFileSync(ignore, 'shots/\nbefore/\nbefore.json\nbefore.txt\ncompare.html\n');
+    writeFileSync(every, unique.map((f) => `${f.grade} ${f.gate} ${f.file}:${f.line} ${f.evidence} | fix: ${f.fix}`).join('\n') + '\n');
+    console.log(`sloplint: ${tally.join(', ')} across ${scopeNote}, grouped by gate; every line is in ${rel(every)}.`);
   } else {
     const byFile = new Map();
     for (const f of unique) { if (!byFile.has(f.file)) byFile.set(f.file, []); byFile.get(f.file).push(f); }

@@ -6,7 +6,7 @@ Loaded when the request opens with `redesign` or `audit`, or plainly asks to red
 
 - **The content.** Every fact, claim, name, price, date and quote the page states. Figures, quotes and logos already on the page are the user's material: carried over as found, never added to, and listed in the handoff for the user to verify.
 - **The wiring.** Every link, form field, action, handler, route, id and test hook; every script, data call and analytics call. Edit markup inside the component that owns it. Never move logic, rename a prop, or drop a `name`, an `id`, a `key`, an `href` or a `data-testid` that a script or a test reads.
-- **The files.** No file deleted, no route removed and no component tree replaced without a file-level plan the user approved, and no test edited to make the redesign pass. Documents in the repo (a README, a brief, a deck) explain the product; they are not page copy. In a git project, start from a clean tree (ask the user to commit or stash; never do it for them), so the redesign is one diff they can read and revert.
+- **The files.** No file deleted, no route removed and no component tree replaced without a file-level plan the user approved, and no test edited to make the redesign pass. Documents in the repo (a README, a brief, a deck) explain the product; they are not page copy. In a git project, start from a clean tree, `.hallmark/` aside (ask the user to commit or stash; never do it for them), so the redesign is one diff they can read and revert.
 - **The brand.** A logo, a brand colour and a brand face the pre-flight finds stay at every depth unless the user lets them go; a real brand runs `brand-truth.md`. A locked `design.md` is the system at every depth.
 - **The words,** unless a gate names them. Wording that fails a copy gate (19, 58, 63, 69) is tightened from the facts already on the page, and the handoff lists every changed line, before and after. Terms, disclaimers and consent text are never reworded. When the user says to keep every word, stamp `copy: verbatim`: 19, 58 and 69 then report as notes.
 
@@ -24,18 +24,18 @@ How far the run goes. The user's words pick it; otherwise the project does, and 
 
 ## Before
 
-1. Run the pre-flight (Step 0), then list the pages in the target: route, file, and whether each is a marketing page, a content page or an app screen (`flow.md` § App screens). In a framework project start the dev server.
+1. Run the pre-flight (Step 0), then list the pages in the target: route, file, and whether each is a page or an app screen (`flow.md` § App screens). In a framework project start the dev server. An unstamped page has no genre: infer it as Step 1 does and say so.
 2. Record the page as it stands:
 
 ```
-node <skill-dir>/scripts/sloplint.mjs <target> --render --before [--url <route> ...] [--scope app]
+node <skill-dir>/scripts/sloplint.mjs <target> --genre <genre> --render --before [--url <route> ...] [--scope app]
 ```
 
-It lints, writes the screenshots to `.hallmark/before/`, and records every link, field, action, handler, test hook, heading and figure in `.hallmark/before.json`. An unstamped page has no genre: infer it as Step 1 does and say so.
+It prints the findings grouped by gate and writes every line to `.hallmark/before.txt`, the screenshots to `.hallmark/before/`, and the record to `.hallmark/before.json`: every link, field, form action, inline handler, test hook, script hook, heading and figure. The folder ignores its own screenshots and records in git.
 
-3. Look at the screenshots before the findings, so the linter does not write the verdict, then give the read in four lines: what the page is for (the audience, the one action); what works and stays (at least one thing); what reads as generated (the worst tells, by gate); what is broken.
+3. Look at the screenshots before you weigh the findings, so the linter does not write the verdict, then give the read in four lines: what the page is for (the audience, the one action); what works and stays (at least one thing); what reads as generated (the worst tells, by gate); what is broken.
 
-**`audit <target>` stops here:** the findings by tier with `file:line`, the read, and one line naming the depth that would settle them. It edits nothing.
+**`audit <target>` stops here.** It loads `gates.md` § 1, § 4 and § 5, walks the judged gates from the screenshots, and reports the findings by tier with `file:line`, the read, the lightest depth that settles them and what only a deeper one would. It changes none of the project's files.
 
 ## The ask
 
