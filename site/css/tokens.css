@@ -1175,9 +1175,12 @@
 
 /* ──────────────────────────────────────────────────────────────
    GRID - Swiss International, the grid made visible (editorial cluster)
-   Near-white sheet, one signal red, exposed 12-column hairlines, heavy
-   neo-grotesque. Neutrals carry a whisper of cool chroma so no grey is
-   flat. Axes: light / grotesk-heavy / warm-red near-mono.
+   Near-white sheet, exposed 12-column hairlines, heavy neo-grotesque,
+   and one signal ink spent on geometry: marks, one plate, giant cropped
+   numerals. The skill picks the ink per page (signal red default;
+   ultramarine or surface-only signal yellow are the alternates); the
+   site shows the red face. Neutrals carry a whisper of cool chroma so
+   no grey is flat. Axes: light / grotesk-heavy / one signal ink.
    ────────────────────────────────────────────────────────────── */
 
 [data-theme="grid"] {
@@ -1196,7 +1199,8 @@
 
   --font-display: "Archivo", "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
   --font-body:    "Archivo", "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
-  --font-serif:   ui-serif, Georgia, serif;
+  /* No serif anywhere in Grid: surfaces that ask for one get the grotesk. */
+  --font-serif:   "Archivo", "Helvetica Neue", ui-sans-serif, system-ui, sans-serif;
   --font-label:   "Archivo", ui-sans-serif, sans-serif;
   --font-mono:    "Spline Sans Mono", "Geist Mono", ui-monospace, monospace;
 

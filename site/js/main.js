@@ -144,7 +144,7 @@ const THEME_GENRES = {
 /* — Locked hero title —————————————————————————————————
    The H1 string is the same across every theme. Only the visual
    treatment swaps — italic vs roman, serif vs sans, all-caps vs not.
-   The page is the demo: one sentence, twenty distinct designs. */
+   The page is the demo: one sentence, twenty-one distinct designs. */
 const HERO_TITLE = "A design skill that refuses to look AI-generated.";
 
 /* — Per-theme copy fixtures —————————————————————————————
@@ -560,23 +560,23 @@ const COPY = {
   grid: {
     colophon: "Swiss international",
     title: HERO_TITLE,
-    lede: "The grid, made visible. A near-white sheet, exposed twelve-column hairlines, one signal red, and a heavy neo-grotesque set flush-left. Rational, exact, built for institutions that plan in decades.",
+    lede: "The grid, made visible. A near-white sheet, exposed twelve-column hairlines, a heavy neo-grotesque set flush-left, and one signal ink spent on geometry: a square, a bar, a plate, a numeral cropped by the band edge. Rational, exact, built for institutions that plan in decades.",
     ctaLabel: "Method",
     proofLabel: "System",
     proofA: "Exposed 12-column hairline grid",
     proofB: "Archivo 800 · flush-left · tight tracking",
-    proofC: "One red element per viewport",
+    proofC: "One signal ink, spent on geometry",
     cta: "Read the method",
     stat: "12",
     qualifier: "columns, exposed.",
     mockStat: "12",
-    quote: "Structure before surface. One grid, two weights, one red.",
+    quote: "Structure before surface. One grid, two weights, one ink.",
     attrib: "Grid note",
     salutation: "Schedule, then ship.",
-    letterBody: "Swiss International, executed straight: the grid is not scaffolding you hide, it is the design. Content snaps to twelve columns, asymmetric spans make the rhythm, and a single red mark does all the emotional work.",
+    letterBody: "Swiss International, executed straight: the grid is not scaffolding you hide, it is the design. Content snaps to twelve columns, asymmetric spans make the rhythm, and a single signal ink does all the emotional work: marks, one flooded plate, a giant cropped numeral.",
     signoff: "Flush left,",
     captionA: "Grid",
-    captionB: "v1.2",
+    captionB: "Twelve columns",
   },
   ledger: {
     colophon: "Fintech terminal-lux",
@@ -842,7 +842,7 @@ function applyTheme(theme) {
   };
   if (!reduced && document.startViewTransition) {
     const vt = document.startViewTransition(apply);
-    if (vt && vt.ready) vt.ready.catch(() => {});
+    for (const p of vt ? [vt.ready, vt.finished, vt.updateCallbackDone] : []) if (p) p.catch(() => {});
   } else {
     apply();
   }
