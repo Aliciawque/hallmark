@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { existsSync, mkdirSync } from 'node:fs';
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join, dirname, basename, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -54,6 +54,8 @@ async function shoot(page, file, tag, fullPage) {
   try {
     const dir = isUrl(file) ? join(process.cwd(), '.hallmark', SHOT_DIR) : join(dirname(file), '.hallmark', SHOT_DIR);
     mkdirSync(dir, { recursive: true });
+    const ignore = join(dirname(dir), '.gitignore');
+    if (!existsSync(ignore)) writeFileSync(ignore, 'shots/\nbefore/\nbefore.json\ncompare.html\n');
     const out = join(dir, `${slugOf(file)}-${tag}.png`);
     await page.screenshot({ path: out, fullPage });
     SHOTS.push(out);
@@ -171,6 +173,30 @@ export async function renderCheck(htmlFiles, metaIn) {
             if (ring.ratio != null && ring.ratio < 2.95) findings.push({ gate: '26a', grade: 'FAIL', file, line: 1, evidence: `[1440px] focus ring ${ring.ratio.toFixed(2)}:1 against what is behind it on ${ring.key}`, fix: 'A ring at 3:1 or better against the surface it is drawn over: --color-focus, or a ring colour per band' });
           }
         }
+        if (!heroOnly) {
+          await page.setViewport({ width: 1440, height: 900 });
+          await frames(page);
+          await page.evaluate(() => {
+            window.__hmSeen = [...document.querySelectorAll('p, li, h1, h2, h3, h4, dd, td, blockquote, figcaption')].filter((el) => {
+              const cs = getComputedStyle(el); const r = el.getBoundingClientRect();
+              return cs.display !== 'none' && cs.visibility !== 'hidden' && r.width > 1 && r.height > 1 && !el.closest('nav, header, dialog, [hidden], [aria-hidden="true"]');
+            });
+          }).catch(() => {});
+          await page.setViewport({ width: 375, height: 800 });
+          await frames(page);
+          const cut = await page.evaluate(() => {
+            const flat = (t) => (t || '').replace(/\s+/g, ' ').trim();
+            const shown = flat(document.body.innerText);
+            const gone = (window.__hmSeen || []).filter((el) => {
+              const cs = getComputedStyle(el); const r = el.getBoundingClientRect();
+              if (!(cs.display === 'none' || cs.visibility === 'hidden' || r.width < 1 || r.height < 1)) return false;
+              const t = flat(el.textContent);
+              return t.length > 12 && !shown.includes(t);
+            });
+            return { words: gone.reduce((n, el) => n + flat(el.textContent).split(' ').length, 0), first: gone[0] ? flat(gone[0].textContent).slice(0, 36) : '' };
+          }).catch(() => ({ words: 0 }));
+          if (cut.words >= 40) findings.push({ gate: 'F26', grade: 'WARN', file, line: 1, evidence: `[375px] ${cut.words} words shown at 1440 are hidden on a phone (first: "${cut.first}")`, fix: 'If it matters, make it work on a phone; if it does not, cut it everywhere' });
+        }
         if (scriptErrors.length) findings.push({ gate: 'render', grade: 'FAIL', file, line: 1, evidence: `a script threw on load: ${scriptErrors[0].slice(0, 90)}`, fix: 'Fix the script; a page that throws ships half-working' });
       } catch (e) {
         console.error(`render tier: failed on ${file}: ${e.message}`);
@@ -194,6 +220,57 @@ export async function renderCheck(htmlFiles, metaIn) {
   kept.failed = failed;
   kept.inventories = inventories;
   return kept;
+}
+
+export function writeCompare(targets, note) {
+  const groups = new Map();
+  for (const t of targets) {
+    const dir = isUrl(t) ? join(process.cwd(), '.hallmark') : join(dirname(t), '.hallmark');
+    if (!groups.has(dir)) groups.set(dir, []);
+    groups.get(dir).push(slugOf(t));
+  }
+  const esc = (x) => String(x).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const made = [];
+  for (const [dir, slugs] of groups) {
+    const has = (side, slug, tag) => existsSync(join(dir, side, `${slug}-${tag}.png`));
+    const pages = slugs.filter((x) => has('before', x, '1440x900') && has('shots', x, '1440x900'));
+    if (!pages.length) continue;
+    const pair = (slug, tag, label, cls) => (has('before', slug, tag) && has('shots', slug, tag) ? `<div class="pair ${cls}"><figure><img src="before/${esc(slug)}-${tag}.png" alt="${esc(slug)} before, ${label}" loading="lazy"><figcaption>Before, ${label}</figcaption></figure><figure><img src="shots/${esc(slug)}-${tag}.png" alt="${esc(slug)} after, ${label}" loading="lazy"><figcaption>After, ${label}</figcaption></figure></div>` : '');
+    const body = pages.map((x) => `<section><h2>${esc(x)}</h2>${pair(x, '1440x900', 'first screen at 1440', '')}${pair(x, '1440-full', 'whole page at 1440', '')}${pair(x, '375', 'whole page on a phone', 'phone')}</section>`).join('\n');
+    const html = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Before and after</title>
+<meta name="description" content="The redesign's screenshots, before and after, side by side.">
+<style>
+:root { color-scheme: light; --paper: oklch(97% 0.004 250); --ink: oklch(22% 0.01 250); --muted: oklch(45% 0.01 250); --rule: oklch(86% 0.006 250); }
+html, body { overflow-x: clip; }
+body { margin: 0; padding: 48px 32px 96px; background: var(--paper); color: var(--ink); font: 16px/1.5 ui-sans-serif, system-ui, sans-serif; }
+h1 { margin: 0 0 8px; font-size: 28px; line-height: 1.15; letter-spacing: -0.01em; }
+p { margin: 0; color: var(--muted); max-width: 72ch; }
+section { margin-top: 72px; }
+h2 { margin: 0 0 16px; font-size: 18px; font-weight: 600; }
+.pair { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: start; margin-bottom: 32px; }
+.pair.phone { max-width: 760px; }
+figure { margin: 0; }
+img { display: block; width: 100%; height: auto; outline: 1px solid var(--rule); outline-offset: -1px; background: oklch(100% 0 0); }
+figcaption { margin-top: 8px; font-size: 14px; color: var(--muted); }
+@media (max-width: 720px) { body { padding: 32px 16px 64px; } .pair { grid-template-columns: minmax(0, 1fr); } }
+</style>
+</head>
+<body>
+<h1>Before and after</h1>
+<p>${esc(note || 'Each pair shows the page as it stood and as it stands now, at the same size.')}</p>
+${body}
+</body>
+</html>
+`;
+    writeFileSync(join(dir, 'compare.html'), html);
+    made.push(join(dir, 'compare.html'));
+  }
+  return made;
 }
 
 function inventory() {

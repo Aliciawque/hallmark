@@ -58,6 +58,22 @@ The brief asks for counts and logos the user has not supplied: Hallmark asks for
 
 The brief's own range is the hero. Expect the figures set in tabular numerals, one sentence under them, and no marquee or card stack.
 
+## Redesigning what exists
+
+Three prompts for a page, a site or an app that is already there. Each starts by recording what the page says and does, and ends by proving none of it went missing.
+
+> `/hallmark audit ./index.html`
+
+A report and nothing else: the findings by gate, a four-line read of the page, and the depth that would settle them.
+
+> Polish our site with hallmark. We like our colours and fonts; it just feels dated.
+
+Polish depth. The system and the layout stay; the tells, the contrast, the states and the motion are fixed in place, and layout findings are listed for you instead of rebuilt.
+
+> `/hallmark redesign ./src/app`
+
+It asks once what stays (the look, the layout, or only the content), or on *go ahead* picks the lighter depth the project supports and says which. An app screen is restyled on its existing layout; a marketing page that reads as a template is recomposed. Either way the handoff shows the before and after counts, what was kept, and anything dropped with its reason.
+
 ## Reading a recipe
 
 Each prompt carries or withholds the three things Step 1 asks for (audience, use, tone). When all three are present the skill builds without a question; when one is missing it infers and states the inference. A theme named in the prompt is built by request; otherwise `scripts/theme.mjs deal` prints three candidates that clear the project's log and the skill picks one. Two consecutive runs of one recipe in the same project produce different shapes or themes by design.

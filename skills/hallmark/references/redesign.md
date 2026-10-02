@@ -1,6 +1,6 @@
 # Redesign
 
-Loaded when the request opens with `redesign` or `audit`, or plainly asks to redesign, restyle or polish an existing page, site or app, or to make one look less generated. A redesign is a build whose material is the page that exists: SKILL.md still binds, and this file says what the run keeps, what stands in for Steps 0 to 2, and what the sweep adds. A small edit to an existing design (a tweak, one fix, new copy) is neither a redesign nor a Hallmark run.
+Loaded when the request opens with `redesign` or `audit`, or plainly asks to redesign, restyle or polish an existing page, site or app, or to make one look less generated. A redesign is a build whose material is the page that exists: SKILL.md still binds, and this file says what the run keeps, what replaces the Step 1 ask, and what the sweep adds. The target is the user's own code: a file, a folder, or a route on a dev server. A live URL with no source behind it can be audited through `--url` and nothing more. A small edit to an existing design (a tweak, one fix, new copy) is neither a redesign nor a Hallmark run.
 
 ## What a redesign keeps
 
@@ -39,7 +39,7 @@ It lints, writes the screenshots to `.hallmark/before/`, and records every link,
 
 ## The ask
 
-One message stands in for Step 1; skip it when the request already answers it or no one can answer:
+One message replaces the Step 1 ask; skip it when the request already answers it or no one can answer:
 
 > *Before I redesign, three things. 1. **What stays**: the look (I fix only what reads as generated), the layout (new colour and type on the same structure), or only the content (a new design)? And anything I must not touch. 2. **What is wrong with it**, in your words, and the feeling you want instead. 3. **Anything new to show**: screenshots, photos, numbers, a quote. Or say **go ahead** and I will pick the depth from the project and say which.*
 
@@ -54,22 +54,22 @@ The Picks block opens with four rows of its own, and nothing is deleted until th
 - **Files** · edit: app/page.tsx, app/pricing/page.tsx, app/globals.css · create: tokens.css, base.css · delete: none
 ```
 
-Then the build rows the depth reaches: Theme at restyle and full (dealt, `brand` or locked); Shape, Chrome, Hero, Signature and Sections at full only. At polish the block stops after Files.
+Then the build rows the depth reaches: Theme at restyle and full (dealt, `brand` or locked); Shape, Chrome, Hero, Signature and Sections at full only, where Step 2 runs with the page's own content as its inventory. At polish the block stops after Files.
 
 ## Build
 
 - **Polish** is the sweep in `flow.md` § Signal 8, on the user's own page: fix in place, single elements and tokens, never restructure. Its check stamp opens the stylesheet, with `built: the project · redesign: polish`.
 - **Where the layout stays** (polish and restyle), the stamp's `redesign:` field tells sloplint to report the layout gates (6b, 8, 9, 32, 42, 44a, 44c, 58) as notes. Print them for the user with the depth that would settle them; do not rebuild them.
-- **Restyle and full** start from the scaffold: `tokens.css` and `base.css` imported below the project's own styles and mapped onto the project's token names (a Tailwind theme, shadcn variables: `export-formats.md`). Then the shared components and the chrome, then the pages, the most visited first, each swept before the next.
+- **Restyle and full** start from the scaffold: `tokens.css` and `base.css` imported below the project's own styles and mapped onto the project's token names (a Tailwind theme, shadcn variables: `export-formats.md`). Pass the depth so the stamp carries it: `theme.mjs scaffold <slug> --redesign <depth>`. A kept brand takes `scaffold --brand --redesign <depth>` and fills the tokens from the palette and faces the pre-flight found (no `check`: the coordinates are the user's); otherwise the deal runs as in Step 3. Then the shared components and the chrome, then the pages, the most visited first, each swept before the next.
 - **More than one page** at restyle or full: lock the system first (`design-md.md`). Every page reads it and the variety rule inverts: pages share theme, type and accent, and differ only in shape. Past three pages, give each page to its own subagent where the harness has them, with `design.md`, the page's files and this file.
 - **Full depth** runs the hero stage and the hero review. Polish and restyle skip both.
 
 ## After
 
-1. The sweep, against the record: `sloplint <target> --render --kept`. Anything the page had and no longer has is a `FAIL kept` (a link, a field, a form action, a handler, a test hook, a selector a script still queries) or a `WARN kept` (a heading, a figure, an image, an id). Restore it, or record what the user agreed to lose: `/* Hallmark · dropped /blog, #team · the user is retiring the blog and the team section */`.
+1. The sweep, against the record: `sloplint <target> --render --kept`. Anything the page had and no longer has is a `FAIL kept` (a link, a field, a form action, a handler, a test hook, a selector a script still queries) or a `WARN kept` (a heading, a figure, an image, an id). Restore it, or record what the user agreed to lose: `/* Hallmark · dropped /blog, #team · the user is retiring the blog and the team section */`. The run also writes `.hallmark/compare.html`, the before and after screenshots side by side: give the user its path.
 2. The project's own checks, where it has them: the type check, the build, the tests. A redesign that breaks one is not finished.
 3. The finish review also takes the `before` screenshots and answers what the old page did better (`review-finish.md`).
-4. The stamp carries `redesign: <depth>`; the log entry carries `mode: redesign`, `depth` and `scope` (page, site or app), plus the build's fields at full depth.
+4. The log entry carries `mode: redesign`, `depth` and `scope` (page, site or app), plus the build's fields at full depth.
 5. The handoff, ahead of the material ask:
 
 ```
@@ -81,4 +81,5 @@ Changed  the system: colour, type, radius, motion, the controls
 Dropped  none
 Layout   2 findings a full redesign would settle (8, 42), listed below
 Yours    2 claims kept as found ("50,000+ teams", the Acme quote) · 4 lines reworded, listed below
+Compare  .hallmark/compare.html
 ```

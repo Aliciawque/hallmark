@@ -3846,6 +3846,24 @@ function checkF24(ctx) {
   }
 }
 
+function checkF25(ctx) {
+  const wide = (value) => resolveVars(value, ctx.tokens).split(/,(?![^(]*\))/).some((layer) => {
+    if (/\binset\b/.test(layer)) return false;
+    const len = [...layer.replace(/(?:oklch|oklab|rgba?|hsla?|color|color-mix)\([^)]*\)/g, '').matchAll(/(-?\d*\.?\d+)(px|rem|em)?(?=\s|$)/g)].map((m) => parseFloat(m[1]) * (m[2] === 'rem' || m[2] === 'em' ? 16 : 1));
+    return len.length >= 3 && len[2] + Math.min(0, len[3] || 0) >= 24;
+  });
+  for (const r of ctx.rules) {
+    const sh = r.decls.find((d) => d.prop === 'box-shadow' && d.value.trim() !== 'none');
+    if (!sh || !wide(sh.value)) continue;
+    const edge = r.decls.find((d) => /^border(?:-(?:top|right|bottom|left|inline|block)(?:-(?:start|end))?)?$/.test(d.prop) && /(?:^|\s)(?:1px|0\.5px|thin|var\(--rule-hair\))(?:\s|$)/.test(d.value) && !/\b(?:none|transparent)\b/.test(d.value));
+    if (edge) { report('F25', 'WARN', r.file, sh.line, `a hairline border under a wide soft shadow on ${r.selector}`, 'Commit to one: a defined edge, or elevation by shadow'); return; }
+  }
+  for (const doc of ctx.docs) {
+    const m = /class(?:Name)?\s*=\s*["'][^"']*(?<![\w:-])border(?![\w-])[^"']*(?<![\w:-])shadow-(?:xl|2xl)(?![\w-])|class(?:Name)?\s*=\s*["'][^"']*(?<![\w:-])shadow-(?:xl|2xl)(?![\w-])[^"']*(?<![\w:-])border(?![\w-])/.exec(doc.raw || doc.src);
+    if (m) { report('F25', 'WARN', doc.file, doc.lineOf ? doc.lineOf(m.index) : 1, 'a hairline border under a wide soft shadow (border with shadow-xl or shadow-2xl)', 'Commit to one: a defined edge, or elevation by shadow'); return; }
+  }
+}
+
 function check76(ctx) {
   for (const doc of ctx.docs) {
     if (doc.kind !== 'html') continue;
@@ -3862,7 +3880,7 @@ const CHECKS = [check1, check2, check3, check3Stripe, check4, check6a, check7, c
   check39, check40_41, check42, check42Footer, check46, check47, check48, check49,
   check50, check50Wrap, check53, check54, check55, check56, checkCopyTell, check62, check63, check64, check65, check67, check38c,
   check19Tells, check58Static, check68, check69, check70, check42TwoButton, check47Placeholders, check65Tailwind, check29Glow, check11Lift, check15Fade,
-  checkF1, checkF2, checkF3, checkF4, checkF5, checkF6, checkF7, checkF7Pills, checkF8, checkF9, checkF15, checkF16, checkF21, checkF22, checkF23, checkF24, check76,
+  checkF1, checkF2, checkF3, checkF4, checkF5, checkF6, checkF7, checkF7Pills, checkF8, checkF9, checkF15, checkF16, checkF21, checkF22, checkF23, checkF24, checkF25, check76,
   checkTailwind, checkComponentText];
 
 const files = opts.paths.length ? collectFiles(opts.paths) : [];
@@ -4067,35 +4085,41 @@ function wiringOf(src) {
     if (!/^(meta|slot|iframe|param|a|map|object|link)$/i.test(tag)) w.fields.push(m[1]);
   }
   for (const m of body.matchAll(/\bregister\(\s*["']([\w.-]+)["']/g)) w.fields.push(m[1]);
-  for (const m of body.matchAll(/\bdata-(?:testid|test|cy|qa|track[\w-]*|analytics[\w-]*|event[\w-]*|gtm[\w-]*)\s*=\s*["']([^"']+)["']/g)) w.hooks.push(m[1]);
+  for (const m of body.matchAll(new RegExp(String.raw`\bdata-(?:testid|test|cy|qa|track[\w-]*|analytics[\w-]*|event[\w-]*|gtm[\w-]*)\s*=\s*` + val, 'g'))) w.hooks.push(squash(m[1]).replace(/^["']|["']$/g, ''));
   for (const m of body.matchAll(/(?<![\w-])id\s*=\s*["']([^"'{}\s]+)["']/g)) w.ids.push(m[1]);
   return w;
 }
-function danglingHooks(docs) {
-  const markup = docs.map((d) => (d.raw || d.src).replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '')).join('\n');
-  let js = docs.map((d) => [...(d.raw || d.src).matchAll(/<script\b(?![^>]*\bsrc\s*=)[^>]*>([\s\S]*?)<\/script>/gi)].map((m) => m[1]).join('\n')).join('\n');
-  const local = new Set();
-  for (const d of docs) for (const m of (d.raw || d.src).matchAll(/<script\b[^>]*\bsrc\s*=\s*["']([^"']+)["']/gi)) {
+function scriptHooks(doc) {
+  const raw = doc.raw || doc.src;
+  const markup = raw.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
+  let js = [...raw.matchAll(/<script\b(?![^>]*\bsrc\s*=)[^>]*>([\s\S]*?)<\/script>/gi)].map((m) => m[1]).join('\n');
+  for (const m of raw.matchAll(/<script\b[^>]*\bsrc\s*=\s*["']([^"']+)["']/gi)) {
     if (/^(?:https?:)?\/\//.test(m[1])) continue;
-    const f = resolve(dirname(d.file), m[1].split('?')[0]);
-    if (existsSync(f)) local.add(f);
+    try { js += '\n' + readFileSync(resolve(dirname(doc.file), m[1].split('?')[0]), 'utf8'); } catch {}
   }
-  for (const f of local) { try { js += '\n' + readFileSync(f, 'utf8'); } catch {} }
   const sels = new Set();
   for (const m of js.matchAll(/getElementById\(\s*["'`]([\w-]+)["'`]/g)) sels.add('#' + m[1]);
   for (const m of js.matchAll(/(?:querySelector(?:All)?|closest|matches)\(\s*["'`]([^"'`]+)["'`]/g)) for (const t of m[1].matchAll(/#[\w-]+|\.[A-Za-z_][\w-]*|\[data-[\w-]+/g)) sels.add(t[0][0] === '[' ? t[0] + ']' : t[0]);
   const has = (sel) => sel[0] === '#' ? new RegExp(`(?<![\\w-])id\\s*=\\s*["']${escRe(sel.slice(1))}["']`).test(markup)
-    : sel[0] === '.' ? new RegExp(`(?<![\\w-])class(?:Name)?\\s*=\\s*["'][^"']*(?<![\\w-])${escRe(sel.slice(1))}(?![\\w-])`).test(markup)
+    : sel[0] === '.' ? new RegExp(`(?<![\\w-])class\\s*=\\s*["'][^"']*(?<![\\w-])${escRe(sel.slice(1))}(?![\\w-])`).test(markup)
       : markup.includes(sel.slice(1, -1));
-  return [...sels].filter((x) => !has(x)).sort();
+  const queried = [...sels].sort();
+  return { queried, hooked: queried.filter(has) };
 }
 function takeInventory() {
   const docs = [...new Set(contexts.flatMap(([, c]) => c.docs))];
-  const wiring = { handlers: new Set(), links: new Set(), fields: new Set(), hooks: new Set(), ids: new Set() };
-  for (const d of docs) { const w = wiringOf(d.raw || d.src); for (const k of Object.keys(wiring)) for (const v of w[k]) wiring[k].add(v); }
+  const byFile = {};
+  for (const d of docs) { const w = wiringOf(d.raw || d.src); byFile[rel(d.file)] = Object.fromEntries(Object.entries(w).map(([k, v]) => [k, [...new Set(v)].sort()])); }
   const pages = {};
   for (const [file, inv] of Object.entries(domInventories)) if (inv) pages[/^https?:/.test(file) ? file : rel(file)] = inv;
-  return { wiring: Object.fromEntries(Object.entries(wiring).map(([k, v]) => [k, [...v].sort()])), dangling: danglingHooks(docs), pages };
+  const scripts = {};
+  for (const d of docs) if (d.kind === 'html') { const h = scriptHooks(d); if (h.queried.length) scripts[rel(d.file)] = h; }
+  return { files: byFile, wiring: unionWiring(Object.values(byFile)), scripts, pages };
+}
+function unionWiring(list) {
+  const u = { handlers: new Set(), links: new Set(), fields: new Set(), hooks: new Set(), ids: new Set() };
+  for (const w of list) for (const k of Object.keys(u)) for (const v of w[k] || []) u[k].add(v);
+  return Object.fromEntries(Object.entries(u).map(([k, v]) => [k, [...v].sort()]));
 }
 let keptLine = null;
 if (opts.kept) {
@@ -4105,12 +4129,14 @@ if (opts.kept) {
   if (!was) report('kept', 'FAIL', SNAP, 1, 'no before record here; --kept has nothing to compare against', 'Run sloplint with --before from this folder before the redesign starts');
   else {
     const now = takeInventory();
+    const outside = Object.keys(was.files || {}).filter((f) => !(f in now.files) && existsSync(resolve(f)));
+    if (was.files) was.wiring = unionWiring(Object.entries(was.files).filter(([f]) => !outside.includes(f)).map(([, w]) => w));
     const stamps = contexts.map(([, c]) => c.stampText).join('\n');
     const allowed = [...stamps.matchAll(/\/\*\s*Hallmark\s*·\s*dropped\s+([^·*]+?)\s*·\s*([^*]+?)\s*\*\//gi)].filter((m) => m[2].trim().length >= 12).flatMap((m) => m[1].split(',').map((t) => t.trim().replace(/^[`"']|[`"']$/g, '').toLowerCase()).filter(Boolean));
     const acked = {};
     const gone = (a, b, cat) => (a || []).filter((x) => {
       if ((b || []).includes(x)) return false;
-      if (allowed.some((t) => x.toLowerCase() === t || x.toLowerCase().includes(t))) { if (cat) (acked[cat] ||= new Set()).add(x); return false; }
+      if (allowed.some((t) => x.toLowerCase() === t || (t.length >= 4 && x.toLowerCase().includes(t)))) { if (cat) (acked[cat] ||= new Set()).add(x); return false; }
       return true;
     });
     const hard = { links: new Set(), fields: new Set(), 'form actions': new Set(), handlers: new Set(), 'test hooks': new Set() };
@@ -4141,11 +4167,15 @@ if (opts.kept) {
     const list = (set, n = 8) => { const a = [...set]; return a.slice(0, n).map((x) => trunc(x, 48)).join(', ') + (a.length > n ? ` and ${a.length - n} more` : ''); };
     const fix = 'Restore each one, or record it in the stamp: /* Hallmark · dropped <item>, <item> · <the reason, in the user\'s words> */';
     for (const [k, set] of Object.entries(hard)) if (set.size) report('kept', 'FAIL', SNAP, 1, `${k} the page had before and no longer has: ${list(set)}`, fix);
-    const unhooked = gone(now.dangling, was.dangling || []);
-    if (unhooked.length) report('kept', 'FAIL', SNAP, 1, `a script still queries ${list(unhooked)}, which the markup no longer has`, 'Keep the ids, classes and data attributes scripts query, or change the script with the markup');
+    for (const [f, h] of Object.entries(was.scripts || {})) {
+      const n = now.scripts[f];
+      const unhooked = n ? h.hooked.filter((x) => n.queried.includes(x) && !n.hooked.includes(x)) : [];
+      if (unhooked.length) report('kept', 'FAIL', resolve(f), 1, `a script still queries ${list(unhooked)}, which this page's markup no longer has`, 'Keep the ids, classes and data attributes scripts query, or change the script with the markup');
+    }
     for (const [k, set] of Object.entries(soft)) if (set.size) report('kept', 'WARN', SNAP, 1, `${k} gone or reworded since the before record: ${list(set)}`, 'Confirm each was meant to go, restore it, or record it as dropped in the stamp');
     if (wordsWas > 80 && wordsNow < wordsWas * 0.6) report('kept', 'WARN', SNAP, 1, `the pages hold ${wordsNow} words where they held ${wordsWas}`, 'Check that no section of content was dropped');
     if (skipped.length) report('kept', 'WARN', SNAP, 1, `not compared, because this run did not render them: ${list(skipped, 4)}`, 'Render the same pages or URLs the before record holds');
+    if (outside.length) report('kept', 'WARN', SNAP, 1, `not compared, because this run did not read them: ${list(outside, 4)}`, 'Run --kept on the same target as --before');
     const lostOf = (k) => (hard[k] || soft[k]).size;
     keptLine = { parts: ['links', 'fields', 'handlers', 'test hooks', 'headings', 'figures'].filter((k) => total[k].size).map((k) => { const d = acked[k] ? acked[k].size : 0; return `${k} ${Math.max(0, total[k].size - lostOf(k) - d)}/${total[k].size}${d ? ` (${d} dropped on record)` : ''}`; }), was: was.summary || null };
   }
@@ -4197,6 +4227,14 @@ if (opts.before) {
   beforeLine = `before: recorded ${new Set([...inv.wiring.links, ...Object.values(inv.pages).flatMap((p) => p.links)]).size} links, ${new Set([...inv.wiring.fields, ...Object.values(inv.pages).flatMap((p) => p.fields)]).size} fields, ${inv.wiring.handlers.length} handlers, ${inv.wiring.hooks.length} test hooks${Object.keys(inv.pages).length ? ` and ${Object.keys(inv.pages).length} rendered page(s)` : ''} in ${rel(SNAP)}; --kept checks a redesign against it`;
 }
 const keptNote = keptLine ? `kept: ${keptLine.parts.join(', ') || 'nothing recorded'}${keptLine.was ? `; before ${keptLine.was.fails} FAIL, ${keptLine.was.reflex} REFLEX, now ${fails} FAIL, ${reflex} REFLEX` : ''}` : null;
+let compareNote = null;
+if (opts.kept && opts.render && !renderNotRun) {
+  try {
+    const mod = await import(new URL('./sloplint-render.mjs', import.meta.url).href);
+    const made = mod.writeCompare([...files.filter((f) => extname(f).toLowerCase() === '.html'), ...opts.urls], keptNote);
+    if (made.length) compareNote = `compare: ${made.map(rel).join(', ')} shows before and after side by side`;
+  } catch {}
+}
 const scopeNote = `${files.length} file(s)${opts.urls.length ? ` and ${opts.urls.length} URL(s)` : ''}${opts.stage === 'hero' ? ' (hero stage)' : ''}`;
 const renderNote = opts.render ? (renderNotRun ? `render tier not run: ${renderNotRun}` : null) : null;
 if (opts.json) {
@@ -4228,6 +4266,7 @@ if (opts.json) {
   }
   if (renderNote) console.log(renderNote);
   if (keptNote) console.log(keptNote);
+  if (compareNote) console.log(compareNote);
   if (beforeLine) console.log(beforeLine);
 }
 process.exit(!opts.before && (fails > 0 || reflex > 0) ? 1 : 0);

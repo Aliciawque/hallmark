@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync, existsSync, mkdtempSync, copyFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join, dirname, relative, basename, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
@@ -315,6 +316,26 @@ for (const [name, ok, msg] of existsSync(FIX) ? expectations : []) {
   const j = lintJson(target);
   if (!j) add('error', target, 1, 'fixture', 'sloplint did not run on this fixture');
   else if (!ok(j)) add('error', target, 1, 'fixture', msg);
+}
+
+const keptDir = join(FIX, 'kept');
+if (existsSync(keptDir)) {
+  const tmp = mkdtempSync(join(tmpdir(), 'hallmark-kept-'));
+  try {
+    const run = (flag) => spawnSync(process.execPath, [join(ROOT, 'scripts', 'sloplint.mjs'), 'index.html', flag, '--json'], { encoding: 'utf8', cwd: tmp });
+    copyFileSync(join(keptDir, 'before.html'), join(tmp, 'index.html'));
+    run('--before');
+    copyFileSync(join(keptDir, 'after.html'), join(tmp, 'index.html'));
+    let j = null;
+    try { j = JSON.parse(run('--kept').stdout); } catch {}
+    const kept = j ? j.findings.filter((x) => x.gate === 'kept') : [];
+    const fails = kept.filter((x) => x.grade === 'FAIL').map((x) => x.evidence).join(' | ');
+    const warns = kept.filter((x) => x.grade === 'WARN').map((x) => x.evidence).join(' | ');
+    const want = [[fails, 'rooms.html'], [fails, 'nights'], [fails, "track('book')"], [fails, 'book-button'], [fails, '#nav-toggle'], [warns, 'nav-toggle']];
+    if (!j) add('error', keptDir, 1, 'fixture', 'sloplint --kept did not run on the kept fixture');
+    else if (!want.every(([hay, needle]) => hay.includes(needle))) add('error', keptDir, 1, 'fixture', 'the kept check must fail the lost link, field, handler, test hook and script hook, and warn on the lost id');
+    else if (fails.includes('mailto:')) add('error', keptDir, 1, 'fixture', 'a link recorded as dropped in the stamp must not fail');
+  } finally { rmSync(tmp, { recursive: true, force: true }); }
 }
 
 const REPO = resolve(ROOT, '..', '..');

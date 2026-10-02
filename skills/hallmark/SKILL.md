@@ -45,7 +45,7 @@ Above the Floor, a **Reflex** gate is a default a model falls into, which a buil
 6. Build: the hero first, then the page; stamp, `tokens.css`, log.
 7. Sweep: `sloplint --render` until clean, the judged gates, the finish review, the material ask.
 
-**Verbs.** `redesign <target>`, `audit <target>`, or a plain ask to redesign, restyle or polish an existing page, site or app: read [`references/redesign.md`](references/redesign.md) first; it stands in for Steps 0 to 2 and adds a before and an after. A small edit to an existing design is not a Hallmark run.
+**Verbs.** `redesign <target>`, `audit <target>`, or a plain ask to redesign, restyle or polish an existing page, site or app: read [`references/redesign.md`](references/redesign.md) first; it sets what the run keeps and adds a before and an after. A small edit to an existing design is not a Hallmark run.
 
 Codex CLI and OpenCode read [`references/flow.md`](references/flow.md) § Harnesses first; other harnesses run this file as written.
 

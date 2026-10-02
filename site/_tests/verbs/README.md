@@ -14,4 +14,4 @@ Each folder holds:
 - **`output.*`**, what the verb produces. For `audit` and `study`, this is a Markdown report. For `redesign`, this is a finished `index.html` + `style.css`.
 - **`notes.md`**, one page explaining what fired, what reference files loaded, and what the durable artifact is.
 
-The verbs live in a companion pack (`audit`, `redesign`, `study`, `variants`) that reads Hallmark's gates and craft files; these examples predate v2 and show the earlier gate numbers.
+These examples predate v2 and show the earlier gate numbers. In v2, `redesign` is a verb of the skill again and `audit` is its first step (`/hallmark redesign <path>`, `/hallmark audit <path>`); a redesign now keeps the page's content and wiring and proves it with a before and after record.
