@@ -1671,8 +1671,12 @@ function check28(ctx) {
 }
 
 function check30(ctx) {
-  const EMOJI = /(?![\u00a9\u00ae\u2122\u203c\u2049\u2190-\u21ff])\p{Extended_Pictographic}/u;
+  const EMOJI = /(?![©®™‼⁉←-⇿])\p{Extended_Pictographic}/u;
+  const GLYPH = /(?![©®™‼⁉←-⇿✓-✖])(?:\p{Emoji_Presentation}|\p{Extended_Pictographic}️)/u;
   for (const doc of ctx.docs) {
+    const lines = new Set();
+    let n = 0;
+    const flag = (line, what) => { if (lines.has(line) || n >= 8) return; lines.add(line); n++; report('30a', 'FAIL', doc.file, line, what, 'One icon library, a custom SVG, or the word alone'); };
     for (let i = 0; i < doc.tags.length; i++) {
       const t = doc.tags[i];
       if (t.close || t.selfClosing) continue;
@@ -1682,9 +1686,23 @@ function check30(ctx) {
       if (!inner) continue;
       const content = inner.inner.replace(/<[^>]*>/g, '').trim();
       if (content && content.length <= 4 && EMOJI.test(content) && (iconish || !/<[a-z]/.test(inner.inner))) {
+        lines.add(doc.lineOf(t.end + inner.inner.search(EMOJI)));
         report('30a', 'FAIL', doc.file, t.line, `emoji icon "${content}" in <${t.name} class="${trunc(cls, 28)}">`, 'One icon library or custom SVG');
+        continue;
       }
+      if (!/^(h[1-6]|button|a|label|th|summary|option|legend|dt)$/.test(t.name) || /<(p|div|ul|ol|table|section)\b/i.test(inner.inner)) continue;
+      const text = plainText(inner.inner);
+      const at = inner.inner.search(GLYPH);
+      if (!text || at < 0) continue;
+      const line = doc.lineOf(t.end + at);
+      flag(line, `emoji in <${t.name}> "${trunc(text, 32)}"`);
     }
+    const raw = doc.raw || doc.src;
+    const body = doc.kind === 'html' ? doc.masked : raw;
+    const lineAt = (text, pos) => text.slice(0, pos).split('\n').length;
+    for (const m of body.matchAll(/>\s*((?:\p{Emoji_Presentation}|\p{Extended_Pictographic}️)[^<>{}\n]{0,40})/gu)) flag(lineAt(body, m.index + m[0].length - m[1].length), `text opens with an emoji: "${trunc(m[1].trim(), 32)}"`);
+    for (const m of raw.matchAll(/placeholder\s*=\s*["']([^"']*)["']/g)) if (GLYPH.test(m[1])) flag(lineAt(raw, m.index), `emoji in a placeholder "${trunc(m[1], 28)}"`);
+    if (doc.kind !== 'html') for (const m of raw.matchAll(/(["'`])\s*((?:(?:\p{Emoji_Presentation}|\p{Extended_Pictographic}️?)‍?){1,3})\s*\1/gu)) flag(lineAt(raw, m.index), `emoji passed as an icon: ${m[2]}`);
   }
   const libs = new Map([
     ['material', /material-icons|material-symbols/i],
@@ -1749,7 +1767,8 @@ function check34(ctx) {
     if (it.info.oxHidden) hiddenUtil.push(it);
   }
   for (const it of hiddenUtil) report(34, 'FAIL', it.doc.file, it.line, `${it.info.oxHidden} on <${it.name}> (breaks sticky)`, 'overflow-x-clip on both html and body, never hidden');
-  const pageish = ctx.docs.some((d) => d.kind === 'html' || d.tags.some((t) => !t.close && (t.name === 'html' || t.name === 'body')));
+  const shell = (d) => d.kind === 'html' && !d.styles.length && /<script\b[^>]*type\s*=\s*["']module["'][^>]*\bsrc\s*=\s*["'][^"']+\.(?:tsx?|jsx?|mjs|vue|svelte)["']/i.test(d.raw || d.src) && !/<link\b[^>]*rel\s*=\s*["']stylesheet/i.test(d.raw || d.src);
+  const pageish = ctx.docs.some((d) => (d.kind === 'html' && !shell(d)) || (d.kind !== 'html' && d.tags.some((t) => !t.close && (t.name === 'html' || t.name === 'body'))));
   const file = ctx.cssFiles[0]?.file || ctx.docs[0]?.file;
   const both = clipped.has('html') && clipped.has('body');
   if (!both && hidden) {
@@ -4059,7 +4078,8 @@ for (const [key, ctx] of contexts) {
 let renderNotRun = null;
 let domInventories = {};
 if (opts.render) {
-  const htmlFiles = files.filter((f) => extname(f).toLowerCase() === '.html');
+  const isShell = (f) => { try { const x = readFileSync(f, 'utf8'); return /<script\b[^>]*type\s*=\s*["']module["'][^>]*\bsrc\s*=\s*["'][^"']+\.(?:tsx?|jsx?|mjs|vue|svelte)["']/i.test(x); } catch { return false; } };
+  const htmlFiles = files.filter((f) => extname(f).toLowerCase() === '.html' && !(opts.urls.length && isShell(f)));
   if (!htmlFiles.length && !opts.urls.length) renderNotRun = 'no HTML page to render; pass --url for a running dev server';
   else try {
     const mod = await import(new URL('./sloplint-render.mjs', import.meta.url).href);
@@ -4093,7 +4113,7 @@ function wiringOf(src) {
   for (const m of body.matchAll(new RegExp(String.raw`(?<![\w-])(on[A-Z]\w*|on:[\w|]+|@[a-z][\w.:-]*|v-on:[\w.:-]+|on(?:click|submit|change|input|keydown|keyup|blur|focus))\s*=\s*` + val, 'g'))) w.handlers.push(`${m[1]}=${squash(m[2])}`);
   for (const m of body.matchAll(new RegExp(String.raw`(?<![\w:-])(?:href|to|action)\s*=\s*` + val, 'g'))) {
     const tag = (/<([A-Za-z][\w.-]*)[^<]*$/.exec(body.slice(Math.max(0, m.index - 600), m.index)) || [])[1] || '';
-    if (/^(link|base|use|image|script|style)$/i.test(tag)) continue;
+    if (/^(link|base|use|image|script|style)$/.test(tag)) continue;
     const v = squash(m[1]).replace(/^["']|["']$/g, '').replace(/^\.\//, '');
     if (v && v !== '#') w.links.push(v);
   }
@@ -4171,6 +4191,12 @@ if (opts.kept) {
       if (allowed.some((t) => x.toLowerCase() === t || (t.length >= 4 && x.toLowerCase().includes(t)))) { if (cat) (acked[cat] ||= new Set()).add(x); return false; }
       return true;
     });
+    const fieldsGone = (b, a, where) => {
+      const named = (b || []).filter((x) => !x.startsWith('unnamed '));
+      const spare = (a || []).length - named.filter((x) => (a || []).includes(x)).length;
+      const short = Math.max(0, (b || []).length - named.length - spare);
+      return [...gone(named, a, 'fields'), ...(short ? [`${short} field${short > 1 ? 's' : ''} with no name${where}`] : [])];
+    };
     const hard = { links: new Set(), fields: new Set(), forms: new Set(), handlers: new Set(), 'test hooks': new Set(), scripts: new Set() };
     const soft = { headings: new Set(), figures: new Set(), images: new Set(), ids: new Set() };
     const total = { links: new Set(was.wiring.links), fields: new Set(was.wiring.fields), handlers: new Set(was.wiring.handlers), 'test hooks': new Set(was.wiring.hooks), headings: new Set(), figures: new Set() };
@@ -4190,7 +4216,7 @@ if (opts.kept) {
       for (const x of b.headings || []) total.headings.add(x);
       for (const x of b.figures || []) total.figures.add(x);
       for (const x of gone(b.links, [...a.links, ...now.wiring.links], 'links')) hard.links.add(x);
-      for (const x of gone(b.fields, a.fields, 'fields')) hard.fields.add(x);
+      for (const x of fieldsGone(b.fields, a.fields, ` on ${k}`)) hard.fields.add(x);
       for (const x of gone(b.actions, a.actions)) hard.forms.add(x);
       for (const x of gone(b.headings, a.headings, 'headings')) soft.headings.add(x);
       for (const x of gone(b.figures, a.figures, 'figures')) soft.figures.add(x);
@@ -4217,13 +4243,14 @@ if (opts.kept) {
       for (const bf of b.forms || []) {
         const af = (a.forms || []).find((x) => x.key === bf.key) || (a.forms || []).find((x) => x.attrs.join() === bf.attrs.join());
         if (!af) { if (!allowed.includes(bf.key.toLowerCase())) hard.forms.add(`the form ${bf.key} on ${k}`); continue; }
-        for (const x of bf.fields) if (!af.fields.includes(x) && !allowed.includes(x.toLowerCase())) hard.fields.add(`${x} in ${bf.key} on ${k}`);
+        for (const x of fieldsGone(bf.fields, af.fields, '')) hard.fields.add(`${x} in ${bf.key} on ${k}`);
         for (const x of bf.hidden) if (!af.hidden.includes(x)) hard.fields.add(`hidden ${x} in ${bf.key} on ${k}`);
         for (const x of bf.attrs) if (!af.attrs.includes(x)) hard.forms.add(`${x} on ${bf.key} (${k})`);
         if (bf.submits && !af.submits) hard.forms.add(`a submit control in ${bf.key} (${k})`);
-        for (const x of bf.controls || []) if (!(af.controls || []).includes(x) && !allowed.some((t) => x.toLowerCase().includes(t) && t.length >= 4)) hard.forms.add(`${x} in ${bf.key} (${k})`);
+        for (const x of bf.controls || []) if (!(af.controls || []).includes(x) && !(!x.includes('[name=') && (af.controls || []).some((y) => y.startsWith(`${x}[name=`))) && !allowed.some((t) => x.toLowerCase().includes(t) && t.length >= 4)) hard.forms.add(`${x} in ${bf.key} (${k})`);
       }
     }
+    for (const x of [...hard.fields]) if ([...hard.fields].some((y) => y.startsWith(`${x} in `))) hard.fields.delete(x);
     for (const [k, set] of Object.entries(hard)) if (set.size) report('kept', 'FAIL', SNAP, 1, k === 'script hooks' ? `a script still queries what its page no longer has: ${list(set)}` : k === 'forms' ? `a form lost what it had before: ${list(set)}` : `${k} the page had before and no longer has: ${list(set)}`, k === 'script hooks' ? 'Keep the ids, classes and attributes scripts query, or change the script with the markup' : fix);
     for (const [k, set] of Object.entries(soft)) if (set.size) report('kept', 'WARN', SNAP, 1, `${k} gone or reworded since the before record: ${list(set)}`, 'Restore it, or record it in the stamp: /* Hallmark · reworded "<old>" to "<new>" · <the gate that named it> */ or dropped <item> · <the reason>');
     if (wordsWas > 80 && wordsNow < wordsWas * 0.6) report('kept', 'WARN', SNAP, 1, `the pages hold ${wordsNow} words where they held ${wordsWas}`, 'Check that no section of content was dropped');

@@ -1,6 +1,6 @@
 # design.md: the locked system
 
-Loaded when the user asks to lock the current build's system into a portable file, or when a redesign reaches more than one page (`redesign.md`). A single build never writes `design.md` on its own; `tokens.css` already makes every build portable, and the Picks block offers the lock in one line.
+Loaded when the user asks to lock the current build's system into a portable file, or when a redesign reaches more than one page (`redesign.md`), after the scaffold has run: the file is written from `tokens.css`, never from the theme file. A single build never writes `design.md` on its own; `tokens.css` already makes every build portable, and the Picks block offers the lock in one line.
 
 ## Triggers
 
@@ -20,7 +20,7 @@ The locked system. Every Hallmark run reads this first and pages share it. Chang
 
 ## System
 - Genre: <editorial | modern-minimal | atmospheric | playful>
-- Shape of the first page: <macrostructure>
+- Shape of the first page: <macrostructure, or app screen>
 - Theme: <catalog name, or custom (vibe: "<4 to 8 words>")>
 - Axes: <paper band>/<display class>/<accent band> · posture: <posture>
 
@@ -35,14 +35,14 @@ The locked system. Every Hallmark run reads this first and pages share it. Chang
   --radius-card: <px>;  --radius-pill: <px>;  --rule-hair: <px>;  --shadow-card: <value or none>;
 }
 ```
-The spacing scale, the 1.25 type scale, the easings and the durations are the scaffold's and live in `tokens.css`.
+The spacing scale, the type scale, the easings and the durations are the scaffold's and live in `tokens.css`.
 
 ## Controls
 - Primary: <fill> · <radius> · <height>
 - Secondary: <outline or text> · same radius and height
 
 ## Motion
-- Character: <still | severe | brisk | calm>; one reveal at most; reduced motion is a 150ms crossfade.
+- Character: <still | severe | brisk | calm>; one reveal at most; under reduced motion everything ends at once.
 
 ## Exports
 `tokens.css` in this project. Tailwind, DTCG or shadcn blocks are added here on request, per `export-formats.md`.

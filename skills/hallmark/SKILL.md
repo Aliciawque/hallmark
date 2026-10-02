@@ -29,7 +29,7 @@ Binds every output in every harness, and none of it is waivable. Read nothing el
 12. The hero's headline, one sentence and primary action are all visible at 1280 x 800 without scrolling. (44b)
 13. About 80 words on any one screen; the hero's text is the headline, one sentence and its actions. (58)
 14. The container is capped and centred: at 1920 the gutters grow, the measure and the grids do not. (44d)
-15. The first non-empty line of emitted CSS is the Hallmark stamp, then the critique line, then any waivers. (20)
+15. The first non-empty line of the CSS source is the Hallmark stamp, then the critique line, then any waivers. (20)
 16. If Node is available, run `node <skill-dir>/scripts/sloplint.mjs <output> --render` before handing back. Fix every `FAIL`; fix or waive every `REFLEX`.
 
 Above the Floor, a **Reflex** gate is a default a model falls into, which a build with a real reason may waive on the record, and a **Finish** check is craft detail, answered, never blocking. Tiers, grades and waiver syntax: [`references/gates.md`](references/gates.md) § 1 and § 2.
@@ -128,7 +128,7 @@ On signal 9, `comp.md` runs here.
 
 Emit code that satisfies the theme and the shape. Always:
 
-- **Start from the scaffold.** `node <skill-dir>/scripts/theme.mjs scaffold <slug>` (with the deal's `--dealt`; `--custom` on a derived run) writes `tokens.css` (the theme's tokens and the shared scale) and `base.css` (the rules the Floor already decided), and prints the stamp skeleton and the two imports that open the page's stylesheet. Fill the stamp and write only the page.
+- **Start from the scaffold.** `node <skill-dir>/scripts/theme.mjs scaffold <slug>` (with the deal's `--dealt`; `--custom` on a derived run) writes `tokens.css` (the theme's tokens and the shared scale) and `base.css` (the rules the Floor already decided) beside the project's stylesheet, and prints the stamp skeleton and the two imports that open it. Fill the stamp and write only the page.
 - **Read [`references/patterns.md`](references/patterns.md) once:** controls in all eight states, a slot, a missing fact, a form that posts nowhere yet, one reveal, figures that compare, written to pass the gates. Take their shape, never their copy.
 - **Hero first.** Write the nav and the hero, run `node <skill-dir>/scripts/sloplint.mjs <file> --render --stage hero`, then the hero review in fresh context (`gates.md` § 6). Build the sections only once the hero ships.
 - **One idea per screen.** Hero: headline (seven words or fewer, 50 characters or fewer), one sentence (twelve words or fewer), one or two actions. A section: a heading of three to five words, at most one line, then its object (a slot, a figure, a drawn thing, a list of four or fewer, a table of five rows or fewer). Four to eight sections, footer included; 450 visible words at most, fewer when the brief has less to say. Never pad to a count.
@@ -140,13 +140,12 @@ Emit code that satisfies the theme and the shape. Always:
 - **States and motion.** Eight states on every interactive element; `transform` and `opacity` only; at most one orchestrated reveal per page, none where the theme keeps still, 0.4 to 0.8s, visible by default; exits at 60 to 75% of the enter; nothing bounces.
 - **Browser surfaces.** Keep the scaffold's selection, caret, scrollbar and focus rules; tabular numerals wherever figures compare.
 - **Stamp.** Line 1 of CSS is the scaffold's stamp skeleton with every field filled, then the critique line (`gates.md` § 3), any `waive` and `answered` lines, and a custom run's direction contract. Everything the linter reads sits in the first 40 lines.
-- **`tokens.css`** is the scaffold's, at the project root, imported by the page; on a `design.md` project, refresh its `## Exports` ([`references/export-formats.md`](references/export-formats.md)).
-- **Existing stylesheets are append-only:** keep the Tailwind directives where they are, import `tokens.css` and `base.css` below them, reuse the project's own token names; rewrite only on request.
+- **Existing stylesheets are append-only:** the two imports go right after the file's last `@import`, never below a rule or a `@tailwind` directive, where they are dropped; reuse the project's own token names ([`references/export-formats.md`](references/export-formats.md), which also refreshes a `design.md`'s `## Exports`); rewrite only on request.
 - **Log.** `node <skill-dir>/scripts/theme.mjs log --entry '<json>'` puts the build atop `.hallmark/log.json`: `shape`, `theme`, `axes`, `hero`, `nav`, `footer`, `enrichment`, `entry` (the section opening), `fingerprint` (`Hanging|Asymmetric spans|Hairline|Outlined|Margin-aligned|None`), `signature`, `waived`, `brief`; it names any field you left out.
 
 ### 7. Sweep
 
-1. `node <skill-dir>/scripts/sloplint.mjs <files> --genre <genre> --render` (add `--scope component` on a component; in a framework project with a dev server running, add `--url http://localhost:<port>/<route>`). Fix every FAIL, re-run until clean. The render tier writes the screenshots; never run Chrome by hand.
+1. `node <skill-dir>/scripts/sloplint.mjs <files> --genre <genre> --render` (`--scope component` or `--scope app` where it applies; in a framework project, `--url http://localhost:<port>/<route>` with the dev server running). Fix every FAIL, re-run until clean. The render tier writes the screenshots; never run Chrome by hand.
 2. Load [`references/gates.md`](references/gates.md) § 5 and walk the J and R/J gates. Confirm or dismiss every WARN. Fix every open Floor finding; fix or waive every Reflex one; answer every Finish one.
 3. The finish review in fresh context (`gates.md` § 6): hand the reviewer its brief file and its inputs, act on its first word (`recapture`, `rebuild`, `fix`, `ship`), and score the fixes yourself.
 4. Close with the material ask: every slot, its size and what belongs there, then the one piece of material that would most improve the page.
@@ -156,4 +155,4 @@ Verification is budgeted: one batched inspection, one fix batch, at most one con
 
 ## Branches
 
-[`references/flow.md`](references/flow.md) holds them; read only the section you are in: component scope, app screens, signal 8 (the archive builds, Hallmark sweeps), comp before build, the Codex and OpenCode levers, the pre-flight edge cases, **fast mode** (`--fast`, or a brief that says quick, rough or prototype) and the edit-time hook. In an existing project, name the files you will touch first, and never delete a route or a component tree without a file-level plan the user approved.
+[`references/flow.md`](references/flow.md) holds them; read only the section you are in: component scope, app screens, signal 8, comp before build, the Codex and OpenCode levers, the pre-flight edge cases, **fast mode** (`--fast`, or a brief that says quick, rough or prototype) and the edit-time hook. In an existing project, name the files you will touch first, and never delete a route or a component tree without a file-level plan the user approved.

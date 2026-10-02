@@ -125,7 +125,7 @@ export async function renderCheck(htmlFiles, metaIn) {
         await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]).catch(() => {});
         const nav = await page.goto(isUrl(file) ? file : 'file://' + file, { waitUntil: isUrl(file) ? 'networkidle0' : 'load', timeout: 30000 }).then((r) => ({ r }), (e) => ({ e }));
         if (nav.e && !/timeout/i.test(nav.e.message)) throw nav.e;
-        if (nav.r && isUrl(file) && !nav.r.ok()) throw new Error(`HTTP ${nav.r.status()} from ${file}`);
+        if (nav.r && isUrl(file) && !nav.r.ok() && nav.r.status() !== 304) throw new Error(`HTTP ${nav.r.status()} from ${file}`);
         await page.evaluate(async () => {
           document.documentElement.classList.add('shot');
           for (const el of [document.documentElement, document.body]) if (el) el.style.setProperty('scroll-behavior', 'auto', 'important');
@@ -212,9 +212,11 @@ export async function renderCheck(htmlFiles, metaIn) {
               const t = flat(el.textContent);
               return t.length > 12 && !shown.includes(t);
             });
-            return { words: gone.reduce((n, el) => n + flat(el.textContent).split(' ').length, 0), first: gone[0] ? flat(gone[0].textContent).slice(0, 36) : '' };
-          }).catch(() => ({ words: 0 }));
+            const off = [...document.querySelectorAll('table')].flatMap((t) => (t.rows[0] ? [...t.rows[0].cells] : [])).filter((el) => { const r = el.getBoundingClientRect(); return r.width > 1 && r.height > 1 && r.left >= window.innerWidth - 2; });
+            return { words: gone.reduce((n, el) => n + flat(el.textContent).split(' ').length, 0), first: gone[0] ? flat(gone[0].textContent).slice(0, 36) : '', off: off.length, col: off[0] ? flat(off[0].textContent).slice(0, 24) : '' };
+          }).catch(() => ({ words: 0, off: 0 }));
           if (cut.words >= 40) findings.push({ gate: 'F25', grade: 'WARN', file, line: 1, evidence: `[375px] ${cut.words} words shown at 1440 are hidden on a phone (first: "${cut.first}")`, fix: 'If it matters, make it work on a phone; if it does not, cut it everywhere' });
+          if (cut.off >= 2) findings.push({ gate: 'F25', grade: 'WARN', file, line: 1, evidence: `[375px] a table opens with ${cut.off} columns off-screen (from "${cut.col}")`, fix: 'Keep the column that names the row and the one that acts on it in view: restack each row, or pin the first column' });
         }
         if (scriptErrors.length) findings.push({ gate: 'render', grade: 'FAIL', file, line: 1, evidence: `a script threw on load: ${scriptErrors[0].slice(0, 90)}`, fix: 'Fix the script; a page that throws ships half-working' });
         if (lost.size) findings.push({ gate: 'render', grade: 'WARN', file, line: 1, evidence: `the shots show a fallback: fonts or stylesheets did not load (${[...lost].slice(0, 2).join(', ')})`, fix: 'Recapture when the host answers or the path is right; never review or sign off a fallback face' });
@@ -308,18 +310,30 @@ function inventory(selectors) {
   const text = (el) => (el.innerText || el.textContent || '').replace(/\s+/g, ' ').trim();
   const quiet = (el) => !!el.closest('script, style, noscript, template');
   const links = uniq([...document.querySelectorAll('a[href]')].map((a) => a.getAttribute('href')).filter((h) => h && h.trim() && h.trim() !== '#').map(key));
-  const fields = uniq([...document.querySelectorAll('input[name], select[name], textarea[name], button[name]')].map((f) => f.getAttribute('name')));
+  const fieldsIn = (root) => {
+    const n = {};
+    return uniq([...root.querySelectorAll('input, select, textarea, button[name]')].filter((f) => f.getAttribute('name') || !(f.tagName === 'INPUT' && /^(submit|button|reset|image|hidden)$/i.test(f.getAttribute('type') || ''))).map((f) => {
+      const hook = f.getAttribute('data-testid') || f.getAttribute('data-test') || f.getAttribute('data-cy');
+      if (f.getAttribute('name')) return f.getAttribute('name');
+      if (f.id && !/^(:|radix-|headlessui-|react-aria)/.test(f.id)) return `#${f.id}`;
+      if (hook) return `[${hook}]`;
+      const t = f.tagName === 'INPUT' ? (f.getAttribute('type') || 'text').toLowerCase() : f.tagName.toLowerCase();
+      n[t] = (n[t] || 0) + 1;
+      return `unnamed ${t} ${n[t]}`;
+    }));
+  };
+  const fields = fieldsIn(document);
   const actions = uniq([...document.querySelectorAll('form[action]')].map((f) => `${(f.getAttribute('method') || 'get').toLowerCase()} ${key(f.getAttribute('action'))}`));
   const forms = [...document.querySelectorAll('form')].map((f, i) => ({
     key: f.id ? `#${f.id}` : f.getAttribute('action') ? `${(f.getAttribute('method') || 'get').toLowerCase()} ${key(f.getAttribute('action'))}` : `form ${i + 1}`,
     attrs: [`method=${(f.getAttribute('method') || 'get').toLowerCase()}`, f.getAttribute('action') ? `action=${key(f.getAttribute('action'))}` : '', f.hasAttribute('novalidate') ? 'novalidate' : ''].filter(Boolean),
-    fields: uniq([...f.querySelectorAll('input[name], select[name], textarea[name]')].map((c) => c.getAttribute('name'))),
+    fields: fieldsIn(f),
     hidden: uniq([...f.querySelectorAll('input[type="hidden"][name]')].map((c) => `${c.getAttribute('name')}=${c.getAttribute('value') || ''}`)),
     submits: f.querySelectorAll('button:not([type]), button[type="submit"], input[type="submit"], input[type="image"]').length,
     controls: uniq([...f.querySelectorAll('button, input, select, textarea')].map((c) => `${c.tagName.toLowerCase()}${c.getAttribute('type') ? `[type=${c.getAttribute('type')}]` : ''}${c.getAttribute('name') ? `[name=${c.getAttribute('name')}]` : ''}`)),
   }));
   const hooked = (selectors || []).filter((x) => { try { return !!document.querySelector(x); } catch { return false; } });
-  const headings = uniq([...document.querySelectorAll('h1, h2, h3, h4')].filter((h) => !quiet(h)).map((h) => text(h).toLowerCase()).filter((t) => t.length > 1));
+  const headings = uniq([...document.querySelectorAll('h1, h2, h3, h4')].filter((h) => !quiet(h)).map((h) => text(h).toLowerCase().replace(/[\p{Extended_Pictographic}\uFE0F\u200d]/gu, '').replace(/\s+/g, ' ').trim()).filter((t) => t.length > 1));
   const body = text(document.body);
   const figures = uniq((body.match(/[$€£¥]\s?\d[\d,.]*\+?[kKmM]?|\b\d[\d,.]*\s?%|\b\d[\d,.]*[kKmM]?\+(?=\s|$)|\b\d{1,3}(?:,\d{3})+\b|\b\d{1,2}[:.]\d{2}\s?(?:am|pm)?\b|\b(?:19|20)\d{2}\b|\b\d+(?:\.\d+)?\s(?:hours?|minutes?|mins?|days?|weeks?|months?|years?|seconds?|ms|km|kg|g|ml|mm|cm|gb|mb|tb|x)\b|\+?\d[\d\s().-]{7,}\d/gi) || []).map((t) => t.replace(/\s+/g, '').toLowerCase()));
   const images = uniq([...document.querySelectorAll('img[src]')].map((i) => (i.getAttribute('src') || '').split('?')[0].split('/').pop()));

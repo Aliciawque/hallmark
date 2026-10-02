@@ -4,15 +4,15 @@ Loaded when the request opens with `redesign` or `audit`, or plainly asks to red
 
 ## What a redesign keeps
 
-- **The content.** Every fact, claim, name, price, date and quote the page states. Figures, quotes and logos already on the page are the user's material: carried over as found, never added to, and listed in the handoff for the user to verify. Nothing is added either: no action, section or visual the page did not have, beyond what the user hands over.
-- **The wiring.** Every link, form, field, handler, route, id and test hook; every script, data call and analytics call. Edit markup inside the component that owns it. Never move logic, rename a prop, or drop a `name`, an `id`, a `key`, a `type`, an `href` or a `data-testid` that a script or a test reads.
+- **The content.** Every fact, claim, name, price, date and quote the page states. Figures, quotes and logos already on the page are the user's material: carried over as found, never added to, and listed in the handoff for the user to verify; one a gate doubts (a trend nobody measured, 46a) stays and is named there. Nothing is added either: no action, section or visual the page did not have, beyond what the user hands over.
+- **The wiring.** Every link, form, field, handler, route, id and test hook; every script, data call and analytics call. Edit markup inside the component that owns it. Never move logic, rename a prop, or drop a `name`, an `id`, a `key`, a `type`, an `href` or a `data-testid` that a script or a test reads. A prop the Floor empties (an emoji passed as an icon) may go with it, named in the handoff. A state the screen has no logic for (a failed load, an undo) is listed for the owner, never built.
 - **The files.** No file deleted, no route removed and no component tree replaced without a file-level plan the user approved, and no test edited to make the redesign pass. Documents in the repo (a README, a brief, a deck) explain the product; they are not page copy. In a git project, start from a clean tree, `.hallmark/` aside (ask the user to commit or stash; never do it for them), so the redesign is one diff they can read and revert. The stylesheet itself is the redesign's to edit: the append-only rule guards it from a build, not from its own redesign.
 - **The brand,** when there is one. A brand is chosen: a logo, a colour or a face the project names (a brand file, a logo asset, named tokens, a font file of its own) or the user states. It stays at every depth, its values read from the project's files, never from memory. A framework default or a look the gates name (the purple-to-blue gradient, Inter as the display, a stock swatch) is not a brand: restyle and full replace it, and the Picks block says so in case it was. A locked `design.md` is the system at every depth.
 - **The words,** unless a gate names them. Wording that fails a copy gate (19, 54, 58, 63, 69) is tightened from the facts already on the page, and the handoff lists every changed line, before and after. An eyebrow is never just deleted: where its heading is figurative, the plain label becomes the heading (*Opening hours* over *When to find us* becomes *Opening hours*). Terms, disclaimers and consent text are never reworded. When the user says to keep every word, stamp `copy: verbatim`: 19, 58 and 69 then report as notes.
 
 ## Depth
 
-How far the run goes. The user's words pick it; otherwise the project does, and the Picks block says which. Between two depths, take the lighter: a redesign that kept too much is one message from going further, and one that replaced too much has to be undone. The depths do not blend: a polish that finds the concept wrong says so and recommends the deeper run, it never smuggles one in.
+How far the run goes. The user's words pick it, on an app as on a page; where they name no depth the project does, and the Picks block says which. Where the words fit two depths, take the lighter: a redesign that kept too much is one message from going further, and one that replaced too much has to be undone. The depths do not blend: a polish that finds the concept wrong says so and recommends the deeper run, it never smuggles one in.
 
 | Depth | Stays | Changes | Picked by |
 | --- | --- | --- | --- |
@@ -20,11 +20,13 @@ How far the run goes. The user's words pick it; otherwise the project does, and 
 | **restyle** | the layout | the system: colour, type, radius, shadow, motion, the controls | *restyle*, *reskin*, *a new look*; the bare verb on an app screen, or on a page with a brand |
 | **full** | the content and the wiring | the system and the composition: shape, hero, section objects, chrome | *redesign it fully*, *looks generic*, *looks generated*; the bare verb on a marketing page with no brand |
 
+**Full depth on an app screen** recomposes each screen inside the shell it has: what leads, and how the figures, tables and forms are arranged (`flow.md` § App screens). Routes, destinations and each component's logic stay; there is no hero stage and no hero review.
+
 *From scratch* is a build, not a depth: SKILL.md as written, the old page as its Step 2 inventory, in new files beside the old ones.
 
 ## Before
 
-1. Run the pre-flight (Step 0), then list the pages in the target: route, file, and whether each is a page or an app screen (`flow.md` § App screens). In a framework project start the dev server. An unstamped page has no genre: infer it from the page as Step 1 would from a brief, and say so.
+1. Run the pre-flight (Step 0), then list the pages in the target: route, file, and whether each is a page or an app screen (`flow.md` § App screens). In a framework project start the dev server and record through `--url`; the linter does not render the empty shell `index.html` from disk. An unstamped page has no genre: infer it from the page as Step 1 would from a brief, and say so.
 2. Record the page as it stands:
 
 ```
@@ -51,7 +53,7 @@ The Picks block opens with four rows of its own, and nothing is deleted until th
 - **Redesign** · restyle · 3 pages (/, /pricing, /docs)
 - **Before** · Floor 14 FAIL · Reflex 9 · a centred template in a stock indigo; the pricing table is clear and stays
 - **Keeps** · every link, field and handler · the green and the brand face · the pricing table
-- **Files** · edit: app/page.tsx, app/pricing/page.tsx, app/globals.css · create: tokens.css, base.css · delete: none
+- **Files** · edit: app/page.tsx, app/pricing/page.tsx, app/globals.css · create: app/tokens.css, app/base.css · delete: none
 ```
 
 Then the build rows the depth reaches: Theme at restyle and full (dealt, `brand` or locked); Shape, Chrome, Hero, Signature and Sections at full only, where Step 2 runs with the page's own content as its inventory. At polish the block stops after Files. The deal's `--brief` is the read's first line (what the page is for, in plain nouns), never the page's own copy, which is what the redesign is leaving behind.
@@ -59,9 +61,9 @@ Then the build rows the depth reaches: Theme at restyle and full (dealt, `brand`
 ## Build
 
 - **Polish** is `flow.md` § The sweep, on the user's own page: fix in place, single elements and tokens, never restructure, under the check stamp with `built: the project · redesign: polish`. It loads `gates.md` § 1 to § 5 and `patterns.md`, `interaction-and-states.md` when the page has a form, and from `craft.md` only the section a finding points at.
-- **Where the layout stays** (polish and restyle), the stamp's `redesign:` field tells sloplint to report the layout gates (6b, 8, 9, 32, 42, 44a, 44c, 58) as notes; at polish the spacing gates (24b, 59) too, so a polish does not re-space a site it was asked to keep. Print them for the user with the depth that would settle them; do not rebuild them.
-- **Restyle and full** start from the scaffold, with the depth in the stamp: `theme.mjs scaffold <slug> --redesign <depth>`, or `scaffold --brand --redesign <depth>` for a kept brand, its tokens filled from the palette and faces the pre-flight found (no `check`: the coordinates are the user's). `tokens.css` and `base.css` are imported below the project's own styles and mapped onto its token names (a Tailwind theme, shadcn variables: `export-formats.md`). Then the shared components and the chrome, then the pages, the most visited first, each swept before the next.
-- **More than one page** at restyle or full: lock the system first (`design-md.md`). Every page reads it and the variety rule inverts: pages share theme, type and accent, and differ only in shape. Past three pages, give each page to its own subagent where the harness has them, with `design.md`, the page's files and this file.
+- **Where the layout stays** (polish and restyle), the stamp's `redesign:` field tells sloplint to report the layout gates (6b, 8, 9, 32, 42, 44a, 44c, 58) as notes; at polish the spacing gates (24b, 59) too, so a polish does not re-space a site it was asked to keep. Print them for the user with the depth that would settle them; do not rebuild them. In app scope those gates are skipped, so the handoff's Layout row comes from the read and the review. A theme's own composition rules (its do-nots, the dials that vary between pages) yield to a kept layout: the theme lends its system, and every page takes one dial set.
+- **Restyle and full** start from the scaffold, with the depth in the stamp: `theme.mjs scaffold <slug> --redesign <depth>`, or `scaffold --brand --redesign <depth>` for a kept brand, its tokens filled from the palette and faces the pre-flight found (no `check`: the coordinates are the user's); add `--scope app` for app screens. It writes `tokens.css` and `base.css` beside the project's stylesheet and prints the imports that fit it (`export-formats.md` has the Tailwind and shadcn names). Then the shared components and the chrome, then the pages, the most visited first, each swept before the next.
+- **More than one page** at restyle or full: lock the system once the scaffold has run (`design-md.md`). Every page reads it and the variety rule inverts: pages share theme, type and accent, and differ only in shape. Past three pages, give each page to its own subagent where the harness has them, with `design.md`, the page's files and this file.
 - **Full depth** runs the hero stage and the hero review; polish and restyle skip both. The old sections still sit below the new hero at that stage: the stage judges the first screen alone, and what it reports below the fold waits for the sweep. Gate 8 judges the composition, not the order of the content: a kept sequence in a new composition is waived on the record.
 
 ## After

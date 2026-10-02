@@ -7,7 +7,7 @@ Loaded when a `design.md` exists and its `## Exports` need refreshing, or when t
 | Family | Tokens |
 | --- | --- |
 | Colour | `--color-paper`, `-paper-2`, `-paper-3`, `-ink`, `-ink-2`, `-muted`, `-rule` (and `-rule-2` where a theme sets one), `-accent`, `-accent-ink`, `-focus`, `-error`, `-success`; `-field` under a Committed posture, `-accent-2` where a theme names a second ink |
-| Type | `--font-display`, `--font-body`, `--font-outlier`; `--text-xs` to `--text-3xl` on a 1.25 ratio from 16px, `--text-display-s`, `--text-display`; `--tracking-display` |
+| Type | `--font-display`, `--font-body`, `--font-outlier`; `--text-xs` to `--text-3xl` on a 1.25 ratio from 16px, `--text-display-s`, `--text-display` (an app screen: a fixed 1.2 ratio, no display steps); `--tracking-display` |
 | Space | `--space-3xs` (2px) to `--space-4xl` (144px), ten steps; `--container`, `--gutter`, `--gap-columns`, `--section-gap-s`, `--section-gap`, `--section-gap-l` |
 | Shape | `--radius-card`, `--radius-pill`, `--rule-hair`, `--shadow-card` |
 | Motion | `--ease-out`, `--ease-in`, `--ease-in-out`; `--dur-micro` 120ms, `--dur-short` 220ms, `--dur-long` 420ms |
@@ -17,22 +17,30 @@ A page that needs another token names it by role and declares it in `tokens.css`
 
 ## `tokens.css` in a project
 
-The page's stylesheet imports it before any rule: `@import "./tokens.css";` (CSS drops an `@import` that follows a rule, and the tokens vanish without an error). In an existing entry stylesheet (`app/globals.css`, `src/index.css`), keep `@import "tailwindcss"` or the `@tailwind` directives exactly where they are, put the tokens import after them, and add Hallmark's base rules below. Where the project already names its tokens (`--background`, a Tailwind `@theme`), map Hallmark's roles onto those names rather than adding a parallel set. Replace the file only when the user asks for a full takeover.
+The scaffold writes `tokens.css` and `base.css` beside the project's entry stylesheet (`src/index.css`, `app/globals.css`; `--dir` names another folder) and prints the two imports that fit it. They go right after the file's last `@import`, never below a rule: CSS drops an `@import` that follows one, and the tokens vanish without an error. Where the project already names its tokens (`--background`, a Tailwind `@theme`), map Hallmark's roles onto those names rather than adding a parallel set. Replace the file only when the user asks for a full takeover.
 
 ## Tailwind v4
 
-Move the declarations into `@theme static` (static, so Tailwind emits every one as a variable on `:root`, used by a utility or not), so the page's `var()` references keep working and the utilities appear (`bg-paper`, `text-ink`, `font-display`, `rounded-card`, `ease-out`). Tailwind reads spacing as `--spacing-*`, so the scale goes in under that name and `tokens.css` keeps `--space-*` as aliases; the tokens Tailwind has no namespace for stay in `:root`.
+Where the entry stylesheet imports Tailwind 4, the scaffold writes `tokens.css` in two blocks, and the imports follow `@import "tailwindcss"`:
 
 ```css
 @import "tailwindcss";
-@theme static {
-  --color-paper: oklch(96.5% 0.008 50);
-  --spacing-lg: 24px;
-}
-:root { --space-lg: var(--spacing-lg); --dur-short: 220ms; --z-modal: 400; --section-gap: 144px; }
+@import "./tokens.css";
+@import "./base.css" layer(base);
 ```
 
-Every `--color-*`, `--font-*`, `--text-*`, `--tracking-*`, `--radius-*`, `--shadow-*` and `--ease-*` token goes into `@theme static` unchanged. Tailwind v3: the same names under `theme.extend` in `tailwind.config`, each value a `var()` of the token.
+```css
+@theme static { --color-paper: oklch(96.5% 0.008 50); --font-display: "Fraunces", serif; --text-lg: 1.25rem; --radius-card: 4px; }
+:root { --space-lg: 24px; --dur-short: 220ms; --z-modal: 400; --section-gap: 144px; }
+```
+
+- **`@theme static`** holds every `--color-*`, `--font-*`, `--text-*`, `--tracking-*`, `--radius-*`, `--shadow-*` and `--ease-*` token, so each is a utility (`bg-paper`, `text-ink`, `font-display`, `rounded-card`) and, being static, still a variable for hand-written CSS. Everything else stays in `:root`.
+- **Never `--spacing-<name>`.** Tailwind sizes `w-`, `max-w-`, `p-` and `gap-` from that namespace, so `--spacing-xl: 40px` turns `max-w-xl` into 40px. The space scale needs no mapping: every step but 2px is a multiple of Tailwind's 4px unit (`--space-lg` is `p-6`, `--space-xl` is `p-10`, `--space-2xl` is `p-16`).
+- **Nine names are Tailwind's own:** `--text-xs`, `-sm`, `-lg`, `-xl`, `-2xl`, `-3xl` and the three `--ease-*`. The scaffold's values replace Tailwind's, so `text-lg` and `ease-out` change wherever the project uses them. On a new project, a restyle or a full redesign that is the system arriving. On one new page in a project whose other pages must not move, take those nine out of `@theme` and declare them on the page's root element.
+- **`base.css` goes in the base layer.** Unlayered, its element rules (`a { color: inherit }`, `h1 { max-width: 20ch }`) outrank every utility, because Tailwind's utilities sit in a layer.
+- **The stamp is read from the source.** Tailwind drops comments from what it emits; sloplint reads the stylesheet you wrote.
+
+Tailwind v3 (`@tailwind` directives): `tokens.css` stays one `:root` block, the stamp and both imports go above the directives (below them they are dropped), `base.css` with `layer(base)` so it lands after Preflight and under the utilities. Utilities on request: the same names under `theme.extend` in `tailwind.config`, each value a `var()` of the token.
 
 ## DTCG `tokens.json`
 

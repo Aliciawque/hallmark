@@ -19,8 +19,8 @@ const GENRES = ['editorial', 'modern-minimal', 'atmospheric', 'playful'];
 function usage() {
   console.error(`usage:
   node theme.mjs deal --genre <g> --brief "<brief>" [--log .hallmark/log.json] [--n 3] [--reroll 0] [--json]
-  node theme.mjs scaffold <slug> [--dealt "<n>/3, seed <seed>"] [--redesign polish|restyle|full] [--dir .] [--force]
-  node theme.mjs scaffold --custom | --brand [--redesign polish|restyle|full] [--dir .] [--force]
+  node theme.mjs scaffold <slug> [--dealt "<n>/3, seed <seed>"] [--redesign polish|restyle|full] [--scope app] [--dir <beside the stylesheet>] [--force]
+  node theme.mjs scaffold --custom | --brand [--redesign polish|restyle|full] [--scope app] [--dir <beside the stylesheet>] [--force]
   node theme.mjs check [--axes "<paper>/<display>/<accent>"] [--face "<display face>"] [--hue <accent hue>] [--log .hallmark/log.json]
   node theme.mjs log --entry '<one JSON object>' [--log .hallmark/log.json]
   node theme.mjs index
@@ -147,7 +147,7 @@ function deal() {
   const lastAxes = recent[0] && recent[0].axes ? String(recent[0].axes) : null;
   const occupiedAxes = new Set(recent.map((r) => r.axes).filter(Boolean));
   const bw = new Set(briefWords(brief).map(stem));
-  const slug = briefWords(brief).slice(0, 4).join('-') || 'brief';
+  const slug = `${briefWords(brief).slice(0, 4).join('-') || 'brief'}-${createHash('sha1').update(brief.trim().toLowerCase()).digest('hex').slice(0, 4)}`;
   const seedBase = `${slug}·${new Date().toISOString().slice(0, 10)}`;
   const seedKey = `${seedBase}·r${reroll}`;
   const rand = seededRand(seedBase);
@@ -275,7 +275,9 @@ function scaffold() {
   const tail = depth ? ` · redesign: ${depth}` : '';
   const slug = custom ? null : positional()[0];
   if (!custom && !slug) { usage(); process.exit(2); }
-  const dir = resolve(flag('dir', '.'));
+  const app = flag('scope', '') === 'app';
+  const sheet = ['src/index.css', 'src/app/globals.css', 'app/globals.css', 'src/styles/globals.css', 'styles/globals.css', 'src/styles/global.css', 'src/main.css', 'src/styles.css', 'src/global.css', 'src/app.css', 'src/App.css', 'app/app.css'].find((f) => existsSync(f));
+  const dir = resolve(flag('dir', sheet ? dirname(sheet) : '.'));
   let name = 'custom world';
   let tokens = CUSTOM_TOKENS;
   let header = null;
@@ -292,17 +294,34 @@ function scaffold() {
   for (const f of [out, baseOut]) if (existsSync(f) && !has('force')) { console.error(`${f} exists; pass --force to overwrite it`); process.exit(1); }
   mkdirSync(dir, { recursive: true });
   const dark = header && header.paper.band === 'dark';
-  const scale = dark ? SCALE.replace('--color-error: oklch(52% 0.19 27); --color-success: oklch(50% 0.12 150);', '--color-error: oklch(72% 0.15 27); --color-success: oklch(76% 0.13 150);') : SCALE;
-  const css = `:root {\n${header ? `  color-scheme: ${dark ? 'dark' : 'light'};\n` : ''}${scale}\n${tokens}\n}\n`;
+  const sized = app ? SCALE.replace(/  --text-xs:[^\n]*\n  --text-display-s:[^\n]*\n/, '  --text-xs: 0.75rem; --text-sm: 0.875rem; --text-md: 1rem; --text-lg: 1.2rem; --text-xl: 1.44rem; --text-2xl: 1.728rem; --text-3xl: 2.074rem;\n') : SCALE;
+  const scale = dark ? sized.replace('--color-error: oklch(52% 0.19 27); --color-success: oklch(50% 0.12 150);', '--color-error: oklch(72% 0.15 27); --color-success: oklch(76% 0.13 150);') : sized;
+  const sheetSrc = sheet ? readFileSync(sheet, 'utf8') : '';
+  const tw = /@import\s+["']tailwindcss/.test(sheetSrc);
+  const tw3 = !tw && /@tailwind\s+(?:base|utilities)\b/.test(sheetSrc);
+  const scheme = header ? `  color-scheme: ${dark ? 'dark' : 'light'};\n` : '';
+  const decls = `${scale}\n${tokens}`.split(/;(?![^()]*\))(?=(?:[^"]*"[^"]*")*[^"]*$)/).map((d) => d.trim()).filter(Boolean);
+  const themed = decls.filter((d) => /^--(color|font|text|tracking|radius|shadow|ease)-/.test(d));
+  const css = tw
+    ? `@theme static {\n${themed.map((d) => `  ${d};`).join('\n')}\n}\n:root {\n${scheme}${decls.filter((d) => !themed.includes(d)).map((d) => `  ${d};`).join('\n')}\n}\n`
+    : `:root {\n${scheme}${scale}\n${tokens}\n}\n`;
   writeFileSync(out, css);
   const own = !custom && /## Build hint[\s\S]*?(::selection\s*\{[^}]*\})/.exec(readFileSync(join(THEMES, `${slug}.md`), 'utf8'));
   writeFileSync(baseOut, (own ? BASE.replace(/::selection \{[^}]*\}/, own[1].replace(/\s+/g, ' ')) : BASE) + '\n');
-  const stamp = brand
-    ? `/* Hallmark · shape: <shape, or kept> · genre: <genre> · theme: brand${tail}\n * paper: oklch(<>) · accent: oklch(<>) · display: <face> · body: <face> · hero: <posture, or kept> · nav: <shape, or kept> · footer: <shape, or kept> · signature: <the one move, or kept>\n * axes: <paper>/<display>/<accent> · posture: <posture> · contrast: pass · fold: pass · v${VERSION} */`
+  const src = custom ? '' : readFileSync(join(THEMES, `${slug}.md`), 'utf8');
+  const dial = /stated in the stamp \(`([a-z0-9-]+):/.exec(src);
+  const theme = brand ? 'brand' : custom ? 'custom' : `${name} (${flag('dealt', '') ? `deal ${flag('dealt', '')}` : 'by request'})`;
+  const made = custom ? `\n * paper: oklch(<>) · accent: oklch(<>) · display: <face> · body: <face>` : '';
+  const axes = custom ? '<paper>/<display>/<accent> · posture: <posture>' : `${triple(header)} · posture: ${header.posture}`;
+  const kept = depth ? ', or kept' : '';
+  const stamp = app
+    ? `/* Hallmark · shape: app screen · genre: ${header ? header.genre : '<genre>'} · theme: ${theme}${tail}${made}\n * nav: <the shell${kept}> · signature: <the one object${kept}> · states: <the ones the screens have>${dial ? ` · ${dial[1]}: <the dials>` : ''}\n * axes: ${axes} · contrast: pass · v${VERSION} */`
+    : brand
+    ? `/* Hallmark · shape: <shape, or kept> · genre: <genre> · theme: brand${tail}${made} · hero: <posture, or kept> · nav: <shape, or kept> · footer: <shape, or kept> · signature: <the one move, or kept>\n * axes: ${axes} · contrast: pass · fold: pass · v${VERSION} */`
     : custom
-    ? `/* Hallmark · shape: <shape> · genre: <genre> · theme: custom${tail} · direction: "<drawn, n/7>" · vibe: "<4 to 8 words>"\n * paper: oklch(<>) · accent: oklch(<>) · display: <face> · body: <face> · hero: <posture> · nav: <shape> · footer: <shape> · enrichment: <none or the file> · signature: <the one move>\n * axes: <paper>/<display>/<accent> · posture: <posture> · seed: <key> · challenger: <name> (<verdict or raise>) · contract: <after the finish review> · contrast: pass · fold: pass · v${VERSION} */`
-    : `/* Hallmark · shape: <shape> · genre: ${header.genre} · theme: ${name} (${flag('dealt', '') ? `deal ${flag('dealt', '')}` : 'by request'})${tail}\n * hero: <posture> · nav: <shape> · footer: <shape> · enrichment: <none or the file> · signature: <the one move>\n * axes: ${triple(header)} · posture: ${header.posture} · contrast: pass · fold: pass · v${VERSION} */`;
-  console.log(`wrote ${out} (${brand ? 'the shared scale; fill every --color-* and --font-* from the palette and faces the pre-flight found' : custom ? 'the shared scale; fill every --color-* and --font-* from direction.md § B and § C before building' : `${name} tokens plus the shared scale`}) and ${baseOut} (the base rules the Floor already decided)`);
+    ? `/* Hallmark · shape: <shape> · genre: <genre> · theme: custom${tail} · direction: "<drawn, n/7>" · vibe: "<4 to 8 words>"${made} · hero: <posture> · nav: <shape> · footer: <shape> · enrichment: <none or the file> · signature: <the one move>\n * axes: ${axes} · seed: <key> · challenger: <name> (<verdict or raise>) · contract: <after the finish review> · contrast: pass · fold: pass · v${VERSION} */`
+    : `/* Hallmark · shape: <shape${kept}> · genre: ${header.genre} · theme: ${theme}${tail}\n * hero: <posture${kept}> · nav: <shape${kept}> · footer: <shape${kept}> · enrichment: <none or the file> · signature: <the one move>${dial ? ` · ${dial[1]}: <the dials>` : ''}\n * axes: ${axes} · contrast: pass · fold: pass · v${VERSION} */`;
+  console.log(`wrote ${out} (${brand ? 'the shared scale; fill every --color-* and --font-* from the palette and faces the pre-flight found' : custom ? 'the shared scale; fill every --color-* and --font-* from direction.md § B and § C before building' : `${name} tokens plus the shared scale`}) and ${baseOut} (the base rules the Floor already decided)${sheet && !flag('dir', '') ? `, beside ${sheet}` : ''}`);
   if (!custom && !flag('dealt', '')) {
     const pic = join(THEMES, `${slug}.jpg`);
     if (existsSync(pic)) console.log(`look at ${pic}: the material at full size${header.pictured ? `, from a page built as ${header.pictured}` : ''}. Take its scale, density and objects, not its layout or its section order.`);
@@ -311,8 +330,11 @@ function scaffold() {
   console.log('start the page\'s stylesheet with these lines, then write only the page:');
   console.log(stamp);
   console.log('/* Hallmark · pre-emit critique: P_ H_ E_ S_ R_ V_ · weakest: _, <what you did about it> */');
-  console.log('@import url("./tokens.css");');
-  console.log('@import url("./base.css");');
+  console.log(tw || tw3 ? '@import "./tokens.css";' : '@import url("./tokens.css");');
+  console.log(tw || tw3 ? '@import "./base.css" layer(base);' : '@import url("./base.css");');
+  if (tw3) console.log('Tailwind 3: the stamp and both imports go above the @tailwind directives; an @import below them is dropped without an error.');
+  if (tw) console.log('Tailwind 4: both imports go below @import "tailwindcss". tokens.css is written as an @theme block, so every colour, face, size, radius, shadow and ease is a utility (bg-paper, font-display, rounded-card); export-formats.md § Tailwind v4 has the names it shares with Tailwind.');
+  if (app) return;
   console.log('');
   console.log('and, only if the page has data-slot containers, once before </body>:');
   console.log(`<script>${SLOTS_JS}</script>`);
