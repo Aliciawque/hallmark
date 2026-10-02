@@ -1,301 +1,160 @@
 <!doctype html>
-<html lang="en" data-theme="hum">
+<html lang="en-GB">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Bubble — Guided sourdough, one stage at a time.</title>
-  <meta name="description" content="Bubble walks you through one loaf of real sourdough — feed, mix, prove, bake — and pings you the moment the dough needs you. About 45 minutes of actual work, spread across two unhurried days." />
-  <meta name="theme-color" content="#faf6ee" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="tokens.css" />
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bubble: a guided sourdough loaf, 45 minutes of work in 36 hours</title>
+<meta name="description" content="Bubble walks you through one sourdough loaf in four stages and pings you when the dough needs you. The recipe is free to read with no account and works offline.">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=chillax@400,500,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <a class="sr-only" href="#main">Skip to content</a>
-
-  <!-- ─── Nav · N10 floating-on-scroll morph ─── -->
-  <header class="nav" id="nav">
-    <div class="nav__inner">
-      <a class="nav__brand" href="#" aria-label="Bubble — home">
-        <span class="bub-mark" aria-hidden="true"></span>
-        Bubble
-      </a>
-      <nav class="nav__links" aria-label="Primary">
-        <a href="#stages">The method</a>
-        <a href="#numbers">The math</a>
-        <a href="#voices">Kitchen</a>
-        <a href="#pricing">Pricing</a>
-      </nav>
-      <div class="nav__actions">
-        <a class="btn btn--text" href="#">Sign in</a>
-        <a class="btn btn--mint btn--sm" href="#" data-burst>Start a starter</a>
-      </div>
-    </div>
-  </header>
-
-  <main id="main">
-
-    <!-- ─── Hero · Narrative Workflow opening ─── -->
-    <section class="hero">
-      <div class="hero__grid">
-        <div class="hero__lead">
-          <div class="process" aria-label="The four stages">
-            <span class="process__step"><span class="process__dot" style="background:var(--color-mint)"></span><span class="num">01</span> feed</span>
-            <span class="process__link"></span>
-            <span class="process__step"><span class="process__dot" style="background:var(--color-accent-2)"></span><span class="num">02</span> mix</span>
-            <span class="process__link"></span>
-            <span class="process__step"><span class="process__dot" style="background:var(--color-accent)"></span><span class="num">03</span> prove</span>
-            <span class="process__link"></span>
-            <span class="process__step"><span class="process__dot" style="background:var(--color-accent-3)"></span><span class="num">04</span> bake</span>
-          </div>
-          <h1 class="hero__title">Real sourdough, in about <em>forty-five minutes</em> of actual work.</h1>
-          <p class="hero__lede">Bubble walks you through one loaf, one stage at a time, and pings you the moment the dough needs you. The other thirty-six hours it just sits there getting better, while you get on with your life.</p>
-          <div class="hero__cta">
-            <a class="btn btn--mint btn--lg" href="#" data-burst>Start your first loaf</a>
-            <a class="btn btn--outline btn--lg btn--mint" href="#stages">See the four stages <span class="btn__arrow" aria-hidden="true">→</span></a>
-          </div>
-          <p class="hero__note">Free to read · no account for the recipe · works at the counter, offline</p>
-        </div>
-
-        <div class="hero__stage">
-          <div class="starter" id="starter" aria-hidden="true">
-            <span class="starter__pulse"></span>
-            <span class="starter__jar"><span class="starter__fill"></span></span>
-            <span class="starter__lid"></span>
-            <span class="starter__bubble"></span>
-            <span class="starter__bubble"></span>
-            <span class="starter__bubble"></span>
-            <span class="starter__bubble"></span>
-          </div>
-          <div class="remind" role="status">
-            <span class="remind__icon" aria-hidden="true"></span>
-            <div>
-              <p class="remind__head"><b>Bubble</b> · in 35 min</p>
-              <p class="remind__body">First stretch &amp; fold — <span class="remind__time">then 45 minutes to yourself.</span></p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ─── The timeline spine · numbered stages ─── -->
-    <section class="section" id="stages" aria-labelledby="stages-title">
-      <header class="section__head">
-        <hr class="section__mark section__mark--mint" />
-        <h2 class="section__title" id="stages-title">Four stages, start to slice.</h2>
-        <p class="section__lede">The same four every loaf. You only ever do one at a time — Bubble holds the timeline so you don't have to keep it in your head.</p>
-      </header>
-
-      <ol class="stages">
-        <!-- 1.0 FEED -->
-        <li class="stage stage--mint">
-          <div class="stage__rail" aria-hidden="true">
-            <div class="stage__node"></div>
-            <div class="stage__line"></div>
-          </div>
-          <div class="stage__panel">
-            <div class="stage__copy">
-              <h3 class="stage__title">Wake the starter, the night before</h3>
-              <p class="stage__text">Stir a spoonful of starter into fresh flour and water before bed. By morning it's doubled, domed, and smells like yogurt and green apples — that's ripe. <b>Bubble times the feed to your kitchen's temperature</b>, so it peaks when you wake up, not at 3 a.m.</p>
-              <div class="stage__chips">
-                <span class="chip"><span class="chip__dot"></span> 10–12 hrs · overnight</span>
-                <span class="chip chip--hands"><span class="chip__dot"></span> Hands-on · 5 min</span>
-              </div>
-            </div>
-            <div class="stage__art" aria-hidden="true">
-              <div class="art-jar">
-                <span class="art-jar__lid"></span>
-                <span class="art-jar__body"><span class="art-jar__fill"></span></span>
-                <span class="b"></span><span class="b"></span><span class="b"></span>
-              </div>
-            </div>
-          </div>
-        </li>
-
-        <!-- 2.0 MIX -->
-        <li class="stage stage--cyan">
-          <div class="stage__rail" aria-hidden="true">
-            <div class="stage__node"></div>
-            <div class="stage__line"></div>
-          </div>
-          <div class="stage__panel">
-            <div class="stage__copy">
-              <h3 class="stage__title">Mix in the morning, then let it rest</h3>
-              <p class="stage__text">Fold flour, water, the ripe levain and salt into a shaggy dough, then walk away for an hour while the flour drinks and the gluten knits itself — no kneading required. <b>One rest timer, one nudge</b> when it's ready for the first fold.</p>
-              <div class="stage__chips">
-                <span class="chip"><span class="chip__dot"></span> 1 hr autolyse</span>
-                <span class="chip chip--hands"><span class="chip__dot"></span> Hands-on · 10 min</span>
-              </div>
-            </div>
-            <div class="stage__art" aria-hidden="true">
-              <div class="art-bowl">
-                <span class="art-bowl__bowl"></span>
-                <span class="art-bowl__rim"></span>
-                <span class="art-bowl__dough"></span>
-                <span class="fl"></span><span class="fl"></span><span class="fl"></span>
-              </div>
-            </div>
-          </div>
-        </li>
-
-        <!-- 3.0 PROVE -->
-        <li class="stage stage--pear">
-          <div class="stage__rail" aria-hidden="true">
-            <div class="stage__node"></div>
-            <div class="stage__line"></div>
-          </div>
-          <div class="stage__panel">
-            <div class="stage__copy">
-              <h3 class="stage__title">Fold and shape through the day, prove overnight</h3>
-              <p class="stage__text">Four gentle folds over the first couple of hours build the structure; then the dough bulks for four or five, shapes into a taut round, and rests overnight in the fridge. <b>Bubble paces the folds</b> and tells you when the bulk is genuinely done — by how the dough looks, not just the clock.</p>
-              <div class="stage__chips">
-                <span class="chip"><span class="chip__dot"></span> 4–5 hrs bulk</span>
-                <span class="chip"><span class="chip__dot"></span> + overnight cold proof</span>
-                <span class="chip chip--hands"><span class="chip__dot"></span> Hands-on · 20 min</span>
-              </div>
-            </div>
-            <div class="stage__art" aria-hidden="true">
-              <div class="art-banneton">
-                <span class="art-banneton__dome"></span>
-                <span class="art-banneton__rim"></span>
-                <span class="art-banneton__basket"></span>
-                <span class="art-banneton__tag">+40%</span>
-              </div>
-            </div>
-          </div>
-        </li>
-
-        <!-- 4.0 BAKE -->
-        <li class="stage stage--coral">
-          <div class="stage__rail" aria-hidden="true">
-            <div class="stage__node"></div>
-            <div class="stage__line"></div>
-          </div>
-          <div class="stage__panel">
-            <div class="stage__copy">
-              <h3 class="stage__title">Score it and bake it at dawn</h3>
-              <p class="stage__text">Straight from the fridge, slash the top and lower it into a screaming-hot pot — twenty minutes lidded for the rise, twenty more open for the crust. <b>Pull it at the colour you like</b>, then wait the hardest hour of all: letting it cool before you cut.</p>
-              <div class="stage__chips">
-                <span class="chip"><span class="chip__dot"></span> 45 min bake</span>
-                <span class="chip chip--hands"><span class="chip__dot"></span> Hands-on · 10 min</span>
-              </div>
-            </div>
-            <div class="stage__art" aria-hidden="true">
-              <div class="art-loaf">
-                <span class="art-loaf__boule"></span>
-                <span class="art-loaf__score"></span>
-                <span class="art-loaf__ear"></span>
-                <span class="st"></span><span class="st"></span><span class="st"></span>
-              </div>
-            </div>
-          </div>
-        </li>
-      </ol>
-    </section>
-
-    <!-- ─── The honest math · counters ─── -->
-    <section class="section section--band section--mint" id="numbers" aria-labelledby="num-title">
-      <header class="section__head section__head--center">
-        <hr class="section__mark section__mark--pear" />
-        <h2 class="section__title" id="num-title">The honest math: mostly, you wait.</h2>
-      </header>
-      <dl class="numbers">
-        <div class="bignum">
-          <dd class="bignum__v"><span class="bignum__pre">≈</span><span class="count" data-to="45">45</span><span class="bignum__u">min</span></dd>
-          <dt class="bignum__k">your hands are actually busy — spread across two unhurried days.</dt>
-        </div>
-        <div class="bignum">
-          <dd class="bignum__v"><span class="count" data-to="36">36</span><span class="bignum__u">hrs</span></dd>
-          <dt class="bignum__k">the dough ferments on its own while you do literally anything else.</dt>
-        </div>
-        <div class="bignum">
-          <dd class="bignum__v"><span class="count" data-to="4">4</span></dd>
-          <dt class="bignum__k">simple stages — the same four, in the same order, every single loaf.</dt>
-        </div>
-      </dl>
-    </section>
-
-    <!-- ─── Voices · color-shift cards ─── -->
-    <section class="section" id="voices" aria-labelledby="vo-title">
-      <header class="section__head">
-        <hr class="section__mark section__mark--cyan" />
-        <h2 class="section__title" id="vo-title">People who used to buy their bread.</h2>
-      </header>
-      <ul class="voices">
-        <li class="voice" data-accent="mint">
-          <p class="voice__text">"My first three loaves came out like frisbees. Bubble was the first thing to tell me my starter was just hungry, not dead."</p>
-          <p class="voice__by"><span class="voice__chip"></span><b>Priya</b> · baking since March</p>
-        </li>
-        <li class="voice" data-accent="cyan">
-          <p class="voice__text">"The fold reminders are the whole product, honestly. I'd always miss the second one and end up with a brick."</p>
-          <p class="voice__by"><span class="voice__chip"></span><b>Marcus</b> · Saturday baker</p>
-        </li>
-        <li class="voice" data-accent="pear">
-          <p class="voice__text">"I feed it Thursday night, mix Friday, bake to a podcast on Saturday morning. It finally just fits around my week."</p>
-          <p class="voice__by"><span class="voice__chip"></span><b>Lena</b> · 60 loaves in</p>
-        </li>
-      </ul>
-    </section>
-
-    <!-- ─── Pricing ─── -->
-    <section class="section section--band" id="pricing" aria-labelledby="price-title">
-      <header class="section__head section__head--center">
-        <hr class="section__mark section__mark--coral" />
-        <h2 class="section__title" id="price-title">Free to bake. Cheap to get good.</h2>
-      </header>
-      <div class="plans">
-        <article class="plan">
-          <p class="plan__name">Free</p>
-          <p class="plan__price"><span class="plan__num">$0</span></p>
-          <p class="plan__note">The recipe, the four stages, and manual timers. Forever.</p>
-          <ul class="plan__list">
-            <li>The full guided method</li>
-            <li>Manual stage timers</li>
-            <li>One starter to track</li>
-          </ul>
-          <a class="btn btn--outline btn--mint btn--block" href="#" data-burst>Read the recipe</a>
-        </article>
-        <article class="plan plan--feature">
-          <span class="plan__badge">Most baked</span>
-          <p class="plan__name">Plus</p>
-          <p class="plan__price"><span class="plan__num">$4</span><span class="plan__unit">/ month</span></p>
-          <p class="plan__note">Reminders that read your kitchen, and every loaf you'll ever bake. Or $30 a year.</p>
-          <ul class="plan__list">
-            <li>Smart reminders, timed to your kitchen's temperature</li>
-            <li>Unlimited bakes &amp; saved recipes</li>
-            <li>Hydration &amp; timing calculator</li>
-            <li>Apple Watch &amp; home-screen widgets</li>
-          </ul>
-          <a class="btn btn--mint btn--block" href="#" data-burst>Start a free month</a>
-        </article>
-      </div>
-    </section>
-
-    <!-- ─── Final CTA · Narrative Workflow foot ─── -->
-    <section class="section closer" aria-labelledby="closer-title">
-      <h2 class="closer__title" id="closer-title">Start at stage one.</h2>
-      <p class="closer__lede">Feed a starter tonight and you'll have something worth slicing by the weekend. The recipe's free — read the whole thing before you commit to anything.</p>
-      <div class="hero__cta" style="justify-content:center">
-        <a class="btn btn--mint btn--lg" href="#" data-burst>Feed your starter <span class="btn__arrow" aria-hidden="true">→</span></a>
-        <a class="btn btn--outline btn--lg btn--mint" href="#pricing">See pricing</a>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="footer__inner">
-      <p class="footer__statement">Bread takes its time.</p>
-      <div class="footer__meta">
-        <a class="footer__brand" href="#"><span class="bub-mark" aria-hidden="true"></span> Bubble</a>
-        <p class="footer__col"><span>Bubble Bakes, Inc.</span><span>Remote · flour everywhere</span></p>
-        <p class="footer__col"><a href="#stages">The method</a><a href="#numbers">The math</a><a href="#pricing">Pricing</a><a href="#">hello@bubble.bake</a></p>
-        <p class="footer__col footer__copy">© 2024 — 2026 Bubble<br /><span class="footer__hash">feed · mix · prove · bake</span></p>
-      </div>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
+<a class="skip" href="#main">Skip to content</a>
+<nav class="pill" aria-label="Primary">
+<a class="pill__mark" href="#top" aria-label="Bubble, home">Bubble</a>
+<a class="pill__link" href="#loaf">The four stages</a>
+<a class="btn btn--quiet btn--small" href="#feed">Start your first loaf</a>
+</nav>
+<main id="main">
+<section class="hero" id="top" aria-labelledby="hero-title">
+<div class="container hero__in">
+<div class="hero__copy">
+<h1 class="hero__title" id="hero-title">Sourdough: 36&nbsp;hours.<br>You: 45&nbsp;minutes.</h1>
+<p class="hero__lede">Bubble walks you through it, and pings when the dough needs you.</p>
+<div class="hero__actions">
+<a class="btn btn--primary" href="#feed">Start your first loaf</a>
+</div>
+</div>
+<figure class="jar">
+<svg class="jar__svg" viewBox="34 32 292 426" role="img" aria-labelledby="jar-title jar-desc">
+<title id="jar-title">The starter jar</title>
+<desc id="jar-desc">A jar of sourdough starter holding 36 bubbles, one for each hour of the loaf. One bubble is three quarters coral: the 45 minutes of work that are yours.</desc>
+<defs><g id="bub"><circle class="jar__bubble" r="14"/><path class="jar__shine" d="M -8.5 -1.5 A 8.7 8.7 0 0 1 -2.5 -8.3"/></g></defs>
+<ellipse class="jar__floor" cx="180" cy="446" rx="132" ry="9"/>
+<g class="jar__dome">
+<path class="jar__starter" d="M 88 136 C 84 88, 124 42, 180 42 C 236 42, 276 88, 272 136 Z"/>
+<ellipse class="jar__eye" cx="158" cy="72" rx="5.5" ry="7.5"/>
+<ellipse class="jar__eye" cx="202" cy="72" rx="5.5" ry="7.5"/>
+<path class="jar__smile" d="M 168 88 Q 180 97 192 88"/>
+</g>
+<rect class="jar__body" x="36" y="118" width="288" height="318" rx="50"/>
+<rect class="jar__rim" x="78" y="102" width="204" height="30" rx="13"/>
+<path class="jar__glint" d="M 48 200 L 48 300"/>
+<g class="jar__bubbles">
+<use href="#bub" x="70" y="177"/><use href="#bub" x="110" y="177"/><use href="#bub" x="150" y="177"/><use href="#bub" x="190" y="177"/><use href="#bub" x="270" y="177"/>
+<use href="#bub" x="90" y="217"/><use href="#bub" x="130" y="217"/><use href="#bub" x="170" y="217"/><use href="#bub" x="210" y="217"/><use href="#bub" x="250" y="217"/><use href="#bub" x="290" y="217"/>
+<use href="#bub" x="70" y="257"/><use href="#bub" x="110" y="257"/><use href="#bub" x="150" y="257"/><use href="#bub" x="190" y="257"/><use href="#bub" x="230" y="257"/><use href="#bub" x="270" y="257"/>
+<use href="#bub" x="90" y="297"/><use href="#bub" x="130" y="297"/><use href="#bub" x="170" y="297"/><use href="#bub" x="210" y="297"/><use href="#bub" x="250" y="297"/><use href="#bub" x="290" y="297"/>
+<use href="#bub" x="70" y="337"/><use href="#bub" x="110" y="337"/><use href="#bub" x="150" y="337"/><use href="#bub" x="190" y="337"/><use href="#bub" x="230" y="337"/><use href="#bub" x="270" y="337"/>
+<use href="#bub" x="90" y="377"/><use href="#bub" x="130" y="377"/><use href="#bub" x="170" y="377"/><use href="#bub" x="210" y="377"/><use href="#bub" x="250" y="377"/><use href="#bub" x="290" y="377"/>
+</g>
+<g class="jar__mine">
+<use href="#bub" x="230" y="177"/>
+<path class="jar__yours" d="M 230 177 L 230 163 A 14 14 0 1 1 216 177 Z"/>
+<circle class="jar__ring" cx="230" cy="177" r="14"/>
+</g>
+</svg>
+<figcaption class="jar__cap">One bubble an hour.<br>Your work: about three quarters of one.</figcaption>
+</figure>
+</div>
+</section>
+<section class="loaf" id="loaf" aria-label="One loaf in four stages">
+<ol class="container stages">
+<li class="stage" id="feed">
+<section class="stage__in" aria-labelledby="feed-title">
+<div class="stage__text">
+<h2 class="stage__title" id="feed-title">Feed the starter</h2>
+<p class="stage__line">The night before you mix,<br>so a loaf can start tonight.</p>
+</div>
+<figure class="stage__fig">
+<div class="screen" data-slot="feed" data-alt="Bubble at stage one: feeding the starter the night before you mix">
+<div class="screen__sketch" aria-hidden="true">
+<span class="sk sk--bar sk--quarter"></span>
+<span class="sk sk--card"></span>
+<span class="sk sk--line"></span>
+<span class="sk sk--line sk--short"></span>
+<span class="sk sk--pill"></span>
+</div>
+<span class="screen__label">Feed screen</span>
+</div>
+</figure>
+</section>
+</li>
+<li class="stage" id="mix">
+<section class="stage__in" aria-labelledby="mix-title">
+<div class="stage__text">
+<h2 class="stage__title" id="mix-title">Mix the dough</h2>
+<p class="stage__line">Step by step at the counter,<br>and it works offline.</p>
+</div>
+<figure class="stage__fig">
+<div class="screen" data-slot="mix" data-alt="Bubble at stage two: the mixing steps, one at a time">
+<div class="screen__sketch" aria-hidden="true">
+<span class="sk sk--bar sk--half"></span>
+<span class="sk sk--row"></span>
+<span class="sk sk--row"></span>
+<span class="sk sk--row"></span>
+<span class="sk sk--pill"></span>
+</div>
+<span class="screen__label">Mix screen</span>
+</div>
+</figure>
+</section>
+</li>
+<li class="stage stage--wait" id="prove">
+<section class="stage__in" aria-labelledby="prove-title">
+<div class="stage__text">
+<h2 class="stage__title" id="prove-title">Let it prove</h2>
+<p class="stage__line">The dough does the waiting.</p>
+</div>
+<figure class="stage__fig">
+<div class="screen screen--lock" data-slot="ping" data-alt="The ping from Bubble on a locked phone, when the dough needs you">
+<div class="screen__sketch" aria-hidden="true">
+<span class="sk sk--time"></span>
+<span class="sk sk--note"></span>
+</div>
+<span class="screen__label">The ping</span>
+</div>
+</figure>
+</section>
+</li>
+<li class="stage stage--last" id="bake">
+<section class="stage__in" aria-labelledby="bake-title">
+<div class="stage__text">
+<h2 class="stage__title" id="bake-title">Bake the loaf</h2>
+<p class="stage__line">Where your 45&nbsp;minutes end.</p>
+</div>
+<figure class="stage__fig stage__fig--loaf">
+<svg class="boule" viewBox="18 50 264 136" role="img" aria-label="A floured sourdough loaf, its score opened into an ear">
+<ellipse class="boule__floor" cx="150" cy="176" rx="126" ry="8"/>
+<path class="boule__crust" d="M 22 150 C 22 52, 278 52, 278 150 C 278 172, 22 172, 22 150 Z"/>
+<path class="boule__ear" d="M 88 100 C 124 70, 190 66, 232 92 C 192 82, 128 86, 88 100 Z"/>
+</svg>
+</figure>
+</section>
+</li>
+</ol>
+</section>
+</main>
+<footer class="foot">
+<div class="container foot__in">
+<p class="foot__line">The recipe is free to read, with no account to make.</p>
+<a class="btn btn--primary" href="#feed">Start your first loaf</a>
+<div class="foot__meta">
+<span class="foot__mark">Bubble</span>
+<span>A guided sourdough app</span>
+<span>&copy; 2026</span>
+</div>
+</div>
+</footer>
+<script>
+(() => {
+  const jar = document.querySelector('.jar');
+  if (!jar || !('IntersectionObserver' in window)) return;
+  new IntersectionObserver(([e]) => jar.classList.toggle('is-offscreen', !e.isIntersecting)).observe(jar);
+})();
+window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.prepend(im); } };
+</script>
 </body>
 </html>

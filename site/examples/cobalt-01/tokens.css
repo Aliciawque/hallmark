@@ -1,79 +1,31 @@
-/* Hallmark · theme: cobalt · design tokens
-   Cool cobalt-on-light, dev-tool / API register. Never pure white, never pure
-   black. ONE electric cobalt signal accent; hairlines do the structural work. */
-
 :root {
-  /* ─── Colour ─────────────────────────────────────────────── */
-  --color-paper:   oklch(98.5% 0.004 250);  /* cool engineered near-white — page ground */
-  --color-paper-2: oklch(96.5% 0.005 252);  /* alt band / quiet inset */
-  --color-paper-3: oklch(94% 0.006 254);    /* card tint / chip ground */
-
-  --color-ink:     oklch(24% 0.02 258);     /* headlines + wordmark — cool charcoal */
-  --color-ink-2:   oklch(34% 0.018 257);    /* body copy */
-  --color-muted:   oklch(56% 0.013 255);    /* captions, meta, punctuation */
-
-  --color-rule:    oklch(91% 0.008 255);    /* hairlines */
-  --color-rule-2:  oklch(83% 0.011 255);    /* stronger hairline / hover rule */
-
-  --color-accent:     oklch(58% 0.20 256);  /* electric cobalt — THE one signal */
-  --color-accent-ink: oklch(99% 0.004 256); /* text on cobalt */
-  --color-accent-dim: oklch(58% 0.20 256 / 0.10); /* cobalt wash / focus halo */
-
-  --color-graphite:   oklch(22% 0.016 260); /* dark code-card ground */
-  --color-graphite-2: oklch(27% 0.018 260); /* code window bar */
-  --color-graphite-3: oklch(34% 0.02 260);  /* code card hairline */
-
-  /* text on the full-bleed dark quickstart band (light cool ink) */
-  --color-quick-ink:   oklch(92% 0.01 255);   /* headings on dark */
-  --color-quick-ink-2: oklch(80% 0.012 256);  /* body on dark */
-  --color-quick-muted: oklch(64% 0.014 256);  /* labels on dark */
-
-  /* code syntax on graphite */
-  --code-text:   oklch(86% 0.01 258);   /* default code ink (light) */
-  --code-dim:    oklch(58% 0.014 258);  /* punctuation / comments */
-  --code-string: oklch(82% 0.04 150);   /* strings — cool desaturated */
-  --code-accent: oklch(72% 0.16 256);   /* method / keys — cobalt, lifted for contrast */
-
-  /* ─── Type ───────────────────────────────────────────────── */
-  --font-display: "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-body:    "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
-
-  /* fluid scale */
-  --step-hero:    clamp(2.6rem, 5.2vw + 0.8rem, 5rem);
-  --step-section: clamp(1.9rem, 3.2vw, 3rem);
-  --step-lede:    clamp(1.0625rem, 0.8vw + 0.7rem, 1.3125rem);
-  --step-body:    1.0625rem;
-  --step-code:    0.875rem;
-  --step-small:   0.75rem;                 /* mono labels / meta rows */
-
-  --tracking-display: -0.03em;
-  --tracking-snug:    -0.015em;
-  --tracking-label:   0.06em;              /* mono uppercase labels */
-
-  --weight-body:    400;
-  --weight-medium:  500;
-  --weight-semi:    600;
-
-  --leading-tight:  1.04;
-  --leading-snug:   1.18;
-  --leading-body:   1.62;
-  --measure:        62ch;
-
-  /* ─── Space & layout ─────────────────────────────────────── */
-  --gutter:     clamp(1.1rem, 4vw, 3.25rem);  /* full-bleed page inset */
-  --maxw:       1200px;                       /* content frame */
-  --section-y:  clamp(4.5rem, 9vw, 8rem);
-  --rule:       1px;
-
-  /* ─── Shape ──────────────────────────────────────────────── */
-  --radius-btn:  6px;
-  --radius-card: 10px;
-  --shadow-card: 0 1px 2px oklch(22% 0.016 260 / 0.08);  /* the one barely-there lift */
-
-  /* ─── Motion ─────────────────────────────────────────────── */
-  --reveal-dist: 10px;
-  --reveal-dur:  600ms;
-  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
-  --t-quiet:     240ms cubic-bezier(0.4, 0, 0.2, 1);
+  --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px; --space-4xl: 144px;
+  --text-xs: 0.8125rem; --text-sm: 0.875rem; --text-md: 1rem; --text-lg: 1.25rem; --text-xl: 1.5625rem; --text-2xl: 1.953rem; --text-3xl: 2.441rem;
+  --text-display-s: clamp(2.25rem, 4vw + 0.5rem, 3.75rem); --text-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); --ease-in: cubic-bezier(0.7, 0, 0.84, 0); --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms; --dur-short: 220ms; --dur-long: 420ms;
+  --color-error: oklch(52% 0.19 27); --color-success: oklch(50% 0.12 150);
+  --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap: 144px;
+  --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
+  --color-paper: oklch(98.5% 0.005 250); --color-paper-2: oklch(96% 0.006 250); --color-paper-3: oklch(93% 0.008 250);
+  --color-ink: oklch(24% 0.020 258); --color-ink-2: oklch(34% 0.018 257); --color-muted: oklch(50% 0.015 256);
+  --color-rule: oklch(90% 0.008 250); --color-rule-2: oklch(84% 0.010 250);
+  --color-graphite: oklch(22% 0.016 260); --color-graphite-ink: oklch(92% 0.010 250);
+  --color-accent: oklch(51% 0.20 256); --color-accent-2: oklch(72% 0.16 256); --color-accent-ink: oklch(98.5% 0.005 250); --color-focus: oklch(51% 0.20 256);
+  --font-display: "Familjen Grotesk", system-ui, sans-serif; --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --font-outlier: "JetBrains Mono", ui-monospace, monospace;
+  --radius-card: 10px; --radius-input: 6px; --radius-pill: 999px;
+  --rule-hair: 1px; --shadow-card: 0 1px 2px oklch(24% 0.02 258 / 0.05);
+  --tracking-display: -0.02em;
+  --color-rule-strong: oklch(60% 0.014 255);
+  --color-graphite-line: oklch(38% 0.018 258); --color-graphite-muted: oklch(74% 0.012 252);
+  --control-h: 48px; --bar-h: 64px; --text-display-hero: min(5.6vw, 5rem);
+}
+@font-face { font-family: "Familjen Grotesk Fallback"; src: local("Arial"); size-adjust: 98%; ascent-override: 95%; descent-override: 25%; line-gap-override: 0%; }
+@font-face { font-family: "IBM Plex Sans Fallback"; src: local("Arial"); size-adjust: 101%; ascent-override: 101.5%; descent-override: 27.2%; line-gap-override: 0%; }
+@font-face { font-family: "JetBrains Mono Fallback"; src: local("Courier New"); size-adjust: 100%; ascent-override: 102%; descent-override: 30%; line-gap-override: 0%; }
+:root {
+  --font-display: "Familjen Grotesk", "Familjen Grotesk Fallback", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", "IBM Plex Sans Fallback", system-ui, sans-serif;
+  --font-outlier: "JetBrains Mono", "JetBrains Mono Fallback", ui-monospace, monospace;
 }

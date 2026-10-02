@@ -1,94 +1,26 @@
-/* Hallmark · custom tokens · one-off, not written back to catalog
- * Repair-café manifesto · scrollable vintage protest poster · two-pass riso ink on bone newsprint
- */
-
 :root {
-  /* ── Paper — warm bone newsprint. Never pure white. ── */
-  --color-paper:    oklch(94% 0.012 85);   /* sheet */
-  --color-paper-2:  oklch(90% 0.016 80);   /* toned band */
-  --color-paper-3:  oklch(85% 0.022 78);   /* kraft / tape */
-  --color-paper-4:  oklch(80% 0.026 76);   /* deepest fold */
-
-  /* ── Ink — oxidised iron, not black. ── */
-  --color-ink:      oklch(24% 0.018 65);   /* display ink */
-  --color-ink-2:    oklch(34% 0.016 60);   /* body */
-  --color-ink-mute: oklch(48% 0.020 60);   /* captions / register text */
-  --color-rule:     oklch(40% 0.020 62);   /* press rules */
-  --color-hairline: oklch(72% 0.020 78);   /* faint sheet lines */
-
-  /* ── Accent — riso vermilion (the protest pass). Held to a signal. ── */
-  --color-accent:      oklch(58% 0.205 32);   /* large red slogans (≥3:1 large on bone) */
-  --color-accent-deep: oklch(52% 0.200 32);   /* focus / small labels / links on bone (≥4.5:1) */
-  --color-accent-btn:  oklch(50% 0.205 32);   /* solid fill behind bone text → 5.9:1 */
-  --color-accent-ink:  oklch(96% 0.012 85);   /* bone — text ON the red fill */
-
-  /* ── Second riso pass — mineral teal. Tiny: ghost offset + one tally. ── */
-  --color-teal:     oklch(56% 0.095 205);
-
-  /* ── Focus ring — never animated, ≥3:1 on bone. ── */
-  --color-focus:    oklch(52% 0.200 32);
-
-  /* ── Texture inks (halftone dot + grain), tuned alphas of ink ── */
-  --dot-ink:   oklch(24% 0.018 65 / 0.06);
-  --grain-ink: oklch(24% 0.018 65 / 0.045);
-
-  /* ── Mask fill — alpha-only; tinted ink so no pure #000 lives on the page ── */
-  --mask-opaque: oklch(24% 0.018 65 / 1);
-
-  /* ── Fonts — Roman display only · 3 families (display / body / mono) ── */
-  --font-display: "Big Shoulders Display", "Arial Narrow", system-ui, sans-serif;
-  --font-body:    "Fraunces", "Iowan Old Style", Georgia, serif;
-  --font-mono:    "Spline Sans Mono", ui-monospace, "Courier New", monospace;
-
-  /* ── Type scale — poster-fluid ── */
-  --text-xs:   0.75rem;
-  --text-sm:   0.8125rem;
-  --text-base: 1.0625rem;
-  --text-lg:   1.25rem;
-  --text-xl:   1.625rem;
-  --text-2xl:  2.25rem;
-  --text-3xl:  clamp(2.75rem, 6vw, 4.5rem);
-  --text-slab: clamp(3.5rem, 13vw, 11rem);     /* manifesto planks */
-  --text-fold: clamp(3.25rem, 13vw, 9.5rem);   /* the fold slogan — sized so the full "Don't bin it. Fix it." clears the fold at 1280×800 */
-  --text-num:  clamp(3rem, 9vw, 8rem);         /* ballooned numerals */
-
-  --lh-slab: 1.0;    /* gate-67 floor for wrapping all-caps display heads */
-  --lh-tight: 1.02;
-  --lh-body: 1.62;
-
-  /* ── 4px spacing scale ── */
-  --space-2xs: 0.25rem;
-  --space-xs:  0.5rem;
-  --space-sm:  0.75rem;
-  --space-md:  1rem;
-  --space-lg:  1.5rem;
-  --space-xl:  2.5rem;
-  --space-2xl: 4rem;
-  --space-3xl: 6.5rem;
-  --space-4xl: 10rem;
-  --space-5xl: 14rem;
-
-  /* ── Rules — letterpress weights ── */
-  --rule-hair:   1px solid var(--color-hairline);
-  --rule-press:  2px solid var(--color-rule);
-  --rule-ink:    3px solid var(--color-ink);
-  --rule-double: 4px double var(--color-ink);
-
-  /* ── Radius — none; this is a flat printed sheet ── */
-  --radius-xs: 1px;
-  --radius-sm: 2px;
-
-  /* ── Shell ── */
-  --sheet-max: 1280px;
-  --sheet-pad: clamp(1.25rem, 5vw, 5rem);
-  --crop:      clamp(0.75rem, 2.4vw, 2rem);   /* corner crop-mark inset */
-
-  /* ── Motion — one orchestrated registration sweep + the tape marquee ── */
-  --reg-shift: 0.18em;          /* how far the ink starts off-register */
-  --dur-reg:   620ms;
-  --dur-fast:  140ms;
-  --dur-base:  240ms;
-  --dur-tape:  46s;
-  --ease-snap: cubic-bezier(0.2, 0.9, 0.2, 1);   /* settle, no overshoot */
-  --ease-out:  cubic-bezier(0.22, 1, 0.36, 1);
+  --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px; --space-4xl: 144px;
+  --text-xs: 0.8125rem; --text-sm: 0.875rem; --text-md: 1rem; --text-lg: 1.25rem; --text-xl: 1.5625rem; --text-2xl: 1.953rem; --text-3xl: 2.441rem;
+  --text-display-s: clamp(2.25rem, 4vw + 0.5rem, 3.75rem); --text-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
+  --text-poster: clamp(3.5rem, 8vw, 7.5rem); --underline-offset: 2px; --text-claim: clamp(1.875rem, 3vw + 0.5rem, 3.25rem); --text-hand: clamp(1.5rem, 1.6vw + 0.75rem, 2.25rem); --text-sign: clamp(3.5rem, 8vw, 8rem);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); --ease-in: cubic-bezier(0.7, 0, 0.84, 0); --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms; --dur-short: 220ms; --dur-long: 420ms; --dur-sweep: 600ms;
+  --color-error: oklch(52% 0.19 27); --color-success: oklch(50% 0.12 150);
+  --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap: 144px;
+  --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
+  --color-paper: oklch(87% 0.056 84); --color-paper-2: oklch(84% 0.06 82); --color-paper-3: oklch(81% 0.064 80);
+  --color-field: var(--color-paper);
+  --color-ink: oklch(21% 0.014 70); --color-ink-2: oklch(30% 0.016 70); --color-muted: oklch(41% 0.02 72);
+  --color-rule: oklch(70% 0.04 78); --color-rule-2: oklch(76% 0.046 80);
+  --color-accent: oklch(42% 0.17 305); --color-accent-2: oklch(36% 0.16 305); --color-accent-ink: oklch(87% 0.056 84); --color-focus: oklch(44% 0.2 305);
+  --color-signal: var(--color-accent);
+  --color-seal: oklch(53% 0.19 28);
+  --font-display: "Bespoke Slab", "Slab fallback", ui-serif, serif; --font-body: "Archivo", "Archivo fallback", ui-sans-serif, sans-serif;
+  --font-outlier: "Shantell Sans", "Hand fallback", ui-rounded, sans-serif;
+  --radius-card: 6px; --radius-pill: 2px; --rule-hair: 1px; --rule-print: 2px; --shadow-card: none;
+  --tracking-display: -0.01em;
+  --control-h: 52px; --control-h-sm: 44px;
+  --eyelet: 112px; --perf: 18px; --nav-h: 92px; --ordinal-col: 4.5rem; --label-col: 7.5rem;
+  --texture-opacity: 0.15; --texture-size: 140px;
+  --texture-ink: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -9 6.3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
 }

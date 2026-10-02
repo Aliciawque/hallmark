@@ -1,0 +1,143 @@
+/* Hallmark · shape: Manifesto · genre: editorial · custom: draw 1/7 (seed the-mend-assembly·2026-10-01·r0)
+ * hero: Poster · nav: edge-aligned, the wordmark and one link over a printed rule · footer: a perforated counterfoil to keep, then one colophon line · enrichment: none · signature: the page is a repair tag, hung from an eyelet on a string, five beliefs on its printed lines, the details filled in by hand, the next date stamped in red, a perforated counterfoil at the foot
+ * theme: custom · direction: "the repair job tag" · vibe: "defiant, handmade, church-hall workbench, honest ink" · paper: oklch(87% 0.056 84) · accent: oklch(42% 0.17 305) · display: Bespoke Slab · body: Archivo · axes: light/slab-serif/chromatic-violet · posture: full-palette · seed: the-mend-assembly·2026-10-01·r0 · challenger: Orchard stand (raise: No charge written at sign scale) · contrast: pass · fold: pass · hero-review: fix after 2 rounds (the ceiling), 3 resolved 1 partial, 2 regressions fixed after scoring · finish-review: subagent · 8 findings · 6 resolved 2 partial, both closed after the ceiling · gap: the story's people stay off the page · contract: kept (5/5) · v2.3.0 */
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R4 V4 · weakest: H, four tag parts (eyelet, stamp, hand, perforation) compete with the type; each appears once and the type stays the loudest thing */
+/* Hallmark · dismissed 25 · the five beliefs are claims set at about 3rem, one assertion per line, so they take the display measure, not the 45 to 75ch prose measure */
+/* direction contract · seed the-mend-assembly·2026-10-01·r0
+ * THESIS: What you own you may open, and on the third Saturday someone will help you mend it, free.
+ * OWN-WORLD: The repair job tag, drawn 1/7: manila tag stock, printed black slab capitals, a copying-ink violet hand in the fields, a red date stamp, an eyelet on a string.
+ * STORY: A retired electrician and a teenager at a trestle table in a church hall, third Saturday, 10:40; grey window light under tube lights; a kettle with a cracked switch wears its buff tag.
+ * FIRST-VIEWPORT: The top of a giant tag: the eyelet and its string off the top edge, BRING THE BROKEN THING in black slab capitals, the terms in one line, the next date stamped in red, one violet button.
+ * FORM: A manifesto on a tag: five beliefs on its printed lines, the details filled in by hand with No charge written at sign scale, a perforated counterfoil to keep. */
+@import url("./tokens.css");
+@font-face { font-family: "Slab fallback"; src: local("Rockwell"), local("Georgia"); size-adjust: 104%; ascent-override: 90%; descent-override: 24%; line-gap-override: 0%; }
+@font-face { font-family: "Archivo fallback"; src: local("Arial"), local("ArialMT"); size-adjust: 100%; ascent-override: 88%; descent-override: 21%; line-gap-override: 0%; }
+@font-face { font-family: "Hand fallback"; src: local("Chalkboard SE"), local("Comic Sans MS"); size-adjust: 96%; ascent-override: 96%; descent-override: 28%; line-gap-override: 0%; }
+html, body { overflow-x: clip; }
+html { scrollbar-color: var(--color-muted) var(--color-paper); }
+body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); font-size: var(--text-md); line-height: 1.55; -webkit-font-smoothing: antialiased; caret-color: var(--color-accent); font-synthesis: none; }
+::selection { background: color-mix(in oklab, var(--color-accent) 22%, transparent); color: var(--color-ink); }
+:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: var(--underline-offset); }
+h1, h2, h3 { margin: 0; font-family: var(--font-display); letter-spacing: var(--tracking-display); line-height: 1.05; overflow-wrap: break-word; min-width: 0; text-wrap: balance; }
+h1 { max-width: 20ch; } h2 { max-width: 30ch; } h3 { max-width: 40ch; }
+p { margin: 0; text-wrap: pretty; max-width: 65ch; }
+img, svg, video { max-width: 100%; height: auto; display: block; }
+button, input, select, textarea { font: inherit; }
+.container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); box-sizing: border-box; }
+.num, .figure, td.num { font-variant-numeric: tabular-nums; }
+[data-slot] { position: relative; overflow: hidden; }
+[data-slot] > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+[data-slot]:has(> img) > :not(img) { display: none !important; }
+@media (max-width: 60rem) { :root { --gutter: 24px; --section-gap: 96px; } }
+@media (max-width: 40rem) { :root { --gutter: 16px; --section-gap: 72px; --gap-columns: 16px; } }
+@media (prefers-reduced-motion: reduce) { *:not(.keep-motion), *:not(.keep-motion)::before, *:not(.keep-motion)::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }
+
+/* Skip link */
+.skip { position: absolute; left: var(--space-md); top: calc(-1 * var(--space-3xl)); z-index: var(--z-toast); padding: var(--space-xs) var(--space-sm); background: var(--color-ink); color: var(--color-paper); font-size: var(--text-sm); text-decoration: none; }
+.skip:focus-visible { top: var(--space-md); }
+
+/* Controls: the solid block in the copying-ink violet, and a printed link */
+.btn { display: inline-flex; align-items: center; justify-content: center; block-size: var(--control-h); padding-inline: var(--space-lg); box-sizing: border-box; border: 0; border-radius: var(--radius-pill); background: var(--color-accent); color: var(--color-accent-ink); font: 600 var(--text-md)/1 var(--font-body); text-decoration: none; white-space: nowrap; cursor: pointer; transition: background-color var(--dur-micro) var(--ease-out); }
+.btn:hover { background: var(--color-accent-2); }
+.btn:active { background: var(--color-ink); }
+.btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.btn:disabled, .btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; }
+.link { position: relative; display: inline-flex; align-items: center; min-block-size: var(--control-h-sm); font: 600 var(--text-md)/1 var(--font-body); color: var(--color-ink); white-space: nowrap; text-decoration: underline; text-decoration-thickness: var(--rule-print); text-underline-offset: var(--underline-offset); transition: color var(--dur-micro) var(--ease-out), text-decoration-color var(--dur-micro) var(--ease-out); }
+.link:hover { text-decoration-color: var(--color-accent); }
+.link:active { color: var(--color-accent); }
+.link:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; }
+
+/* Nav: the tag's printed header, the wordmark and one link, the eyelet punched beneath */
+.nav { position: relative; }
+.nav__row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); min-block-size: var(--nav-h); box-sizing: border-box; border-bottom: var(--rule-print) solid var(--color-ink); }
+.wordmark { font: 800 var(--text-xl)/1 var(--font-display); letter-spacing: var(--tracking-display); color: var(--color-ink); text-decoration: none; white-space: nowrap; }
+.wordmark:hover { text-decoration: underline; text-decoration-thickness: var(--rule-print); text-decoration-color: var(--color-accent); text-underline-offset: var(--underline-offset); }
+.wordmark:active { color: var(--color-ink-2); }
+.wordmark:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; }
+.eyelet { position: absolute; top: 0; left: 50%; inline-size: var(--eyelet); transform: translateX(-50%); pointer-events: none; z-index: var(--z-raised); overflow: visible; }
+.eyelet__string { fill: none; stroke: var(--color-ink-2); stroke-width: 4; stroke-linecap: round; }
+.eyelet__ring { fill: var(--color-paper-3); stroke: var(--color-ink-2); stroke-width: 2; }
+.eyelet__hole { fill: var(--color-ink); }
+
+/* Hero: Poster, the type anchored low on the tag */
+.hero { min-block-size: calc(100dvh - var(--nav-h)); box-sizing: border-box; display: grid; align-content: end; padding-block: var(--space-3xl) var(--space-2xl); }
+.hero__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--gap-columns); row-gap: var(--space-xl); align-items: end; }
+.poster { grid-column: 1; grid-row: 1; font-weight: 800; font-size: var(--text-poster); line-height: 1; text-transform: uppercase; max-width: none; animation: sweep var(--dur-sweep) var(--ease-out) both; }
+.hero__text { grid-column: 1 / -1; grid-row: 2; display: grid; gap: var(--space-lg); justify-items: start; }
+.hand { font-family: var(--font-outlier); font-weight: 700; color: var(--color-signal); }
+.hero__line { font-size: var(--text-hand); line-height: 1.3; max-width: 70ch; text-wrap: balance; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm) var(--space-xl); }
+.stamp { grid-column: 2; grid-row: 1; justify-self: end; align-self: center; display: grid; justify-items: center; gap: var(--space-2xs); padding: var(--space-sm) var(--space-xl); border: 5px double var(--color-seal); border-radius: var(--radius-card); color: var(--color-seal); transform: rotate(-7deg); -webkit-mask-image: var(--texture-ink); mask-image: var(--texture-ink); -webkit-mask-size: var(--texture-size); mask-size: var(--texture-size); animation: land var(--dur-short) var(--ease-out) 380ms both; }
+.stamp__what { font: 700 var(--text-lg)/1.2 var(--font-body); }
+.stamp__date { font: 700 var(--text-3xl)/1 var(--font-body); text-transform: uppercase; letter-spacing: 0.02em; white-space: nowrap; font-variant-numeric: lining-nums tabular-nums; }
+/* Five beliefs: the tag's printed lines, an ol with its ordinal hung in the margin */
+.caps { font-weight: 800; text-transform: uppercase; line-height: 1; }
+.beliefs { padding-block-start: calc(var(--section-gap) + var(--space-lg)); }
+.beliefs h2 { font-size: var(--text-display); }
+.creed { list-style: none; margin: var(--space-2xl) 0 0; padding: 0; counter-reset: belief; border-bottom: var(--rule-print) solid var(--color-ink); }
+.creed li { counter-increment: belief; display: grid; grid-template-columns: var(--ordinal-col) minmax(0, 1fr); column-gap: var(--gap-columns); align-items: baseline; padding-block: var(--space-lg); border-top: var(--rule-print) solid var(--color-ink); }
+.creed li::before { content: counter(belief); font: 700 var(--text-claim)/1.1 var(--font-body); color: var(--color-ink); font-variant-numeric: lining-nums tabular-nums; }
+.creed p { font: 700 var(--text-claim)/1.12 var(--font-display); letter-spacing: var(--tracking-display); color: var(--color-ink); max-width: 26ch; text-wrap: balance; }
+
+/* The job: the tag's fields, filled in by hand */
+.details { padding-block-start: calc(var(--section-gap) + var(--space-2xl)); }
+.details__grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); column-gap: var(--gap-columns); row-gap: var(--space-xl); align-items: start; }
+.details h2 { font-size: var(--text-display-s); max-width: 9ch; }
+.fields { margin: 0; border-bottom: var(--rule-hair) solid var(--color-ink); }
+.fields__row { display: grid; grid-template-columns: var(--label-col) minmax(0, 1fr); column-gap: var(--gap-columns); align-items: baseline; padding-block: var(--space-md); border-top: var(--rule-hair) solid var(--color-ink); }
+.fields dt { font: 600 var(--text-md)/1.3 var(--font-body); color: var(--color-ink-2); }
+.fields dd { margin: 0; display: grid; gap: var(--space-2xs); }
+.fields .hand { font-size: var(--text-hand); line-height: 1.25; text-wrap: balance; }
+.fields__note { font-size: var(--text-md); line-height: 1.4; color: var(--color-ink-2); }
+.fields__note .hand { font-size: var(--text-lg); }
+.fields__row--sign { align-items: center; }
+.fields .sign { font-size: var(--text-sign); font-weight: 800; line-height: 0.95; }
+.fill { font-family: var(--font-body); font-weight: 500; color: var(--color-muted); text-decoration: underline dashed var(--color-muted); text-decoration-thickness: 1px; text-underline-offset: var(--underline-offset); }
+
+/* Keep this half: the counterfoil past a perforation, on a change of paper */
+.stub { margin-block-start: calc(var(--section-gap) + var(--space-xl)); background: var(--color-paper-2); padding-block-end: var(--space-3xl); }
+.perf { block-size: var(--perf); background: radial-gradient(circle, var(--color-ink-2) 0 3px, transparent 3.5px) center / var(--perf) var(--perf) repeat-x; transform: translateY(-50%); }
+.stub__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--gap-columns); row-gap: var(--space-lg); align-items: end; padding-block-start: var(--space-2xl); }
+.stub h2 { grid-column: 1; font-size: var(--text-display); }
+.stub__line { grid-column: 1; font-size: var(--text-hand); line-height: 1.25; }
+.stub .btn { grid-column: 2; grid-row: 1 / span 2; justify-self: end; align-self: end; }
+
+/* Colophon: one line printed at the foot of the counterfoil */
+.colophon { background: var(--color-paper-2); padding-block: var(--space-xl); }
+.colophon__row { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-sm) var(--space-xl); border-top: var(--rule-hair) solid var(--color-ink); padding-block-start: var(--space-lg); font-size: var(--text-sm); color: var(--color-ink-2); }
+.colophon__mark { font: 800 var(--text-md)/1 var(--font-display); color: var(--color-ink); }
+
+@keyframes sweep { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes land { from { opacity: 0; transform: rotate(-7deg) scale(1.08); } to { opacity: 1; transform: rotate(-7deg) scale(1); } }
+@media (prefers-reduced-motion: reduce) { .poster, .stamp { animation: none; } }
+@media (min-width: 60rem) and (min-height: 62rem) { .hero { min-block-size: calc(92dvh - var(--nav-h)); } }
+
+@media (max-width: 60rem) {
+  .hero { min-block-size: 0; padding-block: var(--space-xl) var(--space-2xl); }
+  .hero__grid { grid-template-columns: minmax(0, 1fr); }
+  .poster, .hero__text, .stamp { grid-column: 1; grid-row: auto; }
+  .stamp { justify-self: start; margin-inline-start: var(--space-sm); transform: rotate(-4deg); }
+  .details__grid, .stub__grid { grid-template-columns: minmax(0, 1fr); }
+  .stub .btn { grid-column: 1; grid-row: auto; justify-self: start; }
+  .beliefs { padding-block-start: var(--section-gap); }
+  .details { padding-block-start: var(--section-gap); }
+  .stub { margin-block-start: var(--section-gap); }
+  @keyframes land { from { opacity: 0; transform: rotate(-4deg) scale(1.08); } to { opacity: 1; transform: rotate(-4deg) scale(1); } }
+}
+@media (max-width: 40rem) {
+  .nav { padding-block-start: calc(var(--space-2xl) + var(--space-lg)); }
+  .wordmark { font-size: var(--text-md); }
+  .nav__row { gap: var(--space-sm); }
+  .eyelet { inline-size: calc(var(--eyelet) * 0.5); }
+  .actions .btn { flex: 1 1 100%; }
+  .creed li { grid-template-columns: var(--space-xl) minmax(0, 1fr); column-gap: var(--space-sm); }
+  .fields__row { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-2xs); }
+  .stub .btn { justify-self: stretch; }
+}
+@media (max-width: 22.5rem) {
+  :root { --text-poster: 3rem; }
+  .wordmark { font-size: var(--text-sm); }
+  .stamp { padding-inline: var(--space-lg); margin-inline-start: 0; }
+  .stamp__date { font-size: var(--text-2xl); }
+}

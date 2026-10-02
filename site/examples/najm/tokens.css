@@ -1,97 +1,31 @@
-/* Hallmark tokens · custom theme · NAJM
- * vibe: "hyped Moroccan drop, editorial fashion, sun-warm earth"
- * axes: light / geometric-sans / warm
- */
-
 :root {
-  /* ── Color (OKLCH) ──────────────────────────── */
-  --color-paper: oklch(96.5% 0.012 75);
-  --color-paper-soft: oklch(99% 0.006 75);
-  --color-paper-warm: oklch(93% 0.020 70);
-  --color-ink: oklch(20% 0.022 55);
-  --color-ink-soft: oklch(38% 0.018 55);
-  --color-ink-mute: oklch(56% 0.012 60);
-  --color-rule: oklch(86% 0.014 70);
-  --color-rule-soft: oklch(91% 0.010 70);
-
-  --color-accent: oklch(58% 0.18 35);
-  /* terracotta */
-  --color-accent-deep: oklch(48% 0.20 32);
-  --color-accent-soft: oklch(82% 0.08 45);
-  --color-saffron: oklch(78% 0.16 78);
-  /* sparing */
-  --color-marine: oklch(34% 0.09 240);
-  /* sparing */
-
-  --color-overlay-ink: oklch(20% 0.022 55 / 0.55);
-  --color-focus-ring: oklch(48% 0.20 32);
-
-  /* ── Typography ─────────────────────────────── */
-  --font-display: "Bricolage Grotesque", -apple-system, system-ui, sans-serif;
-  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
-
-  /* Scale */
-  --text-xs: 0.75rem;
-  --text-sm: 0.875rem;
-  --text-base: 1rem;
-  --text-md: 1.0625rem;
-  --text-lg: 1.25rem;
-  --text-xl: 1.625rem;
-  --text-2xl: 2.25rem;
-  --text-3xl: 3.25rem;
-  --text-4xl: clamp(2.75rem, 6vw, 4.5rem);
-  --text-5xl: clamp(3.5rem, 9vw, 7rem);
-  --text-hero: clamp(2.25rem, 7vw, 5.5rem);
-
-  /* Tracking + leading */
-  --track-tight: -0.04em;
-  --track-display: -0.045em;
-  --track-wide: 0.16em;
-  --leading-tight: 0.92;
-  --leading-snug: 1.1;
-  --leading-body: 1.55;
-
-  /* ── Spacing · 4pt scale ─────────────────────── */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-5: 1.5rem;
-  --space-6: 2rem;
-  --space-7: 3rem;
-  --space-8: 4rem;
-  --space-9: 6rem;
-  --space-10: 8rem;
-  --space-11: 12rem;
-
-  /* ── Motion ─────────────────────────────────── */
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
-  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-
-  --dur-fast: 120ms;
-  --dur-base: 200ms;
-  --dur-slow: 320ms;
-
-  /* ── Surface ────────────────────────────────── */
-  --radius-sm: 4px;
-  --radius-md: 10px;
-  --radius-lg: 18px;
-  --radius-pill: 999px;
-
-  --rule-thin: 1px;
-  --rule-base: 2px;
-
-  /* Layout */
-  --gutter: clamp(1rem, 4vw, 2.5rem);
-  --max-w: 1440px;
+  --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px; --space-4xl: 144px;
+  --text-xs: 0.8125rem; --text-sm: 0.875rem; --text-md: 1rem; --text-lg: 1.25rem; --text-xl: 1.5625rem; --text-2xl: 1.953rem; --text-3xl: 2.441rem;
+  --text-display-s: clamp(2.25rem, 4vw + 0.5rem, 3.75rem); --text-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); --ease-in: cubic-bezier(0.7, 0, 0.84, 0); --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms; --dur-short: 220ms; --dur-long: 420ms;
+  --color-error: oklch(52% 0.19 27); --color-success: oklch(50% 0.12 150);
+  --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap: 144px;
+  --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
+  --color-paper: oklch(72% 0.14 82); --color-paper-2: oklch(67% 0.14 80); --color-paper-3: oklch(60% 0.13 78);
+  --color-ink: oklch(17% 0.012 70); --color-ink-2: oklch(24% 0.02 72); --color-muted: oklch(28% 0.04 75);
+  --color-rule: oklch(40% 0.06 75); --color-plate: oklch(95% 0.035 88);
+  --color-accent: oklch(60% 0.13 78); --color-accent-ink: oklch(17% 0.012 70); --color-focus: oklch(17% 0.012 70);
+  --font-display: "Zodiak", Georgia, "Times New Roman", serif; --font-body: "Newsreader", Georgia, serif;
+  --radius-card: 0; --radius-pill: 0; --rule-hair: 1px;
+  --shadow-card: none;
+  --tracking-display: -0.01em;
+  --cloth-from: oklch(97% 0.03 90); --cloth-to: oklch(84% 0.10 85);
+  --thread: color-mix(in oklab, var(--color-ink) 3.5%, transparent); --thread-light: color-mix(in oklab, var(--color-plate) 5%, transparent);
+  --cloth-dark-from: oklch(26% 0.02 72); --cloth-dark-to: oklch(15% 0.012 70);
+  --color-plate-ink: oklch(17% 0.012 70); --color-plate-muted: oklch(40% 0.04 75);
+  --color-black-plate: oklch(17% 0.012 70); --color-black-plate-ink: oklch(72% 0.14 82);
+  --text-hero: clamp(2.75rem, 4.2vw + 0.5rem, 4.6rem); --text-letter: clamp(28rem, 72vw, 70rem); --text-numeral: clamp(7rem, 13vw, 12rem);
+  --control-h: 48px; --bar-h: 72px; --text-body: 1.0625rem;
 }
-
-@media (prefers-reduced-motion: reduce) {
-  :root {
-    --dur-fast: 0ms;
-    --dur-base: 0ms;
-    --dur-slow: 0ms;
-  }
+@font-face { font-family: "Zodiak Fallback"; src: local("Georgia"); size-adjust: 98%; ascent-override: 92%; descent-override: 24%; line-gap-override: 0%; }
+@font-face { font-family: "Newsreader Fallback"; src: local("Georgia"); size-adjust: 94%; ascent-override: 96%; descent-override: 26%; line-gap-override: 0%; }
+:root {
+  --font-display: "Zodiak", "Zodiak Fallback", Georgia, "Times New Roman", serif;
+  --font-body: "Newsreader", "Newsreader Fallback", Georgia, serif;
 }

@@ -1,83 +1,24 @@
-/* Hallmark · pre-emit critique: P5 H5 E5 S5 R4 V5
- * genre: atmospheric · macrostructure: Marquee Hero · theme: Bloom
- * tokens · paper-band: dark · display-style: weighty-sans · accent-hue: warm-amber
- */
-
 :root {
-  color-scheme: dark;
-
-  /* === Color: Bloom (atmospheric) ============================== */
-  --color-paper:        oklch(13% 0.018 35);
-  --color-paper-2:      oklch(17% 0.020 35);
-  --color-paper-3:      oklch(22% 0.022 35);
-  --color-paper-4:      oklch(28% 0.020 35);
-  --color-ink:          oklch(95% 0.010 70);
-  --color-ink-2:        oklch(78% 0.015 60);
-  --color-ink-3:        oklch(58% 0.015 50);
-  --color-rule:         oklch(28% 0.018 40);
-  --color-rule-strong:  oklch(40% 0.025 40);
-  --color-accent:       oklch(74% 0.180 55);
-  --color-accent-2:     oklch(68% 0.220 18);
-  --color-accent-soft:  oklch(74% 0.060 55);
-  --color-accent-ink:   oklch(15% 0.040 50);
-  --color-focus:        oklch(82% 0.180 55);
-  --color-error:        oklch(70% 0.220 25);
-  --color-success:      oklch(74% 0.160 145);
-  --color-bloom-1:      oklch(74% 0.220 50);
-  --color-bloom-2:      oklch(60% 0.220 15);
-
-  /* === Typography ============================================== */
-  --font-display: "Inter Tight", system-ui, sans-serif;
-  --font-body:    "Inter", system-ui, sans-serif;
-  --font-mono:    "JetBrains Mono", ui-monospace, "SFMono-Regular", monospace;
-  --font-accent:  "Instrument Serif", "Times New Roman", Georgia, serif;
-
-  --text-xs:      0.75rem;
-  --text-sm:      0.8125rem;
-  --text-base:    1rem;
-  --text-md:      1.0625rem;
-  --text-lg:      1.25rem;
-  --text-xl:      1.5rem;
-  --text-2xl:     2rem;
-  --text-3xl:     2.75rem;
-  --text-4xl:     clamp(2.5rem, 4vw + 1rem, 4.5rem);
-  --text-display: clamp(3rem, 11vw + 0.25rem, 9.5rem);
-
-  --leading-display: 0.92;
-  --leading-tight:   1.05;
-  --leading-snug:    1.25;
-  --leading-body:    1.55;
-
-  /* === Spacing (4 pt) ========================================== */
-  --space-2xs: 0.25rem;
-  --space-xs:  0.5rem;
-  --space-sm:  0.75rem;
-  --space-md:  1rem;
-  --space-lg:  1.5rem;
-  --space-xl:  2.5rem;
-  --space-2xl: 4rem;
-  --space-3xl: 6rem;
-  --space-4xl: 9rem;
-
-  /* === Motion ================================================== */
-  --ease-out:    cubic-bezier(0.20, 0.80, 0.20, 1.00);
-  --ease-in:     cubic-bezier(0.40, 0.00, 1.00, 1.00);
-  --ease-in-out: cubic-bezier(0.40, 0.00, 0.20, 1.00);
-  --dur-fast:    120ms;
-  --dur-base:    220ms;
-  --dur-slow:    400ms;
-
-  /* === Rules / radii =========================================== */
-  --rule-hair:   1px;
-  --rule-bold:   2px;
-  --radius-xs:   3px;
-  --radius-sm:   6px;
-  --radius-md:   12px;
-  --radius-lg:   20px;
-  --radius-pill: 999px;
-
-  /* === Layout ================================================== */
-  --page-gutter: clamp(1rem, 4vw, 3rem);
-  --max-width:   80rem;
-  --measure:     60ch;
+  --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px; --space-4xl: 144px;
+  --text-xs: 0.8125rem; --text-sm: 0.875rem; --text-md: 1rem; --text-lg: 1.25rem; --text-xl: 1.5625rem; --text-2xl: 1.953rem; --text-3xl: 2.441rem;
+  --text-display-s: clamp(2.25rem, 4vw + 0.5rem, 3.75rem); --text-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); --ease-in: cubic-bezier(0.7, 0, 0.84, 0); --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms; --dur-short: 220ms; --dur-long: 420ms;
+  --color-error: oklch(72% 0.15 27); --color-success: oklch(76% 0.13 150);
+  --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap: 144px;
+  --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
+  --color-paper: oklch(15% 0.022 250); --color-paper-2: oklch(20% 0.024 250); --color-paper-3: oklch(25% 0.026 250);
+  --color-ink: oklch(95% 0.008 230); --color-ink-2: oklch(86% 0.010 230); --color-muted: oklch(66% 0.014 235);
+  --color-rule: oklch(33% 0.024 245); --color-rule-2: oklch(48% 0.020 240);
+  --color-accent: oklch(72% 0.16 220); --color-accent-ink: oklch(15% 0.022 250); --color-focus: oklch(78% 0.15 220);
+  --font-display: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif; --font-body: var(--font-display);
+  --font-outlier: "Geist Mono", ui-monospace, monospace;
+  --radius-card: 8px; --radius-pill: 8px; --rule-hair: 1px;
+  --shadow-card: 0 8px 24px -12px oklch(5% 0.02 250 / 0.6);
+  --tracking-display: -0.03em; --display-weight: 300;
+  /* page tokens */
+  --color-redact: oklch(10% 0.02 250);
+  --radius-tiny: 2px;
+  --hero-gap: var(--space-3xl);
+  --text-place: var(--text-display-s);
 }

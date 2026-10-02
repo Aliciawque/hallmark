@@ -1,0 +1,115 @@
+/* Hallmark · shape: Narrative Workflow · genre: modern-minimal · theme: Coral (deal 1/3, seed build-saas-product-page·2026-10-01·r0)
+ * hero: Stage · nav: edge-aligned · footer: inline single line · enrichment: none · signature: usage kept as tally marks, one run per meter under the hero's invoice and five strokes for the five-minute setup, every fifth stroke crossed in coral, the page's only colour · H2 knobs: ratio 6/6, visual right, media 4/3, caption beneath (the meter readout) · N9 knobs: one action, outlined, display face, not sticky
+ * axes: light/grotesk-sans/warm · posture: restrained · contrast: pass · fold: pass · hero-review: ship after 1 fix · finish-review: subagent · 6 findings · 5 resolved 1 partial · gap: the theme's coral token reads brick red · v2.3.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: P, a billing page explains more than it argues; the headline takes the stance that every unit served is billed */
+@import url("./tokens.css");
+@font-face { font-family: "General Sans Fallback"; src: local("Arial"), local("Helvetica"); size-adjust: 101%; ascent-override: 94%; descent-override: 24%; line-gap-override: 0%; }
+html, body { overflow-x: clip; }
+html { scrollbar-color: var(--color-muted) var(--color-paper); }
+body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); font-size: var(--text-md); line-height: 1.55; -webkit-font-smoothing: antialiased; caret-color: var(--color-accent); }
+::selection { background: color-mix(in oklab, var(--color-accent) 22%, transparent); color: var(--color-ink); }
+:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.16em; }
+h1, h2, h3 { margin: 0; font-family: var(--font-display); letter-spacing: var(--tracking-display); line-height: 1.05; overflow-wrap: break-word; min-width: 0; text-wrap: balance; }
+h1 { max-width: 20ch; } h2 { max-width: 30ch; } h3 { max-width: 40ch; }
+p { margin: 0; text-wrap: pretty; max-width: 65ch; }
+img, svg, video { max-width: 100%; height: auto; display: block; }
+button, input, select, textarea { font: inherit; }
+.container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); box-sizing: border-box; }
+.num, .figure, td.num { font-variant-numeric: tabular-nums; }
+[data-slot] { position: relative; overflow: hidden; }
+[data-slot] > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+[data-slot]:has(> img) > :not(img) { display: none !important; }
+@media (max-width: 60rem) { :root { --gutter: 24px; --section-gap: 96px; } }
+@media (max-width: 40rem) { :root { --gutter: 16px; --section-gap: 72px; --gap-columns: 16px; } }
+@media (prefers-reduced-motion: reduce) { *:not(.keep-motion), *:not(.keep-motion)::before, *:not(.keep-motion)::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }
+
+/* Controls: the Coral pair, an ink-filled pill beside an outlined one */
+.btn { display: inline-flex; align-items: center; justify-content: center; block-size: var(--control-h); padding-inline: var(--space-lg); box-sizing: border-box; border-radius: var(--radius-pill); border: var(--rule-hair) solid var(--color-ink); background: var(--color-ink); color: var(--color-paper); font-family: var(--font-body); font-weight: 500; font-size: var(--text-md); line-height: 1; text-decoration: none; white-space: nowrap; cursor: pointer; transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out); }
+.btn:hover { background: var(--color-ink-2); }
+.btn:active { background: var(--color-ink); transition-duration: 0ms; }
+.btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.btn[aria-disabled="true"], .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.btn--line { background: transparent; color: var(--color-ink); border-color: var(--color-rule-2); }
+.btn--line:hover { background: var(--color-paper-2); border-color: var(--color-ink); }
+.btn--line:active { background: var(--color-paper-3); }
+.btn--sm { block-size: var(--control-h-sm); padding-inline: var(--space-md); font-size: var(--text-sm); }
+
+/* Nav: the wordmark at one edge, one action at the other */
+.nav { padding-block: var(--space-md); }
+.nav__row { display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); }
+.wordmark { font-family: var(--font-display); font-weight: var(--display-weight); font-size: var(--text-xl); letter-spacing: var(--tracking-display); line-height: 1; text-decoration: none; color: var(--color-ink); }
+.wordmark:hover { text-decoration: underline; text-decoration-color: var(--color-accent); text-underline-offset: 0.2em; }
+.wordmark:active { color: var(--color-ink-2); }
+
+/* Hero: Stage, the text column beside the invoice slot */
+.hero { min-block-size: var(--hero-min); box-sizing: border-box; display: grid; align-items: center; padding-block: var(--space-2xl) var(--space-3xl); }
+.hero__grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: var(--gap-columns); align-items: center; }
+.hero__text { display: grid; gap: var(--space-lg); }
+.hero h1 { font-weight: var(--display-weight); font-size: var(--text-hero); line-height: 1.02; max-width: none; }
+.hero__line { font-size: var(--text-lg); line-height: 1.5; color: var(--color-ink-2); max-width: 45ch; text-wrap: balance; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-sm); margin-block-start: var(--space-xs); }
+
+/* Slots: the screen recipe on a restrained theme, paper-3 under the product's own structure */
+.plate { margin: 0; display: grid; gap: var(--space-sm); }
+.plate figcaption { font-size: var(--text-sm); color: var(--color-muted); }
+.shot { border-radius: var(--radius-card); background: var(--color-paper-3); outline: var(--rule-hair) solid color-mix(in oklab, var(--color-ink) 8%, transparent); outline-offset: -1px; }
+.shot--wide { aspect-ratio: 4 / 3; }
+.shot__ph { position: absolute; inset: 0; display: grid; place-items: center; background: linear-gradient(160deg, var(--color-paper-2), var(--color-paper-3)); }
+.shot__art { inline-size: min(76%, 28rem); filter: drop-shadow(var(--shadow-card)); }
+.shot__label { position: absolute; inset-inline-start: var(--space-md); inset-block-end: var(--space-md); font-size: var(--text-sm); font-weight: 500; color: var(--color-muted); }
+
+/* The signature: usage kept as tally marks, every fifth stroke crossed in the one coral */
+.tally { display: block; block-size: auto; overflow: visible; }
+.tally__mark { fill: none; stroke: var(--color-ink); stroke-width: var(--tally-stroke); stroke-linecap: round; }
+.tally__cross { fill: none; stroke: var(--color-accent); stroke-width: var(--tally-stroke); stroke-linecap: round; }
+.meters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-lg); padding-block-start: var(--space-sm); }
+.meter { display: grid; gap: var(--space-xs); align-content: end; }
+.meter__name { font-size: var(--text-sm); font-weight: 500; color: var(--color-ink-2); }
+.meter .tally { inline-size: 100%; max-inline-size: 12rem; }
+.sr-only { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+/* Stages: a real ol, the ordinal generated inside each heading at its own weight */
+.steps { list-style: none; margin: 0; padding: 0; counter-reset: step; }
+.steps > li { counter-increment: step; }
+.step h2 { font-weight: var(--display-weight); font-size: var(--text-3xl); line-height: 1.08; font-variant-numeric: tabular-nums; }
+.step h2::before { content: counter(step) ".\00a0"; }
+.step--one { padding-block-start: var(--space-2xl); }
+.step--two { padding-block-start: calc(var(--space-4xl) + var(--space-lg)); }
+.step--three { padding-block: calc(var(--space-4xl) + var(--space-2xl)) var(--space-4xl); }
+.step__grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: var(--gap-columns); align-items: center; border-top: var(--rule-hair) solid var(--color-rule); padding-top: var(--space-xl); }
+.step__text { display: grid; gap: var(--space-md); align-content: start; }
+.step__text p { font-size: var(--text-lg); color: var(--color-ink-2); max-width: 45ch; }
+.step__grid--stack { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-xl); }
+.gate { block-size: var(--gate-h); inline-size: auto; justify-self: start; }
+.gate .tally__mark, .gate .tally__cross { stroke-width: var(--tally-stroke-lg); }
+.allowance { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-xs) var(--space-lg); max-width: none; }
+.allowance__figure { font-family: var(--font-display); font-weight: var(--display-weight); font-size: var(--text-figure); line-height: 0.95; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; overflow-wrap: break-word; min-width: 0; }
+.allowance__unit { font-size: var(--text-2xl); font-weight: 500; letter-spacing: var(--tracking-display); line-height: 1.15; color: var(--color-ink-2); max-width: 16ch; }
+.shot--screen { aspect-ratio: 16 / 10; }
+.shot__art--wide { inline-size: min(80%, 34rem); }
+
+/* Close: a tinted well holding the one global action */
+.close { background: var(--color-paper-2); padding-block: var(--space-3xl); }
+.close__row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-lg); }
+.close h2 { font-weight: var(--display-weight); font-size: var(--text-3xl); line-height: 1.08; }
+
+/* Footer: one line under a hairline */
+.foot { padding-block: calc(var(--space-3xl) + var(--space-lg)) var(--space-xl); }
+.foot__row { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-sm) var(--space-xl); border-top: var(--rule-hair) solid var(--color-rule); padding-top: var(--space-lg); font-size: var(--text-sm); color: var(--color-muted); }
+.foot__mark { font-weight: var(--display-weight); font-size: var(--text-md); letter-spacing: var(--tracking-display); color: var(--color-ink); }
+
+@media (max-width: 60rem) {
+  .hero { min-block-size: 0; padding-block: var(--space-xl) var(--space-2xl); }
+  .hero__grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xl); }
+  .step__grid { grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); }
+  .step--one { padding-block-start: var(--space-xl); }
+  .step--two { padding-block-start: var(--space-3xl); }
+  .step--three { padding-block: var(--space-3xl); }
+  .foot { padding-block-start: var(--space-3xl); }
+}
+@media (max-width: 40rem) {
+  .actions .btn { flex: 1 1 100%; }
+  .meters { grid-template-columns: minmax(0, 1fr); gap: var(--space-sm); }
+  .meter { grid-template-columns: 9rem minmax(0, 1fr); align-items: center; gap: var(--space-md); }
+}

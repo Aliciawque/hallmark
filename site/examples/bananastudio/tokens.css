@@ -1,96 +1,27 @@
-/* Hallmark · tokens · genre: atmospheric · theme: Bloom (dark)
- * Paper band: dark  ·  Display style: italic-serif (Fraunces)  ·  Accent hue: warm amber-bloom 75°
- */
-
 :root {
-  color-scheme: dark;
-
-  /* — Type ----------------------------------------------------------- */
-  --font-display:  "Fraunces", "Iowan Old Style", "Apple Garamond", Georgia, serif;
-  --font-body:     "Geist", ui-sans-serif, system-ui, sans-serif;
-  --font-outlier:  "Geist Mono", ui-monospace, "SFMono-Regular", monospace;
-
-  /* — Type scale (1.25 ratio · base 16px) ---------------------------- */
-  --text-xs:    0.75rem;
-  --text-sm:    0.875rem;
-  --text-base:  1rem;
-  --text-md:    1.125rem;
-  --text-lg:    1.375rem;
-  --text-xl:    1.75rem;
-  --text-2xl:   2.25rem;
-  --text-3xl:   3rem;
-  --text-4xl:   4rem;
-  --text-display: clamp(3rem, 8vw + 0.5rem, 8.5rem);
-  --text-marquee: clamp(2.5rem, 7vw, 6.5rem);
-  --text-figure:  clamp(4rem, 12vw + 0.5rem, 11rem);
-
-  /* — Colour (OKLCH; midnight-violet paper · amber-bloom accent) ----- */
-  --color-paper:      oklch(10.0% 0.018 285);          /* deep midnight violet */
-  --color-paper-2:    oklch(13.5% 0.020 285);
-  --color-paper-3:    oklch(17.5% 0.024 285);
-  --color-paper-tint: oklch(22.0% 0.028 285);
-  --color-rule:       oklch(24.0% 0.020 285);
-  --color-rule-2:     oklch(32.0% 0.022 285);
-
-  --color-ink:        oklch(98.0% 0.010 80);           /* warm bone */
-  --color-ink-2:      oklch(80.0% 0.012 80);
-  --color-muted:      oklch(60.0% 0.014 80);
-  --color-muted-2:    oklch(48.0% 0.014 75);
-
-  --color-accent:     oklch(80.0% 0.180 75);           /* amber bloom */
-  --color-accent-2:   oklch(86.0% 0.140 80);           /* lighter bloom */
-  --color-accent-deep: oklch(62.0% 0.180 50);          /* deep ember */
-  --color-accent-cool: oklch(70.0% 0.150 250);         /* studio cyan, single-use */
-
-  --color-glow:       oklch(78% 0.20 70 / 0.30);
-  --color-glow-soft:  oklch(80% 0.18 75 / 0.18);
-
-  --color-focus:      oklch(82% 0.180 75);
-
-  /* — Spacing (4 pt scale, role-named) ------------------------------- */
-  --space-3xs: 0.125rem;
-  --space-2xs: 0.25rem;
-  --space-xs:  0.5rem;
-  --space-sm:  0.75rem;
-  --space-md:  1rem;
-  --space-lg:  1.5rem;
-  --space-xl:  2.5rem;
-  --space-2xl: 4rem;
-  --space-3xl: 6rem;
-  --space-4xl: 9rem;
-
-  /* — Rules + radii -------------------------------------------------- */
-  --rule-hair:   1px;
-  --rule-thick:  2px;
-  --radius-sm:   6px;
-  --radius-md:   12px;
-  --radius-lg:   18px;
-  --radius-xl:   28px;
-  --radius-pill: 999px;
-
-  /* — Motion --------------------------------------------------------- */
-  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in:     cubic-bezier(0.7,  0, 0.84, 0);
-  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-
-  --dur-micro:   120ms;
-  --dur-short:   240ms;
-  --dur-mid:     520ms;
-  --dur-long:    760ms;
-  --dur-marquee: 48s;
-  --dur-breath:  6.5s;
-  --dur-aperture: 9s;
-
-  /* — z-index (six-level scale) -------------------------------------- */
-  --z-base:     1;
-  --z-raised:   10;
-  --z-dropdown: 100;
-  --z-sticky:   200;
-  --z-modal:    400;
-  --z-toast:    500;
-  --z-tooltip:  600;
-
-  /* — Page layout ---------------------------------------------------- */
-  --page-gutter: clamp(1.25rem, 4vw, 4rem);
-  --page-max:    78rem;
+  --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px; --space-4xl: 144px;
+  --text-xs: 0.8125rem; --text-sm: 0.875rem; --text-md: 1rem; --text-lg: 1.25rem; --text-xl: 1.5625rem; --text-2xl: 1.953rem; --text-3xl: 2.441rem;
+  --text-display-s: clamp(2.25rem, 4vw + 0.5rem, 3.75rem); --text-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); --ease-in: cubic-bezier(0.7, 0, 0.84, 0); --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms; --dur-short: 220ms; --dur-long: 420ms;
+  --color-error: oklch(52% 0.19 27); --color-success: oklch(50% 0.12 150);
+  --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap: 144px;
+  --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
+  --color-paper: oklch(80% 0.02 80); --color-paper-2: oklch(76% 0.022 80); --color-paper-3: oklch(84% 0.018 80);
+  --color-ink: oklch(18% 0.005 60); --color-ink-2: oklch(26% 0.008 60); --color-muted: oklch(38% 0.012 60);
+  --color-rule: oklch(55% 0.02 70);
+  --color-accent: oklch(52% 0.24 265); --color-accent-2: oklch(60% 0.2 30); --color-accent-2-deep: oklch(52% 0.2 30); --color-accent-3: oklch(84% 0.17 90);
+  --color-accent-ink: oklch(96% 0.01 80); --color-focus: oklch(52% 0.24 265);
+  --font-display: "Jost", "Futura", sans-serif; --font-body: "Karla", ui-sans-serif, system-ui, sans-serif;
+  --font-outlier: "JetBrains Mono", ui-monospace, monospace;
+  --radius-card: 0; --radius-pill: 0; --rule-hair: 1px; --rule-bar: 2px; --rule-box: 3px;
+  --shadow-card: none;
+  --tracking-display: -0.005em;
+}
+/* BananaStudio page tokens: sizes the theme names (wordmark 15px, labels 12.5 to 13px, section heads 2.75rem) and the hero's own scale */
+:root {
+  --text-wordmark: 0.9375rem; --text-label: 0.8125rem;
+  --text-hero: clamp(3rem, 7.2vw, 6.5rem); --text-head: clamp(2rem, 2vw + 1.1rem, 2.75rem); --text-look: clamp(1.5rem, 1.2vw + 1rem, 2.125rem);
+  --nav-h: 68px;
+  --shape-square: 48cqmin; --shape-circle: 76cqmin; --shape-tri: 22cqmin; --tilt: -8deg; --mat-square: var(--space-xl); --mat-circle: var(--space-2xl);
 }

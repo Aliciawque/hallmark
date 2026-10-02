@@ -1,385 +1,250 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="garden">
+<!doctype html>
+<html lang="en-US">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hollowback Apiary — small-batch honey from one Vermont ridge</title>
-  <meta name="description" content="Nine hives on a single ridge in northern Vermont. Unfiltered, single-season honey, hand-poured in lots of a few hundred jars. Reserve from this season's lot.">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Hanken+Grotesk:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="./tokens.css">
-  <link rel="stylesheet" href="./styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hollowback Apiary: Lot 14, honey from one Vermont ridge</title>
+<meta name="description" content="Unfiltered wildflower and clover honey from nine hives on one south-facing ridge above the Lamoille valley, northern Vermont. Lot 14, 312 jars.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@600;700&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css">
 </head>
 <body>
-  <a class="skip-link" href="#lot">Skip to this season&rsquo;s lot</a>
-
-  <!-- ── N6 · Newspaper masthead ─────────────────────────────── -->
-  <header class="masthead" role="banner">
-    <div class="masthead__inner">
-      <p class="masthead__dateline">Field Almanac &middot; Northern Vermont &middot; Season&nbsp;2026</p>
-      <a class="masthead__wordmark" href="#top">Hollowback Apiary</a>
-      <nav class="masthead__nav" aria-label="Primary">
-        <a href="#ridge">The&nbsp;ridge</a>
-        <a href="#lot">This season&rsquo;s&nbsp;lot</a>
-        <a href="#poured">How it&rsquo;s&nbsp;poured</a>
-        <a class="masthead__cta" href="#standing">Reserve a&nbsp;jar</a>
-      </nav>
-    </div>
-  </header>
-
-  <main id="top">
-
-    <!-- ── Hero · typographic + hand-built honeycomb/jar craft ── -->
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="hero__copy">
-        <h1 class="hero__title reveal" id="hero-title" style="--i:0">
-          Honey from nine hives on one&nbsp;hillside.
-        </h1>
-        <p class="hero__lede reveal" style="--i:1">
-          We keep bees on a single south-facing ridge above the Lamoille valley and
-          pour what they make, one season at a time &mdash; unfiltered, unblended, never
-          warmed past the temperature of the hive.
-        </p>
-        <div class="hero__actions reveal" style="--i:2">
-          <a class="btn btn--solid" href="#lot">See this season&rsquo;s lot</a>
-          <a class="btn btn--ghost" href="#ridge">Read about the ridge</a>
-        </div>
-        <p class="hero__note reveal" style="--i:3">
-          <span class="hero__note-mark" aria-hidden="true"></span>
-          Lot No.&nbsp;14 &middot; poured 4&ndash;5 September &middot; 312 jars
-        </p>
-      </div>
-
-      <!-- Tier-A CSS honeycomb wash + Tier-B hand-built SVG jar.
-           Decorative, but anchored: it is the jar the page is selling. -->
-      <figure class="hero__craft reveal" style="--i:2" aria-label="An illustration of a glass jar of amber honey resting on a field of honeycomb">
-        <div class="comb" aria-hidden="true">
-          <span style="--c:0"></span><span style="--c:1"></span><span style="--c:2"></span>
-          <span style="--c:3"></span><span style="--c:4"></span><span style="--c:5"></span>
-          <span style="--c:6"></span><span style="--c:7"></span><span style="--c:8"></span>
-          <span style="--c:9"></span><span style="--c:10"></span><span style="--c:11"></span>
-        </div>
-        <svg class="jar" viewBox="0 0 200 240" aria-hidden="true" focusable="false">
-          <!-- jar glass -->
-          <path class="jar__glass" d="M44 78 q0 -14 14 -14 h84 q14 0 14 14 v126 q0 18 -18 18 H62 q-18 0 -18 -18 Z"/>
-          <!-- honey fill, clipped to the glass -->
-          <clipPath id="jarClip">
-            <path d="M44 78 q0 -14 14 -14 h84 q14 0 14 14 v126 q0 18 -18 18 H62 q-18 0 -18 -18 Z"/>
-          </clipPath>
-          <g clip-path="url(#jarClip)">
-            <rect class="jar__honey" x="40" y="96" width="120" height="150"/>
-            <path class="jar__meniscus" d="M40 100 q40 -10 60 -2 q30 5 60 -4 v160 H40 Z"/>
-          </g>
-          <!-- lid + collar -->
-          <rect class="jar__lid" x="56" y="40" width="88" height="22" rx="5"/>
-          <rect class="jar__collar" x="62" y="58" width="76" height="10" rx="3"/>
-          <!-- paper label -->
-          <rect class="jar__label" x="64" y="120" width="72" height="64" rx="3"/>
-          <line class="jar__rule" x1="74" y1="140" x2="126" y2="140"/>
-          <line class="jar__rule jar__rule--short" x1="74" y1="152" x2="112" y2="152"/>
-          <line class="jar__rule jar__rule--short" x1="74" y1="164" x2="118" y2="164"/>
-          <!-- wooden dipper leaning in the jar -->
-          <g class="jar__dipper">
-            <line class="jar__dipper-stem" x1="150" y1="30" x2="120" y2="150"/>
-            <ellipse class="jar__dipper-head" cx="118" cy="156" rx="9" ry="13"/>
-          </g>
-        </svg>
-      </figure>
-    </section>
-
-    <!-- ── The ridge · provenance prose (Long-Document beat) ──── -->
-    <section class="ridge" id="ridge" aria-labelledby="ridge-title">
-      <div class="ridge__head">
-        <h2 class="section__title" id="ridge-title">
-          <svg class="sprig" viewBox="0 0 40 80" aria-hidden="true">
-            <path class="sprig__stem" d="M20 76 Q18 56 21 36 Q22 22 20 8"/>
-            <g transform="translate(8 38) rotate(-25)">
-              <ellipse class="sprig__leaf" cx="0" cy="0" rx="6" ry="11"/>
-              <path class="sprig__vein" d="M0 -10 Q1 0 0 10"/>
-            </g>
-            <g transform="translate(28 52) rotate(30)">
-              <ellipse class="sprig__leaf" cx="0" cy="0" rx="6" ry="11"/>
-              <path class="sprig__vein" d="M0 -10 Q-1 0 0 10"/>
-            </g>
-            <path class="sprig__stem" d="M20 22 Q16 19 13 22"/>
-          </svg>
-          A ridge, and what grows on it.
-        </h2>
-        <p class="ridge__standfirst">
-          Everything in a jar of Hollowback honey was within a bee&rsquo;s morning flight of
-          the same nine hives. That is the whole idea, and it is also the whole limit.
-        </p>
-      </div>
-
-      <div class="ridge__prose">
-        <p>
-          The hives sit at the top of an old sheep pasture that runs down toward the
-          Lamoille. From May the bees work the wild raspberry and the clover that took
-          the field back; by July they are up in the basswood; in the cool weeks before
-          frost they bring in goldenrod and aster, dark and a little wild on the tongue.
-        </p>
-        <p>
-          We do not move the hives to follow a crop, and we do not buy honey from anyone
-          else to stretch a season. So a poor June is a smaller June, and the
-          <a href="#lot">summer lot</a> says so. We would rather sell less and have it be
-          honestly from here.
-        </p>
-        <p>
-          The honey is spun cold, strained once through cloth to take out the wax, and
-          poured by hand the same week. Nothing is heated to make it pour faster or
-          filtered bright to make it sit longer on a shelf. It will cloud and set in the
-          cold &mdash; that is honey doing what raw honey does. Warm the jar in a bowl of
-          tap-hot water and it comes back clear.
-        </p>
-      </div>
-
-      <dl class="ridge__facts" aria-label="The apiary, in brief">
-        <div class="fact">
-          <dt>Hives</dt>
-          <dd>9</dd>
-          <p>All on one ridge, all overwintered in place.</p>
-        </div>
-        <div class="fact">
-          <dt>Elevation</dt>
-          <dd>1,180&nbsp;ft</dd>
-          <p>South-facing, above the valley frost line.</p>
-        </div>
-        <div class="fact">
-          <dt>Forage</dt>
-          <dd>Wild</dd>
-          <p>Raspberry, clover, basswood, goldenrod, aster.</p>
-        </div>
-        <div class="fact">
-          <dt>Pour</dt>
-          <dd>By&nbsp;hand</dd>
-          <p>Cold-spun, strained once, jarred the same week.</p>
-        </div>
-      </dl>
-    </section>
-
-    <!-- ── This season's lot · Catalogue (F6 product-card grid) ── -->
-    <section class="lot" id="lot" aria-labelledby="lot-title">
-      <div class="lot__head">
-        <h2 class="section__title" id="lot-title">This season&rsquo;s lot</h2>
-        <p class="lot__intro">
-          Four pours from the 2026 season, each from one stretch of the bloom. When a
-          pour is gone it is gone until the same flowers come round again next year.
-        </p>
-      </div>
-
-      <ol class="lot__grid" role="list">
-        <li class="card reveal" style="--i:0">
-          <figure class="card__specimen" aria-hidden="true">
-            <svg class="vial" viewBox="0 0 120 150" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false">
-              <clipPath id="vialA"><path d="M40 28 h40 v18 l16 78 a8 8 0 0 1 -8 9 H32 a8 8 0 0 1 -8 -9 l16 -78 Z"/></clipPath>
-              <g clip-path="url(#vialA)"><rect class="vial__fill vial__fill--spring" x="20" y="58" width="80" height="80"/></g>
-              <path class="vial__glass" d="M40 28 h40 v18 l16 78 a8 8 0 0 1 -8 9 H32 a8 8 0 0 1 -8 -9 l16 -78 Z"/>
-              <rect class="vial__cork" x="42" y="18" width="36" height="14" rx="3"/>
-            </svg>
-          </figure>
-          <div class="card__body">
-            <p class="card__tag">Lot 14-A &middot; late May</p>
-            <h3 class="card__name">Raspberry &amp; Clover</h3>
-            <p class="card__notes">
-              The first and palest pour. Light, almost floral, the taste of the field
-              coming back after the sheep. Sets soft and white in the cold.
-            </p>
-            <div class="card__foot">
-              <p class="card__price"><span class="card__amount">$16</span> <span class="card__unit">/ 12&nbsp;oz</span></p>
-              <a class="card__link" href="#standing">Reserve<span aria-hidden="true"> &rarr;</span></a>
-            </div>
-            <p class="card__stock" data-stock="low">14 jars left</p>
-          </div>
-        </li>
-
-        <li class="card reveal" style="--i:1">
-          <figure class="card__specimen" aria-hidden="true">
-            <svg class="vial" viewBox="0 0 120 150" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false">
-              <clipPath id="vialB"><path d="M40 28 h40 v18 l16 78 a8 8 0 0 1 -8 9 H32 a8 8 0 0 1 -8 -9 l16 -78 Z"/></clipPath>
-              <g clip-path="url(#vialB)"><rect class="vial__fill vial__fill--basswood" x="20" y="48" width="80" height="90"/></g>
-              <path class="vial__glass" d="M40 28 h40 v18 l16 78 a8 8 0 0 1 -8 9 H32 a8 8 0 0 1 -8 -9 l16 -78 Z"/>
-              <rect class="vial__cork" x="42" y="18" width="36" height="14" rx="3"/>
-            </svg>
-          </figure>
-          <div class="card__body">
-            <p class="card__tag">Lot 14-B &middot; early July</p>
-            <h3 class="card__name">Basswood</h3>
-            <p class="card__notes">
-              Our shortest bloom and the one we wait for. Cool and green-edged, a little
-              minty, with the smell of the linden flower still in it. Stays liquid longest.
-            </p>
-            <div class="card__foot">
-              <p class="card__price"><span class="card__amount">$19</span> <span class="card__unit">/ 12&nbsp;oz</span></p>
-              <a class="card__link" href="#standing">Reserve<span aria-hidden="true"> &rarr;</span></a>
-            </div>
-            <p class="card__stock" data-stock="out">Sold out for 2026</p>
-          </div>
-        </li>
-
-        <li class="card reveal" style="--i:2">
-          <figure class="card__specimen" aria-hidden="true">
-            <svg class="vial" viewBox="0 0 120 150" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false">
-              <clipPath id="vialC"><path d="M40 28 h40 v18 l16 78 a8 8 0 0 1 -8 9 H32 a8 8 0 0 1 -8 -9 l16 -78 Z"/></clipPath>
-              <g clip-path="url(#vialC)"><rect class="vial__fill vial__fill--summer" x="20" y="52" width="80" height="86"/></g>
-              <path class="vial__glass" d="M40 28 h40 v18 l16 78 a8 8 0 0 1 -8 9 H32 a8 8 0 0 1 -8 -9 l16 -78 Z"/>
-              <rect class="vial__cork" x="42" y="18" width="36" height="14" rx="3"/>
-            </svg>
-          </figure>
-          <div class="card__body">
-            <p class="card__tag">Lot 14-C &middot; high summer</p>
-            <h3 class="card__name">Ridge Summer</h3>
-            <p class="card__notes">
-              Everything blooming at once &mdash; the household jar. Round and even, equal
-              parts clover and wildflower. The one we put on toast and never label fussily.
-            </p>
-            <div class="card__foot">
-              <p class="card__price"><span class="card__amount">$15</span> <span class="card__unit">/ 12&nbsp;oz</span></p>
-              <a class="card__link" href="#standing">Reserve<span aria-hidden="true"> &rarr;</span></a>
-            </div>
-            <p class="card__stock" data-stock="in">In the pantry now</p>
-          </div>
-        </li>
-
-        <li class="card reveal" style="--i:3">
-          <figure class="card__specimen" aria-hidden="true">
-            <svg class="vial" viewBox="0 0 120 150" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false">
-              <clipPath id="vialD"><path d="M40 28 h40 v18 l16 78 a8 8 0 0 1 -8 9 H32 a8 8 0 0 1 -8 -9 l16 -78 Z"/></clipPath>
-              <g clip-path="url(#vialD)"><rect class="vial__fill vial__fill--autumn" x="20" y="46" width="80" height="92"/></g>
-              <path class="vial__glass" d="M40 28 h40 v18 l16 78 a8 8 0 0 1 -8 9 H32 a8 8 0 0 1 -8 -9 l16 -78 Z"/>
-              <rect class="vial__cork" x="42" y="18" width="36" height="14" rx="3"/>
-            </svg>
-          </figure>
-          <div class="card__body">
-            <p class="card__tag">Lot 14-D &middot; before frost</p>
-            <h3 class="card__name">Goldenrod &amp; Aster</h3>
-            <p class="card__notes">
-              The last and darkest pour, brought in cool. Malty, almost smoky, with the
-              bite the goldenrod leaves behind. For cheese, dark bread, strong tea.
-            </p>
-            <div class="card__foot">
-              <p class="card__price"><span class="card__amount">$17</span> <span class="card__unit">/ 12&nbsp;oz</span></p>
-              <a class="card__link" href="#standing">Reserve<span aria-hidden="true"> &rarr;</span></a>
-            </div>
-            <p class="card__stock" data-stock="in">In the pantry now</p>
-          </div>
-        </li>
-      </ol>
-
-      <p class="lot__foot">
-        Every jar carries its lot letter and pour date. Shipped in straw, padded by hand;
-        flat-rate within New&nbsp;England, at cost beyond it.
-      </p>
-    </section>
-
-    <!-- ── How it's poured · short process, stacked, heading only ─ -->
-    <section class="poured" id="poured" aria-labelledby="poured-title">
-      <div class="poured__head">
-        <h2 class="section__title" id="poured-title">How a jar is filled</h2>
-        <p class="poured__intro">
-          Four steps, and not one of them is in a hurry. The whole point of small-batch is
-          that no part of it scales.
-        </p>
-      </div>
-      <div class="poured__steps">
-        <article class="step">
-          <h3 class="step__name">Spun cold</h3>
-          <p>
-            Frames come off the ridge and into the shed the same morning. We spin them at
-            cellar temperature, never warm. Heat makes honey pour fast and lose the smell
-            of its own flowers; we trade the speed for the smell.
-          </p>
-        </article>
-        <article class="step">
-          <h3 class="step__name">Strained once</h3>
-          <p>
-            One pass through a square of cloth takes out the wax and a stray bit of comb.
-            That is all. We don&rsquo;t fine it bright or push it through paper &mdash;
-            the pollen and the cloud are the honey, not a flaw in it.
-          </p>
-        </article>
-        <article class="step">
-          <h3 class="step__name">Settled a week</h3>
-          <p>
-            The strained honey rests in a covered tank for several days so the last air
-            and froth rise on their own. No pump, no pressure, nothing forced. It clears
-            the way a pond clears after rain.
-          </p>
-        </article>
-        <article class="step">
-          <h3 class="step__name">Poured by hand</h3>
-          <p>
-            We fill, weigh, and cap each jar one at a time, write the lot and the date on
-            the label, and pack it in straw. A good day is a few hundred jars &mdash; and
-            then that pour is closed.
-          </p>
-        </article>
-      </div>
-    </section>
-
-    <!-- ── The standing jar · CTA (C2 inline form-as-CTA) ──────── -->
-    <section class="standing" id="standing" aria-labelledby="standing-title">
-      <div class="standing__inner">
-        <div class="standing__copy">
-          <h2 class="standing__title" id="standing-title">Keep a jar standing.</h2>
-          <p class="standing__lede">
-            A standing jar is the simplest way we know to sell honey: tell us your address
-            once, and one jar of whatever we&rsquo;re pouring arrives at the turn of each
-            season &mdash; four jars a year, billed the week each ships. Pause or stop with
-            one reply. No tiers, no app, no club.
-          </p>
-        </div>
-
-        <form class="standing__form" id="standing-form" novalidate>
-          <div class="field">
-            <label class="field__label" for="email">Email for the harvest note</label>
-            <div class="field__row">
-              <input
-                class="field__input"
-                type="email"
-                id="email"
-                name="email"
-                inputmode="email"
-                autocomplete="email"
-                placeholder="you@example.com"
-                aria-describedby="email-help"
-                required>
-              <button class="btn btn--solid" type="submit">Start a standing jar</button>
-            </div>
-            <p class="field__help" id="email-help" data-state="idle" role="status" aria-live="polite">
-              We write once a season, the week a pour ships. Nothing else.
-            </p>
-          </div>
-        </form>
-      </div>
-    </section>
-  </main>
-
-  <!-- ── Ft6 · Letter close ─────────────────────────────────────── -->
-  <footer class="colophon" role="contentinfo">
-    <div class="colophon__inner">
-      <p class="colophon__close">
-        That&rsquo;s the whole farm &mdash; nine hives, one ridge, and however much the
-        summer felt like giving. Thank you for buying honey that has to be honest about
-        the weather.
-      </p>
-      <p class="colophon__sign">Yours, from the ridge,<br><span class="colophon__name">Tess &amp; Roland Marsh</span></p>
-      <p class="colophon__ps">
-        P.S. &mdash; Beekeepers and the curious are welcome up in the off weeks. Write first;
-        we&rsquo;ll put the kettle on.
-      </p>
-
-      <div class="colophon__meta">
-        <span class="colophon__wordmark">Hollowback Apiary</span>
-        <span>Hollowback Ridge, Johnson, Vermont</span>
-        <span>Season 2026 &middot; Lot No.&nbsp;14</span>
-        <a href="#top">Back to top</a>
-      </div>
-    </div>
-  </footer>
-
-  <script src="./script.js" defer></script>
+<a class="skip" href="#main">Skip to the page</a>
+<header class="nav" id="nav">
+<div class="nav__banner" id="banner">
+<div class="container nav__banner-inner">
+<p class="nav__banner-text">Lot 14 is poured<span class="nav__banner-date">: 312 jars</span>. <a href="#reserve">Reserve a jar</a></p>
+<button class="nav__banner-x" id="banner-x" type="button" aria-label="Dismiss the announcement"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 3.5l9 9m0-9l-9 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg></button>
+</div>
+</div>
+<div class="nav__bar">
+<div class="container nav__bar-inner">
+<a class="wordmark" href="#top" aria-label="Hollowback Apiary, home">Hollowback Apiary</a>
+<nav aria-label="Primary">
+<ul class="nav__links" role="list">
+<li><a class="link" href="#lot">The label</a></li>
+<li><a class="link" href="#ridge">The ridge</a></li>
+</ul>
+<details class="menu">
+<summary>Menu</summary>
+<ul class="menu__list" role="list">
+<li><a class="link" href="#lot">The label</a></li>
+<li><a class="link" href="#ridge">The ridge</a></li>
+<li><a class="link" href="#reserve">Reserve a jar</a></li>
+</ul>
+</details>
+</nav>
+</div>
+</div>
+</header>
+<main id="main">
+<section class="hero" id="top" aria-labelledby="hero-title">
+<div class="container">
+<div class="hero__stage">
+<div class="hero__copy">
+<h1 id="hero-title" class="display">Nine hives on one<br> Vermont&nbsp;ridge.</h1>
+<p class="lede">Honey left unfiltered, unblended and never warmed past hive temperature.</p>
+<div class="actions">
+<a class="btn btn--solid" href="#reserve">Reserve a jar</a>
+<a class="btn btn--line" href="#lot">Read the label</a>
+</div>
+</div>
+<div class="hero__jar">
+<svg viewBox="0 0 260 400" aria-hidden="true" focusable="false">
+<defs><clipPath id="jar-body"><path d="M46 62C46 74 38 78 38 92L38 374C38 388 46 398 60 398L140 398C154 398 162 388 162 374L162 92C162 78 154 74 154 62Z"/></clipPath></defs>
+<path d="M46 62C46 74 38 78 38 92L38 374C38 388 46 398 60 398L140 398C154 398 162 388 162 374L162 92C162 78 154 74 154 62Z" fill="var(--color-glass)"/>
+<g clip-path="url(#jar-body)">
+<rect x="0" y="104" width="260" height="300" fill="var(--color-honey)"/>
+<rect x="134" y="104" width="40" height="300" fill="var(--color-honey-3)"/>
+<rect x="48" y="132" width="9" height="230" rx="4.5" fill="var(--color-honey-2)"/>
+<path d="M32 104Q100 113 168 104" fill="none" stroke="var(--color-honey-3)" stroke-width="2"/>
+<circle cx="124" cy="150" r="3" fill="var(--color-honey-2)"/>
+<circle cx="114" cy="168" r="2" fill="var(--color-honey-2)"/>
+<circle cx="70" cy="352" r="2.5" fill="var(--color-honey-2)"/>
+<circle cx="126" cy="340" r="2" fill="var(--color-honey-2)"/>
+</g>
+<path d="M46 62C46 74 38 78 38 92L38 374C38 388 46 398 60 398L140 398C154 398 162 388 162 374L162 92C162 78 154 74 154 62Z" fill="none" stroke="var(--color-ink)" stroke-width="2"/>
+<rect x="46" y="46" width="108" height="16" fill="var(--color-glass)" stroke="var(--color-ink)" stroke-width="2"/>
+<rect x="40" y="6" width="120" height="40" rx="5" fill="var(--color-accent-2)" stroke="var(--color-ink)" stroke-width="2"/>
+<path d="M52 12V40M60 12V40M68 12V40M76 12V40M84 12V40M92 12V40M100 12V40M108 12V40M116 12V40M124 12V40M132 12V40M140 12V40M148 12V40" stroke="var(--color-ink)" stroke-opacity="0.22" stroke-width="1.5"/>
+<rect x="48" y="196" width="104" height="104" rx="2" fill="var(--color-paper)" stroke="var(--color-ink)" stroke-width="1.5"/>
+<text class="jar__word" x="100" y="240" text-anchor="middle">Hollowback</text>
+<path d="M78 268C90 261 110 261 122 268" fill="none" stroke="var(--color-leaf-2)" stroke-width="1.5" stroke-linecap="round"/>
+<path d="M89 264C86 256 93 250 98 252C99 259 95 263 89 264Z" fill="var(--color-leaf)"/>
+<path d="M104 263C106 255 114 252 118 255C115 261 110 264 104 263Z" fill="var(--color-leaf)"/>
+<path d="M96 265C92 272 84 274 80 272C83 267 89 265 96 265Z" fill="var(--color-leaf-2)"/>
+<g class="jar__tag">
+<path d="M154 56C186 62 207 100 213 137" fill="none" stroke="var(--color-rule-2)" stroke-width="1.5"/>
+<g transform="rotate(7 213 142)">
+<rect x="170" y="132" width="86" height="62" rx="3" fill="var(--color-paper)" stroke="var(--color-ink)" stroke-width="1.25"/>
+<circle cx="213" cy="142" r="3.5" fill="var(--color-paper-3)" stroke="var(--color-ink)" stroke-width="1"/>
+<text class="jar__tag-text" x="213" y="167" text-anchor="middle">Wildflower</text>
+<text class="jar__tag-text" x="213" y="184" text-anchor="middle">and clover</text>
+</g>
+</g>
+</svg>
+</div>
+</div>
+<figure class="season" aria-labelledby="season-cap">
+<ol class="season__bar" role="list">
+<li><span class="m m--full">January</span><span class="m m--3" aria-hidden="true">Jan</span><span class="m m--1" aria-hidden="true">J</span></li>
+<li><span class="m m--full">February</span><span class="m m--3" aria-hidden="true">Feb</span><span class="m m--1" aria-hidden="true">F</span></li>
+<li><span class="m m--full">March</span><span class="m m--3" aria-hidden="true">Mar</span><span class="m m--1" aria-hidden="true">M</span></li>
+<li><span class="m m--full">April</span><span class="m m--3" aria-hidden="true">Apr</span><span class="m m--1" aria-hidden="true">A</span></li>
+<li><span class="m m--full">May</span><span class="m m--3" aria-hidden="true">May</span><span class="m m--1" aria-hidden="true">M</span></li>
+<li><span class="m m--full">June</span><span class="m m--3" aria-hidden="true">Jun</span><span class="m m--1" aria-hidden="true">J</span></li>
+<li><span class="m m--full">July</span><span class="m m--3" aria-hidden="true">Jul</span><span class="m m--1" aria-hidden="true">J</span></li>
+<li><span class="m m--full">August</span><span class="m m--3" aria-hidden="true">Aug</span><span class="m m--1" aria-hidden="true">A</span></li>
+<li class="is-in"><span class="m m--full">September</span><span class="m m--3" aria-hidden="true">Sep</span><span class="m m--1" aria-hidden="true">S</span><span class="vh">, Lot 14 poured</span></li>
+<li aria-current="date"><span class="m m--full">October</span><span class="m m--3" aria-hidden="true">Oct</span><span class="m m--1" aria-hidden="true">O</span><span class="vh now">, this month</span></li>
+<li><span class="m m--full">November</span><span class="m m--3" aria-hidden="true">Nov</span><span class="m m--1" aria-hidden="true">N</span></li>
+<li><span class="m m--full">December</span><span class="m m--3" aria-hidden="true">Dec</span><span class="m m--1" aria-hidden="true">D</span></li>
+</ol>
+<figcaption id="season-cap" class="season__cap">Poured in September; the tick marks this month.</figcaption>
+</figure>
+</div>
+</section>
+<section class="lot" id="lot" aria-labelledby="lot-title">
+<div class="container lot__grid">
+<h2 id="lot-title" class="lot__title">What is in the jar</h2>
+<figure class="sheet">
+<div class="sheet__specimen">
+<svg viewBox="0 0 360 440" aria-hidden="true" focusable="false">
+<path d="M186 432C182 380 158 334 170 262C178 214 166 170 170 128" fill="none" stroke="var(--color-leaf-2)" stroke-width="3" stroke-linecap="round"/>
+<path d="M174 300C196 284 214 262 236 236" fill="none" stroke="var(--color-leaf-2)" stroke-width="2.25" stroke-linecap="round"/>
+<path d="M180 372C160 356 140 344 112 334" fill="none" stroke="var(--color-leaf-2)" stroke-width="2.25" stroke-linecap="round"/>
+<g transform="translate(236 236)">
+<g transform="rotate(-62)"><path d="M0 0C-17 -10 -19 -40 0 -48C19 -40 17 -10 0 0Z" fill="var(--color-leaf)" stroke="var(--color-leaf-2)" stroke-width="1.25"/><path d="M-9 -27L0 -20L9 -27" fill="none" stroke="var(--color-bloom)" stroke-width="2" stroke-linecap="round"/></g>
+<g transform="rotate(0)"><path d="M0 0C-17 -10 -19 -40 0 -48C19 -40 17 -10 0 0Z" fill="var(--color-leaf)" stroke="var(--color-leaf-2)" stroke-width="1.25"/><path d="M-9 -27L0 -20L9 -27" fill="none" stroke="var(--color-bloom)" stroke-width="2" stroke-linecap="round"/></g>
+<g transform="rotate(62)"><path d="M0 0C-17 -10 -19 -40 0 -48C19 -40 17 -10 0 0Z" fill="var(--color-leaf)" stroke="var(--color-leaf-2)" stroke-width="1.25"/><path d="M-9 -27L0 -20L9 -27" fill="none" stroke="var(--color-bloom)" stroke-width="2" stroke-linecap="round"/></g>
+</g>
+<g transform="translate(112 334) rotate(-100)">
+<g transform="rotate(-62)"><path d="M0 0C-15 -9 -17 -35 0 -42C17 -35 15 -9 0 0Z" fill="var(--color-leaf)" stroke="var(--color-leaf-2)" stroke-width="1.25"/></g>
+<g transform="rotate(0)"><path d="M0 0C-15 -9 -17 -35 0 -42C17 -35 15 -9 0 0Z" fill="var(--color-leaf)" stroke="var(--color-leaf-2)" stroke-width="1.25"/></g>
+<g transform="rotate(62)"><path d="M0 0C-15 -9 -17 -35 0 -42C17 -35 15 -9 0 0Z" fill="var(--color-leaf)" stroke="var(--color-leaf-2)" stroke-width="1.25"/></g>
+</g>
+<g transform="translate(170 100)">
+<path d="M-14 26C-8 34 8 34 14 26" fill="var(--color-leaf)" stroke="var(--color-leaf-2)" stroke-width="1.25"/>
+<g fill="var(--color-bloom)" stroke="var(--color-ink-2)" stroke-width="1">
+<ellipse rx="6" ry="12" transform="rotate(0) translate(0 -22)"/><ellipse rx="6" ry="12" transform="rotate(30) translate(0 -22)"/><ellipse rx="6" ry="12" transform="rotate(60) translate(0 -22)"/><ellipse rx="6" ry="12" transform="rotate(90) translate(0 -22)"/><ellipse rx="6" ry="12" transform="rotate(120) translate(0 -22)"/><ellipse rx="6" ry="12" transform="rotate(150) translate(0 -22)"/><ellipse rx="6" ry="12" transform="rotate(180) translate(0 -22)"/><ellipse rx="6" ry="12" transform="rotate(210) translate(0 -22)"/><ellipse rx="6" ry="12" transform="rotate(240) translate(0 -22)"/><ellipse rx="6" ry="12" transform="rotate(270) translate(0 -22)"/><ellipse rx="6" ry="12" transform="rotate(300) translate(0 -22)"/><ellipse rx="6" ry="12" transform="rotate(330) translate(0 -22)"/>
+<ellipse rx="5" ry="9" transform="rotate(15) translate(0 -10)"/><ellipse rx="5" ry="9" transform="rotate(75) translate(0 -10)"/><ellipse rx="5" ry="9" transform="rotate(135) translate(0 -10)"/><ellipse rx="5" ry="9" transform="rotate(195) translate(0 -10)"/><ellipse rx="5" ry="9" transform="rotate(255) translate(0 -10)"/><ellipse rx="5" ry="9" transform="rotate(315) translate(0 -10)"/>
+</g>
+</g>
+<rect x="160" y="392" width="54" height="16" transform="rotate(-8 187 400)" fill="var(--color-paper-3)" stroke="var(--color-rule)"/>
+<rect x="146" y="192" width="50" height="16" transform="rotate(6 171 200)" fill="var(--color-paper-3)" stroke="var(--color-rule)"/>
+</svg>
+</div>
+<figcaption class="tag">
+<p class="tag__name">Wildflower and clover honey</p>
+<dl class="tag__list">
+<div><dt>Lot</dt><dd>No.&nbsp;14</dd></div>
+<div><dt>Poured</dt><dd>4 and 5 September</dd></div>
+<div><dt>Jars</dt><dd class="num">312</dd></div>
+<div><dt>Locality</dt><dd>South-facing ridge above the Lamoille valley</dd></div>
+</dl>
+</figcaption>
+</figure>
+</div>
+</section>
+<section class="ridge" id="ridge" aria-labelledby="ridge-title">
+<div class="container ridge__grid">
+<h2 id="ridge-title" class="ridge__title">Where the hives stand</h2>
+<figure class="ridge__figure" aria-labelledby="ridge-title">
+<div class="slot" data-slot="photo-1" data-alt="The ridge above the Lamoille valley with its nine hives on the south face">
+<span class="slot__label">Photo: the ridge and its nine hives</span>
+</div>
+</figure>
+</div>
+</section>
+<section class="reserve" id="reserve" aria-labelledby="reserve-title">
+<div class="container reserve__grid">
+<div class="reserve__head">
+<h2 id="reserve-title">Reserve from Lot&nbsp;14</h2>
+<dl class="terms">
+<div><dt>Price per jar</dt><dd><span class="fill" data-fill="price">To be confirmed</span></dd></div>
+<div><dt>Pickup and shipping</dt><dd><span class="fill" data-fill="pickup">To be announced</span></dd></div>
+</dl>
+</div>
+<form class="reserve__form" data-endpoint="" method="post" novalidate>
+<div class="field">
+<label for="r-name">Your name</label>
+<input id="r-name" name="name" type="text" autocomplete="name" required aria-describedby="r-name-help">
+<p class="help" id="r-name-help"></p>
+</div>
+<div class="field">
+<label for="r-email">Email address</label>
+<input id="r-email" name="email" type="email" autocomplete="email" required aria-describedby="r-email-help">
+<p class="help" id="r-email-help"></p>
+</div>
+<div class="field field--jars">
+<label for="r-jars">Jars</label>
+<input id="r-jars" name="jars" type="number" min="1" step="1" value="1" inputmode="numeric" required aria-describedby="r-jars-help">
+<p class="help" id="r-jars-help"></p>
+</div>
+<div class="field field--send">
+<button class="btn btn--solid" type="submit">Reserve jars</button>
+</div>
+<p class="help reserve__status" aria-live="polite"></p>
+</form>
+</div>
+</section>
+</main>
+<footer class="foot">
+<div class="container foot__mast">
+<p class="foot__mark">Hollowback Apiary</p>
+<ul class="foot__links" role="list">
+<li><a class="link" href="#lot">The label</a></li>
+<li><a class="link" href="#ridge">The ridge</a></li>
+<li><a class="link" href="#reserve">Reserve a jar</a></li>
+</ul>
+</div>
+</footer>
+<script>
+(() => {
+  const nav = document.getElementById('nav');
+  const x = document.getElementById('banner-x');
+  let lastY = window.scrollY, ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const y = window.scrollY;
+      if (y < 48 || y < lastY) nav.classList.remove('is-compact');
+      else if (y > lastY) nav.classList.add('is-compact');
+      lastY = y;
+      ticking = false;
+    });
+  }, { passive: true });
+  x.addEventListener('click', () => {
+    document.documentElement.style.setProperty('--banner-h', '0px');
+    nav.classList.add('is-dismissed');
+  });
+  const menu = document.querySelector('.menu');
+  menu.addEventListener('click', (e) => { if (e.target.closest('a')) menu.open = false; });
+  const months = document.querySelectorAll('.season__bar > li');
+  const now = new Date().getMonth();
+  const mark = document.querySelector('.season__bar .now');
+  months.forEach((li, i) => {
+    if (i === now) { li.setAttribute('aria-current', 'date'); li.append(mark); }
+    else li.removeAttribute('aria-current');
+  });
+  const form = document.querySelector('.reserve__form');
+  const say = { name: 'Add your name so the jar is held for you.', email: 'Add an email address, like you@example.com, so we can reach you.', jars: 'Choose at least one jar.' };
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let first = null;
+    for (const input of form.querySelectorAll('input[required]')) {
+      const help = document.getElementById(input.getAttribute('aria-describedby'));
+      if (input.checkValidity()) { input.removeAttribute('aria-invalid'); help.textContent = ''; }
+      else { input.setAttribute('aria-invalid', 'true'); help.textContent = say[input.name]; first = first || input; }
+    }
+    if (first) { first.focus(); return; }
+    if (!form.dataset.endpoint) { form.querySelector('.reserve__status').textContent = 'Nothing was sent. This form is not connected yet.'; return; } /* gate 70: no request, so no confirmation */
+  });
+})();
+window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.prepend(im); } };
+</script>
 </body>
 </html>
