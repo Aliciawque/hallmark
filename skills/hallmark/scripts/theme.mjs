@@ -253,6 +253,7 @@ p { margin: 0; text-wrap: pretty; }
 p:not([class]) { max-width: 65ch; }
 img, video { max-width: 100%; height: auto; display: block; }
 svg { display: block; }
+[hidden] { display: none !important; }
 button, input, select, textarea { font: inherit; }
 .container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); box-sizing: border-box; }
 .num, .figure, td.num { font-variant-numeric: tabular-nums; }

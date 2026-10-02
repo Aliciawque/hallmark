@@ -191,7 +191,7 @@ The gates above that a script cannot settle, with enough to judge them well.
 
 **47c, imitation material.** The question is whether the thing pretends. A `data-slot` placeholder labelled "your screenshot" does not pretend; a styled-div dashboard with invented figures does. Geometry that is geometry (a diagram, a chart, an animated line) is a first-class medium; geometry pretending to be a picture is the tell. Grids and stripes need a canvas, a map or a measuring tool under them.
 
-**54, the eyebrow test.** Small type before a heading survives only when it carries a fact, a destination or an identifier the reader would otherwise lack. Delete the line and read the page: if nothing was lost but a name for what comes next, it was an eyebrow. The fix is never bare deletion; `craft.md` § Opening a section has twelve other ways in.
+**54, the eyebrow test.** Small type before a heading survives only when it carries a fact, a destination or an identifier the reader would otherwise lack. Delete the line and read the page: if nothing was lost but a name for what comes next, it was an eyebrow. The fix is never bare deletion; `craft.md` § Opening a section has twelve other ways in, and where the heading under it is figurative the plain label becomes the heading.
 
 **58, the screen budget.** Nobody reads a landing page. A visitor takes one idea per screen or leaves. About 80 words per 900px window, labels and cells included; the hero is a headline, one sentence and its actions.
 

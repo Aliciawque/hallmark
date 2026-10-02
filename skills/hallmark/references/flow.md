@@ -24,6 +24,8 @@ Hallmark will preserve: font stack, palette, spacing scale.
 Hallmark will introduce: shape, theme, gates, hero discipline, slots.
 ```
 
+The cache is the same block as JSON: `{ "scanned": "<date>", "findings": { "fonts": "…", "palette": "…", "motion": "…", "spacing": "…", "framework": "…" }, "preserve": [], "introduce": [] }`. An audit introduces nothing and says so.
+
 ## Component scope
 
 Signals: the brief names one element (button, input, form, card, modal, dropdown, tooltip, select, checkbox, switch, tab strip, chip, badge, banner, snackbar, popover, slider, date picker, avatar, a single nav or footer); the brief is short and refers to one element; the target file is one component; the user says "just the X". Two signals: component. Ambiguous ("a pricing section"): ask once, *One pricing card, or the whole pricing page?*, defaulting to component.
@@ -65,8 +67,8 @@ The Picks block drops Shape, Hero and Sections and names the screen instead: `Sc
 Two runs fix a page in place instead of building one: a polish (`redesign.md`) and signal 8, below. Enter at Step 7 over the files as they stand, with five differences:
 
 - **Infer the genre first** from the finished page and say so in one line; ambiguous between two, name both and apply only the universal gates.
-- **Fix in place, and only the material half:** tokens, colour, type, motion, states, contrast, single elements (delete an eyebrow, add a focus ring, flatten a gradient, tint a grey). **Never restructure:** no moving sections, no re-picking a system, no swapping a nav.
-- **Structural findings print, they do not get rebuilt:** 8 (page shape), 32 (archetype repeat), 42 (chrome), 44 (the fold). A short list with file:line and a one-line fix each; the user decides whether any of it earns a deeper redesign.
+- **Fix in place, and only the material half:** tokens, colour, type, motion, states, contrast, single elements (fold an eyebrow into its heading, add a focus ring, flatten a gradient, tint a grey). **Never restructure:** no moving sections, no re-picking a system, no swapping a nav.
+- **Structural findings print, they do not get rebuilt:** 6b and 44 (the hero and the fold), 8 (page shape), 9 (section rhythm), 32 (archetype repeat), 42 (chrome), 58 (the screen budget). A short list with file:line and a one-line fix each; the user decides whether any of it earns a deeper redesign.
 - **The log:** a polish logs its redesign entry; a signal 8 sweep logs nothing, since Hallmark built nothing and nothing rotates.
 - **The check stamp** replaces the build stamp as the first line of CSS, so gate 20 reads it. Its last line says who built the page: `built: the project · redesign: polish`, or `built: external (reference archive)`.
 

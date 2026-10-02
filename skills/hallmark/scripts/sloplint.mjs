@@ -884,6 +884,7 @@ let VERBATIM = false;
 let APPSCREEN = false;
 let LAYOUT_KEPT = false;
 const STRUCTURAL = new Set(['6b', '8', '9', '32', '42', '44a', '44c', '58']);
+const SPACING = new Set(['24b', '59']);
 const COPY_GATES = new Set(['19', '58', '69']);
 
 const findings = [];
@@ -897,7 +898,7 @@ function report(gate, grade, file, line, evidence, fix) {
   const b = baseGate(g);
   const waived = WAIVED.has(b) || WAIVED.has(gateNumber(b));
   if (VERBATIM && COPY_GATES.has(gateNumber(b)) && (grade === 'FAIL' || grade === 'WARN')) grade = 'NOTE';
-  if (LAYOUT_KEPT && (STRUCTURAL.has(b) || STRUCTURAL.has(gateNumber(b))) && grade !== 'NOTE') grade = 'NOTE';
+  if (LAYOUT_KEPT && (STRUCTURAL.has(b) || STRUCTURAL.has(gateNumber(b)) || (LAYOUT_KEPT === 'polish' && SPACING.has(b))) && grade !== 'NOTE') grade = 'NOTE';
   if (grade === 'FAIL') {
     if (tier === 'ledger') grade = 'NOTE';
     else if (tier === 'reflex') grade = waived ? 'WAIVED' : 'REFLEX';
@@ -912,7 +913,7 @@ function applyWaivers(ctx, dir) {
   WAIVED = new Set(); ANSWERED = new Set(); DISMISSED = new Set();
   VERBATIM = /\bcopy:\s*verbatim\b/i.test(ctx.stampText);
   APPSCREEN = /\bshape:\s*app screen\b/i.test(ctx.stampText);
-  LAYOUT_KEPT = /\bredesign:\s*(?:polish|restyle)\b/i.test(ctx.stampText);
+  LAYOUT_KEPT = (/\bredesign:\s*(polish|restyle)\b/i.exec(ctx.stampText) || [])[1]?.toLowerCase() || false;
   const re = /\/\*\s*Hallmark\s*·\s*waive\s+(\d{1,2}[a-z]{0,3}|F\d+)\s*·\s*([^·*]+?)\s*·\s*([^*]+?)\s*\*\//gi;
   const claims = [...ctx.stampText.matchAll(re)].map((m) => ({
     id: m[1], evidence: m[2].trim(), reason: m[3].trim(), raw: m[0],
@@ -4049,9 +4050,9 @@ if (opts.render) {
   if (!htmlFiles.length && !opts.urls.length) renderNotRun = 'no HTML page to render; pass --url for a running dev server';
   else try {
     const mod = await import(new URL('./sloplint-render.mjs', import.meta.url).href);
-    const extra = await mod.renderCheck([...htmlFiles, ...opts.urls], { genre: opts.genre, postureByFile, heroPostureByFile, stage: opts.stage, scope: opts.scope === 'app' || [...waiversByKey.values()].some((x) => x.APPSCREEN) ? 'app' : opts.scope, before: opts.before });
+    const extra = await mod.renderCheck([...htmlFiles, ...opts.urls], { genre: opts.genre, postureByFile, heroPostureByFile, stage: opts.stage, selectors: opts.before || opts.kept ? Object.fromEntries([...new Set(contexts.flatMap(([, c]) => c.docs))].filter((d) => d.kind === 'html').map((d) => [d.file, scriptSelectors(d)])) : {}, scope: opts.scope === 'app' || [...waiversByKey.values()].some((x) => x.APPSCREEN) ? 'app' : opts.scope, before: opts.before });
     domInventories = extra.inventories || {};
-    const allWaivers = { WAIVED: new Set([...waiversByKey.values()].flatMap((x) => [...x.WAIVED])), ANSWERED: new Set([...waiversByKey.values()].flatMap((x) => [...x.ANSWERED])), DISMISSED: new Set([...waiversByKey.values()].flatMap((x) => [...(x.DISMISSED || [])])), VERBATIM: [...waiversByKey.values()].some((x) => x.VERBATIM), APPSCREEN: [...waiversByKey.values()].some((x) => x.APPSCREEN), LAYOUT_KEPT: [...waiversByKey.values()].some((x) => x.LAYOUT_KEPT) };
+    const allWaivers = { WAIVED: new Set([...waiversByKey.values()].flatMap((x) => [...x.WAIVED])), ANSWERED: new Set([...waiversByKey.values()].flatMap((x) => [...x.ANSWERED])), DISMISSED: new Set([...waiversByKey.values()].flatMap((x) => [...(x.DISMISSED || [])])), VERBATIM: [...waiversByKey.values()].some((x) => x.VERBATIM), APPSCREEN: [...waiversByKey.values()].some((x) => x.APPSCREEN), LAYOUT_KEPT: [...waiversByKey.values()].map((x) => x.LAYOUT_KEPT).find(Boolean) || false };
     for (const f of extra) {
       const w = /^https?:/.test(f.file) ? allWaivers : (waiversByKey.get(f.file) || waiversByKey.get(dirname(f.file)));
       WAIVED = w ? w.WAIVED : new Set();
@@ -4059,7 +4060,7 @@ if (opts.render) {
       DISMISSED = w ? (w.DISMISSED || new Set()) : new Set();
       VERBATIM = !!(w && w.VERBATIM);
       APPSCREEN = !!(w && w.APPSCREEN);
-      LAYOUT_KEPT = !!(w && w.LAYOUT_KEPT);
+      LAYOUT_KEPT = (w && w.LAYOUT_KEPT) || false;
       report(f.gate, f.grade === 'REFLEX' ? 'FAIL' : f.grade, f.file, f.line, f.evidence, f.fix);
     }
     for (const x of extra.failed || []) { WAIVED = new Set(); ANSWERED = new Set(); DISMISSED = new Set(); VERBATIM = false; APPSCREEN = false; LAYOUT_KEPT = false; report('render', 'FAIL', x.file, 1, `the page did not render (${trunc(x.message, 60)}); its render gates did not run`, 'Fix the page or the URL and rerun; an unrendered page is never a pass'); }
@@ -4074,7 +4075,7 @@ const squash = (t) => t.replace(/\s+/g, ' ').trim();
 const escRe = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 function wiringOf(src) {
   const body = src.replace(/<!--[\s\S]*?-->/g, '');
-  const w = { handlers: [], links: [], fields: [], hooks: [], ids: [] };
+  const w = { handlers: [], links: [], fields: [], hooks: [], ids: [], scripts: [] };
   const val = String.raw`("[^"]*"|'[^']*'|\{(?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})*\})`;
   for (const m of body.matchAll(new RegExp(String.raw`(?<![\w-])(on[A-Z]\w*|on:[\w|]+|@[a-z][\w.:-]*|v-on:[\w.:-]+|on(?:click|submit|change|input|keydown|keyup|blur|focus))\s*=\s*` + val, 'g'))) w.handlers.push(`${m[1]}=${squash(m[2])}`);
   for (const m of body.matchAll(new RegExp(String.raw`(?<![\w:-])(?:href|to|action)\s*=\s*` + val, 'g'))) { const v = squash(m[1]).replace(/^["']|["']$/g, '').replace(/^\.\//, ''); if (v && v !== '#') w.links.push(v); }
@@ -4085,24 +4086,33 @@ function wiringOf(src) {
   for (const m of body.matchAll(/\bregister\(\s*["']([\w.-]+)["']/g)) w.fields.push(m[1]);
   for (const m of body.matchAll(new RegExp(String.raw`\bdata-(?:testid|test|cy|qa|track[\w-]*|analytics[\w-]*|event[\w-]*|gtm[\w-]*)\s*=\s*` + val, 'g'))) w.hooks.push(squash(m[1]).replace(/^["']|["']$/g, ''));
   for (const m of body.matchAll(/(?<![\w-])id\s*=\s*["']([^"'{}\s]+)["']/g)) w.ids.push(m[1]);
+  for (const m of body.matchAll(/<script\b[^>]*\bsrc\s*=\s*["']([^"']+)["']/gi)) w.scripts.push(m[1].split('?')[0].replace(/^\.\//, ''));
   return w;
 }
-function scriptHooks(doc) {
+function scriptText(doc) {
   const raw = doc.raw || doc.src;
-  const markup = raw.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
-  let js = [...raw.matchAll(/<script\b(?![^>]*\bsrc\s*=)[^>]*>([\s\S]*?)<\/script>/gi)].map((m) => m[1]).join('\n');
+  let js = [...raw.matchAll(/<script\b(?![^>]*\bsrc\s*=)(?![^>]*application\/(?:ld\+)?json)[^>]*>([\s\S]*?)<\/script>/gi)].map((m) => m[1]).join('\n');
   for (const m of raw.matchAll(/<script\b[^>]*\bsrc\s*=\s*["']([^"']+)["']/gi)) {
     if (/^(?:https?:)?\/\//.test(m[1])) continue;
     try { js += '\n' + readFileSync(resolve(dirname(doc.file), m[1].split('?')[0]), 'utf8'); } catch {}
   }
+  return js;
+}
+function scriptSelectors(doc) {
+  const js = scriptText(doc);
   const sels = new Set();
   for (const m of js.matchAll(/getElementById\(\s*["'`]([\w-]+)["'`]/g)) sels.add('#' + m[1]);
-  for (const m of js.matchAll(/(?:querySelector(?:All)?|closest|matches)\(\s*["'`]([^"'`]+)["'`]/g)) for (const t of m[1].matchAll(/#[\w-]+|\.[A-Za-z_][\w-]*|\[data-[\w-]+/g)) sels.add(t[0][0] === '[' ? t[0] + ']' : t[0]);
-  const has = (sel) => sel[0] === '#' ? new RegExp(`(?<![\\w-])id\\s*=\\s*["']${escRe(sel.slice(1))}["']`).test(markup)
-    : sel[0] === '.' ? new RegExp(`(?<![\\w-])class\\s*=\\s*["'][^"']*(?<![\\w-])${escRe(sel.slice(1))}(?![\\w-])`).test(markup)
-      : markup.includes(sel.slice(1, -1));
-  const queried = [...sels].sort();
-  return { queried, hooked: queried.filter(has) };
+  for (const m of js.matchAll(/(?:querySelector(?:All)?|closest|matches)\(\s*(["'`])((?:(?!\1)[^\\\n])+)\1/g)) if (!m[2].includes('${')) sels.add(m[2].trim());
+  return [...sels].sort();
+}
+function scriptHooks(doc) {
+  const markup = (doc.raw || doc.src).replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
+  const has = (tok) => tok[0] === '#' ? new RegExp(`(?<![\\w-])id\\s*=\\s*["']${escRe(tok.slice(1))}["']`).test(markup)
+    : tok[0] === '.' ? new RegExp(`(?<![\\w-])class\\s*=\\s*["'][^"']*(?<![\\w-])${escRe(tok.slice(1))}(?![\\w-])`).test(markup)
+      : markup.includes(tok.slice(1));
+  const queried = scriptSelectors(doc);
+  const tokens = (sel) => [...sel.matchAll(/#[\w-]+|\.[A-Za-z_][\w-]*|\[data-[\w-]+/g)].map((t) => t[0]);
+  return { queried, hooked: queried.filter((sel) => { const t = tokens(sel); return t.length > 0 && t.every(has); }) };
 }
 function takeInventory() {
   const docs = [...new Set(contexts.flatMap(([, c]) => c.docs))];
@@ -4111,7 +4121,13 @@ function takeInventory() {
   const pages = {};
   for (const [file, inv] of Object.entries(domInventories)) if (inv) pages[/^https?:/.test(file) ? file : rel(file)] = inv;
   const scripts = {};
-  for (const d of docs) if (d.kind === 'html') { const h = scriptHooks(d); if (h.queried.length) scripts[rel(d.file)] = h; }
+  for (const d of docs) if (d.kind === 'html') {
+    const h = scriptHooks(d);
+    const dom = domInventories[d.file];
+    if (dom && Array.isArray(dom.hooked)) h.dom = dom.hooked;
+    h.hides = /\.hidden\s*=|["'`]hidden["'`]/.test(scriptText(d));
+    if (h.queried.length || h.hides) scripts[rel(d.file)] = h;
+  }
   return { files: byFile, wiring: unionWiring(Object.values(byFile)), scripts, pages };
 }
 function unionWiring(list) {
@@ -4137,7 +4153,7 @@ if (opts.kept) {
       if (allowed.some((t) => x.toLowerCase() === t || (t.length >= 4 && x.toLowerCase().includes(t)))) { if (cat) (acked[cat] ||= new Set()).add(x); return false; }
       return true;
     });
-    const hard = { links: new Set(), fields: new Set(), 'form actions': new Set(), handlers: new Set(), 'test hooks': new Set() };
+    const hard = { links: new Set(), fields: new Set(), forms: new Set(), handlers: new Set(), 'test hooks': new Set(), scripts: new Set() };
     const soft = { headings: new Set(), figures: new Set(), images: new Set(), ids: new Set() };
     const total = { links: new Set(was.wiring.links), fields: new Set(was.wiring.fields), handlers: new Set(was.wiring.handlers), 'test hooks': new Set(was.wiring.hooks), headings: new Set(), figures: new Set() };
     for (const x of gone(was.wiring.links, now.wiring.links, 'links')) hard.links.add(x);
@@ -4145,6 +4161,7 @@ if (opts.kept) {
     for (const x of gone(was.wiring.handlers, now.wiring.handlers, 'handlers')) hard.handlers.add(x);
     for (const x of gone(was.wiring.hooks, now.wiring.hooks, 'test hooks')) hard['test hooks'].add(x);
     for (const x of gone(was.wiring.ids, now.wiring.ids)) soft.ids.add(x);
+    for (const [f, w] of Object.entries(was.files || {})) if (now.files[f]) for (const x of gone(w.scripts, now.files[f].scripts)) hard.scripts.add(`${x} on ${f}`);
     const skipped = [];
     let wordsWas = 0, wordsNow = 0;
     for (const [k, b] of Object.entries(was.pages || {})) {
@@ -4155,8 +4172,8 @@ if (opts.kept) {
       for (const x of b.headings || []) total.headings.add(x);
       for (const x of b.figures || []) total.figures.add(x);
       for (const x of gone(b.links, [...a.links, ...now.wiring.links], 'links')) hard.links.add(x);
-      for (const x of gone(b.fields, [...a.fields, ...now.wiring.fields], 'fields')) hard.fields.add(x);
-      for (const x of gone(b.actions, a.actions)) hard['form actions'].add(x);
+      for (const x of gone(b.fields, a.fields, 'fields')) hard.fields.add(x);
+      for (const x of gone(b.actions, a.actions)) hard.forms.add(x);
       for (const x of gone(b.headings, a.headings, 'headings')) soft.headings.add(x);
       for (const x of gone(b.figures, a.figures, 'figures')) soft.figures.add(x);
       for (const x of gone(b.images, a.images)) soft.images.add(x);
@@ -4164,18 +4181,38 @@ if (opts.kept) {
     }
     const list = (set, n = 8) => { const a = [...set]; return a.slice(0, n).map((x) => trunc(x, 48)).join(', ') + (a.length > n ? ` and ${a.length - n} more` : ''); };
     const fix = 'Restore each one, or record it in the stamp: /* Hallmark · dropped <item>, <item> · <the reason, in the user\'s words> */';
-    for (const [k, set] of Object.entries(hard)) if (set.size) report('kept', 'FAIL', SNAP, 1, `${k} the page had before and no longer has: ${list(set)}`, fix);
+    total['script hooks'] = new Set(); hard['script hooks'] = new Set();
     for (const [f, h] of Object.entries(was.scripts || {})) {
+      if (outside.includes(f)) continue;
       const n = now.scripts[f];
-      const unhooked = n ? h.hooked.filter((x) => n.queried.includes(x) && !n.hooked.includes(x)) : [];
-      if (unhooked.length) report('kept', 'FAIL', resolve(f), 1, `a script still queries ${list(unhooked)}, which this page's markup no longer has`, 'Keep the ids, classes and data attributes scripts query, or change the script with the markup');
+      const both = n && h.dom && n.dom;
+      const had = both ? h.dom : h.hooked;
+      for (const x of had) total['script hooks'].add(`${f} ${x}`);
+      const unhooked = n ? had.filter((x) => n.queried.includes(x) && !(both ? n.dom : n.hooked).includes(x)) : [];
+      for (const x of unhooked) hard['script hooks'].add(`${f} ${x}`);
     }
+    const guard = contexts.some(([, c]) => c.rules.some((r) => /\[hidden\]/.test(r.selector) && r.decls.some((d) => d.prop === 'display' && /none/.test(d.value))));
+    if (!guard && Object.values(now.scripts).some((h) => h.hides)) report('kept', 'FAIL', SNAP, 1, 'a script hides elements with the hidden attribute and no rule pins it, so any display rule shows them again', 'Add [hidden] { display: none !important; } to the stylesheet');
+    for (const [k, b] of Object.entries(was.pages || {})) {
+      const a = now.pages[k];
+      if (!a) continue;
+      for (const bf of b.forms || []) {
+        const af = (a.forms || []).find((x) => x.key === bf.key) || (a.forms || []).find((x) => x.attrs.join() === bf.attrs.join());
+        if (!af) { if (!allowed.includes(bf.key.toLowerCase())) hard.forms.add(`the form ${bf.key} on ${k}`); continue; }
+        for (const x of bf.fields) if (!af.fields.includes(x) && !allowed.includes(x.toLowerCase())) hard.fields.add(`${x} in ${bf.key} on ${k}`);
+        for (const x of bf.hidden) if (!af.hidden.includes(x)) hard.fields.add(`hidden ${x} in ${bf.key} on ${k}`);
+        for (const x of bf.attrs) if (!af.attrs.includes(x)) hard.forms.add(`${x} on ${bf.key} (${k})`);
+        if (bf.submits && !af.submits) hard.forms.add(`a submit control in ${bf.key} (${k})`);
+        for (const x of bf.controls || []) if (!(af.controls || []).includes(x) && !allowed.some((t) => x.toLowerCase().includes(t) && t.length >= 4)) hard.forms.add(`${x} in ${bf.key} (${k})`);
+      }
+    }
+    for (const [k, set] of Object.entries(hard)) if (set.size) report('kept', 'FAIL', SNAP, 1, k === 'script hooks' ? `a script still queries what its page no longer has: ${list(set)}` : k === 'forms' ? `a form lost what it had before: ${list(set)}` : `${k} the page had before and no longer has: ${list(set)}`, k === 'script hooks' ? 'Keep the ids, classes and attributes scripts query, or change the script with the markup' : fix);
     for (const [k, set] of Object.entries(soft)) if (set.size) report('kept', 'WARN', SNAP, 1, `${k} gone or reworded since the before record: ${list(set)}`, 'Confirm each was meant to go, restore it, or record it as dropped in the stamp');
     if (wordsWas > 80 && wordsNow < wordsWas * 0.6) report('kept', 'WARN', SNAP, 1, `the pages hold ${wordsNow} words where they held ${wordsWas}`, 'Check that no section of content was dropped');
     if (skipped.length) report('kept', 'WARN', SNAP, 1, `not compared, because this run did not render them: ${list(skipped, 4)}`, 'Render the same pages or URLs the before record holds');
     if (outside.length) report('kept', 'WARN', SNAP, 1, `not compared, because this run did not read them: ${list(outside, 4)}`, 'Run --kept on the same target as --before');
     const lostOf = (k) => (hard[k] || soft[k]).size;
-    keptLine = { parts: ['links', 'fields', 'handlers', 'test hooks', 'headings', 'figures'].filter((k) => total[k].size).map((k) => { const d = acked[k] ? acked[k].size : 0; return `${k} ${Math.max(0, total[k].size - lostOf(k) - d)}/${total[k].size}${d ? ` (${d} dropped on record)` : ''}`; }), was: was.summary || null };
+    keptLine = { parts: ['links', 'fields', 'handlers', 'test hooks', 'script hooks', 'headings', 'figures'].filter((k) => total[k].size).map((k) => { const d = acked[k] ? acked[k].size : 0; return `${k} ${Math.max(0, total[k].size - lostOf(k) - d)}/${total[k].size}${d ? ` (${d} dropped on record)` : ''}`; }), was: was.summary || null };
   }
 }
 
@@ -4272,4 +4309,5 @@ if (opts.json) {
   if (compareNote) console.log(compareNote);
   if (beforeLine) console.log(beforeLine);
 }
-process.exit(!opts.before && (fails > 0 || reflex > 0) ? 1 : 0);
+const exitCode = !opts.before && (fails > 0 || reflex > 0) ? 1 : 0;
+if (process.stdout.writableLength) process.stdout.once('drain', () => process.exit(exitCode)); else process.exit(exitCode);

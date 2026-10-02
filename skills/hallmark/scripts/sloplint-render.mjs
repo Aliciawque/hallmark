@@ -10,7 +10,7 @@ const slugOf = (t) => isUrl(t) ? t.replace(/^https?:\/\//, '').replace(/[^\w.-]+
 
 const SHOTS = [];
 let SHOT_DIR = 'shots';
-const frames = (page) => page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)))).catch(() => {});
+const frames = (page) => page.evaluate(async () => { if (document.fonts && document.fonts.status !== 'loaded') await Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 3000))]); await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))); }).catch(() => {});
 function contrast(a, b) {
   const lin = (c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
   const Y = (c) => 0.2126 * lin(c[0]) + 0.7152 * lin(c[1]) + 0.0722 * lin(c[2]);
@@ -169,7 +169,7 @@ export async function renderCheck(htmlFiles, metaIn) {
         if (!heroOnly) {
           await page.setViewport({ width: 1440, height: 900 });
           await frames(page);
-          inventories[file] = await page.evaluate(inventory).catch(() => null);
+          inventories[file] = await page.evaluate(inventory, (meta.selectors && meta.selectors[file]) || []).catch(() => null);
           const quality = await page.evaluate(observeQuality, meta.scope).catch(() => []);
           const hidden = await page.evaluate(observeOcclusion).catch(() => []);
           for (const f of [...quality, ...hidden]) findings.push({ ...f, file, line: 1, evidence: `[1440px] ${f.evidence}` });
@@ -288,7 +288,7 @@ ${body}
   return made;
 }
 
-function inventory() {
+function inventory(selectors) {
   const base = location.pathname.slice(0, location.pathname.lastIndexOf('/') + 1);
   const key = (raw) => {
     try {
@@ -305,12 +305,21 @@ function inventory() {
   const links = uniq([...document.querySelectorAll('a[href]')].map((a) => a.getAttribute('href')).filter((h) => h && h.trim() && h.trim() !== '#').map(key));
   const fields = uniq([...document.querySelectorAll('input[name], select[name], textarea[name], button[name]')].map((f) => f.getAttribute('name')));
   const actions = uniq([...document.querySelectorAll('form[action]')].map((f) => `${(f.getAttribute('method') || 'get').toLowerCase()} ${key(f.getAttribute('action'))}`));
+  const forms = [...document.querySelectorAll('form')].map((f, i) => ({
+    key: f.id ? `#${f.id}` : f.getAttribute('action') ? `${(f.getAttribute('method') || 'get').toLowerCase()} ${key(f.getAttribute('action'))}` : `form ${i + 1}`,
+    attrs: [`method=${(f.getAttribute('method') || 'get').toLowerCase()}`, f.getAttribute('action') ? `action=${key(f.getAttribute('action'))}` : '', f.hasAttribute('novalidate') ? 'novalidate' : ''].filter(Boolean),
+    fields: uniq([...f.querySelectorAll('input[name], select[name], textarea[name]')].map((c) => c.getAttribute('name'))),
+    hidden: uniq([...f.querySelectorAll('input[type="hidden"][name]')].map((c) => `${c.getAttribute('name')}=${c.getAttribute('value') || ''}`)),
+    submits: f.querySelectorAll('button:not([type]), button[type="submit"], input[type="submit"], input[type="image"]').length,
+    controls: uniq([...f.querySelectorAll('button, input, select, textarea')].map((c) => `${c.tagName.toLowerCase()}${c.getAttribute('type') ? `[type=${c.getAttribute('type')}]` : ''}${c.getAttribute('name') ? `[name=${c.getAttribute('name')}]` : ''}`)),
+  }));
+  const hooked = (selectors || []).filter((x) => { try { return !!document.querySelector(x); } catch { return false; } });
   const headings = uniq([...document.querySelectorAll('h1, h2, h3, h4')].filter((h) => !quiet(h)).map((h) => text(h).toLowerCase()).filter((t) => t.length > 1));
   const body = text(document.body);
   const figures = uniq((body.match(/[$€£¥]\s?\d[\d,.]*\+?[kKmM]?|\b\d[\d,.]*\s?%|\b\d[\d,.]*[kKmM]?\+(?=\s|$)|\b\d{1,3}(?:,\d{3})+\b|\b\d{1,2}[:.]\d{2}\s?(?:am|pm)?\b|\b(?:19|20)\d{2}\b|\b\d+(?:\.\d+)?\s(?:hours?|minutes?|mins?|days?|weeks?|months?|years?|seconds?|ms|km|kg|g|ml|mm|cm|gb|mb|tb|x)\b|\+?\d[\d\s().-]{7,}\d/gi) || []).map((t) => t.replace(/\s+/g, '').toLowerCase()));
   const images = uniq([...document.querySelectorAll('img[src]')].map((i) => (i.getAttribute('src') || '').split('?')[0].split('/').pop()));
   const controls = document.querySelectorAll('button, [role="button"], input[type="submit"], input[type="button"], select, textarea, input:not([type="hidden"])').length;
-  return { links, fields, actions, headings, figures, images, controls, words: body ? body.split(' ').length : 0 };
+  return { links, fields, actions, forms, hooked, headings, figures, images, controls, words: body ? body.split(' ').length : 0 };
 }
 
 function focusRing() {
