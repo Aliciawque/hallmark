@@ -696,6 +696,28 @@ function observeQuality() {
   const offSize = controls.map((el) => ({ el, h: el.getBoundingClientRect().height })).filter((c) => c.h > 8 && (c.h < 42 || c.h > 54));
   if (offSize.length) push('39b', 'REFLEX', `control height outside 44 to 52px: ${offSize.slice(0, 3).map((c) => `${name(c.el)} ${Math.round(c.h)}px`).join(', ')}`, 'Marketing controls stand 44 to 52px; app UI 32 to 40px with a 44px hit target');
 
+  const cv = document.createElement('canvas'); cv.width = cv.height = 1;
+  const cx = cv.getContext('2d', { willReadFrequently: true });
+  const rgb = (s) => { cx.clearRect(0, 0, 1, 1); cx.fillStyle = 'rgba(0, 0, 0, 0)'; cx.fillStyle = s; cx.fillRect(0, 0, 1, 1); const d = cx.getImageData(0, 0, 1, 1).data; return [d[0] / 255, d[1] / 255, d[2] / 255, d[3] / 255]; };
+  const lin = (c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
+  const lum = (c) => 0.2126 * lin(c[0]) + 0.7152 * lin(c[1]) + 0.0722 * lin(c[2]);
+  const ratio = (a, b) => (Math.max(lum(a), lum(b)) + 0.05) / (Math.min(lum(a), lum(b)) + 0.05);
+  const over = (c, b) => [0, 1, 2].map((i) => c[i] * c[3] + b[i] * (1 - c[3]));
+  const bgOf = (n) => { for (; n && n !== document.documentElement; n = n.parentElement) { const c = rgb(getComputedStyle(n).backgroundColor); if (c[3] >= 0.9) return c; } const b = rgb(getComputedStyle(document.body).backgroundColor); return b[3] > 0 ? b : [1, 1, 1, 1]; };
+  const weak = [];
+  for (const f of all.filter((el) => /^(TEXTAREA|SELECT)$/.test(el.tagName) || (el.tagName === 'INPUT' && /^(text|email|search|tel|url|password|number|date|time)$/.test(el.type)))) {
+    const fh = f.getBoundingClientRect().height;
+    const around = bgOf(f.parentElement);
+    let best = ratio(over(rgb(getComputedStyle(f).backgroundColor), around), around);
+    for (let n = f, d = 0; n && d < 3 && n.getBoundingClientRect().height <= fh + 48; n = n.parentElement, d++) {
+      const cs = getComputedStyle(n); const back = d ? bgOf(n.parentElement) : around;
+      for (const s of ['Top', 'Right', 'Bottom', 'Left']) if (parseFloat(cs[`border${s}Width`]) >= 1 && cs[`border${s}Style`] !== 'none') best = Math.max(best, ratio(over(rgb(cs[`border${s}Color`]), back), back));
+      for (const m of (cs.boxShadow || '').matchAll(/((?:rgba?|oklch|oklab|color)\([^)]*\)|#[0-9a-f]{3,8})\s+(-?[\d.]+)px\s+(-?[\d.]+)px\s+([\d.]+)px\s+(-?[\d.]+)px/gi)) if (+m[4] === 0 && (+m[5] >= 1 || Math.abs(+m[3]) >= 1)) best = Math.max(best, ratio(over(rgb(m[1]), back), back));
+    }
+    if (best < 2.95) weak.push(`${name(f)} ${best.toFixed(2)}:1`);
+  }
+  if (weak.length) push(40, 'FAIL', `a field's edge is under 3:1 against what surrounds it: ${weak.slice(0, 3).join(', ')}`, 'Draw the field in --color-muted, or fill it a step off the surface it sits on');
+
   const weights = new Map();
   const tw = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   for (let t = tw.nextNode(); t; t = tw.nextNode()) {

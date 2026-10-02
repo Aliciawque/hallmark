@@ -1546,6 +1546,16 @@ function check24a(ctx) {
   for (const [file, n] of counts) if (n > 8) report('24a', 'FAIL', file, 1, `+${n - 8} more raw spacing lengths with a matching --space-* token in this file`, 'Use the tokens');
 }
 
+function shortProse(ctx, sel) {
+  const cls = [...sel.matchAll(/\.([\w-]+)/g)].map((m) => m[1]).pop();
+  if (!cls) return false;
+  const texts = [];
+  for (const doc of ctx.docs) for (const m of doc.src.matchAll(new RegExp(`<(\\w+)[^>]*class="[^"]*\\b${cls}\\b[^"]*"[^>]*>([\\s\\S]*?)</\\1>`, 'g'))) {
+    for (const p of (/^p$/i.test(m[1]) ? [m[2]] : m[2].match(/<p\b[^>]*>[\s\S]*?<\/p>/g) || [])) texts.push(p.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim());
+  }
+  return texts.length > 0 && texts.every((t) => t.length <= 200 && (t.match(/[.!?](?:\s|$)/g) || []).length <= 2);
+}
+
 function check25(ctx) {
   const proseish = /(^|[\s,>+~(])p\b|lede|prose|copy|__body|__text|__desc|paragraph/i;
   for (const r of ctx.rules) {
@@ -1555,7 +1565,7 @@ function check25(ctx) {
       const m = /^([\d.]+)ch$/.exec(resolveVars(d.value, ctx.tokens).trim());
       if (m) {
         const ch = parseFloat(m[1]);
-        const floor = /lede|hero|caption|figcaption|__line|__sub|subhead|tagline/i.test(r.selector) ? 28 : 45;
+        const floor = /lede|hero|caption|figcaption|__line|__sub|subhead|tagline/i.test(r.selector) || shortProse(ctx, r.selector) ? 28 : 45;
         if (ch < floor || ch > 75) {
           report(25, 'WARN', r.file, d.line, `measure ${ch}ch on ${r.selector} (${floor}-75ch range)`, 'Set prose measure between 45 and 75ch; a one-sentence lede or caption from 28ch');
         }

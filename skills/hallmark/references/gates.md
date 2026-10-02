@@ -150,7 +150,7 @@ One line each. `a`/`b` clauses share a number and carry their own tier. Genre no
 | 30b | Reflex | M | Two icon libraries on one page. Guard: the second is a brand or platform mark in at most two slots | one library |
 | 33 | Floor | M | A decorative `<svg>`, `<canvas>` or CSS-art element with neither `aria-hidden="true"` nor a label | hide it or name it |
 | 73 | Floor | R | Text painted under another element: an opaque box, an image or another run of text covers a line of it (sticky and fixed chrome excepted) | give the text its own space, or its own surface above the cover |
-| 40 | Floor | M/R | Text, icon or focus ring under its contrast threshold against its computed background (body 4.5:1 or APCA Lc 60; large text, icons and rings 3:1 or Lc 45) | fix the pair |
+| 40 | Floor | M/R | Text, icon, focus ring or a field's edge under its contrast threshold against its computed background (body 4.5:1 or APCA Lc 60; large text, icons, rings and field edges 3:1 or Lc 45) | fix the pair; a field takes `--color-muted` |
 | 41 | Floor | M/R | Button text within 5% L and 0.05 chroma of its fill; `--color-accent-ink` missing where accent carries text; a dark panel that does not swap its text colour; grey text on a coloured surface | the paired ink token |
 | 48 | Floor | M | A colour or `font-family` literal outside the token block | lift it into the tokens |
 | 49a | Floor | M/R | A button label or primary nav link wrapping at any width 320 to 1920 | shorten it; `white-space: nowrap` |
@@ -209,7 +209,7 @@ The gates above that a script cannot settle, with enough to judge them well.
 
 ## 6. The reviews, in fresh context
 
-The thread that built the page is its weakest reviewer. Two reviews run with no inherited transcript (a subagent in Claude Code): the **hero review** once at Step 6, before any section below the fold exists, and the **finish review** at Step 7. Do not read their briefs yourself: start the reviewer with *Read `<skill-dir>/references/review-hero.md` (or `review-finish.md`) and follow it*, then pass the inputs that file lists, as paths. Wait for it once.
+The thread that built the page is its weakest reviewer. Two reviews run with no inherited transcript (a subagent in Claude Code): the **hero review** once at Step 6, before any section below the fold exists, and the **finish review** at Step 7. Do not read their briefs yourself: start the reviewer with *Read `<skill-dir>/references/review-hero.md` (or `review-finish.md`) and follow it* and pass these, as paths. The hero review: the four `hero-*` screenshots, the stamp's first two lines, the Picks block's Material and Signature rows, the theme's picture. The finish review: the render tier's screenshots, the page's HTML, the stamp's theme line or direction contract, the theme's picture, the hero review's findings with how each was settled, and `gates.md` § 4. Wait for it once.
 
 Act on its first word. Fix what is real, recapture the same shots (`--stage hero` for the hero), and score each finding yourself against its recapture: `resolved`, `partial` or `unresolved`, with a reason. Send the recaptures back for one scoring round only when the first word was `rebuild` or a finding named a Floor gate; scoring is not a second review. Record the outcome in the stamp, hero first: `hero-review: fix · 4 findings · 4 resolved`, then `finish-review: subagent · 5 findings · 4 resolved 1 unresolved · gap: none`. No subagents: re-read the artifact cold, run the same brief against yourself, and record `in-thread`.
 

@@ -1,6 +1,6 @@
 # Genre: modern-minimal
 
-The polished product page: SaaS, enterprise, API, platform, developer tool, infra, B2B, dashboards, billing. Minimalism with conviction, not the absence of choice. Also picked when the user names a brand colour and the rest of the brief is restrained. The theme deal filters the catalog by this genre.
+The polished product page: SaaS, enterprise, API, platform, developer tool, infra, B2B, dashboards, billing. Minimalism with conviction, not the absence of choice. Also picked when the user names a brand colour and the rest of the brief is restrained. The deal leans toward this genre's themes.
 
 ## Voice
 

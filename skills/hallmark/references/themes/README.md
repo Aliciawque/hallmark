@@ -44,7 +44,7 @@ Every theme ships `<slug>.jpg` beside its file: the first screen and one lower s
 5. **Motion:** one to three lines: how fast, how it eases, what may move.
 6. **Voice:** one or two lines on the copy's register.
 7. **Do-nots:** three to five bullets specific to this theme's own failure modes, never restatements of a gate.
-8. **Build hint:** at most 25 lines of CSS carrying only the rules that make the theme recognisable (the display setting, the control pair, the signature object). Font links as one line.
+8. **Build hint:** at most 25 lines of CSS carrying only the rules that make the theme recognisable (the display setting, the control pair, the signature object), every colour, duration, easing and space a token (validate refuses raw milliseconds, a bare `ease`, named colours and raw spacing). Font links as one line.
 
 ## What a theme may not carry
 

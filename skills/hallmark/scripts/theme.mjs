@@ -148,9 +148,11 @@ function deal() {
   const seedKey = `${seedBase}·r${reroll}`;
   const rand = seededRand(seedBase);
 
+  const df = new Map();
+  for (const t of themes) for (const k of new Set(t.keywords.map((k) => k.toLowerCase()))) df.set(k, (df.get(k) || 0) + 1);
   const scored = themes.map((t) => {
     let fit = 0; const hits = [];
-    for (const k of t.keywords) { const kw = k.toLowerCase().split(/\s+/).map(stem); if (kw.every((w) => bw.has(w))) { fit += 3; hits.push(k); } }
+    for (const k of t.keywords) { const kw = k.toLowerCase().split(/\s+/).map(stem); if (kw.every((w) => bw.has(w))) { const d = df.get(k.toLowerCase()); fit += d <= 2 ? 3 : d <= 4 ? 2 : 1; hits.push(k); } }
     if (t.genre === genre) fit += 2; else fit -= 1;
     const blocked = recentNames.has(t.name.toLowerCase()) || (lastAxes && lastAxes === triple(t));
     const sibling = occupiedAxes.has(triple(t));

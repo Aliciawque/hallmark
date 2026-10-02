@@ -26,7 +26,7 @@ The form (label, input, submit) is the *primary* element of the footer; wordmark
 .foot-news__form label { display: block; font-size: var(--text-sm); margin-block-end: var(--space-2xs); }
 .foot-news__row { display: flex; gap: var(--space-xs); }
 .foot-news__row input, .foot-news__row button { min-height: 44px; }
-.foot-news__row input { flex: 1; min-width: 0; padding-inline: var(--space-sm); border: var(--rule-hair) solid var(--color-rule); border-radius: var(--radius-input, var(--radius-card)); background: var(--color-paper); font-size: var(--text-md); }
+.foot-news__row input { flex: 1; min-width: 0; padding-inline: var(--space-sm); border: var(--rule-hair) solid var(--color-muted); border-radius: var(--radius-input, var(--radius-card)); background: var(--color-paper); font-size: var(--text-md); }
 .foot-news__row input:focus-visible { outline: 2px solid var(--color-focus); outline-offset: -2px; }
 .foot-news__help { min-height: 1lh; margin: var(--space-2xs) 0 0; font-size: var(--text-sm); color: var(--color-muted); }
 .foot-news__meta { display: flex; gap: var(--space-lg); list-style: none; padding: 0; margin: 0; font-size: var(--text-sm); color: var(--color-muted); }

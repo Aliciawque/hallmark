@@ -1,6 +1,6 @@
 # Genre: editorial (the default)
 
-Content-led briefs: portfolios, manifestos, type specimens, agency sites, magazine pieces, podcasts, brand stories, considered consumer marketing. The silent default when no other genre signal fires. The theme deal filters the catalog by this genre; nothing here lists themes.
+Content-led briefs: portfolios, manifestos, type specimens, agency sites, magazine pieces, podcasts, brand stories, considered consumer marketing. The silent default when no other genre signal fires. The deal leans toward this genre's themes; nothing here lists them.
 
 ## Voice
 

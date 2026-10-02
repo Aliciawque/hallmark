@@ -46,13 +46,13 @@ Every text input, textarea, select and combobox.
 **The border never changes width.** State moves to `background-color`, `border-color`, `outline` or `box-shadow`, never `border-width`; a transparent outline is reserved at rest so the ring appears without a shift.
 
 ```css
-.input { border: 1px solid var(--color-rule); outline: 2px solid transparent; outline-offset: -3px; }
+.input { border: 1px solid var(--color-muted); outline: 2px solid transparent; outline-offset: -3px; }
 .input:focus-visible { outline-color: var(--color-focus); }
 ```
 
 | State | Treatment |
 | --- | --- |
-| Default | 1px rule border, paper background, placeholder in `--color-muted` |
+| Default | 1px `--color-muted` border (a field's edge needs 3:1, which a rule never has), paper background, placeholder in `--color-muted` |
 | Hover | `--color-paper-2` background, border unchanged |
 | Focus | The ring; the border may deepen to `--color-ink-2` at the same width |
 | Filled | As default; the value carries the state |
