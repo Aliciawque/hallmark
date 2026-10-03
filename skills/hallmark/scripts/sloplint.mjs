@@ -898,7 +898,8 @@ function report(gate, grade, file, line, evidence, fix) {
   const b = baseGate(g);
   const waived = WAIVED.has(b) || WAIVED.has(gateNumber(b));
   if (VERBATIM && COPY_GATES.has(gateNumber(b)) && (grade === 'FAIL' || grade === 'WARN')) grade = 'NOTE';
-  if (LAYOUT_KEPT && (STRUCTURAL.has(b) || STRUCTURAL.has(gateNumber(b)) || (LAYOUT_KEPT === 'polish' && SPACING.has(b))) && grade !== 'NOTE') grade = 'NOTE';
+  const owned = LAYOUT_KEPT === 'full' ? gateNumber(b) === '58' : STRUCTURAL.has(b) || STRUCTURAL.has(gateNumber(b)) || (LAYOUT_KEPT === 'polish' && SPACING.has(b));
+  if (LAYOUT_KEPT && owned && grade !== 'NOTE') grade = 'NOTE';
   if (grade === 'FAIL') {
     if (tier === 'ledger') grade = 'NOTE';
     else if (tier === 'reflex') grade = waived ? 'WAIVED' : 'REFLEX';
@@ -913,7 +914,7 @@ function applyWaivers(ctx, dir) {
   WAIVED = new Set(); ANSWERED = new Set(); DISMISSED = new Set();
   VERBATIM = /\bcopy:\s*verbatim\b/i.test(ctx.stampText);
   APPSCREEN = /\bshape:\s*app screen\b/i.test(ctx.stampText);
-  LAYOUT_KEPT = (/\bredesign:\s*(polish|restyle)\b/i.exec(ctx.stampText) || [])[1]?.toLowerCase() || false;
+  LAYOUT_KEPT = (/\bredesign:\s*(polish|restyle|full)\b/i.exec(ctx.stampText) || [])[1]?.toLowerCase() || false;
   const re = /\/\*\s*Hallmark\s*·\s*waive\s+(\d{1,2}[a-z]{0,3}|F\d+)\s*·\s*([^·*]+?)\s*·\s*([^*]+?)\s*\*\//gi;
   const claims = [...ctx.stampText.matchAll(re)].map((m) => ({
     id: m[1], evidence: m[2].trim(), reason: m[3].trim(), raw: m[0],
@@ -3976,7 +3977,9 @@ function shareProjects(contexts) {
       shared.prm = shared.prm || /prefers-reduced-motion/i.test(stripComments(c.allCss)) || tv.has('motion-reduce') || tv.has('motion-safe');
     }
     for (const c of list) c.shared = shared;
+    const stamped = list.find((c) => !parts.includes(c) && /Hallmark\s*·/.test(c.stampText));
     for (const c of parts) {
+      if (stamped && !/Hallmark\s*·/.test(c.stampText)) c.stampText = `${c.stampText}\n${stamped.stampText}`;
       c.twTok = { ...tokens, ...c.tokens };
       c._tw = null;
     }
@@ -4184,6 +4187,7 @@ if (opts.kept) {
     const outside = Object.keys(was.files || {}).filter((f) => !(f in now.files) && existsSync(resolve(f)));
     if (was.files) was.wiring = unionWiring(Object.entries(was.files).filter(([f]) => !outside.includes(f)).map(([, w]) => w));
     const stamps = contexts.map(([, c]) => c.stampText).join('\n');
+    for (const m of stamps.matchAll(/\/\*\s*Hallmark\s*·\s*(dropped|reworded)\s+([^·*]+?)\s*·\s*([^*]+?)\s*\*\//gi)) if (m[2].trim() && m[3].trim().length < 12) report('kept', 'WARN', SNAP, 1, `${m[1]} ${trunc(m[2].trim(), 40)} is not on the record: its reason is under 12 characters`, 'Say why in a clause');
     const allowed = [...stamps.matchAll(/\/\*\s*Hallmark\s*·\s*(dropped|reworded)\s+([^·*]+?)\s*·\s*([^*]+?)\s*\*\//gi)].filter((m) => m[3].trim().length >= 12).flatMap((m) => (m[1].toLowerCase() === 'reworded' ? [...m[2].matchAll(/"([^"]+)"/g)].map((q) => q[1]) : m[2].split(',')).map((t) => t.trim().replace(/^[`"']|[`"']$/g, '').toLowerCase()).filter(Boolean));
     const acked = {};
     const gone = (a, b, cat) => (a || []).filter((x) => {

@@ -307,7 +307,10 @@ function scaffold() {
     : `:root {\n${scheme}${scale}\n${tokens}\n}\n`;
   writeFileSync(out, css);
   const own = !custom && /## Build hint[\s\S]*?(::selection\s*\{[^}]*\})/.exec(readFileSync(join(THEMES, `${slug}.md`), 'utf8'));
-  writeFileSync(baseOut, (own ? BASE.replace(/::selection \{[^}]*\}/, own[1].replace(/\s+/g, ' ')) : BASE) + '\n');
+  const base = own ? BASE.replace(/::selection \{[^}]*\}/, own[1].replace(/\s+/g, ' ')) : BASE;
+  const steps = base.split('\n').filter((l) => /^@media[^{]*\{\s*:root/.test(l));
+  writeFileSync(baseOut, (tw ? base.split('\n').filter((l) => !steps.includes(l)).join('\n') : base) + '\n');
+  if (tw) writeFileSync(out, readFileSync(out, 'utf8') + steps.join('\n') + '\n');
   const src = custom ? '' : readFileSync(join(THEMES, `${slug}.md`), 'utf8');
   const dial = /stated in the stamp \(`([a-z0-9-]+):/.exec(src);
   const theme = brand ? 'brand' : custom ? 'custom' : `${name} (${flag('dealt', '') ? `deal ${flag('dealt', '')}` : 'by request'})`;

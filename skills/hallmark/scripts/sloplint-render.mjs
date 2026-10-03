@@ -137,7 +137,10 @@ export async function renderCheck(htmlFiles, metaIn) {
         if (isUrl(file)) {
           const stamp = await page.evaluate(async () => { let t = [...document.querySelectorAll('style')].map((x) => x.textContent.slice(0, 4000)).join('\n'); for (const l of document.querySelectorAll('link[rel~="stylesheet"]')) { try { t += '\n' + (await (await fetch(l.href)).text()).slice(0, 4000); } catch {} } return t; }).catch(() => '');
           meta.postureByFile[file] = (/posture:\s*(restrained|committed|full-palette|drenched)/i.exec(stamp)?.[1] || 'restrained').toLowerCase();
-          meta.heroPostureByFile[file] = (/hero:\s*(settled|banner|poster|ledge|corridor|stage)\b/i.exec(stamp)?.[1] || '').toLowerCase();
+          const field = (/hero:\s*([^·*\n]+)/i.exec(stamp) || [])[1] || '';
+          let route = ''; try { route = new URL(file).pathname.replace(/\/$/, '') || '/'; } catch {}
+          const own = new RegExp(`(settled|banner|poster|ledge|corridor|stage)\\s*\\(${route.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\)`, 'i').exec(field);
+          meta.heroPostureByFile[file] = ((own || /(settled|banner|poster|ledge|corridor|stage)\b/i.exec(field) || [])[1] || '').toLowerCase();
         }
         const pageMeta = { genre: meta.genre, posture: meta.postureByFile[file] || 'restrained' };
         const prefix = heroOnly ? 'hero-' : '';
