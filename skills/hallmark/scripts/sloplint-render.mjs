@@ -129,6 +129,9 @@ export async function renderCheck(htmlFiles, metaIn) {
         await page.evaluate(async () => {
           document.documentElement.classList.add('shot');
           for (const el of [document.documentElement, document.body]) if (el) el.style.setProperty('scroll-behavior', 'auto', 'important');
+          const quiet = document.createElement('style');
+          quiet.textContent = 'nextjs-portal, astro-dev-toolbar { display: none !important; }';
+          document.head.appendChild(quiet);
           if (document.fonts) await document.fonts.ready;
         }).catch(() => {});
         if (isUrl(file)) {
