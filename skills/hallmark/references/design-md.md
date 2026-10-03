@@ -6,7 +6,7 @@ Loaded when the user asks to lock the current build's system into a portable fil
 
 *lock the system*, *lock the design system*, *give me a design.md*, *export this as a design.md*, *extract the tokens*, *make this portable*, *I want to use this in another project*. Anything else, including more iteration on the same brief, skips this file.
 
-- **Page builds only.** A single component is too small to be a system.
+- **Page builds and redesigns of more than one page.** A single component is too small to be a system.
 - **Never overwrite.** If `design.md` or `DESIGN.md` exists at the root, refresh its `## Exports` and say so in one line: *design.md found; Exports refreshed, system unchanged.*
 
 ## Format

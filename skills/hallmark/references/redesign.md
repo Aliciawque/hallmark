@@ -17,7 +17,7 @@ How far the run goes. The user's words pick it, on an app as on a page; where th
 | Depth | Stays | Changes | Picked by |
 | --- | --- | --- | --- |
 | **polish** | the system and the layout | only what a gate names: the tells, contrast, states, motion, tokens | *polish*, *clean up*, *fix the design*; *keep our look*; a `design.md` |
-| **restyle** | the layout | the system: colour, type, radius, shadow, motion, the controls | *restyle*, *reskin*, *a new look*; the bare verb on an app screen, or on a page with a brand |
+| **restyle** | the layout | the system: colour, type, radius, shadow, motion, the controls | *restyle*, *reskin*, *a new look*; the bare verb (*redesign* with no reason or depth beside it) on an app screen, or on a page with a brand |
 | **full** | the content and the wiring | the system and the composition: shape, hero, section objects, chrome | *redesign it fully*, *looks generic*, *looks generated*; the bare verb on a marketing page with no brand |
 
 **Full depth on an app screen** recomposes each screen inside the shell it has: what leads, and how the figures, tables and forms are arranged (`flow.md` § App screens). Routes, destinations and each component's logic stay; there is no hero stage and no hero review.
@@ -72,7 +72,7 @@ Then the build rows the depth reaches: Theme at restyle and full (dealt, `brand`
 2. The project's own checks, where it has them: the type check, the build, the tests. A redesign that breaks one is not finished.
 3. The finish review also takes the `before` screenshots and answers what the old page did better (`review-finish.md`). A polish hands it only the full pages at 1440, before and after, and takes at most five findings. A finding that is a plain defect (a misalignment, a broken glyph, a label that lies) is fixed at any depth; one that asks for a new composition joins the layout findings; one that asks for content the page never had goes to the owner in the handoff.
 4. The log entry carries `mode: redesign`, `depth` and `scope` (page, site or app), plus the build's fields at full depth.
-5. The handoff, ahead of the material ask:
+5. The handoff, ahead of the material ask; the Layout and Next rows exist only where the layout stayed:
 
 ```
 Redesign · restyle · 3 pages

@@ -856,7 +856,7 @@ const GUARDS = {
   '38ii': (ctx) => /font-synthesis\s*:\s*none/i.test(ctx.allCss) || 'font-synthesis: none is not declared',
   '38iii': (ctx) => accentedWordInHero(ctx),
   '42': (ctx) => (/(^|[·*])\s*nav:\s*\S/im.test(ctx.stampText) && /(^|[·*])\s*footer:\s*\S/im.test(ctx.stampText)) || 'the stamp has no nav: and footer: fields naming the chrome',
-  '64': (ctx) => monoIsMaterial(ctx) || 'neither --font-display nor --font-body is a monospace face',
+  '64': (ctx) => monoIsMaterial(ctx) || 'none of --font-display, --font-body or --font-outlier is a monospace face',
   '65': (ctx) => /by request|pinned|user named/i.test(ctx.stampText) || 'the stamp does not say the theme was asked for by name',
   '44': (ctx) => /(^|[·*])\s*hero:\s*\S/im.test(ctx.stampText) || 'the stamp names no hero: posture',
 };
@@ -1767,7 +1767,7 @@ function check34(ctx) {
     if (it.info.oxHidden) hiddenUtil.push(it);
   }
   for (const it of hiddenUtil) report(34, 'FAIL', it.doc.file, it.line, `${it.info.oxHidden} on <${it.name}> (breaks sticky)`, 'overflow-x-clip on both html and body, never hidden');
-  const shell = (d) => d.kind === 'html' && !d.styles.length && /<script\b[^>]*type\s*=\s*["']module["'][^>]*\bsrc\s*=\s*["'][^"']+\.(?:tsx?|jsx?|mjs|vue|svelte)["']/i.test(d.raw || d.src) && !/<link\b[^>]*rel\s*=\s*["']stylesheet/i.test(d.raw || d.src);
+  const shell = (d) => d.kind === 'html' && !d.styles.length && /<script\b[^>]*type\s*=\s*["']module["'][^>]*\bsrc\s*=\s*["'][^"']+\.(?:tsx?|jsx?|mjs|vue|svelte)["']/i.test(d.raw || d.src) && ![...(d.raw || d.src).matchAll(/<link\b[^>]*>/gi)].some((m) => /rel\s*=\s*["']stylesheet/i.test(m[0]) && !/href\s*=\s*["']https?:/i.test(m[0]));
   const pageish = ctx.docs.some((d) => (d.kind === 'html' && !shell(d)) || (d.kind !== 'html' && d.tags.some((t) => !t.close && (t.name === 'html' || t.name === 'body'))));
   const file = ctx.cssFiles[0]?.file || ctx.docs[0]?.file;
   const both = clipped.has('html') && clipped.has('body');
@@ -2381,7 +2381,7 @@ function checkCopyTell(ctx) {
 
 function monoIsMaterial(ctx) {
   const mono = (v) => v && /mono|code|courier|silkscreen|jetbrains|plex mono|geist mono|commit|fira code|space mono|dm mono|roboto mono|source code|ibm plex mono|press start|vt323|share tech/i.test(firstFamily(resolveVars(v, ctx.tokens)));
-  return mono(ctx.tokens['--font-display']) || mono(ctx.tokens['--font-body']);
+  return mono(ctx.tokens['--font-display']) || mono(ctx.tokens['--font-body']) || mono(ctx.tokens['--font-outlier']);
 }
 
 const HIDE_OK = /tooltip|popover|menu|dropdown|modal|dialog|toast|overlay|backdrop|sheet|drawer|panel|:hover|:focus|:checked|:target|\[open|\[aria-(?:expanded|selected|current|pressed)|::before|::after|\.is-|\[hidden|\[aria-hidden|sr-only|visually-hidden|skip|placeholder|::marker|\[data-slot/i;
