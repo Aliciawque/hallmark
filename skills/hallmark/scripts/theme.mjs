@@ -80,7 +80,7 @@ function addLog() {
   if (!['build', 'redesign'].includes(entry.mode)) { console.error('mode is build or redesign'); process.exit(2); }
   if (entry.mode === 'redesign' && !['polish', 'restyle', 'full'].includes(entry.depth)) { console.error('a redesign entry names its depth: polish, restyle or full'); process.exit(2); }
   const composed = entry.scope !== 'app' && (entry.mode === 'build' || entry.depth === 'full');
-  const missing = [...(composed ? ['shape', 'axes', 'hero', 'nav', 'footer', 'enrichment', 'entry', 'fingerprint', 'signature'] : []), 'theme', 'brief'].filter((k) => !entry[k]);
+  const missing = [...(composed ? ['shape', 'axes', 'hero', 'nav', 'footer', 'enrichment', 'entry', 'fingerprint', 'signature'] : []), ...(entry.depth === 'polish' ? [] : ['theme']), 'brief'].filter((k) => !entry[k]);
   if (existsSync(file)) { try { JSON.parse(readFileSync(file, 'utf8')); } catch { console.error(`${file} is not valid JSON; fix it or move it aside, nothing was written`); process.exit(1); } }
   const next = [entry, ...readLog(file)].slice(0, 20);
   mkdirSync(dirname(file), { recursive: true });

@@ -1,6 +1,12 @@
-/* Hallmark · macrostructure: poster-index (hero-composition / ticker / numbered-index / plate / figure-cells / spec-table) · theme: Grid · genre: editorial · tone: rational-institutional · ink: signal red oklch(55% 0.21 28) · fingerprint: exposed-12col-rails, lowercase-800-display, one-plate, numbered-index, ruled-figure-cells, spec-table · hero: Settled · nav: custom label-voice bar · footer: custom spare folio · contrast: pass (40-41) · slop: pass (42-45) · honest: pass (46) · chrome: pass (47) · tokens: pass (48) · responsive: pass (49) · icons: pass (30) · mobile: pass (34, 49, 50-57) */
-/* Hallmark · pre-emit critique: P4 H5 E4 S5 R4 V4 · weakest: R - cut the hero body paragraph; two labels and the constructed composition carry the fold alone */
-/* Hallmark · direction contract: a wayfinding manual a poster artist got hold of; every band carries one constructed object on a visible 12-column grid; the single red plate is the only loud move */
+/* Hallmark · checked: 2026-10-03 · genre: editorial (from the build stamp, confirmed from the page)
+ * floor: 0 FAIL · fixed: 8 (24a, 63, 67, 11, 69, F16, F19, the footer colophon at 375) · structural: 4 printed (44c x2, 58 x2)
+ * finish-review: subagent · 4 findings · 1 resolved 3 to the owner · gap: none
+ * built: the project (an older Hallmark build, theme Grid) · redesign: polish · v2.5.0 */
+/* Hallmark · build record kept from the old stamp: theme: Grid · hero: Settled · nav: lowercase bar, wordmark and three links · footer: spare folio on the rails · fingerprint: exposed-12col-rails, lowercase-800-display, one-plate, numbered-index, ruled-figure-cells, spec-table */
+/* Hallmark · waive 23 · posture: restrained; the 1280 fold paints one quarter disc, one square and a 3px rule in red, about 5% · the marks are the theme's signal ink, spent on geometry once */
+/* Hallmark · dismissed 3 · the 3px border-right on .figure__art--arrows i is one side of a rotated chevron glyph, not a stripe down a card */
+/* Hallmark · dropped the plate date line · 69 names a section last line restating its claim; the hero carries the same dates, so no fact is lost */
+/* Hallmark · reworded "basel, 5 to 26 june 2027" (hero), "hall five, 5 to 26 june" and the five index metas, "fig. 1: the hanging module" and the two other captions, "admission, summer 2027", "signal, basel" · 63 names the middle dot joining every meta string; every word stays, only the dot went */
 
 :root {
   --color-paper: oklch(99% 0.003 255);
@@ -17,7 +23,6 @@
   --font-body: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --display-weight: 800;
   --tracking-display: -0.045em;
-  --tracking-label: 0.09em;
 
   --space-1: 4px;
   --space-2: 8px;
@@ -37,7 +42,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html, body { overflow-x: clip; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scrollbar-color: var(--color-muted) var(--color-paper-2); }
 
 body {
   background: var(--color-paper);
@@ -89,10 +94,9 @@ main, header, footer, section, .ticker { position: relative; z-index: 1; }
 /* ---------- voices ---------- */
 
 .label {
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-label);
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: lowercase;
   color: var(--color-muted);
 }
 
@@ -188,10 +192,9 @@ p { max-width: 58ch; }
   gap: var(--space-5);
 }
 .topbar__nav a {
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-label);
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: lowercase;
   color: var(--color-muted);
   text-decoration: none;
   line-height: 1;
@@ -203,7 +206,7 @@ p { max-width: 58ch; }
 
 /* ---------- 1 · hero ---------- */
 
-.hero { padding-block: var(--space-8) clamp(96px, 13vw, 160px); }
+.hero { padding-block: var(--space-8) var(--space-band); }
 .hero__grid { align-items: end; row-gap: var(--space-6); }
 
 .hero__type { grid-column: 1 / 8; }
@@ -281,10 +284,9 @@ p { max-width: 58ch; }
   animation: ticker-run 46s linear infinite;
 }
 .ticker__run {
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-label);
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: lowercase;
   color: var(--color-muted);
   white-space: nowrap;
   padding-block: var(--space-1);
@@ -357,9 +359,8 @@ p { max-width: 58ch; }
 }
 .index__link::before {
   content: "0" counter(strand);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: var(--tracking-label);
+  font-size: 14px;
+  font-weight: 400;
   color: var(--color-muted);
   font-variant-numeric: tabular-nums;
 }
@@ -370,7 +371,6 @@ p { max-width: 58ch; }
   letter-spacing: -0.025em;
   line-height: 1.05;
   text-transform: lowercase;
-  transition: transform var(--dur) ease;
   min-width: 0;
   overflow-wrap: break-word;
 }
@@ -381,7 +381,6 @@ p { max-width: 58ch; }
   height: 16px;
   background: var(--color-accent);
   border-top-right-radius: 100%;
-  transition: transform var(--dur) ease;
 }
 .index__mark--arrow {
   width: 12px;
@@ -389,12 +388,8 @@ p { max-width: 58ch; }
   border-top: 2px solid var(--color-ink);
   border-right: 2px solid var(--color-ink);
   transform: rotate(45deg);
-  transition: transform var(--dur) ease;
 }
 .index__link:hover { background: var(--color-paper-2); }
-.index__link:hover .index__title { transform: translateX(8px); }
-.index__link:hover .index__mark--qdisc { transform: rotate(90deg); }
-.index__link:hover .index__mark--arrow { transform: rotate(45deg) translate(6px, -6px); }
 .index__link:active { background: var(--color-paper-3); }
 .index__link:focus-visible { outline-offset: -2px; }
 
@@ -458,10 +453,6 @@ p { max-width: 58ch; }
   overflow-wrap: break-word;
   min-width: 0;
 }
-.plate__meta {
-  grid-column: 1 / 7;
-  color: var(--color-accent-ink);
-}
 
 /* ---------- 5 · exhibitions ---------- */
 
@@ -507,12 +498,10 @@ p { max-width: 58ch; }
   border-top: 3px solid var(--color-ink);
   border-right: 3px solid var(--color-ink);
   transform: rotate(45deg);
-  transition: transform var(--dur) ease;
 }
 .figure__art--arrows i:nth-child(3) {
   border-color: var(--color-accent);
 }
-.figure:hover .figure__art--arrows i { transform: rotate(45deg) translate(6px, -6px); }
 
 .figure__art--steps {
   display: grid;
@@ -522,14 +511,12 @@ p { max-width: 58ch; }
 }
 .figure__art--steps i {
   background: var(--color-ink);
-  transition: transform var(--dur) ease;
 }
 .figure__art--steps i:nth-child(1) { height: 100%; background: var(--color-accent); }
 .figure__art--steps i:nth-child(2) { height: 75%; }
 .figure__art--steps i:nth-child(3) { height: 66%; }
 .figure__art--steps i:nth-child(4) { height: 50%; }
 .figure__art--steps i:nth-child(5) { height: 41%; }
-.figure:hover .figure__art--steps i:nth-child(1) { transform: translateY(-8px); }
 
 /* ---------- 6 · tickets ---------- */
 
@@ -543,7 +530,7 @@ p { max-width: 58ch; }
 .tickets__text p { margin-top: var(--space-4); }
 .tickets__text p:first-of-type { margin-top: var(--space-6); }
 .tickets__link {
-  font-weight: 600;
+  font-weight: 700;
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
@@ -555,9 +542,7 @@ p { max-width: 58ch; }
   grid-column: 1 / 8;
   grid-row: 1;
   border: 1px solid var(--color-ink);
-  transition: border-color var(--dur) ease;
 }
-.spec:hover { border-color: var(--color-accent); }
 .spec__table {
   width: 100%;
   border-collapse: collapse;
@@ -602,7 +587,7 @@ p { max-width: 58ch; }
 .footer__grid > .label:nth-of-type(1) { grid-column: 2 / 4; }
 .footer__grid > .label:nth-of-type(2) { grid-column: 4 / 7; }
 .footer__grid > .label:nth-of-type(3) { grid-column: 7 / 10; }
-.footer__colophon { justify-self: end; grid-column: 10 / 13; text-align: right; }
+.footer__grid > .footer__colophon { justify-self: end; grid-column: 10 / 13; text-align: right; }
 .footer a {
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -644,8 +629,8 @@ p { max-width: 58ch; }
 
   .footer__grid > .label:nth-of-type(1),
   .footer__grid > .label:nth-of-type(2),
-  .footer__grid > .label:nth-of-type(3) { grid-column: 2 / 13; }
-  .footer__colophon { grid-column: 2 / 13; justify-self: start; text-align: left; }
+  .footer__grid > .label:nth-of-type(3) { grid-column: 3 / 13; }
+  .footer__grid > .footer__colophon { grid-column: 3 / 13; justify-self: start; text-align: left; }
   .footer__register { grid-row: 1 / 5; }
 }
 

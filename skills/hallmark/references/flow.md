@@ -70,7 +70,7 @@ Two runs fix a page in place instead of building one: a polish (`redesign.md`) a
 - **Fix in place, and only the material half:** tokens, colour, type, motion, states, contrast, single elements (fold an eyebrow into its heading, add a focus ring, flatten a gradient, tint a grey). **Never restructure:** no moving sections, no re-picking a system, no swapping a nav.
 - **Structural findings print, they do not get rebuilt:** 6b and 44 (the hero and the fold), 8 (page shape), 9 (section rhythm), 32 (archetype repeat), 42 (chrome), 58 (the screen budget). A short list with file:line and a one-line fix each; the user decides whether any of it earns a deeper redesign.
 - **The log:** a polish logs its redesign entry; a signal 8 sweep logs nothing, since Hallmark built nothing and nothing rotates.
-- **The check stamp** replaces the build stamp as the first line of CSS, so gate 20 reads it. Its last line says who built the page: `built: the project · redesign: polish`, or `built: external (reference archive)`.
+- **The check stamp** replaces the build stamp as the first line of CSS, so gate 20 reads it, and it has no critique line (nothing was planned). Its last line says who built the page: `built: the project · redesign: polish`, or `built: external (reference archive)`. A page an earlier Hallmark built keeps its old stamp's fields on a second line, `built: Hallmark v1.2 · theme: Grid · hero: Settled · nav: … · footer: … · redesign: polish`, so the chrome and hero guards still read them, and the polish loads that theme's file for its faces.
 
 ```css
 /* Hallmark · checked: 2026-09-22 · genre: modern-minimal (inferred)

@@ -621,7 +621,11 @@ function observe(checkFold, meta) {
         const x1 = Math.min(COLS - 1, Math.floor((Math.min(r.right, innerWidth) - 1) / CW));
         const y0 = Math.max(0, Math.floor(r.top / CW));
         const y1 = Math.min(ROWS - 1, Math.floor((Math.min(r.bottom, 800) - 1) / CW));
-        for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) grid[y * COLS + x] = 1;
+        const turned = cs.transform !== 'none' && !/^matrix\(1, 0, 0, 1, /.test(cs.transform);
+        for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) {
+          if (turned) { const hit = document.elementFromPoint(x * CW + CW / 2, y * CW + CW / 2); if (!hit || !(hit === el || el.contains(hit))) continue; }
+          grid[y * COLS + x] = 1;
+        }
       }
       let filled = 0;
       for (const c of grid) filled += c;
