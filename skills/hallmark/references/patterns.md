@@ -22,9 +22,9 @@ One filled primary per page; the quiet one goes somewhere else. Error and succes
 
 ```html
 <figure class="photo" data-slot="hero" data-alt="The orchard in October, rows of trees heavy with fruit">
-  <img src="https://images.unsplash.com/photo-...?q=80&auto=format&fit=crop&sat=-35&con=-3&ar=4:5&w=1600"
-       srcset="...&w=800 800w, ...&w=1600 1600w, ...&w=2400 2400w" sizes="(min-width: 60rem) 45vw, 100vw"
-       width="1600" height="2000" alt="Rows of apple trees in October light" fetchpriority="high">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/.../1280px-....jpg"
+       srcset=".../960px-....jpg 960w, .../1280px-....jpg 1280w, .../1920px-....jpg 1920w" sizes="(min-width: 60rem) 45vw, 100vw"
+       width="4000" height="5000" alt="Rows of apple trees in October light" style="object-position: 50% 40%" fetchpriority="high">
 </figure>
 <p class="caption">Picking runs from September to the first frost.</p>
 ```
@@ -35,7 +35,7 @@ One filled primary per page; the quiet one goes somewhere else. Error and succes
 .caption { margin-top: var(--space-sm); font-size: var(--text-sm); color: var(--color-ink-2); }
 ```
 
-The URL comes from `theme.mjs photos` with the theme's treatment already on it; add the crop (`&ar=`) and the widths. The scaffold supplies the slot's base rules (the cover fit, the loading wash, the swap); the caption is a fact from the brief, outside the frame. A product sample sits in the same kind of slot with no `<img>`: the interface built in HTML at full size (`imagery.md` § 4).
+The `<img>` comes from `theme.mjs photos`; set `sizes` to the layout and crop with the frame's `aspect-ratio`. The scaffold supplies the slot's base rules (the cover fit, the loading wash, the swap) and the theme's treatment; the photo's credit goes in the footer's *Photographs* line; the caption is a fact from the brief, outside the frame. A product sample sits in the same kind of slot with no `<img>`: the interface built in HTML at full size (`imagery.md` § 4).
 
 ## A choice between a few
 

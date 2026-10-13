@@ -41,7 +41,7 @@ The `[data-mode]` attribute wins over the media query by construction (the media
 - **Shadows off.** Elevation is lightness (the +3% ladder) or an inset hairline ring (`box-shadow: inset 0 0 0 1px var(--color-rule)`). A drop shadow on dark reads as glow; glow is legal only under the atmospheric genre carve-out (`genres/atmospheric.md` § Allowed here: two fixed blooms), which is a theme behaviour, not a mode behaviour.
 - **Cards lighter than canvas.** `paper-2` on `paper`, always; a card darker than its ground reads as a hole.
 - **One heading colour.** Headings all run `--color-ink`; per-heading colour variety that worked on light fragments on dark.
-- **Images.** Never CSS `invert`/`brightness` on raster images. Ship `-dark` asset variants (the imagery kit or tier-e generation), or wrap the image in a `paper-2` well so the light image reads as intentional plate. Kit brush/blob multiply assets skip dark mode entirely (multiply dies on dark grounds; texture.md notes the overlay swap for grain).
+- **Images.** Never CSS `invert`/`brightness` on raster images. Pick photographs that hold up on a dark ground (the library's `dark` and `mid` tones), or set a light one in a `paper-2` well so it reads as a plate. A theme's multiply plates (a duotone treatment, texture) need their dark-mode pair; texture.md notes the overlay swap for grain.
 - **Charts.** Marks re-derive like accents (chroma down, L up); gridlines from the dark `--color-rule`; see data-viz.md § Dark.
 
 ## Verification

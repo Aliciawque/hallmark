@@ -28,7 +28,11 @@ const RUNS = path.join(ROOT, "runs");
 const SLOPLINT = path.resolve(ROOT, "..", "skills", "hallmark", "scripts", "sloplint.mjs");
 const BRIEFS_PATH = path.join(ROOT, "briefs.json");
 
-const FLOOR_GATES = new Set(["1", "10", "14", "20", "26", "27", "34", "38a", "48", "54"]);
+// The Floor is whatever gates.md marks Floor today, so the set never drifts from the skill.
+const FLOOR_GATES = new Set(
+  [...readFileSync(path.resolve(ROOT, "..", "skills", "hallmark", "references", "gates.md"), "utf8")
+    .matchAll(/^\| ([0-9A-Za-z]+) \| Floor \|/gm)].map((m) => m[1]),
+);
 
 function parseArgs(argv) {
   const args = { brief: null, arm: null, force: false, dryRun: false };

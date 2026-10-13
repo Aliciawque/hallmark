@@ -61,5 +61,14 @@
       "scope": "page",
       "notes": "Route coverage for the catalog default. --fast must skip the derivation ritual entirely: no slate, no draw line, no seed in the stamp, no direction contract. The stamp must name one of the 23 catalog themes rather than 'custom'. Its twin is b1, which names no theme and, taking no custom route either, must also land on a catalog theme."
     }
+  },
+  {
+    "id": "b8",
+    "name": "photo-led craft",
+    "brief": "Build a landing page for a small cider maker in Herefordshire that sells bottles online and runs orchard tours in autumn.",
+    "expect": {
+      "scope": "page",
+      "notes": "Photo-led trade brief for v2.7: the library and treatments should carry the page."
+    }
   }
 ]

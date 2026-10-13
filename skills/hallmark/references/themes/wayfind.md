@@ -8,7 +8,7 @@ accent: cool 264
 posture: committed
 keywords: transit, metro, rail, station, wayfinding, departures, timetable, live, map, commute, city, platform, signage, logistics, status, operations, schedule, mobility, travel, trip, journey, itinerary, booking, flights, airport
 material: cool grey paper, blue-black ink, Chivo Mono throughout, square 2px ink borders, cobalt for what is live, amber for figures
-photo: natural sat=-12 con=10 sharp=8
+photo: natural sat=-12 con=10
 pictured: Split Studio, Stage hero
 ---
 

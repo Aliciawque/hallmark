@@ -38,6 +38,7 @@
   --shadow-lift: 0 1px 2px oklch(20% 0.01 35 / 0.05), 0 18px 40px -22px oklch(20% 0.01 35 / 0.22);
   --tracking-display: -0.025em; --display-weight: 600;
 }
+*, *::before, *::after { box-sizing: border-box; }
 html, body { overflow-x: clip; }
 html { scrollbar-color: var(--color-muted) var(--color-paper); scroll-padding-top: var(--space-3xl); }
 body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); font-size: var(--text-md); line-height: 1.55; -webkit-font-smoothing: antialiased; caret-color: var(--color-accent); }
@@ -62,6 +63,8 @@ button, input, select, textarea { font: inherit; }
 @media (max-width: 60rem) { :root { --gutter: 24px; --section-gap-s: 80px; --section-gap: 96px; --section-gap-l: 120px; } }
 @media (max-width: 40rem) { :root { --gutter: 16px; --section-gap-s: 56px; --section-gap: 72px; --section-gap-l: 96px; --gap-columns: 16px; } }
 @media (prefers-reduced-motion: reduce) { *:not(.keep-motion), *:not(.keep-motion)::before, *:not(.keep-motion)::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }
+/* photographs: muted sepia=8 */
+[data-slot] > img { filter: saturate(0.65) contrast(0.97) sepia(0.08); }
 :root { --nav-h: 72px; --app-line: color-mix(in oklab, var(--color-ink) 8%, transparent); }
 
 /* Chrome */
@@ -259,6 +262,10 @@ button, input, select, textarea { font: inherit; }
 .mast__links a:hover { text-decoration-color: var(--color-accent-2); }
 .mast__links a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: var(--space-2xs); border-radius: var(--space-3xs); }
 .mast__legal { font-size: var(--text-sm); color: var(--color-muted); }
+.mast__credit { margin-top: var(--space-md); font-size: var(--text-sm); line-height: 1.55; color: var(--color-muted); }
+.mast__credit a { color: inherit; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.2em; text-decoration-color: color-mix(in oklab, currentColor 40%, transparent); }
+.mast__credit a:hover { text-decoration-color: currentColor; }
+
 
 @container (max-width: 40rem) {
   .client__in { font-size: calc(100cqi / 48); padding: 1.2em; }
@@ -355,10 +362,8 @@ button, input, select, textarea { font: inherit; }
         <p class="lead">No. Tilly writes to the client while you get on with the work.</p>
       </div>
       <figure class="photo" data-slot="photo-1" data-alt="Your own work in progress: the desk, bench or studio you invoice from">
-        <img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=1600&amp;q=80&amp;auto=format&amp;fit=crop&amp;sat=-35&amp;con=-3&amp;sepia=8&amp;ar=4:3"
-             srcset="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=800&amp;q=80&amp;auto=format&amp;fit=crop&amp;sat=-35&amp;con=-3&amp;sepia=8&amp;ar=4:3 800w, https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=1600&amp;q=80&amp;auto=format&amp;fit=crop&amp;sat=-35&amp;con=-3&amp;sepia=8&amp;ar=4:3 1600w, https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=2400&amp;q=80&amp;auto=format&amp;fit=crop&amp;sat=-35&amp;con=-3&amp;sepia=8&amp;ar=4:3 2400w"
-             sizes="(min-width: 90rem) 752px, (min-width: 60rem) 52vw, 100vw" width="1600" height="1200" loading="lazy" decoding="async"
-             alt="A hand sketching screen layouts on paper with an orange pen">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Florist_working.jpg/1280px-Florist_working.jpg" width="1920" height="1280" loading="lazy" decoding="async"
+             style="object-position: 55% 45%" alt="Hands gathering green stems into a bouquet at a flower shop counter">
       </figure>
     </div>
   </section>
@@ -495,6 +500,7 @@ button, input, select, textarea { font: inherit; }
       </nav>
       <p class="mast__legal">© 2026 Tilly. Invoicing for freelancers.</p>
     </div>
+    <p class="mast__credit" data-credits>Photograph: <a href="https://commons.wikimedia.org/wiki/File:Florist_working.jpg">direct2Florist</a>, CC&nbsp;BY&nbsp;2.0, on Wikimedia Commons.</p>
   </div>
 </footer>
 

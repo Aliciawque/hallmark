@@ -65,7 +65,7 @@ Skipped fields are opt-outs: infer them, state the inferences in one line at the
 
 **Genre** is picked here, silently, from the brief: *AI tool, generative, music, video, voice, dark, atmospheric* → **atmospheric**; *SaaS, enterprise, API, platform, developer tool, infra, B2B* → **modern-minimal**; *playful, fun, friendly, soft, kids, games, community* → **playful**; otherwise **editorial**, which holds most consumer and family briefs. The picked theme's genre wins from Step 4 on (genre file, stamp, `--genre`); when two non-default genres fire, add one either-or to the Step 1 message, or on go ahead pick and say so.
 
-**Scope** is checked here too. A brief naming one element (button, input, card, modal, nav, footer, tab strip, chip) or saying "just the X" is a component: read [`references/flow.md`](references/flow.md) § Component scope and skip macrostructure, chrome, enrichment and the log. A screen someone works in (a dashboard, an admin, settings, a tool) is an app screen: § App screens.
+**Scope** is checked here too. A brief naming one element (button, input, card, modal, nav, footer, tab strip, chip) or saying "just the X" is a component: read [`references/flow.md`](references/flow.md) § Component scope and skip macrostructure, chrome, imagery and the log. A screen someone works in (a dashboard, an admin, settings, a tool) is an app screen: § App screens.
 
 ### 2. Shape
 
@@ -117,7 +117,7 @@ The run's only prose recital of its decisions, and the user's five-second redire
 - **Signature** · the invoice list chasing a late payment, built live in the hero
 - **Sections** · Hero · Showcase · Steps · Rows (pricing) · Band · Footer
 - **Material** · real: the 2-minute setup, the CSV import, Lisbon · pictures: the invoice list built in the hero, library photos of a Lisbon studio (muted) · absent: logos, quotes, metrics
-- **Slop test** · run after build
+- **Sweep** · run after build
 ```
 
 A custom run's rows are in `direction.md` R.7. Then one quiet line: *System portable? Say `lock the system` for a `design.md`.* Skip it in component scope or when `design.md` exists.
@@ -132,7 +132,7 @@ Emit code that satisfies the theme and the shape. Always:
 - **Read [`references/patterns.md`](references/patterns.md) once:** controls in all eight states, a slot, a missing fact, a form that posts nowhere yet, one reveal, figures that compare, written to pass the gates. Take their shape, never their copy.
 - **Hero first.** Write the nav and the hero, run `node <skill-dir>/scripts/sloplint.mjs <file> --render --stage hero`, then the hero review in fresh context (`gates.md` § 6). Build the sections only once the hero ships.
 - **One idea per screen, set big.** Hero: headline (seven words or fewer, 50 characters or fewer), one sentence (twelve words or fewer), one or two actions. A section: an `h2` of six words or fewer and at most one line, then a composition from `layout.md` § 5 that spans ten of twelve columns and has mass (a visual 360px tall, a set of three across, rows, a statement). Six to nine sections, hero and footer included (five on a thin brief); 450 visible words at most. Fullness comes from scale and visuals, never from more words.
-- **Show, do not describe** (`imagery.md`). The page shows the real thing: the user's pictures, the product built at full fidelity, or library photographs (`node <skill-dir>/scripts/theme.mjs photos "<subject>" --theme <slug>`), big, in the theme's treatment, in slots the user's own files replace. Never a drawn illustration (80), an empty wash (81), a row of counting marks (82) or invented figures.
+- **Show, do not describe** (`imagery.md`). The page shows the real thing: the user's pictures, the product built at full fidelity, or library photographs (`node <skill-dir>/scripts/theme.mjs photos "<subject>" --theme <slug>`), big, in the theme's treatment, in slots the user's own files replace, each library photo credited in the footer. Never a stock-site URL, a drawn illustration (80), an empty wash (81), a row of counting marks (82) or invented figures.
 - **The fold and the room** (`layout.md`). The hero is the first screen and only the first screen at 1440 x 900 and 1920 x 1080, its content centred, the visual beside the text and 60% of the screen tall; a Banner shares it with the first section. `h2` at `--text-section`, `h3` at `--text-title`, never smaller; sections part by the three `--section-gap` steps, mixed. A screen that holds only a head and a line is unfinished (77 to 79).
 - **Page invariants.** One primary button style, one container width, one column gap for every multi-column section below the hero, one radius per nesting level, and never more centred heading groups than left-aligned ones.
 - **Type.** The theme's faces, at most two families (three with one outlier role), set per `craft.md` § 1; body 16px or more; heads roman, one weight and one colour (38iii); labels never mono unless mono is the material (64).

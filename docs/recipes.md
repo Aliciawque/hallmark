@@ -1,6 +1,6 @@
 # Recipes
 
-Nine briefs you can paste into Claude Code, Codex CLI or OpenCode with Hallmark installed. Each is the prompt verbatim and what the skill is expected to infer; the picks are not fixed, because the theme deal rotates against the project's log and two runs of the same brief should not land on the same shape or theme. The rendered pages under [`site/_tests/`](../site/_tests/) were built from these prompts by an earlier version of the skill and predate the v2 gates.
+Nine briefs you can paste into Claude Code, Codex CLI or OpenCode with Hallmark installed. Each is the prompt verbatim and what the skill is expected to infer; the picks are not fixed, because the theme deal rotates against the project's log and two runs of the same brief should not land on the same shape or theme.
 
 The first recipe is the one to try in a fresh project to see the flow before reading anything else.
 
@@ -8,13 +8,13 @@ The first recipe is the one to try in a fresh project to see the flow before rea
 
 > Build me a landing page for Coffeebox, a small-batch coffee subscription. Roast on Sunday, ship on Monday, drink Tuesday. Audience: people who already buy good coffee and want fewer trips to the shop. Tone: warm, hand-set, editorial, like a small café's chalkboard.
 
-Explicit audience, use and tone; genre editorial. Expect a deal of three warm-paper editorial themes, one long-document or letter shape, no enrichment, and a hero that states the Sunday-to-Tuesday fact.
+Explicit audience, use and tone; genre editorial. Expect a deal of three warm-paper editorial themes, one long-document or letter shape, one photograph at most, and a hero that states the Sunday-to-Tuesday fact.
 
 ## 01. Tide, an indie podcast
 
 > Design a landing page for Tide, an indie podcast about long-form interviews with small-studio designers. Just go ahead, pick the rest yourself.
 
-The user opted out: the skill infers designers and design-curious listeners, listen and subscribe, quiet editorial, and says so in one line at the top. Expect typography only and a row of "listen where you listen" links.
+The user opted out: the skill infers designers and design-curious listeners, listen and subscribe, quiet editorial, and says so in one line at the top. Expect type to carry it, one photograph as a band at most, and a row of "listen where you listen" links.
 
 ## 02. Streampipe, an open-source CLI
 
@@ -26,7 +26,7 @@ A theme named by the user is built as asked (stamp `theme: Terminal (by request)
 
 > Build a landing page for Maple Street Bread, a small artisan bakery in Lisbon. Sourdough, slow, by hand. We open at seven, thirty loaves, gone by noon, no online orders. Audience: locals. Use: see what we bake, find us. Tone: warm, hand-set.
 
-Expect a catalogue of the breads with hand-built SVG silhouettes, hours and a map link, and no call to action beyond visiting, because the brief has none.
+Expect a catalogue of the breads in library photographs (each a stand-in for the bakery's own), hours and a map link, and no call to action beyond visiting, because the brief has none.
 
 ## 04. Meridian, a studio manifesto
 
@@ -76,4 +76,4 @@ It asks once what stays (the look, the layout, or only the content), or on *go a
 
 ## Reading a recipe
 
-Each prompt carries or withholds the three things Step 1 asks for (audience, use, tone). When all three are present the skill builds without a question; when one is missing it infers and states the inference. A theme named in the prompt is built by request; otherwise `scripts/theme.mjs deal` prints three candidates that clear the project's log and the skill picks one. Two consecutive runs of one recipe in the same project produce different shapes or themes by design.
+Each prompt carries or withholds the four things Step 1 asks for (material, audience, use, tone). When all four are present the skill builds without a question; when one is missing it infers and states the inference. A theme named in the prompt is built by request; otherwise `scripts/theme.mjs deal` prints three candidates that clear the project's log and the skill picks one. Two consecutive runs of one recipe in the same project produce different shapes or themes by design.

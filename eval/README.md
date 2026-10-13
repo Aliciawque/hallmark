@@ -3,7 +3,7 @@
 Repo-internal tooling for benchmarking the Hallmark skill across harnesses and prompt packs.
 **Not shipped with the skill**: the `package.json` `files` whitelist only includes `skills/`, so nothing in `eval/` reaches the published package.
 
-**Direction note (v1.2).** Hallmark now targets three harnesses (Claude Code, Codex CLI, OpenCode), not open-weight models. Tier B below is retained as an archive of the bare-API open-model experiments (the b1-b6 runs feed the gallery); it is no longer a development target. The conformance path forward is Tier A on Claude Code, then the same pass through `codex exec` and OpenCode's non-interactive runner.
+**Direction note.** Hallmark now targets three harnesses (Claude Code, Codex CLI, OpenCode), not open-weight models. Tier B below is retained as an archive of the bare-API open-model experiments (the b1-b6 runs feed the gallery); it is no longer a development target. The conformance path forward is Tier A on Claude Code, then the same pass through `codex exec` and OpenCode's non-interactive runner.
 
 ## Two-tier design
 
@@ -14,7 +14,7 @@ Repo-internal tooling for benchmarking the Hallmark skill across harnesses and p
 
 | File | Role |
 | --- | --- |
-| `briefs.json` | The 6 briefs, `b1`..`b6`, each with an `expect` block (`page`, `component`, or `study-decline`). b1-b3 are parity reruns of hallmark-lab gen-01..03; b4 tempts fabricated metrics; b5 tests component routing; b6 probes the no-vision capability check. |
+| `briefs.json` | The 8 briefs, `b1`..`b8`, each with an `expect` block (`page`, `component`, or `study-decline`). b1-b3 are parity reruns of hallmark-lab gen-01..03; b4 tempts fabricated metrics; b5 tests component routing; b6 probes the no-vision capability check; b7 is a craft brief; b8 a photo-led trade brief for the photo library. |
 | `models.json` | The model arms (Anthropic + OpenAI-compatible endpoints) and the key files to read variable names from. `enabled: false` arms are skipped by `--arm all` but run when named explicitly. |
 | `make-pack.mjs` | Compiles the skill into a system prompt. `--pack floor` is the Floor and Flow sections of `SKILL.md` behind a 3-line one-shot preamble; `--pack full` is all of `SKILL.md` plus `references/craft.md` and the gate table from `references/gates.md`, with file-path separators. |
 | `gen-direct.py` | Runs the (brief x arm x pack) matrix sequentially against the raw APIs. Stdlib only. |
@@ -23,7 +23,7 @@ Repo-internal tooling for benchmarking the Hallmark skill across harnesses and p
 | `_packs/` | Compiled pack cache written by `gen-direct.py` (regenerated every invocation). |
 | `screenshot.mjs` | Hero (1280x800 viewport), full (1280 full-page), mobile (375x812 full-page) PNGs into `_shots/`. Uses puppeteer-core with the installed Chrome when the package is available, otherwise spawns Chrome headless with `--screenshot` (no npm install needed). `CHROME_PATH` overrides the binary. |
 | `score.mjs` | Runs `skills/hallmark/scripts/sloplint.mjs <run>/index.html --json` per run and writes `score.json` with a `floorClean` flag (gates 1, 10, 14, 20, 26, 27, 34, 38a, 48, 54 free of FAILs). Component scope for any brief whose `expect.scope` is `component` (b5). Writes `{unavailable: true}` and continues if sloplint is absent or errors. |
-| `judge.py` | Stdlib-only vision judge (claude-fable-5) over the hero + mobile shots. Writes `judge.json`: six pre-emit axes 1-5 (Philosophy, Hierarchy, Execution, Specificity, Restraint, Variety), verdicts on judged gates 6, 9, 42, 43, 45, and an overall 1-10 with a one-line rationale. Skips b5/b6 and cells with an existing `judge.json`. |
+| `judge.py` | Stdlib-only vision judge (claude-fable-5) over the hero + mobile shots. Writes `judge.json`: six pre-emit axes 1-5 (Philosophy, Hierarchy, Execution, Specificity, Restraint, Variety), verdicts on judged gates 6, 9, 42, 43, 81, and an overall 1-10 with a one-line rationale. Skips b5/b6 and cells with an existing `judge.json`. |
 | `report.mjs` | Assembles `eval/index.html`: a static, self-contained dark gallery with one row per brief, one card per arm-pack cell (hero thumb, runstats, sloplint and judge chips, click opens the artifact), and a per-arm summary table at the top compared against `fable-baseline`. |
 | `serve.py` | `http://127.0.0.1:4201` rooted at `eval/` (loopback only). |
 | `run-matrix.py` | Orchestrates gen -> screenshot -> score -> (repair loop) -> judge -> report. `--repair N` re-prompts failing cells through `gen-direct.py --repair`; see the docstring at the top of `run-matrix.py` for the loop contract. |

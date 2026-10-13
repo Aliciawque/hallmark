@@ -8,7 +8,7 @@ accent: warm 35
 posture: restrained
 keywords: materials, library, architects, samples, catalogue, surfaces, stone, timber, terrazzo, ceramic, tile, interiors, interiors studio, showroom, specification, swatches, supplier, drawer, photography, tactile
 material: off-white paper, white plates ruled in ink, wide Syne heads over Onest, hard offset shadows, surfaces photographed flat-on in true colour, rust the one signal
-photo: natural con=4 sharp=12
+photo: natural con=4
 pictured: Catalogue, Settled hero
 ---
 

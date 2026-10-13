@@ -23,7 +23,7 @@ Two pages by Hallmark for two different briefs feel like different sites, not co
 1. Pre-flight reads the project (fonts, palette, framework, a locked `design.md`).
 2. One message asks for the material first (screenshots, photos, real numbers, a quote with a name), then audience, use and tone. Facts are never invented: a number, a quote or a logo nobody gave stays absent.
 3. The page is designed from that inventory, then named; the signature is the strongest real thing shown at its best. `scripts/theme.mjs deal` prints three themes that fit the brief and clear the log.
-4. Pictures come first: the user's own, the product built at full fidelity, or photographs from a library of verified, freely licensed photos that `scripts/theme.mjs photos` picks for each subject and treats in the theme's way (black and white, duotone in its inks, muted, natural). Stand-ins sit in slots the user's own files replace. Hallmark never draws an illustration, never leaves an empty box where a picture belongs, and never counts with rows of marks.
+4. Pictures come first: the user's own, the product built at full fidelity, or photographs from a library of 755 verified, openly licensed photos from Wikimedia Commons that `scripts/theme.mjs photos` picks for each subject; the theme treats them in CSS (black and white, duotone in its inks, muted, natural) and the footer credits each one. Stand-ins sit in slots the user's own files replace. Hallmark never draws an illustration, never leaves an empty box where a picture belongs, and never counts with rows of marks.
 5. The build loads the layout, imagery and craft files, one genre file, one theme file (a material: palette, faces, surfaces, controls, never a component) with its picture (a finished page in that theme, for finish, never composition) and the gate table. The layout file sets the canvas, the type steps, how a section fills its width and how the hero fills its screen. `scripts/theme.mjs scaffold` writes `tokens.css` and `base.css`, so the page starts with the Floor already in place.
 6. A Picks block states every decision once. A short patterns file shows how controls, slots, forms and reveals are written to pass the gates, without a whole page to copy.
 7. The nav and hero are built alone first, rendered at four sizes and reviewed cold before the rest of the page exists.
@@ -62,7 +62,7 @@ Each page is self-contained HTML and CSS, stamped in its first CSS comment with 
   </tr>
 </table>
 
-The fifteen featured examples on [usehallmark.com](https://www.usehallmark.com) were rebuilt with v2.3, one run each from a fixed brief, and lint clean; their sources are in [`site/examples/`](site/examples/). The other pages there and the test pages under [`site/_tests/`](site/_tests/) predate v2.
+The fifteen featured examples on [usehallmark.com](https://www.usehallmark.com) were rebuilt with v2.3, one run each from a fixed brief, and lint clean; their sources are in [`site/examples/`](site/examples/). The other pages there predate v2.
 
 ---
 
@@ -119,7 +119,7 @@ A redesign keeps what the page says and does and changes how it looks, at the de
 
 Before it touches anything, `sloplint --before` lints the page and records every link, form field, handler, test hook, heading and figure. After the build, `sloplint --kept` fails the redesign if any of them went missing, a fresh-context reviewer compares the new screens with the old ones, and the project's own build and tests have to pass. The handoff is a before and after: findings, what was kept, what changed, anything dropped with the reason on the record, and `.hallmark/compare.html`, the old and new screens side by side. `audit` stops after the report and edits nothing.
 
-Dashboards, admin screens and tools are app screens: the landing-page rules (hero, fold, section rhythm) step aside and density, tables and the four data states take over. Small edits to an existing design are not Hallmark runs; the edit-time hook below keeps the Floor on them in the background.
+Dashboards, admin screens and tools are app screens: the landing-page rules (hero, fold, section rhythm) step aside and density, tables and the four data states take over. Small edits to an existing design are not Hallmark runs; the edit-time hook above keeps the Floor on them in the background.
 
 ---
 
@@ -141,3 +141,5 @@ Re-run any time to update. Worked examples in [`docs/recipes.md`](docs/recipes.m
 ## Licence
 
 MIT. Use it, fork it, ship it.
+
+The photo library (`skills/hallmark/scripts/photos.json`) lists photographs hosted on Wikimedia Commons; it holds no image files. Each photo keeps its own licence (CC0, public domain, CC BY or CC BY-SA), recorded with its author and source page. CC BY and CC BY-SA require a credit, which Hallmark writes into every page that uses one (`references/imagery.md` § 2). Hallmark does not use stock sites (Unsplash, Pexels, Pixabay), whose terms bar AI tools from picking their images.

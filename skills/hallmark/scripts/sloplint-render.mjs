@@ -726,7 +726,7 @@ function observeSpace(atLaptop, heroOnly, heroPosture) {
     const tw = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     let n;
     while ((n = tw.nextNode())) {
-      const p = n.parentElement; if (!p || !vis(p) || p.closest('script, style, noscript, svg, [data-slot]')) continue;
+      const p = n.parentElement; if (!p || !vis(p) || p.closest('script, style, noscript, svg, [data-slot], [data-credits]')) continue;
       const t = n.textContent.trim(); if (!t) continue;
       const pr = p.getBoundingClientRect(); const c = t.split(/\s+/).filter((w) => /[A-Za-z]{2,}/.test(w)).length; if (c) words.push({ top: pr.top + scrollY, bottom: pr.bottom + scrollY, c });
     }

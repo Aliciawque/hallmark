@@ -5,7 +5,7 @@ Sends the hero and mobile screenshots of each run to the Anthropic API
 (model claude-fable-5) with a fixed rubric and writes judge.json in the run
 directory:
 
-  { model, axes: {philosophy..variety: 1-5}, gates: {"6","9","42","43","45":
+  { model, axes: {philosophy..variety: 1-5}, gates: {"6","9","42","43","81":
     "pass"|"fail"|"unclear"}, overall: 1-10, rationale, usage, generatedAt }
 
 Briefs b5 and b6 are skipped (component and decline probes; the rubric is for
@@ -61,12 +61,12 @@ Then give a verdict of "pass", "fail", or "unclear" on each judged gate (fail me
 - "9": undifferentiated rhythm (every section the same width, same padding, same centred layout, no tempo change).
 - "42": AI-default nav (generic logo-left links-right pill-CTA nav indistinguishable from the stock template).
 - "43": AI-default footer (four-column link farm plus social icons with filler links).
-- "45": unmotivated decoration (blobs, glows, gradients, particles with no semantic anchor in the product).
+- "81": an empty or drawn picture (a gradient box, a wash, or a drawn illustration standing where a photograph or the product belongs).
 
 Finally give overall: an integer 1-10 for the page as a piece of design work, and rationale: one sentence.
 
 Respond with ONLY a JSON object, no markdown fences, no prose, exactly this shape:
-{"axes":{"philosophy":n,"hierarchy":n,"execution":n,"specificity":n,"restraint":n,"variety":n},"gates":{"6":"pass|fail|unclear","9":"...","42":"...","43":"...","45":"..."},"overall":n,"rationale":"one sentence"}"""
+{"axes":{"philosophy":n,"hierarchy":n,"execution":n,"specificity":n,"restraint":n,"variety":n},"gates":{"6":"pass|fail|unclear","9":"...","42":"...","43":"...","81":"..."},"overall":n,"rationale":"one sentence"}"""
 
 
 def parse_args() -> argparse.Namespace:

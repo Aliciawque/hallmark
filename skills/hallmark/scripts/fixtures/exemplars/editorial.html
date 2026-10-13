@@ -8,10 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@600&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://images.unsplash.com">
 <style>
 /* Hallmark · shape: Trade Ledger (custom: the roast as a Poster, the house's day book beside its books, the cup as a spread, the order on the pigment) · genre: editorial · theme: Vellum (by request)
- * hero: Poster · nav: masthead, the blackletter wordmark centred over a double rule, one link at each end · footer: letter close · imagery: photographs, library 5, warm con=6 · signature: the roast itself, the drum tipping beans into the cooling tray full-bleed under a parchment plate that says Roasted in York since 1921 · vellum: parchment
+ * hero: Poster · nav: masthead, the blackletter wordmark centred over a double rule, one link at each end · footer: letter close · imagery: photographs, library 5, warm con=6 · signature: the roast itself, beans swept round the cooling tray full-bleed under a parchment plate · vellum: parchment
  * axes: light/blackletter/cool · posture: committed · contrast: pass · fold: pass · v2.7.0 */
 /* Hallmark · pre-emit critique: P4 H5 E4 S5 R4 V4 · weakest: E, the plate must not bury the hand and the falling beans; it rests on the tray's far side and the plain wall, so the stream and the lever stay clear */
 /* Hallmark · hero-review: in-thread · fix · 1 finding · 1 resolved (the head breaks after York) */
@@ -32,12 +31,13 @@
   --color-ink: oklch(22% 0.02 60); --color-ink-2: oklch(30% 0.02 60); --color-muted: oklch(46% 0.02 65);
   --color-rule: oklch(74% 0.03 75);
   --color-accent: oklch(42% 0.16 275); --color-accent-deep: oklch(34% 0.15 275); --color-accent-ink: oklch(94% 0.02 80);
-  --color-focus: oklch(50% 0.17 275);
+  --color-focus: oklch(50% 0.17 275); --color-field: var(--color-accent);
   --font-display: "Grenze Gotisch", ui-serif, Georgia, serif; --font-body: "Hanken Grotesk", ui-sans-serif, sans-serif;
   --font-outlier: "IBM Plex Mono", ui-monospace, monospace;
   --radius-card: 2px; --radius-pill: 2px; --rule-hair: 1px; --shadow-card: none;
   --tracking-display: -0.01em; --fibre: 0.5;
 }
+*, *::before, *::after { box-sizing: border-box; }
 html, body { overflow-x: clip; }
 html { scrollbar-color: var(--color-muted) var(--color-paper); scroll-padding-top: var(--space-3xl); }
 body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); font-size: var(--text-md); line-height: 1.55; -webkit-font-smoothing: antialiased; caret-color: var(--color-accent); }
@@ -62,6 +62,8 @@ button, input, select, textarea { font: inherit; }
 @media (max-width: 60rem) { :root { --gutter: 24px; --section-gap-s: 80px; --section-gap: 96px; --section-gap-l: 120px; } }
 @media (max-width: 40rem) { :root { --gutter: 16px; --section-gap-s: 56px; --section-gap: 72px; --section-gap-l: 96px; --gap-columns: 16px; } }
 @media (prefers-reduced-motion: reduce) { *:not(.keep-motion), *:not(.keep-motion)::before, *:not(.keep-motion)::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }
+/* photographs: warm con=6 */
+[data-slot] > img { filter: sepia(0.28) saturate(0.94) contrast(1.06); }
 :root {
   --mast-h: 80px;
   --plate-w: 37rem;
@@ -194,6 +196,9 @@ figcaption { margin-top: var(--space-sm); font: 500 var(--text-sm)/1.4 var(--fon
 .letter__nav a:hover { text-decoration-color: var(--color-accent); }
 .letter__nav a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 .legal { font-size: var(--text-sm); color: var(--color-muted); }
+.letter__credit { flex: 1 0 100%; max-width: 88ch; font-size: var(--text-sm); line-height: 1.6; color: var(--color-muted); }
+.letter__credit a { color: inherit; text-decoration-color: var(--color-rule); text-underline-offset: 0.25em; }
+.letter__credit a:hover { color: var(--color-ink); text-decoration-color: var(--color-accent); }
 
 @media (max-width: 60rem) {
   .ledger__text, .ledger__photo, .cup__head h2, .cup__head .lead, .cup__note, .cup__cup, .order__text, .order__fields { grid-column: 1 / -1; }
@@ -224,12 +229,8 @@ figcaption { margin-top: var(--space-sm); font: 500 var(--text-sm)/1.4 var(--fon
 <main id="main">
   <section class="hero" aria-labelledby="hero-h">
     <figure class="hero__photo" data-slot="roaster" data-alt="The York roaster at work, a fresh roast tipping into the cooling tray">
-      <img src="https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?w=1600&q=80&auto=format&fit=crop&sepia=16&sat=-4&con=6"
-           srcset="https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?w=800&q=80&auto=format&fit=crop&sepia=16&sat=-4&con=6 800w,
-                   https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?w=1600&q=80&auto=format&fit=crop&sepia=16&sat=-4&con=6 1600w,
-                   https://images.unsplash.com/photo-1511537190424-bbbab87ac5eb?w=2400&q=80&auto=format&fit=crop&sepia=16&sat=-4&con=6 2400w"
-           sizes="100vw" width="2400" height="1600" fetchpriority="high"
-           alt="A drum roaster tipping a fresh roast into the cooling tray, a hand on the lever">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Cooling_time_for_coffee.jpg/1280px-Cooling_time_for_coffee.jpg" width="1920" height="1348" fetchpriority="high"
+           alt="A fresh roast swept round the cooling tray by its paddle arm" style="object-position: 50% 55%">
     </figure>
     <div class="container hero__inner">
       <div class="plate fibre">
@@ -262,12 +263,8 @@ figcaption { margin-top: var(--space-sm); font: 500 var(--text-sm)/1.4 var(--fon
         </table>
       </div>
       <figure class="photo ledger__photo" data-slot="daybooks" data-alt="The roastery's own day books on the shelf, or the bench where the week is written up">
-        <img src="https://images.unsplash.com/photo-1529590003495-b2646e2718bf?w=1600&q=80&auto=format&fit=crop&sepia=16&sat=-4&con=6&ar=5:4&crop=entropy"
-             srcset="https://images.unsplash.com/photo-1529590003495-b2646e2718bf?w=800&q=80&auto=format&fit=crop&sepia=16&sat=-4&con=6&ar=5:4&crop=entropy 800w,
-                     https://images.unsplash.com/photo-1529590003495-b2646e2718bf?w=1600&q=80&auto=format&fit=crop&sepia=16&sat=-4&con=6&ar=5:4&crop=entropy 1600w,
-                     https://images.unsplash.com/photo-1529590003495-b2646e2718bf?w=2400&q=80&auto=format&fit=crop&sepia=16&sat=-4&con=6&ar=5:4&crop=entropy 2400w"
-             sizes="(min-width: 60rem) 45vw, 100vw" width="1600" height="1280" loading="lazy"
-             alt="A stack of old cloth-bound books on a wooden ledge">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/13-11-02-olb-by-RalfR-03.jpg/1280px-13-11-02-olb-by-RalfR-03.jpg" width="1920" height="1275" loading="lazy"
+             alt="Wooden arches lined with old bound books in a library">
       </figure>
     </div>
   </section>
@@ -279,31 +276,21 @@ figcaption { margin-top: var(--space-sm); font: 500 var(--text-sm)/1.4 var(--fon
         <p class="lead">Fenwick and Daughters roasts the coffee. The cup is yours to make.</p>
       </div>
       <figure class="photo cup__wide" data-slot="brew" data-alt="A cup of the week's coffee being brewed, at the roastery or at home">
-        <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=1600&q=80&auto=format&fit=crop&sepia=16&sat=-4&con=6&ar=21:9&crop=focalpoint&fp-x=0.6&fp-y=0.36&fp-z=1.15"
-             srcset="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800&q=80&auto=format&fit=crop&sepia=16&sat=-4&con=6&ar=21:9&crop=focalpoint&fp-x=0.6&fp-y=0.36&fp-z=1.15 800w,
-                     https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=1600&q=80&auto=format&fit=crop&sepia=16&sat=-4&con=6&ar=21:9&crop=focalpoint&fp-x=0.6&fp-y=0.36&fp-z=1.15 1600w,
-                     https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=2400&q=80&auto=format&fit=crop&sepia=16&sat=-4&con=6&ar=21:9&crop=focalpoint&fp-x=0.6&fp-y=0.36&fp-z=1.15 2400w"
-             sizes="(min-width: 90rem) 1312px, 92vw" width="2400" height="1029" loading="lazy"
-             alt="Water poured from a kettle into a pour-over brewer">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/D%C3%BClmen%2C_Privatr%C3%B6sterei_Schr%C3%B6er_--_2018_--_0553.jpg/1280px-D%C3%BClmen%2C_Privatr%C3%B6sterei_Schr%C3%B6er_--_2018_--_0553.jpg" width="1920" height="1280" loading="lazy"
+             alt="A wall of brass scoop bins filled with coffee beans in a roastery shop" style="object-position: 45% 55%">
       </figure>
       <div class="split cup__pair">
         <figure class="cup__note">
-          <div class="photo" data-slot="desk" data-alt="The day book open on the roastery bench, a cup beside it">
-            <img src="https://images.unsplash.com/photo-1456324504439-367cee3b3c32?w=1600&q=80&auto=format&fit=crop&sepia=16&sat=-4&con=6&ar=3:2"
-                 srcset="https://images.unsplash.com/photo-1456324504439-367cee3b3c32?w=800&q=80&auto=format&fit=crop&sepia=16&sat=-4&con=6&ar=3:2 800w,
-                         https://images.unsplash.com/photo-1456324504439-367cee3b3c32?w=1600&q=80&auto=format&fit=crop&sepia=16&sat=-4&con=6&ar=3:2 1600w"
-                 sizes="(min-width: 60rem) 60vw, 100vw" width="1600" height="1067" loading="lazy"
-                 alt="Hands writing in an open notebook beside a mug of black coffee">
+          <div class="photo" data-slot="desk" data-alt="The York roaster between roasts, the drum over its cooling tray">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Coffee_roasting_machine%2C_The_Roastery%2C_Coaltown_Coffee%2C_Ammanford%2C_Wales.jpg/1280px-Coffee_roasting_machine%2C_The_Roastery%2C_Coaltown_Coffee%2C_Ammanford%2C_Wales.jpg" width="1920" height="2560" loading="lazy"
+                 alt="A drum coffee roaster above its copper cooling tray in a roastery" style="object-position: 50% 69%">
           </div>
           <figcaption>Six coffees a week</figcaption>
         </figure>
         <figure class="cup__cup">
           <div class="photo" data-slot="cup" data-alt="A cup of Fenwick and Daughters coffee on the shop counter">
-            <img src="https://images.unsplash.com/photo-1521302080334-4bebac2763a6?w=1600&q=80&auto=format&fit=crop&sepia=16&sat=-4&con=6&ar=1:1"
-                 srcset="https://images.unsplash.com/photo-1521302080334-4bebac2763a6?w=800&q=80&auto=format&fit=crop&sepia=16&sat=-4&con=6&ar=1:1 800w,
-                         https://images.unsplash.com/photo-1521302080334-4bebac2763a6?w=1600&q=80&auto=format&fit=crop&sepia=16&sat=-4&con=6&ar=1:1 1600w"
-                 sizes="(min-width: 60rem) 42vw, 100vw" width="1600" height="1600" loading="lazy"
-                 alt="A glass cup of black coffee in low sun">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/Espresso_coffee_pouring_from_retro_espresso_machine.jpg/1280px-Espresso_coffee_pouring_from_retro_espresso_machine.jpg" width="1920" height="2876" loading="lazy"
+                 alt="Espresso streaming from a chrome machine into two glass cups" style="object-position: 50% 62%">
           </div>
           <figcaption>Sold in 250&nbsp;g bags</figcaption>
         </figure>
@@ -351,6 +338,7 @@ figcaption { margin-top: var(--space-sm); font: 500 var(--text-sm)/1.4 var(--fon
         <a href="#order">Order</a>
       </nav>
       <p class="legal">&copy; 2026 Fenwick and Daughters</p>
+      <p class="letter__credit" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Cooling_time_for_coffee.jpg">Jameswasswa</a> (CC&nbsp;BY-SA&nbsp;4.0), <a href="https://commons.wikimedia.org/wiki/File:13-11-02-olb-by-RalfR-03.jpg">Ralf Roletschek</a> (CC&nbsp;BY&nbsp;3.0), <a href="https://commons.wikimedia.org/wiki/File:D%C3%BClmen,_Privatr%C3%B6sterei_Schr%C3%B6er_--_2018_--_0553.jpg">Dietmar Rabich</a> (CC&nbsp;BY-SA&nbsp;4.0), <a href="https://commons.wikimedia.org/wiki/File:Coffee_roasting_machine,_The_Roastery,_Coaltown_Coffee,_Ammanford,_Wales.jpg">Vouliagmeni</a> (CC&nbsp;BY-SA&nbsp;4.0), <a href="https://commons.wikimedia.org/wiki/File:Espresso_coffee_pouring_from_retro_espresso_machine.jpg">Shixart1985</a> (CC&nbsp;BY&nbsp;2.0), all on Wikimedia Commons.</p>
     </div>
   </div>
 </footer>

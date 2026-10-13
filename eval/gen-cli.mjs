@@ -6,7 +6,7 @@
 //
 //   node gen-cli.mjs --brief b1|all --arm claude|bare|glm|kimi|all [--force] [--dry-run]
 //                     [--model sonnet|opus|...] [--effort low|medium|high|max]
-//                     [--budget-usd 5]
+//                     [--budget-usd 5] [--max-turns 60] [--tag v27]
 //
 // --budget-usd caps spend per cell (default 5). A measured derived build on
 // Opus lands near $3 and stops mid Step-7 at the old cap of 3, which scores a
@@ -111,20 +111,15 @@ function analyzeTranscript(lines, runDir) {
   return { cost, model, sessionInit, resultText, isError, refReads, filesWritten, earlyStop, usage, numTurns, stop };
 }
 
-// Reference-read budget. Was 10, which predated derivation becoming the default.
-// A derived run now reads direction.md only (the worn-coordinates digest lives
-// inside it; theme-axes.md is catalog-route-only), and a measured clean derived
-// build lands at 11 (ritual, genre, hero-discipline, then the eight
-// universal files). 14 leaves room for legitimate conditionals and still
-// catches the failure this check exists for, which is defensive pre-loading of a
-// forty-file reference tree.
-const REF_BUDGET = 14;
+// Reference-read budget. A page build loads six files at Step 4 (layout, imagery,
+// craft, the genre, the theme, gates.md) plus at most a few conditionals (one
+// macrostructure, data-viz, texture) and the two review files; 12 still catches
+// the failure this check exists for, defensive pre-loading of the reference tree.
+const REF_BUDGET = 12;
 
 function loadOrderCheck(refReads) {
-  // discipline: bounded reference reads; slop-test.md not read before the build (it is Step 7)
   const refs = refReads.filter((r) => r.startsWith("references/") || r.endsWith(".md"));
-  const slopIdx = refs.findIndex((r) => r.includes("slop-test.md"));
-  return { refCount: refs.length, refsWithinBudget: refs.length <= REF_BUDGET, slopTestLast: slopIdx === -1 || slopIdx >= refs.length - 3, refs };
+  return { refCount: refs.length, refsWithinBudget: refs.length <= REF_BUDGET, refs };
 }
 
 // What MCP surface did the child actually have, and did it use any of it? Recorded
@@ -166,7 +161,7 @@ function stampPresent(runDir) {
 
 async function runCell(brief, armId) {
   const arm = ARMS[armId];
-  const effortTag = args.effort ? `-${args.effort}` : "";
+  const effortTag = (args.effort ? `-${args.effort}` : "") + (args.tag ? `-${args.tag}` : "");
   const cell = `${armId}${effortTag}-cli`;
   const runDir = join(RUNS, brief.id, cell);
   const runJson = join(runDir, "run.json");
@@ -202,7 +197,7 @@ async function runCell(brief, armId) {
   const allowed = ["Read", "Write", "Edit", "Bash"];
   const cliArgs = ["-p", prompt, "--output-format", "stream-json", "--verbose",
     "--permission-mode", "acceptEdits",
-    "--max-turns", "60", "--max-budget-usd", String(args["budget-usd"] || 5), "--setting-sources", "project"];
+    "--max-turns", String(args["max-turns"] || 60), "--max-budget-usd", String(args["budget-usd"] || 5), "--setting-sources", "project"];
   if (arm.mcp) {
     // Pointed at the user's own local Inspo checkout. Read from ~/.claude.json so
     // the arm follows wherever that server actually lives rather than hardcoding it.
@@ -249,8 +244,12 @@ async function runCell(brief, armId) {
   // their stylesheet whatever the page wants (page.css cost one cell its
   // skillLoaded score when the stamp lived there and only tokens.css was
   // copied), and stampPresent scans this archive, so the archive must be whole.
-  for (const f of readdirSync(work)) {
-    if (/\.(html|css)$/i.test(f)) cpSync(join(work, f), join(runDir, f));
+  // A scaffolded build may write into a subfolder (site/, public/); archive the
+  // first folder that holds an index.html, the work root first.
+  const pageDir = [work, ...readdirSync(work).filter((d) => !d.startsWith(".")).map((d) => join(work, d))]
+    .find((d) => existsSync(join(d, "index.html"))) || work;
+  for (const f of readdirSync(pageDir)) {
+    if (/\.(html|css)$/i.test(f)) cpSync(join(pageDir, f), join(runDir, f));
   }
   const a = analyzeTranscript(lines, work);
   const lo = loadOrderCheck(a.refReads);
@@ -266,7 +265,7 @@ async function runCell(brief, armId) {
     mcpCalled: mcpAudit(lines).called,
     filesWritten: [...new Set(a.filesWritten)].slice(0, 20),
     refReadCount: lo.refCount,
-    loadOrderOk: arm.skill === false ? null : (lo.refsWithinBudget && lo.slopTestLast),
+    loadOrderOk: arm.skill === false ? null : lo.refsWithinBudget,
     refReads: lo.refs.slice(0, 20),
     resultPreview: (a.resultText || "").slice(0, 200), isError: a.isError,
     generatedAt: new Date().toISOString(),

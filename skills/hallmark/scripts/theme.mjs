@@ -23,7 +23,7 @@ function usage() {
   node theme.mjs scaffold <slug> [--dealt "<n>/3, seed <seed>"] [--redesign polish|restyle|full] [--scope app] [--dir <beside the stylesheet>] [--force]
   node theme.mjs scaffold --custom | --brand [--redesign polish|restyle|full] [--scope app] [--dir <beside the stylesheet>] [--force]
   node theme.mjs check [--axes "<paper>/<display>/<accent>"] [--face "<display face>"] [--hue <accent hue>] [--log .hallmark/log.json]
-  node theme.mjs photos "<subject>" ["<subject>" ...] [--theme <slug>] [--n 3] [--orient landscape|portrait|square] [--log .hallmark/log.json] [--avoid <file of ids>] [--save <dir>] [--json]
+  node theme.mjs photos "<subject>" ["<subject>" ...] [--theme <slug>] [--n 3] [--orient landscape|portrait|square] [--log .hallmark/log.json] [--avoid <file naming photos>] [--save <dir>] [--json]
   node theme.mjs log --entry '<one JSON object>' [--log .hallmark/log.json]
   node theme.mjs index
   node theme.mjs list
@@ -225,25 +225,30 @@ function list() {
   for (const t of loadIndex()) console.log(`${t.name.padEnd(12)} ${triple(t).padEnd(38)} ${t.genre.padEnd(15)} ${t.material}`);
 }
 
-const oklchRgb = ([L, C, H]) => { const h = H * Math.PI / 180, x = C * Math.cos(h), y = C * Math.sin(h); const l = (L + 0.3963377774 * x + 0.2158037573 * y) ** 3, m = (L - 0.1055613458 * x - 0.0638541728 * y) ** 3, s2 = (L - 0.0894841775 * x - 1.2914855480 * y) ** 3; return [4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s2, -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s2, -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s2].map((c) => Math.min(1, Math.max(0, c))); };
-const hexOf = (lch) => oklchRgb(lch).map((c) => Math.round(255 * (c <= 0.0031308 ? 12.92 * c : 1.055 * c ** (1 / 2.4) - 0.055)).toString(16).padStart(2, '0')).join('');
-const TREATMENTS = { natural: '', warm: 'sepia=28&sat=-6', muted: 'sat=-35&con=-3', mono: 'sat=-100&con=18' };
-const ADJUST = new Set(['con', 'sat', 'exp', 'sepia', 'vib', 'high', 'shad', 'sharp', 'gam', 'blur']);
+const TREATMENTS = { natural: {}, warm: { sepia: 0.28, saturate: 0.94 }, muted: { saturate: 0.65, contrast: 0.97 }, mono: { grayscale: 1, contrast: 1.18 } };
+const ADJUST = { con: ['contrast', (n) => 1 + n / 100], sat: ['saturate', (n) => Math.max(0, 1 + n / 100)], vib: ['saturate', (n) => 1 + n / 200], exp: ['brightness', (n) => 1 + n / 100], high: ['brightness', (n) => 1 + n / 300], shad: ['brightness', (n) => 1 + n / 400], sepia: ['sepia', (n) => n / 100], blur: ['blur', (n) => n / 20] };
+const r2 = (n) => Math.round(n * 100) / 100;
 
+// A theme's photo: line as CSS on every picture in a slot: filter functions, and for duotone or tint a
+// multiply plate under the photo and a lighten plate over it, both in the theme's own tokens.
 function treatmentOf(spec, tokens) {
   const parts = String(spec || 'natural').trim().split(/\s+/);
-  const out = new Map(), bad = [];
-  const put = (q) => { for (const kv of q.split('&').filter(Boolean)) { const [k, v] = kv.split('='); out.set(k, v); } };
-  const tok = (n) => { const v = tokens[`--color-${n}`]; if (!v) bad.push(`no --color-${n} token`); return v ? hexOf(v) : null; };
+  const f = new Map(), bad = [];
+  let duo = null;
+  const tok = (n) => { if (!tokens[`--color-${n}`]) bad.push(`no --color-${n} token`); return `var(--color-${n})`; };
   for (let i = 0; i < parts.length; i++) {
     const p = parts[i];
-    if (p in TREATMENTS) put(TREATMENTS[p]);
-    else if (p === 'duotone') { const a = tok(parts[++i]), b = tok(parts[++i]); if (a && b) out.set('duotone', `${a},${b}`); }
-    else if (p === 'tint') { const a = tok(parts[++i]); if (a) out.set('mono', a); }
-    else if (/^[a-z]+=-?\d+$/.test(p) && ADJUST.has(p.split('=')[0])) put(p);
-    else bad.push(`"${p}" is not a treatment (natural, warm, muted, mono, duotone <dark> <light>, tint <token>, or con|sat|exp|sepia|vib|high|shad|sharp|gam|blur=<n>)`);
+    if (p in TREATMENTS) for (const [k, v] of Object.entries(TREATMENTS[p])) f.set(k, v);
+    else if (p === 'duotone') { duo = [tok(parts[++i]), tok(parts[++i])]; f.set('grayscale', 1); if (!f.has('contrast')) f.set('contrast', 1.08); }
+    else if (p === 'tint') { const t = tok(parts[++i]); const dark = (tokens['--color-paper'] || [1])[0] < 0.4; duo = dark ? ['var(--color-paper)', t] : [`color-mix(in oklab, ${t}, black 55%)`, `color-mix(in oklab, ${t}, white 82%)`]; f.set('grayscale', 1); }
+    else if (/^[a-z]+=-?\d+$/.test(p) && p.split('=')[0] in ADJUST) { const [k, n] = p.split('='); const [fn, v] = ADJUST[k]; f.set(fn, k === 'vib' && f.has(fn) ? f.get(fn) * v(Number(n)) : v(Number(n))); }
+    else bad.push(`"${p}" is not a treatment (natural, warm, muted, mono, duotone <dark> <light>, tint <token>, or con|sat|vib|exp|high|shad|sepia|blur=<n>)`);
   }
-  return { params: [...out].map(([k, v]) => `${k}=${v}`).join('&'), bad };
+  const filter = [...f].map(([k, v]) => `${k}(${k === 'blur' ? `${r2(v)}px` : r2(v)})`).join(' ');
+  const css = !filter && !duo ? '' : duo
+    ? `[data-slot]:has(> img) { isolation: isolate; background: ${duo[1]}; outline: 1px solid color-mix(in oklab, var(--color-ink) 8%, transparent); outline-offset: -1px; }\n[data-slot] > img { z-index: 0; filter: ${filter}; mix-blend-mode: multiply; }\n[data-slot]:has(> img)::before { content: ""; position: absolute; inset: 0; z-index: 1; background: ${duo[0]}; mix-blend-mode: lighten; pointer-events: none; }`
+    : `[data-slot] > img { filter: ${filter}; }`;
+  return { css, bad };
 }
 
 function tokensOf(src, file) {
@@ -262,7 +267,7 @@ async function photos() {
   const n = Math.max(1, Number(flag('n', 3)) || 3);
   const orient = flag('orient', '');
   const slug = flag('theme', '');
-  let header = null, treat = { params: '', bad: [] };
+  let header = null, treat = { css: '', bad: [] };
   if (slug) {
     const file = join(THEMES, `${slug}.md`);
     if (!existsSync(file)) { console.error(`no theme at ${file}`); process.exit(1); }
@@ -272,7 +277,8 @@ async function photos() {
     if (treat.bad.length) console.error(`${slug}'s photo: line: ${treat.bad.join('; ')}`);
   }
   const recent = new Set(readLog(flag('log', '.hallmark/log.json')).slice(0, 5).flatMap((r) => Array.isArray(r.photos) ? r.photos : []));
-  const avoid = new Set(flag('avoid', '') && existsSync(flag('avoid', '')) ? readFileSync(flag('avoid', ''), 'utf8').match(/photo-\d{9,13}-[0-9a-f]{10,14}/g) || [] : []);
+  const avoidText = flag('avoid', '') && existsSync(flag('avoid', '')) ? readFileSync(flag('avoid', ''), 'utf8') : '';
+  const avoid = { has: (id) => !!avoidText && (avoidText.includes(id) || avoidText.includes(id.replace(/ /g, '_'))) };
   const shape = (p) => { const r = p.w / p.h; return r > 1.18 ? 'landscape' : r < 0.85 ? 'portrait' : 'square'; };
   const PHOTO_STOP = new Set(['seen', 'from', 'with', 'into', 'onto', 'over', 'under', 'behind', 'above', 'below', 'beside', 'near', 'close', 'view', 'shot', 'photo', 'image', 'picture', 'some', 'very', 'one', 'two', 'three', 'each', 'every', 'its', 'their', 'his', 'her', 'who', 'where', 'while', 'up', 'down', 'out']);
   const docs = lib.map((p) => { const t = new Set(); for (const x of p.tags) for (const w of words(x)) t.add(stem(w)); for (const w of words(p.subject)) t.add(stem(w)); t.add(stem(p.cat)); return t; });
@@ -305,24 +311,49 @@ async function photos() {
       return { p, s, cov, missing };
     }).filter(Boolean).sort((a, b) => b.s - a.s).slice(0, n);
     for (const { p } of scored) used.add(p.id);
-    result.push({ subject, picks: scored.map(({ p, s, cov, missing }) => ({ ...p, orient: shape(p), score: Math.round(s * 10) / 10, match: cov >= 0.75 ? 'close' : 'partial', ...(missing.length ? { missing } : {}), url: `https://images.unsplash.com/${p.id}?q=80&auto=format&fit=crop${treat.params ? '&' + treat.params : ''}` })) });
+    result.push({ subject, picks: scored.map(({ p, s, cov, missing }) => ({ ...p, orient: shape(p), score: Math.round(s * 10) / 10, match: cov >= 0.75 ? 'close' : 'partial', ...(missing.length ? { missing } : {}), sizes: widthsOf(p), credit: creditOf(p) })) });
   }
   const saveDir = flag('save', '');
   if (saveDir) {
     mkdirSync(resolve(saveDir), { recursive: true });
     for (const r of result) for (const p of r.picks) {
-      const file = join(resolve(saveDir), `${p.id}.jpg`);
-      try { const res = await fetch(`${p.url.replace('q=80', 'q=72')}&w=2000&fm=jpg`); if (!res.ok) throw new Error(`HTTP ${res.status}`); writeFileSync(file, Buffer.from(await res.arrayBuffer())); p.file = file; } catch (e) { p.file = null; p.error = String(e.message || e); }
+      const w = p.sizes[p.sizes.length - 1];
+      const file = join(resolve(saveDir), `${savedName(p.id)}-${w}.jpg`);
+      try {
+        let res;
+        for (let t = 0; t < 4; t++) { res = await fetch(thumbOf(p, w), { headers: { 'User-Agent': 'Hallmark/2.7 (https://github.com/Nutlope/hallmark; theme.mjs photos --save)' } }); if (res.status !== 429) break; await new Promise((ok) => setTimeout(ok, 10000 * (t + 1))); }
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        writeFileSync(file, Buffer.from(await res.arrayBuffer())); p.saved = file;
+      } catch (e) { p.saved = null; p.error = String(e.message || e); }
     }
   }
   if (has('json')) { console.log(JSON.stringify({ theme: slug || null, treatment: header ? header.photo || 'natural' : null, subjects: result })); return; }
-  if (header) console.log(`treatment: ${header.photo || 'natural'} (${slug}), applied in every url below`);
+  if (header) console.log(`treatment: ${header.photo || 'natural'} (${slug})${treat.css ? '. It is CSS on every picture in a slot, written into base.css by the scaffold; a page built without it adds:\n' + treat.css : ', no filter'}`);
   for (const r of result) {
     console.log(`\n"${r.subject}"${r.picks.length ? '' : ': nothing in the library fits; try other words (the place, the material, the action), or leave a slot for the user\'s photo'}`);
-    for (const p of r.picks) console.log(`  ${p.id} · ${p.subject} · ${p.w}x${p.h} ${p.orient} · ${p.tone}, ${p.temp}${p.people !== 'none' ? `, ${p.people}` : ''}${p.match === 'partial' ? ` · partial match, no ${p.missing.join(', ')}` : ''}\n    ${p.file || p.url}${p.error ? ` (not saved: ${p.error})` : ''}`);
+    for (const p of r.picks) {
+      const src = p.saved || thumbOf(p, p.sizes.includes(1280) ? 1280 : p.sizes[p.sizes.length - 1]);
+      const set = p.saved ? '' : ` srcset="${p.sizes.map((w) => `${thumbOf(p, w)} ${w}w`).join(', ')}"`;
+      const pos = p.fp ? ` style="object-position: ${Math.round(p.fp[0] * 100)}% ${Math.round(p.fp[1] * 100)}%"` : '';
+      console.log(`  ${p.subject} · ${p.w}x${p.h} ${p.orient} · ${p.tone}, ${p.temp}${p.people !== 'none' ? `, ${p.people}` : ''}${p.match === 'partial' ? ` · partial match, no ${p.missing.join(', ')}` : ''}${p.error ? ` · not saved: ${p.error}` : ''}`);
+      const [iw, ih] = p.saved ? [p.sizes[p.sizes.length - 1], Math.round(p.h * p.sizes[p.sizes.length - 1] / p.w)] : [p.w, p.h];
+      console.log(`    <img src="${src}"${set}${p.saved ? '' : ' sizes="100vw"'} width="${iw}" height="${ih}" alt="${p.subject}"${pos}>`);
+      console.log(`    credit: ${p.credit}`);
+    }
   }
-  console.log('\nadd the size to each url: &w=1600 for src, srcset at &w=800, &w=1600 and &w=2400, and &ar=<w>:<h> to crop (&crop=entropy keeps the busy part); log the ids you use in the entry\'s photos list.');
+  console.log('\nset sizes to the layout (50vw for a half, 100vw full-bleed) and crop with the frame (aspect-ratio and object-fit: cover; object-position keeps the subject). Every photo carries its credit on the page: one line in the footer, "Photographs: <credit>, <credit>", each linked to its page (imagery.md § 2). Log the ids in the entry\'s photos list.');
 }
+
+const WIDTHS = [960, 1280, 1920];
+// The file name --save writes, which sloplint maps back to the library entry for its credit.
+function savedName(id) { return id.replace(/\.[a-z]+$/i, '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60) || `photo-${createHash('sha1').update(id).digest('hex').slice(0, 10)}`; }
+// Commons serves thumbnails at standard widths only, and none at or past the original's width.
+function widthsOf(p) { const w = WIDTHS.filter((x) => x < p.w); return w.length ? w : [WIDTHS[0]]; }
+function thumbOf(p, w) {
+  const name = p.file.split('/').pop();
+  return `${p.file.replace('/wikipedia/commons/', '/wikipedia/commons/thumb/')}/${w}px-${p.thumbName || name}`;
+}
+function creditOf(p) { return `<a href="${p.page}">${p.author}</a> (${p.license}, Wikimedia Commons)`; }
 
 function tokenBlockOf(src, file) {
   const m = /```css\s*\n:root\s*\{([\s\S]*?)\n\}\s*\n```/.exec(src);
@@ -418,7 +449,8 @@ function scaffold() {
   const own = !custom && /## Build hint[\s\S]*?(::selection\s*\{[^}]*\})/.exec(readFileSync(join(THEMES, `${slug}.md`), 'utf8'));
   const base = own ? BASE.replace(/::selection \{[^}]*\}/, own[1].replace(/\s+/g, ' ')) : BASE;
   const steps = base.split('\n').filter((l) => /^@media[^{]*\{\s*:root/.test(l));
-  writeFileSync(baseOut, (tw ? base.split('\n').filter((l) => !steps.includes(l)).join('\n') : base) + '\n');
+  const photo = custom ? '' : treatmentOf(header.photo, tokensOf(readFileSync(join(THEMES, `${slug}.md`), 'utf8'), slug)).css;
+  writeFileSync(baseOut, (tw ? base.split('\n').filter((l) => !steps.includes(l)).join('\n') : base) + (photo ? `\n/* photographs: ${header.photo} */\n${photo}` : '') + '\n');
   if (tw) writeFileSync(out, readFileSync(out, 'utf8') + steps.join('\n') + '\n');
   const src = custom ? '' : readFileSync(join(THEMES, `${slug}.md`), 'utf8');
   const dial = /stated in the stamp \(`([a-z0-9-]+):/.exec(src);

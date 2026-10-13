@@ -29,7 +29,7 @@ photo: muted
 - `posture`: `restrained`, `committed`, `full-palette` or `drenched`.
 - `keywords`: the words in a brief that route here, lowercase, comma-separated, ten to twenty-five.
 - `material`: one line, the deal prints it: paper, ink, faces, surface, signal. Materials only, no objects.
-- `photo`: the treatment every photograph on a page takes, applied on the CDN by `theme.mjs photos`: `natural`, `warm`, `muted`, `mono`, `duotone <dark> <light>` or `tint <colour>` (token names without `--color-`, so `duotone ink paper`), optionally followed by `con=`, `sat=`, `exp=`, `sepia=`, `vib=`, `high=`, `shad=` or `sharp=` with a whole number. Pick what the material would do to a photograph: a newsprint prints it black, a riso pulls it in two inks, a warm studio keeps it natural.
+- `photo`: the treatment every photograph on a page takes, written into `base.css` by the scaffold as CSS on every image in a slot: `natural`, `warm`, `muted`, `mono`, `duotone <dark> <light>` or `tint <colour>` (token names without `--color-`, so `duotone ink paper`), optionally followed by `con=`, `sat=`, `vib=`, `exp=`, `sepia=`, `high=` or `shad=` with a whole number. Pick what the material would do to a photograph: a newsprint prints it black, a riso pulls it in two inks, a warm studio keeps it natural.
 - `pictured`: written by `scripts/picture.mjs`, the shape and hero posture of the page in the theme's picture, so a build knows which composition is already taken.
 
 ## The picture
@@ -50,7 +50,7 @@ Every theme ships `<slug>.jpg` beside its file: the first screen and one lower s
 
 ## What a theme may not carry
 
-A component or object of any kind (a plate, a sign, a disc, a drawer, a sticker sheet, a ticket, a drawn product, a folio column, a mark the page must draw), a section sequence, a page outline, a mandated nav, footer, hero or enrichment, HTML scaffolds, page-part class names, rules about space or density, verbatim copy, invented brand names or people, an eyebrow in any form, a label in tracked capitals or small caps, a stamp or a badge that carries no fact, counts that fix a layout, neighbour comparison tables (the deal computes distance from the header block), or a list of reference sites.
+A component or object of any kind (a plate, a sign, a disc, a drawer, a sticker sheet, a ticket, a drawn product, a folio column, a mark the page must draw), a section sequence, a page outline, a mandated nav, footer, hero or imagery, HTML scaffolds, page-part class names, rules about space or density, verbatim copy, invented brand names or people, an eyebrow in any form, a label in tracked capitals or small caps, a stamp or a badge that carries no fact, counts that fix a layout, neighbour comparison tables (the deal computes distance from the header block), or a list of reference sites.
 
 ## Contradictions to avoid
 

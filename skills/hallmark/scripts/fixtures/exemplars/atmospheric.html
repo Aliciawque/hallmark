@@ -7,11 +7,10 @@
 <meta name="description" content="Night Cellar is a natural wine shop and bar with 140 bottles on the list, open Thursday to Sunday from 5pm, with a tasting once a month.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://images.unsplash.com">
 <link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* Hallmark · shape: Photographic · genre: atmospheric · theme: Spore (by request)
- * hero: Settled · nav: floating pill · footer: statement · imagery: photographs, library 6, warm con=6 exp=-4 · signature: a pink pour at the bar after five beside the head, with tonight's door in the nav · spore: cellar
+ * hero: Settled · nav: floating pill · footer: statement · imagery: photographs, library 6, warm con=6 exp=-4 · signature: a pour into the decanter after five beside the head, with tonight's door in the nav · spore: cellar
  * axes: dark/roman-serif/warm · posture: committed · contrast: pass · fold: pass · v2.7.0 */
 /* Hallmark · pre-emit critique: P4 H4 E4 S4 R5 V4 · weakest: S, the photographs are a stand-in bar; every head carries a fact from the brief, the pour is pink like the one signal, and the nav reads tonight's door from the brief's hours */
 /* Hallmark · hero-review: in-thread · ship · 0 findings · finish-review: subagent · fix · 5 findings · 5 resolved · gap: the maker's-log voice can name no bottle until the user gives the list */
@@ -37,6 +36,7 @@
   --tracking-display: -0.01em;
   --grain: 0.15; --display-weight: 400;
 }
+*, *::before, *::after { box-sizing: border-box; }
 html, body { overflow-x: clip; }
 html { scrollbar-color: var(--color-muted) var(--color-paper); scroll-padding-top: var(--space-3xl); }
 body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); font-size: var(--text-md); line-height: 1.55; -webkit-font-smoothing: antialiased; caret-color: var(--color-accent); }
@@ -61,6 +61,8 @@ button, input, select, textarea { font: inherit; }
 @media (max-width: 60rem) { :root { --gutter: 24px; --section-gap-s: 80px; --section-gap: 96px; --section-gap-l: 120px; } }
 @media (max-width: 40rem) { :root { --gutter: 16px; --section-gap-s: 56px; --section-gap: 72px; --section-gap-l: 96px; --gap-columns: 16px; } }
 @media (prefers-reduced-motion: reduce) { *:not(.keep-motion), *:not(.keep-motion)::before, *:not(.keep-motion)::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }
+/* photographs: warm con=6 exp=-4 */
+[data-slot] > img { filter: sepia(0.28) saturate(0.94) contrast(1.06) brightness(0.96); }
 /* Page */
 *, *::before, *::after { box-sizing: border-box; }
 .skip { position: absolute; left: var(--space-md); top: calc(-1 * var(--space-3xl)); z-index: var(--z-toast); padding: var(--space-xs) var(--space-md); border-radius: var(--radius-pill); background: var(--color-ink); color: var(--color-paper); }
@@ -170,6 +172,10 @@ button, input, select, textarea { font: inherit; }
 .footer__links a:hover { text-decoration-color: var(--color-accent); }
 .footer__links a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
 .legal { margin-top: var(--space-xl); font-size: var(--text-sm); color: var(--color-muted); }
+.credits { max-width: 80ch; margin-top: var(--space-xs); font-size: var(--text-sm); line-height: 1.6; color: var(--color-muted); }
+.credits span { white-space: nowrap; }
+.credits a { color: inherit; text-decoration-color: color-mix(in oklab, var(--color-muted) 50%, transparent); text-underline-offset: 0.2em; }
+.credits a:hover { text-decoration-color: var(--color-accent); }
 
 @media (max-width: 60rem) {
   .plate { margin: calc(-1 * var(--space-2xl)) 0 0; padding: var(--space-lg); }
@@ -216,10 +222,7 @@ button, input, select, textarea { font: inherit; }
         </div>
       </div>
       <figure class="photo hero__photo" data-slot="hero" data-alt="A glass being poured at the bar after five">
-        <img src="https://images.unsplash.com/photo-1547595628-c61a29f496f0?q=80&amp;auto=format&amp;fit=crop&amp;sepia=16&amp;sat=-4&amp;con=6&amp;exp=-4&amp;ar=5:6&amp;w=1600"
-             srcset="https://images.unsplash.com/photo-1547595628-c61a29f496f0?q=80&amp;auto=format&amp;fit=crop&amp;sepia=16&amp;sat=-4&amp;con=6&amp;exp=-4&amp;ar=5:6&amp;w=800 800w, https://images.unsplash.com/photo-1547595628-c61a29f496f0?q=80&amp;auto=format&amp;fit=crop&amp;sepia=16&amp;sat=-4&amp;con=6&amp;exp=-4&amp;ar=5:6&amp;w=1600 1600w, https://images.unsplash.com/photo-1547595628-c61a29f496f0?q=80&amp;auto=format&amp;fit=crop&amp;sepia=16&amp;sat=-4&amp;con=6&amp;exp=-4&amp;ar=5:6&amp;w=2400 2400w"
-             sizes="(min-width: 60rem) 35rem, 100vw" width="1600" height="1920"
-             alt="Pink wine poured from a bottle into a stemmed glass in a dark room" fetchpriority="high">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Pouring_wine_into_a_decanter.jpg/1280px-Pouring_wine_into_a_decanter.jpg" width="3872" height="2592" fetchpriority="high" alt="Wine poured from a bottle into a glass decanter in low light" style="object-position: 42% 50%">
       </figure>
     </div>
   </section>
@@ -227,10 +230,7 @@ button, input, select, textarea { font: inherit; }
   <section class="list" id="list" aria-labelledby="list-title">
     <div class="container">
       <figure class="photo list__photo" data-slot="photo-1" data-alt="The bottles on the list, racked in the shop">
-        <img src="https://images.unsplash.com/photo-1562601579-599dec564e06?q=80&amp;auto=format&amp;fit=crop&amp;sepia=16&amp;sat=-4&amp;con=6&amp;exp=-4&amp;ar=21:9&amp;w=1600"
-             srcset="https://images.unsplash.com/photo-1562601579-599dec564e06?q=80&amp;auto=format&amp;fit=crop&amp;sepia=16&amp;sat=-4&amp;con=6&amp;exp=-4&amp;ar=21:9&amp;w=800 800w, https://images.unsplash.com/photo-1562601579-599dec564e06?q=80&amp;auto=format&amp;fit=crop&amp;sepia=16&amp;sat=-4&amp;con=6&amp;exp=-4&amp;ar=21:9&amp;w=1600 1600w, https://images.unsplash.com/photo-1562601579-599dec564e06?q=80&amp;auto=format&amp;fit=crop&amp;sepia=16&amp;sat=-4&amp;con=6&amp;exp=-4&amp;ar=21:9&amp;w=2400 2400w"
-             sizes="(min-width: 90rem) 82rem, 100vw" width="2400" height="1029" loading="lazy"
-             alt="Necks of wine bottles lying in a rack, lit low">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Schramsberg_Vineyards%2C_July_2019-7579%2B7580.jpg/1280px-Schramsberg_Vineyards%2C_July_2019-7579%2B7580.jpg" width="6244" height="3903" loading="lazy" alt="A long cellar aisle between racks of bottles laid neck down" style="object-position: 50% 60%">
       </figure>
       <div class="plate grained">
         <h2 id="list-title">Every bottle here is natural.</h2>
@@ -239,19 +239,13 @@ button, input, select, textarea { font: inherit; }
       <div class="pair">
         <figure class="pair__item pair__item--wide">
           <div class="photo" data-slot="photo-2" data-alt="A glass poured at the bar">
-            <img src="https://images.unsplash.com/photo-1585553616435-2dc0a54e271d?q=80&amp;auto=format&amp;fit=crop&amp;sepia=16&amp;sat=-4&amp;con=6&amp;exp=-4&amp;ar=4:3&amp;w=1600"
-                 srcset="https://images.unsplash.com/photo-1585553616435-2dc0a54e271d?q=80&amp;auto=format&amp;fit=crop&amp;sepia=16&amp;sat=-4&amp;con=6&amp;exp=-4&amp;ar=4:3&amp;w=800 800w, https://images.unsplash.com/photo-1585553616435-2dc0a54e271d?q=80&amp;auto=format&amp;fit=crop&amp;sepia=16&amp;sat=-4&amp;con=6&amp;exp=-4&amp;ar=4:3&amp;w=1600 1600w, https://images.unsplash.com/photo-1585553616435-2dc0a54e271d?q=80&amp;auto=format&amp;fit=crop&amp;sepia=16&amp;sat=-4&amp;con=6&amp;exp=-4&amp;ar=4:3&amp;w=2400 2400w"
-                 sizes="(min-width: 60rem) 52vw, 100vw" width="1600" height="1200" loading="lazy"
-                 alt="A glass of pale white wine held close against a dark room">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Paris_-_A_waiter_lighting_candles_in_a_bar_-_3418.jpg/1280px-Paris_-_A_waiter_lighting_candles_in_a_bar_-_3418.jpg" width="4368" height="2912" loading="lazy" alt="Lighting rows of red glass candles along a dark bar counter" style="object-position: 40% 65%">
           </div>
           <figcaption><b>The bar</b> Open a bottle and stay.</figcaption>
         </figure>
         <figure class="pair__item">
           <div class="photo" data-slot="photo-3" data-alt="The shop's shelves of bottles">
-            <img src="https://images.unsplash.com/photo-1578911373434-0cb395d2cbfb?q=80&amp;auto=format&amp;fit=crop&amp;sepia=16&amp;sat=-4&amp;con=6&amp;exp=-4&amp;ar=1:1&amp;w=1600"
-                 srcset="https://images.unsplash.com/photo-1578911373434-0cb395d2cbfb?q=80&amp;auto=format&amp;fit=crop&amp;sepia=16&amp;sat=-4&amp;con=6&amp;exp=-4&amp;ar=1:1&amp;w=800 800w, https://images.unsplash.com/photo-1578911373434-0cb395d2cbfb?q=80&amp;auto=format&amp;fit=crop&amp;sepia=16&amp;sat=-4&amp;con=6&amp;exp=-4&amp;ar=1:1&amp;w=1600 1600w"
-                 sizes="(min-width: 60rem) 37vw, 100vw" width="1600" height="1600" loading="lazy"
-                 alt="Floor to ceiling shelves of wine bottles in a dim shop">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/Cocktail-Bar_%28Kleines_Phi%29_in_Hamburg.jpg/1280px-Cocktail-Bar_%28Kleines_Phi%29_in_Hamburg.jpg" width="4971" height="4000" loading="lazy" alt="Shelves of bottles under hanging lamps behind a long counter" style="object-position: 72% 15%">
           </div>
           <figcaption><b>The shop</b> Take one home.</figcaption>
         </figure>
@@ -261,10 +255,7 @@ button, input, select, textarea { font: inherit; }
 
   <section class="nights" aria-labelledby="nights-title">
     <figure class="photo bleed nights__photo" data-slot="photo-4" data-alt="The bar room after five">
-      <img src="https://images.unsplash.com/photo-1504718855392-c0f33b372e72?q=80&amp;auto=format&amp;fit=crop&amp;sepia=16&amp;sat=-4&amp;con=6&amp;exp=-4&amp;ar=21:9&amp;w=1600"
-           srcset="https://images.unsplash.com/photo-1504718855392-c0f33b372e72?q=80&amp;auto=format&amp;fit=crop&amp;sepia=16&amp;sat=-4&amp;con=6&amp;exp=-4&amp;ar=21:9&amp;w=800 800w, https://images.unsplash.com/photo-1504718855392-c0f33b372e72?q=80&amp;auto=format&amp;fit=crop&amp;sepia=16&amp;sat=-4&amp;con=6&amp;exp=-4&amp;ar=21:9&amp;w=1600 1600w, https://images.unsplash.com/photo-1504718855392-c0f33b372e72?q=80&amp;auto=format&amp;fit=crop&amp;sepia=16&amp;sat=-4&amp;con=6&amp;exp=-4&amp;ar=21:9&amp;w=2400 2400w"
-           sizes="100vw" width="2400" height="1029" loading="lazy"
-           alt="A bar room at night seen through trailing ivy and filament bulbs">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Bokeh_raindrops_on_a_window_1.jpg/1280px-Bokeh_raindrops_on_a_window_1.jpg" width="3283" height="4385" loading="lazy" alt="Rain on a window at night, the lights inside blurred to warm discs" style="object-position: 50% 30%">
     </figure>
     <div class="nights__over">
       <div class="container">
@@ -289,10 +280,7 @@ button, input, select, textarea { font: inherit; }
         </form>
       </div>
       <figure class="photo tastings__photo" data-slot="photo-5" data-alt="Glasses poured for a tasting">
-        <img src="https://images.unsplash.com/photo-1568213816046-0ee1c42bd559?q=80&amp;auto=format&amp;fit=crop&amp;sepia=16&amp;sat=-4&amp;con=6&amp;exp=-4&amp;ar=5:4&amp;w=1600"
-             srcset="https://images.unsplash.com/photo-1568213816046-0ee1c42bd559?q=80&amp;auto=format&amp;fit=crop&amp;sepia=16&amp;sat=-4&amp;con=6&amp;exp=-4&amp;ar=5:4&amp;w=800 800w, https://images.unsplash.com/photo-1568213816046-0ee1c42bd559?q=80&amp;auto=format&amp;fit=crop&amp;sepia=16&amp;sat=-4&amp;con=6&amp;exp=-4&amp;ar=5:4&amp;w=1600 1600w, https://images.unsplash.com/photo-1568213816046-0ee1c42bd559?q=80&amp;auto=format&amp;fit=crop&amp;sepia=16&amp;sat=-4&amp;con=6&amp;exp=-4&amp;ar=5:4&amp;w=2400 2400w"
-             sizes="(min-width: 60rem) 45vw, 100vw" width="1600" height="1280" loading="lazy"
-             alt="Four glasses of wine from pale white to deep red in a row on a barrel top">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Wine_being_poured_into_a_glass.jpg/1280px-Wine_being_poured_into_a_glass.jpg" width="1955" height="1300" loading="lazy" alt="A taste of red wine poured into a glass held by its stem" style="object-position: 62% 50%">
       </figure>
     </div>
   </section>
@@ -309,6 +297,7 @@ button, input, select, textarea { font: inherit; }
       </ul>
     </div>
     <p class="legal">&copy; 2026 Night Cellar</p>
+    <p class="credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Pouring_wine_into_a_decanter.jpg">suksim</a> <span>(CC BY 2.0)</span>, <a href="https://commons.wikimedia.org/wiki/File:Schramsberg_Vineyards,_July_2019-7579%2B7580.jpg">Frank Schulenburg</a> <span>(CC BY-SA 4.0)</span>, <a href="https://commons.wikimedia.org/wiki/File:Paris_-_A_waiter_lighting_candles_in_a_bar_-_3418.jpg">Jorge Royan</a> <span>(CC BY-SA 3.0)</span>, <a href="https://commons.wikimedia.org/wiki/File:Cocktail-Bar_(Kleines_Phi)_in_Hamburg.jpg">Achim Schleuning</a> <span>(CC BY-SA 4.0)</span>, <a href="https://commons.wikimedia.org/wiki/File:Bokeh_raindrops_on_a_window_1.jpg">W.carter</a> <span>(CC0)</span>, <a href="https://commons.wikimedia.org/wiki/File:Wine_being_poured_into_a_glass.jpg">Fabio Ingrosso</a> <span>(CC BY 2.0)</span>, via Wikimedia Commons.</p>
   </div>
 </footer>
 

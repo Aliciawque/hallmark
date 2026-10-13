@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 /* sloplint: Hallmark's mechanical gate checker. Zero dependencies, Node 18+. Gate ids and tiers: references/gates.md. */
+import { createHash } from 'node:crypto';
 import { readFileSync, readdirSync, statSync, existsSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, extname, dirname, basename, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -1978,7 +1979,7 @@ function check42(ctx) {
       && r.decls.some((d) => /^border(-bottom)?$/.test(d.prop) && /\b1px\b/.test(d.value)));
     const hasCta = /btn|cta|button/i.test(inner.inner);
     if (links >= 4 && links <= 6 && hairline && hasCta) {
-      report(42, 'WARN', doc.file, navTag.line, `default nav shape: ${links} links + CTA + 1px hairline`, 'Route the nav via the cookbook variants');
+      report(42, 'WARN', doc.file, navTag.line, `default nav shape: ${links} links + CTA + 1px hairline`, 'Give the nav a shape of its own (layout.md, navs)');
     }
   }
 }
@@ -2745,11 +2746,11 @@ function checkF9(ctx) {
   const scan = (text, file, lineAt) => {
     const f = FAKE.exec(text);
     if (f) report('F9', 'FAIL', file, lineAt(f.index), `fake-human avatar service ${f[1]}`,
-      'Use the Hallmark avatar kit or drop the face; a generated stranger is fabricated social proof');
+      'Drop the face, or use the real person\'s own photo; a generated stranger is fabricated social proof');
     for (const m of text.matchAll(UNSPLASH)) {
       if (PERSONY.test(m[0])) report('F9', 'WARN', file, lineAt(m.index),
-        `unsplash person-keyword URL ${trunc(m[0], 44)}`,
-        'Faces as social proof need real people; keep unsplash for scenery and objects');
+        `stock person-keyword URL ${trunc(m[0], 44)}`,
+        'Faces as social proof need real people; a stock face is a stranger');
     }
   };
   for (const doc of ctx.docs) scan(doc.src, doc.file, (i) => doc.lineOf(i));
@@ -2865,7 +2866,7 @@ function check67Html(ctx) {
       if (!inner || /<(p|div|ul|ol|h[1-6]|table|section|article|svg|img|abbr|code|kbd)\b/i.test(inner.inner)) continue;
       const text = plainText(inner.inner);
       const letters = text.replace(/[^A-Za-z]/g, '');
-      if (letters.length < 5 || capsRatio(text) < 0.95 || /^[A-Z]{2,5}$/.test(text)) continue;
+      if (letters.length < 5 || capsRatio(text) < 0.95 || /^[A-Z]{2,5}$/.test(text) || /^\(?\s*(CC0|CC BY(-SA|-NC|-ND)*( [0-9.]+)?|PD|GFDL)\b/.test(text)) continue;
       const decls = styleFor(ctx, cls, t.name);
       const px = fontPxOf(ctx, decls);
       const em = trackingEmOf(ctx, decls, px || 16);
@@ -3038,7 +3039,7 @@ function check58Static(ctx) {
       const t = doc.tags[i];
       if (t.close || t.selfClosing || t.pos < hiddenEnd) continue;
       const cls = getAttr(t.attrs, 'class') || '';
-      if (!(/(^|\s)(sr-only|visually-hidden|screen-reader-text|skip|skip-link)(\s|$)/i.test(cls) || /aria-hidden\s*=\s*["']?true/i.test(t.attrs) || /(^|\s)hidden(\s|=|$)/i.test(t.attrs))) continue;
+      if (!(/(^|\s)(sr-only|visually-hidden|screen-reader-text|skip|skip-link)(\s|$)/i.test(cls) || /aria-hidden\s*=\s*["']?true/i.test(t.attrs) || /(^|\s)hidden(\s|=|$)/i.test(t.attrs) || /(^|\s)data-credits(\s|=|$)/i.test(t.attrs))) continue;
       const inner = innerOf(doc, i);
       if (!inner) continue;
       hiddenWords += countWords(plainText(inner.inner));
@@ -3914,21 +3915,42 @@ function checkF24(ctx) {
 }
 
 let LIBRARY = null;
-function libraryIds() {
+function library() {
   if (LIBRARY) return LIBRARY;
-  try { LIBRARY = new Set(JSON.parse(readFileSync(join(dirname(fileURLToPath(import.meta.url)), 'photos.json'), 'utf8')).photos.map((p) => p.id)); } catch { LIBRARY = new Set(); }
+  LIBRARY = new Map();
+  try { for (const p of JSON.parse(readFileSync(join(dirname(fileURLToPath(import.meta.url)), 'photos.json'), 'utf8')).photos) { LIBRARY.set(p.file.split('/').pop(), p); LIBRARY.set(savedName(p.id), p); } } catch { /* no library */ }
   return LIBRARY;
 }
+// theme.mjs photos --save names a file after its title; match that name back to the library entry.
+const savedName = (id) => id.replace(/\.[a-z]+$/i, '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60) || `photo-${createHash('sha1').update(id).digest('hex').slice(0, 10)}`;
+const SAVED = /([a-z0-9-]+)-(?:960|1280|1920)\.jpg/g;
+const COMMONS = /upload\.wikimedia\.org\/wikipedia\/commons\/(?:thumb\/)?[0-9a-f]\/[0-9a-f]{2}\/([^/"'\s)?]+)/g;
+const STOCK = /(?:images|plus)\.unsplash\.com\/(premium_photo|photo)-[\w-]+|images\.pexels\.com\/photos\/\d+|cdn\.pixabay\.com\/photo\//g;
 function check76(ctx) {
-  const lib = libraryIds();
+  const lib = library();
+  const text = ctx.docs.filter((d) => d.kind === 'html').map((d) => d.src).join('\n');
+  const credited = (p) => /^(CC0|Public domain|PD)/i.test(p.license) || text.includes(p.page) || text.includes(p.page.replace(/^https:/, '')) || text.includes(p.author);
+  const seen = new Set();
   for (const doc of ctx.docs) {
-    const off = new Set(), plus = new Set();
-    for (const m of doc.src.matchAll(/(?:images|plus)\.unsplash\.com\/(premium_photo|photo)-[\w-]+/g)) {
-      const id = m[0].split('/').pop();
-      if (m[1] === 'premium_photo') plus.add(doc.lineOf(m.index));
-      else if (lib.size && !lib.has(id) && !off.has(id)) { off.add(id); if (off.size === 1) report('76', 'WARN', doc.file, doc.lineOf(m.index), `a photo id that is not in the library (${id}); an id written from memory is often a broken image`, 'Pick photographs with theme.mjs photos, or use the user\'s own'); }
+    let stock = 0, plus = 0;
+    for (const m of doc.src.matchAll(STOCK)) {
+      if (m[1] === 'premium_photo') { if (!plus++) report('76', 'FAIL', doc.file, doc.lineOf(m.index), 'an Unsplash+ photo, which needs a paid licence', 'Use a library photograph (theme.mjs photos) or the user\'s own'); }
+      else if (!stock++) report('76', 'WARN', doc.file, doc.lineOf(m.index), 'a photo hotlinked from a stock site, whose terms bar images picked by an AI tool', 'Use a library photograph (theme.mjs photos) or the user\'s own; dismiss only if the user supplied this one');
     }
-    if (plus.size) report('76', 'FAIL', doc.file, [...plus][0], 'an Unsplash+ photo, which needs a paid licence', 'Use a library photograph (theme.mjs photos) or the user\'s own');
+    for (const m of doc.src.matchAll(COMMONS)) {
+      const name = m[1].replace(/^\d+px-/, '');
+      if (seen.has(name)) continue;
+      seen.add(name);
+      const p = lib.get(name);
+      if (!p) { if (lib.size) report('76', 'WARN', doc.file, doc.lineOf(m.index), `a Commons file that is not in the library (${trunc(decodeURIComponent(name), 40)})`, 'Pick photographs with theme.mjs photos, or check its licence and credit it by hand'); }
+      else if (!credited(p)) report('76', 'FAIL', doc.file, doc.lineOf(m.index), `a library photo with no credit on the page (${trunc(p.author, 30)}, ${p.license})`, 'Add its printed credit to the footer\'s Photographs line (imagery.md § 2)');
+    }
+    for (const m of doc.src.matchAll(SAVED)) {
+      const p = lib.get(m[1]);
+      if (!p || seen.has(m[1])) continue;
+      seen.add(m[1]);
+      if (!credited(p)) report('76', 'FAIL', doc.file, doc.lineOf(m.index), `a library photo with no credit on the page (${trunc(p.author, 30)}, ${p.license})`, 'Add its printed credit to the footer\'s Photographs line (imagery.md § 2)');
+    }
     if (doc.kind !== 'html') continue;
     for (const m of doc.src.matchAll(/<img\b([^>]*)>/gi)) {
       const src = getAttr(m[1], 'src');

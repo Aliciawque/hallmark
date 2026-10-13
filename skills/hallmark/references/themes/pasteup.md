@@ -8,7 +8,7 @@ accent: chromatic-yellow 112
 posture: committed
 keywords: zine, fair, market, festival, print fair, book fair, exhibitors, punk, diy, collective, gig, poster, workshop, night market, flea, indie, community, launch, loud, photocopy, flyer
 material: kraft board, a fibre wash, near-black toner, League Gothic capitals over a Newsreader galley, white copy paper on paper lifts, hard ink offsets, one sheet of fluorescent yellow
-photo: mono con=45 sharp=25
+photo: mono con=45
 pictured: Bento Grid, Settled hero
 ---
 

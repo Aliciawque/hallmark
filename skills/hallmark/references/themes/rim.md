@@ -8,7 +8,7 @@ accent: warm 45
 posture: committed
 keywords: space, satellite, earth observation, orbit, imagery, ground station, telemetry, hardware, schedule, utc, infrastructure, mission, sensor, monitoring, instrument, night, dark, measured
 material: warm black paper, warm off-white ink, Switzer 500 with Geist Mono for every measurement, square hairline surfaces, the earth photographed straight down, an orange signal and a sky-blue second
-photo: natural sat=-20 con=10 sharp=10
+photo: natural sat=-20 con=10
 pictured: Bento Grid, Stage hero
 ---
 

@@ -1,5 +1,5 @@
 {
- "built": "2026-10-12",
+ "built": "2026-10-13",
  "themes": [
   {
    "name": "Almanac",
@@ -1424,7 +1424,7 @@
    ],
    "material": "kraft board, a fibre wash, near-black toner, League Gothic capitals over a Newsreader galley, white copy paper on paper lifts, hard ink offsets, one sheet of fluorescent yellow",
    "file": "references/themes/pasteup.md",
-   "photo": "mono con=45 sharp=25",
+   "photo": "mono con=45",
    "pictured": "Bento Grid, Settled hero",
    "picture": "references/themes/pasteup.jpg"
   },
@@ -1557,7 +1557,7 @@
    ],
    "material": "warm black paper, warm off-white ink, Switzer 500 with Geist Mono for every measurement, square hairline surfaces, the earth photographed straight down, an orange signal and a sky-blue second",
    "file": "references/themes/rim.md",
-   "photo": "natural sat=-20 con=10 sharp=10",
+   "photo": "natural sat=-20 con=10",
    "pictured": "Bento Grid, Stage hero",
    "picture": "references/themes/rim.jpg"
   },
@@ -2040,7 +2040,7 @@
    ],
    "material": "off-white paper, white plates ruled in ink, wide Syne heads over Onest, hard offset shadows, surfaces photographed flat-on in true colour, rust the one signal",
    "file": "references/themes/terrazzo.md",
-   "photo": "natural con=4 sharp=12",
+   "photo": "natural con=4",
    "pictured": "Catalogue, Settled hero",
    "picture": "references/themes/terrazzo.jpg"
   },
@@ -2181,7 +2181,7 @@
    ],
    "material": "cool grey paper, blue-black ink, Chivo Mono throughout, square 2px ink borders, cobalt for what is live, amber for figures",
    "file": "references/themes/wayfind.md",
-   "photo": "natural sat=-12 con=10 sharp=8",
+   "photo": "natural sat=-12 con=10",
    "pictured": "Split Studio, Stage hero",
    "picture": "references/themes/wayfind.jpg"
   },

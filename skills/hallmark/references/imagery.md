@@ -22,20 +22,21 @@ A photograph never stands in for a fact: the brief's numbers, names and claims s
 
 ## 2. The library
 
-Hallmark carries a library of verified photographs (Unsplash, free licence, no attribution), tagged by subject, tone and temperature. Ask it for each subject the page needs, concretely:
+Hallmark carries a library of verified photographs from Wikimedia Commons, every one under CC0, public domain, CC BY or CC BY-SA, tagged by subject, tone and temperature. Ask it for each subject the page needs, concretely:
 
 ```
 node <skill-dir>/scripts/theme.mjs photos "apple orchard in autumn" "cider bottles on a table" "hands picking apples" --theme <slug> [--n 3] [--orient portrait|landscape] [--log .hallmark/log.json]
 ```
 
-It ranks the library for each subject, skips photos the last builds used, applies the theme's treatment, and prints for each pick the id, what it shows, its size and a ready URL. Look at what it says each photo shows and keep only those that fit the sentence the section makes; re-ask with other words before settling for a near miss.
+It ranks the library for each subject, skips photos the last builds used, and prints for each pick what it shows, its size, a ready `<img>` with its `srcset`, and its credit. Keep only the picks that fit the sentence the section makes; re-ask with other words before settling for a near miss.
 
-- **Never write an image URL from memory.** Use only what the script printed or the user supplied; an id that does not exist is a broken image (76).
-- **For production,** `--save <dir>` downloads the picks into the project and prints local paths, so the page does not hotlink; drafts may hotlink the CDN.
-- **Size and crop on the CDN:** the printed URL carries the treatment and no size; add `&w=<px>` (and `&ar=<w>:<h>` to crop; `&crop=entropy` keeps the busy part in frame, `&crop=focalpoint&fp-x=0.5&fp-y=0.35&fp-z=1.2` sets the point and the zoom by hand). Give `srcset` at 800, 1600 and 2400 wide with a `sizes` that matches the layout, and `width` and `height` from the ratio you cropped to.
-- **The hero photograph** is the LCP: `fetchpriority="high"`, never `loading="lazy"`; every other image is lazy.
+- **Never write an image URL from memory,** and never take one from a stock site: Unsplash, Pexels and Pixabay bar AI-driven selection of their images in their terms. Use only what the script printed or the user supplied (76).
+- **Credit every library photo.** One line in the footer marked `data-credits` (the word budget skips it), *Photographs:* then each printed credit (the author linked to the photo's page, and its licence), in the footer's small style. CC BY and CC BY-SA require it; it costs one line and is never left out (76).
+- **Size and crop in CSS:** keep the printed `srcset`, set `sizes` to the layout (`50vw` for a half, `100vw` full-bleed), and crop with the frame: `aspect-ratio` on the slot, `object-fit: cover`, and the printed `object-position` (or your own) to keep the subject in frame.
+- **For production,** `--save <dir>` downloads the picks into the project and prints local paths; drafts may link the Commons thumbnails.
+- **The hero photograph** is the LCP: `fetchpriority="high"`, never `loading="lazy"`; every other image is lazy. A full-bleed or hero frame takes a photo 2400px or more on its long side; a smaller one goes soft at 1920.
 - **A stand-in stays swappable.** Wrap it in its slot (§ 3) with `data-alt` naming what the user's own picture should show, and list it in the handoff.
-- **No Node:** say so in the Picks block and use slots with the user's material only; never guess an id.
+- **No Node:** say so in the Picks block and use slots with the user's material only; never guess a file.
 
 ## 3. Slots
 
@@ -64,7 +65,7 @@ A working control (a calculator on the user's prices, a booking form) is a fine 
 - **Text over a photograph** sits on its calmest part over a scrim from the theme's ink (a gradient from the text's edge, 35 to 65%), at 4.5:1 or better against the image under it; never centred white type over a busy frame. The scrim is a legibility layer, not decoration: keep it behind the text's side of the frame only, and on a theme that refuses gradients use a solid ink plate under the text instead.
 - **Facts on the pictures:** captions and card lines are facts from the brief in the label style, beside or under the picture: the dish and its price, the room and its hours, the date, the material, the place. Never a credit line, never a caption that claims a stand-in as the user's own person, place or product.
 - **Pick for the treatment.** A duotone or tint flattens a pale subject (white paper, snow, a white wall) into a flat field that reads as an empty picture; choose frames with tonal range, and look at each one through the treatment before it ships.
-- **The theme's treatment, on every photo of the page.** The theme's `photo:` header sets it and the script applies it on the CDN: `natural`, `warm`, `muted`, `mono`, `duotone` in two of the theme's tokens, or `tint` in one, with small adjustments (`con=`, `sat=`, `exp=`) after it. The frame is the theme's: its radius, an inset outline of ink at 6 to 10% (`outline: 1px solid ...; outline-offset: -1px`), its texture if it has one. Never a border and a wide shadow together.
+- **The theme's treatment, on every photo of the page.** The theme's `photo:` header sets it and the scaffold writes it into `base.css` as CSS on every image in a slot (the user's own pictures take it too): `natural`, `warm`, `muted`, `mono`, `duotone` in two of the theme's tokens, or `tint` in one, with small adjustments (`con=`, `sat=`, `exp=`) after it. A duotone or tint takes the slot's `::before` for its ink plate: draw a keyline or a scrim with `::after` or a sibling. A photo set inside a built product takes the treatment only if the page adds it. The frame is the theme's: its radius, an inset outline of ink at 6 to 10% (`outline: 1px solid ...; outline-offset: -1px`), its texture if it has one. Never a border and a wide shadow together.
 - **Rhythm.** A photograph-led page puts one on most screens; a software page alternates the product and a photograph or a type-led section; a word-led page takes one at most.
 
 ## 6. Generated stills
