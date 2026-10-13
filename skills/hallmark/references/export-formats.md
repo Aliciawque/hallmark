@@ -7,7 +7,7 @@ Loaded when a `design.md` exists and its `## Exports` need refreshing, or when t
 | Family | Tokens |
 | --- | --- |
 | Colour | `--color-paper`, `-paper-2`, `-paper-3`, `-ink`, `-ink-2`, `-muted`, `-rule` (and `-rule-2` where a theme sets one), `-accent`, `-accent-ink`, `-focus`, `-error`, `-success`; `-field` under a Committed posture, `-accent-2` where a theme names a second ink |
-| Type | `--font-display`, `--font-body`, `--font-outlier`; `--text-xs` to `--text-3xl` on a 1.25 ratio from 16px, `--text-display-s`, `--text-display` (an app screen: a fixed 1.2 ratio, no display steps); `--tracking-display` |
+| Type | `--font-display`, `--font-body`, `--font-outlier`; `--text-xs` to `--text-3xl` on a 1.25 ratio from 16px, `--text-display-s`, `--text-display`, and the roles `--text-section` (`h2`), `--text-title` (`h3`), `--text-lead` (an app screen: a fixed 1.2 ratio, the roles at small fixed steps); `--tracking-display` |
 | Space | `--space-3xs` (2px) to `--space-4xl` (144px), ten steps; `--container`, `--gutter`, `--gap-columns`, `--section-gap-s`, `--section-gap`, `--section-gap-l` |
 | Shape | `--radius-card`, `--radius-pill`, `--rule-hair`, `--shadow-card` |
 | Motion | `--ease-out`, `--ease-in`, `--ease-in-out`; `--dur-micro` 120ms, `--dur-short` 220ms, `--dur-long` 420ms |

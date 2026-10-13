@@ -13,7 +13,7 @@ Reach for it for premium products, complex feature stories, anywhere the pacing 
 
 Avoid for mobile-first audiences without a strong fallback. Sticky scroll-sync is rough on small screens.
 
-Code: [`../components/f2-sticky-scroll-stack.md`](../components/f2-sticky-scroll-stack.md).
+Compositions: a pinned Split (`layout.md` § 5), the pin per `scroll-choreography.md` § 4.
 
 Mobile: under 60rem the sticky pane becomes a heading above its captures, stacked in flow.
 

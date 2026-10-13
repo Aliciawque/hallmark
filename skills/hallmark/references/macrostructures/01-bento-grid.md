@@ -13,7 +13,7 @@ Reach for it when the brief is "many small things to show": a feature page, a Sa
 
 Avoid when the message is one hero idea. Bento spreads attention; a one-idea page wants Marquee or Stat-Led.
 
-Code: [`../components/f1-bento-grid.md`](../components/f1-bento-grid.md).
+Compositions: Bento and Grid (`layout.md` § 5).
 
 **Sample opening lines** (imitate the specificity, not the wording):
 > *"Distributed tracing that explains itself."* Names the category and the promise in five words (Tracejam).

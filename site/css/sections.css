@@ -631,7 +631,6 @@
 [data-theme="almanac"] .skill-row__lede,
 [data-theme="studio"] .skill-row__lede,
 [data-theme="bloom"] .skill-row__lede,
-[data-theme="aurora"] .skill-row__lede,
 [data-theme="coral"] .skill-row__lede {
   font-family: var(--font-body);
   font-style: normal;
@@ -815,11 +814,6 @@
 
 /* SOFT-CARD group (8–14px). */
 [data-theme="coral"] .brief-output { border-radius: 8px; }
-[data-theme="aurora"] .brief-output {
-  border: 1px solid var(--color-rule-2);
-  border-radius: 12px;
-  box-shadow: 0 0 24px -10px color-mix(in oklch, var(--color-accent) 35%, transparent);
-}
 [data-theme="bloom"] .brief-output {
   border: 1px solid var(--color-rule);
   border-radius: 14px;
@@ -955,7 +949,6 @@
    slop — purpose retained. */
 [data-theme="midnight"] .audit-slop,
 [data-theme="manifesto"] .audit-slop,
-[data-theme="aurora"] .audit-slop,
 [data-theme="riso"] .audit-slop,
 [data-theme="terminal"] .audit-slop,
 [data-theme="brutal"] .audit-slop {

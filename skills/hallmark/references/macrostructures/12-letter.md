@@ -13,7 +13,7 @@ Reach for it for personal brands, indie founder announcements, sabbatical or piv
 
 Avoid for transactional commerce. Letter is intimate; commerce is functional.
 
-Code: [`../components/h5-letter-hero.md`](../components/h5-letter-hero.md) and [`../components/ft6-letter-close.md`](../components/ft6-letter-close.md).
+Compositions: the Corridor hero (`layout.md` § 6); the footer is a letter close (§ 7).
 
 **Sample opening lines** (first-person greetings, dated, with a place if it matters):
 > *"Hello, I'm Anya."* One line: a name, a full stop.

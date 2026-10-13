@@ -78,7 +78,7 @@ Before writing a line of the build, every region of the approved comp gets a wri
 
 Two rules on top:
 
-- **A raster region needs a real source.** The generated-still rung of the enrichment hierarchy, a user-supplied asset, or a placeholder that is honestly labelled. An invented stock photograph is not a source, and the hierarchy in `craft.md` § 4 still binds: typography, then CSS art, then SVG, then generated, and Lottie last.
+- **A raster region needs a real source.** A user-supplied asset, a library photograph (`imagery.md` § 2) or a generated still (§ 6). A photograph from memory is not a source, and the hierarchy in `craft.md` § 4 still binds: typography, then CSS art, then SVG, then generated, and Lottie last.
 - **A region cannot change medium silently during the build.** Downgrading raster to CSS mid-build is the whole failure this section catches. Change it if the code argues for it, and say so in one line.
 
 Ship the inventory as part of the comp message, under the comps:

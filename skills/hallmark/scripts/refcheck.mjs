@@ -291,6 +291,8 @@ const ATLAS_BAD = [
   [/(?<!\bno )\bhalo\b/i, 'a halo (29)'],
   [/backdrop-filter/i, 'glass (29)'],
   [/\b(?:cyan|purple|violet)-to-/i, 'a gradient gate 2a refuses'],
+  [/\bhand-drawn\b|\billustration\b|\bpictogram rows?\b|\bdrawn (?:cord|cable|curtain|check|object)s?\b/i, 'a drawn illustration (80)'],
+  [/\bone (?:mark|dot|pictogram|tick) (?:per|for each)\b/i, 'a counting device (82)'],
 ];
 const atlasFile = join(ROOT, 'scripts', 'atlas.json');
 try {

@@ -6,15 +6,15 @@ paper: light 96.5 90
 display: grotesk-sans Red Hat Display
 accent: warm 40
 posture: committed
-keywords: farm, agriculture, land, field, livestock, crop, records, compliance, fleet, field service, rural, contractor, hectares, yard, outdoors, seasonal, working, units
-material: warm office paper, an ink-ruled ledger, Red Hat Display at 600, one tangerine record mark and a yellow ear tag
-signature: the ledger row, a mono time first and a chip last, under a single ink rule
-pictured: Workbench, Stage hero
+keywords: farm, agriculture, land, field, livestock, sheep, cattle, crop, records, compliance, inspection, fleet, field service, rural, contractor, hectares, yard, outdoors, seasonal, working, units
+material: warm office paper, near-black ink in rules and hairlines, Red Hat Display 600 over Red Hat Text with Red Hat Mono figures, flat 6px controls, one tangerine signal
+photo: natural con=8 sat=-6
+pictured: Photographic, Stage hero
 ---
 
 # Furrow
 
-Warm office paper, an ink rule over every list, Red Hat Display 600 over Red Hat Text, tangerine for the record and green for what is growing, a yellow ear tag for an animal. The signature is the ledger row: a mono time first and a chip last, under a single ink rule.
+A working records voice: warm office paper, near-black ink, Red Hat Display 600 over Red Hat Text, the family's own mono on the figures that get copied onto a form, flat 6px controls, one tangerine signal (the orange of an ear tag or baler twine) and a green for what is growing. It feels useful because every list is ruled, every number carries its unit and every photograph shows the work in its weather, like a well-kept farm office. It is not a pastoral lifestyle page and not a glossy dashboard template.
 
 ## Tokens
 
@@ -23,33 +23,40 @@ Warm office paper, an ink rule over every list, Red Hat Display 600 over Red Hat
   --color-paper: oklch(96.5% 0.008 90); --color-paper-2: oklch(99.5% 0.005 90); --color-paper-3: oklch(92.5% 0.012 90);
   --color-ink: oklch(18% 0.005 60); --color-ink-2: oklch(28% 0.008 60); --color-muted: oklch(44% 0.010 60); --color-rule: oklch(89% 0.010 90);
   --color-accent: oklch(70% 0.19 40); --color-accent-ink: oklch(18% 0.005 60); --color-focus: oklch(62% 0.19 40);
-  --color-green: oklch(50% 0.11 150); --color-tag: oklch(88% 0.17 95); --color-tag-ink: oklch(30% 0.06 90);
+  --color-green: oklch(50% 0.11 150);
   --font-display: "Red Hat Display", "Red Hat Text", ui-sans-serif, sans-serif; --font-body: "Red Hat Text", ui-sans-serif, system-ui, sans-serif;
-  --font-outlier: "JetBrains Mono", ui-monospace, monospace;
+  --font-outlier: "Red Hat Mono", ui-monospace, monospace;
   --radius-card: 10px; --radius-pill: 6px; --rule-hair: 1px;
   --shadow-card: 0 10px 24px -14px oklch(18% 0.005 60 / 0.2);
-  --tracking-display: -0.04em; --display-weight: 600;
+  --tracking-display: -0.035em; --display-weight: 600;
 }
 ```
 
-## Faces
+## Type
 
-- **Display:** Red Hat Display 600, `--tracking-display`, line-height 1.0, up to 4rem. One weight and one colour per head.
-- **Body:** Red Hat Text 400 at 16px, line-height 1.55, in `--color-muted`; Red Hat Text 500 for row titles.
-- **Labels, captions, table heads, chips, meta:** Red Hat Text 500 one step smaller, sentence case, untracked. Never mono, never uppercase.
-- **Form figures (mono as material):** JetBrains Mono 400 and 500 at 12 to 13px, tabular, only for what gets copied onto a form: times, tag numbers, rates, hectares, litres, prices.
+- **Display:** Red Hat Display 600, `--tracking-display`, line-height 1.0, sentence case. One weight and one colour per head.
+- **Body:** Red Hat Text 400 at 16px, line-height 1.55, in `--color-muted`; Red Hat Text 500 for a row's title.
+- **Labels, captions, table heads, chips, meta:** Red Hat Text 500 a step smaller, sentence case, untracked. Never mono, never uppercase.
+- **Figures (mono as material):** Red Hat Mono 400 and 500, tabular, a step smaller than the text beside them, only for what gets copied onto a form: dates, tag numbers, doses, withdrawal days, hectares, prices. One superfamily, so the figures sit in the line.
 
-## Material
+## Surfaces
 
-- The ledger row: an ink rule on top of the list, hairlines between rows, a mono time or number first, a chip last. Every list is one: animals, movements, jobs, forms. There is no card grid.
-- The ear tag: a 54 by 44 tile in `--color-tag`, 6px top corners and 10px bottom corners, a pin hole on the top edge, the number in mono. The only icon for an animal, and yellow means nothing else.
-- The field map: polygons in four field fills (hues 130, 110, 85 and 60 near 80% L), the paper as the boundary stroke, the chosen field in tangerine. Drawn, never a satellite image.
-- The form: a white sheet, a 2px ink rule under its title, mono fields in two columns, a signature line and the page's one shadow, because it is paper. Everything else is flat.
-- Radii by object: 4px chips and checkboxes, 6px buttons, 10px panels. The control pair is a tangerine-filled primary with ink text beside a white 1px-bordered secondary. No texture.
+- Rules: a 1px `--color-ink` rule over a list or a table, `--color-rule` hairlines between its rows. Lists are ruled, never boxed into a grid of cards.
+- Radii: 4px on chips and checkboxes, 6px on controls and inputs, 10px on wells, screens and photographs, concentric inside.
+- Depth is flat with one exception: a white `--color-paper-2` sheet (a form, a dialog, a phone's screen) lifts on `--shadow-card` with no border, because it is paper. Wells are `--color-paper-3` and flat.
+- Bands: `--color-paper-3`, a tangerine field with ink text (the posture is committed), or `--color-ink` with paper text. Two a page at most.
+- Photographs: the working holding in ordinary weather, at mid distance under overcast light: ewes in a wet field, a gateway and its mud, a stock trailer in a yard, hands at a hurdle or a pen. Natural colour with a little contrast; never golden hour. 10px radius with an inset ring of ink at 8%; a caption beneath in the label style; where text sits on a photograph, an ink scrim from its edge. Tangerine never tints a picture.
+- No texture, no grain, no gradient.
+
+## Controls
+
+- A tangerine-filled primary with ink text beside a white `--color-paper-2` secondary with a 1px `--color-rule` border, both at 6px.
+- Links underline in `--color-rule` and the line turns tangerine on hover; inputs are white, 6px, with a 1px `--color-muted` border, and a figure field sets in mono.
+- Tangerine is a fill with ink on it: the primary, a selected chip, the field band, the focus ring. `--color-green` marks what is growing or in date on a chip or a figure, never a control.
 
 ## Motion
 
-Working, not decorative: a sprayer canvas draws a pass and the hectare count follows, a withdrawal countdown ticks once a minute, a price recomputes on input. No reveals, no parallax.
+State only, `--dur-short` on `--ease-out`: a row tints to `--color-paper-3` on hover, a figure updates in place when its input changes. No reveals, no parallax.
 
 ## Voice
 
@@ -57,23 +64,25 @@ Plain and unit-bearing: 214 ha, 6.1 t/ha, 12 days withdrawal, GBP per hectare. N
 
 ## Do-nots
 
-- Never yellow for a warning, a highlight or a sale; the tag is the animal, and that is all yellow means.
-- Never a photograph of a field, a tractor or an animal; the map and the tag are drawn.
-- Never a tier table; price is a calculation.
-- Never tangerine as type; it fills the record mark and the chosen field, with ink on it.
+- Never tangerine as type; it is a fill with ink on it.
+- Never a third colour: tangerine records, green grows, everything else is ink and paper.
+- Never a second shadow; only the white sheet lifts.
+- Never mono on a label, a chip or a head; mono is the figure that goes onto a form.
+- Never the pastoral picture: hay bales at sunset, boots on a porch, a picnic in a meadow; the farm at work, in its weather.
 
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@600&family=Red+Hat+Text:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@600&family=Red+Hat+Text:wght@400;500&family=Red+Hat+Mono:wght@400;500&display=swap" rel="stylesheet">
 ```
 
 ```css
-.display { font: 600 min(var(--text-display), 4rem)/1 var(--font-display); letter-spacing: var(--tracking-display); }
-.ledger { border-top: 1px solid var(--color-ink); }
-.ledger > div { display: grid; gap: var(--space-md); align-items: center; padding: var(--space-sm) 0; border-bottom: 1px solid var(--color-rule); }
-.ear { display: inline-grid; place-items: center; width: 54px; height: 44px; border-radius: 6px 6px 10px 10px; background: var(--color-tag); color: var(--color-tag-ink); font: 500 var(--text-xs) var(--font-outlier); }
-.btn { border-radius: var(--radius-pill); padding: var(--space-sm) var(--space-md); font-weight: 600; border: 1px solid var(--color-rule); background: var(--color-paper-2); }
+h1, h2, h3 { font-weight: var(--display-weight); line-height: 1; }
+.btn { border: var(--rule-hair) solid var(--color-rule); border-radius: var(--radius-pill); padding: var(--space-sm) var(--space-md); font-weight: 500; background: var(--color-paper-2); color: var(--color-ink); }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
+.ruled { border-top: var(--rule-hair) solid var(--color-ink); } .ruled > * { border-bottom: var(--rule-hair) solid var(--color-rule); }
+.sheet { background: var(--color-paper-2); border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
+.band--field { background: var(--color-accent); color: var(--color-accent-ink); }
+.num { font-family: var(--font-outlier); font-variant-numeric: tabular-nums; }
 ::selection { background: color-mix(in oklab, var(--color-accent) 30%, transparent); }
 ```

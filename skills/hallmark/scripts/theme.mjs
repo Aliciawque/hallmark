@@ -7,12 +7,13 @@ import { createHash } from 'node:crypto';
 const HERE = dirname(fileURLToPath(import.meta.url));
 const THEMES = join(HERE, '..', 'references', 'themes');
 const INDEX = join(THEMES, 'index.json');
-const VERSION = '2.5.0';
+const VERSION = '2.7.0';
+const PHOTOS = join(HERE, 'photos.json');
 const args = process.argv.slice(2);
 const cmd = args[0];
 const flag = (k, d = null) => { const i = args.indexOf('--' + k); const v = i >= 0 ? args[i + 1] : undefined; return v !== undefined && !String(v).startsWith('--') ? v : d; };
 const has = (k) => args.includes('--' + k);
-const VALUED = new Set(['genre', 'brief', 'log', 'n', 'reroll', 'dealt', 'dir', 'axes', 'face', 'hue', 'entry', 'redesign']);
+const VALUED = new Set(['genre', 'brief', 'log', 'n', 'reroll', 'dealt', 'dir', 'axes', 'face', 'hue', 'entry', 'redesign', 'theme', 'orient', 'save', 'avoid']);
 const positional = () => { const out = []; for (let i = 1; i < args.length; i++) { const a = args[i]; if (a.startsWith('--')) { if (VALUED.has(a.slice(2))) i++; continue; } out.push(a); } return out; };
 const GENRES = ['editorial', 'modern-minimal', 'atmospheric', 'playful'];
 
@@ -22,6 +23,7 @@ function usage() {
   node theme.mjs scaffold <slug> [--dealt "<n>/3, seed <seed>"] [--redesign polish|restyle|full] [--scope app] [--dir <beside the stylesheet>] [--force]
   node theme.mjs scaffold --custom | --brand [--redesign polish|restyle|full] [--scope app] [--dir <beside the stylesheet>] [--force]
   node theme.mjs check [--axes "<paper>/<display>/<accent>"] [--face "<display face>"] [--hue <accent hue>] [--log .hallmark/log.json]
+  node theme.mjs photos "<subject>" ["<subject>" ...] [--theme <slug>] [--n 3] [--orient landscape|portrait|square] [--log .hallmark/log.json] [--avoid <file of ids>] [--save <dir>] [--json]
   node theme.mjs log --entry '<one JSON object>' [--log .hallmark/log.json]
   node theme.mjs index
   node theme.mjs list
@@ -36,7 +38,7 @@ function parseHeader(src, file) {
     const mm = /^([a-z]+):\s*(.*)$/.exec(line.trim());
     if (mm) h[mm[1]] = mm[2].trim();
   }
-  const need = ['name', 'slug', 'genre', 'paper', 'display', 'accent', 'posture', 'keywords', 'material', 'signature'];
+  const need = ['name', 'slug', 'genre', 'paper', 'display', 'accent', 'posture', 'keywords', 'material'];
   for (const k of need) if (!h[k]) throw new Error(`${file}: header is missing "${k}"`);
   const [pband, pL, phue] = h.paper.split(/\s+/);
   const [dclass, ...dface] = h.display.split(/\s+/);
@@ -47,7 +49,8 @@ function parseHeader(src, file) {
     display: { class: dclass, face: dface.join(' ') },
     accent: { band: aband, hue: Number(ahue) },
     keywords: h.keywords.split(',').map((s) => s.trim().toLowerCase()).filter(Boolean),
-    material: h.material, signature: h.signature, file: `references/themes/${basename(file)}`,
+    material: h.material, file: `references/themes/${basename(file)}`,
+    ...(h.photo ? { photo: h.photo } : {}),
     ...(h.pictured ? { pictured: h.pictured } : {}),
     ...(existsSync(join(THEMES, basename(file).replace(/\.md$/, '.jpg'))) ? { picture: `references/themes/${basename(file).replace(/\.md$/, '.jpg')}` } : {}),
   };
@@ -80,7 +83,9 @@ function addLog() {
   if (!['build', 'redesign'].includes(entry.mode)) { console.error('mode is build or redesign'); process.exit(2); }
   if (entry.mode === 'redesign' && !['polish', 'restyle', 'full'].includes(entry.depth)) { console.error('a redesign entry names its depth: polish, restyle or full'); process.exit(2); }
   const composed = entry.scope !== 'app' && (entry.mode === 'build' || entry.depth === 'full');
-  const missing = [...(composed ? ['shape', 'axes', 'hero', 'nav', 'footer', 'enrichment', 'entry', 'fingerprint', 'signature'] : []), ...(entry.depth === 'polish' ? [] : ['theme']), 'brief'].filter((k) => !entry[k]);
+  if (!entry.imagery && entry.enrichment) entry.imagery = entry.enrichment;
+  const missing = [...(composed ? ['shape', 'axes', 'hero', 'nav', 'footer', 'imagery', 'entry', 'fingerprint', 'sections', 'signature'] : []), ...(entry.depth === 'polish' ? [] : ['theme']), 'brief'].filter((k) => !entry[k]);
+  if (entry.photos && !Array.isArray(entry.photos)) { console.error('photos is the list of photo ids the page used'); process.exit(2); }
   if (existsSync(file)) { try { JSON.parse(readFileSync(file, 'utf8')); } catch { console.error(`${file} is not valid JSON; fix it or move it aside, nothing was written`); process.exit(1); } }
   const next = [entry, ...readLog(file)].slice(0, 20);
   mkdirSync(dirname(file), { recursive: true });
@@ -201,9 +206,11 @@ function check() {
   if (axes) for (const t of themes) {
     if (t.paper.band === pb && t.display.class === dc && t.accent.band === ab) { bad++; console.log(`collision: ${t.name} owns ${triple(t)} · move one axis, accent first`); }
   }
+  const toks = (x) => x.split(/[\s-]+/).filter(Boolean);
+  const sameFamily = (a, b) => { const A = toks(a), B = toks(b), n = Math.min(A.length, B.length); return n > 0 && A.slice(0, n).join(' ') === B.slice(0, n).join(' '); };
   if (face) for (const t of themes) {
     const tf = t.display.face.toLowerCase();
-    if (tf === face || tf.includes(face) || face.includes(tf)) { bad++; console.log(`collision: ${t.name} already sets its display in ${t.display.face} · pick a face no theme uses (fonts.md)`); }
+    if (sameFamily(tf, face)) { bad++; console.log(`collision: ${t.name} already sets its display in ${t.display.face} · pick a face no theme uses (fonts.md)`); }
   }
   if (hue != null) for (const t of themes) {
     if (t.paper.band === pb && t.display.class === dc && hueGap(t.accent.hue, hue) <= 20) { bad++; console.log(`adjacent: ${t.name} is ${triple(t)} at hue ${t.accent.hue} · move the accent hue more than 20 degrees (40 reads as another colour), or change the display class`); }
@@ -218,6 +225,105 @@ function list() {
   for (const t of loadIndex()) console.log(`${t.name.padEnd(12)} ${triple(t).padEnd(38)} ${t.genre.padEnd(15)} ${t.material}`);
 }
 
+const oklchRgb = ([L, C, H]) => { const h = H * Math.PI / 180, x = C * Math.cos(h), y = C * Math.sin(h); const l = (L + 0.3963377774 * x + 0.2158037573 * y) ** 3, m = (L - 0.1055613458 * x - 0.0638541728 * y) ** 3, s2 = (L - 0.0894841775 * x - 1.2914855480 * y) ** 3; return [4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s2, -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s2, -0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s2].map((c) => Math.min(1, Math.max(0, c))); };
+const hexOf = (lch) => oklchRgb(lch).map((c) => Math.round(255 * (c <= 0.0031308 ? 12.92 * c : 1.055 * c ** (1 / 2.4) - 0.055)).toString(16).padStart(2, '0')).join('');
+const TREATMENTS = { natural: '', warm: 'sepia=28&sat=-6', muted: 'sat=-35&con=-3', mono: 'sat=-100&con=18' };
+const ADJUST = new Set(['con', 'sat', 'exp', 'sepia', 'vib', 'high', 'shad', 'sharp', 'gam', 'blur']);
+
+function treatmentOf(spec, tokens) {
+  const parts = String(spec || 'natural').trim().split(/\s+/);
+  const out = new Map(), bad = [];
+  const put = (q) => { for (const kv of q.split('&').filter(Boolean)) { const [k, v] = kv.split('='); out.set(k, v); } };
+  const tok = (n) => { const v = tokens[`--color-${n}`]; if (!v) bad.push(`no --color-${n} token`); return v ? hexOf(v) : null; };
+  for (let i = 0; i < parts.length; i++) {
+    const p = parts[i];
+    if (p in TREATMENTS) put(TREATMENTS[p]);
+    else if (p === 'duotone') { const a = tok(parts[++i]), b = tok(parts[++i]); if (a && b) out.set('duotone', `${a},${b}`); }
+    else if (p === 'tint') { const a = tok(parts[++i]); if (a) out.set('mono', a); }
+    else if (/^[a-z]+=-?\d+$/.test(p) && ADJUST.has(p.split('=')[0])) put(p);
+    else bad.push(`"${p}" is not a treatment (natural, warm, muted, mono, duotone <dark> <light>, tint <token>, or con|sat|exp|sepia|vib|high|shad|sharp|gam|blur=<n>)`);
+  }
+  return { params: [...out].map(([k, v]) => `${k}=${v}`).join('&'), bad };
+}
+
+function tokensOf(src, file) {
+  const tok = {};
+  for (const m of tokenBlockOf(src, file).matchAll(/(--color-[\w-]+):\s*oklch\(\s*([\d.]+)%\s+([\d.]+)\s+([\d.]+)\s*\)/g)) tok[m[1]] = [Number(m[2]) / 100, Number(m[3]), Number(m[4])];
+  return tok;
+}
+
+const SYNONYMS = { cafe: ['coffee'], coffee: ['cafe', 'espresso'], restaurant: ['dining', 'dish'], bakery: ['bread', 'pastry'], bread: ['bakery', 'loaf'], wine: ['vineyard', 'grape'], cider: ['apple', 'orchard'], gin: ['botanical', 'spirit', 'distillery'], beer: ['brewery'], ski: ['snow', 'slope'], snow: ['winter'], sea: ['coast', 'ocean'], beach: ['coast', 'sea'], hotel: ['room', 'lobby'], office: ['desk', 'workspace'], studio: ['workshop'], workshop: ['studio', 'craft'], pottery: ['ceramic', 'clay'], ceramic: ['pottery', 'clay'], weaving: ['loom', 'textile'], textile: ['fabric'], fabric: ['textile'], tailor: ['sewing', 'fabric'], fashion: ['clothing'], garden: ['plant', 'flower'], farm: ['field', 'farmland'], city: ['street', 'urban'], train: ['railway', 'station'], concert: ['music', 'stage'], music: ['concert', 'record'], book: ['library', 'reading'], print: ['printing', 'press'], skate: ['skateboard', 'skatepark'], running: ['runner', 'marathon'], gym: ['fitness'], yoga: ['wellness'], lab: ['science', 'laboratory'], doctor: ['clinic', 'medical'], kid: ['child', 'children'], dog: ['pet'], cat: ['pet'] };
+
+async function photos() {
+  if (!existsSync(PHOTOS)) { console.error(`no photo library at ${PHOTOS}`); process.exit(1); }
+  const lib = JSON.parse(readFileSync(PHOTOS, 'utf8')).photos;
+  const subjects = positional();
+  if (!subjects.length) { usage(); process.exit(2); }
+  const n = Math.max(1, Number(flag('n', 3)) || 3);
+  const orient = flag('orient', '');
+  const slug = flag('theme', '');
+  let header = null, treat = { params: '', bad: [] };
+  if (slug) {
+    const file = join(THEMES, `${slug}.md`);
+    if (!existsSync(file)) { console.error(`no theme at ${file}`); process.exit(1); }
+    const src = readFileSync(file, 'utf8');
+    header = parseHeader(src, file);
+    treat = treatmentOf(header.photo, tokensOf(src, file));
+    if (treat.bad.length) console.error(`${slug}'s photo: line: ${treat.bad.join('; ')}`);
+  }
+  const recent = new Set(readLog(flag('log', '.hallmark/log.json')).slice(0, 5).flatMap((r) => Array.isArray(r.photos) ? r.photos : []));
+  const avoid = new Set(flag('avoid', '') && existsSync(flag('avoid', '')) ? readFileSync(flag('avoid', ''), 'utf8').match(/photo-\d{9,13}-[0-9a-f]{10,14}/g) || [] : []);
+  const shape = (p) => { const r = p.w / p.h; return r > 1.18 ? 'landscape' : r < 0.85 ? 'portrait' : 'square'; };
+  const PHOTO_STOP = new Set(['seen', 'from', 'with', 'into', 'onto', 'over', 'under', 'behind', 'above', 'below', 'beside', 'near', 'close', 'view', 'shot', 'photo', 'image', 'picture', 'some', 'very', 'one', 'two', 'three', 'each', 'every', 'its', 'their', 'his', 'her', 'who', 'where', 'while', 'up', 'down', 'out']);
+  const docs = lib.map((p) => { const t = new Set(); for (const x of p.tags) for (const w of words(x)) t.add(stem(w)); for (const w of words(p.subject)) t.add(stem(w)); t.add(stem(p.cat)); return t; });
+  const df = new Map(); for (const d of docs) for (const w of d) df.set(w, (df.get(w) || 0) + 1);
+  const idf = (w) => Math.log((lib.length + 1) / ((df.get(w) || 0) + 1)) + 0.3;
+  const used = new Set();
+  const result = [];
+  for (const subject of subjects) {
+    const q = [...new Set(briefWords(subject).map(stem))].filter((w) => !PHOTO_STOP.has(w));
+    const total = q.reduce((a, w) => a + idf(w), 0) || 1;
+    const wantFace = /\b(portrait|face|person|people)\b/i.test(subject);
+    const scored = lib.map((p, i) => {
+      if (used.has(p.id) || avoid.has(p.id) || (orient && shape(p) !== orient)) return null;
+      const d = docs[i]; let got = 0; const missing = [];
+      for (const w of q) {
+        if (d.has(w)) got += idf(w);
+        else if ((SYNONYMS[w] || []).some((x) => d.has(stem(x)))) got += 0.7 * idf(w);
+        else if ([...d].some((x) => { let k = 0; while (k < x.length && k < w.length && x[k] === w[k]) k++; return k >= 5 || (k >= 4 && Math.max(x.length, w.length) <= 6 && k >= 0.8 * Math.min(x.length, w.length)); })) got += 0.8 * idf(w);
+        else missing.push(w);
+      }
+      const cov = got / total;
+      if (cov < 0.45) return null;
+      let s = cov * 10;
+      for (const t of p.tags) if (t.includes(' ') && subject.toLowerCase().includes(t)) s += 1;
+      if (p.q === 3) s += 0.8;
+      if (p.tags.includes('overused')) s -= 0.8;
+      if (p.people === 'face' && !wantFace) s -= 3;
+      if (recent.has(p.id)) s -= 4;
+      if (header) { if (header.paper.band === 'dark' && p.tone !== 'light') s += 0.3; if (header.paper.band === 'light' && p.tone !== 'dark') s += 0.15; if ((header.accent.band === 'warm') === (p.temp === 'warm')) s += 0.2; }
+      return { p, s, cov, missing };
+    }).filter(Boolean).sort((a, b) => b.s - a.s).slice(0, n);
+    for (const { p } of scored) used.add(p.id);
+    result.push({ subject, picks: scored.map(({ p, s, cov, missing }) => ({ ...p, orient: shape(p), score: Math.round(s * 10) / 10, match: cov >= 0.75 ? 'close' : 'partial', ...(missing.length ? { missing } : {}), url: `https://images.unsplash.com/${p.id}?q=80&auto=format&fit=crop${treat.params ? '&' + treat.params : ''}` })) });
+  }
+  const saveDir = flag('save', '');
+  if (saveDir) {
+    mkdirSync(resolve(saveDir), { recursive: true });
+    for (const r of result) for (const p of r.picks) {
+      const file = join(resolve(saveDir), `${p.id}.jpg`);
+      try { const res = await fetch(`${p.url.replace('q=80', 'q=72')}&w=2000&fm=jpg`); if (!res.ok) throw new Error(`HTTP ${res.status}`); writeFileSync(file, Buffer.from(await res.arrayBuffer())); p.file = file; } catch (e) { p.file = null; p.error = String(e.message || e); }
+    }
+  }
+  if (has('json')) { console.log(JSON.stringify({ theme: slug || null, treatment: header ? header.photo || 'natural' : null, subjects: result })); return; }
+  if (header) console.log(`treatment: ${header.photo || 'natural'} (${slug}), applied in every url below`);
+  for (const r of result) {
+    console.log(`\n"${r.subject}"${r.picks.length ? '' : ': nothing in the library fits; try other words (the place, the material, the action), or leave a slot for the user\'s photo'}`);
+    for (const p of r.picks) console.log(`  ${p.id} · ${p.subject} · ${p.w}x${p.h} ${p.orient} · ${p.tone}, ${p.temp}${p.people !== 'none' ? `, ${p.people}` : ''}${p.match === 'partial' ? ` · partial match, no ${p.missing.join(', ')}` : ''}\n    ${p.file || p.url}${p.error ? ` (not saved: ${p.error})` : ''}`);
+  }
+  console.log('\nadd the size to each url: &w=1600 for src, srcset at &w=800, &w=1600 and &w=2400, and &ar=<w>:<h> to crop (&crop=entropy keeps the busy part); log the ids you use in the entry\'s photos list.');
+}
+
 function tokenBlockOf(src, file) {
   const m = /```css\s*\n:root\s*\{([\s\S]*?)\n\}\s*\n```/.exec(src);
   if (!m) throw new Error(`${file}: no :root block in a css fence`);
@@ -227,10 +333,11 @@ function tokenBlockOf(src, file) {
 const SCALE = `  --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px; --space-4xl: 144px;
   --text-xs: 0.8125rem; --text-sm: 0.875rem; --text-md: 1rem; --text-lg: 1.25rem; --text-xl: 1.5625rem; --text-2xl: 1.953rem; --text-3xl: 2.441rem;
   --text-display-s: clamp(2.25rem, 4vw + 0.5rem, 3.75rem); --text-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
+  --text-section: clamp(2rem, 2.5vw + 1rem, 3.5rem); --text-title: clamp(1.25rem, 0.75vw + 0.875rem, 1.625rem); --text-lead: clamp(1.125rem, 0.35vw + 1rem, 1.375rem);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1); --ease-in: cubic-bezier(0.7, 0, 0.84, 0); --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --dur-micro: 120ms; --dur-short: 220ms; --dur-long: 420ms;
   --color-error: oklch(52% 0.19 27); --color-success: oklch(50% 0.12 150);
-  --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap-s: 120px; --section-gap: 144px; --section-gap-l: 200px;
+  --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap-s: 120px; --section-gap: 144px; --section-gap-l: 176px;
   --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;`;
 
 const CUSTOM_TOKENS = `  --color-paper: FILL ME; --color-paper-2: FILL ME; --color-paper-3: FILL ME;
@@ -241,14 +348,16 @@ const CUSTOM_TOKENS = `  --color-paper: FILL ME; --color-paper-2: FILL ME; --col
   --radius-card: 4px; --radius-pill: 999px; --rule-hair: 1px; --shadow-card: none;
   --tracking-display: -0.02em;`;
 
-const BASE = `html, body { overflow-x: clip; }
+const BASE = `*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: clip; }
 html { scrollbar-color: var(--color-muted) var(--color-paper); scroll-padding-top: var(--space-3xl); }
 body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); font-size: var(--text-md); line-height: 1.55; -webkit-font-smoothing: antialiased; caret-color: var(--color-accent); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 22%, transparent); color: var(--color-ink); }
 :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.16em; }
-h1, h2, h3 { margin: 0; font-family: var(--font-display); letter-spacing: var(--tracking-display); line-height: 1.05; overflow-wrap: break-word; min-width: 0; text-wrap: balance; }
-h1 { max-width: 20ch; } h2 { max-width: 30ch; } h3 { max-width: 40ch; }
+h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: var(--display-weight, 700); font-synthesis: none; letter-spacing: var(--tracking-display); line-height: 1.05; overflow-wrap: break-word; min-width: 0; text-wrap: balance; }
+h1 { max-width: 20ch; font-size: var(--text-display); } h2 { max-width: 30ch; font-size: var(--text-section); } h3 { max-width: 40ch; font-size: var(--text-title); line-height: 1.2; }
+.lead { font-size: var(--text-lead); line-height: 1.45; max-width: 52ch; }
 p { margin: 0; text-wrap: pretty; }
 p:not([class]) { max-width: 65ch; }
 img, video { max-width: 100%; height: auto; display: block; }
@@ -258,14 +367,14 @@ button, input, select, textarea { font: inherit; }
 .container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); box-sizing: border-box; }
 .num, .figure, td.num { font-variant-numeric: tabular-nums; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-[data-slot] { position: relative; overflow: hidden; }
+[data-slot] { position: relative; overflow: hidden; background: linear-gradient(160deg, var(--color-paper-2, var(--color-paper)), var(--color-paper-3, var(--color-paper))); }
 [data-slot] > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
 [data-slot]:has(> img) > :not(img):not([data-keep]) { display: none !important; }
-@media (max-width: 60rem) { :root { --gutter: 24px; --section-gap-s: 80px; --section-gap: 96px; --section-gap-l: 136px; } }
+@media (max-width: 60rem) { :root { --gutter: 24px; --section-gap-s: 80px; --section-gap: 96px; --section-gap-l: 120px; } }
 @media (max-width: 40rem) { :root { --gutter: 16px; --section-gap-s: 56px; --section-gap: 72px; --section-gap-l: 96px; --gap-columns: 16px; } }
 @media (prefers-reduced-motion: reduce) { *:not(.keep-motion), *:not(.keep-motion)::before, *:not(.keep-motion)::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }`;
 
-const SLOTS_JS = `window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(\`[data-slot="\${k}"]\`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.prepend(im); } };`;
+const SLOTS_JS = `window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(\`[data-slot="\${k}"]\`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };\ndocument.querySelectorAll('[data-slot] img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });`;
 
 function scaffold() {
   const brand = has('brand');
@@ -294,7 +403,7 @@ function scaffold() {
   for (const f of [out, baseOut]) if (existsSync(f) && !has('force')) { console.error(`${f} exists; pass --force to overwrite it`); process.exit(1); }
   mkdirSync(dir, { recursive: true });
   const dark = header && header.paper.band === 'dark';
-  const sized = app ? SCALE.replace(/  --text-xs:[^\n]*\n  --text-display-s:[^\n]*\n/, '  --text-xs: 0.75rem; --text-sm: 0.875rem; --text-md: 1rem; --text-lg: 1.2rem; --text-xl: 1.44rem; --text-2xl: 1.728rem; --text-3xl: 2.074rem;\n') : SCALE;
+  const sized = app ? SCALE.replace(/  --text-xs:[^\n]*\n  --text-display-s:[^\n]*\n  --text-section:[^\n]*\n/, '  --text-xs: 0.75rem; --text-sm: 0.875rem; --text-md: 1rem; --text-lg: 1.2rem; --text-xl: 1.44rem; --text-2xl: 1.728rem; --text-3xl: 2.074rem;\n  --text-display-s: 1.44rem; --text-display: 1.728rem; --text-section: 1.2rem; --text-title: 1rem; --text-lead: 1rem;\n') : SCALE;
   const scale = dark ? sized.replace('--color-error: oklch(52% 0.19 27); --color-success: oklch(50% 0.12 150);', '--color-error: oklch(72% 0.15 27); --color-success: oklch(76% 0.13 150);') : sized;
   const sheetSrc = sheet ? readFileSync(sheet, 'utf8') : '';
   const tw = /@import\s+["']tailwindcss/.test(sheetSrc);
@@ -322,12 +431,12 @@ function scaffold() {
     : brand
     ? `/* Hallmark · shape: <shape, or kept> · genre: <genre> · theme: brand${tail}${made} · hero: <posture, or kept> · nav: <shape, or kept> · footer: <shape, or kept> · signature: <the one move, or kept>\n * axes: ${axes} · contrast: pass · fold: pass · v${VERSION} */`
     : custom
-    ? `/* Hallmark · shape: <shape> · genre: <genre> · theme: custom${tail} · direction: "<drawn, n/7>" · vibe: "<4 to 8 words>"${made} · hero: <posture> · nav: <shape> · footer: <shape> · enrichment: <none or the file> · signature: <the one move>\n * axes: ${axes} · seed: <key> · challenger: <name> (<verdict or raise>) · contract: <after the finish review> · contrast: pass · fold: pass · v${VERSION} */`
-    : `/* Hallmark · shape: <shape${kept}> · genre: ${header.genre} · theme: ${theme}${tail}\n * hero: <posture${kept}> · nav: <shape${kept}> · footer: <shape${kept}> · enrichment: <none or the file> · signature: <the one move>${dial ? ` · ${dial[1]}: <the dials>` : ''}\n * axes: ${axes} · contrast: pass · fold: pass · v${VERSION} */`;
+    ? `/* Hallmark · shape: <shape> · genre: <genre> · theme: custom${tail} · direction: "<drawn, n/7>" · vibe: "<4 to 8 words>"${made} · hero: <posture> · nav: <shape> · footer: <shape> · imagery: <photographs, the product, or none> · signature: <the one move>\n * axes: ${axes} · seed: <key> · challenger: <name> (<verdict or raise>) · contract: <after the finish review> · contrast: pass · fold: pass · v${VERSION} */`
+    : `/* Hallmark · shape: <shape${kept}> · genre: ${header.genre} · theme: ${theme}${tail}\n * hero: <posture${kept}> · nav: <shape${kept}> · footer: <shape${kept}> · imagery: <photographs, the product, or none> · signature: <the one move>${dial ? ` · ${dial[1]}: <the dials>` : ''}\n * axes: ${axes} · contrast: pass · fold: pass · v${VERSION} */`;
   console.log(`wrote ${out} (${brand ? 'the shared scale; fill every --color-* and --font-* from the palette and faces the pre-flight found' : custom ? 'the shared scale; fill every --color-* and --font-* from direction.md § B and § C before building' : `${name} tokens plus the shared scale`}) and ${baseOut} (the base rules the Floor already decided)${sheet && !flag('dir', '') ? `, beside ${sheet}` : ''}`);
   if (!custom && !flag('dealt', '')) {
     const pic = join(THEMES, `${slug}.jpg`);
-    if (existsSync(pic)) console.log(`look at ${pic}: the material at full size${header.pictured ? `, from a page built as ${header.pictured}` : ''}. Take its scale, density and objects, not its layout or its section order.`);
+    if (existsSync(pic)) console.log(`look at ${pic}: the material at full size${header.pictured ? `, from a page built as ${header.pictured}` : ''}. Take its palette balance, type voice and surfaces, never its layout; the room and the sections are layout.md.`);
   }
   console.log('');
   console.log('start the page\'s stylesheet with these lines, then write only the page:');
@@ -341,6 +450,8 @@ function scaffold() {
   console.log('');
   console.log('and, only if the page has data-slot containers, once before </body>:');
   console.log(`<script>${SLOTS_JS}</script>`);
+  console.log('');
+  console.log(`pictures (imagery.md): node ${join(HERE, 'theme.mjs')} photos "<subject>" ["<subject>" ...]${slug ? ` --theme ${slug}` : ''}`);
 }
 
 function validate(files) {
@@ -358,7 +469,14 @@ function validate(files) {
       if (e.keywords.length < 8) problems.push(`only ${e.keywords.length} keywords`);
       if (/[\u2014\u2013]/.test(src)) problems.push('contains an em or en dash');
       if (src.length > 7000) problems.push(`${src.length} bytes, over 7 KB`);
-      if (!/^## Tokens/m.test(src) || !/^## Do-nots/m.test(src) || !/^## Build hint/m.test(src)) problems.push('missing a required section');
+      for (const sec of ['Tokens', 'Type', 'Surfaces', 'Controls', 'Motion', 'Voice', 'Do-nots', 'Build hint']) if (!new RegExp(`^## ${sec}\\b`, 'm').test(src)) problems.push(`missing the ${sec} section`);
+      if (!/^photo:/m.test(src)) problems.push('no photo: line in the header (natural, warm, muted, mono, duotone <dark> <light> or tint <token>, imagery.md § 5)');
+      else { const t = treatmentOf(/^photo:\s*(.*)$/m.exec(src)[1], tokensOf(src, f)); if (t.bad.length) problems.push(`photo: ${t.bad.join('; ')}`); }
+      if (/\b(?:hand-built|hand-drawn|drawn) (?:svg|illustration|object|figure)|\bsvg (?:illustration|drawing|figure)/i.test(src)) problems.push('prescribes a drawn illustration (imagery.md § 7, gate 80)');
+      for (const m of src.matchAll(/https:\/\/api\.fontshare\.com\/v2\/css\?[^"'\s>]*/g)) if ((m[0].match(/f\[\]=/g) || []).length > 1) problems.push('a Fontshare link loading more than one family (Fontshare may drop all but the first; use one link per family)');
+      if (/^signature:/m.test(src)) problems.push('a signature: line in the header (a theme is a material; the page finds its signature in the brief)');
+      if (/object family|the one object|signature object|signature move/i.test(src)) problems.push('names an object or a signature move (a theme carries no components)');
+      if (/\b(?:generous|plenty of) (?:air|whitespace|white space)|(?:air|whitespace|white space|space) (?:carr(?:y|ies)|doing|does) (?:the|every)/i.test(src)) problems.push('a rule about space (layout.md owns room and density)');
       if (/--tracking-label/.test(src)) problems.push('declares --tracking-label (labels are untracked, gate 67)');
       if (/font-variant(-caps)?:\s*[a-z-]*small-caps|small caps|small capitals|small-caps/i.test(src)) problems.push('prescribes small caps (gate 67)');
       if (/eyebrow|kicker|overline/i.test(src)) problems.push('names an eyebrow (gate 54)');
@@ -398,6 +516,7 @@ try {
   else if (cmd === 'check') check();
   else if (cmd === 'scaffold') scaffold();
   else if (cmd === 'log') addLog();
+  else if (cmd === 'photos') await photos();
   else if (cmd === 'index') { const e = buildIndex(); console.log(`indexed ${e.length} themes into ${INDEX}`); }
   else if (cmd === 'list') list();
   else if (cmd === 'validate') {

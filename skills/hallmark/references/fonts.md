@@ -25,13 +25,13 @@ Every model reaches for these first, so they read as unchosen: Inter, Roboto, Op
 | Class | Faces (source) |
 | --- | --- |
 | Roman serif | EB Garamond, Cardo, Castoro, Piazzolla, Alegreya, Marcellus (Google); Gambetta, Recia (Fontshare) |
-| High-contrast serif | Gloock, Libre Bodoni, Abril Fatface, Rozha One, Besley (Google); Boska, Melodrama (Fontshare) |
+| High-contrast serif | Gloock, Libre Bodoni, Abril Fatface, Rozha One, Besley (Google); Erode, Melodrama (Fontshare) |
 | Slab serif | Arvo, Hepta Slab, Domine, Alfa Slab One, Solway (Google); Bespoke Slab (Fontshare; old-style figures that ignore `lining-nums`, so figures go in the body face) |
-| Grotesk sans | Hubot Sans, Gabarito, Rethink Sans, Reddit Sans, Wix Madefor Display (Google); Cabinet Grotesk, Clash Grotesk, Supreme (Fontshare) |
-| Geometric sans | Lexend, Geologica, League Spartan, Funnel Display, Afacad (Google); Satoshi, Ranade, Technor, Excon (Fontshare) |
+| Grotesk sans | Hubot Sans, Rethink Sans, Reddit Sans, Wix Madefor Display (Google); Clash Grotesk, Supreme (Fontshare) |
+| Geometric sans | Lexend, Geologica, League Spartan, Funnel Display, Afacad (Google); Satoshi, Technor, Excon (Fontshare) |
 | Rounded sans | Inclusive Sans, Nunito Sans at 700 only with an argument, Varela Round (Google); Chubbo, Comico (Fontshare) |
 | Condensed and heavy | Teko, Tektur, Michroma, Antonio (Google); Clash Display, Panchang, Khand, Telma, Stardom, Array (Fontshare) |
-| Mono as display | Martian Mono, Fragment Mono, Red Hat Mono, Spline Sans Mono, Sometype Mono (Google) |
+| Mono as display | Space Mono, Fragment Mono, Red Hat Mono, Spline Sans Mono, Sometype Mono (Google) |
 | Pixel | Press Start 2P, VT323, Pixelify Sans, Tiny5, DotGothic16, Workbench (Google) |
 | Handwritten | Shantell Sans, Caveat, Gochi Hand, Reenie Beanie (Google); Sharpie (Fontshare) |
 
@@ -45,12 +45,12 @@ Free faces, working out of the box. The display column lists faces no theme sets
 
 | Tone | Display | Body |
 | --- | --- | --- |
-| Editorial | Gambetta, Castoro, Gloock, Cabinet Grotesk | IBM Plex Sans, Switzer, Source Serif 4 |
-| Technical | Martian Mono, Fragment Mono, Rethink Sans 700 | IBM Plex Sans, Switzer, Onest |
+| Editorial | Gambetta, Castoro, Gloock, Clash Grotesk | IBM Plex Sans, Switzer, Source Serif 4 |
+| Technical | Space Mono, Fragment Mono, Rethink Sans 700 | IBM Plex Sans, Switzer, Onest |
 | Brutalist | Clash Display 700, Panchang, Alfa Slab One, Teko | Archivo, Switzer, Public Sans |
 | Soft | Satoshi, Recia, Alegreya, Chubbo | Figtree, Crimson Pro, Onest |
-| Luxury | Boska, Libre Bodoni, Marcellus, Gloock | EB Garamond, Crimson Pro, Source Serif 4 |
-| Playful | Comico, Gabarito 800, Shantell Sans, Tiny5 | Onest, Karla, Satoshi |
+| Luxury | Erode, Libre Bodoni, Marcellus, Gloock | EB Garamond, Crimson Pro, Source Serif 4 |
+| Playful | Comico, Hubot Sans 800, Shantell Sans, Tiny5 | Onest, Karla, Satoshi |
 | Austere | Geologica 300, Rethink Sans, Reddit Sans | Switzer, Hanken Grotesk, Public Sans |
 | Atmospheric | Melodrama, Supreme 600, Piazzolla, Michroma | Sofia Sans, Sentient, Albert Sans |
 

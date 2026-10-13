@@ -2,77 +2,81 @@
 name: Ledger
 slug: ledger
 genre: modern-minimal
-paper: dark 20 255
+paper: dark 19 20
 display: grotesk-sans Instrument Sans
-accent: chromatic-teal 185
+accent: chromatic-teal 182
 posture: committed
-keywords: treasury, banking, fintech, payments, reconciliation, ledger, accounting, close, audit, balance, cash management, payouts, settlement, compliance, controller, bookkeeping, invoicing, payroll
-material: a ruled navy sheet with money columns, tabular mono on every figure, two inks with one job each, totals footed under a double rule
-signature: a column of mono figures closing on a total under a double rule, with an as-of line beneath it
-pictured: Workbench, Settled hero
+keywords: treasury, banking, fintech, payments, reconciliation, ledger, accounting, close, month end, audit, balance, cash management, payouts, settlement, compliance, controller, bookkeeping, finance team, invoicing, payroll
+material: oxblood binding for a ground, bone ink, Instrument Sans with tabular IBM Plex Mono figures, ruled rows and double-ruled totals, two inks with one job each
+photo: duotone paper ink
+pictured: Split Studio, Stage hero
 ---
 
 # Ledger
 
-A navy sheet that carries its own ruling, figures in tabular IBM Plex Mono, two inks with one job each (credit and debit), and totals footed under a double rule with an as-of line beneath. A page of a book, never a console of widgets.
+A page of a book, never a console: a ground the colour of an oxblood binding, bone ink, Instrument Sans for words and tabular IBM Plex Mono for every figure, rows ruled like an account book, and two inks with one job each, credit and debit. It reads as audited and calm: figures align digit for digit, a total closes on a double rule, nothing glows. It is not a dashboard of tiles, a neon trading screen or a wine list.
 
 ## Tokens
 
 ```css
 :root {
-  --color-paper: oklch(20% 0.025 255); --color-paper-2: oklch(24% 0.025 255); --color-paper-3: oklch(22.5% 0.025 255);
-  --color-ink: oklch(93% 0.008 255); --color-ink-2: oklch(84% 0.010 255); --color-muted: oklch(66% 0.012 255);
-  --color-rule: oklch(32% 0.020 255);
-  --color-accent: oklch(78% 0.12 185); --color-accent-2: oklch(76% 0.115 82); --color-accent-ink: oklch(20% 0.025 255);
-  --color-focus: oklch(78% 0.12 185);
+  --color-paper: oklch(19% 0.034 20); --color-paper-2: oklch(23% 0.036 20); --color-paper-3: oklch(21.5% 0.035 20);
+  --color-ink: oklch(94% 0.014 75); --color-ink-2: oklch(85% 0.018 60); --color-muted: oklch(71% 0.022 45);
+  --color-rule: oklch(31% 0.036 20);
+  --color-accent: oklch(80% 0.11 182); --color-accent-2: oklch(81% 0.11 88); --color-accent-ink: oklch(19% 0.034 20);
+  --color-focus: oklch(80% 0.11 182);
   --font-display: "Instrument Sans", ui-sans-serif, system-ui, sans-serif; --font-body: var(--font-display);
   --font-outlier: "IBM Plex Mono", ui-monospace, monospace;
   --radius-card: 10px; --radius-input: 6px; --radius-pill: 0; --rule-hair: 1px;
-  --shadow-card: 0 12px 32px -16px oklch(8% 0.02 255 / 0.6);
+  --shadow-card: 0 12px 32px -16px oklch(8% 0.03 20 / 0.6);
   --tracking-display: -0.02em;
 }
 ```
 
-Three dials, each stated in the stamp (`ledger: navy/teal-brass/banded`); two Ledger pages in one run differ on at least two of them.
+Three dials, each stated in the stamp (`ledger: bordeaux/teal-brass/banded`); two Ledger pages in one run differ on at least two of them.
 
 | Dial | Options |
 | --- | --- |
-| **Binding** (the ground; every neutral carries its hue) | `navy` (default): `oklch(20% 0.025 255)`. `bordeaux`: `oklch(19% 0.032 15)`. `cloth`: `oklch(19% 0.024 168)` |
-| **Inks** (credit, then debit) | `teal-brass` (default): `oklch(78% 0.12 185)` and `oklch(76% 0.115 82)`. `sage-clay`: `oklch(76% 0.10 150)` and `oklch(72% 0.11 45)`. `ice-oxide`: `oklch(82% 0.085 215)` and `oklch(64% 0.14 38)`. Both inks sit at least 40 degrees of hue from the binding, so bordeaux takes teal-brass only and cloth takes ice-oxide only |
-| **Ruling** (the sheet) | `banded` (default): row bands in `--color-paper-3` at 28 to 34px. `columnar`: 1px vertical money columns the full height of a band. `journal`: a two-page spread with a gutter rule, left page narrating, right page tabulating |
+| **Binding** (the ground; the neutrals take its hue, the ink turns cool off bordeaux) | `bordeaux` (default): `oklch(19% 0.034 20)`. `navy`: `oklch(20% 0.025 255)`. `cloth`: `oklch(19% 0.024 168)` |
+| **Inks** (credit, then debit) | `teal-brass` (default): `oklch(80% 0.11 182)` and `oklch(81% 0.11 88)`. `ice-oxide`: `oklch(82% 0.085 215)` and `oklch(64% 0.14 38)`. Inks sit 40 degrees or more from the binding: bordeaux takes teal-brass, cloth ice-oxide |
+| **Ruling** (the texture) | `banded` (default): row bands in `--color-paper-3` at 28 to 34px. `columnar`: 1px vertical columns in `--color-rule` the full height of a band |
 
-Credit is money in: it takes the headline figure and the one solid button. Debit is money out: set on the figure itself, never on a background. Debits are never red; a figure with no side takes `--color-ink`; a third meaning uses a label, not a hue.
+## Type
 
-## Faces
-
-- **Display:** Instrument Sans 600, `--tracking-display`. No thin weight.
+- **Display:** Instrument Sans 600, `--tracking-display`, sentence case; no thin weight.
 - **Body:** Instrument Sans 400 and 500 at 1.0625rem, line-height 1.55.
-- **Figures:** IBM Plex Mono 400 and 500 with `tabular-nums` on every number; a column head is mono only over a column of figures, and the body face over a column of words (64), 12px, sentence case, untracked. Mono is this theme's material; columns align digit for digit. The headline figure is mono 500 at `clamp(2.4rem, 6vw, 3.6rem)` in its side's ink.
-- **Captions, field labels, status words, meta:** Instrument Sans 500 one step smaller, sentence case, `--color-muted`.
+- **Figures:** IBM Plex Mono 400 and 500 with tabular numerals on every number; mono is this theme's material. A headline figure is mono 500 in its side's ink. A column head over figures may be mono; over words it is the body face, a step smaller, untracked.
+- **Captions, field labels, status words, meta:** Instrument Sans 500 a step smaller, sentence case, `--color-muted`.
 
-## Material
+## Surfaces
 
-- The sheet is ruled, and the ruling is the theme: it never brightens, never animates, never carries chroma.
-- Every figure foots and carries an as-of: columns sum to their totals and balances state their moment. A figure without a date is an assertion, not a record.
-- The foot: a 1px rule above the total, the total, then a double rule (two 1px rules 3px apart). The kit: the T-account, the statement extract as a real `<table>` with right-aligned amounts, one credit-ink sparkline with no axes, a status column, and a rotated outline stamp in one ink. A stamp carries a fact, a date or a frame number, or does not appear.
-- Rows, never tiles: repeated data is a ruled table; a row lifts one paper step on hover only when the whole row is a link (11). At most one chart, and it is the sparkline.
-- Depth: 1px `--color-rule` on every edge, raised paper on `--color-paper-2` under one deep offset shadow. Radii 10px and 6px, never a pill.
-- The control pair: one solid credit-ink button at 6px with `--color-accent-ink` text beside a hairline-outlined one in `--color-rule`.
+- 1px `--color-rule` on every edge and between rows. A total sits under a 1px rule and closes on a double rule in `--color-ink`.
+- Radius 10px on wells and photographs, 6px on controls; never a pill.
+- Depth: a raised well in `--color-paper-2` under `--shadow-card`; everything else lies flat.
+- The ruling is the one texture, on a band or a well, never behind running text; it never brightens, moves or carries chroma.
+- Bands: a `--color-paper-2` band or a ruled band; never a light band and never a field of either ink. Two a page at most.
+- Photographs: close, quiet pictures of the work behind the figures: statements and receipts on a desk, a pen over a printed column, an office at the end of the day; level light, no faces. They print in the binding's two colours, duotone paper to ink. A 1px `--color-rule` edge at 10px; a caption beneath in the label style states the fact, a date or an account; text never sits on a photograph.
+
+## Controls
+
+- The pair: a solid bone button (`--color-ink` with `--color-paper` text) at 6px beside a hairline button outlined in `--color-rule`.
+- Two inks, two jobs: credit (`--color-accent`, money in) takes credit figures, a matched mark and the focus ring; debit (`--color-accent-2`, money out) only ever colours a figure. A figure with no side takes `--color-ink`; a third meaning takes a word, not a hue.
+- Inputs: 6px radius, a 1px `--color-rule` edge on `--color-paper-2`, figures in mono; links underline in the credit ink.
 
 ## Motion
 
-Near-still, the way a printed page behaves: linked rows shift one paper step on hover; buttons dip 1px on active; a dot that marks a live feed, once per page, holds still. Nothing counts up, nothing reveals, nothing pulses.
+Near-still, like a printed page: a linked row shifts one paper step on hover, a button dips 1px on active. Nothing counts up, nothing reveals, nothing pulses.
 
 ## Voice
 
-Declarative, numeric, audited: the figure, the folio, the lock time, what is not yet reconciled.
+Declarative, numeric, audited: the figure, its date, the lock time, what is not yet reconciled. A balance states its moment; a figure without a date is an assertion, not a record.
 
 ## Do-nots
 
-- Never a dashboard: no KPI card grids, no widget walls; never a proportional numeral on a figure.
+- Never a proportional numeral on a figure, and never mono on words.
 - Never a red debit and never a third hue; two inks, two jobs.
 - Never a total that does not foot.
-- Never a pill, and never hide the ruling; deleting it as scaffolding removes the theme.
+- Never strip out the ruling; it is the texture.
 
 ## Build hint
 
@@ -81,12 +85,14 @@ Declarative, numeric, audited: the figure, the folio, the lock time, what is not
 ```
 
 ```css
-.ruled { background-image: repeating-linear-gradient(to bottom, transparent 0 31px, var(--color-paper-3) 31px 62px); }
-.fig { font-family: var(--font-outlier); font-variant-numeric: tabular-nums; }
-th { font-size: 12px; font-weight: 500; color: var(--color-muted); }
+h1, h2, h3 { font-weight: 600; }
+.num, .figure, td.num { font-family: var(--font-outlier); font-variant-numeric: tabular-nums; }
 .cr { color: var(--color-accent); } .dr { color: var(--color-accent-2); }
-.total { border-top: 1px solid var(--color-rule); }
-.foot::after { content: ""; display: block; height: 3px; border-top: 1px solid var(--color-ink); border-bottom: 1px solid var(--color-ink); }
-.btn--primary { border-radius: var(--radius-input); background: var(--color-accent); color: var(--color-accent-ink); }
+.btn { border: var(--rule-hair) solid var(--color-rule); border-radius: var(--radius-input); padding: var(--space-sm) var(--space-lg); font-weight: 500; background: transparent; color: var(--color-ink); transition: transform var(--dur-micro) var(--ease-out); }
+.btn--primary { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-paper); }
+.btn:active { transform: translateY(1px); }
+.well { background: var(--color-paper-2); border: var(--rule-hair) solid var(--color-rule); border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
+.total { border-bottom: 3px double var(--color-ink); }
+.ruled { background-image: repeating-linear-gradient(to bottom, transparent 0 31px, var(--color-paper-3) 31px 62px); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 30%, transparent); }
 ```

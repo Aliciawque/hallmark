@@ -2,7 +2,7 @@
 name: hallmark
 description: "Design skill for pages, sites, app screens and components that look made, not generated. Builds new UI from a dealt theme or a derived world on a hard floor, then lints and reviews it; `redesign <path>` does the same to an existing page, site or app and keeps its content and wiring. Use when the user asks to build or design new UI, asks to redesign or restyle a whole page, site or app, says one looks generic or AI-generated, or invokes Hallmark by name. Not for small edits to an existing design."
 argument-hint: "<brief> | redesign <path> | audit <path>"
-version: 2.5.0
+version: 2.7.0
 ---
 
 # Hallmark
@@ -59,9 +59,9 @@ Output one block (file:line citations, what Hallmark preserves, what it introduc
 
 One message, even on a five-word brief:
 
-> *Before I build, four things. 1. **Material**, the one that matters most: what can the page show? Screenshots or a screen recording, product photos, real numbers (customers, uptime, prices), a quote someone said with their name, logos you may use. Paste them, give paths, or say "leave slots"; I never invent any of it. 2. **Audience**: who uses this and what do they care about? 3. **Use**: the one action the page should drive. 4. **Tone**: pick an extreme (editorial · brutalist · soft · utilitarian · luxury · playful · technical · austere); "clean and modern" is not a tone. Plus the vibe in 4 to 8 words and an anchor colour if you have one. Or say **go ahead** and I will infer and tell you what I picked.*
+> *Before I build, four things. 1. **Material**, the one that matters most: what can the page show? Screenshots or a screen recording, your photos, real numbers (customers, uptime, prices), a quote someone said with their name, logos you may use. Paste them or give paths; without photos I place stand-ins from Hallmark's photo library that your own replace later, and I never invent a number, a quote or a logo. 2. **Audience**: who uses this and what do they care about? 3. **Use**: the one action the page should drive. 4. **Tone**: pick an extreme (editorial · brutalist · soft · utilitarian · luxury · playful · technical · austere); "clean and modern" is not a tone. Plus the vibe in 4 to 8 words and an anchor colour if you have one. Or say **go ahead** and I will infer and tell you what I picked.*
 
-Skipped fields are opt-outs: infer them, state the inferences in one line at the top of the reply, stamp them. No follow-up ladders. Material is never inferred: what was not given is a slot or is absent. When the brief answers all four, or no one can answer (a `claude -p` or `codex exec` run, a batch), do not ask: build on the inferences.
+Skipped fields are opt-outs: infer them, state the inferences in one line at the top of the reply, stamp them. No follow-up ladders. Facts are never inferred: a number, a quote or a logo not given is absent; a picture not given is a stand-in in a slot. When the brief answers all four, or no one can answer (a headless run, a batch), do not ask: build on the inferences.
 
 **Genre** is picked here, silently, from the brief: *AI tool, generative, music, video, voice, dark, atmospheric* → **atmospheric**; *SaaS, enterprise, API, platform, developer tool, infra, B2B* → **modern-minimal**; *playful, fun, friendly, soft, kids, games, community* → **playful**; otherwise **editorial**, which holds most consumer and family briefs. The picked theme's genre wins from Step 4 on (genre file, stamp, `--genre`); when two non-default genres fire, add one either-or to the Step 1 message, or on go ahead pick and say so.
 
@@ -69,13 +69,13 @@ Skipped fields are opt-outs: infer them, state the inferences in one line at the
 
 ### 2. Shape
 
-**Material first.** Before the shape, write the inventory in one line: *real* (every concrete thing the brief and the project supply: the name, the claim, numbers, places, dates, images), *slots* (what the user will hand over later), *absent* (every proof the page will not have: logos, quotes, metrics nobody gave). The shape follows it: shapes built on screenshots (Bento, Workbench, Feature Stack) need two real visuals or the user's "leave slots"; with neither, choose a shape that carries type and facts (Long Document, Letter, Index-First, Manifesto, a spec sheet built on `components/f3-tabular-spec-sheet.md`).
+**Material first.** Before the shape, write the inventory in one line: *real* (every concrete thing the brief and the project supply: the name, the claim, numbers, places, dates, images), *pictures* (what the page will show and where each comes from: the user's, the product built, the library), *absent* (every proof the page will not have: logos, quotes, metrics nobody gave). The shape follows it: a page with pictures to show leads with them (`imagery.md` § 1); a page about words carries type and facts (Long Document, Letter, Index-First, Manifesto).
 
-Decide the page's shape, how it opens, how sections separate, what the nav and footer do, how tall the hero stands and what carries it. You are designing, not filling a form. For a starting point: 21 page shapes in [`references/macrostructures.md`](references/macrostructures.md), navs, footers and sections in [`references/component-cookbook.md`](references/component-cookbook.md), enrichment in [`references/hero-enrichment.md`](references/hero-enrichment.md); load only the one file you pick, never a whole catalog.
+Decide the page's shape, how it opens, which composition each section takes, what the nav and footer do, and what carries the hero. You are designing, not filling a form. For a starting point: 21 page shapes in [`references/macrostructures.md`](references/macrostructures.md) (load only the one file you pick), compositions, navs and footers in [`references/layout.md`](references/layout.md), what the page shows in [`references/imagery.md`](references/imagery.md).
 
-**Rotation.** Read `.hallmark/log.json` (newest first). The page's shape must differ from the last three builds; the nav and footer must not repeat the last three shapes; the hero posture (`craft.md` § 4), a non-`none` enrichment and the section opening must not repeat the previous run. The deal in Step 3 handles the theme axis. **The mirror test:** would this exact combination have come out for a neighbouring brief in the same category? If yes, change one decision and say which in the Picks block.
+**Rotation.** Read `.hallmark/log.json` (newest first). The page's shape must differ from the last three builds; the nav and footer must not repeat the last three shapes; the hero posture (`layout.md` § 6) and the section opening must not repeat the previous run. The deal in Step 3 handles the theme axis. **The mirror test:** would this exact combination have come out for a neighbouring brief in the same category? If yes, change one decision and say which in the Picks block.
 
-**Signature.** Every page has one move a visitor would describe to a friend: an object, a composition, an interaction, built from the inventory's strongest real thing. Decide it here and fit it to the dealt theme's objects; it goes in the Picks block and the stamp, it shows on the first screen (a slot's caption counts), and the reviewer checks it. A page without one is a template with good tokens.
+**Signature.** Every page has one thing a visitor would remember, and it is the brief's strongest real thing shown at its best: the photograph that is the place, the product doing its one job, a price or a date set huge because it is the offer, a control that lets the visitor try it. Decide it here, make it in the dealt theme's material, show it on the first screen, and put it in the Picks block and the stamp; the reviewer checks it. A number drawn as marks (one dot a bottle, a dial of the year) is a device, not a signature (82).
 
 Decide all of this and hold it; it is said once, at Step 5.
 
@@ -93,13 +93,13 @@ node <skill-dir>/scripts/theme.mjs deal --genre <genre> --brief "<the brief>" [-
 
 It deals three themes that fit the brief and clear Rotation, with a reproducible seed. Look at the three pictures, pick the one whose material can carry what the brief asks for (motion, photographs, code), say which and why, and load only `references/themes/<slug>.md`. Re-deal only when the user asks (`--reroll 1`). No Node: read `references/themes/index.json`, apply the same rule by hand, and stamp `deal: manual`.
 
-A catalog theme is a material, not a plan: it never sets what the page contains or in what order, and two pages in one theme should not share a section sequence. Where the theme and a shape, genre, craft or enrichment file disagree on material, controls or motion, the theme wins; the Floor and the user's own words beat both.
+A catalog theme is a material, not a plan: it never sets what the page contains or in what order, and two pages in one theme should not share a section sequence. Where the theme and a shape, genre or craft file disagree on material, controls or motion, the theme wins; the Floor and the user's own words beat both.
 
 ### 4. Load
 
-Exactly these, for a page build: [`references/craft.md`](references/craft.md) · `references/genres/<genre>.md` · `references/themes/<slug>.md` and its picture, already seen at the deal (a named theme: look at `<slug>.jpg` now): take its scale, density, colour balance and objects, never its section order or layout (or `direction.md` on a custom run) · [`references/gates.md`](references/gates.md) § 1 to § 4.
+Exactly these, for a page build: [`references/layout.md`](references/layout.md) · [`references/imagery.md`](references/imagery.md) · [`references/craft.md`](references/craft.md) · `references/genres/<genre>.md` · `references/themes/<slug>.md` and its picture, already seen at the deal (a named theme: look at `<slug>.jpg` now): take its palette balance, type voice and surfaces, never its layout (or `direction.md` on a custom run) · [`references/gates.md`](references/gates.md) § 1 to § 4.
 
-Only when the build needs them, each in `references/`: one macrostructure file and the picked archetype files (Step 2) · `hero-enrichment.md` when the hero wants imagery · `microinteractions.md` for stateful UI · `interaction-and-states.md` for forms · `responsive.md` for an unusual layout · `texture.md` when the theme earns texture · `scroll-choreography.md` for a scroll story · `dark-mode.md` when both modes are asked for · `data-viz.md` for charts · `fonts.md` on custom runs · `assets.md` and `imagery-kit.md` when an enrichment needs an external asset · `comp.md` on signal 9 · `design-md.md` when asked to lock the system.
+Only when the build needs them, each in `references/`: one macrostructure file (Step 2) · `microinteractions.md` for stateful UI · `interaction-and-states.md` for forms · `responsive.md` for an unusual layout · `texture.md` when the theme earns texture · `scroll-choreography.md` for a scroll story · `dark-mode.md` when both modes are asked for · `data-viz.md` for charts · `fonts.md` on custom runs · `comp.md` on signal 9 · `design-md.md` when asked to lock the system.
 
 Loading more is the largest avoidable cost; `gates.md` § 5 waits for Step 7, § 6 for the reviews.
 
@@ -108,15 +108,15 @@ Loading more is the largest avoidable cost; `gates.md` § 5 waits for Step 7, §
 The run's only prose recital of its decisions, and the user's five-second redirect window:
 
 ```markdown
-**Hallmark · v2.5.0**
+**Hallmark · v2.7.0**
 
 - **Shape** · Workbench (last 3: Bento, Long Document, Manifesto) · genre modern-minimal
 - **Theme** · Coral, dealt 2/3 (warm grey, one coral signal, General Sans, soft pills) · clears Cobalt on paper band
-- **Chrome** · nav: a wordmark and one action, vast space between (prev N5) · footer: one justified colophon line
-- **Hero** · Stage, visual beside the text (prev Settled) · enrichment: none
-- **Signature** · the pricing table is the hero visual, live, in a slot
-- **Sections** · Hero · Demo strip · Pricing · FAQ · Footer
-- **Material** · real: the 2-minute setup, the CSV import, Lisbon · slots: hero, demo-2, demo-3 · absent: logos, quotes, metrics
+- **Chrome** · nav: edge-aligned, a wordmark and one action (prev floating pill) · footer: a mast, the wordmark over the links
+- **Hero** · Stage: head on columns 1 to 5, the slot on 6 to 12 at 560px, centred (prev Settled)
+- **Signature** · the invoice list chasing a late payment, built live in the hero
+- **Sections** · Hero · Showcase · Steps · Rows (pricing) · Band · Footer
+- **Material** · real: the 2-minute setup, the CSV import, Lisbon · pictures: the invoice list built in the hero, library photos of a Lisbon studio (muted) · absent: logos, quotes, metrics
 - **Slop test** · run after build
 ```
 
@@ -131,17 +131,15 @@ Emit code that satisfies the theme and the shape. Always:
 - **Start from the scaffold.** `node <skill-dir>/scripts/theme.mjs scaffold <slug>` (with the deal's `--dealt`; `--custom` on a derived run) writes `tokens.css` (the theme's tokens and the shared scale) and `base.css` (the rules the Floor already decided) beside the project's stylesheet, and prints the stamp skeleton and the two imports that open it. Fill the stamp and write only the page.
 - **Read [`references/patterns.md`](references/patterns.md) once:** controls in all eight states, a slot, a missing fact, a form that posts nowhere yet, one reveal, figures that compare, written to pass the gates. Take their shape, never their copy.
 - **Hero first.** Write the nav and the hero, run `node <skill-dir>/scripts/sloplint.mjs <file> --render --stage hero`, then the hero review in fresh context (`gates.md` § 6). Build the sections only once the hero ships.
-- **One idea per screen.** Hero: headline (seven words or fewer, 50 characters or fewer), one sentence (twelve words or fewer), one or two actions. A section: a heading of three to five words, at most one line, then its object (a slot, a figure, a drawn thing, a list of four or fewer, a table of five rows or fewer). Four to eight sections, footer included; 450 visible words at most, fewer when the brief has less to say. Never pad to a count.
-- **Show, do not describe.** On a product page with material or "leave slots": at least two `data-slot` containers, the hero visual (unless the theme's own object holds the hero) and a demo strip (or one capture per stage where the shape stages the product); with neither, the page shows what is real (Step 2). The user's images fill them; otherwise a designed placeholder in the theme's colours with a corner label (`craft.md` § Demo slots). Never a grey box or a fake screenshot with invented figures.
-- **The fold.** The hero is the first screen and only the first screen at 1440 x 900 and 1920 x 1080, its visual beside the text (centres within 60px, 48 to 120px apart), never pinned in a corner; a Banner shares it with the first section.
-- **Room.** Sections part by the scaffold's three `--section-gap` steps, mixed; a heading's line 8 to 16px under it, its content 32 to 48px; grid items 24 to 40px apart; at least twice the space above a heading as below it.
-- **Page invariants.** One primary button style, one container width, one column gap for every multi-column section below the hero, one radius per nesting level, and never more centred heading groups than left-aligned ones. A subhead over 120 characters is set left-aligned.
-- **Type.** The theme's faces, at most two families (three with one outlier role); display tracking and leading per `craft.md` § 1; body 16px or more at 1.5 to 1.65, 45 to 75ch; heads roman; labels never mono unless mono is the material (64). A head is one weight and one colour throughout; the accented word is a tell (38iii).
+- **One idea per screen, set big.** Hero: headline (seven words or fewer, 50 characters or fewer), one sentence (twelve words or fewer), one or two actions. A section: an `h2` of six words or fewer and at most one line, then a composition from `layout.md` § 5 that spans ten of twelve columns and has mass (a visual 360px tall, a set of three across, rows, a statement). Six to nine sections, hero and footer included (five on a thin brief); 450 visible words at most. Fullness comes from scale and visuals, never from more words.
+- **Show, do not describe** (`imagery.md`). The page shows the real thing: the user's pictures, the product built at full fidelity, or library photographs (`node <skill-dir>/scripts/theme.mjs photos "<subject>" --theme <slug>`), big, in the theme's treatment, in slots the user's own files replace. Never a drawn illustration (80), an empty wash (81), a row of counting marks (82) or invented figures.
+- **The fold and the room** (`layout.md`). The hero is the first screen and only the first screen at 1440 x 900 and 1920 x 1080, its content centred, the visual beside the text and 60% of the screen tall; a Banner shares it with the first section. `h2` at `--text-section`, `h3` at `--text-title`, never smaller; sections part by the three `--section-gap` steps, mixed. A screen that holds only a head and a line is unfinished (77 to 79).
+- **Page invariants.** One primary button style, one container width, one column gap for every multi-column section below the hero, one radius per nesting level, and never more centred heading groups than left-aligned ones.
+- **Type.** The theme's faces, at most two families (three with one outlier role), set per `craft.md` § 1; body 16px or more; heads roman, one weight and one colour (38iii); labels never mono unless mono is the material (64).
 - **States and motion.** Eight states on every interactive element; `transform` and `opacity` only; at most one orchestrated reveal per page, none where the theme keeps still, 0.4 to 0.8s, visible by default; exits at 60 to 75% of the enter; nothing bounces.
-- **Browser surfaces.** Keep the scaffold's selection, caret, scrollbar and focus rules; tabular numerals wherever figures compare.
 - **Stamp.** Line 1 of CSS is the scaffold's stamp skeleton with every field filled, then the critique line (`gates.md` § 3), any `waive` and `answered` lines, and a custom run's direction contract. Everything the linter reads sits in the first 40 lines.
-- **Existing stylesheets are append-only:** the two imports go right after the file's last `@import`, never below a rule or a `@tailwind` directive, where they are dropped; reuse the project's own token names ([`references/export-formats.md`](references/export-formats.md), which also refreshes a `design.md`'s `## Exports`); rewrite only on request.
-- **Log.** `node <skill-dir>/scripts/theme.mjs log --entry '<json>'` puts the build atop `.hallmark/log.json`: `shape`, `theme`, `axes`, `hero`, `nav`, `footer`, `enrichment`, `entry` (the section opening), `fingerprint` (`Hanging|Asymmetric spans|Hairline|Outlined|Margin-aligned|None`), `signature`, `waived`, `brief`; it names any field you left out.
+- **Existing stylesheets are append-only:** the two imports go right after the file's last `@import`, never below a rule or a `@tailwind` directive; reuse the project's own token names ([`references/export-formats.md`](references/export-formats.md), which also refreshes a `design.md`'s `## Exports`); rewrite only on request.
+- **Log.** `node <skill-dir>/scripts/theme.mjs log --entry '<json>'` puts the build atop `.hallmark/log.json`: `shape`, `theme`, `axes`, `hero`, `nav`, `footer`, `imagery`, `photos` (the library ids used), `entry` (the section opening), `fingerprint` (`Hanging|Asymmetric spans|Hairline|Outlined|Margin-aligned|None`), `sections` (compositions in order), `signature`, `waived`, `brief`; it names any field you left out.
 
 ### 7. Sweep
 

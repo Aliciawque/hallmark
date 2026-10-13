@@ -2,80 +2,89 @@
 name: Editorial
 slug: editorial
 genre: editorial
-paper: light 94 75
+paper: light 96.5 88
 display: display-condensed Bricolage Grotesque
-accent: warm 35
+accent: chromatic-green 152
 posture: restrained
 keywords: magazine, editorial, feature, culture, fashion, design annual, interview, longform, publication, issue, contemporary, art direction, profile, lookbook, brand story, journal, considered, travel, city guide, guide
-material: warm cream, a heavy condensed grotesque slammed left, 1px hairlines, roman-numeral folios, one coral mark
-signature: a condensed headline hard against the left margin, answered by one serif-italic pulled line between two hairlines
-pictured: Specimen, Settled hero
+material: warm white uncoated stock, printed black ink with a cool tilt, Bricolage Grotesque condensed at 800 over Source Serif 4, square corners and 1px hairlines, one printer's green
+photo: natural sat=-10 con=4
+pictured: Marquee Hero, Poster hero
 ---
 
 # Editorial
 
-Warm cream, Bricolage Grotesque 800 at width 75 slammed against the left margin, Figtree for reading, 1px hairlines with roman-numeral folios, one coral mark. The signature is the condensed headline answered by one serif-italic pulled line between two hairlines.
+A contemporary magazine voice: warm white uncoated stock, a printed black with a faint cool tilt (hue 280), Bricolage Grotesque at 800 squeezed to width 75 for every head, Source Serif 4 for reading, square corners, 1px hairlines and one printer's green. It reads as art-directed because the condensed head, the serif text and the photographs carry it, not ornament. It is not a serif literary journal, not a cream page with a terracotta accent, and not a poster of giant numerals.
 
 ## Tokens
 
 ```css
 :root {
-  --color-paper: oklch(94% 0.020 75); --color-paper-2: oklch(91.5% 0.022 75); --color-paper-3: oklch(88.5% 0.024 75);
-  --color-ink: oklch(15% 0.014 280); --color-ink-2: oklch(28% 0.014 55); --color-muted: oklch(48% 0.014 60);
-  --color-rule: oklch(80% 0.018 70); --color-rule-2: oklch(64% 0.014 68);
-  --color-accent: oklch(50% 0.160 35); --color-accent-ink: oklch(98% 0.005 70); --color-focus: oklch(52% 0.160 35);
-  --font-display: "Bricolage Grotesque", ui-sans-serif, sans-serif; --font-body: "Figtree", ui-sans-serif, system-ui, sans-serif;
-  --font-outlier: "EB Garamond", ui-serif, Georgia, serif;
+  --color-paper: oklch(96.5% 0.008 88); --color-paper-2: oklch(93.5% 0.010 88); --color-paper-3: oklch(90.5% 0.012 86);
+  --color-ink: oklch(16% 0.012 280); --color-ink-2: oklch(27% 0.010 60); --color-muted: oklch(47% 0.012 70);
+  --color-rule: oklch(84% 0.010 85); --color-rule-2: oklch(66% 0.010 80);
+  --color-accent: oklch(49% 0.130 152); --color-accent-ink: oklch(98% 0.005 88); --color-focus: oklch(52% 0.135 152);
+  --font-display: "Bricolage Grotesque", ui-sans-serif, sans-serif; --font-body: "Source Serif 4", ui-serif, Georgia, serif;
   --radius-card: 0; --radius-pill: 0; --rule-hair: 1px; --shadow-card: none;
   --tracking-display: -0.01em; --display-weight: 800;
 }
 ```
 
-## Faces
+## Type
 
-- **Display:** Bricolage Grotesque 800 with `"wdth" 75, "opsz" 96`, `--tracking-display`, title case, up to 4.75rem, slammed left; the width axis is the magazine proportion. The ink carries a faint cool tilt (hue 280) on warm cream: printed black on paper.
-- **Body:** Figtree 400 and 500.
-- **The pulled line:** EB Garamond 500 italic, set large as its own object between two hairlines with a coral indent, once per page at most. Never a word inside a head, never the display face; every head is roman grotesque.
-- **Labels, captions, table heads, meta, folios:** Figtree 500 one step smaller, sentence case, `--color-muted`. Roman numerals as folios sit in the display face at label size in the outer margin, page furniture that persists; never above a heading. No mono on the page.
+- **Display:** Bricolage Grotesque 800 with `"wdth" 75, "opsz" 96`, `--tracking-display`, sentence case, roman, line-height 1.0 to 1.05. Condensed, it sets narrow for its size, so a section head may take one step up (`--text-display-s`). One weight and one colour per head.
+- **Body:** Source Serif 4 400 and its italic at 17 to 19px, optical size automatic, line-height 1.55, in `--color-ink-2`. A quotation takes the italic at `--text-lead` to `--text-title`, never a head and never a word inside one.
+- **Labels, captions, nav links, controls, table heads, bylines:** Bricolage Grotesque 500 at `"opsz" 12` and full width, a step smaller, sentence case, untracked; captions in `--color-muted`. No mono on the page.
 
-## Material
+## Surfaces
 
-- Square everything: controls, tags, inputs and filled marks are sharp rectangles at radius 0.
-- 1px hairlines and columns carry the structure: asymmetric splits (2:5, 3:7), left-biased composition, no boxed cards, no shadow, no blur, no texture.
-- The control pair: an ink-filled square block with paper text beside a hairline-outlined block; a tag is the one filled coral rectangle.
-- The coral signal under 5%: a link underline, one tag, a folio mark on paper or paper-2, one control. Never a band, never behind body type.
-- The object family is feature furniture: a folio column of numerals, a pulled line between hairlines, a contents index of hairline rows.
+- 1px `--color-rule` hairlines part rows, columns and sections; `--color-rule-2` is the firmer rule over a table or a list. Nothing is boxed: no card border, no shadow, no blur.
+- Radius 0 on everything: controls, tags, inputs, wells and photographs are sharp rectangles.
+- Depth is a paper step: a well is `--color-paper-2` under a `--color-rule-2` rule, never a raised card.
+- Bands: a `--color-paper-2` band or one `--color-ink` band with `--color-paper` text; never a green band. Two a page at most.
+- Photographs: editorial photography, seen close: hands at work, an object on a table, a room or a street in daylight, printed pages. Mid to close distance, soft window light, people from behind or cropped at the shoulder, never a face to the lens. Natural colour, a little quieter than life (the `photo:` line). Square corners, no border, an inset ink outline at 8%; full-bleed, or cut to a column edge with the type beside it. Captions sit under the frame in the label face; a head crosses a photograph only as a cover line, once a page, on its calmest third over an ink scrim.
+- No texture, no grain, no mesh.
+
+## Controls
+
+- An ink-filled square block (`--color-paper` on `--color-ink`) beside a 1px ink-outlined block, both in the label face; a tag may be the one filled green rectangle.
+- Links carry a hairline underline that turns green on hover; inputs are square with a 1px `--color-muted` border.
+- Green stays under 5% of a screen: a link's hover, one tag, the focus ring; never a field, never behind running text.
 
 ## Motion
 
-One clip reveal: the pulled line's two hairlines draw in from the left once over `--dur-long` on `--ease-out`. Hover grows a coral underline under a link. Nothing else moves.
+State only: a green underline grows under a link over `--dur-short` on `--ease-out`, a block darkens one step. No reveal, nothing on scroll.
 
 ## Voice
 
-Contemporary, lightly literary. Verbs over adjectives; name the piece, the issue, the byline.
+Contemporary, lightly literary, exact. Name the issue, the piece, the page count, the date; a head reads like a cover line, never a category.
 
 ## Do-nots
 
-- Never a serif display; the serif is the pulled line only, and never a word inside a head.
+- Never a serif head; Source Serif 4 sets reading text and quotations, never an `h1` to `h3`.
+- Never Bricolage at its default width; without `"wdth" 75` the head loses the magazine proportion.
 - Never a rounded corner, a pill or a shadow.
-- Never an orange or brick drift on the accent: coral, hue 35, chroma 0.16.
-- Never a centred masthead; left-biased and asymmetric, always.
-- Never an all-caps shout; title case, tight, magazine-modern.
+- Never a figure at poster size standing in for a cover: a price, a page count or a date sets at the section size beside its label, and the cover is a photograph.
+- Never an all-caps shout; sentence case, tight, magazine-modern.
 
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,600..800&family=Figtree:wght@400;500&family=EB+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,500..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&display=swap" rel="stylesheet">
 ```
 
 ```css
-.display { font: var(--display-weight) clamp(2.5rem, 5vw + 0.75rem, 4.75rem)/1 var(--font-display); color: var(--color-ink);
-  font-variation-settings: "wdth" 75, "opsz" 96; letter-spacing: var(--tracking-display); }
-.pull { font: italic 500 clamp(1.5rem, 2.5vw, 2.25rem)/1.25 var(--font-outlier); padding: var(--space-lg) 0 var(--space-lg) var(--space-lg);
-  border-block: var(--rule-hair) solid var(--color-rule); border-inline-start: 3px solid var(--color-accent); }
-.folio { font-size: var(--text-xs); color: var(--color-muted); }
-.folio .numeral { font-family: var(--font-display); font-weight: var(--display-weight); }
-.btn--primary { border-radius: 0; background: var(--color-ink); color: var(--color-paper); }
-.tag { background: var(--color-accent); color: var(--color-accent-ink); border-radius: 0; }
-::selection { background: color-mix(in oklab, var(--color-accent) 25%, transparent); }
+body { color: var(--color-ink-2); font-optical-sizing: auto; }
+h1, h2, h3 { font-weight: var(--display-weight); font-variation-settings: "wdth" 75, "opsz" 96; color: var(--color-ink); }
+h3 { font-variation-settings: "wdth" 75; }
+small, figcaption, th, nav, label, .btn, .tag { font-family: var(--font-display); font-weight: 500; font-variation-settings: "opsz" 12; }
+blockquote { font: italic 400 var(--text-lead)/1.35 var(--font-body); color: var(--color-ink); }
+.btn { border: var(--rule-hair) solid var(--color-ink); border-radius: 0; padding: var(--space-sm) var(--space-lg); }
+.btn--primary { background: var(--color-ink); color: var(--color-paper); }
+.btn--secondary { background: none; color: var(--color-ink); }
+.tag { background: var(--color-accent); color: var(--color-accent-ink); padding: var(--space-3xs) var(--space-xs); }
+.well { background: var(--color-paper-2); border-top: var(--rule-hair) solid var(--color-rule-2); }
+.photo > img { outline: 1px solid color-mix(in oklab, var(--color-ink) 8%, transparent); outline-offset: -1px; }
+a { text-decoration-color: var(--color-rule-2); text-underline-offset: 0.2em; } a:hover { text-decoration-color: var(--color-accent); }
+::selection { background: color-mix(in oklab, var(--color-accent) 22%, transparent); }
 ```

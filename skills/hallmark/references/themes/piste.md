@@ -7,14 +7,14 @@ display: display-condensed Barlow Condensed
 accent: cool 265
 posture: committed
 keywords: ski, mountain, resort, snow, winter, outdoor, sport, trail, lift, race, alpine, tickets, season pass, conditions, weather, club, active, bold
-material: snow-white paper, cobalt runs and buttons, black condensed caps, blue and red and black grade marks, one cobalt band sweeping the hero
-signature: a headline in condensed black caps beside a mountain profile drawn in ink, with the runs on it in cobalt
-pictured: Marquee Hero, Ledge hero
+material: snow-white paper, cold near-black ink, Barlow Condensed 800 caps over Barlow, square edges on 2px ink rules, one cobalt for signal and field
+photo: natural con=10 vib=15
+pictured: Photographic, Ledge hero
 ---
 
 # Piste
 
-Snow-white paper, Barlow Condensed 800 caps in black, cobalt for the runs, the band and the buttons, and blue, red and black grade discs doing the only other colour work. The mountain is one ink polyline with cobalt runs on it, never a photograph.
+A mountain morning in print: snow-white paper, cold near-black ink, Barlow Condensed 800 in capitals for every head, square edges on 2px ink rules, and one cobalt doing all the colour work, from the primary control to a full field. Photographs bring the mountain in, crisp and in full colour, cut square like everything else, and the paper is the snow they open onto. It reads bold because the type is loud and the colour one cold blue; it is not a lens-flare resort brochure, a sporty gradient or a rounded app.
 
 ## Tokens
 
@@ -24,53 +24,60 @@ Snow-white paper, Barlow Condensed 800 caps in black, cobalt for the runs, the b
   --color-ink: oklch(16% 0.01 260); --color-ink-2: oklch(28% 0.012 260); --color-muted: oklch(50% 0.015 260);
   --color-rule: oklch(90% 0.006 260);
   --color-accent: oklch(52% 0.25 265); --color-accent-ink: oklch(98.5% 0.004 260); --color-focus: oklch(58% 0.22 28);
-  --color-field: var(--color-accent); --color-grade-red: oklch(58% 0.22 28);
+  --color-field: var(--color-accent);
   --font-display: "Barlow Condensed", ui-sans-serif, sans-serif; --font-body: "Barlow", ui-sans-serif, sans-serif;
   --font-outlier: "JetBrains Mono", ui-monospace, monospace;
   --radius-card: 0; --radius-pill: 0; --rule-hair: 1px; --rule-bar: 2px;
-  --shadow-card: 0 30px 60px -40px oklch(16% 0.01 260 / 0.5);
+  --shadow-card: none;
   --tracking-display: -0.005em;
 }
 ```
 
-Committed: cobalt is `--color-field` and carries a band, a column and a block; the accent on buttons and runs stays a signal. Three grounds, stated in the stamp (`piste: snow`).
+Committed: cobalt is `--color-field` and may fill whole bands; on controls and links it is the signal. Three grounds, stated in the stamp (`piste: snow`).
 
-| Ground | Paper and ink | Cobalt and the marks |
+| Ground | Paper and ink | Cobalt and focus |
 | --- | --- | --- |
-| **Snow** (default) | near-white under near-black | cobalt runs and buttons; blue, red and black grades |
-| **Blue run** | cobalt `oklch(52% 0.25 265)` under white ink; the report card is a white plate on an `18px 18px 0` offset in darker cobalt | white does the run work, black stands in for red |
-| **Night piste** | `oklch(14% 0.01 260)` under white ink, 2px white rules | cobalt `oklch(56% 0.25 265)` and red `oklch(60% 0.23 28)` |
+| `snow` (default) | near-white under near-black | cobalt controls, links and field; red focus |
+| `blue-run` | cobalt `oklch(52% 0.25 265)` under white ink; the page is the field | white takes the controls, links and focus |
+| `night-piste` | `oklch(14% 0.01 260)` under white ink, 2px white rules | cobalt `oklch(56% 0.25 265)`, red focus `oklch(60% 0.23 28)` |
 
-## Faces
+## Type
 
-- **Display:** Barlow Condensed 800, uppercase, line-height 1.0 when a head can wrap (55a) and 0.92 only on a single nowrap line, `--tracking-display`, up to 7.25rem on a poster-scale hero; every head and every figure. Roman.
+- **Display:** Barlow Condensed 800, uppercase, roman, `--tracking-display`; line-height 1.0 on any head that can wrap (55a), 0.92 only on a single line that cannot. Condensed, so it sets one step larger than the shared scale: a section head at `--text-display-s`, the hero head up to 7.25rem. Every head and big figure takes it, figures tabular.
 - **Body:** Barlow 400 and 500, 16 to 19px, line-height 1.5.
-- **Signs and buttons:** Barlow Condensed 800, uppercase, tracked 0.04em, 16px, following the display's capitals. Table heads, captions and meta: Barlow 500 one step smaller, sentence case, untracked. No mono outside code.
+- **Buttons:** Barlow Condensed 800 in capitals at 16px or more, untracked, following the display (legal under 67 on an uppercase display).
+- **Nav links, table heads, captions, meta:** Barlow 500 a step smaller, sentence case, untracked. JetBrains Mono only inside code.
 
-## Material
+## Surfaces
 
-- Rules `--rule-bar` ink under a table's head and under a nav; `--rule-hair` in paper-3 between rows. Radius 0: signs are cut, tables are ruled, cards are rare.
-- The sign: a strip of condensed caps with one end cut to a point by clip-path, filled cobalt, red or black, or outlined 2px. Signs are the nav items, in the display's capitals at 16px or more tracked 0.04em at most; a tag smaller than that is a sign in sentence case, untracked (67).
-- Grade marks: 10px discs in blue, red or black that mean a piste's grade and nothing else. A disc never decorates a label.
-- The mountain: one SVG polyline of six to ten points in ink for the profile and two or three curved cobalt paths for the runs on it; that is the whole drawing, under 40 lines. Snow-depth bars are plain rects. The cobalt band sweeping the hero is a single wide SVG path.
-- Shadow: none on chrome; the soft `--shadow-card` under the one framed report.
-- The control pair: a cobalt fill with paper text beside a 2px inset ink outline, both in condensed caps tracked 0.04em. Objects: a price grid with the day column filled in cobalt, a report card with a stamp turned 6 degrees (a stamp carries a fact, a date or a frame number, or does not appear), a piste table.
+- Rules: `--rule-bar` ink under a table's head and under the nav, `--rule-hair` in `--color-paper-3` between rows. Tables are ruled, never boxed.
+- Radius 0 on everything: wells, photographs, inputs, controls and tags are cut square.
+- Depth is flat: no shadow; a raised surface is a paper step or the cobalt field.
+- Bands: the cobalt `--color-field` with `--color-accent-ink` text, or `--color-paper-2` for a dense table; two a page at most.
+- Photographs: the mountain in daylight and in colour: a group on a slope seen from behind, a line of children after an instructor, a lift against the sky, skis standing in fresh snow; crisp and high-key, snow white and sky blue, never a dusk grade or a flare. Cut square with an inset ink hairline at 8%. Type on a photograph sits on its open snow or sky: ink straight on bright snow at 4.5:1, or paper over a cold ink scrim.
+- No texture, no gradient but a photograph's scrim, no blur.
+
+## Controls
+
+- The pair: a cobalt fill with `--color-accent-ink` text beside a 2px inset ink outline, both square, in condensed capitals; on a scrim the outline turns paper.
+- Links are ink and underlined, cobalt on hover; inputs square, 48px tall, with a 1px ink border.
+- Cobalt sits on the primary, a link's hover, a field band and one figure set outside any head (a figure row, a price); red is the focus ring and nothing else.
 
 ## Motion
 
-Signage holds still. A sign's point shifts 2px on hover; nothing draws in, loops or follows the scroll.
+Still. A control darkens one step on hover over `--dur-micro` on `--ease-out`; nothing draws in, loops or follows the scroll.
 
 ## Voice
 
-The morning report: the hour, the depth in centimetres, the lifts open, the run by name. Never a slogan about freedom.
+The morning report: the hour, the group, the run by name, the week booked, called across the snow. Never a slogan about freedom or powder.
 
 ## Do-nots
 
 - Never lowercase display or a light condensed; Barlow Condensed at 800.
-- Never a photograph as the hero visual; the profile is drawn and the photo lives in a slot.
+- Never a rounded corner, a pill or a soft card; everything is cut square.
+- Never a second accent hue: cobalt and ink do the work, red is only the focus ring.
 - Never cobalt on running text or as a card fill on snow paper.
-- Never a fourth mark colour; blue, red and black are grades.
-- Never a rounded sign or a pill button; everything is cut straight or to a point.
+- Never a sky gradient, a sunset grade, or a drawn mountain, snowflake or piste map.
 
 ## Build hint
 
@@ -79,14 +86,16 @@ The morning report: the hour, the depth in centimetres, the lifts open, the run 
 ```
 
 ```css
-.display { font: 800 var(--text-display)/1 var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-display); text-wrap: balance; }
-.sign { display: inline-flex; align-items: center; height: 34px; padding: 0 var(--space-lg) 0 var(--space-sm); font: 800 var(--text-md) var(--font-display); letter-spacing: 0.04em; text-transform: uppercase;
-  background: var(--color-accent); color: var(--color-accent-ink); clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%); }
-.grade { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--color-accent); }
-.profile { fill: none; stroke: var(--color-ink); stroke-width: 2; stroke-linejoin: round; } .run { fill: none; stroke: var(--color-accent); stroke-width: 3; }
-.btn { padding: var(--space-md) var(--space-lg); font: 800 var(--text-md) var(--font-display); letter-spacing: 0.04em; text-transform: uppercase; }
+h1, h2, h3 { font-weight: 800; text-transform: uppercase; line-height: 1; }
+h2 { font-size: var(--text-display-s); }
+.btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 var(--space-lg); border: 0; font: 800 var(--text-md)/1 var(--font-display); text-transform: uppercase; }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
-.btn--secondary { box-shadow: inset 0 0 0 var(--rule-bar) var(--color-ink); color: var(--color-ink); }
+.btn--secondary { background: none; box-shadow: inset 0 0 0 var(--rule-bar) var(--color-ink); color: var(--color-ink); }
+.band--field { background: var(--color-field); color: var(--color-accent-ink); }
+.photo { outline: 1px solid color-mix(in oklab, var(--color-ink) 8%, transparent); outline-offset: -1px; }
+.scrim { background: linear-gradient(to top, color-mix(in oklab, var(--color-ink) 60%, transparent), transparent 55%); color: var(--color-paper); }
 th { border-bottom: var(--rule-bar) solid var(--color-ink); font: 500 var(--text-sm) var(--font-body); text-align: left; }
+td { border-bottom: var(--rule-hair) solid var(--color-paper-3); }
+a:hover { text-decoration-color: var(--color-accent); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 30%, transparent); }
 ```

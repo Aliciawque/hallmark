@@ -2,7 +2,7 @@
 
 Read only when creating or editing a theme. A build never needs it. `node scripts/theme.mjs validate <file>` checks the contract below and must pass before a theme ships.
 
-**A theme is a material, not a plan.** It says what the page is made of: paper, ink, faces, rule weight, radius, shadow stance, texture budget, motion character, voice. It never says what the page contains, in what order, or in what shape; two pages in one theme should not share a section sequence. Every rule the Floor or `craft.md` already binds is left out; a theme file that repeats `overflow-x: clip` or the reduced-motion block is padding.
+**A theme is a material, nothing else.** It says what a page is made of: paper, ink, faces, rules, radius, depth, texture, controls, motion, voice. It never says what the page contains, in what order, in what shape, or how much room anything gets, and it never ships a component: no signature object, no drawn thing, no named part a page must include. Space, section composition and the hero's size belong to `layout.md` and bind every theme alike; a theme that says "air carries the page" or "whitespace does the structure" is overriding them. Every rule the Floor, `craft.md` or `layout.md` already binds is left out.
 
 ## The header block
 
@@ -18,8 +18,8 @@ display: grotesk-sans General Sans
 accent: warm 28
 posture: restrained
 keywords: saas, platform, billing, payments, dashboard, b2b, startup, pricing, analytics, fintech, workflow, onboarding, trust, warm, human
-material: warm grey paper, one coral signal, General Sans throughout, soft pills
-signature: the ink-filled pill beside an outlined one, and nothing else coloured
+material: warm grey paper, warm charcoal ink, General Sans throughout, soft pills, one coral signal
+photo: muted
 ---
 ```
 
@@ -27,28 +27,30 @@ signature: the ink-filled pill beside an outlined one, and nothing else coloured
 - `display`: class, then the face. Classes: `roman-serif`, `high-contrast-serif`, `slab-serif`, `grotesk-sans`, `grotesk-heavy`, `geometric-sans`, `rounded-sans`, `display-condensed`, `display-heavy`, `mono`, `pixel`, `handwritten`, `blackletter`.
 - `accent`: band (`warm` 10 to 60°, `cool` 200 to 300°, `neutral` chroma under 0.05, or `chromatic-<name>` for anything else), then the hue.
 - `posture`: `restrained`, `committed`, `full-palette` or `drenched`.
-- `keywords`: the words in a brief that route here, lowercase, comma-separated, ten to twenty.
-- `material` and `signature`: one line each; the deal prints them.
+- `keywords`: the words in a brief that route here, lowercase, comma-separated, ten to twenty-five.
+- `material`: one line, the deal prints it: paper, ink, faces, surface, signal. Materials only, no objects.
+- `photo`: the treatment every photograph on a page takes, applied on the CDN by `theme.mjs photos`: `natural`, `warm`, `muted`, `mono`, `duotone <dark> <light>` or `tint <colour>` (token names without `--color-`, so `duotone ink paper`), optionally followed by `con=`, `sat=`, `exp=`, `sepia=`, `vib=`, `high=`, `shad=` or `sharp=` with a whole number. Pick what the material would do to a photograph: a newsprint prints it black, a riso pulls it in two inks, a warm studio keeps it natural.
 - `pictured`: written by `scripts/picture.mjs`, the shape and hero posture of the page in the theme's picture, so a build knows which composition is already taken.
 
 ## The picture
 
-Every theme ships `<slug>.jpg` beside its file: the first screen and one lower screen of a finished page built in the theme with the skill, each at 1440 x 900, scaled to 960 wide and stacked (`node scripts/picture.mjs <slug> <page.html> <y of the lower screen>`). The page must sweep clean, its lower screen must show the theme's material (the signature object, its rules, its plates), never an empty slot, and the page must be one a designer would sign. A build reads the picture with the file and takes its scale, density, colour balance and objects, never its composition. A theme without a picture validates with a warning.
+Every theme ships `<slug>.jpg` beside its file: the first screen and one lower screen of a finished page built in the theme with the skill, each at 1440 x 900, scaled to 960 wide and stacked (`node scripts/picture.mjs <slug> <page.html> <y of the lower screen>`). The page must sweep clean, pass `layout.md` on every screen, and be one a designer would sign; its lower screen shows the material at work in a full section, and its pictures are real (photographs or the product built), never an empty slot. A build reads the picture for palette balance, type voice and surfaces, never for layout. A theme without a picture validates with a warning.
 
-## The body, in order, 3.5 to 7 KB
+## The body, in order, 3 to 7 KB
 
-1. **One paragraph:** what the theme feels like and what it is not. No brand names, ever: describe the register, never the sites that have it.
-2. **Tokens:** a `:root` block with the real values in OKLCH: paper, paper-2, paper-3, ink, ink-2, muted, rule, accent, accent-ink, focus; the three font tokens; `--radius-card`, `--radius-pill`, `--rule-hair`, `--shadow-card`; `--tracking-display`. No comments inside the block: `theme.mjs scaffold` copies it verbatim into a page's `tokens.css`. A theme with dials (colourways, cabinets) lists the alternates in a short table under the block and says the page states its choice in the stamp.
-3. **Faces:** display, body, and the outlier if any, with weights, tracking, case. Labels, captions, table heads, tags and nav links are the body face at a smaller size, sentence case, untracked, or one label face the theme names (a small sans under a serif body, say), never mono unless mono is this theme's material; say which. A head is one weight and one colour; a theme built on an accented word names it as the signature and says it appears once.
-4. **Material:** four to six bullets: rule weight, radius, shadow stance, texture budget (naming the `texture.md` recipe if any), the control pair, the one object family the theme builds (plates, cards, a ledger, a marquee).
-5. **Motion:** one to three lines: how fast, how it eases, what may move.
-6. **Voice:** one or two lines on the copy's register.
-7. **Do-nots:** three to five bullets specific to this theme's own failure modes, never restatements of a gate.
-8. **Build hint:** at most 25 lines of CSS carrying only the rules that make the theme recognisable (the display setting, the control pair, the signature object), every colour, duration, easing and space a token (validate refuses raw milliseconds, a bare `ease`, named colours and raw spacing). Font links as one line.
+1. **One paragraph:** what the theme feels like and what it is not. No brand names: describe the register, never the sites that have it.
+2. **Tokens:** a `:root` block with the real values in OKLCH: paper, paper-2, paper-3, ink, ink-2, muted, rule, accent, accent-ink, focus; the three font tokens; `--radius-card`, `--radius-pill`, `--rule-hair`, `--shadow-card`; `--tracking-display`. Optional: `--color-slot` when the slot wash should take a second hue rather than the accent. No comments inside the block: `theme.mjs scaffold` copies it verbatim into a page's `tokens.css`. A theme with colourways lists the alternates in a short table under the block, and the page states its choice in the stamp.
+3. **Type:** display, body, and the outlier if any, with weights, tracking, case and leading; sizes come from the shared scale (`layout.md` § 2), so a theme names a step only where its face needs one (a condensed face may set one step larger). Labels, captions, table heads, tags and nav links are the body face a step smaller, sentence case, untracked, or one label face the theme names, never mono unless mono is this theme's material. A head is one weight and one colour; a theme built on an accented word names it and says it appears once.
+4. **Surfaces:** four to six bullets: rule weight and where rules run, radius, depth stance, the bands a page may use (which paper, how many), photographs (what kind of picture suits the material, how it is framed and cropped, how it meets the type), the texture budget (naming the `texture.md` recipe if any).
+5. **Controls:** two or three bullets: the control pair, links, inputs, and where the accent may sit.
+6. **Motion:** one to three lines: how fast, how it eases, what may move.
+7. **Voice:** one or two lines on the copy's register.
+8. **Do-nots:** three to five bullets specific to this theme's own failure modes, never restatements of a gate.
+9. **Build hint:** at most 20 lines of CSS carrying the rules that make the material recognisable (the head setting, the control pair, a well or band surface, a texture if any), every colour, duration, easing and space a token (validate refuses raw milliseconds, a bare `ease`, named colours and raw spacing). Font links as one line.
 
 ## What a theme may not carry
 
-A section sequence, a page outline, a mandated nav, footer, hero or enrichment, HTML scaffolds, page-part class names, verbatim copy, invented brand names or people, an eyebrow in any form, a label in tracked capitals or small caps, a stamp or a badge that carries no fact, counts that fix a layout, neighbour comparison tables (the deal computes distance from the header block), or a list of reference sites.
+A component or object of any kind (a plate, a sign, a disc, a drawer, a sticker sheet, a ticket, a drawn product, a folio column, a mark the page must draw), a section sequence, a page outline, a mandated nav, footer, hero or enrichment, HTML scaffolds, page-part class names, rules about space or density, verbatim copy, invented brand names or people, an eyebrow in any form, a label in tracked capitals or small caps, a stamp or a badge that carries no fact, counts that fix a layout, neighbour comparison tables (the deal computes distance from the header block), or a list of reference sites.
 
 ## Contradictions to avoid
 

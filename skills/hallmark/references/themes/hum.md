@@ -6,15 +6,15 @@ paper: light 97 95
 display: rounded-sans Chillax
 accent: chromatic-yellow 95
 posture: full-palette
-keywords: daily, habit, streak, practice, learning, curiosity, mood, energy, friendship, community, kids, family, game, puzzle, creative, character, mascot, playful, alive
-material: cream pulled toward pear-yellow, three accents that never blend, one rounded sans, round corners everywhere, a press you can feel
-signature: the pear-yellow pill with a solid colour edge that lifts on hover and presses down on click
-pictured: Bento Grid, Ledge hero
+keywords: daily, habit, streak, practice, learning, reading, curiosity, mood, energy, friendship, community, kids, family, parents, school, game, puzzle, creative, playful, alive
+material: cream paper pulled toward pear-yellow, blue-black ink, Chillax throughout, round corners and a press you can feel, three accents that never blend
+photo: natural vib=12 exp=4
+pictured: Bento Grid, Settled hero
 ---
 
 # Hum
 
-Cream pulled toward pear-yellow, three accents that never blend, Chillax for everything, round corners everywhere, and a press you can feel. The signature is the pear-yellow pill with a solid colour edge that lifts on hover and presses down on click.
+Cheerful and tactile without turning childish: cream paper pulled toward pear-yellow, a blue-black ink, Chillax from head to label (its single-storey a and g read like an early reader's page), round corners, and a primary control that presses down like a real key. Three accents never blend: pear for the action, blue for links, coral for one loud moment; mint is the one field. Not a pastel nursery template, not a rainbow page.
 
 ## Tokens
 
@@ -25,7 +25,7 @@ Cream pulled toward pear-yellow, three accents that never blend, Chillax for eve
   --color-rule: oklch(88% 0.014 95);
   --color-accent: oklch(86% 0.18 95); --color-accent-deep: oklch(72% 0.16 95); --color-accent-ink: oklch(20% 0.012 250);
   --color-accent-2: oklch(51% 0.17 235); --color-accent-3: oklch(68% 0.24 18);
-  --color-mint: oklch(80% 0.16 150); --color-glow: oklch(76% 0.20 95); --color-lavender: oklch(74% 0.16 305); --color-focus: oklch(51% 0.17 235);
+  --color-mint: oklch(80% 0.16 150); --color-glow: oklch(76% 0.20 95); --color-focus: oklch(51% 0.17 235);
   --font-display: "Chillax", "Geist", ui-rounded, ui-sans-serif, sans-serif; --font-body: var(--font-display);
   --font-outlier: "Geist Mono", ui-monospace, monospace;
   --radius-card: 20px; --radius-input: 12px; --radius-pill: 999px; --rule-hair: 1px;
@@ -35,22 +35,30 @@ Cream pulled toward pear-yellow, three accents that never blend, Chillax for eve
 }
 ```
 
-## Faces
+## Type
 
-- **Display:** Chillax 600, `--tracking-display`, sentence case.
-- **Body:** Chillax 400 with 500 for inline emphasis; no serif anywhere.
-- **Labels, captions, table heads, meta, units, ordinals:** Chillax 500 one step smaller, sentence case, `--color-muted`; an ordinal sits outside its heading as the list's counter, and a number inside a heading takes the heading's weight and colour. Mono appears only inside code.
+- **Display:** Chillax 600, `--tracking-display`, line-height 1.05, sentence case. A number inside a head takes the head's weight and colour.
+- **Body:** Chillax 500 at 16 to 18px, line-height 1.55 (its 400 is too thin for a paragraph); emphasis is a pear highlighter band behind the words, never inside a head. No serif anywhere.
+- **Labels, captions, table heads, units:** Chillax 500 a step smaller, sentence case, untracked, in `--color-muted`. Geist Mono only inside code.
 
-## Material
+## Surfaces
 
-- Round, everywhere: cards at 20px, inputs at 12px, controls as pills. Radius is a per-build lever (28px for kids, 14px for a quiet tool); no corner is ever square.
-- The press: the primary control is a solid colour edge (an offset shadow with no blur) under a soft blurred cast. Hover lifts 2px and grows the edge to 6px; active presses down 3px and shrinks it to 1px. The secondary is a 1px `--color-rule` pill with no edge.
-- Each accent owns a surface: pear is the primary action, cyan (at L 51, so it reads as type on cream) is links and hover tints, coral is the single high-energy moment as a fill with ink on it. They never blend; mint and lavender at most once each per page.
-- Emphasis in running text is a clipped background band with `box-decoration-break: clone` or weight 500; a head is one weight and one colour. One character mark per page, drawn in CSS or SVG, with a personality.
+- Round everywhere: wells and frames at 20px, inputs at 12px, controls and tags as pills, concentric inside. Radius is a per-build lever (28px for children, 14px for a quiet tool); no corner is square.
+- Rules are rare: 1px `--color-rule` on an input or between rows; most divisions are a paper step.
+- Depth: wells sit flat on `--color-paper-2` or `--color-paper-3`; `--shadow-card`, a soft two-step cast, only on a surface that is a link.
+- Bands: `--color-paper-2`, an ink band with paper text, or one accent field (pear or mint, with ink on it). Two a page at most.
+- Photographs: bright daylight at a child's height: small hands turning a page, books piled on a bed, a kitchen table after school; never a child's face, never a posed family smile. 20px radius, a 1px inset outline of ink at 6%; captions under the frame in the label voice; no type on a photograph.
+- No texture, no grain.
+
+## Controls
+
+- The press: the primary is a pear pill on a solid `--color-accent-deep` edge (an offset shadow, no blur) under a soft `--color-glow` cast; hover lifts it, active presses it down to a 1px edge. The secondary is a pill with a 1px `--color-rule` ring and no edge.
+- Each accent owns a job: pear the primary action; blue (`--color-accent-2`, dark enough to read as type) links, hover tints and the focus ring; coral (`--color-accent-3`) one high-energy fill with ink on it. Mint appears once at most, as a tag or a field.
+- Inputs: 12px radius, a 1px `--color-rule` border on `--color-paper`, the blue focus ring.
 
 ## Motion
 
-Spring posture declared: gate 12 allows the spring on the primary CTA and on the one character moment only, both on `--ease-spring`, with no waiver; everything else eases out on `--ease-snap`. The press runs `--dur-micro` on hover and half that on active, no `scale()`; a card that is a link lifts 4px over `--dur-short`. The character mark breathes at rest on an 8s period, the theme's one ambient loop: it stops under reduced motion and off-screen, pauses on hover and focus, and carries a visible pause control. Nothing else moves: no count-up, no staggered heads, no burst.
+Spring posture declared (gate 12): the spring runs on the primary control only, on `--ease-spring`; everything else eases out on `--ease-snap`. The press runs `--dur-micro` on hover and half that on active, never `scale()`; a linked surface lifts 4px over `--dur-short`. Nothing loops or counts up.
 
 ## Voice
 
@@ -60,23 +68,27 @@ Warm, smart, casual, direct. Sentence case, verbs over nouns, honest numbers onl
 
 - Never a serif, never pure white paper, never a square corner.
 - Never a gradient between two accents and never a rainbow ground.
-- Never a single restrained accent; three are on stage.
-- Never a second character moment, never emoji or stock icons.
-- Never the spring on anything but the two declared moments.
+- Never one restrained accent; three are on stage, each on its own job.
+- Never emoji, stock icons or a drawn character, plant or sticker for personality; the press, the colour and the photographs carry it.
+- Never the spring on anything but the primary control.
 
 ## Build hint
 
 ```html
-<link href="https://api.fontshare.com/v2/css?f[]=chillax@400,500,600&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=chillax@500,600&display=swap" rel="stylesheet">
 ```
 
 ```css
-h1, h2, h3 { font-weight: var(--display-weight); letter-spacing: var(--tracking-display); }
-.btn--primary { background: var(--color-accent); color: var(--color-accent-ink); font-weight: 600; border: 0; border-radius: var(--radius-pill);
+h1, h2, h3 { font-weight: var(--display-weight); }
+.btn { border: 0; border-radius: var(--radius-pill); padding: var(--space-sm) var(--space-lg); font-weight: 600; }
+.btn--primary { background: var(--color-accent); color: var(--color-accent-ink);
   box-shadow: 0 4px 0 0 var(--color-accent-deep), 0 6px 12px -3px color-mix(in oklab, var(--color-glow) 45%, transparent);
   transition: transform var(--dur-micro) var(--ease-spring), box-shadow var(--dur-micro) var(--ease-spring); }
 .btn--primary:hover { transform: translateY(-2px); box-shadow: 0 6px 0 0 var(--color-accent-deep), 0 12px 22px -4px color-mix(in oklab, var(--color-glow) 45%, transparent); }
 .btn--primary:active { transform: translateY(3px); box-shadow: 0 1px 0 0 var(--color-accent-deep); transition-duration: calc(var(--dur-micro) / 2); }
+.btn--secondary { background: var(--color-paper); color: var(--color-ink); box-shadow: inset 0 0 0 var(--rule-hair) var(--color-rule); }
+.well { background: var(--color-paper-2); border-radius: var(--radius-card); }
+mark { background: color-mix(in oklab, var(--color-accent) 55%, transparent); color: inherit; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 a { color: var(--color-accent-2); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 60%, transparent); color: var(--color-ink); }
 ```

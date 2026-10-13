@@ -14,7 +14,7 @@ Loaded when the brief involves charts/data/dashboards or the macro is Stat-Led /
 
 The most underused form is emphasis: one accent series, everything else neutral. If every series is loud, none is.
 
-## Construction (hand-built inline SVG, no chart library)
+## Construction (inline SVG written for the data, no chart library)
 
 - **Bars**: <= 24px thick, 2-4px gaps, baseline at zero always; rounded only at the data end, <= 2px.
 - **Lines**: 2px stroke; markers only at annotated points (>= 6px); a sparkline may fade-fill to transparent (the Ledger move), which is the one sanctioned gradient near a chart.
@@ -37,7 +37,7 @@ Adapted to Hallmark's one-accent discipline (an 8-hue categorical palette would 
 
 - Real numbers, or a text slot (`craft.md` § 8) where a figure is missing; a fabricated series is worse than an empty slot.
 - Bars start at zero; a truncated axis that exaggerates a delta is the numeric version of an invented metric. Annotate a zoomed view explicitly ("axis starts at 94%") when the data genuinely lives in a narrow band.
-- Sample data lives only inside a slot's sketch or a code surface, reads as a sample (totals sum, dates sequence) and is never a figure a visitor could take as a claim (`craft.md` § 6); the stamp notes `data: sample`.
+- Sample data lives only inside a built product sample or a code surface, reads as a sample (totals sum, dates sequence) and is never a figure a visitor could take as a claim (`craft.md` § 6); the stamp notes `data: sample`.
 
 ## Dark
 

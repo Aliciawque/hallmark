@@ -13,7 +13,7 @@ Reach for it for design studios, agencies, photographer portfolios, any creative
 
 Avoid for products. Portfolio Grid is a service-business shape.
 
-Code: [`../components/f6-product-card-grid.md`](../components/f6-product-card-grid.md) with a filter row.
+Compositions: Grid with a filter row (`layout.md` § 5).
 
 **Sample opening lines** (name the volume and the era):
 > *"Selected work, 2018 to 2026."* A date range, nothing else.

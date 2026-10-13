@@ -79,10 +79,10 @@ Reading progress as a hairline, not a chrome bar. A functional indicator, so `li
 
 ## 4 · Sticky diptych: a two-pane pin
 
-Structure and pin mechanics come from [`components/f2-sticky-scroll-stack.md`](components/f2-sticky-scroll-stack.md): markup, the `--banner-height` offset and the mobile collapse are defined there. This recipe adds only the choreography: the scrolling figures fade in on their own `view()` (they move, so self-timelines work); the pinned side holds from one diptych to the next.
+The structure is a Split (`layout.md` § 5) with one side pinned: `.sticky-stack { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--gap-columns); }`, `.pane-sticky { position: sticky; top: calc(var(--banner-height, 0px) + var(--space-xl)); align-self: start; z-index: var(--z-sticky); }` (it docks below a sticky nav, 56), `.pane-scroll { display: grid; gap: var(--space-2xl); }`, each figure at 16:10 and 440px tall or more; under 60rem one column and `position: static`. The choreography adds only this: the scrolling figures fade in on their own `view()` (they move, so self-timelines work); the pinned side holds from one diptych to the next.
 
 ```css
-/* f2 base: .sticky-stack grid + .pane-sticky pin, per the component file; the pinned side holds down the page (craft.md § 3) */
+/* base: .sticky-stack grid + .pane-sticky pin, above; the pinned side holds down the page */
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) and (min-width: 40rem) {
     .pane-scroll figure { animation: fig-in linear both; animation-timeline: view();

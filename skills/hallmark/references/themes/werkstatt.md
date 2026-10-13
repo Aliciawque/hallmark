@@ -7,14 +7,14 @@ display: geometric-sans Jost
 accent: cool 265
 posture: full-palette
 keywords: school, programme, workshop, maker, course, bootcamp, academy, apply, admissions, tuition, timetable, bauhaus, craft, design education, design school, residency, cohort, prospectus
-material: a warm putty grey ground, a blue circle, a red triangle and a yellow square, heavy geometric capitals, 2px and 3px black rules
-signature: the three primary shapes cropped large beside the headline and repeated at 11px as the bullets of the lists that name the shops
-pictured: Prospectus (an unlisted shape), Poster hero
+material: warm putty ground, near-black ink, Jost 700 capitals over Karla, square 2px and 3px ink rules, flat blue, red and yellow primaries
+photo: mono
+pictured: Prospectus, Stage hero
 ---
 
 # Werkstatt
 
-A putty grey ground, Jost 700 capitals, a Karla body, 2px and 3px black rules, and exactly three coloured objects, a blue circle, a red triangle and a yellow square, huge beside the headline and 11px as list bullets. Each shape names a shop.
+A design school's printed prospectus: a warm putty ground, near-black ink, heavy Jost capitals over a plain Karla body, square 2px and 3px ink rules, and three flat primaries, blue, red and yellow, each with one job. Its photographs are black and white records of the shops at work. It reads taught and sure of itself, like a programme pinned to a workshop wall. It is not a toy-box palette and not a pattern of confetti shapes.
 
 ## Tokens
 
@@ -33,61 +33,66 @@ A putty grey ground, Jost 700 capitals, a Karla body, 2px and 3px black rules, a
 }
 ```
 
-Three colourways, set once per page and named in the stamp (`werkstatt: putty`).
+Three colourways, set once per page and stated in the stamp (`werkstatt: putty`).
 
 | Colourway | Ground, ink, primaries |
 | --- | --- |
 | `putty` (default) | the block above |
-| `blackboard` | ground `oklch(17% 0.005 60)`, ink `oklch(90% 0.015 80)`, rule `oklch(38% 0.01 60)`, primaries a step brighter; putty returns as a plate colour |
-| `blue` | ground `oklch(50% 0.22 265)`, ink `oklch(93% 0.02 85)`, rule `oklch(64% 0.14 265)`; the circle becomes putty and the yellow square does the work of the accent |
+| `blackboard` | ground `oklch(17% 0.005 60)`, ink `oklch(90% 0.015 80)`, rule `oklch(38% 0.01 60)`, primaries a step brighter; putty returns as a well colour |
+| `blue` | ground `oklch(50% 0.22 265)`, ink `oklch(93% 0.02 85)`, rule `oklch(64% 0.14 265)`; the yellow does the accent's work |
 
-## Faces
+## Type
 
-- **Display:** Jost 700, uppercase, `--tracking-display`, line-height 1.02, up to 6.5rem in the hero and 2.75rem for section heads; the wordmark at 15px tracked 0.04em.
-- **Body:** Karla 400 at 16px, line-height 1.5; subheads at 20px.
-- **Labels, captions, tags, table heads:** Karla 600 at 12.5 to 13px, sentence case, untracked, in `--color-muted`. Mono only inside code; timetable cells and prices are Karla with `tabular-nums`.
+- **Display:** Jost 700, uppercase, `--tracking-display`, line-height 1.02, at the shared steps. Capitals are the material: every head is set in them.
+- **Body:** Karla 400, line-height 1.5.
+- **Labels, captions, tags, table heads:** Karla 600 a step smaller, sentence case, untracked, in `--color-muted`. Figures and prices in Karla with `tabular-nums`; mono only inside code.
+- **Controls:** Karla 600 in capitals, following the display (the case gate 67 allows on an uppercase page), untracked.
 
-## Material
+## Surfaces
 
-- Rules do the structure: `--rule-box` ink lines box the shops grid and cross it, `--rule-bar` ink under a nav and over every table, `--rule-hair` `--color-rule` between rows. No card has a background; a cell is what the rules enclose.
-- The three shapes, drawn in CSS (a circle by radius, a triangle by clip-path, a square with an 8 degree tilt): at 150 to 220px as cropped forms beside the headline and shop names; at 11px as the bullets of a list whose items belong to the shops, each colour one shop (a list of one kind takes no bullets); a 4px ink line is the fourth shop's mark.
-- Zero radius, zero shadow, no texture; the only gradient is a warm grey ramp inside a placeholder with a tag in its corner. A drawn building is 2px isometric ink lines, never shaded.
-- The control pair: a transparent `--rule-bar` ink-bordered button beside an ink-filled one, both uppercase Karla 600 at 13px tracked 0.04em, following the display's capitals; on a dark band the filled one turns yellow with ink type, the same primary in that band's colour, not a third control (the stamp answers F4).
-- The timetable: a grid with 92px rows coloured per shop and an outlined cell for open bench time. Blue and red cells take the light ink `--color-accent-ink`, the red deepened to `--color-accent-2-deep`; the yellow cell takes black type, the black cell putty.
+- Rules: `--rule-box` ink lines box and cross a grid, `--rule-bar` ink runs under a nav and over every table, `--rule-hair` in `--color-rule` between rows. No card has a background; a cell is what the rules enclose.
+- Zero radius and zero shadow everywhere.
+- Bands: a `--color-paper-2` band, an `--color-ink` band with paper text in the `blackboard` colours, or one blue field with `--color-accent-ink` text; two bands a page at most.
+- Photographs: the shops at work, documentary and plain, at bench height or from just above: a bench and its tools, hands at a plane, a press or a wheel, wood, type and clay close enough to read the grain; daylight, nobody facing the lens. Printed black and white (the `photo:` mono) so the primaries stay the only colour; square, in a `--rule-bar` ink border, flush with the cells around them. A shop's primary runs as the flat cell or bar beside or under its picture and carries the caption; it never tints the photograph, and type never sits on one.
+- No texture, and no gradient anywhere.
+
+## Controls
+
+- A transparent `--rule-bar` ink-bordered button beside an ink-filled one, both square; on an ink band the pair inverts: the filled one turns putty with ink type, never a primary, since the primaries code categories.
+- Links carry a 2px ink underline that thickens to 3px on hover; inputs are square with a `--rule-bar` ink border.
+- The primaries are flat fills, never type and never tints. Each codes one category, the same one wherever it appears (a cell, a tag, a band, a nav link), and a set of one kind takes no colour. Blue and red fills take `--color-accent-ink`, the red deepened to `--color-accent-2-deep`; a yellow fill takes ink. Blue also rings focus.
 
 ## Motion
 
-Static, like a printed prospectus. Hover thickens a link's underline from 2px to 3px; the shapes never move, unless the user asks for motion: then they settle once on load and nothing loops.
+Static, like a printed prospectus: a link's underline thickens on hover, and nothing else moves, reveals or loops.
 
 ## Voice
 
-Plain school prose: the shop, the week, the tuition, the deadline.
+Plain school prose: the shop, the week, the tuition, the deadline, each said once and plainly.
 
 ## Do-nots
 
-- Never a fourth colour, a tint of a primary, or a primary used as type.
-- Never a radius on a shape's container or a button; the circle is the only curve.
+- Never a fourth colour, a tint of a primary, a primary used as type, or a photograph in colour.
+- Never a radius on a container, a button or an image; Werkstatt is square.
 - Never mixed-case display; Jost here is capitals.
-- Never the shapes as confetti or a pattern; each appearance means a shop.
+- Never the primaries as confetti or a pattern; each fill means a category.
 
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@500;700&family=Karla:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@700&family=Karla:wght@400;600&display=swap" rel="stylesheet">
 ```
 
 ```css
-.display { font: 700 var(--text-display)/1.02 var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-display); text-wrap: balance; }
-.label { font: 600 12.5px/1.3 var(--font-body); color: var(--color-muted); }
-.btn { display: inline-flex; align-items: center; gap: var(--space-xs); padding: var(--space-md) var(--space-lg); border: var(--rule-bar) solid var(--color-ink); font: 600 13px/1 var(--font-body); letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-ink); }
-.btn--primary { background: var(--color-ink); color: var(--color-paper); }
-.sh { display: inline-block; width: 11px; height: 11px; vertical-align: middle; }
-.sh--c { border-radius: 50%; background: var(--color-accent); }
-.sh--t { background: var(--color-accent-2); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
-.sh--s { background: var(--color-accent-3); rotate: 8deg; }
-.cell--blue { background: var(--color-accent); color: var(--color-accent-ink); } .cell--red { background: var(--color-accent-2-deep); color: var(--color-accent-ink); }
-.cell--yellow { background: var(--color-accent-3); color: var(--color-ink); } .cell--black { background: var(--color-ink); color: var(--color-paper); }
-.grid { border-top: var(--rule-box) solid var(--color-ink); border-bottom: var(--rule-box) solid var(--color-ink); }
+h1, h2, h3 { font-weight: 700; line-height: 1.02; text-transform: uppercase; }
+small, th, figcaption { font-weight: 600; color: var(--color-muted); }
+.btn { display: inline-flex; align-items: center; gap: var(--space-xs); padding: var(--space-md) var(--space-lg); border: var(--rule-bar) solid currentColor; font: 600 var(--text-sm)/1 var(--font-body); text-transform: uppercase; color: inherit; background: transparent; }
+.btn--primary { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-paper); }
+.band--ink { background: var(--color-ink); color: var(--color-paper); }
+.band--ink .btn--primary { background: var(--color-paper); border-color: var(--color-paper); color: var(--color-ink); }
+.ruled { border-block: var(--rule-box) solid var(--color-ink); }
+.photo { border: var(--rule-bar) solid var(--color-ink); border-radius: 0; }
 table { border-top: var(--rule-bar) solid var(--color-ink); } td { border-bottom: var(--rule-hair) solid var(--color-rule); }
+a { text-decoration-thickness: 2px; } a:hover { text-decoration-thickness: 3px; }
 ::selection { background: var(--color-accent-3); color: var(--color-ink); }
 ```

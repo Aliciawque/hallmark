@@ -2,6 +2,7 @@
 /* sloplint: Hallmark's mechanical gate checker. Zero dependencies, Node 18+. Gate ids and tiers: references/gates.md. */
 import { readFileSync, readdirSync, statSync, existsSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, extname, dirname, basename, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const GENRES = ['editorial', 'modern-minimal', 'atmospheric', 'playful'];
 const args = process.argv.slice(2);
@@ -611,6 +612,7 @@ function plainText(html) {
     .replace(/&middot;|&#0?183;|&#x0?b7;/gi, '·').replace(/&bull;|&#8226;|&#x2022;/gi, '•').replace(/&mdash;|&#8212;|&#x2014;/gi, '\u2014').replace(/&ndash;|&#8211;|&#x2013;/gi, '\u2013')
     .replace(/&rarr;|&#8594;|&#x2192;|&xrarr;|&#10230;/gi, '\u2192').replace(/&raquo;|&#187;|&#xbb;/gi, '\u00bb').replace(/&rsaquo;|&#8250;|&#x203a;/gi, '\u203a')
     .replace(/&nbsp;|&#160;/g, ' ').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&rsquo;|&lsquo;|&#8217;|&#8216;|&#x2019;|&#x2018;/gi, '\u2019').replace(/&rdquo;|&ldquo;|&#8220;|&#8221;/gi, '"')
     .replace(/&#\d+;|&[a-z]+;/gi, ' ')
     .replace(/\s+/g, ' ').trim();
 }
@@ -783,10 +785,10 @@ function pxOf(value) {
 const rel = (f) => f.startsWith(process.cwd()) ? f.slice(process.cwd().length + 1) : f;
 const trunc = (s, n = 72) => (s.length > n ? s.slice(0, n - 1) + '…' : s);
 
-const PAGE_ONLY = new Set(['3', '8', '9', '25', '28', '32', '34', '42', '44', '46b', '47b', '47c', '49', '50', '54', '55', '56', '58', '59', '65', '66', '68', '69', '71', 'F7', 'F8', 'F15', 'F16', 'F20']);
+const PAGE_ONLY = new Set(['3', '8', '9', '25', '28', '32', '34', '42', '44', '46b', '47b', '47c', '49', '50', '54', '55', '56', '58', '59', '65', '66', '68', '69', '71', '77', '78', '79', '81', 'F7', 'F8', 'F15', 'F16', 'F20']);
 const gateNumber = (id) => (/^(\d{1,2})/.exec(String(id)) || [])[1] || null;
 const pageOnly = (id) => PAGE_ONLY.has(String(id)) || PAGE_ONLY.has(gateNumber(id));
-const APP_SKIP = new Set(['1', '6', '8', '9', '32', '42', '44', '46b', '58', '59', '66', '68', 'F8', 'F15', 'F20']);
+const APP_SKIP = new Set(['1', '6', '8', '9', '32', '42', '44', '46b', '58', '59', '66', '68', '77', '78', '79', '81', '82', 'F8', 'F15', 'F20']);
 const appSkip = (id) => APP_SKIP.has(String(id)) || APP_SKIP.has(gateNumber(id));
 
 const TIERS = new Map(Object.entries({
@@ -805,9 +807,10 @@ const TIERS = new Map(Object.entries({
   '39a': 'floor', '39b': 'reflex', '44a': 'reflex', '44b': 'floor', '44c': 'reflex', '44d': 'floor',
   '46a': 'floor', '46b': 'reflex', '47a': 'floor', '47b': 'reflex', '47c': 'reflex', '49a': 'floor', '49b': 'reflex',
   '55a': 'floor', '55b': 'reflex', '71': 'reflex', '72': 'reflex', '73': 'floor', '74': 'reflex', '75': 'reflex', '76': 'floor',
+  '77': 'reflex', '78': 'reflex', '79': 'reflex', '80': 'reflex', '81': 'reflex', '82': 'reflex',
 }));
 
-const HERO_SKIP = new Set(['8', '9', '32', '59', 'F8', 'F15']);
+const HERO_SKIP = new Set(['8', '9', '32', '59', '77', '78', 'F8', 'F15']);
 function baseGate(id) {
   const s = String(id).trim();
   if (/^F\d+$/i.test(s)) return s.toUpperCase();
@@ -883,8 +886,8 @@ let DISMISSED = new Set();
 let VERBATIM = false;
 let APPSCREEN = false;
 let LAYOUT_KEPT = false;
-const STRUCTURAL = new Set(['6b', '8', '9', '32', '42', '44a', '44c', '58']);
-const SPACING = new Set(['24b', '59']);
+const STRUCTURAL = new Set(['6b', '8', '9', '32', '42', '44a', '44c', '58', '77', '79']);
+const SPACING = new Set(['24b', '59', '78']);
 const COPY_GATES = new Set(['19', '58', '69']);
 
 const findings = [];
@@ -1646,9 +1649,10 @@ function check27(ctx) {
 
 function check28(ctx) {
   for (const doc of ctx.docs) {
-    let firstMedia = true;
+    let firstMedia = true, seenH1 = false, heroPassed = false;
     for (const t of doc.tags) {
-      if (t.close) continue;
+      if (t.close) { if (seenH1 && (t.name === 'section' || t.name === 'header')) heroPassed = true; continue; }
+      if (t.name === 'h1') seenH1 = true;
       if (t.name === 'video') {
         if (hasAttr(t.attrs, 'autoplay') && !hasAttr(t.attrs, 'muted')) {
           report('28a', 'FAIL', doc.file, t.line, 'autoplay video without muted', 'autoplay muted loop playsinline, with poster');
@@ -1662,7 +1666,7 @@ function check28(ctx) {
         firstMedia = false;
       }
       if (t.name === 'img') {
-        if (firstMedia && (getAttr(t.attrs, 'loading') || '').toLowerCase() === 'lazy') {
+        if (firstMedia && !heroPassed && (getAttr(t.attrs, 'loading') || '').toLowerCase() === 'lazy') {
           report('28a', 'WARN', doc.file, t.line, 'lazy-loaded first image (likely LCP)', 'fetchpriority=high on the LCP element');
         }
         firstMedia = false;
@@ -2132,8 +2136,10 @@ function check49(ctx) {
 function check50(ctx) {
   for (const r of ctx.rules) {
     for (const d of r.decls) {
-      if (!/^grid-template-(columns|rows)$/.test(d.prop)) continue;
-      const flat = resolveVars(d.value, ctx.tokens).replace(/minmax\([^)]*\)/g, 'MM');
+      if (d.prop !== 'grid-template-columns') continue;
+      let flat = resolveVars(d.value, ctx.tokens);
+      for (let k = 0; k < 4 && /\((?:[^()]*)\)/.test(flat); k++) flat = flat.replace(/(calc|min|max|clamp|var|fit-content)\(([^()]*)\)/g, 'X');
+      flat = flat.replace(/minmax\([^()]*\)/g, 'MM');
       const bare = /(?<![\w.-])\d*\.?\d+fr\b/.exec(flat);
       if (!bare) continue;
       const classes = (r.selector.match(/\.[a-zA-Z][\w-]*/g) || []).map((c) => c.slice(1));
@@ -2225,7 +2231,7 @@ function eyebrowHeadingBearing(ctx, B, aPx) {
   if (/<h[1-6][\s>]/i.test(B.html)) return true;
 
   const cls = getAttr(B.open, 'class') || '';
-  if (!/__(title|display|head(line)?|h\d)\b|hero__|masthead|wordmark/i.test(cls)) return false;
+  if (!/__(title|display|head(line)?|h\d)\b|hero__/i.test(cls)) return false;
   const bPx = fontPxOf(ctx, styleFor(ctx, cls, B.name));
   return bPx != null && aPx != null && bPx >= 1.5 * aPx;
 }
@@ -2504,7 +2510,7 @@ function checkF15(ctx) {
   if (widths.size > 1) report('F15', 'WARN', ctx.cssFiles[0]?.file || ctx.docs[0]?.file, 1, `${widths.size} container widths on one page (${[...widths.keys()].join(', ')}px)`, 'One container width, applied by the same two-element pattern in every section');
   const gaps = new Map();
   for (const r of ctx.rules) {
-    if (r.keyframes || r.media || /hero|masthead|fold/i.test(r.selector)) continue;
+    if (r.keyframes || r.media || /hero|masthead|fold|\b(?:app|ui|demo|sample|screen|product|mock|device|console|editor|window)(?:\b|__|--)|\[data-slot/i.test(r.selector)) continue;
     const cols = r.decls.find((d) => d.prop === 'grid-template-columns' && trackCount(d.value) > 1 && !/^repeat\(\s*auto/.test(d.value.trim()));
     if (!cols) continue;
     const gap = r.decls.find((d) => /^(gap|column-gap)$/.test(d.prop));
@@ -2655,7 +2661,7 @@ function checkF5(ctx) {
 }
 
 function checkF6(ctx) {
-  const NUM_SEL = /\b(stat|price|table|figure|count|num)[\w-]*/i;
+  const NUM_SEL = /\b(stat(?!ement)|price|table|figure|count|num)[\w-]*/i;
   const hasTnum = (r) => r.decls.some((d) => d.prop === 'font-variant-numeric'
     || (d.prop === 'font-feature-settings' && /tnum/.test(d.value)));
   if (ctx.rules.some((r) => /^(html|body|:root)\b/i.test(r.selector.trim()) && hasTnum(r))) return;
@@ -2818,7 +2824,8 @@ function check67(ctx) {
     }
     const tracked = em != null && em > 0.03;
     const subject = r.selector.split(',').map((p) => baseSelector(p).split(/[\s>+~]+/).filter(Boolean).pop() || '');
-    const labelish = subject.some((s) => LABEL67.test(s)) ? !(px != null && px >= 28)
+    const bigToken = r.decls.some((d) => d.prop === 'font-size' && /--text-(display|section|title)|clamp\(\s*(?:[2-9]|\d{2,})(?:\.\d+)?rem/.test(d.value));
+    const labelish = subject.some((s) => LABEL67.test(s)) ? !((px != null && px >= 28) || bigToken)
       : LABEL67.test(r.selector) && !subject.every((s) => /^h[1-6]\b/i.test(s)) && (px == null || px < 20);
     const control = CONTROL67.test(r.selector);
     const heading = HEADING_SEL.test(r.selector) && !labelish;
@@ -2908,6 +2915,11 @@ function accentedHeads(ctx) {
             if (!r.selector.split(',').some((part) => !/::?(before|after)\b/.test(part) && baseSelector(part).trim() === `.${cls}`)) continue;
             if (r.decls.some((d) => (d.prop === 'display' && /^(block|flex|grid|table)/.test(d.value.trim())) || (d.prop === 'position' && /absolute|fixed/.test(d.value)))) continue;
             if (!marks(r)) continue;
+            const headDecls = styleFor(ctx, getAttr(t.attrs, 'class'), t.name, true);
+            const norm = (v) => String(v || '').replace(/\s+/g, ' ').trim().toLowerCase();
+            const own = (prop) => declValue(ctx, headDecls, prop) ?? (prop === 'color' ? resolveVars('var(--color-ink)', ctx.tokens) : null);
+            const marking = r.decls.filter((d) => /^(color|background|background-color|-webkit-text-stroke|font-weight|text-decoration|text-decoration-color|border-bottom|box-shadow|font-style)$/.test(d.prop) && !INHERITED38.test(d.value.trim()));
+            if (marking.length && marking.every((d) => /^(color|font-weight)$/.test(d.prop) && own(d.prop) != null && norm(resolveVars(d.value, ctx.tokens)) === norm(own(d.prop)))) continue;
             seen.add(r.selector);
             out.push({ r, head: t.name });
           }
@@ -3074,8 +3086,13 @@ function check68(ctx) {
       if (t.close || !/\bdata-slot\s*=/.test(t.attrs)) continue;
       const inner = t.selfClosing ? null : innerOf(doc, i);
       if (inner && /<img\b[^>]*\bsrc\s*=\s*["'][^"']+["']/i.test(inner.inner)) continue;
+      if (inner && (inner.inner.match(/<[a-z][\w-]*\b[^>]*>\s*[^<\s]/gi) || []).length >= 6) continue;
+      let hiddenUp = false;
+      for (let k = i - 1, d = 0; k >= 0 && !hiddenUp; k--) { const u = doc.tags[k]; if (u.selfClosing) continue; if (u.close) { d++; continue; } if (d > 0) { d--; continue; } if (/(?:^|\s)hidden(?:\s|=|$)/.test(u.attrs)) hiddenUp = true; }
+      if (hiddenUp) continue;
       slots.push({ i, t });
     }
+    if (slots.length && !ctx.docs.some((d) => d.kind !== 'html') && !/hallmarkSlots/.test(doc.src) && !ctx.docs.some((d) => d !== doc && /hallmarkSlots/.test(d.src))) report('F18', 'WARN', doc.file, slots[0].t.line, `${slots.length} slot${slots.length > 1 ? 's' : ''} and no slot script`, 'Paste the hallmarkSlots script the scaffold printed before </body>, so the user\'s images drop in (craft.md § 8)');
     if (slots.length > 5) report(68, 'FAIL', doc.file, slots[5].t.line, `${slots.length} empty slots on one page`, 'Two to four slots carry a page; set the rest in type, names and facts in a list or table');
     const byRun = new Map();
     for (const sl of slots) {
@@ -3269,7 +3286,7 @@ function check15Fade(ctx) {
 }
 
 function checkF7Pills(ctx) {
-  const CONTROLISH = /btn|button|cta|input|select|textarea|switch|toggle|control|chip|pill/i;
+  const CONTROLISH = /btn|button|cta|input|select|textarea|switch|toggle|control|chip|pill|tag|badge|status/i;
   const sels = new Set();
   let where = null;
   for (const r of mergedDeclsBySelector(ctx)) {
@@ -3896,8 +3913,22 @@ function checkF24(ctx) {
   }
 }
 
+let LIBRARY = null;
+function libraryIds() {
+  if (LIBRARY) return LIBRARY;
+  try { LIBRARY = new Set(JSON.parse(readFileSync(join(dirname(fileURLToPath(import.meta.url)), 'photos.json'), 'utf8')).photos.map((p) => p.id)); } catch { LIBRARY = new Set(); }
+  return LIBRARY;
+}
 function check76(ctx) {
+  const lib = libraryIds();
   for (const doc of ctx.docs) {
+    const off = new Set(), plus = new Set();
+    for (const m of doc.src.matchAll(/(?:images|plus)\.unsplash\.com\/(premium_photo|photo)-[\w-]+/g)) {
+      const id = m[0].split('/').pop();
+      if (m[1] === 'premium_photo') plus.add(doc.lineOf(m.index));
+      else if (lib.size && !lib.has(id) && !off.has(id)) { off.add(id); if (off.size === 1) report('76', 'WARN', doc.file, doc.lineOf(m.index), `a photo id that is not in the library (${id}); an id written from memory is often a broken image`, 'Pick photographs with theme.mjs photos, or use the user\'s own'); }
+    }
+    if (plus.size) report('76', 'FAIL', doc.file, [...plus][0], 'an Unsplash+ photo, which needs a paid licence', 'Use a library photograph (theme.mjs photos) or the user\'s own');
     if (doc.kind !== 'html') continue;
     for (const m of doc.src.matchAll(/<img\b([^>]*)>/gi)) {
       const src = getAttr(m[1], 'src');

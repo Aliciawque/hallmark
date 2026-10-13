@@ -8,7 +8,7 @@ Loaded only when the picked theme earns texture (affinity table below) or a cust
 - **Tokened opacity, declared in the token block:** `--texture-opacity` <= 0.08 page-wide, <= 0.15 scoped to a card or plate. Under running body text, <= 0.05 or nothing. A low-frequency wash (a base frequency of 0.02 or lower: a fibre, a paper tone) tints rather than specks and may run to 0.12 page-wide, with contrast measured on the result.
 - **Never animated.** No drifting grain, no pulsing dots.
 - **`pointer-events: none` and `aria-hidden="true"`** on every overlay; texture never intercepts input, and the retro signal is atmosphere, never a drawn monitor bezel (47a).
-- **Perf:** pure CSS or a data-URI SVG filter; no image requests for texture (the imagery-kit texture tiles are the only sanctioned files, and they are optional).
+- **Perf:** pure CSS or a data-URI SVG filter; no image requests for texture.
 
 ## 1 · Grain (paper)
 
@@ -81,7 +81,7 @@ One edge, one element class per page (a ticket edge, a stamp perforation). Never
 
 ## Affinity: who earns texture
 
-A theme earns texture when its Material section names an artifact; a custom draw earns it when its lineage is print (risograph, letterpress, ticket stock, line printer), and then it picks the one artifact that lineage used. The budget above binds every theme, whatever its file says: page-wide grain at 0.08 or less, 0.15 inside one plate, 0.05 or nothing under running text. Examples: Riso's grain and misregistration, Halftone's dot screen inside its fruit, Paste-up's fibre wash on the board, Darkroom's film grain over the wall, Arcade's scanlines (atmosphere, never a bezel), Ledger's ruled bands.
+A theme earns texture when its Surfaces section names one; a custom draw earns it when its lineage is print (risograph, letterpress, ticket stock, line printer), and then it picks the one artifact that lineage used. The budget above binds every theme, whatever its file says: page-wide grain at 0.08 or less, 0.15 inside one plate, 0.05 or nothing under running text. Examples: Riso's grain and misregistration, Halftone's dot screen inside its fruit, Paste-up's fibre wash on the board, Darkroom's film grain over the wall, Arcade's scanlines (atmosphere, never a bezel), Ledger's ruled bands.
 
 **Never:** a texture a theme does not name, grain on a modern-minimal page, two artifact families on one page, or a texture as ambience over everything because the page felt flat.
 

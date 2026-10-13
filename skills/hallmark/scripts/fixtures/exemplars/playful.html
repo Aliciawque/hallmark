@@ -3,331 +3,368 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Peachy: ripe fruit, delivered across London every Thursday</title>
-<meta name="description" content="Peachy is a weekly box of whatever fruit is ripest, delivered across London on Thursdays. Four sizes, from £12.">
+<title>The Boiler Room, Hull: this month’s gigs and tickets</title>
+<meta name="description" content="The Boiler Room is a 200-capacity music venue in Hull. Doors 7pm, first band 8pm. This month’s gigs and tickets.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wdth,wght@100..150,900&family=Archivo:wght@400;600&family=Archivo+Narrow:wght@600&display=swap" rel="stylesheet">
 <style>
-/* Hallmark · shape: Bento Grid · genre: playful · theme: Squeeze (by request, exemplar)
- * hero: Settled · nav: floating chip (N2, top right, wordmark and one outlined action, deep green) · footer: marquee scroll (Ft8, 36s, left) · enrichment: E5 drawn crate of fruit, tier A CSS · signature: drawn fruit on the green over 8px ripeness bars, and one white card for the box you pay for
- * axes: mid/geometric-sans/warm · posture: drenched · contrast: pass · fold: pass
- * hero-review: ship after 2 fixes (3 rounds) · finish-review: 2 rounds · 8 findings and 1 gap · 7 resolved, 1 partial (the other three box prices need the client's numbers) · gap: closed, the ink-outlined secondary lives in the chip · v2.3.0 */
-/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V5 · weakest: S, a fruit box could be any grocer; Thursday, the four sizes and the £12 floor carry every tile */
+/* Hallmark · shape: Photographic · genre: playful · theme: Overprint (by request)
+ * hero: Poster · nav: slab, the ink bar with the wordmark in stock colour, three links and a knocked-out Tickets outline · footer: mast, the wordmark across the container over the bar rule · imagery: photographs, library 6, mono pulled through one pass each · signature: the bill knocked out of a gig photograph printed in the orange pass · overprint: newsprint
+ * axes: light/grotesk-heavy/cool · posture: full-palette · contrast: pass · fold: pass · v2.7.0 */
+/* Hallmark · pre-emit critique: P4 H5 E4 S4 R4 V4 · weakest: S, the brief names no acts, so the listing is one honest slot and the photographs and the two times carry the night */
+/* Hallmark · hero-review: in-thread · fix · 2 findings · 1 resolved 1 partial (the stage act is a laptop duo; the library holds no band shot with a dark foot, so the handoff asks for the venue's own) · finish-review: in-thread · fix · 1 finding · 1 resolved (the bill's room under the Poster raised to 96px) · gap: the two passes never cross on this page, so the moss shows nowhere */
 :root {
-  --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px; --space-4xl: 144px;
-  --text-sm: 0.875rem; --text-md: 1rem; --text-lg: 1.25rem; --text-xl: 1.5625rem;
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --dur-micro: 120ms; --dur-short: 220ms;
-  --gutter: 64px; --container: calc(1312px + 2 * var(--gutter));
-  --z-raised: 10; --z-sticky-nav: 300; --z-toast: 500;
-  --color-paper: oklch(38% 0.085 160); --color-paper-2: oklch(44% 0.090 160); --color-paper-3: oklch(32% 0.080 160);
-  --color-ink: oklch(99% 0.005 90); --color-muted: oklch(88% 0.035 150);
-  --color-accent: oklch(84% 0.10 55); --color-accent-ink: oklch(30% 0.06 40); --color-focus: oklch(88% 0.14 85);
-  --color-card: oklch(97% 0.012 85); --color-card-ink: oklch(24% 0.05 160);
-  --font-display: "Manrope", "Manrope Fallback", ui-sans-serif, system-ui, sans-serif; --font-body: var(--font-display);
-  --text-hero: clamp(3rem, 4.2vw + 1rem, 4.75rem); --text-head: clamp(2rem, 2vw + 1.25rem, 3rem);
-  --color-wood: oklch(72% 0.07 70); --color-wood-2: oklch(64% 0.075 62); --color-wood-edge: oklch(52% 0.07 55);
-  --color-peach: oklch(80% 0.12 50); --color-peach-2: oklch(90% 0.08 75); --color-plum: oklch(45% 0.13 330); --color-plum-2: oklch(62% 0.12 330);
-  --color-pear: oklch(85% 0.13 115); --color-pear-2: oklch(93% 0.09 110); --color-apple: oklch(62% 0.19 28); --color-apple-2: oklch(78% 0.14 45);
-  --color-stalk: oklch(36% 0.05 60); --color-leaf: oklch(62% 0.14 140); --color-fruit-shade: oklch(20% 0.05 160 / 0.18); --color-fruit-drop: oklch(30% 0.06 55 / 0.45); --color-ripe-track: oklch(99% 0.005 90 / 0.14);
-  --color-ripe-a: oklch(80% 0.12 130); --color-ripe-b: oklch(84% 0.12 85); --color-ripe-c: oklch(80% 0.12 52);
-  --radius-card: 20px; --radius-pill: 999px; --rule-bar: 2px;
-  --shadow-card: 0 12px 28px -14px oklch(24% 0.05 160 / 0.45);
-  --tracking-display: -0.04em; --display-weight: 800;
+  color-scheme: light;
+  --space-3xs: 2px; --space-2xs: 4px; --space-xs: 8px; --space-sm: 12px; --space-md: 16px; --space-lg: 24px; --space-xl: 40px; --space-2xl: 64px; --space-3xl: 96px; --space-4xl: 144px;
+  --text-xs: 0.8125rem; --text-sm: 0.875rem; --text-md: 1rem; --text-lg: 1.25rem; --text-xl: 1.5625rem; --text-2xl: 1.953rem; --text-3xl: 2.441rem;
+  --text-display-s: clamp(2.25rem, 4vw + 0.5rem, 3.75rem); --text-display: clamp(2.75rem, 5vw + 1rem, 5.25rem);
+  --text-section: clamp(2rem, 2.5vw + 1rem, 3.5rem); --text-title: clamp(1.25rem, 0.75vw + 0.875rem, 1.625rem); --text-lead: clamp(1.125rem, 0.35vw + 1rem, 1.375rem);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); --ease-in: cubic-bezier(0.7, 0, 0.84, 0); --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 120ms; --dur-short: 220ms; --dur-long: 420ms;
+  --color-error: oklch(52% 0.19 27); --color-success: oklch(50% 0.12 150);
+  --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap-s: 120px; --section-gap: 144px; --section-gap-l: 176px;
+  --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
+  --color-paper: oklch(91.5% 0.014 92); --color-paper-2: oklch(88% 0.017 90); --color-paper-3: oklch(84% 0.02 88);
+  --color-ink: oklch(17% 0.008 60); --color-ink-2: oklch(29% 0.01 60); --color-muted: oklch(43% 0.012 70);
+  --color-rule: oklch(79% 0.02 85);
+  --color-accent: oklch(69% 0.105 213); --color-accent-ink: oklch(17% 0.008 60); --color-focus: oklch(44% 0.1 220);
+  --color-accent-2: oklch(72% 0.185 52); --color-accent-2-ink: oklch(17% 0.008 60);
+  --color-mix: oklch(40% 0.106 129);
+  --blend: multiply; --texture-opacity: 0.05;
+  --font-display: "Anybody", ui-sans-serif, sans-serif; --font-body: "Archivo", ui-sans-serif, sans-serif;
+  --font-outlier: "Archivo Narrow", ui-sans-serif, sans-serif;
+  --radius-card: 0; --radius-pill: 0; --rule-hair: 1px; --rule-bar: 3px;
+  --shadow-card: none;
+  --tracking-display: -0.01em; --display-stretch: 140%;
 }
-@font-face { font-family: "Manrope Fallback"; src: local("Arial"), local("Helvetica"); size-adjust: 103%; ascent-override: 102%; descent-override: 29%; line-gap-override: 0%; }
 html, body { overflow-x: clip; }
-html { scroll-padding-top: calc(76px + var(--space-lg)); }
-html { scrollbar-color: var(--color-muted) var(--color-paper-3); }
-body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); font-weight: 500; font-size: var(--text-md); line-height: 1.55; -webkit-font-smoothing: antialiased; caret-color: var(--color-accent); }
-::selection { background: color-mix(in oklab, var(--color-accent) 45%, transparent); color: var(--color-card-ink); }
-:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 3px; }
-a { color: inherit; text-decoration-thickness: 2px; text-underline-offset: 0.18em; }
-h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: var(--display-weight); letter-spacing: var(--tracking-display); line-height: 1.02; overflow-wrap: break-word; min-width: 0; text-wrap: balance; }
-h1 { max-width: 20ch; } h2 { max-width: 30ch; } h3 { max-width: 40ch; }
-p { margin: 0; text-wrap: pretty; max-width: 65ch; }
-img, svg, video { max-width: 100%; height: auto; display: block; }
+html { scrollbar-color: var(--color-muted) var(--color-paper); scroll-padding-top: var(--space-3xl); }
+body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: var(--font-body); font-size: var(--text-md); line-height: 1.55; -webkit-font-smoothing: antialiased; caret-color: var(--color-accent); }
+::selection { background: color-mix(in oklab, var(--color-accent-2) 40%, transparent); }
+:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.16em; }
+h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: var(--display-weight, 700); font-synthesis: none; letter-spacing: var(--tracking-display); line-height: 1.05; overflow-wrap: break-word; min-width: 0; text-wrap: balance; }
+h1 { max-width: 20ch; font-size: var(--text-display); } h2 { max-width: 30ch; font-size: var(--text-section); } h3 { max-width: 40ch; font-size: var(--text-title); line-height: 1.2; }
+.lead { font-size: var(--text-lead); line-height: 1.45; max-width: 52ch; }
+p { margin: 0; text-wrap: pretty; }
+p:not([class]) { max-width: 65ch; }
+img, video { max-width: 100%; height: auto; display: block; }
+svg { display: block; }
+[hidden] { display: none !important; }
 button, input, select, textarea { font: inherit; }
 .container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); box-sizing: border-box; }
 .num, .figure, td.num { font-variant-numeric: tabular-nums; }
-[data-slot] { position: relative; overflow: hidden; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+[data-slot] { position: relative; overflow: hidden; background: linear-gradient(160deg, var(--color-paper-2, var(--color-paper)), var(--color-paper-3, var(--color-paper))); }
 [data-slot] > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
-[data-slot]:has(> img) > :not(img) { display: none !important; }
-@media (max-width: 60rem) { :root { --gutter: 24px; } }
-@media (max-width: 40rem) { :root { --gutter: 16px; } }
+[data-slot]:has(> img) > :not(img):not([data-keep]) { display: none !important; }
+@media (max-width: 60rem) { :root { --gutter: 24px; --section-gap-s: 80px; --section-gap: 96px; --section-gap-l: 120px; } }
+@media (max-width: 40rem) { :root { --gutter: 16px; --section-gap-s: 56px; --section-gap: 72px; --section-gap-l: 96px; --gap-columns: 16px; } }
 @media (prefers-reduced-motion: reduce) { *:not(.keep-motion), *:not(.keep-motion)::before, *:not(.keep-motion)::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }
-.skip { position: absolute; left: var(--space-md); top: var(--space-md); z-index: var(--z-toast); padding: var(--space-xs) var(--space-md); border-radius: 14px; background: var(--color-card); color: var(--color-card-ink); transform: translateY(-200%); }
-.skip:focus-visible { transform: none; }
-.chip-nav { position: fixed; top: var(--space-md); right: var(--gutter); z-index: var(--z-sticky-nav); display: inline-flex; align-items: center; gap: var(--space-md); padding: var(--space-xs) var(--space-xs) var(--space-xs) var(--space-lg); border-radius: var(--radius-card); background: var(--color-paper-3); }
-.chip-nav__wordmark { font-size: var(--text-xl); font-weight: 800; letter-spacing: -0.04em; color: var(--color-ink); text-decoration: none; }
-.chip-nav__wordmark:hover { color: var(--color-peach-2); }
-.chip-nav__wordmark:active { color: var(--color-muted); }
-.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: var(--space-sm) var(--space-lg); box-sizing: border-box; border: var(--rule-bar) solid var(--color-ink); border-radius: 14px; background: transparent; color: var(--color-ink); font-weight: 700; font-size: var(--text-md); line-height: 1; text-decoration: none; white-space: nowrap; cursor: pointer; transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out); }
-.btn:hover { transform: translateY(-1px); }
-.btn:active { transform: translateY(0); background: var(--color-paper-3); }
-.btn:disabled, .btn[aria-busy="true"] { opacity: 0.55; cursor: not-allowed; transform: none; }
-.btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-color: var(--color-accent); }
-.btn--primary:active { background: var(--color-accent); }
-.btn--small { min-height: 44px; padding-inline: var(--space-md); }
-.hero { min-height: 94dvh; display: grid; align-content: center; padding-block: var(--space-3xl) var(--space-4xl); box-sizing: border-box; }
-.hero__in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: var(--space-2xl); align-items: center; }
-.hero__title { font-size: var(--text-hero); line-height: 1; max-width: 11ch; }
-.hero__lede { margin-top: var(--space-lg); font-size: var(--text-lg); color: var(--color-muted); max-width: 45ch; text-wrap: balance; }
-.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-xl); }
-.crate { position: relative; margin: 0; width: 100%; }
-.crate__one { position: absolute; left: calc(-1 * var(--space-xl)); bottom: calc(-1 * var(--space-xl)); z-index: var(--z-raised); display: grid; justify-items: center; gap: var(--space-md); width: 170px; }
-.crate__one .fruit { position: relative; left: auto; top: auto; transform: rotate(var(--t, 0deg)); }
-.crate__one .ripe { width: 100%; }
-.crate__box { position: relative; aspect-ratio: 7 / 5; padding: var(--space-lg); box-sizing: border-box; border-radius: 14px; background: repeating-linear-gradient(180deg, var(--color-wood) 0 28px, var(--color-wood-2) 28px 30px); box-shadow: inset 0 0 0 2px var(--color-wood-edge); }
-.crate__bed { position: relative; height: 100%; overflow: hidden; border-radius: 6px; background: repeating-linear-gradient(90deg, var(--color-wood-2) 0 46px, var(--color-wood-edge) 46px 48px); }
-.fruit { position: absolute; left: var(--x); top: var(--y); width: var(--d, 92px); aspect-ratio: var(--r, 1); border-radius: 50%; transform: translate(-50%, -50%) rotate(var(--t, 0deg)); box-shadow: inset -6px -8px 14px var(--color-fruit-shade), 4px 7px 0 -2px var(--color-fruit-drop); background: radial-gradient(circle at 35% 32%, var(--f2), var(--f1) 62%, color-mix(in oklab, var(--f1) 70%, var(--color-stalk))); }
-.fruit::before { content: ""; position: absolute; left: 50%; top: -6%; width: 5px; height: 16%; border-radius: 3px; background: var(--color-stalk); transform: translateX(-50%) rotate(8deg); }
-.fruit::after { content: ""; position: absolute; left: 54%; top: -4%; width: 34%; height: 18%; border-radius: 0 100% 0 100%; background: var(--color-leaf); transform: rotate(-18deg); }
-.fruit--peach { --f1: var(--color-peach); --f2: var(--color-peach-2); }
-.fruit--plum { --f1: var(--color-plum); --f2: var(--color-plum-2); --r: 0.88; }
-.fruit--pear { --f1: var(--color-pear); --f2: var(--color-pear-2); --r: 0.78; border-radius: 50% 50% 48% 48% / 60% 60% 40% 40%; }
-.fruit--apple { --f1: var(--color-apple); --f2: var(--color-apple-2); }
-.fruit--plum::after, .fruit--pear::after { display: none; }
-.ripe { height: 8px; border-radius: 4px; background: var(--color-ripe-track); overflow: hidden; }
-.ripe i { display: block; height: 100%; width: 100%; background: linear-gradient(90deg, var(--color-ripe-a), var(--color-ripe-b), var(--color-ripe-c)); clip-path: inset(0 calc(100% - var(--w)) 0 0 round 4px); }
-.band--inside { padding-block: var(--space-3xl) var(--space-4xl); }
-.band--sizes { padding-block: var(--space-3xl) var(--space-4xl); background: var(--color-paper-3); color: var(--color-ink); }
-.band__title { font-size: var(--text-head); line-height: 1.02; }
-.band--inside .band__title { margin-bottom: var(--space-xl); }
-.bento { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 15rem; gap: var(--space-lg); }
-.tile { min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); align-content: end; gap: var(--space-xs); padding: var(--space-xl); box-sizing: border-box; border-radius: var(--radius-card); background: var(--color-paper-2); color: var(--color-ink); }
-.tile--ripe { grid-column: span 2; grid-row: span 2; grid-template-rows: minmax(0, 1fr) auto auto; }
-.tile--ripe .tile__fruit { align-self: start; }
-.tile--day, .tile--family, .tile--feel { grid-column: span 2; }
-.tile--day .tile__big { font-size: var(--text-hero); }
-.tile h3 { font-size: var(--text-xl); letter-spacing: -0.03em; }
-.tile p { color: var(--color-muted); max-width: 45ch; }
-.tile .tile__big { font-size: var(--text-hero); font-weight: 800; letter-spacing: var(--tracking-display); line-height: 0.95; color: var(--color-ink); font-variant-numeric: tabular-nums; }
-.tile__fruit { display: flex; align-items: flex-end; gap: var(--space-xl); padding-top: var(--space-md); }
-.stall { flex: 1 1 0; min-width: 0; max-width: 150px; display: grid; justify-items: center; gap: var(--space-md); }
-.stall .fruit { position: relative; left: auto; top: auto; max-width: 100%; transform: rotate(var(--t, 0deg)); }
-.stall .ripe { width: 100%; }
-.sizes { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: var(--space-2xl); align-items: center; }
-.sizes__text { display: grid; gap: var(--space-md); }
-.sizes__text p { font-size: var(--text-lg); color: var(--color-muted); max-width: 45ch; }
-.card { background: var(--color-card); color: var(--color-card-ink); border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
-.box { display: grid; gap: var(--space-lg); padding: var(--space-xl); }
-.box :focus-visible { outline-color: var(--color-paper); }
-.box__pick { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin: 0; padding: 0; border: 0; min-width: 0; }
-.box__pick legend { padding: 0; margin-bottom: var(--space-sm); font-size: var(--text-sm); font-weight: 700; }
-.chip { display: inline-flex; align-items: center; min-height: 44px; padding-inline: var(--space-md); box-sizing: border-box; border: var(--rule-bar) solid var(--color-card-ink); border-radius: var(--radius-pill); font-weight: 700; cursor: pointer; transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out); }
-.chip input { appearance: none; width: 0; height: 0; margin: 0; border: 0; }
-.chip:hover { background: var(--color-peach-2); }
-.chip:active { background: var(--color-accent); }
-.chip:has(input:checked) { background: var(--color-card-ink); color: var(--color-card); }
-.chip:has(input:focus-visible) { outline: 3px solid var(--color-paper); outline-offset: 2px; }
-.chip:has(input:disabled) { opacity: 0.55; cursor: not-allowed; }
-.crate__box--small { aspect-ratio: 2 / 1; padding: var(--space-md); }
-.box .fruit { transition: opacity var(--dur-short) var(--ease-out), transform var(--dur-short) var(--ease-out); }
-.box:has(input[value="1"]:checked) .fruit:not([data-min="1"]),
-.box:has(input[value="2"]:checked) .fruit[data-min="3"],
-.box:has(input[value="2"]:checked) .fruit[data-min="4"],
-.box:has(input[value="3"]:checked) .fruit[data-min="4"] { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
-.box__foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-lg); }
-.box__price { display: grid; font-weight: 700; }
-.box__price span:first-child { font-size: var(--text-xl); font-weight: 800; letter-spacing: -0.03em; }
-.box__status { min-height: 1lh; font-size: var(--text-sm); font-weight: 700; }
-.band--ripe { padding-block: var(--space-2xl) var(--space-4xl); }
-.band--ripe .band__title { margin-bottom: var(--space-2xl); }
-.tells { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-2xl); }
-.tells li { display: grid; grid-template-rows: 124px auto auto auto; justify-items: start; align-content: start; gap: var(--space-sm); }
-.tells .fruit { position: relative; left: auto; top: auto; align-self: end; max-width: 100%; transform: rotate(var(--t, 0deg)); margin-bottom: var(--space-xs); }
-.tells .ripe { width: 100%; max-width: 12rem; }
-.tells h3 { margin-top: var(--space-xs); font-size: var(--text-xl); letter-spacing: -0.03em; }
-.tells p { color: var(--color-muted); max-width: 45ch; }
-.foot { background: var(--color-paper-3); }
-.foot__marquee { overflow: clip; padding-block: var(--space-lg); border-bottom: var(--rule-bar) solid var(--color-paper); }
-.marquee-track { display: flex; width: max-content; animation: marquee 36s linear infinite; }
-.marquee-track .marquee { padding-inline-end: var(--space-md); font-size: var(--text-head); font-weight: 800; letter-spacing: -0.04em; white-space: nowrap; }
-.foot:hover .marquee-track { animation-play-state: paused; }
-@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-.foot__row { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-sm) var(--space-xl); padding-block: var(--space-lg) var(--space-xl); font-size: var(--text-sm); color: var(--color-muted); }
-.foot__wordmark { margin-inline-end: auto; font-size: var(--text-lg); font-weight: 800; letter-spacing: -0.04em; color: var(--color-ink); }
-@media (prefers-reduced-motion: reduce) { .marquee-track { animation: none; } }
+:root {
+  --nav-h: 72px;
+  --text-bill: clamp(2.125rem, 6vw, 5.75rem);
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 9 -4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+h1, h2, h3 { font-weight: 900; font-stretch: var(--display-stretch); text-transform: uppercase; line-height: 1.02; }
+
+/* the skip link */
+.skip { position: absolute; left: var(--space-md); top: calc(-1 * var(--space-3xl)); z-index: var(--z-toast); padding: var(--space-xs) var(--space-md); background: var(--color-ink); color: var(--color-paper); }
+.skip:focus-visible { top: var(--space-md); outline-color: var(--color-accent); }
+
+/* controls: the pass-1 fill beside an inset ink outline; the press changes a fill at once */
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 var(--space-lg); border: 0; border-radius: 0; background: none; font: 600 var(--text-sm)/1 var(--font-outlier); text-transform: uppercase; text-decoration: none; white-space: nowrap; cursor: pointer; }
+.btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
+.btn--primary:hover { background: color-mix(in oklab, var(--color-accent) 78%, var(--color-ink)); }
+.btn--primary:active { background: color-mix(in oklab, var(--color-accent) 62%, var(--color-ink)); }
+.btn--secondary { box-shadow: inset 0 0 0 2px var(--color-ink); color: var(--color-ink); }
+.btn--secondary:hover { background: var(--color-ink); color: var(--color-paper); }
+.btn--secondary:active { background: var(--color-ink-2); color: var(--color-paper); }
+.btn--knock { box-shadow: inset 0 0 0 2px var(--color-paper); color: var(--color-paper); }
+.btn--knock:hover { background: var(--color-paper); color: var(--color-ink); }
+.btn--knock:active { background: var(--color-paper-3); color: var(--color-ink); }
+.btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.btn:disabled, .btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; }
+
+/* the two passes: flat fills, multiplied, a photograph pulled through one of them */
+.pass-1 { background: var(--color-accent); color: var(--color-accent-ink); mix-blend-mode: var(--blend); }
+.pass-2 { background: var(--color-accent-2); color: var(--color-accent-2-ink); mix-blend-mode: var(--blend); }
+.pass-1 > img, .pass-2 > img { filter: grayscale(1) contrast(1.15); mix-blend-mode: var(--blend); }
+.grain { isolation: isolate; }
+.grain::after { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: var(--texture-opacity); background: var(--grain) 0 0 / 200px; }
+
+/* nav: the slab */
+.slab { background: var(--color-ink); color: var(--color-paper); }
+.slab__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); min-height: var(--nav-h); }
+.wordmark { font: 900 1.375rem/1 var(--font-display); font-stretch: var(--display-stretch); text-transform: uppercase; letter-spacing: var(--tracking-display); color: var(--color-paper); text-decoration: none; white-space: nowrap; }
+.slab__nav { display: flex; align-items: center; gap: var(--space-xl); }
+.slab__links { display: flex; gap: var(--space-lg); margin: 0; padding: 0; list-style: none; }
+.slab__links a { font: 600 var(--text-sm)/1 var(--font-outlier); color: var(--color-paper); text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 2px; text-underline-offset: 0.35em; white-space: nowrap; }
+.slab__links a:hover { text-decoration-color: var(--color-accent); }
+.slab :focus-visible, .hero :focus-visible, .wordmark:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+
+/* hero: Poster, the bill knocked out to the stock over the photograph's darkest third */
+.hero { position: relative; isolation: isolate; display: grid; align-items: end; min-height: calc(100dvh - var(--nav-h)); background: var(--color-ink); color: var(--color-paper); }
+.hero__photo { position: absolute; inset: 0; margin: 0; z-index: 0; mix-blend-mode: normal; }
+.hero__photo > img { object-position: 50% 40%; }
+.hero__scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(to top, color-mix(in oklab, var(--color-ink) 62%, transparent), transparent 58%); }
+.hero__inner { position: relative; z-index: 3; display: grid; justify-items: start; gap: var(--space-lg); padding-block: var(--space-3xl); }
+.hero__head { max-width: none; font-size: var(--text-bill); color: var(--color-paper); }
+.hero__lead { max-width: 34ch; color: var(--color-paper); }
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+
+/* photographs: square, no frame, each printed through one pass */
+.photo { position: relative; margin: 0; }
+.photo--tall { aspect-ratio: 4 / 5; }
+.photo--wide { aspect-ratio: 21 / 9; width: 100%; }
+.photo--hull { aspect-ratio: 4 / 3; }
+.caption { margin-top: var(--space-sm); font-size: var(--text-sm); color: var(--color-ink-2); }
+.fill { padding: 0 0.2em; border-radius: 2px; color: var(--color-muted); background: color-mix(in oklch, var(--color-muted) 14%, transparent); }
+
+/* this month: the listing beside a photograph in the teal pass */
+.listing { padding-top: var(--section-gap); }
+.listing__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: center; }
+.listing__text { grid-column: 1 / 8; display: grid; justify-items: start; }
+.listing__text .lead { margin-top: var(--space-md); max-width: 44ch; }
+.listing__shot { grid-column: 8 / 13; margin: 0; }
+.bill { width: 100%; margin-block: var(--space-2xl) var(--space-xl); border-collapse: collapse; border-top: var(--rule-bar) solid var(--color-ink); font-variant-numeric: tabular-nums; }
+.bill th { padding: var(--space-sm) var(--space-md) var(--space-sm) 0; border-bottom: var(--rule-hair) solid var(--color-rule); font: 600 var(--text-sm)/1.2 var(--font-outlier); text-align: left; white-space: nowrap; }
+.bill td { padding: var(--space-lg) 0; border-bottom: var(--rule-hair) solid var(--color-rule); }
+
+/* the room: the stage before doors, full bleed, then the night in two */
+.room { padding-top: var(--section-gap-l); }
+.room h2 { margin-bottom: var(--space-2xl); }
+.room__pair { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); margin-top: var(--space-2xl); }
+.room__shot { margin: 0; }
+.room__shot--doors { grid-column: 1 / 5; }
+.room__shot--doors .photo { aspect-ratio: 6 / 7; }
+.room__shot--band { grid-column: 5 / 13; }
+.room__shot--band .photo { aspect-ratio: 16 / 9; }
+
+/* hull: the photograph on the other side, the facts as a list under the bar rule */
+.hull { padding-block: var(--section-gap) var(--section-gap-s); }
+.hull__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: center; }
+.hull__grid > .photo { grid-column: 1 / 7; }
+.hull__text { grid-column: 8 / 13; }
+.facts { margin: var(--space-2xl) 0 0; border-top: var(--rule-bar) solid var(--color-ink); }
+.facts > div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: var(--space-md); padding-block: var(--space-md); border-bottom: var(--rule-hair) solid var(--color-rule); }
+.facts dt { font: 600 var(--text-sm)/1.5 var(--font-outlier); }
+.facts dd { margin: 0; }
+
+/* tickets: the ink band, stock type, the on-sale field */
+.tickets { padding-block: var(--section-gap-s); background: var(--color-ink); color: var(--color-paper); }
+.tickets__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: end; }
+.tickets__text { grid-column: 1 / 8; }
+.tickets__text .lead { margin-top: var(--space-md); max-width: 40ch; }
+.onsale { grid-column: 8 / 13; }
+.onsale label { display: block; margin-bottom: var(--space-xs); font: 600 var(--text-sm)/1.2 var(--font-outlier); }
+.onsale__row { display: flex; gap: var(--space-xs); }
+.onsale input { flex: 1; min-width: 0; min-height: 48px; padding: 0 var(--space-md); border: 0; border-radius: 0; background: var(--color-ink); color: var(--color-paper); box-shadow: inset 0 0 0 2px var(--color-paper); font: 400 var(--text-md) var(--font-body); outline: 2px solid transparent; outline-offset: 2px; }
+.onsale input:focus-visible { outline-color: var(--color-accent); }
+.onsale input[aria-invalid] { box-shadow: inset 0 0 0 2px var(--color-error); }
+.onsale__help { min-height: 1lh; margin-top: var(--space-xs); font-size: var(--text-sm); color: var(--color-paper-3); }
+.tickets :focus-visible { outline-color: var(--color-accent); }
+
+/* footer: the mast */
+.mast { padding-block: var(--section-gap-s) var(--space-2xl); }
+.mast__word { margin: 0; font: 900 clamp(1.5rem, 6.85vw, 6.15rem)/1.02 var(--font-display); font-stretch: var(--display-stretch); text-transform: uppercase; letter-spacing: var(--tracking-display); white-space: nowrap; }
+.mast__row { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-lg); margin-top: var(--space-lg); padding-top: var(--space-lg); border-top: var(--rule-bar) solid var(--color-ink); }
+.mast__links { display: flex; flex-wrap: wrap; gap: var(--space-lg); margin: 0; padding: 0; list-style: none; }
+.mast__links a { font: 600 var(--text-sm)/1.2 var(--font-outlier); text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: 0.3em; }
+.mast__links a:hover { text-decoration-color: var(--color-ink); }
+.mast__note { margin: 0; font-size: var(--text-sm); color: var(--color-ink-2); }
+
 @media (max-width: 60rem) {
-  .hero { min-height: 0; padding-block: calc(var(--space-3xl) + var(--space-lg)) var(--space-2xl); }
-  .hero__in { grid-template-columns: minmax(0, 1fr); }
-  .band--inside, .band--sizes, .band--ripe { padding-block: var(--space-2xl); }
-  .tells { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--space-xl); }
-  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: auto; }
-  .tile { min-height: 12rem; }
-  .sizes { grid-template-columns: minmax(0, 1fr); }
+  .slab__links { display: none; }
+  .hero { min-height: calc(92dvh - var(--nav-h)); }
+  .listing__text, .listing__shot, .hull__grid > .photo, .hull__text, .tickets__text, .onsale { grid-column: 1 / -1; }
+  .listing__shot, .hull__text, .onsale { margin-top: var(--space-2xl); }
+  .room__shot--doors, .room__shot--band { grid-column: 1 / -1; }
+  .room__shot--band { margin-top: var(--space-xl); }
 }
 @media (max-width: 40rem) {
-  .bento { grid-template-columns: minmax(0, 1fr); }
-  .tile--ripe, .tile--day, .tile--family, .tile--feel { grid-column: auto; grid-row: auto; }
-  .tile__fruit { gap: var(--space-md); }
-  .stall { width: 88px; }
-  .box { padding: var(--space-lg); }
-  .marquee-track .marquee { font-size: var(--text-xl); }
-  .fruit { width: calc(var(--d, 92px) * 0.62); }
-  .crate__one { left: 0; bottom: calc(-1 * var(--space-2xl)); width: 110px; }
-  .crate { margin-bottom: var(--space-2xl); }
+  .wordmark { font-size: 1.0625rem; }
+  .slab__nav { gap: var(--space-md); }
+  .hero__inner { padding-block: var(--space-2xl) var(--space-xl); }
+  .bill th:nth-child(n+3) { display: none; }
+  .onsale__row { flex-direction: column; }
 }
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<aside class="chip-nav" aria-label="Site">
-<a class="chip-nav__wordmark" href="#main" aria-label="Peachy, home">Peachy</a>
-<a class="btn btn--small" href="#ripe">How to tell it’s ripe</a>
-</aside>
+
+<header class="slab">
+  <div class="container slab__inner">
+    <a class="wordmark" href="#main" aria-label="The Boiler Room, home">The Boiler Room</a>
+    <nav class="slab__nav" aria-label="Main">
+      <ul class="slab__links">
+        <li><a href="#this-month">This month</a></li>
+        <li><a href="#the-room">The room</a></li>
+        <li><a href="#hull">Hull</a></li>
+      </ul>
+      <a class="btn btn--knock" href="#tickets">Tickets</a>
+    </nav>
+  </div>
+</header>
+
 <main id="main">
-<section class="hero" aria-labelledby="hero-title">
-<div class="container hero__in">
-<div class="hero__copy">
-<h1 class="hero__title" id="hero-title">Ripe fruit, every Thursday</h1>
-<p class="hero__lede">A weekly box of whatever’s ripest, in four sizes from £12.</p>
-<div class="hero__actions">
-<a class="btn btn--primary" href="#sizes">Choose your box</a>
-</div>
-</div>
-<figure class="crate hero__fig">
-<div class="crate__box" role="img" aria-label="A wooden crate packed with drawn fruit: peaches, plums, pears and apples, with one ripe peach on the grass beside it">
-<div class="crate__bed">
-<i class="fruit fruit--peach" style="--x: 9%; --y: 17%; --d: 120px; --t: 19deg"></i>
-<i class="fruit fruit--plum" style="--x: 25%; --y: 19%; --d: 85px; --t: -16deg"></i>
-<i class="fruit fruit--apple" style="--x: 46%; --y: 11%; --d: 111px; --t: 10deg"></i>
-<i class="fruit fruit--pear" style="--x: 59%; --y: 12%; --d: 98px; --t: 5deg"></i>
-<i class="fruit fruit--peach" style="--x: 76%; --y: 14%; --d: 123px; --t: -17deg"></i>
-<i class="fruit fruit--apple" style="--x: 91%; --y: 12%; --d: 113px; --t: -8deg"></i>
-<i class="fruit fruit--plum" style="--x: 6%; --y: 50%; --d: 85px; --t: -19deg"></i>
-<i class="fruit fruit--pear" style="--x: 18%; --y: 52%; --d: 99px; --t: -14deg"></i>
-<i class="fruit fruit--peach" style="--x: 38%; --y: 46%; --d: 119px; --t: 12deg"></i>
-<i class="fruit fruit--apple" style="--x: 56%; --y: 48%; --d: 103px; --t: 13deg"></i>
-<i class="fruit fruit--pear" style="--x: 68%; --y: 47%; --d: 97px; --t: 1deg"></i>
-<i class="fruit fruit--plum" style="--x: 89%; --y: 45%; --d: 87px; --t: 14deg"></i>
-<i class="fruit fruit--peach" style="--x: 13%; --y: 81%; --d: 111px; --t: 9deg"></i>
-<i class="fruit fruit--apple" style="--x: 28%; --y: 85%; --d: 113px; --t: 15deg"></i>
-<i class="fruit fruit--pear" style="--x: 45%; --y: 82%; --d: 106px; --t: -7deg"></i>
-<i class="fruit fruit--peach" style="--x: 61%; --y: 79%; --d: 115px; --t: 14deg"></i>
-<i class="fruit fruit--plum" style="--x: 81%; --y: 85%; --d: 93px; --t: -1deg"></i>
-<i class="fruit fruit--apple" style="--x: 95%; --y: 79%; --d: 114px; --t: -15deg"></i>
-</div>
-</div>
-<div class="crate__one" aria-hidden="true"><i class="fruit fruit--peach" style="--d: 150px; --t: -6deg"></i><div class="ripe"><i style="--w: 92%"></i></div></div>
-</figure>
-</div>
-</section>
-<section class="band band--inside" id="inside" aria-labelledby="inside-title">
-<div class="container">
-<h2 class="band__title" id="inside-title">Inside the box</h2>
-<div class="bento">
-<article class="tile tile--ripe">
-<div class="tile__fruit" aria-hidden="true">
-<div class="stall"><i class="fruit fruit--peach" style="--d: 132px"></i><div class="ripe"><i style="--w: 96%"></i></div></div>
-<div class="stall"><i class="fruit fruit--plum" style="--d: 104px"></i><div class="ripe"><i style="--w: 88%"></i></div></div>
-<div class="stall"><i class="fruit fruit--pear" style="--d: 112px; --t: -8deg"></i><div class="ripe"><i style="--w: 100%"></i></div></div>
-</div>
-<h3>Whatever’s ripest</h3>
-<p>Each week the fruit that’s ready to eat goes in, so no two boxes match.</p>
-</article>
-<article class="tile tile--day">
-<p class="tile__big">Thursday</p>
-<p>Delivered across London, once a week.</p>
-</article>
-<article class="tile tile--lunch">
-<h3>Lunchboxes</h3>
-<p>Small, sweet and ready to pack.</p>
-</article>
-<article class="tile tile--walk">
-<h3>After school</h3>
-<p>Ripe enough to eat on the walk home.</p>
-</article>
-<article class="tile tile--family">
-<h3>The fruit bowl</h3>
-<p>Full again every week, and ready to eat.</p>
-</article>
-<article class="tile tile--feel">
-<h3>Sized for your house</h3>
-<p>A small box for one or two, a big one for a full table.</p>
-</article>
-</div>
-</div>
-</section>
-<section class="band band--sizes" id="sizes" aria-labelledby="sizes-title">
-<div class="container sizes">
-<div class="sizes__text">
-<h2 class="band__title" id="sizes-title">Four sizes, from £12</h2>
-<p>Tap a size to see how full the crate gets.</p>
-</div>
-<form class="card box" action="#" method="post" data-endpoint="">
-<fieldset class="box__pick">
-<legend>Box size</legend>
-<label class="chip"><input type="radio" name="size" value="1" checked>Small</label>
-<label class="chip"><input type="radio" name="size" value="2">Medium</label>
-<label class="chip"><input type="radio" name="size" value="3">Large</label>
-<label class="chip"><input type="radio" name="size" value="4">Extra large</label>
-</fieldset>
-<div class="crate__box crate__box--small" role="img" aria-label="A crate that holds more fruit as the box size grows">
-<div class="crate__bed">
-<i class="fruit fruit--peach" data-min="1" style="--x: 10%; --y: 30%; --d: 80px; --t: 0deg"></i>
-<i class="fruit fruit--plum" data-min="1" style="--x: 25%; --y: 28%; --d: 65px; --t: 10deg"></i>
-<i class="fruit fruit--apple" data-min="1" style="--x: 40%; --y: 31%; --d: 72px; --t: -6deg"></i>
-<i class="fruit fruit--pear" data-min="1" style="--x: 55%; --y: 29%; --d: 68px; --t: -12deg"></i>
-<i class="fruit fruit--peach" data-min="2" style="--x: 70%; --y: 31%; --d: 78px; --t: 8deg"></i>
-<i class="fruit fruit--plum" data-min="2" style="--x: 85%; --y: 28%; --d: 62px; --t: -14deg"></i>
-<i class="fruit fruit--apple" data-min="2" style="--x: 10%; --y: 72%; --d: 70px; --t: 12deg"></i>
-<i class="fruit fruit--pear" data-min="3" style="--x: 25%; --y: 70%; --d: 68px; --t: 14deg"></i>
-<i class="fruit fruit--peach" data-min="3" style="--x: 40%; --y: 73%; --d: 80px; --t: -8deg"></i>
-<i class="fruit fruit--plum" data-min="3" style="--x: 55%; --y: 70%; --d: 62px; --t: 18deg"></i>
-<i class="fruit fruit--apple" data-min="4" style="--x: 70%; --y: 72%; --d: 72px; --t: 4deg"></i>
-<i class="fruit fruit--pear" data-min="4" style="--x: 85%; --y: 71%; --d: 65px; --t: -10deg"></i>
-<i class="fruit fruit--peach" data-min="4" style="--x: 94%; --y: 50%; --d: 60px; --t: 6deg"></i>
-<i class="fruit fruit--plum" data-min="4" style="--x: 3%; --y: 50%; --d: 55px; --t: -6deg"></i>
-</div>
-</div>
-<div class="box__foot">
-<p class="box__price"><span>From £12 a week</span><span>Delivered on Thursday</span></p>
-<button class="btn btn--primary" type="submit">Start my box</button>
-</div>
-<p class="box__status" role="status"></p>
-</form>
-</div>
-</section>
-<section class="band band--ripe" id="ripe" aria-labelledby="ripe-title">
-<div class="container">
-<h2 class="band__title" id="ripe-title">How to tell it’s ripe</h2>
-<ul class="tells">
-<li><i class="fruit fruit--peach" style="--d: 112px" aria-hidden="true"></i><div class="ripe" aria-hidden="true"><i style="--w: 96%"></i></div><h3>Peach</h3><p>Gives a little at the stalk.</p></li>
-<li><i class="fruit fruit--plum" style="--d: 92px" aria-hidden="true"></i><div class="ripe" aria-hidden="true"><i style="--w: 90%"></i></div><h3>Plum</h3><p>A dusty bloom, soft at the tip.</p></li>
-<li><i class="fruit fruit--pear" style="--d: 100px; --t: -8deg" aria-hidden="true"></i><div class="ripe" aria-hidden="true"><i style="--w: 84%"></i></div><h3>Pear</h3><p>Soft at the neck before the belly.</p></li>
-<li><i class="fruit fruit--apple" style="--d: 104px" aria-hidden="true"></i><div class="ripe" aria-hidden="true"><i style="--w: 100%"></i></div><h3>Apple</h3><p>Heavy for its size, sweet at the stem.</p></li>
-</ul>
-</div>
-</section>
+  <section class="hero" aria-labelledby="hero-head">
+    <figure class="hero__photo pass-2 grain" data-slot="hero" data-alt="A gig night at the Boiler Room: the crowd from behind, hands up, the stage lit, with a dark lower half for the bill">
+      <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1600&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=16:9"
+           srcset="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=16:9 800w,
+                   https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=1600&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=16:9 1600w,
+                   https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=2400&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=16:9 2400w"
+           sizes="100vw" width="1600" height="900" alt="A crowd with their hands up under the stage lights at a gig" fetchpriority="high">
+    </figure>
+    <div class="hero__scrim" aria-hidden="true"></div>
+    <div class="container hero__inner">
+      <h1 id="hero-head" class="hero__head">Doors&nbsp;7pm.<br>First&nbsp;band 8pm.</h1>
+      <p class="lead hero__lead">A 200-capacity music venue in Hull, with this month’s gigs below.</p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#this-month">This month’s gigs</a>
+        <a class="btn btn--knock" href="#tickets">How tickets work</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="this-month" class="listing" aria-labelledby="month-head">
+    <div class="container listing__grid">
+      <div class="listing__text">
+        <h2 id="month-head">This month</h2>
+        <p class="lead">Every gig goes up here with its night, its price and a link to its tickets.</p>
+        <table class="bill">
+          <caption class="visually-hidden">Gigs at the Boiler Room this month</caption>
+          <thead>
+            <tr><th scope="col">Night</th><th scope="col">Band</th><th scope="col">Price</th><th scope="col">Tickets</th></tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="4"><span class="fill" data-fill="line-up">This month’s line-up to be announced</span></td></tr>
+          </tbody>
+        </table>
+        <a class="btn btn--secondary" href="#tickets">Hear when tickets go on sale</a>
+      </div>
+      <figure class="listing__shot">
+        <div class="photo photo--tall pass-1 grain" data-slot="month" data-alt="A gig at the Boiler Room from the floor: a fan with both arms up, the band behind in the stage haze">
+          <img src="https://images.unsplash.com/photo-1565035010268-a3816f98589a?w=1600&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=4:5"
+               srcset="https://images.unsplash.com/photo-1565035010268-a3816f98589a?w=800&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=4:5 800w,
+                       https://images.unsplash.com/photo-1565035010268-a3816f98589a?w=1600&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=4:5 1600w,
+                       https://images.unsplash.com/photo-1565035010268-a3816f98589a?w=2400&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=4:5 2400w"
+               sizes="(min-width: 60rem) 30vw, 100vw" width="1600" height="2000" loading="lazy" alt="A fan with both arms up in front of a guitarist in stage haze">
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section id="the-room" class="room" aria-labelledby="room-head">
+    <div class="container">
+      <h2 id="room-head">Room for two hundred</h2>
+    </div>
+    <div class="photo photo--wide pass-1 grain" data-slot="room" data-alt="The Boiler Room before doors: the stage, the drum kit and the microphone, wide, from the floor">
+      <img src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=1600&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=21:9"
+           srcset="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=21:9 800w,
+                   https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=1600&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=21:9 1600w,
+                   https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=2400&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=21:9 2400w"
+           sizes="100vw" width="1600" height="686" loading="lazy" alt="An empty small stage with a drum kit and a microphone in a brick room">
+    </div>
+    <div class="container room__pair">
+      <figure class="room__shot room__shot--doors">
+        <div class="photo pass-1 grain" data-slot="doors" data-alt="People coming in at the Boiler Room as the doors open">
+          <img src="https://images.unsplash.com/photo-1574391884720-bbc3740c59d1?w=1600&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=6:7"
+               srcset="https://images.unsplash.com/photo-1574391884720-bbc3740c59d1?w=800&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=6:7 800w,
+                       https://images.unsplash.com/photo-1574391884720-bbc3740c59d1?w=1600&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=6:7 1600w,
+                       https://images.unsplash.com/photo-1574391884720-bbc3740c59d1?w=2400&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=6:7 2400w"
+               sizes="(min-width: 60rem) 30vw, 100vw" width="1600" height="1867" loading="lazy" alt="People walking into a dark room towards one bright light">
+        </div>
+        <figcaption class="caption">Doors open at 7pm.</figcaption>
+      </figure>
+      <figure class="room__shot room__shot--band">
+        <div class="photo pass-2 grain" data-slot="band" data-alt="The first band of the night on the Boiler Room stage">
+          <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1600&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=16:9"
+               srcset="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=16:9 800w,
+                       https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1600&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=16:9 1600w,
+                       https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=2400&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=16:9 2400w"
+               sizes="(min-width: 60rem) 60vw, 100vw" width="1600" height="900" loading="lazy" alt="A singer with one arm raised in stage smoke">
+        </div>
+        <figcaption class="caption">The first band is on at 8pm.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="hull" class="hull" aria-labelledby="hull-head">
+    <div class="container hull__grid">
+      <div class="photo photo--hull pass-2 grain" data-slot="bar" data-alt="The Boiler Room on a gig night, the bar and the room from inside">
+        <img src="https://images.unsplash.com/photo-1575444758702-4a6b9222336e?w=1600&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=4:3"
+             srcset="https://images.unsplash.com/photo-1575444758702-4a6b9222336e?w=800&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=4:3 800w,
+                     https://images.unsplash.com/photo-1575444758702-4a6b9222336e?w=1600&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=4:3 1600w,
+                     https://images.unsplash.com/photo-1575444758702-4a6b9222336e?w=2400&q=80&auto=format&fit=crop&sat=-100&con=18&con=30&ar=4:3 2400w"
+             sizes="(min-width: 60rem) 45vw, 100vw" width="1600" height="1200" loading="lazy" alt="People in silhouette at a bar counter in front of lit shelves">
+      </div>
+      <div class="hull__text">
+        <h2 id="hull-head">Find us in Hull</h2>
+        <dl class="facts">
+          <div><dt>Where</dt><dd>Hull, <span class="fill" data-fill="address">street address to be announced</span></dd></div>
+          <div><dt>Room</dt><dd>200 capacity</dd></div>
+          <div><dt>Tickets</dt><dd>Sold on this page, gig by gig</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section id="tickets" class="tickets" aria-labelledby="tickets-head">
+    <div class="container tickets__grid">
+      <div class="tickets__text">
+        <h2 id="tickets-head">Tickets, gig by gig</h2>
+        <p class="lead">They go on sale here as each night is booked. Leave an email to hear first.</p>
+      </div>
+      <form class="onsale" data-endpoint="" novalidate>
+        <label for="onsale-email">Email address</label>
+        <div class="onsale__row">
+          <input id="onsale-email" name="email" type="email" inputmode="email" autocomplete="email" required>
+          <button class="btn btn--primary" type="submit">Send me on-sales</button>
+        </div>
+        <p class="onsale__help" id="onsale-help" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
 </main>
-<footer class="foot">
-<div class="foot__marquee" aria-hidden="true">
-<div class="marquee-track">
-<span class="marquee">Whatever’s ripest, every Thursday · Whatever’s ripest, every Thursday · Whatever’s ripest, every Thursday · </span>
-<span class="marquee">Whatever’s ripest, every Thursday · Whatever’s ripest, every Thursday · Whatever’s ripest, every Thursday · </span>
-</div>
-</div>
-<div class="container foot__row">
-<p class="foot__wordmark">Peachy</p>
-<p>Weekly fruit boxes across London</p>
-<p>© 2026 Peachy</p>
-</div>
+
+<footer class="mast">
+  <div class="container">
+    <p class="mast__word">The Boiler Room</p>
+    <div class="mast__row">
+      <nav aria-label="Footer">
+        <ul class="mast__links">
+          <li><a href="#this-month">This month</a></li>
+          <li><a href="#the-room">The room</a></li>
+          <li><a href="#hull">Hull</a></li>
+          <li><a href="#tickets">Tickets</a></li>
+        </ul>
+      </nav>
+      <p class="mast__note">A music venue in Hull. © 2026 The Boiler Room</p>
+    </div>
+  </div>
 </footer>
+
 <script>
-(() => {
-const box = document.querySelector('.box');
-if (box) box.addEventListener('submit', (e) => {
-e.preventDefault();
-const status = box.querySelector('.box__status');
-const endpoint = box.dataset.endpoint;
-if (!endpoint) { status.textContent = 'Ordering opens soon. Nothing was sent.'; return; }
-fetch(endpoint, { method: 'POST', body: new FormData(box) }).then((r) => { status.textContent = r.ok ? 'Your box is ordered. The first one arrives on a Thursday.' : 'That did not go through. Try again in a minute.'; }).catch(() => { status.textContent = 'That did not go through. Try again in a minute.'; });
+document.querySelectorAll('form[data-endpoint]').forEach((form) => {
+  const input = form.querySelector('input'), help = form.querySelector('[aria-live]');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const ok = input.checkValidity();
+    input.toggleAttribute('aria-invalid', !ok);
+    if (!ok) { input.setAttribute('aria-describedby', help.id); help.textContent = 'That address looks incomplete. Write it as name@example.com.'; input.focus(); return; }
+    if (!form.dataset.endpoint) { help.textContent = 'Nothing was sent: this form is not connected yet.'; return; }
+    fetch(form.dataset.endpoint, { method: 'POST', body: new FormData(form) })
+      .then((r) => { help.textContent = r.ok ? 'Thanks. On-sales go to ' + input.value.trim() + '.' : 'That did not go through. Try again in a minute.'; })
+      .catch(() => { help.textContent = 'That did not go through. Try again in a minute.'; });
+  });
 });
-})();
-window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.prepend(im); } };
+window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
+document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });
 </script>
 </body>
 </html>

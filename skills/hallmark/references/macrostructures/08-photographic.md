@@ -13,7 +13,7 @@ Reach for it for fashion, hospitality, photography portfolios, lifestyle commerc
 
 Avoid without real photography. Generated stock undoes the shape.
 
-Code: [`../components/h6-photographic-fold.md`](../components/h6-photographic-fold.md).
+Compositions: the Poster hero (`layout.md` § 6) and full-bleed Showcases (§ 5).
 
 **Sample opening lines** (captions are dates, places and plate numbers, not marketing):
 > *"Plate 47, scored before the proof."* A number and a moment in the process (Maple Street Bread).

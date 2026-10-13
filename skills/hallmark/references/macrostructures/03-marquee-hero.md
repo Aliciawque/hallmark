@@ -13,7 +13,7 @@ Reach for it when the brand or the person is the message: designer and director 
 
 Avoid for products whose value needs explaining in seconds. Marquee makes the visitor scroll before they understand.
 
-Code: [`../components/h1-marquee.md`](../components/h1-marquee.md).
+Compositions: a Poster or Corridor hero (`layout.md` § 6); below it, Rows, Grid or a Showcase (§ 5).
 
 **Sample opening lines** (imitate the specificity, not the wording):
 > *"Type, set with care."* Three words, refusal of the verb, treats type as material.

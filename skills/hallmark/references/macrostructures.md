@@ -1,10 +1,10 @@
 # Macrostructures
 
-Twenty-one named landing-page shapes. Each is a complete fingerprint (heading placement, body composition, divider language, button voice, image treatment, reveal pattern) bundled under one name. **This is a vocabulary, not a menu.** Design the page the brief asks for, then name the shape you designed so Rotation and gate 32 have something to read; reaching in here first and building whatever comes back is how twenty-one shapes collapse into the same three. When nothing here fits what you designed, say so and describe the shape as a fingerprint (§ The fingerprint, below).
+Twenty-one named landing-page shapes. Each is a complete fingerprint (heading placement, body composition, divider language, button voice, image treatment, reveal pattern) bundled under one name. **This is a vocabulary, not a menu.** Design the page the brief asks for, then name the shape you designed so Rotation and gate 32 have something to read; reaching in here first and building whatever comes back is how twenty-one shapes collapse into the same three. When nothing here fits what you designed, say so, describe the shape as a fingerprint (§ The fingerprint, below), and give it a short name for the stamp and the log (*a season page*).
 
 ## The 21 macrostructures, index
 
-**Read only the one file** for the shape you landed on, from `references/macrostructures/`. Do not load the whole catalogue. Slugs are stable; Rotation reads the shape from the stamp and the log. Nav and footer are part of the shape, settled with the hero. Where a shape's code already lives in `components/`, the shape file points at it instead of repeating it.
+**Read only the one file** for the shape you landed on, from `references/macrostructures/`. Do not load the whole catalogue. Slugs are stable; Rotation reads the shape from the stamp and the log. Nav and footer are part of the shape, settled with the hero. Each shape file names the `layout.md` compositions it is built from; the code is yours.
 
 - **01 · Bento Grid.** Modular blocks of varying sizes laid out as an irregular grid. Each block is a feature, a figure, an image or a quote the user supplied. Rhythm comes from size variation, not card uniformity. [`macrostructures/01-bento-grid.md`](macrostructures/01-bento-grid.md)
 - **02 · Long Document.** Reads like a memo, a letter or a journal entry. No marketing structure. Continuous prose with inline section heads. The page is literature about the product. [`macrostructures/02-long-document.md`](macrostructures/02-long-document.md)
@@ -36,16 +36,16 @@ When the shape is **Bento Grid, Stat-Led, Workbench or Marquee Hero** and the br
 
 **Base cards** (always available):
 
-| Card | Role | Code |
+| Card | Role | Composition |
 | --- | --- | --- |
-| Spec sheet | what it is, in figures the product ships with: limits, formats, versions, regions | [`components/f3-tabular-spec-sheet.md`](components/f3-tabular-spec-sheet.md) |
-| Worked example | the product doing one real job on the user's material: a command and its output, a capture and its caption | [`components/f5-annotated-screenshot.md`](components/f5-annotated-screenshot.md) |
-| Changelog | the last three or four entries with their real dates; the page proves it is alive | [`components/f4-step-sequence.md`](components/f4-step-sequence.md) for the numbered form |
-| Comparison anatomy | the product beside the way it is done today, row by row, no scores | [`components/f3-tabular-spec-sheet.md`](components/f3-tabular-spec-sheet.md) |
+| Spec sheet | what it is, in figures the product ships with: limits, formats, versions, regions | Table or Rows (`layout.md` § 5) |
+| Worked example | the product doing one real job on the user's material: a command and its output, a capture and its caption | Showcase or Split |
+| Changelog | the last three or four entries with their real dates; the page proves it is alive | Rows |
+| Comparison anatomy | the product beside the way it is done today, row by row, no scores | Table |
 | Pricing table | the actual price, two or three tiers; "Contact sales" on every tier says the brand does not trust the buyer | `craft.md` § 9 Pricing |
 | FAQ | real objections answered like a person; "Yes, both providers work out of the box" beats "integrates with leading providers" | [`macrostructures/06-conversational-faq.md`](macrostructures/06-conversational-faq.md) |
-| CTA strip | the ask, once, one button | [`components/c4-sticky-bottom-bar.md`](components/c4-sticky-bottom-bar.md) or a closing band |
-| Footer | the colophon, in the theme's voice | `component-cookbook.md` footers |
+| CTA strip | the ask, once, one button | Band |
+| Footer | the close, in the theme's voice | `layout.md` § 7 |
 
 **Material cards** (exist only when the user supplied the material, and the Picks block names what was supplied):
 
@@ -58,7 +58,7 @@ When the shape is **Bento Grid, Stat-Led, Workbench or Marquee Hero** and the br
 
 **Every deal deviates twice.** (a) Drop at least one base card and name it (the CTA strip is the usual cut; footer never drops). (b) Either promote a second base card into the hero's place (a spec sheet as the hero object says "the numbers are the pitch"; a worked example as the hero says "watch it work") or reorder one adjacent pair meaningfully (pricing before the example says "the price is the pitch"). State both moves in the Picks block: `deck: -cta +changelog` or `deck: -faq · pricing<example`. A deal that keeps at least five cards still reads complete; below five it is a landing strip, not a landing page: re-add cards or switch shape.
 
-Cards part by the three `--section-gap` steps, mixed (59); the section break is the rhythm, no sub-rules.
+Cards part by the three `--section-gap` steps, mixed (59), and each fills its section (`layout.md` § 4).
 
 The deck is not a template you stamp out: the shape determines how each card looks. A Bento Grid page interleaves the spec sheet and the example inside the grid; a Stat-Led page sequences them top to bottom under the figure; a Marquee Hero page lets the marquee carry the claim and the example carry the proof.
 
@@ -91,7 +91,7 @@ Two pages Hallmark builds for two different briefs must look like different site
 
 **6. Reveal pattern.** Fade-up stagger (once, orchestrated) · Horizontal sweep · Type-unmask (a clip-path opening over text) · Number-tick (counters, only on real figures) · Typewriter (a terminal only, the caret inside a typed command) · None.
 
-Fingerprint: one choice per axis, written `Hanging|Asymmetric spans|Hairline|Outlined|Margin-aligned|None`. Two rules: coherence (choices from the same world; a justified newspaper body wants a typographic CTA, not an oversized solid) and anti-repetition (no more than three of six axes shared with any of the last three logged entries).
+Fingerprint: one choice per axis, written `Hanging|Asymmetric spans|Hairline|Outlined|Margin-aligned|None`. Two rules: coherence (choices from the same world; a justified newspaper body wants a typographic CTA, not an oversized solid) and anti-repetition (no more than three of six axes shared with any of the last three logged entries; a None on Image or Reveal that the theme or the material forces is not a shared choice).
 
 ## Domain to trio, when the brief names no shape
 

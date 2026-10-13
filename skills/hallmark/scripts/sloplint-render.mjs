@@ -11,6 +11,7 @@ const slugOf = (t) => isUrl(t) ? t.replace(/^https?:\/\//, '').replace(/[^\w.-]+
 const SHOTS = [];
 let SHOT_DIR = 'shots';
 const frames = (page) => page.evaluate(async () => { if (document.fonts && document.fonts.status !== 'loaded') await Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 3000))]); await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))); }).catch(() => {});
+const settleImages = (page) => page.evaluate(async () => { for (const i of document.querySelectorAll('img[loading="lazy"]')) i.loading = 'eager'; for (let y = 0; y < document.documentElement.scrollHeight; y += 700) { window.scrollTo(0, y); await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))); } window.scrollTo(0, 0); const waiting = [...document.images].filter((i) => !i.complete); await Promise.race([Promise.all(waiting.map((i) => new Promise((r) => { i.addEventListener('load', r, { once: true }); i.addEventListener('error', r, { once: true }); }))), new Promise((r) => setTimeout(r, 15000))]); await Promise.all([...document.images].map((i) => (i.complete && i.naturalWidth && i.decode ? i.decode().catch(() => {}) : null))); }).catch(() => {});
 function contrast(a, b) {
   const lin = (c) => (c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4);
   const Y = (c) => 0.2126 * lin(c[0]) + 0.7152 * lin(c[1]) + 0.0722 * lin(c[2]);
@@ -127,7 +128,7 @@ export async function renderCheck(htmlFiles, metaIn) {
         if (nav.e && !/timeout/i.test(nav.e.message)) throw nav.e;
         if (nav.r && isUrl(file) && !nav.r.ok() && nav.r.status() !== 304) throw new Error(`HTTP ${nav.r.status()} from ${file}`);
         await page.evaluate(async () => {
-          document.documentElement.classList.add('shot');
+          document.documentElement.classList.add('hallmark-shot');
           for (const el of [document.documentElement, document.body]) if (el) el.style.setProperty('scroll-behavior', 'auto', 'important');
           const quiet = document.createElement('style');
           quiet.textContent = 'nextjs-portal, astro-dev-toolbar { display: none !important; }';
@@ -149,6 +150,7 @@ export async function renderCheck(htmlFiles, metaIn) {
           await page.evaluate(() => window.scrollTo(0, 0)).catch(() => {});
           await frames(page);
           if (width === 1280) await shoot(page, file, `${prefix}1280x800`, false);
+          if (width === 375 && !heroOnly) { await settleImages(page); await frames(page); }
           if (width === 375) await shoot(page, file, heroOnly ? 'hero-375x812' : '375', !heroOnly);
           const res = await page.evaluate(observe, width === 1280, pageMeta);
           const measured = new Map();
@@ -169,7 +171,7 @@ export async function renderCheck(htmlFiles, metaIn) {
           await frames(page);
           await shoot(page, file, `${prefix}${w}x${h}`, false);
           if (!heroOnly && w === 1440) {
-            await page.evaluate(async () => { for (let y = 0; y < document.documentElement.scrollHeight; y += 800) { window.scrollTo(0, y); await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))); } window.scrollTo(0, 0); });
+            await settleImages(page);
             await shoot(page, file, '1440-full', true);
           }
           await frames(page);
@@ -351,7 +353,7 @@ function focusRing() {
   let el = document.activeElement;
   if (!el || el === document.body || el === document.documentElement) return null;
   const box = el.getBoundingClientRect();
-  if (box.width < 4 || box.height < 4) el = el.closest('label') || el.parentElement;
+  if (box.width < 4 || box.height < 4) el = (el.labels && el.labels[0]) || el.closest('label') || el.parentElement;
   if (!el) return null;
   el.style.setProperty('transition', 'none', 'important');
   const cs = getComputedStyle(el);
@@ -431,6 +433,10 @@ function observe(checkFold, meta) {
   }
 
   if (window.innerWidth === 375) {
+    const clipped = (el) => { for (let q = el.parentElement; q && q !== document.body && q !== document.documentElement; q = q.parentElement) { const cs = getComputedStyle(q); if (/hidden|clip|auto|scroll/.test(`${cs.overflowX} ${cs.overflow}`)) return true; } return false; };
+    const spill = [...document.querySelectorAll('body *')].find((el) => { if (!visible(el) || getComputedStyle(el).position === 'fixed' || el.closest('svg') || clipped(el)) return false; const r = el.getBoundingClientRect(); return r.right > window.innerWidth + 2 || r.left < -2; });
+    if (spill && document.documentElement.scrollWidth <= window.innerWidth + 1) { const r = spill.getBoundingClientRect(); push(34, 'FAIL', `${describe(spill)} runs ${Math.round(Math.max(r.right - window.innerWidth, -r.left))}px past the 375 screen, hidden only by the page's clip`, 'Stack it under 60rem: drop the desktop column gap, widths and offsets on the phone'); }
+    for (const sl of document.querySelectorAll('[data-slot]')) { const cs = getComputedStyle(sl); if (cs.display === 'none' || !sl.getClientRects().length || sl.closest('[hidden]')) continue; const r = sl.getBoundingClientRect(); if (r.width < 40 || r.height < 40) { push('F18', 'WARN', `slot "${sl.getAttribute('data-slot')}" renders at ${Math.round(r.width)} x ${Math.round(r.height)}px on a phone`, 'The slot collapsed: give it width: 100% and an aspect-ratio in the stacked layout'); break; } }
     const flush = [...document.querySelectorAll('p, li, h1, h2, h3, blockquote, dd')].find((el) => {
       if (!visible(el) || el.closest('nav, pre, table, [data-slot]')) return false;
       const own = [...el.childNodes].filter((n) => n.nodeType === 3 && n.textContent.trim().length >= 20);
@@ -680,7 +686,7 @@ function observeSpace(atLaptop, heroOnly, heroPosture) {
   if (hero && h1) {
     const cta = [...hero.querySelectorAll('a, button')].filter((c) => vis(c) && (c.textContent || '').trim() && !c.closest('nav'))[0];
     const ctaTop = cta ? abs(cta).top : Infinity;
-    const texts = [...hero.querySelectorAll('h1, h2, p, small, [class*="sub"], [class*="lede"], [class*="eyebrow"], [class*="kicker"], [class*="label"]')].filter((e) => vis(e) && (e.innerText || '').trim() && !e.closest('nav, svg, table, figure, [data-slot]') && abs(e).top < ctaTop);
+    const texts = [...hero.querySelectorAll('h1, h2, p, small, [class*="sub"], [class*="lede"], [class*="eyebrow"], [class*="kicker"], [class*="label"]')].filter((e) => vis(e) && (e.innerText || '').trim() && !e.closest('nav, svg, table, figure, [data-slot], form, fieldset, label, output, [role="tabpanel"], [role="group"]') && abs(e).top < ctaTop);
     const seen = [];
     for (const e of texts) { if (seen.some((o) => o.contains(e) || e.contains(o))) continue; seen.push(e); }
     stack = seen.length;
@@ -720,9 +726,9 @@ function observeSpace(atLaptop, heroOnly, heroPosture) {
     const tw = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     let n;
     while ((n = tw.nextNode())) {
-      const p = n.parentElement; if (!p || !vis(p) || p.closest('script, style, noscript, svg')) continue;
+      const p = n.parentElement; if (!p || !vis(p) || p.closest('script, style, noscript, svg, [data-slot]')) continue;
       const t = n.textContent.trim(); if (!t) continue;
-      const pr = p.getBoundingClientRect(); const c = t.split(/\s+/).filter((w) => /[A-Za-z0-9]{2,}|\d/.test(w)).length; if (c) words.push({ top: pr.top + scrollY, bottom: pr.bottom + scrollY, c });
+      const pr = p.getBoundingClientRect(); const c = t.split(/\s+/).filter((w) => /[A-Za-z]{2,}/.test(w)).length; if (c) words.push({ top: pr.top + scrollY, bottom: pr.bottom + scrollY, c });
     }
     const H = document.documentElement.scrollHeight;
     let maxWords = 0, at = 0;
@@ -743,11 +749,12 @@ function observeSpace(atLaptop, heroOnly, heroPosture) {
       if (short.length) push(59, 'REFLEX', `smallest gap between sections is ${min}px (gaps: ${real.join(', ')})`, '120px or more between sections, by the --section-gap steps');
       else if (real.length > 2 && new Set(real).size === 1) push(59, 'REFLEX', `every section gap is ${min}px`, 'Vary the rhythm across --section-gap-s, --section-gap and --section-gap-l');
     }
-    if (!heroOnly && secs.length > 8) push(59, 'WARN', `${secs.length} sections`, 'Four to eight sections a page, footer included; merge or cut');
+    if (!heroOnly && secs.length > 9) push(59, 'WARN', `${secs.length} sections`, 'Six to nine sections a page, hero and footer included; merge or cut');
+    else if (!heroOnly && secs.length < 5) push(77, 'WARN', `${secs.length} sections, hero and footer included`, 'A landing strip, not a page: six to nine sections, five on a thin brief (layout.md § 3)');
     if (!heroOnly) {
       for (const sl of document.querySelectorAll('[data-slot]')) {
         const cs = getComputedStyle(sl);
-        if (cs.display === 'none' || cs.visibility === 'hidden') continue;
+        if (cs.display === 'none' || cs.visibility === 'hidden' || !sl.getClientRects().length || sl.closest('[hidden]')) continue;
         const r = sl.getBoundingClientRect();
         if (r.width < 40 || r.height < 40) { push('F18', 'WARN', `slot "${sl.getAttribute('data-slot')}" renders at ${Math.round(r.width)} x ${Math.round(r.height)}px`, 'The slot collapsed: give it a width from its track and a real aspect-ratio, never a percentage of a shrink-to-fit parent'); break; }
       }
@@ -763,6 +770,68 @@ function observeSpace(atLaptop, heroOnly, heroPosture) {
       }
     }
 
+    const nameOf = (e) => `${e.tagName.toLowerCase()}${e.getAttribute('data-slot') ? `[data-slot=${e.getAttribute('data-slot')}]` : e.classList[0] ? '.' + e.classList[0] : ''}`;
+    const dataish = /chart|graph|plot|spark|map|diagram|logo|wordmark|brand|icon|flag|qr|avatar/i;
+    const drawn = [];
+    for (const svg of document.querySelectorAll('svg')) {
+      if (!vis(svg) || svg.parentElement.closest('svg')) continue;
+      const r = svg.getBoundingClientRect();
+      if (r.width < 120 || r.height < 120) continue;
+      let named = false;
+      for (let q = svg; q && q !== document.body && !named; q = q.parentElement) named = dataish.test(`${typeof q.className === 'string' ? q.className : (q.className && q.className.baseVal) || ''} ${q.id || ''} ${q.getAttribute('aria-label') || ''} ${q.getAttribute('data-kind') || ''}`);
+      if (named || svg.querySelector('text')) continue;
+      const shapes = [...svg.querySelectorAll('path, ellipse, circle, polygon')];
+      const curvy = shapes.filter((s) => s.tagName === 'ellipse' || s.tagName === 'circle' && parseFloat(s.getAttribute('r') || 0) > 6 || /[CcQqSsAa]/.test(s.getAttribute('d') || '')).length;
+      const fills = new Set(shapes.map((s) => getComputedStyle(s).fill).filter((f) => f && f !== 'none'));
+      if (curvy >= 3 || (shapes.length >= 6 && fills.size >= 3)) drawn.push(`${nameOf(svg.parentElement || svg)} (${Math.round(r.width)}x${Math.round(r.height)}, ${shapes.length} shapes)`);
+    }
+    if (drawn.length) push(80, 'REFLEX', `drawn illustration: ${drawn.slice(0, 3).join('; ')}`, 'A photograph (theme.mjs photos), the product built, or type at scale; SVG is for icons, logos and labelled charts or diagrams (imagery.md § 7)');
+
+    const empty = [];
+    const shows = (box) => {
+      const b = box.getBoundingClientRect();
+      let area = 0;
+      for (const m of box.querySelectorAll('img, video, picture, canvas, iframe, svg')) { if (!vis(m) || (m.tagName.toLowerCase() === 'svg' && m.parentElement.closest('svg'))) continue; if (m.tagName === 'IMG' && !(m.getAttribute('src') || m.getAttribute('srcset') || '').trim()) continue; const q = m.getBoundingClientRect(); area += q.width * q.height; if (area >= b.width * b.height * 0.25) return true; }
+      const bits = [...box.querySelectorAll('*')].filter((e) => vis(e) && ((e.innerText || '').trim() || /^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(e.tagName)) && !e.children.length);
+      return bits.length >= 6 || (box.innerText || '').trim().length >= 160;
+    };
+    for (const sl of document.querySelectorAll('[data-slot]')) { if (!vis(sl) || sl.closest('[hidden]')) continue; const r = sl.getBoundingClientRect(); if (r.width < 160 || r.height < 120) continue; if (!shows(sl)) empty.push(`${nameOf(sl)} ${Math.round(r.width)}x${Math.round(r.height)}`); }
+    for (const e of document.querySelectorAll('div, figure, span, i, aside')) {
+      if (e.hasAttribute('data-slot') || e.closest('[data-slot]') || !vis(e)) continue;
+      const r = e.getBoundingClientRect(); const cs = getComputedStyle(e);
+      if (r.width < 300 || r.height < 200 || r.width > vw * 0.9 || !/gradient/.test(cs.backgroundImage) || /url\(/.test(cs.backgroundImage)) continue;
+      if ((e.innerText || '').trim().length > 60 || e.querySelector('img, video, canvas, svg, picture, input, table')) continue;
+      if (!shows(e)) empty.push(`${nameOf(e)} ${Math.round(r.width)}x${Math.round(r.height)}, a gradient with nothing in it`);
+    }
+    if (empty.length) push(81, 'REFLEX', `${empty.length} empty picture${empty.length > 1 ? 's' : ''}: ${empty.slice(0, 3).join('; ')}`, 'Put the picture in: the user\'s image, a library photograph (theme.mjs photos) or the product built at full fidelity; the wash is only a loading colour (imagery.md § 3)');
+
+    const marks = [];
+    const colourOf = (e) => { const cs = getComputedStyle(e); return e instanceof SVGElement ? `${cs.fill}|${cs.stroke}` : `${cs.backgroundColor}|${cs.borderTopColor}|${cs.color}`; };
+    for (const p of document.querySelectorAll('*')) {
+      if (p.children.length < 24 || !vis(p)) continue;
+      const kids = [...p.children].filter((k) => !/^(defs|title|desc|style|script)$/i.test(k.tagName));
+      if (kids.length < 24) continue;
+      const small = kids.filter((k) => { const q = k.getBoundingClientRect(); return !(k.textContent || '').trim() && q.width > 0 && q.height > 0 && ((q.width <= 24 && q.height <= 48) || q.width <= 6 || q.height <= 6); });
+      if (small.length < 24 || small.length < kids.length * 0.8) continue;
+      const tally = new Map(); for (const k of small) { const c = colourOf(k); tally.set(c, (tally.get(c) || 0) + 1); }
+      if (Math.max(...tally.values()) < small.length * 0.6 || tally.size > 4) continue;
+      const sizes = small.map((k) => { const q = k.getBoundingClientRect(); return Math.round(q.width) * 1000 + Math.round(q.height); });
+      const common = Math.max(...[...new Set(sizes)].map((s) => sizes.filter((x) => x === s).length));
+      if (common < small.length * 0.7) continue;
+      if (marks.some((m) => m.el.contains(p) || p.contains(m.el))) continue;
+      marks.push({ el: p, text: `${nameOf(p)} holds ${small.length} identical marks` });
+    }
+    const ONE_FOR_EACH = /\bone (?:mark|dot|stroke|tick|line|square|bar|cell|pin|block|circle|seed|bead|stripe|notch)s? (?:for|per) (?:each|every)\b/i;
+    const ONE_FOR_EACH_BARE = /\bone (?:for|per) (?:each|every)\b/i;
+    for (const e of document.querySelectorAll('[aria-label], figcaption, svg title, p, small, span')) {
+      if (marks.length >= 2) break;
+      const t = `${e.getAttribute('aria-label') || ''} ${(e.textContent || '').length < 160 ? e.textContent : ''}`;
+      const counting = ONE_FOR_EACH.test(t) || (ONE_FOR_EACH_BARE.test(t) && (e.matches('figcaption') || (e.getAttribute('aria-label') && e.closest('svg, figure, [role="img"]'))));
+      if (counting && !marks.some((m) => m.el.contains(e))) marks.push({ el: e, text: `"${t.trim().slice(0, 60)}"` });
+    }
+    if (marks.length) push(82, 'REFLEX', `counting device: ${marks.slice(0, 2).map((m) => m.text).join('; ')}`, 'Set the number in type at the size it deserves; never one mark for each thing (imagery.md § 7)');
+
+    let heroFoot = null;
     if (hero && !/^(poster|ledge)$/.test(heroPosture || '')) {
       const hb = abs(hero);
       let cTop = Infinity, cBottom = -Infinity;
@@ -778,7 +847,8 @@ function observeSpace(atLaptop, heroOnly, heroPosture) {
       const after = secs.find((x) => x !== hero && !hero.contains(x) && abs(x).top >= hb.bottom - 4);
       const bottomEdge = after ? Math.min(content(after).top, hb.bottom + 240) : hb.bottom;
       const topPad = cTop - navBottom, bottomPad = bottomEdge - cBottom;
-      if (isFinite(topPad) && isFinite(bottomPad) && topPad > 24 && bottomPad < topPad * 1.3 - 8) push('44a', 'REFLEX', `hero padding ${Math.round(topPad)}px above, ${Math.round(bottomPad)}px below`, 'Bottom-heavy: block-end at least 1.3 times block-start (a Ledge inverts it; say Ledge in the stamp)');
+      if (isFinite(topPad) && isFinite(bottomPad) && topPad > 24 && bottomPad < topPad - 8) push('44a', 'REFLEX', `hero content sits low: ${Math.round(topPad)}px above it, ${Math.round(bottomPad)}px below`, 'Centre the content in its screen: the space below 1.0 to 1.5 times the space above (a Ledge sits low on purpose; say Ledge in the stamp)');
+      heroFoot = { cBottom, navBottom };
     }
     if (heroEnd != null && !freeFold) {
       if (heroEnd > vh + 8) push('44c', 'REFLEX', `hero runs past the 1440x900 fold (hero ends at ${Math.round(heroEnd)}px)`, 'Size the display and the visual so the hero is one screen');
@@ -789,7 +859,81 @@ function observeSpace(atLaptop, heroOnly, heroPosture) {
       const gap = Math.round(fig.side === 'right' ? fig.left - fig.colEdge : fig.colEdge - fig.right);
       const edge = Math.round(fig.side === 'right' ? vw - fig.right : fig.left);
       if (Math.abs(off) > 60) push('44c', 'REFLEX', `hero visual centre is ${off}px from the text block centre`, 'Align the visual beside the text');
-      if (gap > 120 || (edge < 8 && gap > 48)) push('44c', 'REFLEX', `hero visual sits ${gap}px from the text and ${edge}px from the viewport edge`, 'Bring the visual to within 48 to 120px of the text; never pin it to the corner');
+      const inkGap = Math.round(fig.side === 'right' ? fig.left - textBox.right : textBox.left - fig.right);
+      if (inkGap > 240 && gap <= 120) push('44c', 'REFLEX', `hero text ends ${inkGap}px short of its visual`, 'Widen the text column or bring the visual in: the text and the visual stand 48 to 120px apart (layout.md § 6)');
+      if (gap > 120 || (edge < 8 && gap > 48 && heroPosture !== 'stage')) push('44c', 'REFLEX', `hero visual sits ${gap}px from the text and ${edge}px from the viewport edge`, 'Bring the visual to within 48 to 120px of the text; never pin it to the corner');
+    }
+
+    if (heroFoot && hero && isFinite(heroFoot.cBottom)) {
+      const hb = abs(hero);
+      const after = secs.find((x) => x !== hero && !hero.contains(x) && abs(x).top >= hb.bottom - 4);
+      const nextTop = after ? content(after).top : Infinity;
+      const band = Math.round(Math.min(vh, nextTop) - heroFoot.cBottom);
+      if (heroFoot.cBottom < vh && band > 160) push(79, 'REFLEX', `${band}px of nothing between the hero's last content (y ${Math.round(heroFoot.cBottom)}) and ${nextTop < vh ? 'the next section' : 'the fold'}`, 'Centre the content in the screen and grow the visual or the head (layout.md § 6); never fill it with copy');
+    }
+
+    if (!heroOnly) {
+      const below = secs.filter((x) => x !== hero && !(hero && (hero.contains(x) || x.contains(hero))) && x.tagName !== 'FOOTER' && !x.closest('footer, nav') && (!hero || abs(x).top >= abs(hero).bottom - 4));
+      const leavesOf = (root) => {
+        const out = [];
+        const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+        for (let t = w.nextNode(); t; t = w.nextNode()) { if (!t.textContent.trim()) continue; const p = t.parentElement; if (!p || !vis(p) || p.closest('script, style, noscript')) continue; const rg = document.createRange(); rg.selectNodeContents(t); for (const q of rg.getClientRects()) if (q.width > 1 && q.height > 1) out.push({ top: q.top + scrollY, bottom: q.bottom + scrollY, left: q.left, right: q.right }); }
+        for (const e of root.querySelectorAll('*')) {
+          if (!vis(e) || (e.closest('svg') && e.tagName.toLowerCase() !== 'svg')) continue;
+          const cs = getComputedStyle(e);
+          const painted = /^(IMG|SVG|CANVAS|VIDEO|PICTURE|IFRAME|INPUT|TEXTAREA|SELECT|TABLE)$/i.test(e.tagName) || e.hasAttribute('data-slot') || cs.backgroundImage !== 'none' || cs.backgroundColor !== 'rgba(0, 0, 0, 0)' || (parseFloat(cs.borderTopWidth) || 0) + (parseFloat(cs.borderBottomWidth) || 0) + (parseFloat(cs.borderLeftWidth) || 0) + (parseFloat(cs.borderRightWidth) || 0) >= 2;
+          if (!painted) continue;
+          const b = e.getBoundingClientRect(); if (b.width * b.height < 64 || (b.width > vw * 0.97 && !/^(IMG|PICTURE|VIDEO|CANVAS|SVG)$/i.test(e.tagName) && !e.hasAttribute('data-slot'))) continue;
+          out.push({ top: b.top + scrollY, bottom: b.bottom + scrollY, left: b.left, right: b.right });
+        }
+        return out;
+      };
+      const span = (ls) => ls.reduce((a, b) => ({ left: Math.min(a.left, b.left), right: Math.max(a.right, b.right) }), { left: Infinity, right: -Infinity });
+      const all = span([...(hero ? [hero] : []), ...below].flatMap(leavesOf));
+      const W = all.right - all.left;
+      const h1fs = h1 ? parseFloat(getComputedStyle(h1).fontSize) : 0;
+      const heads = below.flatMap((x) => [...x.querySelectorAll('h2')]).filter((h) => vis(h) && !h.closest('nav, footer'));
+      if (heads.length) {
+        const sizes = heads.map((h) => parseFloat(getComputedStyle(h).fontSize)).sort((a, b) => a - b);
+        const med = sizes[Math.floor(sizes.length / 2)];
+        if (med < 40) push(78, 'REFLEX', `section heads render at ${Math.round(med)}px${h1fs ? ` under a ${Math.round(h1fs)}px hero head` : ''}`, 'h2 at --text-section (about 52px at 1440), item titles at --text-title (layout.md § 2)');
+      }
+      const thin = [];
+      let bands = 0;
+      if (W > 400) for (const sec of below) {
+        const ls = leavesOf(sec);
+        if (!ls.length) continue;
+        const u = span(ls);
+        const wPct = (Math.min(u.right, all.right) - Math.max(u.left, all.left)) / W;
+        const words = (sec.innerText || '').split(/\s+/).filter((x) => /[A-Za-z0-9]/.test(x)).length;
+        let mass = false, statement = false;
+        const secBg = getComputedStyle(sec).backgroundColor;
+        for (const e of sec.querySelectorAll('img, svg, canvas, video, picture, figure, iframe, [data-slot]')) { if (!vis(e) || (e.tagName.toLowerCase() === 'svg' && e.closest('[data-slot], figure') && e.closest('[data-slot], figure') !== e)) continue; if (e.getBoundingClientRect().height >= 300) { mass = true; break; } }
+        if (!mass) for (const e of sec.querySelectorAll('div, article, aside, ul, ol, dl, table, form, a')) {
+          if (!vis(e)) continue;
+          const cs = getComputedStyle(e); const r = e.getBoundingClientRect();
+          const filled = (cs.backgroundColor !== 'rgba(0, 0, 0, 0)' && cs.backgroundColor !== secBg) || cs.backgroundImage !== 'none' || (parseFloat(cs.borderTopWidth) || 0) + (parseFloat(cs.borderBottomWidth) || 0) + (parseFloat(cs.borderLeftWidth) || 0) + (parseFloat(cs.borderRightWidth) || 0) >= 2;
+          if (filled && r.height >= 240 && r.width >= W * 0.35 && r.width < vw * 0.97) { mass = true; break; }
+        }
+        if (!mass) for (const t of sec.querySelectorAll('table, ul, ol, dl, div, [class]')) {
+          if (!vis(t)) continue;
+          if (t.tagName === 'TABLE') { const r = t.getBoundingClientRect(); if (t.querySelectorAll('tr').length >= 4 && r.width >= W * 0.6) { mass = true; break; } continue; }
+          const kids = [...t.children].filter((k) => vis(k) && k.getBoundingClientRect().height > 20);
+          if (kids.length < 3) continue;
+          const rs = kids.map((k) => k.getBoundingClientRect());
+          const across = rs.every((r) => Math.abs(r.top - rs[0].top) < 12) && new Set(rs.map((r) => Math.round(r.left))).size === rs.length;
+          const spread = Math.max(...rs.map((r) => r.right)) - Math.min(...rs.map((r) => r.left));
+          const tall = Math.max(...rs.map((r) => r.bottom)) - Math.min(...rs.map((r) => r.top));
+          if ((across && spread >= W * 0.7) || (!across && spread >= W * 0.4 && tall >= 120)) { mass = true; break; }
+        }
+        if (!mass && [...sec.querySelectorAll('input:not([type=hidden]), select, textarea')].filter(vis).length >= 2) mass = true;
+        for (const e of sec.querySelectorAll('h2, h3, p, blockquote, h2 span, p span, div, output, [contenteditable]')) { if (!vis(e) || (/^(DIV|OUTPUT)$/.test(e.tagName) && ![...e.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()))) continue; const cs = getComputedStyle(e); const fs = parseFloat(cs.fontSize); const lh = parseFloat(cs.lineHeight) || fs * 1.15; const r = e.getBoundingClientRect(); const n = (e.innerText || '').split(/\s+/).filter(Boolean).length; if ((fs >= 40 && n <= 40 && r.height >= lh * 1.8 && r.width >= W * 0.5) || fs >= 72) { statement = true; break; } }
+        if (statement) mass = true;
+        const painted = getComputedStyle(sec).backgroundColor !== 'rgba(0, 0, 0, 0)' || getComputedStyle(sec).backgroundImage !== 'none';
+        if (!mass && painted && words <= 40 && sec.querySelector('a, button, form') && !bands) { bands++; continue; }
+        if ((wPct < 0.72 && !statement) || !mass) thin.push(`${(sec.querySelector('h2, h3') || {}).innerText ? `"${sec.querySelector('h2, h3').innerText.trim().slice(0, 28)}"` : sec.tagName.toLowerCase() + (sec.className && typeof sec.className === 'string' ? '.' + sec.className.trim().split(/\s+/)[0] : '')} (${Math.round(wPct * 100)}% wide${mass ? '' : ', no mass'})`);
+      }
+      if (thin.length) push(77, 'REFLEX', `${thin.length} thin section${thin.length > 1 ? 's' : ''}: ${thin.slice(0, 3).join('; ')}`, 'Widen the body to ten of twelve columns and give it mass: a visual 300px tall or more, a set of three across, rows, or a statement (layout.md § 4 and § 5)');
     }
   } else {
 
@@ -849,6 +993,7 @@ function observeQuality(scope) {
     const r = el.getBoundingClientRect();
     if (r.width <= 100 || r.height <= 30 || r.width > innerWidth * 0.9) continue;
     const cs = getComputedStyle(el);
+    if (cs.display === 'inline') continue;
     if (/auto|scroll/.test(cs.overflowX + cs.overflowY)) continue;
     const bw = ['Top', 'Right', 'Bottom', 'Left'].map((k) => parseFloat(cs[`border${k}Width`]) || 0);
     const inked = (k) => bw[k] >= 1 && !clear(cs[`border${['Top', 'Right', 'Bottom', 'Left'][k]}Color`]);
@@ -869,7 +1014,8 @@ function observeQuality(scope) {
       }
       if (nested) continue;
       const rg = document.createRange(); rg.selectNodeContents(t);
-      for (const q of rg.getClientRects()) { if (!q.width || !q.height) continue; L = Math.min(L, q.left); T = Math.min(T, q.top); Rr = Math.max(Rr, q.right); B = Math.max(B, q.bottom); fs = parseFloat(getComputedStyle(host).fontSize) || fs; }
+      const hf = parseFloat(getComputedStyle(host).fontSize) || 16; const trim = hf >= 40 ? 0.2 * hf : 0;
+      for (const q of rg.getClientRects()) { if (!q.width || !q.height) continue; L = Math.min(L, q.left); T = Math.min(T, q.top + trim); Rr = Math.max(Rr, q.right); B = Math.max(B, q.bottom - trim); fs = parseFloat(getComputedStyle(host).fontSize) || fs; }
     }
     if (L === Infinity) continue;
     const side = Math.max(8, Math.min(0.5 * fs, 24)) - 0.5, end = Math.max(4, Math.min(0.3 * fs, 12)) - 0.5;
@@ -950,13 +1096,13 @@ function observeQuality(scope) {
     weights.set(w, (weights.get(w) || 0) + txt.length);
     if (strained.length >= 4 || txt.length < 3 || host.closest('sup, sub, [data-slot], figure svg') || strained.some((x) => x.el === host)) continue;
     const size = parseFloat(hs.fontSize) || 16;
-    const prose = !!host.closest('p, li, dd, blockquote') && txt.length > 60;
+    const prose = !!host.closest('p, li, dd, blockquote') && txt.length > 60 && size < 28;
     const lh = parseFloat(hs.lineHeight);
     if (size < 11 || (prose && size < 12)) strained.push({ el: host, why: `${name(host)} at ${Math.round(size * 10) / 10}px` });
     else if (prose && lh && lh / size < 1.3 && host.getBoundingClientRect().height > lh * 2.2) strained.push({ el: host, why: `${name(host)} leaded ${(lh / size).toFixed(2)}` });
   }
   if (strained.length) push(75, 'REFLEX', `text that strains the eye: ${strained.map((x) => x.why).join(', ')}`, 'Running text 12px or more (16px for body), functional text 11px or more, multi-line prose leaded 1.3 or more');
-  const dead = [...document.querySelectorAll('img')].filter((el) => !quiet(el) && el.complete && el.naturalWidth === 0 && !el.closest('[data-slot]') && (el.currentSrc || el.getAttribute('src')));
+  const dead = [...document.querySelectorAll('img')].filter((el) => !quiet(el) && el.complete && el.naturalWidth === 0 && (el.currentSrc || el.getAttribute('src')));
   if (dead.length) push(76, 'FAIL', `an image that does not load: ${dead.slice(0, 3).map((el) => (el.getAttribute('src') || '').split('/').pop().slice(0, 40)).join(', ')}`, 'Point it at a file that exists, make it a data-slot placeholder, or remove it');
   const used = [...weights].filter(([, n]) => n >= 30).map(([w]) => w).sort((a, b) => a - b);
   if (used.length > 3) push('F19', 'WARN', `${used.length} font weights in running use (${used.join(', ')})`, 'Three weights at most, display and body together, picked as extremes');

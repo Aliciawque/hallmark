@@ -18,24 +18,42 @@ How the parts every page repeats are written, in the shape that passes the gates
 
 One filled primary per page; the quiet one goes somewhere else. Error and success belong to the form, below.
 
-## A slot
+## A photograph in a slot
 
 ```html
-<figure class="shot" data-slot="hero" data-alt="The invoices screen, three invoices, one overdue">
-  <div class="shot__ph" aria-hidden="true">
-    <svg viewBox="0 0 320 200" focusable="false"><!-- three to five shapes of this product's own structure --></svg>
-  </div>
-  <figcaption class="shot__label">your invoices screen</figcaption>
+<figure class="photo" data-slot="hero" data-alt="The orchard in October, rows of trees heavy with fruit">
+  <img src="https://images.unsplash.com/photo-...?q=80&auto=format&fit=crop&sat=-35&con=-3&ar=4:5&w=1600"
+       srcset="...&w=800 800w, ...&w=1600 1600w, ...&w=2400 2400w" sizes="(min-width: 60rem) 45vw, 100vw"
+       width="1600" height="2000" alt="Rows of apple trees in October light" fetchpriority="high">
 </figure>
+<p class="caption">Picking runs from September to the first frost.</p>
 ```
 
 ```css
-.shot { aspect-ratio: 16 / 10; border: 1px solid var(--color-rule); border-radius: var(--radius-card); background: linear-gradient(160deg, var(--color-paper-2), var(--color-paper-3)); }
-.shot__ph { position: absolute; inset: 0; display: grid; place-items: center; padding: var(--space-xl); }
-.shot__label { position: absolute; left: var(--space-md); bottom: var(--space-sm); font-size: var(--text-sm); color: var(--color-muted); }
+.photo { aspect-ratio: 4 / 5; min-height: 440px; margin: 0; border-radius: var(--radius-card); }
+.photo > img { outline: 1px solid color-mix(in oklab, var(--color-ink) 8%, transparent); outline-offset: -1px; }
+.caption { margin-top: var(--space-sm); font-size: var(--text-sm); color: var(--color-ink-2); }
 ```
 
-The slot base rules (`position`, `overflow`, the image's cover and the hide-on-fill) come from the scaffold; a child that must survive the image takes `data-keep`. Placeholder recipes per material are in `craft.md` § 8.
+The URL comes from `theme.mjs photos` with the theme's treatment already on it; add the crop (`&ar=`) and the widths. The scaffold supplies the slot's base rules (the cover fit, the loading wash, the swap); the caption is a fact from the brief, outside the frame. A product sample sits in the same kind of slot with no `<img>`: the interface built in HTML at full size (`imagery.md` § 4).
+
+## A choice between a few
+
+```html
+<fieldset class="seg"><legend>Size</legend>
+  <input type="radio" name="size" id="s1" value="1" checked><label for="s1">One box</label>
+  <input type="radio" name="size" id="s2" value="2"><label for="s2">Two boxes</label>
+</fieldset>
+```
+
+```css
+.seg input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.seg label { display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--space-md); border: 1px solid var(--color-rule); cursor: pointer; }
+.seg input:checked + label { background: var(--color-ink); color: var(--color-paper); }
+.seg input:focus-visible + label { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+```
+
+The radios stay in the flow at one pixel (53), the label carries the state and the ring, and the label is a label: the body face, sentence case.
 
 ## A fact the brief did not give
 

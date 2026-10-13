@@ -6,14 +6,14 @@ Large serif display, asymmetric column spans, hairline rules, a typographic CTA,
 - **Body:** asymmetric spans: a narrow marginalia column (captions, dates, sidenotes) beside a wide content column.
 - **Divider:** hairline rules between sections.
 - **Button:** a typographic link carrying a verb ("Open your studio"); no box, no fill, no arrow (63).
-- **Image:** none, or one hand-built SVG accent in the wide margin.
+- **Image:** none, or one photograph of the face in print (a poster, a sign, a book spread) from the library or the user.
 - **Reveal:** fade-up stagger on first load.
 
 Reach for it when the brief is about type, publishing or writing (a foundry, a journal, a press, a specimen sheet), or the user names it; the editorial genre alone does not qualify. On any other brief pick another shape: this is the field's most-copied look, and a vague brief that lands here has not been read.
 
 Avoid for product pages that need a demo; Specimen has nowhere to put one.
 
-Heading code: [`../components/s1-left-margin-numbered.md`](../components/s1-left-margin-numbered.md); CTA: [`../components/c3-typographic-link.md`](../components/c3-typographic-link.md).
+Compositions: Rows and a Statement (`layout.md` § 5); the action is a typographic link.
 
 **Sample opening lines** (foundry voice, treating type as material culture):
 > *"A quiet instrument."* Refusal of the verb.

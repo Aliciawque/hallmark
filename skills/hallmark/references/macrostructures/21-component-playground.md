@@ -6,7 +6,7 @@ Interactive code-and-preview blocks are the page's primary content. Each block p
 - **Body:** a preview, then its code, block after block, often with a tab row to switch frameworks; the row scrolls sideways under 60rem.
 - **Divider:** a change of paper per category; hairlines between examples.
 - **Button:** a "Copy" button on every code block; its label swaps to "Copied", never a toast (16).
-- **Image:** none; the previews are the imagery.
+- **Image:** the previews are the imagery; one photograph band of the real machines or setting at most.
 - **Reveal:** none.
 
 Reach for it for design systems, component libraries, snippet sites, framework documentation.

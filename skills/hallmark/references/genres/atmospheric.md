@@ -5,7 +5,7 @@ The AI-creative and after-dark product page: generative music, video, image, voi
 ## Voice
 
 - **Faces** (a theme names its own; this is for a custom run): a weighty sans or a roman serif for display, tight tracking; the same family at 400 for the body, light ink on dark paper.
-- **Accent:** one hue, used in the canvas treatment, on focus rings and on small tags; never on display text unless the theme's signature puts it there.
+- **Accent:** one hue, used in the canvas treatment, on focus rings and on small tags; never on display text unless the theme's type names an accented word (Lumen).
 - **Layout:** a centred hero is the normal answer when the type is the visual (a Poster or Banner posture); with a visual, it stands beside the text (44c). The canvas is the design and the type sits on it.
 - **Motion:** fade only; the atmosphere does the work.
 - **Copy:** direct, slightly poetic, specific: *Make a house song about quitting your job.*

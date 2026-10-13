@@ -7,14 +7,14 @@ display: pixel Silkscreen and Bungee
 accent: chromatic-ember 40
 posture: full-palette
 keywords: game, indie, game studio, launch party, demo night, hackathon, festival, meetup, retro, pixel, arcade, nostalgia, synth, lo-fi, toy, zine, club night, loud
-material: an aubergine CRT with a visible grille, marquee lettering, ember and acid chevron side art, a pixel HUD
-signature: the lit marquee band with an RGB-split wordmark over a chevron side-art panel
-pictured: Marquee Hero, Poster hero
+material: aubergine CRT ground, lilac-white ink, Bungee capitals split in RGB over Chivo, Silkscreen figures, hard offset shadows, ember and acid signals
+photo: tint accent
+pictured: Manifesto, Settled hero
 ---
 
 # Arcade
 
-An aubergine CRT ground carrying a grille, a scanline and a vignette, Bungee marquee lettering with an RGB split, Chivo for reading and Silkscreen only on the HUD. The signature is the lit marquee band over a chevron side-art panel drawn from one gradient in the two inks.
+A late-night cabinet: an aubergine ground, a CRT screen on its bands, Bungee capitals split in RGB over Chivo, Silkscreen figures, hard offset shadows, two loud inks. Photographs come through the screen, tinted in the lead so the room glows like a cabinet. It is loud through colour, lettering, light and press physics, never drawn props; not a neon synthwave poster, not a pixel-art game page.
 
 ## Tokens
 
@@ -37,38 +37,44 @@ Two dials, each stated in the stamp (`arcade: ember/grille`).
 
 | Dial | Options |
 | --- | --- |
-| **Colourway** (lead over answer, then ground) | `ember` (default): `oklch(66% 0.215 40)` over `oklch(88% 0.195 115)` on hue 315 · `sodium`: `oklch(80% 0.165 72)` over `oklch(60% 0.145 242)` on `oklch(14% 0.030 300)` · `oxblood`: `oklch(83% 0.150 90)` over `oklch(58% 0.200 25)` on `oklch(16% 0.028 330)` |
-| **Screen** (layer 1 of the CRT stack) | `grille` (default): 1px vertical RGB stripes at very low alpha · `mask`: an offset triad dot lattice from three radial gradients on a 3px pitch |
+| **Colourway**: lead over answer on ground, OKLCH | `ember` (default), the block above · `sodium`: 80% 0.165 72 over 60% 0.145 242 on 14% 0.030 300 · `oxblood`: 83% 0.150 90 over 58% 0.200 25 on 16% 0.028 330 |
+| **Screen**: the CRT's first layer | `grille` (default): 1px vertical RGB stripes at low alpha · `mask`: a triad dot lattice of three radial gradients on a 3px pitch |
 
-## Faces
+## Type
 
-- **Marquee:** Bungee 400, uppercase, for strings under 24 characters: the wordmark, the marquee band, a whole headline line. Never one word inside a head, never a sentence.
-- **Headings and body:** Chivo 400, 700, 900. Section heads at 900 with -0.01em; prose at 400, line-height 1.6.
-- **HUD:** Silkscreen 400 and 700, untracked, alternating the two inks, for the score strip, the credits line and a rank chip: figures with their units, never a heading, a paragraph or a caption. Labels, captions and status are Chivo 700 one step smaller, sentence case.
+- **Display:** Bungee 400, uppercase, untracked, line-height 1.02, for the h1, a big figure and the wordmark, each under 24 characters, never a sentence. It carries the RGB split: 1 to 2px of `--color-crt-r` one way and `--color-crt-c` the other, zero blur.
+- **Heads and body:** Chivo; section heads and item titles 900 at -0.01em, sentence case; prose 400 at line-height 1.6.
+- **Figures:** Silkscreen 400 and 700, untracked, tabular, in the two inks, for figures with their units only.
+- **Labels and captions:** Chivo 700 a step smaller, sentence case.
 
-## Material
+## Surfaces
 
-- The CRT stack once, at page level, `aria-hidden`: the screen layer, a scanline `repeating-linear-gradient` (2px clear, 1px dark at low alpha) and a corner vignette. Budget in `texture.md` § Scanline. Never a bezel.
-- The side art: stacked chevrons at 22 degrees from one `repeating-linear-gradient` in the two inks, clipped to a panel with `clip-path`. That is the whole object; never an image.
-- The RGB split on marquee lettering: a 1 to 2px red offset and a matching cyan offset, zero blur. It replaces the flat drop shadow.
-- `--rule-bar` rules and near-square radii; depth is a hard zero-blur offset shadow, never blur.
-- The press surface: every interactive surface carries `Npx Npx 0` in the answer ink with a `--rule-bar` ink border; hover moves away from the shadow, active slams toward it.
-- Objects: a marquee band, a side-art panel, an attract-screen table, a HUD strip, an instruction card (plain Chivo and a `--rule-bar` rule). Two inks alternating, never a third.
+- `--rule-bar` borders on wells and anything pressable, `--rule-hair` in `--color-rule` between rows; 4px radius, square tags.
+- Depth: the zero-blur acid offset (`--shadow-card`) on anything pressable, a ground step on a well. Never blur.
+- Bands: a `--color-paper-2` band, or one ember field with `--color-accent-ink` type. Two a page at most.
+- Photographs: the night from inside the room: players from behind lit by their screens, cabinets in a dark row, hands on a stick or a pad; the screens the brightest thing, nobody facing the lens. Tinted in the lead, 4px radius, a `--rule-bar` border, under the CRT layer; no type on a picture but a Silkscreen figure on a ground tag at a corner.
+- The CRT screen (`texture.md` § 4): the Screen dial's layer and a `--color-shade` scanline, static, on bands, wells and photographs; never under running text, never a bezel.
+
+## Controls
+
+- The press surface: an ember fill, Chivo 700, a `--rule-bar` ink border and the acid offset, beside the same surface unfilled. Hover moves away from the shadow, active slams toward it.
+- Links in ink with an acid underline; inputs 48px, square, a `--rule-bar` border in `--color-muted`.
+- Ember leads and acid answers across controls and figures; never a third ink.
 
 ## Motion
 
-Press physics on `--dur-micro` and `--ease-out`, one attract prompt that blinks on a `steps(1)` beat for four beats, then holds lit (never an open-ended blink, never under reduced motion), the RGB split widening 1px on hover for interactive marquee lettering. The grille, scanline and vignette are static.
+Press physics on `--dur-micro` and `--ease-out`. One line may blink on a `steps(1)` beat four times, then hold lit. The RGB split may widen 1px on a display line that links.
 
 ## Voice
 
-Coin-op plain: the credit, the night, the machine, the buzzer.
+Coin-op plain, said over the noise: the night, the hour, the door price, the machines. Short lines, verbs first, no nostalgia.
 
 ## Do-nots
 
-- Never Silkscreen on body copy or a heading.
-- Never magenta-and-cyan as the pair and never a radial-gradient starfield; the screen is the texture.
-- Never mix colourways or screens on one page; two dials, set once.
-- Never a soft or blurred shadow, never a phosphor glow (the RGB split carries the lettering), never a gradient on a button.
+- Never magenta and cyan as the pair, never a starfield; the screen is the texture.
+- Never mix colourways or screens on one page.
+- Never a soft shadow, a phosphor glow or a gradient on a button.
+- Never a drawn sprite, joystick, controller or pixel character; the night is photographed.
 
 ## Build hint
 
@@ -77,16 +83,17 @@ Coin-op plain: the credit, the night, the machine, the buzzer.
 ```
 
 ```css
-body::after { content: ""; position: fixed; inset: 0; z-index: var(--z-raised); pointer-events: none;
-  background-image:
-    repeating-linear-gradient(to right, color-mix(in oklab, var(--color-crt-r) 5%, transparent) 0 1px, color-mix(in oklab, var(--color-crt-g) 5%, transparent) 1px 2px, color-mix(in oklab, var(--color-crt-b) 5%, transparent) 2px 3px),
-    repeating-linear-gradient(to bottom, transparent 0 2px, color-mix(in oklab, var(--color-shade) 16%, transparent) 2px 3px),
-    radial-gradient(120% 90% at 50% 50%, transparent 55%, color-mix(in oklab, var(--color-shade) 45%, transparent) 100%); }
-.marquee { font-family: var(--font-display); text-transform: uppercase; color: var(--color-ink);
-  text-shadow: -1.5px 0 0 var(--color-crt-r), 1.5px 0 0 var(--color-crt-c); }
-.side-art { background: repeating-linear-gradient(22deg, var(--color-accent) 0 18px, var(--color-accent-2) 18px 36px); clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%); }
-.hud { font-family: var(--font-outlier); font-size: var(--text-xs); font-variant-numeric: tabular-nums; color: var(--color-accent-2); }
-.btn { background: var(--color-accent); color: var(--color-accent-ink); border: var(--rule-bar) solid var(--color-ink); border-radius: var(--radius-card);
+h1, .display { font-family: var(--font-display); font-weight: 400; line-height: 1.02; text-transform: uppercase; text-shadow: -1.5px 0 0 var(--color-crt-r), 1.5px 0 0 var(--color-crt-c); }
+h2, h3 { font-family: var(--font-body); font-weight: 900; letter-spacing: -0.01em; }
+.figure { font-family: var(--font-outlier); color: var(--color-accent-2); }
+.btn { background: var(--color-accent); color: var(--color-accent-ink); border: var(--rule-bar) solid var(--color-ink); border-radius: var(--radius-card); padding: var(--space-sm) var(--space-lg); font-weight: 700;
   box-shadow: var(--shadow-card); transition: translate var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out); }
 .btn:active { translate: 3px 3px; box-shadow: 2px 2px 0 var(--color-accent-2); }
+.btn--secondary { background: transparent; color: var(--color-ink); }
+.well, .photo { background: var(--color-paper-2); border: var(--rule-bar) solid var(--color-rule); border-radius: var(--radius-card); }
+.crt { position: relative; isolation: isolate; }
+.crt::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    repeating-linear-gradient(to right, color-mix(in oklab, var(--color-crt-r) 5%, transparent) 0 1px, color-mix(in oklab, var(--color-crt-g) 5%, transparent) 1px 2px, color-mix(in oklab, var(--color-crt-b) 5%, transparent) 2px 3px),
+    repeating-linear-gradient(to bottom, transparent 0 2px, color-mix(in oklab, var(--color-shade) 16%, transparent) 2px 3px); }
 ```

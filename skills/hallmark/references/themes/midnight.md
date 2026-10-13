@@ -2,79 +2,90 @@
 name: Midnight
 slug: midnight
 genre: atmospheric
-paper: dark 15 250
-display: grotesk-sans Geist
-accent: cool 220
-posture: restrained
-keywords: ai tool, generative, model playground, render, pipeline, observability, console, dark mode, nocturnal, late-night, after-hours, moody, cinematic, cerebral, calm, technical, midnight
-material: midnight-blue ground, cool near-white ink, thin Geist at scale, one azure signal, depth in lightness steps
-signature: a Geist 300 headline set large and airy over layered blue-dark surfaces seamed by hairlines
-pictured: Narrative Workflow, Settled hero
+paper: dark 14 264
+display: grotesk-sans Mona Sans
+accent: cool 230
+posture: committed
+keywords: render, 3d, animation, vfx, film, video, frames, pipeline, generative, ai tool, model playground, dark mode, nocturnal, late-night, after-hours, overnight, moody, cinematic, cerebral, calm, technical, midnight
+material: midnight-blue ground to every edge, cool white ink, Mona Sans expanded at 300 over its normal width, square-cut surfaces in lightness steps, photographs as moonlight, one azure signal
+photo: duotone paper ink-2
+pictured: Feature Stack, Stage hero
 ---
 
 # Midnight
 
-A midnight-blue ground, cool near-white ink, Geist 300 set large and airy over three paper steps seamed by 1px hairlines, and one azure signal under 5%. Depth is a lightness step, never a lamp.
+A cold, calm night instrument whose blue is the ground itself: deep midnight blue to every edge, cool white ink, Mona Sans at an expanded 300 for the heads like titles on a film, the same family at its normal width for reading, surfaces cut square in steps of lighter blue, and one azure signal. Photographs arrive as moonlight, their shadows in the ground's blue and their highlights in the ink. It is not a neon dark mode, not frosted glass, and not a black page with a blue button.
 
 ## Tokens
 
 ```css
 :root {
-  --color-paper: oklch(15% 0.022 250); --color-paper-2: oklch(20% 0.024 250); --color-paper-3: oklch(25% 0.026 250);
-  --color-ink: oklch(95% 0.008 230); --color-ink-2: oklch(86% 0.010 230); --color-muted: oklch(66% 0.014 235);
-  --color-rule: oklch(33% 0.024 245); --color-rule-2: oklch(48% 0.020 240);
-  --color-accent: oklch(72% 0.16 220); --color-accent-ink: oklch(15% 0.022 250); --color-focus: oklch(78% 0.15 220);
-  --font-display: "Geist", ui-sans-serif, system-ui, sans-serif; --font-body: var(--font-display);
-  --font-outlier: "Geist Mono", ui-monospace, monospace;
-  --radius-card: 8px; --radius-pill: 8px; --rule-hair: 1px;
-  --shadow-card: 0 8px 24px -12px oklch(5% 0.02 250 / 0.6);
-  --tracking-display: -0.03em; --display-weight: 300;
+  --color-paper: oklch(14% 0.048 264); --color-paper-2: oklch(18.5% 0.052 264); --color-paper-3: oklch(23% 0.055 264);
+  --color-ink: oklch(95% 0.016 250); --color-ink-2: oklch(88% 0.05 245); --color-muted: oklch(71% 0.04 256);
+  --color-rule: oklch(29% 0.058 264); --color-rule-2: oklch(40% 0.06 262);
+  --color-accent: oklch(80% 0.11 230); --color-accent-ink: oklch(16% 0.05 264); --color-focus: oklch(84% 0.12 228);
+  --font-display: "Mona Sans", ui-sans-serif, system-ui, sans-serif; --font-body: var(--font-display); --font-outlier: var(--font-display);
+  --radius-card: 0; --radius-pill: 0; --rule-hair: 1px;
+  --shadow-card: 0 24px 48px -24px oklch(6% 0.04 264 / 0.7);
+  --tracking-display: -0.015em; --display-weight: 300; --display-stretch: 125%;
 }
 ```
 
-## Faces
+## Type
 
-- **Display:** Geist 300, `--tracking-display`, up to 5.25rem, line-height 1.05; roman. Light weight at large size is the theme's face: spacious, cold, calm. Never the genre's 600.
-- **Body:** Geist 400 and 500 at a 60ch measure. Single family: the cold comes from ground and ink, never from a font swap.
-- **Labels, captions, table heads, meta, status:** Geist 500 one step smaller, sentence case, `--color-muted`. Mono is not this theme's material; Geist Mono appears only inside code and on figures that compare (a token count, a latency column).
+- **Display:** Mona Sans 300 at the expanded width (`--display-stretch`) on `h1` and `h2`, `--tracking-display`, line-height 1.04, sentence case, roman. The wide light cut is the voice, calm and cold; a head that runs long steps down to `--text-display-s` rather than closing up. Item titles (`h3`) take Mona Sans 500 at the normal width.
+- **Body:** Mona Sans 400 at the normal width, line-height 1.6. One family at two widths: the cold comes from the ground and the ink, never from a second face.
+- **Labels, captions, table heads, meta, status:** Mona Sans 500 a step smaller, sentence case, untracked, `--color-muted`.
+- **Figures:** tabular Mona Sans wherever numbers compare (frames, hours, pence); no mono anywhere. A figure that is the point may take the display cut at 300.
 
-## Material
+## Surfaces
 
-- Depth by lightness: three paper steps seamed by 1px `--color-rule`; a surface that must lift takes `--shadow-card`, offset and blur in the ground's own dark. No bloom, no radial light, no coloured halo: the atmosphere is the void, the blue ground and the airy type.
-- Radius 8px, small and even, on surfaces, controls, chips and inputs alike; neither pill nor ruler-sharp.
-- The signal under 5%: the one primary control, a link hover, an active nav item, a single large figure. Never a wash, never a gradient, never a second light.
-- The control pair: an azure-filled primary with `--color-accent-ink` text beside a secondary bordered in `--color-rule-2`, both at 8px.
-- The object family: instrument panels. A console pane, a run log, a metric strip, a settings sheet, each a `paper-2` surface with a hairline seam and a plain Geist header. Nothing glass, nothing blurred.
+- No outlines on surfaces: depth is a step of lightness from paper to paper-2 to paper-3, cut square at radius 0 like a frame. A lifted surface takes `--shadow-card` in the ground's own dark. A 1px `--color-rule` parts rows inside a dense product table and nowhere else.
+- Bands: `--color-paper-2` or `--color-paper-3`, two a page at most; never an azure field and never a light band.
+- Photographs: low-key pictures of light after dark, architecture at night, a lit window or stairwell, a long corridor, a city seen from above, one subject held still and cropped wide (16:9, 21:9) or tall (4:5). The duotone runs from the paper to the pale moon blue of ink-2, so a frame's shadows are the ground and its light is moonlight; a daylight or high-key picture turns to a pale sheet, so pick night. Frames are square with a 1px inset outline of ink at 8%; text on a photograph sits on its darkest part over a paper scrim at 40 to 65%; a caption beneath, in the label style, gives the hour or the frame.
+- No texture, no glass, no blur, no bloom.
+
+## Controls
+
+- The pair: a solid azure rectangle with `--color-accent-ink` text beside a secondary outlined in `--color-rule-2`, both square, Mona Sans 500.
+- Links take an azure underline on hover; inputs sit on `--color-paper-2` with a 1px `--color-rule` edge, square.
+- The azure stays under 5%: the one primary control, a link's hover, an active nav item, one progress value or one figure. It is never a field, a gradient or a second light.
 
 ## Motion
 
-One settle: the hero fades from 0.6 to 1 over `--dur-long` on `--ease-out`, once, from an already-visible default. Hover: a link's underline turns azure; a border lifts to `--color-rule-2` on a focusable surface. No slide, no parallax, no autoplay.
+One settle: the hero's text fades from 0.6 to 1 over `--dur-long` on `--ease-out`, once, from an already-visible default. Hover steps a surface one lightness up. A product value changes when its source does; nothing slides, loops or follows the cursor.
 
 ## Voice
 
-Cool, spare, a touch cerebral. Name the command or the number. Never hype.
+Cool and spare, the night shift's register: the hour, the count, the cost. Short declaratives; a number always carries its unit or its time. Never hype, never a superlative.
 
 ## Do-nots
 
 - Never a warm accent (amber, orange, gold); the light here is cold.
-- Never a heavy display weight; Geist 300 is the face, and 600 makes it another theme.
-- Never a lamp: no radial glow behind the hero, no halo on a card. The light is the ink, not a source in the ground.
-- Never a light-paper section; dark end to end.
-- Never a serif anywhere; one sans family and its cold.
+- Never a heavy display weight or a head at the normal width; the expanded 300 is the face.
+- Never a lamp: no radial glow, no halo, no lit edge on a card. The light is the ink and the photographs.
+- Never a rounded corner or a light section; dark and square end to end.
+- Never a photograph in its own colours beside the duotone, and never a daylight scene.
 
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wdth,wght@100,400;100,500;125,300&display=swap" rel="stylesheet">
 ```
 
 ```css
-.display { font: var(--display-weight) var(--text-display)/1.05 var(--font-display); letter-spacing: var(--tracking-display); color: var(--color-ink); }
-.panel { background: var(--color-paper-2); color: var(--color-ink); border: 1px solid var(--color-rule); border-radius: var(--radius-card); }
-.panel--raised { background: var(--color-paper-3); color: var(--color-ink); border-color: transparent; box-shadow: var(--shadow-card); }
-.btn { border-radius: var(--radius-card); padding: var(--space-sm) var(--space-md); font-weight: 500; }
+h1, h2 { font-weight: var(--display-weight); font-stretch: var(--display-stretch); line-height: 1.04; }
+h3 { font-weight: 500; }
+.num, td.num { font-variant-numeric: tabular-nums; }
+.well { background: var(--color-paper-2); border-radius: var(--radius-card); }
+.well--raised { background: var(--color-paper-3); box-shadow: var(--shadow-card); }
+.btn { border: var(--rule-hair) solid transparent; background: none; border-radius: var(--radius-pill); padding: var(--space-sm) var(--space-lg); font-weight: 500; color: var(--color-ink); transition: background-color var(--dur-short) var(--ease-out); }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
-.btn--secondary { border: 1px solid var(--color-rule-2); color: var(--color-ink); }
+.btn--secondary { border-color: var(--color-rule-2); }
+.btn--secondary:hover { background: var(--color-paper-2); }
 a:hover { text-decoration-color: var(--color-accent); }
+.photo { outline: var(--rule-hair) solid color-mix(in oklab, var(--color-ink) 8%, transparent); outline-offset: calc(var(--rule-hair) * -1); }
+.settle { animation: settle var(--dur-long) var(--ease-out) both; }
+@keyframes settle { from { opacity: 0.6; } }
 ::selection { background: color-mix(in oklab, var(--color-accent) 30%, transparent); color: var(--color-ink); }
 ```

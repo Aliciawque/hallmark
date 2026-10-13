@@ -6,13 +6,13 @@ Content-led briefs: portfolios, manifestos, type specimens, agency sites, magazi
 
 - **Faces** (a theme names its own; this is for a custom run): a roman serif, a condensed sans or a display-heavy face at an extreme weight (300, or 700 and up), never a default sans; a workhorse serif or a plain non-default sans for the body.
 - **Accent:** one hue, held to the posture's footprint.
-- **Layout:** asymmetric; hairlines, not card borders; generous air.
+- **Layout:** asymmetric; hairlines, not card borders; type set large enough to hold its screen.
 - **Motion:** quiet, one orchestrated entrance.
 - **Copy:** specific, hand-set, slightly literary; verbs over adjectives.
 
 ## Allowed here
 
-Hairline rules, fleurons, drop caps, double rules; italic inside running body copy; asymmetric column ratios (2:5, 3:7); hand-built SVG and pure CSS art; edge-aligned headlines; a single `<mark>` band behind the x-height.
+Hairline rules, fleurons, drop caps, double rules; italic inside running body copy; asymmetric column ratios (2:5, 3:7); photographs in the theme's treatment, captioned with facts; edge-aligned headlines; a single `<mark>` band behind the x-height.
 
 ## Refused here
 

@@ -6,7 +6,7 @@ Polemical large type. The page tells the reader what to believe before it tells 
 - **Body:** short paragraphs, each one assertion, large enough to read across the room.
 - **Divider:** changes of paper between sections, or the theme's own rules; never a card.
 - **Button:** one solid block in the accent; the fold carries it beside or under the declaration (44b), and it returns at the foot as the page's last word.
-- **Image:** none, or one high-contrast black-and-white photograph as a section bleed.
+- **Image:** none when the cause is an idea; when it is physical (repair, housing, a river), photographs of it in the theme's treatment, one a screen at most.
 - **Reveal:** one horizontal sweep, on the first claim below the fold; the rest is simply there.
 
 Reach for it for repositioning announcements, mission-led indie products, a studio's beliefs page.

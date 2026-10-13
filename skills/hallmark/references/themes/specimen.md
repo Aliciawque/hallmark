@@ -7,14 +7,14 @@ display: high-contrast-serif Bodoni Moda
 accent: cool 262
 posture: restrained
 keywords: typography, type specimen, foundry, letterform, portfolio, editorial, magazine, essay, type studio, agency, brand story, print, publication, craft, considered, literary
-material: warm oat paper, a Didone set enormous and thin, hairlines, one cool ink-blue mark
-signature: a single Bodoni Moda word at specimen scale whose hairlines nearly vanish, over a ruled page
-pictured: Type Specimen, Poster hero
+material: warm oat paper, warm near-black ink, razor-hairline Bodoni Moda over Geist, square 1px rules, one ink-blue signal
+photo: duotone ink paper con=8
+pictured: Type Specimen, Settled hero
 ---
 
 # Specimen
 
-Warm oat paper, Bodoni Moda 400 at opsz 96 set enormous so its hairlines nearly vanish against the stems, a Geist body, ruler-drawn 1px rules, and one ink-blue mark under 5%.
+A foundry's material: warm oat paper, warm near-black ink, Bodoni Moda 400 pinned at its highest optical size so the hairlines thin to a razor against the stems, a Geist body beneath it, square 1px rules and one ink-blue signal. It reads as hand-set and exact because all the contrast lives inside the letters, none in colour or depth. It is not a cream luxury page with a terracotta accent, and not a fashion masthead in bold Didone.
 
 ## Tokens
 
@@ -24,7 +24,7 @@ Warm oat paper, Bodoni Moda 400 at opsz 96 set enormous so its hairlines nearly 
   --color-ink: oklch(18% 0.014 60); --color-ink-2: oklch(26% 0.014 60); --color-muted: oklch(48% 0.014 65);
   --color-rule: oklch(80% 0.016 75);
   --color-accent: oklch(46% 0.17 262); --color-accent-ink: oklch(96% 0.018 80); --color-focus: oklch(50% 0.18 262);
-  --font-display: "Bodoni Moda", serif; --font-body: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bodoni Moda", ui-serif, Georgia, serif; --font-body: "Geist", ui-sans-serif, system-ui, sans-serif;
   --font-outlier: "Geist Mono", ui-monospace, monospace;
   --radius-card: 0; --radius-pill: 0; --rule-hair: 1px;
   --shadow-card: none;
@@ -32,23 +32,29 @@ Warm oat paper, Bodoni Moda 400 at opsz 96 set enormous so its hairlines nearly 
 }
 ```
 
-## Faces
+## Type
 
-- **Display:** Bodoni Moda 400, `"opsz" 96`, `--tracking-display`, up to 5.75rem, line-height 1.02; roman. Set enormous, the hairlines thin to a razor against the stems, and that contrast is the graphic.
-- **Body:** Geist 400 and 500, 62ch, line-height 1.5; the sans under the Didone is the tension. Bodoni Moda italic is a body-level device only (a pulled line at text size, one emphasised word in running text) and never enters a head.
-- **Labels, captions, folios, table heads, meta:** Geist 500 one step smaller, sentence case, `--color-muted`. Mono is not this theme's material; Geist Mono appears only inside code and on figures that compare.
+- **Display:** Bodoni Moda 400, `--tracking-display`, line-height 1.02, sentence case, roman. `h1` and `h2` take `"opsz" 96` (`--display-optical`), where the hairline nearly vanishes against the stem and that contrast is the graphic; an `h3` lets the axis follow its size (`font-optical-sizing: auto`), since a razor hairline breaks at 25px.
+- **Body:** Geist 400 and 500, line-height 1.5; the plain sans under the Didone is the tension. Bodoni Moda italic stays inside running text, one emphasised word at most, and never enters a head.
+- **Labels, captions, table heads, meta:** Geist 500 a step smaller, sentence case, `--color-muted`. Mono is not this theme's material: Geist Mono appears only inside code and on figures that compare (a size, a weight, a price).
 
-## Material
+## Surfaces
 
-- Hairlines, square corners, no shadow: 1px `--color-rule` on structure, inside tables and between columns, radius 0, nothing lifts. Rules, columns and one double rule, never boxed surfaces.
-- The object family is the specimen itself: a waterfall (one line per size), a character grid, a weight or optical ladder, a figure set with a folio, showing the display face.
-- Ornament without depth: a fleuron or a blue Bodoni Moda drop cap, set in the face it demonstrates.
-- The one mark under 5%: the drop cap, a link underline, one control, a single figure. Never a fill behind type, never a band, never a second hue.
-- The control pair: an ink-filled rectangle beside a hairline-outlined one, both square. No texture, no gradient, no mesh.
+- 1px `--color-rule` hairlines on divisions, on table rows and between columns; a double rule (3px `double`) is the one heavier rule, once a page at most. Radius 0 on everything.
+- No depth: nothing lifts and nothing casts a shadow. A well is a paper step (`--color-paper-2`) under a hairline, never a boxed card.
+- Bands: a `--color-paper-2` band, or one `--color-ink` band with oat type, where the Didone reads at its sharpest; two bands a page at most, never a blue one.
+- Photographs: one at most, the face in print: a book open on a desk, a page under raking light, a printed sheet, metal sorts in a case; close, in soft daylight, cropped to the type. It prints in the ink on the oat (the `photo:` duotone) so it reads as a plate in the specimen: square, a 1px `--color-rule` hairline, no shadow, eight columns or the full width. Its caption sits beneath in Geist and names the setting (the face, the size, the paper); type never sits on it.
+- No texture, no mesh, no gradient behind type: the oat is a colour, not a paper scan.
+
+## Controls
+
+- The control pair: an ink-filled rectangle with oat text beside a 1px ink-outlined one, both square, Geist 500.
+- Links carry a 1px ink-blue underline at 0.18em that thickens on hover; inputs are square with a 1px `--color-rule` border and the `--color-focus` ring.
+- The blue stays under 5% of a screen: a link underline, the focus ring, one control, one figure. Never a fill behind type, never a second hue.
 
 ## Motion
 
-Nothing moves except state: a blue underline grows under a link on hover. No reveal, no settling ladder, nothing loops.
+Nothing moves except state: the blue underline thickens under a link on hover. No reveal, nothing loops.
 
 ## Voice
 
@@ -56,9 +62,9 @@ Editorial, hand-set, lightly literary. Verbs over adjectives; name the face, the
 
 ## Do-nots
 
-- Never a heavy display; Bodoni Moda stays at 400, and bold turns the Didone into a crown.
-- Never an optical size under 72 on display type; fat hairlines are the theme's most common failure.
-- Never a warm accent; the one mark is ink blue, and the warmth comes from the oat.
+- Never a heavy display; Bodoni Moda stays at 400, and bold turns the Didone into a fashion masthead.
+- Never an optical size under 72 on an `h1` or `h2`; fat hairlines are this theme's most common failure.
+- Never a warm accent; the signal is ink blue, and the warmth comes from the oat.
 - Never cool paper; the ground is oat, hue 80, and every neutral tints toward it.
 - Never rounded corners, pills, shadows or texture. Square, hairline, flat.
 
@@ -69,12 +75,16 @@ Editorial, hand-set, lightly literary. Verbs over adjectives; name the face, the
 ```
 
 ```css
-.display { font: var(--display-weight) var(--text-display)/1.02 var(--font-display); font-variation-settings: "opsz" var(--display-optical); letter-spacing: var(--tracking-display); }
-.waterfall > * { border-top: var(--rule-hair) solid var(--color-rule); padding-block: var(--space-xs); font-family: var(--font-display); font-variation-settings: "opsz" 96; }
-.dropcap::first-letter { float: left; font: 400 3.6em/0.82 var(--font-display); color: var(--color-accent); padding-right: 0.08em; }
-.btn { border-radius: 0; padding: var(--space-sm) var(--space-lg); font-weight: 500; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: var(--display-weight); letter-spacing: var(--tracking-display); line-height: 1.02; }
+h1, h2 { font-variation-settings: "opsz" var(--display-optical); }
+h3 { font-optical-sizing: auto; line-height: 1.15; }
+.btn { border: var(--rule-hair) solid var(--color-ink); border-radius: var(--radius-card); padding: var(--space-sm) var(--space-lg); font-weight: 500; }
 .btn--primary { background: var(--color-ink); color: var(--color-paper); }
-.btn--secondary { border: 1px solid var(--color-ink); color: var(--color-ink); }
+.btn--secondary { background: transparent; color: var(--color-ink); }
+.well { background: var(--color-paper-2); border-top: var(--rule-hair) solid var(--color-rule); }
+.rule--double { border: 0; border-top: 3px double var(--color-rule); }
+.photo > img { outline: var(--rule-hair) solid var(--color-rule); outline-offset: -1px; }
 a { text-decoration-color: var(--color-accent); text-underline-offset: 0.18em; }
+a:hover { text-decoration-thickness: 2px; }
 ::selection { background: color-mix(in oklab, var(--color-accent) 22%, transparent); }
 ```

@@ -7,14 +7,14 @@ display: display-condensed Saira Condensed
 accent: chromatic-volt 120
 posture: restrained
 keywords: running, marathon, race, training, fitness, gym, team, league, fixtures, standings, scoreboard, athletics, performance, splits, sportswear, club, match, tournament
-material: cool concrete paper, blue-black ink, uppercase Saira Condensed, tabular mono figures, one volt stripe
-signature: a split-time figure set larger than its label beside a single volt lane stripe
-pictured: Stat-Led, Ledge hero
+material: cool concrete paper, blue-black ink, uppercase Saira Condensed over Albert Sans, tabular mono figures, two-weight rules, one volt fill
+photo: duotone ink paper con=20
+pictured: Marquee Hero, Poster hero
 ---
 
 # Sport
 
-Cool concrete paper, blue-black ink, Saira Condensed 700 uppercase heads, JetBrains Mono tabular figures set larger than their labels, and one volt lane stripe as the page's only colour. Volt is a fill: ink sits on it, and it never sets a letter on paper.
+A results-sheet material: cool concrete paper, blue-black ink, Saira Condensed 800 in capitals over an Albert Sans body, JetBrains Mono figures set larger than their labels, hairlines and one heavier bar rule, and volt as the only colour. Volt is a fill: ink sits on it, and it never sets a letter on paper. Photographs print in the ink, like a race programme. It reads fast because of the condensed caps, the numbers and the action, never a slant or a gradient; it is not a sportswear advert and not a neon gaming page.
 
 ## Tokens
 
@@ -24,61 +24,70 @@ Cool concrete paper, blue-black ink, Saira Condensed 700 uppercase heads, JetBra
   --color-ink: oklch(16% 0.080 260); --color-ink-2: oklch(22% 0.060 258); --color-muted: oklch(50% 0.020 250);
   --color-rule: oklch(78% 0.008 250); --color-rule-2: oklch(36% 0.060 255);
   --color-accent: oklch(88% 0.200 120); --color-accent-ink: oklch(16% 0.080 260); --color-accent-deep: oklch(58% 0.145 125);
-  --color-focus: oklch(58% 0.145 125);
+  --color-focus: oklch(58% 0.145 125); --color-slot: oklch(76% 0.07 258);
   --font-display: "Saira Condensed", sans-serif; --font-body: "Albert Sans", ui-sans-serif, sans-serif;
   --font-outlier: "JetBrains Mono", ui-monospace, monospace;
   --radius-card: 4px; --radius-pill: 4px; --rule-hair: 1px; --rule-bar: 2px;
   --shadow-card: none;
-  --tracking-display: -0.015em; --display-weight: 700;
+  --tracking-display: -0.015em; --display-weight: 800;
 }
 ```
 
-## Faces
+## Type
 
-- **Display:** Saira Condensed 700, uppercase, `--tracking-display`, line-height 1.02; upright, roman. A true condensed design, so the caps stack without crowding; the tension is in the caps and tracking, not a slant.
-- **Body:** Albert Sans 400 and 500 at a 58ch measure.
-- **Figures:** JetBrains Mono with `font-variant-numeric: tabular-nums` for times, splits, scores and distances, set larger than the label beside them. The stopwatch voice: the only place mono goes, a measurement, not the material.
-- **Labels, captions, table heads, meta, units, bib tags:** Albert Sans 500 one step smaller, sentence case, `--color-muted`; on a volt fill every word is the ink.
+- **Display:** Saira Condensed 800, uppercase, `--tracking-display`, line-height 1.02, upright, roman. A true condensed design, so the caps stack without crowding, even at poster scale over a photograph; the speed is in the caps, never a slant.
+- **Body:** Albert Sans 400 and 500, sentence case.
+- **Figures:** JetBrains Mono 500 with `tabular-nums` for times, splits, scores and distances, a step or more larger than the label beside them. A measurement, not the material: mono goes nowhere else.
+- **Labels, captions, table heads, units:** Albert Sans 500 a step smaller, sentence case, untracked, `--color-muted`; on a volt fill every word is the ink.
 
-## Material
+## Surfaces
 
-- The two-weight rule system, never boxed cards: `--rule-hair` hairlines rule rows and grids; the `--rule-bar` rule in `--color-rule-2` frames a figure and breaks a section. Depth from rules, never shadows.
-- The single lane stripe: one vertical or diagonal volt bar (a lane, a finish line) in `--color-accent`, pure CSS, placed once as the page's kinetic graphic, never repeated.
-- Radius 4px on a control; no pills, no hard-offset shadow, no gradient, no texture: concrete is a colour, not a photograph.
-- The volt under 5% and always a fill under ink: a bib number, one primary control, an active row, the stripe. A link underline or any mark on paper that must read takes `--color-accent-deep`, which holds 3:1. The control pair: a volt-filled block with ink text beside one bordered 2px in ink, both 4px.
-- The object family: the results board. A standings table, a split readout, a race-bib crop, a fixtures list, each ruled hairline and closed with the bar rule, figures in mono.
+- Two rule weights, never boxed cards: `--rule-hair` in `--color-rule` rules rows and grids; the `--rule-bar` in `--color-rule-2` opens and closes a table and breaks a section.
+- Radius 4px on controls, inputs and photographs; no pills.
+- Depth from rules and paper steps, never shadows: a well is `--color-paper-2` under a bar rule.
+- Bands: a `--color-paper-2` band, or one `--color-ink` band with paper type; two a page at most, never a volt band.
+- Photographs: race photography at the runner's eye or lower: a pack mid-stride, legs and shoes on tarmac, a road climbing a valley side, a number being pinned on; hard daylight, the motion sharp, cropped tight, nobody posing. Printed in the ink on the paper (the `photo:` duotone), 4px radius, an inset ink hairline at 8%. Type on a photograph is paper over an ink scrim from its edge; a volt figure may hold a frame's corner with a fact (the mile, the time).
+- No texture, no gradient but a photograph's scrim, no hard-offset shadow.
+
+## Controls
+
+- The control pair: a volt-filled block with ink text beside one bordered 2px in ink, both 4px, set in the display face's capitals with no added tracking; on a photograph the second takes paper.
+- Links grow a `--color-accent-deep` underline on hover (3:1 on paper); inputs are 4px with a 1px `--color-rule` border and the `--color-focus` ring.
+- The volt is always a fill under ink and under 5% of a screen: the primary control, an active row, one highlighted figure.
 
 ## Motion
 
-Nothing moves except state: a deep-volt underline grows under a link on hover, a row lifts one paper step. No count-ups, no reveal, no parallax.
+Nothing moves except state and live data: a deep-volt underline grows under a link on hover, a row lifts one paper step, a live split changes in place, never counting up. No reveal, no parallax.
 
 ## Voice
 
-Imperative, kinetic, numbered. Caps on the head, sentence case in the body. Numerals over words; verbs and numbers, not adjectives.
+Race-briefing plain: the distance, the time, the place, as a marshal calls them. Imperative heads in capitals, sentence case below, numerals over words, verbs over adjectives.
 
 ## Do-nots
 
-- Never slant the display; the lean comes from tracking and layout.
-- Never loosen the display tracking past zero, and never tighten it until two capitals touch; a true condensed face already sits close.
+- Never slant or italicise the display; the upright condensed cap is the speed.
+- Never loosen the display tracking past zero, or tighten it until two capitals touch.
 - Never warm paper; the ground is cool concrete, hue 250.
-- Never volt type, a volt hairline on paper, a second accent or a duotone; one volt, as a fill.
-- Never stadium skeuomorphism: no grass, jersey mesh, medal or trophy.
+- Never volt type, a volt hairline on paper or a second accent; photographs print in the ink, never in their own colour.
+- Never a medal, trophy, podium or jersey texture, drawn or photographed; the race is the road and the runners.
 
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@700&family=Albert+Sans:wght@400;500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@800&family=Albert+Sans:wght@400;500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 ```
 
 ```css
-.display { font: var(--display-weight) var(--text-display)/1.02 var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-display); color: var(--color-ink); }
+h1, h2, h3 { font-family: var(--font-display); font-weight: var(--display-weight); letter-spacing: var(--tracking-display); text-transform: uppercase; line-height: 1.02; }
 .figure { font: 500 var(--text-2xl)/1 var(--font-outlier); font-variant-numeric: tabular-nums; color: var(--color-ink); }
-.rule { border-top: var(--rule-bar) solid var(--color-rule-2); }
-.board tr { border-top: var(--rule-hair) solid var(--color-rule); }
-.lane { position: absolute; inset-block: 0; width: 12px; background: var(--color-accent); }
-.btn { border-radius: var(--radius-card); padding: var(--space-sm) var(--space-lg); border: var(--rule-bar) solid transparent; font: 700 var(--text-md)/1.25 var(--font-display); text-transform: uppercase; }
+.btn { border: var(--rule-bar) solid transparent; border-radius: var(--radius-card); padding: var(--space-sm) var(--space-lg); font: var(--display-weight) var(--text-md)/1.25 var(--font-display); text-transform: uppercase; }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
-.btn--secondary { border: 2px solid var(--color-ink); color: var(--color-ink); }
+.btn--secondary { border-color: var(--color-ink); color: var(--color-ink); }
+.well { background: var(--color-paper-2); border-top: var(--rule-bar) solid var(--color-rule-2); }
+.rule { border-top: var(--rule-bar) solid var(--color-rule-2); }
+th, td { border-top: var(--rule-hair) solid var(--color-rule); }
+.photo { border-radius: var(--radius-card); outline: 1px solid color-mix(in oklab, var(--color-ink) 8%, transparent); outline-offset: -1px; }
+.scrim { background: linear-gradient(to top, color-mix(in oklab, var(--color-ink) 70%, transparent), transparent 60%); color: var(--color-paper); }
 a:hover { text-decoration-color: var(--color-accent-deep); }
 ::selection { background: var(--color-accent); color: var(--color-ink); }
 ```

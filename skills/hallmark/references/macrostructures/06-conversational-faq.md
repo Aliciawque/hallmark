@@ -11,7 +11,7 @@ Bold questions, brief answers. The page reads like an honest interview with the 
 
 Reach for it near pricing, for products that meet scepticism, for regulated or educational fields.
 
-Avoid as the primary page. FAQ usually pairs with another shape that opens the page.
+As the primary page it opens with a hero that asks the first question; otherwise it pairs with another shape that opens the page.
 
 ```html
 <section class="faq">

@@ -13,7 +13,7 @@ Reach for it for SaaS feature pages, developer tools that pair explanation with 
 
 Avoid for narrative or photographic brands. Split halves the attention; some pages need one focus.
 
-Code: [`../components/h2-split-diptych.md`](../components/h2-split-diptych.md).
+Compositions: Split (`layout.md` § 5), the proof keeping its side.
 
 **Sample opening lines** (a positioning statement paired with a proof column):
 > *"A studio for what comes next."* Italic display beside a selected-work column.

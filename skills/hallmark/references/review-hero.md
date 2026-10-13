@@ -7,12 +7,12 @@ First line: `ship` or `fix`.
 Then at most five findings, one line each, worst first. Ask:
 
 - Does the headline say something only this product could say, in seven words or fewer?
-- Is the visual beside the text, real or a labelled slot, and does it hold its half of the screen? Where the shape puts no image in the fold (a Marquee, a Poster or a Banner hero), the type is the visual: does it fill the screen? At 1920 the container and the type hold their 1440 size by rule, so extra air there is not a finding.
-- Does anything read as a template: a centred stack, a pill or a label above the headline, a gradient blob, a drawn dashboard standing in for a product, two filled buttons side by side? A filled primary beside an outlined or text action that goes somewhere else is the control pair, and a slot's sketch of the product's own structure is its placeholder; neither is a finding.
-- Is the signature move on this screen?
+- Is the content centred in the screen, or does it stop early over a band of nothing? Is the visual beside the text, a real picture (the user's, a photograph, the product built), and does it hold its half of the screen at 60% of its height or more? Where the shape puts no image in the fold (a Marquee, a Poster or a Banner hero), the type is the visual: does it fill the screen? At 1920 the container and the type hold their 1440 size by rule, so extra air there is not a finding.
+- Does anything read as a template: a centred stack, a pill or a label above the headline, a gradient blob, an empty coloured box where a picture should be, a drawn illustration, a row of counting marks, two filled buttons side by side? A filled primary beside an outlined or text action that goes somewhere else is the control pair, and a sample of the product built in a slot is the product; neither is a finding. Grey bars or outline cards inside a slot are.
+- Is the page's signature, its strongest real thing, on this screen? Delete the picture in your head: if the screen still says the same thing, the picture is too weak or too small.
 - Does the type carry the theme at this size?
 - With the theme's picture: is this first screen as finished as its first screen, in a composition of its own?
 
 On a redesign the page's content is fixed and what sits below the first screen is the old page, not yet rebuilt: neither is a finding. Never ask for copy, an action or a visual the page does not have; say in one line what the owner could supply.
 
-What the theme file prescribes (its blooms, its control pair) or refuses is not a finding. Do not fix anything.
+What the theme file prescribes (its blooms, its control pair) or refuses is not a finding. Where the theme file and its picture disagree, the theme file wins over its picture. Do not fix anything.

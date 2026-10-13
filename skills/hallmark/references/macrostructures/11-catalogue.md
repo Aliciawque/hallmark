@@ -13,7 +13,7 @@ Reach for it for foundries, palette tools, font shops, colour systems, capsule c
 
 Avoid for narrative brands. Catalogue treats every item as equal, wrong for a product with hierarchy.
 
-Code: [`../components/f6-product-card-grid.md`](../components/f6-product-card-grid.md).
+Compositions: Grid (`layout.md` § 5), one card per item: its image, name, price and one action.
 
 **Sample opening lines** (inventory headers: dated, with a count):
 > *"Today's loaves."* Two words, ownership of the day (Maple Street Bread).

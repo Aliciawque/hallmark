@@ -7,14 +7,14 @@ display: display-condensed Oswald
 accent: warm 38
 posture: restrained
 keywords: construction, concrete, skatepark, contractor, civil, landscape, foundry, industrial, fabrication, workshop, engineering, cast, welded, builders, hardware, tools, site, heavy
-material: a poured concrete surface with board lines and tie holes, condensed caps in ink, one safety orange on plates and numbers, drawings built from a radius
-signature: an orange plate button on a three-pixel cast shadow, set on a concrete surface that shows the lines of its boards
-pictured: Split Studio, Ledge hero
+material: warm grey concrete paper with a speck grain, near-black ink, Oswald capitals over Archivo, square cast edges and hard shadows, hard black-and-white photographs of poured concrete, one safety orange signal
+photo: natural sat=-100 con=35 exp=8
+pictured: Site Board, Stage hero
 ---
 
 # Formwork
 
-A warm grey concrete surface that keeps its board lines and tie holes, Oswald capitals in ink, safety orange on the plate button and the numbers, sections drawn as SVG from a radius. The signature is an orange plate button on a 3px cast shadow over the board-lined wall.
+A site-office voice: warm grey concrete for paper, near-black ink, Oswald 700 capitals over Archivo, square cast edges, hard shadows and one safety orange. It feels heavy and exact because the surface is poured, every edge is straight and the photographs show the concrete itself in black and white, so the orange is the only colour on the page. It is not a black-and-yellow hazard page and not a glossy architecture portfolio.
 
 ## Tokens
 
@@ -26,8 +26,7 @@ A warm grey concrete surface that keeps its board lines and tie holes, Oswald ca
   --color-rule: oklch(64% 0.01 80);
   --color-accent: oklch(66% 0.21 38); --color-accent-ink: oklch(18% 0.005 270); --color-focus: oklch(42% 0.15 38);
   --color-accent-deep: oklch(48% 0.17 38);
-  --color-tie: oklch(58% 0.01 80); --color-seam-light: oklch(97% 0.01 80); --color-seam-dark: oklch(8% 0.01 80);
-  --texture-opacity: 0.08;
+  --texture-opacity: 0.05;
   --font-display: "Oswald", ui-sans-serif, sans-serif; --font-body: "Archivo", ui-sans-serif, sans-serif;
   --font-outlier: "Archivo Narrow", ui-sans-serif, sans-serif;
   --radius-card: 0; --radius-pill: 0; --rule-hair: 1px; --rule-bar: 3px;
@@ -36,43 +35,51 @@ A warm grey concrete surface that keeps its board lines and tie holes, Oswald ca
 }
 ```
 
-Three pours, stated in the stamp (`formwork: cast`). Muted sits on the wall only; on a slot or a darker step the text is ink.
+Three pours, stated in the stamp (`formwork: cast`). Muted sits on paper and paper-2 only; on anything darker the text is ink.
 
 | Pour | Wall and ink | Orange |
 | --- | --- | --- |
-| **Cast** (default) | concrete `oklch(74% 0.008 80)` under near-black, grain multiplied | `oklch(66% 0.21 38)` |
+| **Cast** (default) | concrete `oklch(74% 0.008 80)` under near-black, grain multiplied across it | `oklch(66% 0.21 38)` |
 | **Night pour** | `oklch(27% 0.006 270)` under `oklch(95% 0.006 80)`, grain screened | `oklch(70% 0.21 40)` |
-| **Drawing** | tracing paper `oklch(95% 0.012 85)` with a 24px grid and no board lines, blue-black ink `oklch(22% 0.02 260)` | a red `oklch(58% 0.21 30)` |
+| **Drawing** | tracing paper `oklch(95% 0.012 85)` under blue-black ink `oklch(22% 0.02 260)`, no grain | a red `oklch(58% 0.21 30)` |
 
-## Faces
+## Type
 
-- **Display:** Oswald 700, uppercase, line-height 1.0 where a head can wrap (55a) and 0.92 only on a single nowrap line, `--tracking-display`; 48px for section heads, 84 to 90 for the page, 96 to 120 for figures. One colour per head. Roman.
-- **Body:** Archivo 400 and 500, 16 to 17px, line-height 1.5, in ink-2.
-- **Dimensions:** Archivo Narrow 500 at 12 to 13px, sentence case, tabular, the outlier, for every dimension on a drawing and the week number. Captions, meta and table heads: Archivo 500 one step smaller, sentence case. Plates and slots wear Oswald 700 at 13 to 15px uppercase, tracked 0.04em, following the display's capitals. No mono.
+- **Display:** Oswald 700, uppercase, `--tracking-display`, roman; line-height 1.0 to 1.05 (55a), 0.92 only on a line that cannot wrap. One colour per head. Condensed, a section head may take one step up (`--text-display-s`).
+- **Body:** Archivo 400 and 500, 16 to 17px, line-height 1.5, in `--color-ink-2`.
+- **Figures (the outlier):** Archivo Narrow 500, tabular, sentence case, for measurements and counts: a radius in millimetres, a depth, a week, a park's number.
+- **Labels, captions, table heads, meta:** Archivo 500 a step smaller, sentence case, untracked. No mono on the page.
 
-## Material
+## Surfaces
 
-- The wall: every surface carries the board lines (a 1px light and a 2px dark line every 96px) and tie holes on a 480 by 288 grid, drawn as gradients, plus grain from `texture.md` § Grain at `--texture-opacity`, multiplied (screened on the night pour). The one texture family.
-- Plates and slots: a button is a plate, raised on `0 3px 0` in the deep orange and nothing softer, or a slot, pressed in with `inset 0 2px 3px` and a 2px ink border.
-- Cards are cast: plate-coloured concrete, a `--rule-bar` ink border, a 6 to 8px block shadow in ink. Rules `--rule-bar` in ink across the top of a section, `--rule-hair` in paper-3 between rows.
-- Drawings are the object family: a section or a plan built from a radius, 2.5px ink outline, dashed construction lines, hatch under the slab, an orange coping dot, dimensions in Narrow.
-- The stripe: hazard stripes at 45 degrees in orange and ink, 14px each, along one edge of a band, at most twice a page.
-- No radius on anything; the only curves are the transition radii in a drawing. Orange stays under a twentieth of a screen: the plate, the coping dot, the numbers.
+- Rules: `--rule-bar` in ink across the top of a section or a table, `--rule-hair` in `--color-paper-3` between rows.
+- Radius 0 on everything; concrete is cast against straight boards.
+- Depth is cast, never soft: a card is `--color-plate` with a `--rule-bar` ink border and the hard `--shadow-card` in ink; nothing is blurred.
+- Bands: `--color-paper-2` (a darker pour) or one `--color-ink` band with `--color-paper` text; never an orange field. Two a page at most.
+- Photographs: concrete close and at work in hard daylight: a bowl's transition from the deck, board-marked walls, coping and edges, the pour and the float, a skater from behind or far off. Hard black and white, the whites clean and the blacks deep (the `photo:` line), so a picture stands off the grey paper and the orange stays the only colour. Square in a 2px ink frame, no shadow; a caption beneath in the label style; type on a photograph only over an ink scrim from its edge.
+- Texture, the grain: `texture.md` § 1 across the whole paper at `--texture-opacity` (0.05, so it may sit under running text), multiplied, screened on the night pour; it is what makes the paper read as cast.
+
+## Controls
+
+- The pair: an orange primary raised on a hard `0 3px 0` shadow in `--color-accent-deep` that presses down 3px on `:active`, beside a pressed-in secondary (`inset 0 2px 3px`, a 2px ink border). Both in Oswald 700 capitals, untracked, following the display; radio labels are labels, Archivo sentence case.
+- Links are ink, underlined, orange on hover; inputs are pressed in like the secondary.
+- Orange stays under 5% of a screen: the primary, one figure, the focus ring.
 
 ## Motion
 
-Concrete does not animate; the pour does. A radius picker redraws the section on click, a pour log lands its loads one by one when pressed, a pin moves where you click. Plates press in `--dur-micro`. Nothing on scroll, nothing ambient.
+Concrete does not move. A control presses in over `--dur-micro` on `--ease-out`; state lands at once. Nothing on scroll, nothing ambient.
 
 ## Voice
 
-The foreman's sheet: the radius in millimetres, the pour number, the week, the load.
+A foreman's plain talk: what was poured, where, for whom and when it opens. Short lines, every figure with its unit.
 
 ## Do-nots
 
-- Never a second accent; a blue link on the wall is a different site.
-- Never a rounded corner; concrete is cast against straight boards.
-- Never a photograph of the thing; the structure is a drawing and the photo lives in a slot.
-- Never a soft blurred shadow on a plate; the 3px cast shadow is the material.
+- Never a second accent; a blue link on the concrete is a different site.
+- Never a rounded corner or a blurred shadow; the hard shadow is the material.
+- Never draw the concrete (board seams, tie holes, cracks, a hazard stripe); photograph it.
+- Never a colour photograph beside the orange; pictures print in black and white.
+- Never Oswald in lowercase or at a light weight; it is 700 capitals.
 
 ## Build hint
 
@@ -81,14 +88,14 @@ The foreman's sheet: the radius in millimetres, the pour number, the week, the l
 ```
 
 ```css
-body { background-color: var(--color-paper); background-image:
-    radial-gradient(circle at 22px 48px, var(--color-tie) 4px, var(--color-paper-3) 5px, transparent 6.5px),
-    repeating-linear-gradient(180deg, transparent 0 94px, color-mix(in oklab, var(--color-seam-light) 22%, transparent) 94px 95px, color-mix(in oklab, var(--color-seam-dark) 10%, transparent) 95px 97px);
-  background-size: 480px 288px, 100% 96px; }
-.display { font: 700 var(--text-display)/1 var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-display); }
-.plate { padding: var(--space-sm) var(--space-xl); font: 700 var(--text-sm)/1.6 var(--font-display); letter-spacing: 0.04em; text-transform: uppercase; background: var(--color-accent); color: var(--color-accent-ink);
-  box-shadow: 0 3px 0 var(--color-accent-deep); transition: translate var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out); }
-.plate:active { translate: 0 3px; box-shadow: 0 0 0 var(--color-accent-deep); }
+h1, h2, h3 { font-weight: 700; text-transform: uppercase; }
+.btn { border-radius: 0; padding: var(--space-sm) var(--space-xl); font: 700 var(--text-sm)/1.6 var(--font-display); text-transform: uppercase; }
+.btn--primary { background: var(--color-accent); color: var(--color-accent-ink); box-shadow: 0 3px 0 var(--color-accent-deep);
+  transition: translate var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out); }
+.btn--primary:active { translate: 0 3px; box-shadow: 0 0 0 var(--color-accent-deep); }
+.btn--secondary { background: var(--color-paper-2); color: var(--color-ink); border: 2px solid var(--color-ink); box-shadow: inset 0 2px 3px color-mix(in oklab, var(--color-ink) 30%, transparent); }
 .card { background: var(--color-plate); border: var(--rule-bar) solid var(--color-ink); box-shadow: var(--shadow-card); }
+.photo img { outline: 2px solid var(--color-ink); outline-offset: -2px; }
+.band--cast { position: relative; isolation: isolate; background: var(--color-paper-2); }
 ::selection { background: color-mix(in oklab, var(--color-accent) 35%, transparent); }
 ```

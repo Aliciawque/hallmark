@@ -1045,7 +1045,6 @@
 [data-theme="sport"] .found-panel__rule,
 [data-theme="almanac"] .found-panel__rule,
 [data-theme="bloom"] .found-panel__rule,
-[data-theme="aurora"] .found-panel__rule,
 [data-theme="coral"] .found-panel__rule {
   font-family: var(--font-body);
   font-style: normal;
@@ -2359,7 +2358,6 @@ body:not(.easter-open) > footer {
   /* Themes that opt in: 2-column grid, moment in column 2. */
   [data-theme="terminal"] .hero--marquee,
   [data-theme="manifesto"] .hero--marquee,
-  [data-theme="aurora"] .hero--marquee,
   [data-theme="lumen"] .hero--marquee,
   [data-theme="atelier"] .hero--quote,
   [data-theme="riso"] .hero--quote,
@@ -2371,7 +2369,6 @@ body:not(.easter-open) > footer {
   }
   [data-theme="terminal"] .hero--marquee .hero__main,
   [data-theme="manifesto"] .hero--marquee .hero__main,
-  [data-theme="aurora"] .hero--marquee .hero__main,
   [data-theme="lumen"] .hero--marquee .hero__main,
   [data-theme="atelier"] .hero--quote .hero__main,
   [data-theme="riso"] .hero--quote .hero__main,
@@ -2383,7 +2380,6 @@ body:not(.easter-open) > footer {
   }
   [data-theme="terminal"] .hero__moment,
   [data-theme="manifesto"] .hero__moment,
-  [data-theme="aurora"] .hero__moment,
   [data-theme="lumen"] .hero__moment,
   [data-theme="atelier"] .hero__moment,
   [data-theme="riso"] .hero__moment,
@@ -2423,18 +2419,6 @@ body:not(.easter-open) > footer {
   line-height: 0.92;
   letter-spacing: -0.02em;
   color: var(--color-accent);
-}
-
-/* AURORA — soft secondary radial accent. */
-[data-theme="aurora"] .hero__moment {
-  width: clamp(14rem, 24vw, 22rem);
-  aspect-ratio: 1 / 1;
-  background:
-    radial-gradient(circle at 50% 50%,
-      color-mix(in oklch, var(--color-accent) 28%, transparent) 0%,
-      transparent 65%);
-  filter: blur(4px);
-  opacity: 0.85;
 }
 
 /* ATELIER — italic Roman numeral plate. */
@@ -3576,92 +3560,6 @@ html[data-theme="bloom"] body {
   border-radius: 999px;
 }
 
-/* ───────────── AURORA — atmospheric · cool blue-green dark ─────────────
-   Two cool blooms behind the content (cyan top-right, teal-green
-   bottom-left). Sentient body for warmth. */
-
-html[data-theme="aurora"] {
-  background: var(--color-paper);
-}
-
-html[data-theme="aurora"] body {
-  background:
-    radial-gradient(ellipse 75% 55% at 92% 0%,
-                    color-mix(in oklch, var(--color-accent) 28%, transparent) 0%,
-                    transparent 55%),
-    radial-gradient(ellipse 70% 60% at 5% 100%,
-                    color-mix(in oklch, var(--color-accent-2) 30%, transparent) 0%,
-                    transparent 60%),
-    var(--color-paper);
-  background-attachment: fixed;
-  min-height: 100dvh;
-}
-
-/* Aurora — soft accent bloom punctuates each section title (not just the
-   hero). Adds rhythm without competing with the hero's bigger glow. */
-[data-theme="aurora"] .section {
-  position: relative;
-}
-[data-theme="aurora"] .section > .section__head::after {
-  content: "";
-  position: absolute;
-  inset-inline-start: -8%;
-  inset-block-start: -2rem;
-  width: 22rem;
-  height: 22rem;
-  background:
-    radial-gradient(circle at 50% 50%,
-      color-mix(in oklch, var(--color-accent) 14%, transparent) 0%,
-      transparent 65%);
-  pointer-events: none;
-  z-index: -1;
-  filter: blur(6px);
-}
-
-[data-theme="aurora"] .hero__display,
-[data-theme="aurora"] .hero__quote p,
-[data-theme="aurora"] .hero__stat,
-[data-theme="aurora"] .section__title,
-[data-theme="aurora"] .foot__wordmark,
-[data-theme="aurora"] .spec__name,
-[data-theme="aurora"] .ex-card__name,
-[data-theme="aurora"] .harness__name {
-  font-family: var(--font-display);
-  font-weight: 600;
-  letter-spacing: -0.03em;
-}
-
-[data-theme="aurora"] .hero__lede,
-[data-theme="aurora"] .install-pane__next,
-[data-theme="aurora"] .ex-card__brief {
-  font-family: var(--font-body);
-  font-style: normal;
-  color: var(--color-ink-2);
-}
-
-[data-theme="aurora"] .banner {
-  background: color-mix(in oklch, var(--color-paper) 68%, transparent);
-  border-block-end-color: var(--color-rule);
-}
-
-[data-theme="aurora"] .reveal { transform: none; }
-[data-theme="aurora"] .reveal.is-in {
-  animation: reveal-fade calc(var(--dur-long) * 1.2) var(--ease-out) forwards;
-  animation-delay: calc(var(--i, 0) * 70ms);
-}
-
-[data-theme="aurora"] .ex-card,
-[data-theme="aurora"] .install-pane,
-[data-theme="aurora"] .vs__panel[data-variant="hallmark"] {
-  background: var(--color-paper-2);
-}
-
-[data-theme="aurora"] .install-pane__copy {
-  background: var(--color-accent);
-  color: var(--color-paper);
-  border-color: var(--color-accent);
-  border-radius: 999px;
-}
 
 /* ───────────── EXAMPLES RAIL — TILES ─────────────
    Each tile in the horizontal scroll-snap rail. Cards inherit the

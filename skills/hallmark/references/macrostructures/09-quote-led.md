@@ -13,7 +13,7 @@ Reach for it for B2B products with strong customer voices, agency case-study pag
 
 Avoid when the user has not supplied the quote. The quote is the user's, verbatim, with the name, role and company as given, or the shape does not ship (46a). Never write one, never paraphrase one.
 
-Code: [`../components/h3-quote-led.md`](../components/h3-quote-led.md) for the hero; [`../components/t1-pull-quote-with-marginalia.md`](../components/t1-pull-quote-with-marginalia.md) and [`../components/t3-single-huge-quote.md`](../components/t3-single-huge-quote.md) below the fold.
+Compositions: the quote as a Statement (`layout.md` § 5), its attribution beneath; further quotes the user gave as Rows.
 
 **Sample opening lines** (fixture quotes; on a build only the user's words go here):
 > *"I started listening on a long bus ride. By the third episode I had missed my stop, and I did not mind."* Story-shaped, attributed to a listener (Tide).
