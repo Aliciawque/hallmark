@@ -2,7 +2,7 @@
 
 **A design skill for Claude Code, Codex CLI and OpenCode that refuses to look AI-generated.**
 
-[Live demo](https://www.usehallmark.com) &nbsp;·&nbsp; forty-nine themes, dealt three at a time &nbsp;·&nbsp; a custom world on request &nbsp;·&nbsp; press `T` to cycle.
+[Live demo](https://www.usehallmark.com) &nbsp;·&nbsp; forty-eight themes, dealt three at a time &nbsp;·&nbsp; a custom world on request &nbsp;·&nbsp; press `T` to cycle.
 
 Made by Together AI.
 
@@ -10,7 +10,7 @@ Made by Together AI.
   <img src="site/OG-hallmark.png" alt="Hallmark, a design skill that refuses to look AI-generated" />
 </p>
 
-Hallmark holds a hard floor and then gets out of the way. It deals three themes from a catalog of forty-nine materials, and a script applies the rotation so consecutive builds cannot converge. When the user asks for **custom** it derives a world made to measure, with an outside draw picking among grounded directions so the model cannot repeat its favourite. It keeps every page to one idea per screen, set big enough to fill it. Then it lints the result against the tells that read as machine-made in 2026: the eyebrow above every heading, the small label in tracked capitals, the one coloured word in a headline, middle-dot meta strings, arrows glued to link text, mono labels as a technical costume, cream paper with a high-contrast serif and a clay accent, a page of empty picture frames, a heading and a line adrift on a wide canvas, a hero that stops short of its screen, one price said four times, a form that says thanks without sending anything, content that ships invisible when a script fails, text crammed against the edge of its box, and text painted under another element.
+Hallmark holds a hard floor and then gets out of the way. It deals three themes from a catalog of forty-eight materials, and a script applies the rotation so consecutive builds cannot converge. When the user asks for **custom** it derives a world made to measure, with an outside draw picking among grounded directions so the model cannot repeat its favourite. It keeps every page to one idea per screen, set big enough to fill it. Then it lints the result against the tells that read as machine-made in 2026: the eyebrow above every heading, the small label in tracked capitals, the one coloured word in a headline, middle-dot meta strings, arrows glued to link text, mono labels as a technical costume, cream paper with a high-contrast serif and a clay accent, a page of empty picture frames, a heading and a line adrift on a wide canvas, a hero that stops short of its screen, one price said four times, a form that says thanks without sending anything, content that ships invisible when a script fails, text crammed against the edge of its box, and text painted under another element.
 
 The gates come in tiers. The **Floor** never ships: contrast, focus, reduced motion, invented metrics, layout that breaks on a phone, the fold at three widths, the eyebrow. **Reflex** gates are the defaults a language model falls into rather than laws, and a build with an argument may overrule one on the record, with the reason in the CSS stamp and the guard re-derived by the checker. **Finish** checks are craft detail that never blocks a ship. A fresh-context reviewer with no memory of the build gets the last word.
 
@@ -68,7 +68,7 @@ The fifteen featured examples on [usehallmark.com](https://www.usehallmark.com) 
 
 ## Themes
 
-A theme is a material, not a plan: paper, ink, faces, rule weight, radius, shadow stance, texture budget, motion character, voice. It never says what a page contains or in what order, so two pages in one theme do not share a section sequence. Every theme is one file of four to seven kilobytes in [`references/themes/`](skills/hallmark/references/themes/) with a header block that `theme.mjs index` compiles into `index.json`, and a picture beside it: two screens of a finished page built in that theme, so a build sees the material at full size before it writes a line. The deal reads the index and a build reads exactly one theme file. Forty-nine themes cost a build what twenty-three did.
+A theme is a material, not a plan: paper, ink, faces, rule weight, radius, shadow stance, texture budget, motion character, voice. It never says what a page contains or in what order, so two pages in one theme do not share a section sequence. Every theme is one file of four to seven kilobytes in [`references/themes/`](skills/hallmark/references/themes/) with a header block that `theme.mjs index` compiles into `index.json`, and a picture beside it: two screens of a finished page built in that theme, so a build sees the material at full size before it writes a line. The deal reads the index and a build reads exactly one theme file. Forty-eight themes cost a build what twenty-three did.
 
 ## Custom
 

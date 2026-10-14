@@ -1603,54 +1603,6 @@
    "picture": "references/themes/riso.jpg"
   },
   {
-   "name": "Saffron",
-   "slug": "saffron",
-   "genre": "editorial",
-   "posture": "drenched",
-   "paper": {
-    "band": "mid",
-    "L": 76,
-    "hue": 70
-   },
-   "display": {
-    "class": "high-contrast-serif",
-    "face": "Cormorant Italic"
-   },
-   "accent": {
-    "band": "chromatic-pink",
-    "hue": 2
-   },
-   "keywords": [
-    "couture",
-    "atelier",
-    "fashion",
-    "collection",
-    "season",
-    "dye",
-    "textile",
-    "silk",
-    "wool",
-    "linen",
-    "garment",
-    "fitting",
-    "boutique",
-    "lookbook",
-    "designer",
-    "luxury",
-    "slow fashion",
-    "craft",
-    "stockists",
-    "bridal",
-    "sari",
-    "lehenga"
-   ],
-   "material": "two dyes and an ink: saffron edge to edge, rani pink for the cloth and the mark, madder black for type and the night band; Cormorant Italic set huge with a cut-out length of silk woven through it; Newsreader to read, a small Hanken Grotesk for controls; square edges, flat cream sheets",
-   "file": "references/themes/saffron.md",
-   "photo": "warm sat=8 con=4",
-   "pictured": "Dye Lot, Woven hero",
-   "picture": "references/themes/saffron.jpg"
-  },
-  {
    "name": "Solstice",
    "slug": "solstice",
    "genre": "editorial",
