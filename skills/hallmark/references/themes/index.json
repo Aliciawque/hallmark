@@ -1609,16 +1609,16 @@
    "posture": "drenched",
    "paper": {
     "band": "mid",
-    "L": 71,
-    "hue": 75
+    "L": 76,
+    "hue": 70
    },
    "display": {
     "class": "high-contrast-serif",
-    "face": "Zodiak Italic"
+    "face": "Cormorant Italic"
    },
    "accent": {
-    "band": "chromatic-amber",
-    "hue": 70
+    "band": "chromatic-pink",
+    "hue": 2
    },
    "keywords": [
     "couture",
@@ -1639,12 +1639,15 @@
     "luxury",
     "slow fashion",
     "craft",
-    "stockists"
+    "stockists",
+    "bridal",
+    "sari",
+    "lehenga"
    ],
-   "material": "saffron-dyed paper edge to edge, near-black ink, Zodiak Italic over Newsreader and a small Hanken Grotesk, flat cream stock, warm full-colour photographs, ink as the signal",
+   "material": "two dyes and an ink: saffron edge to edge, rani pink for the cloth and the mark, madder black for type and the night band; Cormorant Italic set huge with a cut-out length of silk woven through it; Newsreader to read, a small Hanken Grotesk for controls; square edges, flat cream sheets",
    "file": "references/themes/saffron.md",
-   "photo": "warm vib=12 con=6",
-   "pictured": "Commission Book, Stage hero",
+   "photo": "warm sat=8 con=4",
+   "pictured": "Dye Lot, Woven hero",
    "picture": "references/themes/saffron.jpg"
   },
   {
@@ -1961,8 +1964,8 @@
    "posture": "committed",
    "paper": {
     "band": "dark",
-    "L": 11,
-    "hue": 145
+    "L": 12,
+    "hue": 150
    },
    "display": {
     "class": "mono",
@@ -1970,7 +1973,7 @@
    },
    "accent": {
     "band": "chromatic-green",
-    "hue": 138
+    "hue": 142
    },
    "keywords": [
     "cli",
@@ -1988,14 +1991,14 @@
     "install script",
     "package manager",
     "repl",
-    "retro",
-    "phosphor",
-    "hacker"
+    "dotfiles",
+    "developer tool",
+    "phosphor"
    ],
-   "material": "green-black ground, phosphor-green ink on one hue, every glyph Martian Mono with heads set wide and text set narrow, square hairline-ruled surfaces, the brightest green as the one signal",
+   "material": "a near-black ground with a green cast, pale phosphor ink and one bright phosphor signal, every glyph Martian Mono with heads wide and text narrow, and pictures printed in the page's own glyphs: a photograph rendered as a grid of characters taken from the product's own text, dim cells small, bright cells full, stirred by the cursor",
    "file": "references/themes/terminal.md",
-   "photo": "duotone paper ink con=20",
-   "pictured": "Component Playground, Settled hero",
+   "photo": "duotone paper accent con=20",
+   "pictured": "Session, Split hero",
    "picture": "references/themes/terminal.jpg"
   },
   {

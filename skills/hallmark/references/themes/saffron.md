@@ -2,94 +2,89 @@
 name: Saffron
 slug: saffron
 genre: editorial
-paper: mid 71 75
-display: high-contrast-serif Zodiak Italic
-accent: chromatic-amber 70
+paper: mid 76 70
+display: high-contrast-serif Cormorant Italic
+accent: chromatic-pink 2
 posture: drenched
-keywords: couture, atelier, fashion, collection, season, dye, textile, silk, wool, linen, garment, fitting, boutique, lookbook, designer, luxury, slow fashion, craft, stockists
-material: saffron-dyed paper edge to edge, near-black ink, Zodiak Italic over Newsreader and a small Hanken Grotesk, flat cream stock, warm full-colour photographs, ink as the signal
-photo: warm vib=12 con=6
-pictured: Commission Book, Stage hero
+keywords: couture, atelier, fashion, collection, season, dye, textile, silk, wool, linen, garment, fitting, boutique, lookbook, designer, luxury, slow fashion, craft, stockists, bridal, sari, lehenga
+material: two dyes and an ink: saffron edge to edge, rani pink for the cloth and the mark, madder black for type and the night band; Cormorant Italic set huge with a cut-out length of silk woven through it; Newsreader to read, a small Hanken Grotesk for controls; square edges, flat cream sheets
+photo: warm sat=8 con=4
+pictured: Dye Lot, Woven hero
 ---
 
 # Saffron
 
-An atelier's dye bath: the whole page a deep saffron, near-black ink, Zodiak Italic on every head, Newsreader for reading, a small Hanken Grotesk for labels and controls, flat cream stock on the dye, square edges. Photographs of cloth and hands at work sit square on the dye in warm full colour. It reads as couture because the colour is total and the type is unhurried. It is not a beige luxury template, not gold foil and not a photo grid under a serif logo.
+A dye house, not a beige boutique: the page is saffron to every edge, the type is madder black, and the one cut-out object, a length of silk in rani pink, runs through the head, passing in front of one word and behind the next. Cormorant Italic is set huge and unhurried. Below the fold the cloth gives way to photographs on flat cream sheets, and one night band in madder carries a second silk in gold. It reads as couture because the colour is total, the type is enormous and the object is real cloth. It is not a gold-foil luxury template, not a photo grid under a serif logo, and not pastel.
 
 ## Tokens
 
 ```css
 :root {
-  --color-paper: oklch(71% 0.145 75); --color-paper-2: oklch(66% 0.135 72); --color-paper-3: oklch(61% 0.125 70);
-  --color-ink: oklch(17% 0.012 70); --color-ink-2: oklch(23% 0.02 72); --color-muted: oklch(27% 0.04 72);
-  --color-rule: oklch(40% 0.07 72); --color-plate: oklch(95.5% 0.03 84); --color-slot: var(--color-plate);
-  --color-accent: oklch(61% 0.125 70); --color-accent-ink: oklch(17% 0.012 70); --color-focus: oklch(17% 0.012 70);
-  --font-display: "Zodiak", Georgia, serif; --font-body: "Newsreader", Georgia, serif; --font-outlier: "Hanken Grotesk", system-ui, sans-serif;
-  --radius-card: 0; --radius-pill: 0; --rule-hair: 1px;
-  --shadow-card: none;
-  --tracking-display: -0.01em;
+  --color-paper: oklch(76% 0.152 70); --color-paper-2: oklch(71% 0.15 66); --color-paper-3: oklch(66% 0.145 62);
+  --color-ink: oklch(21% 0.055 14); --color-ink-2: oklch(28% 0.07 14); --color-muted: oklch(30% 0.06 30);
+  --color-rule: color-mix(in oklab, var(--color-ink) 28%, transparent);
+  --color-plate: oklch(96% 0.025 85); --color-slot: var(--color-plate);
+  --color-rani: oklch(50% 0.21 2); --color-madder: oklch(23% 0.075 12); --color-zari: oklch(80% 0.15 78);
+  --color-accent: var(--color-rani); --color-accent-ink: oklch(97% 0.02 85); --color-focus: var(--color-ink);
+  --font-display: "Cormorant", Georgia, serif; --font-body: "Newsreader", Georgia, serif; --font-outlier: "Hanken Grotesk", system-ui, sans-serif;
+  --radius-card: 0; --radius-pill: 0; --rule-hair: 1px; --shadow-card: none;
+  --shadow-cloth: drop-shadow(0 28px 28px oklch(30% 0.1 40 / 0.28));
+  --tracking-display: -0.02em; --display-weight: 500;
 }
 ```
 
-Three colourways, stated in the stamp (`saffron: lot`); `--color-plate` is the cream stock.
-
-| Colourway | Ground, ink, stock |
-| --- | --- |
-| `lot` (default) | the block above |
-| `cream` | ground `oklch(95.5% 0.03 84)`, the stock saffron `oklch(71% 0.145 75)`, rule `oklch(80% 0.05 80)`, muted `oklch(42% 0.03 72)` |
-| `black` | ground `oklch(15% 0.012 70)`, heads saffron `oklch(74% 0.14 76)`, prose `oklch(92% 0.03 85)`, cream stock, rule `oklch(32% 0.04 72)` |
+Colourways, stated in the stamp (`saffron: lot`): `lot` (above); `madder`, the night band as the ground (saffron heads, cream prose, a gold silk); `cream`, ground `--color-plate` with saffron as the band and rani as the cloth.
 
 ## Type
 
-- **Display:** Zodiak Italic 400, `--tracking-display`, line-height 1.04. Declared italic system (stamp `waive 38ii`): every head at every level, true italic, `font-synthesis: none`. A figure (a count, an hour, a price) is the one roman use, Zodiak 700, never in a head; figures in a column take Newsreader's tabular ones.
-- **Body:** Newsreader 400 and 500 at 17px, line-height 1.5, `"opsz" 16`.
-- **Labels, nav links, buttons, captions, table heads:** Hanken Grotesk 500 at `--text-sm` (14px), sentence case, untracked, `--color-muted`. It carries only small strings and controls, never a head or prose; no mono but code.
+- **Display:** Cormorant Italic 500, `--tracking-display`, every head at every level, true italic, `font-synthesis: none` (stamp `waive 38ii`). The hero head runs at 15vw in two or three words, line-height 0.8, one word left and the next pushed right so the cloth can pass between them. Section heads at `--text-section`, line-height 1.
+- **Body:** Newsreader 400 at 18px, line-height 1.55. Leads in `--color-ink-2`.
+- **Controls, captions, the nav, labels:** Hanken Grotesk 500 at 14px, sentence case, untracked. Never a head, never prose.
+- **Numerals in a list:** Cormorant Italic lowercase roman (i, ii, iii) in rani, never a big figure.
 
 ## Surfaces
 
-- 1px rules in `--color-rule` under heads and between table rows; no border on any surface.
-- Zero radius, no shadow. Depth is a step of the dye: `--color-paper-2` for a well or band, `--color-paper-3` deeper.
-- The cream stock (`--color-plate`) lies flat on the saffron, no border; on `cream` it turns saffron.
-- Bands: `--color-paper-2`, the cream stock, or ink with saffron heads; two a page at most.
-- Photographs: cloth and the hands that work it, close, in warm window light: silk across a cutting table, shears and chalk on wool, pins in a seam, a toile on a dress form, embroidery under a lamp, a finished piece on a wall; detail over the whole figure, never a face to camera, never a posed bride. Full colour, warmed (the `photo:` line) so the cloth holds against the dye. Square, borderless, no shadow, straight on the saffron or full-bleed. A caption beneath names the cloth or the stage; a line on a photograph rides a cream plate.
-- Texture, the thread grid: 1px ink lines at 3.5% every 10px both ways, on a cream well or band only; never on a photograph or under running text.
+- Flat colour on flat colour: no radius, no shadow on a surface, no border. Depth is a step of the dye (`--color-paper-2`) or a cream sheet (`--color-plate`) laid edge to edge.
+- Bands: one cream sheet and one madder night band a page, no more.
+- **The cut-out cloth (the signature):** one length of silk, dupatta or ribbon, cut out cleanly with no background, wider than the screen, in rani on the saffron (gold with a zari border on madder). It carries `--shadow-cloth` and is placed twice: a back copy under the head and a front copy over it, the front masked so the cloth falls in front of one word and behind the next. Generated (then cut out) or photographed, it must read as real cloth; no drawn ribbon, no gradient swoosh. Two a page at most. With no way to make one, the head stands alone at full size and the first photograph of cloth comes straight after the fold.
+- **Photographs:** cloth and the work close, in warm light: embroidery, folded silks, thread drying, shears and chalk on the cutting table; detail over the whole figure, never a face to camera. Square, borderless, straight on the saffron or the cream. Captions beneath in Hanken 14px name the cloth or the stage.
 
 ## Controls
 
-- The pair: an ink-filled square button with saffron text beside one outlined by a 1px inset ink line, both Hanken Grotesk 500, 14px, sentence case.
-- Inline links take a 1px bottom border in the text colour; inputs are square on the cream stock with a 1px ink border.
-- Drenched: the dye is the surface and ink the signal (the primary, the focus ring, the selection); `--color-accent`, the deepest dye step, marks hover and selected states.
+- The pair: a madder-filled square button with saffron text, beside one outlined by a 1px inset madder line; both turn rani on hover. On the madder band the primary turns saffron with madder text.
+- Inputs: square, 1px madder border on the cream sheet, focus a 2px rani ring. Choice chips are joined square toggles, the selected one filled madder.
+- Links in prose: a 1px underline in the text colour. Nav links draw their underline in from the left on hover.
 
 ## Motion
 
-Almost none. A hairline may draw in once over `--dur-long` on `--ease-out`; a linked surface steps one shade of saffron on hover. Nothing loops.
+The cloth arrives once: it unfurls left to right through a soft mask over 1.8s on a long ease-out while the head settles upward; the night band's silk unfurls when it enters the view. On scroll the hero cloth drifts a little (translate and a fraction of a degree), never loops. Hover changes colour in 220ms. Reduced motion shows everything in place.
 
 ## Voice
 
-The atelier's register: the piece, the cloth and its weight, the colour, the hour of the fitting. Precise, unhurried, first person plural; no bridal cliche (dream, magical, special day).
+The atelier's: the piece, the cloth, the fitting, the day. Short, unhurried, first person plural. No bridal cliche (dream, magical, special day, timeless).
 
 ## Do-nots
 
 - Never a roman head; the italic is the system.
-- Never a brown or terracotta button on the cream colourway; the pair is ink and outline.
-- Never a border, a shadow or a radius on a surface; flat colour on flat colour.
-- Never the sans at prose or head size; it exists at 14px.
-- Never white or grey on the saffron, and never a photograph toned into the dye; cream is the light surface and a picture keeps its colour.
+- Never white or grey on the saffron; cream is the light surface.
+- Never more than two cut-out cloths, and never a drawn ribbon or a gradient in its place.
+- Never a radius, a shadow on a surface, or a border around a photograph.
+- Never the sans at prose or head size.
 
 ## Build hint
 
 ```html
-<link href="https://api.fontshare.com/v2/css?f[]=zodiak@400i,700&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Hanken+Grotesk:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@1,500;1,600&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Hanken+Grotesk:wght@500&display=swap" rel="stylesheet">
 ```
 
 ```css
-h1, h2, h3 { font-style: italic; font-weight: 400; font-synthesis: none; line-height: 1.04; }
-.figure { font-family: var(--font-display); font-style: normal; font-weight: 700; }
-.label { font: 500 var(--text-sm)/1.3 var(--font-outlier); color: var(--color-muted); }
-.btn { padding: var(--space-md) var(--space-lg); border: 0; font: 500 var(--text-sm)/1 var(--font-outlier); background: var(--color-ink); color: var(--color-paper); }
-.btn--secondary { background: transparent; color: var(--color-ink); box-shadow: inset 0 0 0 1px var(--color-ink); }
-.well { background: var(--color-plate); color: var(--color-ink); }
-.thread { background-image: repeating-linear-gradient(0deg, color-mix(in oklab, var(--color-ink) 3.5%, transparent) 0 1px, transparent 1px 10px),
-  repeating-linear-gradient(90deg, color-mix(in oklab, var(--color-ink) 3.5%, transparent) 0 1px, transparent 1px 10px); }
-::selection { background: var(--color-ink); color: var(--color-paper); }
+h1, h2, h3 { font-style: italic; font-weight: 500; font-synthesis: none; }
+.hero { position: relative; isolation: isolate; overflow: clip; }
+.hero__cloth { position: absolute; z-index: 1; left: -4vw; width: 92vw; pointer-events: none; filter: var(--shadow-cloth); }
+.hero__title { position: relative; z-index: 2; display: grid; font-size: 15vw; line-height: 0.8; }
+.hero__cloth--front { z-index: 3; filter: none; }
+.hero__cloth--front img { mask: linear-gradient(90deg, var(--color-ink) 0 33%, transparent 39% 84%, var(--color-ink) 88%); }
+.btn { min-height: 48px; padding: 0 var(--space-lg); border: 0; font: 500 var(--text-sm)/1 var(--font-outlier); background: var(--color-ink); color: var(--color-paper); }
+.btn:hover { background: var(--color-rani); color: var(--color-accent-ink); }
+::selection { background: var(--color-rani); color: var(--color-accent-ink); }
 ```

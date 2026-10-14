@@ -2,74 +2,71 @@
 name: Terminal
 slug: terminal
 genre: atmospheric
-paper: dark 11 145
+paper: dark 12 150
 display: mono Martian Mono
-accent: chromatic-green 138
+accent: chromatic-green 142
 posture: committed
-keywords: cli, terminal, shell, command-line, tui, self-hosted, open-source, binary, ssh, sysadmin, devops, homelab, install script, package manager, repl, retro, phosphor, hacker
-material: green-black ground, phosphor-green ink on one hue, every glyph Martian Mono with heads set wide and text set narrow, square hairline-ruled surfaces, the brightest green as the one signal
-photo: duotone paper ink con=20
-pictured: Component Playground, Settled hero
+keywords: cli, terminal, shell, command-line, tui, self-hosted, open-source, binary, ssh, sysadmin, devops, homelab, install script, package manager, repl, dotfiles, developer tool, phosphor
+material: a near-black ground with a green cast, pale phosphor ink and one bright phosphor signal, every glyph Martian Mono with heads wide and text narrow, and pictures printed in the page's own glyphs: a photograph rendered as a grid of characters taken from the product's own text, dim cells small, bright cells full, stirred by the cursor
+photo: duotone paper accent con=20
+pictured: Session, Split hero
 ---
 
 # Terminal
 
-A terminal's material without its costume: a green-black ground, phosphor-green ink held to one hue, one monospace family for every glyph, square corners and hairline rules. Hierarchy comes from width and lightness, never from a second colour or a second face: heads run wide, text and sessions run narrow. It reads as a tool that respects the reader's time. It is not a retro CRT pastiche and not a dark product page holding a screenshot of a terminal; the page itself is the terminal surface.
+The page is the terminal surface, and its pictures are printed in type. A near-black ground with a green cast, pale phosphor ink, one bright phosphor green for the signal, and one family, Martian Mono, for every glyph: heads run wide, text runs narrow. Where a page wants a picture it never places a photograph; it prints one as a grid of characters drawn from the product's own text (a config file, a command, a manifest), dim cells set small, bright cells set full, so a hare or a machine appears out of dotfiles. It reads as a tool made by people who live in a shell. It is not the CRT costume and not a dark product page holding a screenshot of a terminal.
 
 ## Tokens
 
 ```css
 :root {
-  --color-paper: oklch(11% 0.018 145); --color-paper-2: oklch(15% 0.020 145); --color-paper-3: oklch(19% 0.022 145);
-  --color-ink: oklch(86% 0.160 138); --color-ink-2: oklch(78% 0.140 138); --color-muted: oklch(60% 0.090 140);
-  --color-rule: oklch(28% 0.030 140);
-  --color-accent: oklch(78% 0.190 138); --color-accent-ink: oklch(11% 0.018 145); --color-focus: oklch(78% 0.19 138);
-  --font-display: "Martian Mono", ui-monospace, monospace; --font-body: var(--font-display);
-  --font-outlier: var(--font-display);
-  --radius-card: 0; --radius-pill: 0; --rule-hair: 1px;
-  --shadow-card: none;
-  --tracking-display: 0em; --display-weight: 500; --stretch-display: 112.5%; --stretch-body: 87.5%;
+  --color-paper: oklch(12.5% 0.012 150); --color-paper-2: oklch(16% 0.016 150); --color-paper-3: oklch(20% 0.02 150);
+  --color-ink: oklch(94% 0.03 140); --color-ink-2: oklch(82% 0.05 142); --color-muted: oklch(63% 0.06 145);
+  --color-rule: oklch(27% 0.028 148);
+  --color-accent: oklch(87% 0.2 142); --color-accent-ink: oklch(14% 0.02 150); --color-focus: oklch(87% 0.2 142);
+  --glyph-0: oklch(30% 0.06 146); --glyph-1: oklch(38% 0.08 145); --glyph-2: oklch(47% 0.11 144); --glyph-3: oklch(57% 0.14 143);
+  --glyph-4: oklch(67% 0.17 142); --glyph-5: oklch(77% 0.19 142); --glyph-6: oklch(86% 0.2 141); --glyph-7: oklch(94% 0.12 138);
+  --font-display: "Martian Mono", ui-monospace, monospace; --font-body: var(--font-display); --font-outlier: var(--font-display);
+  --radius-card: 0; --radius-pill: 0; --rule-hair: 1px; --shadow-card: none;
+  --tracking-display: -0.02em; --display-weight: 500; --stretch-display: 112.5%; --stretch-body: 87.5%;
 }
 ```
 
 ## Type
 
-- **Every glyph is Martian Mono:** mono is the material here. No proportional face exists on the page, not even a friendlier body.
-- **Display:** 500 at `--stretch-display`, `--tracking-display`, line-height 1.1, sentence case, roman. A wide mono line runs long, so `h1` caps at 4rem; section heads take the shared step.
-- **Body, sessions and tables:** 400 at `--stretch-body`, 700 for emphasis; a long command line may close to 75%.
-- **Labels, captions, table heads, meta, exit codes, units:** the body setting a step smaller, sentence case, untracked, in `--color-muted`.
-- **Prompt glyphs:** a `$` or `~/` prefix in `--color-muted` marks a real command or path, and only those; a block caret only ever ends a command line.
+- **Every glyph is Martian Mono.** Display 500 at `--stretch-display`, line-height 1.12, `h1` at most 3.75rem in two or three lines. Body 400 at `--stretch-body`, 15px, line-height 1.65. Labels and meta a step smaller in `--color-muted`, sentence case, untracked.
+- Prompt glyphs (`$`, `~ $`) in `--color-muted` mark real commands and only those; arguments in a reference take the accent.
+- Martian Mono has no box-drawing or block glyphs. Diagrams are typed in `+ - |` and wordmarks are printed as glyph pictures, so no fallback face ever slips into a line.
 
 ## Surfaces
 
-- One hue top to bottom: every surface, rule and photograph sits on hue 138 to 145, and hierarchy comes from the lightness ramp, never from a second colour.
-- Depth by lightness: the three paper steps stack, and a raised surface is one step up with a 1px `--color-rule` border, never a floating window with a shadow. Radius 0 everywhere.
-- Rules: 1px `--color-rule` on wells, tables and the foot of a nav; a divider may be typed in box-drawing characters as text. Never a title bar or traffic lights.
-- Bands: `--color-paper-2` or `--color-paper-3`, two a page at most; never a light band and never an accent field.
-- Photographs: one a page at most, as a wide band: the machines themselves, a laptop, a desktop, a small board computer, a shelf of servers, shot plainly, with no screen showing an interface and no person at the keys. The duotone prints it in the page's green; square, a 1px `--color-rule` border, its caption below in `--color-muted`.
-- No texture: no scanline, no grain, no bloom, no vignette. The CRT is implied by hue and mono, never drawn.
+- One hue, a ramp of lightness: ground, then `--color-paper-2` for a session or an install well, `--color-paper-3` for hover. Raised surfaces take a 1px `--color-rule` border, square, never a shadow.
+- Rules: 1px `--color-rule` between sections, rows and tabs.
+- **Pictures as glyphs (the signature):** a photograph or a generated picture with a strong silhouette on black is reduced to a grid of brightness levels (about 130 columns, cells 1.85 times as tall as wide) and drawn on a canvas, each lit cell one character from the product's own text in `--glyph-0` to `--glyph-7` by level, dim cells at 62% size. It sits at a hero's side bleeding to the fold, or prints the wordmark across the footer. A static `<pre>` of the same grid stands in without script. One or two a page.
+- When a build cannot make a glyph grid, one photograph a page stands in, printed in the `photo:` duotone with a 1px `--color-rule` border: the machines themselves, never a screen showing an interface.
+- No scanline, glow, bezel, title bar or traffic lights.
 
 ## Controls
 
-- An accent-filled block (`--color-accent-ink` on `--color-accent`) beside one bordered 1px in `--color-ink-2`, both square, mono 500, sentence case.
-- Links are ink, underlined, and turn `--color-accent` on hover; inputs are square `--color-paper-2` wells with a 1px rule border and an accent caret.
-- The brightest green sits on the primary control, the focus ring, a status value and one emphasised word in running text, never inside a heading.
+- Primary: an accent block with `--color-accent-ink` text, square. Secondary: a 1px `--color-ink-2` border. Hover and state switch in `steps(1)`.
+- Install lines: a `--color-paper-2` well with tabs (brew, cargo, curl) underlined in the accent, the command at `--text-lg`, and a 16px copy icon at the right that turns into a tick in the accent for 1.4s.
+- Nav: a multiplexer's status line, sticky, 40px: the session name on an accent block, numbered windows as links, meta at the right.
 
 ## Motion
 
-Stepped, never eased: a state change switches in `steps(1)` over `--dur-micro`, and nothing fades, slides or reveals. A caret, where a command line carries one, blinks five times in `step-end`, then holds solid.
+Stepped where it is state, alive where it is a picture. A glyph picture resolves row by row from noise over about 1.5s on arrival, once; under the cursor its cells scramble and flare to the accent, then settle. A session types itself once when it enters the view, and anything it names (a host on a map) lights as its line prints. A caret blinks five times and holds. Reduced motion shows every final state.
 
 ## Voice
 
-Commands, flags, paths and exit codes. Declarative, terse, specific: name the command, the flag, the code, never the adjective.
+Commands, flags, paths and exit codes. Declarative and short: name the command, never the adjective.
 
 ## Do-nots
 
-- Never a second hue, in a photograph either: no warm bloom, no cyan, no amber.
-- Never a proportional face, not even one paragraph.
+- Never a proportional face, and never a box-drawing glyph from a fallback font.
+- Never a second hue: no amber, no cyan, no warm bloom.
 - Never a rounded corner, a pill or a soft card.
-- Never a light section; dark end to end.
-- Never the CRT costume: no scanlines, no glow, no bezel, no title bar, no caret hung on a heading.
+- Never a light section.
+- Never more than one photograph, and only where glyphs cannot be made.
 
 ## Build hint
 
@@ -79,14 +76,11 @@ Commands, flags, paths and exit codes. Declarative, terse, specific: name the co
 
 ```css
 body { font-stretch: var(--stretch-body); font-variant-numeric: tabular-nums; }
-h1, h2, h3 { font-weight: var(--display-weight); font-stretch: var(--stretch-display); line-height: 1.1; }
-h1 { font-size: min(var(--text-display), 4rem); }
-.btn { border: var(--rule-hair) solid transparent; border-radius: var(--radius-card); padding: var(--space-sm) var(--space-md); font-weight: 500; transition: background-color var(--dur-micro) steps(1); }
-.btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
-.btn--secondary { border-color: var(--color-ink-2); color: var(--color-ink); }
+h1, h2, h3 { font-weight: var(--display-weight); font-stretch: var(--stretch-display); letter-spacing: var(--tracking-display); line-height: 1.12; }
+.art { position: relative; } .art canvas { position: absolute; inset: 0; }
+.status { position: sticky; top: 0; background: var(--color-paper-2); border-bottom: var(--rule-hair) solid var(--color-rule); }
+.btn--primary { background: var(--color-accent); color: var(--color-accent-ink); border-radius: 0; transition: background-color var(--dur-micro) steps(1); }
 .well { background: var(--color-paper-2); border: var(--rule-hair) solid var(--color-rule); }
-.well--raised { background: var(--color-paper-3); }
-.photo { border: var(--rule-hair) solid var(--color-rule); }
-a:hover { color: var(--color-accent); }
-::selection { background: color-mix(in oklab, var(--color-accent) 35%, transparent); color: var(--color-ink); }
 ```
+
+To make a glyph picture: crop the subject, autocontrast, resize to `cols` by `round(cols * h / w / 1.85)`, quantise brightness to levels 0 to 8 (0 is blank), and ship the rows as strings; the canvas sets each lit cell's glyph from the product text in order and its colour from `--glyph-(level - 1)`.
