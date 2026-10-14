@@ -2,7 +2,7 @@
 import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync, renameSync } from 'node:fs';
 import { join, dirname, basename, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createHash } from 'node:crypto';
+import { createHash, randomBytes } from 'node:crypto';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const THEMES = join(HERE, '..', 'references', 'themes');
@@ -13,7 +13,7 @@ const args = process.argv.slice(2);
 const cmd = args[0];
 const flag = (k, d = null) => { const i = args.indexOf('--' + k); const v = i >= 0 ? args[i + 1] : undefined; return v !== undefined && !String(v).startsWith('--') ? v : d; };
 const has = (k) => args.includes('--' + k);
-const VALUED = new Set(['genre', 'brief', 'log', 'n', 'reroll', 'dealt', 'dir', 'axes', 'face', 'hue', 'entry', 'redesign', 'theme', 'orient', 'save', 'avoid']);
+const VALUED = new Set(['genre', 'brief', 'log', 'n', 'reroll', 'dealt', 'dir', 'axes', 'face', 'hue', 'entry', 'redesign', 'theme', 'orient', 'save', 'avoid', 'material', 'seed']);
 const positional = () => { const out = []; for (let i = 1; i < args.length; i++) { const a = args[i]; if (a.startsWith('--')) { if (VALUED.has(a.slice(2))) i++; continue; } out.push(a); } return out; };
 const GENRES = ['editorial', 'modern-minimal', 'atmospheric', 'playful'];
 
@@ -23,6 +23,7 @@ function usage() {
   node theme.mjs scaffold <slug> [--dealt "<n>/3, seed <seed>"] [--redesign polish|restyle|full] [--scope app] [--dir <beside the stylesheet>] [--force]
   node theme.mjs scaffold --custom | --brand [--redesign polish|restyle|full] [--scope app] [--dir <beside the stylesheet>] [--force]
   node theme.mjs check [--axes "<paper>/<display>/<accent>"] [--face "<display face>"] [--hue <accent hue>] [--log .hallmark/log.json]
+  node theme.mjs draw --material photo|product|words [--theme <slug>] [--log .hallmark/log.json] [--seed <hex>]
   node theme.mjs photos "<subject>" ["<subject>" ...] [--theme <slug>] [--n 3] [--orient landscape|portrait|square] [--log .hallmark/log.json] [--avoid <file naming photos>] [--save <dir>] [--json]
   node theme.mjs log --entry '<one JSON object>' [--log .hallmark/log.json]
   node theme.mjs index
@@ -139,6 +140,57 @@ function pickFrom(pool, n, exclude) {
   return picked;
 }
 
+// A project's own salt, so two projects dealing the same brief on the same day get different hands;
+// one project still gets the same deal back (reroll moves it on).
+function projectSalt() {
+  const f = resolve(dirname(resolve(flag('log', '.hallmark/log.json'))), 'salt');
+  try { if (existsSync(f)) return readFileSync(f, 'utf8').trim(); mkdirSync(dirname(f), { recursive: true }); const salt = randomBytes(4).toString('hex'); writeFileSync(f, salt + '\n'); return salt; } catch { return 'nosalt'; }
+}
+
+// The draw: the structural decisions a model converges on when left alone, dealt fresh for every build
+// against the log and the theme's own picture, so two builds of one brief in one theme come out as
+// different pages. The model takes it unless the brief's material refuses a pick, and says so.
+const DRAW = {
+  shapes: {
+    photo: ['Photographic', 'Marquee Hero', 'Split Studio', 'Catalogue', 'Narrative Workflow', 'Bento Grid', 'Conversational FAQ', 'Letter', 'Feature Stack'],
+    product: ['Workbench', 'Feature Stack', 'Bento Grid', 'Narrative Workflow', 'Marquee Hero', 'Split Studio', 'Conversational FAQ', 'Map / Diagram', 'Stat-Led'],
+    words: ['Long Document', 'Manifesto', 'Letter', 'Index-First', 'Conversational FAQ', 'Marquee Hero', 'Narrative Workflow'],
+  },
+  heroes: { photo: ['Poster', 'Stage', 'Ledge', 'Settled', 'Poster', 'Stage'], product: ['Stage', 'Settled', 'Banner', 'Corridor', 'Stage'], words: ['Corridor', 'Ledge', 'Banner', 'Settled'] },
+  navs: ['edge-aligned', 'floating pill', 'masthead', 'slab', 'search-led bar', 'banner over a retracting bar'],
+  footers: ['mast', 'statement', 'colophon block', 'newsletter-first', 'letter close', 'index columns'],
+  openers: ['Split', 'Showcase', 'Grid', 'Bento', 'Rows', 'Table', 'Steps', 'Statement'],
+  leads: { photo: ['the place', 'the thing itself, close', 'the making', 'the offer and its price', 'the season or the date', 'the people at work'], product: ['the job it does', 'the screen at work', 'the speed or the limit', 'the material it handles', 'the price', 'the before and after'], words: ['the claim', 'the question', 'the first line of the argument', 'the date and the place', 'the list itself'] },
+};
+function draw() {
+  const material = flag('material', 'photo');
+  if (!DRAW.shapes[material]) { console.error('--material is photo, product or words'); process.exit(2); }
+  const seed = flag('seed', '') || randomBytes(3).toString('hex');
+  const rand = seededRand(`draw·${seed}`);
+  const log = readLog(flag('log', '.hallmark/log.json'));
+  const low = (x) => String(x || '').toLowerCase();
+  let pictured = [];
+  const slug = flag('theme', '');
+  if (slug && existsSync(join(THEMES, `${slug}.md`))) pictured = low(parseHeader(readFileSync(join(THEMES, `${slug}.md`), 'utf8'), slug).pictured).split(/,\s*/).map((x) => x.replace(/ hero$/, ''));
+  const recent = (k, n) => log.slice(0, n).map((r) => low(r[k]));
+  const near = (opts, n, k, extra = []) => { const bad = new Set([...recent(k, n), ...extra]); const ok = opts.filter((o) => ![...bad].some((b) => b && b.includes(low(o)))); return ok.length ? ok : opts; };
+  const take = (opts, m = 1) => { const pool = [...new Set(opts)]; const out = []; while (out.length < m && pool.length) out.push(pool.splice(Math.floor(rand() * pool.length), 1)[0]); return out; };
+  const shapes = take(near(DRAW.shapes[material], 3, 'shape', pictured), 1);
+  const [hero] = take(near(DRAW.heroes[material], 1, 'hero', pictured));
+  const [nav] = take(near(DRAW.navs, 3, 'nav'));
+  const [footer] = take(near(DRAW.footers, 3, 'footer'));
+  const lastOpen = low((log[0] && (Array.isArray(log[0].sections) ? log[0].sections[0] : String(log[0].sections || '').split(/[,>·]/)[0])) || '');
+  const [opener] = take(DRAW.openers.filter((o) => !lastOpen.includes(low(o))));
+  const skip = take(['Split', 'Grid', 'Band', 'Statement', 'Steps'].filter((o) => o !== opener), 2);
+  const [lead] = take(DRAW.leads[material]);
+  if (has('json')) { console.log(JSON.stringify({ seed, material, shapes, hero, nav, footer, opener, skip, lead })); return; }
+  console.log(`draw ${seed} (fresh each build; --seed ${seed} repeats it)${pictured.length ? ` · clear of the theme picture's ${pictured.join(' and ')}` : ''}`);
+  console.log(`shape: ${shapes[0]} · hero: ${hero} · nav: ${nav} · footer: ${footer}`);
+  console.log(`first section after the hero: ${opener} · leave out this time: ${skip.join(' and ')} · the hero leads with ${lead}, if the brief has it`);
+  console.log(`photos: pass --seed ${seed} to every theme.mjs photos call, so this build's picks are its own, and take its first fitting pick for the hero rather than hunting for the library's single best frame`);
+  console.log('take the draw unless the brief\'s material refuses a pick; name any swap in the Picks block, and stamp draw: ' + seed);
+}
+
 function deal() {
   const genre = flag('genre', 'editorial');
   if (!GENRES.includes(genre)) { console.error(`unknown genre "${genre}" (valid: ${GENRES.join(', ')})`); process.exit(2); }
@@ -153,7 +205,7 @@ function deal() {
   const occupiedAxes = new Set(recent.map((r) => r.axes).filter(Boolean));
   const bw = new Set(briefWords(brief).map(stem));
   const slug = `${briefWords(brief).slice(0, 4).join('-') || 'brief'}-${createHash('sha1').update(brief.trim().toLowerCase()).digest('hex').slice(0, 4)}`;
-  const seedBase = `${slug}·${new Date().toISOString().slice(0, 10)}`;
+  const seedBase = `${slug}·${projectSalt()}·${new Date().toISOString().slice(0, 10)}`;
   const seedKey = `${seedBase}·r${reroll}`;
   const rand = seededRand(seedBase);
 
@@ -284,6 +336,8 @@ async function photos() {
   const docs = lib.map((p) => { const t = new Set(); for (const x of p.tags) for (const w of words(x)) t.add(stem(w)); for (const w of words(p.subject)) t.add(stem(w)); t.add(stem(p.cat)); return t; });
   const df = new Map(); for (const d of docs) for (const w of d) df.set(w, (df.get(w) || 0) + 1);
   const idf = (w) => Math.log((lib.length + 1) / ((df.get(w) || 0) + 1)) + 0.3;
+  // Close scores rotate from build to build, so two pages on one subject rarely share their photographs; --seed repeats a pick.
+  const jitter = seededRand(`photos·${flag('seed', '') || randomBytes(3).toString('hex')}`);
   const used = new Set();
   const result = [];
   for (const subject of subjects) {
@@ -307,6 +361,7 @@ async function photos() {
       if (p.tags.includes('overused')) s -= 0.8;
       if (p.people === 'face' && !wantFace) s -= 3;
       if (recent.has(p.id)) s -= 4;
+      s += jitter() * (flag('seed', '') ? 4 : 2.5);
       if (header) { if (header.paper.band === 'dark' && p.tone !== 'light') s += 0.3; if (header.paper.band === 'light' && p.tone !== 'dark') s += 0.15; if ((header.accent.band === 'warm') === (p.temp === 'warm')) s += 0.2; }
       return { p, s, cov, missing };
     }).filter(Boolean).sort((a, b) => b.s - a.s).slice(0, n);
@@ -464,7 +519,7 @@ function scaffold() {
     ? `/* Hallmark · shape: <shape, or kept> · genre: <genre> · theme: brand${tail}${made} · hero: <posture, or kept> · nav: <shape, or kept> · footer: <shape, or kept> · signature: <the one move, or kept>\n * axes: ${axes} · contrast: pass · fold: pass · v${VERSION} */`
     : custom
     ? `/* Hallmark · shape: <shape> · genre: <genre> · theme: custom${tail} · direction: "<drawn, n/7>" · vibe: "<4 to 8 words>"${made} · hero: <posture> · nav: <shape> · footer: <shape> · imagery: <photographs, the product, or none> · signature: <the one move>\n * axes: ${axes} · seed: <key> · challenger: <name> (<verdict or raise>) · contract: <after the finish review> · contrast: pass · fold: pass · v${VERSION} */`
-    : `/* Hallmark · shape: <shape${kept}> · genre: ${header.genre} · theme: ${theme}${tail}\n * hero: <posture${kept}> · nav: <shape${kept}> · footer: <shape${kept}> · imagery: <photographs, the product, or none> · signature: <the one move>${dial ? ` · ${dial[1]}: <the dials>` : ''}\n * axes: ${axes} · contrast: pass · fold: pass · v${VERSION} */`;
+    : `/* Hallmark · shape: <shape${kept}> · genre: ${header.genre} · theme: ${theme}${tail}${depth ? '' : ' · draw: <seed>'}\n * hero: <posture${kept}> · nav: <shape${kept}> · footer: <shape${kept}> · imagery: <photographs, the product, or none> · signature: <the one move>${dial ? ` · ${dial[1]}: <the dials>` : ''}\n * axes: ${axes} · contrast: pass · fold: pass · v${VERSION} */`;
   console.log(`wrote ${out} (${brand ? 'the shared scale; fill every --color-* and --font-* from the palette and faces the pre-flight found' : custom ? 'the shared scale; fill every --color-* and --font-* from direction.md § B and § C before building' : `${name} tokens plus the shared scale`}) and ${baseOut} (the base rules the Floor already decided)${sheet && !flag('dir', '') ? `, beside ${sheet}` : ''}`);
   if (!custom && !flag('dealt', '')) {
     const pic = join(THEMES, `${slug}.jpg`);
@@ -545,6 +600,7 @@ function validate(files) {
 
 try {
   if (cmd === 'deal') deal();
+  else if (cmd === 'draw') draw();
   else if (cmd === 'check') check();
   else if (cmd === 'scaffold') scaffold();
   else if (cmd === 'log') addLog();

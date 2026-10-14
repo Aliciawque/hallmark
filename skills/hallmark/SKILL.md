@@ -73,7 +73,7 @@ Skipped fields are opt-outs: infer them, state the inferences in one line at the
 
 Decide the page's shape, how it opens, which composition each section takes, what the nav and footer do, and what carries the hero. You are designing, not filling a form. For a starting point: 21 page shapes in [`references/macrostructures.md`](references/macrostructures.md) (load only the one file you pick), compositions, navs and footers in [`references/layout.md`](references/layout.md), what the page shows in [`references/imagery.md`](references/imagery.md).
 
-**Rotation.** Read `.hallmark/log.json` (newest first). The page's shape must differ from the last three builds; the nav and footer must not repeat the last three shapes; the hero posture (`layout.md` § 6) and the section opening must not repeat the previous run. The deal in Step 3 handles the theme axis. **The mirror test:** would this exact combination have come out for a neighbouring brief in the same category? If yes, change one decision and say which in the Picks block.
+**Rotation and the draw.** Run `node <skill-dir>/scripts/theme.mjs draw --material photo|product|words [--theme <slug>] [--log .hallmark/log.json]` each build. From a fresh seed, clear of the log and the theme's picture, it deals a shape, the hero posture, the nav, the footer, the first section after the hero, two compositions to leave out, and what the hero leads with. Take it unless the brief's material refuses a pick, and name any swap in the Picks block: one brief in one theme, built twice, makes two pages. **Mirror test:** would a neighbouring brief in the same category get this exact combination? If yes, change one decision and say which.
 
 **Signature.** Every page has one thing a visitor would remember, and it is the brief's strongest real thing shown at its best: the photograph that is the place, the product doing its one job, a price or a date set huge because it is the offer, a control that lets the visitor try it. Decide it here, make it in the dealt theme's material, show it on the first screen, and put it in the Picks block and the stamp; the reviewer checks it. A number drawn as marks (one dot a bottle, a dial of the year) is a device, not a signature (82).
 
@@ -91,7 +91,7 @@ Check in order; the first match wins.
 node <skill-dir>/scripts/theme.mjs deal --genre <genre> --brief "<the brief>" [--log .hallmark/log.json]
 ```
 
-It deals three themes that fit the brief and clear Rotation, with a reproducible seed. Look at the three pictures, pick the one whose material can carry what the brief asks for (motion, photographs, code), say which and why, and load only `references/themes/<slug>.md`. Re-deal only when the user asks (`--reroll 1`). No Node: read `references/themes/index.json`, apply the same rule by hand, and stamp `deal: manual`.
+It deals three themes that fit the brief and clear the log, seeded per project. Look at the three pictures, pick the one whose material can carry what the brief asks for (motion, photographs, code), say which and why, and load only `references/themes/<slug>.md`. Re-deal only when the user asks (`--reroll 1`). No Node: read `references/themes/index.json`, apply the same rule by hand, and stamp `deal: manual`.
 
 A catalog theme is a material, not a plan: it never sets what the page contains or in what order, and two pages in one theme should not share a section sequence. Where the theme and a shape, genre or craft file disagree on material, controls or motion, the theme wins; the Floor and the user's own words beat both.
 
@@ -110,10 +110,10 @@ The run's only prose recital of its decisions, and the user's five-second redire
 ```markdown
 **Hallmark · v2.7.0**
 
-- **Shape** · Workbench (last 3: Bento, Long Document, Manifesto) · genre modern-minimal
+- **Shape** · Workbench, from draw 7f3a2c · genre modern-minimal
 - **Theme** · Coral, dealt 2/3 (warm grey, one coral signal, General Sans, soft pills) · clears Cobalt on paper band
-- **Chrome** · nav: edge-aligned, a wordmark and one action (prev floating pill) · footer: a mast, the wordmark over the links
-- **Hero** · Stage: head on columns 1 to 5, the slot on 6 to 12 at 560px, centred (prev Settled)
+- **Chrome** · nav: edge-aligned, a wordmark and one action · footer: a mast, the wordmark over the links
+- **Hero** · Stage: head on columns 1 to 5, the slot on 6 to 12 at 560px, centred
 - **Signature** · the invoice list chasing a late payment, built live in the hero
 - **Sections** · Hero · Showcase · Steps · Rows (pricing) · Band · Footer
 - **Material** · real: the 2-minute setup, the CSV import, Lisbon · pictures: the invoice list built in the hero, library photos of a Lisbon studio (muted) · absent: logos, quotes, metrics

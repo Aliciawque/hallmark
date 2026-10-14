@@ -70,5 +70,14 @@
       "scope": "page",
       "notes": "Photo-led trade brief for v2.7: the library and treatments should carry the page."
     }
+  },
+  {
+    "id": "b9",
+    "name": "same theme twice",
+    "brief": "Build a landing page for a small cider maker in Herefordshire that sells bottles online and runs orchard tours in autumn. Use the Garden theme.",
+    "expect": {
+      "scope": "page",
+      "notes": "Run twice in fresh projects: two people asking for the same theme must not get the same page."
+    }
   }
 ]
