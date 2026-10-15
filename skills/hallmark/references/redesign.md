@@ -1,6 +1,6 @@
 # Redesign
 
-Loaded when the request opens with `redesign` or `audit`, or asks to redesign, restyle or polish an existing page, site or app. A redesign is a build whose material is the page that exists: SKILL.md still binds, and this file says what the run keeps, what replaces the Step 1 ask and what the sweep adds. The target is the user's own code (a file, a folder, a route on a dev server); a live URL with no source behind it can only be audited, through `--url`. A small edit (a tweak, one fix, new copy) is neither a redesign nor a Hallmark run.
+Loaded only when the user names Hallmark with `redesign` or `audit` (`/hallmark redesign <target>`, *redesign the site with Hallmark*). A request that changes an existing design without naming Hallmark (a restyle, new colours or a new theme, a polish, a redesign, a small edit) never loads this file: it is done as asked, in the project's own system. A redesign is a build whose material is the page that exists: SKILL.md still binds, and this file says what the run keeps, what replaces the Step 1 ask and what the sweep adds. The target is the user's own code (a file, a folder, a route on a dev server); a live URL with no source behind it can only be audited, through `--url`.
 
 ## What a redesign keeps
 
@@ -12,13 +12,15 @@ Loaded when the request opens with `redesign` or `audit`, or asks to redesign, r
 
 ## Depth
 
-How far the run goes. The user's words pick it, on an app as on a page; where they name no depth the project does, and the Picks block says which. Where the words fit two depths, take the lighter: a redesign that kept too much is one message from going further, and one that replaced too much has to be undone. The depths do not blend: a polish that finds the concept wrong says so and recommends the deeper run, it never smuggles one in.
+The verb is a **full** redesign: the content and the wiring stay, the system and the composition change. A lighter depth runs only when the same request asks for it in so many words, and the Picks block names the depth:
 
-| Depth | Stays | Changes | Picked by |
+| Depth | Stays | Changes | Only when the request says |
 | --- | --- | --- | --- |
-| **polish** | the system and the layout | only what a gate names: the tells, contrast, states, motion, tokens | *polish*, *clean up*, *fix the design*; *keep our look*; a `design.md` |
-| **restyle** | the layout | the system: colour, type, radius, shadow, motion, the controls | *restyle*, *reskin*, *a new look*; the bare verb (*redesign* with no reason or depth beside it) on an app screen, or on a page with a brand |
-| **full** | the content and the wiring | the system and the composition: shape, hero, section objects, chrome | *redesign it fully*, *looks generic*, *looks generated*; the bare verb on a marketing page with no brand |
+| **full** | the content and the wiring | the system and the composition: shape, hero, section objects, chrome | nothing else: it is the verb |
+| **restyle** | the layout | the system: colour, type, radius, shadow, motion, the controls | *keep the layout*, *restyle*, *reskin*, *only the colours and type* |
+| **polish** | the system and the layout | only what a gate names: the tells, contrast, states, motion, tokens | *polish*, *keep our look*, *only fix what looks generated* |
+
+The depths do not blend: a polish that finds the concept wrong says so and recommends the full run, it never smuggles one in.
 
 **Full depth on an app screen** recomposes each screen inside the shell it has: what leads, and how the figures, tables and forms are arranged (`flow.md` § App screens). Routes, destinations and each component's logic stay; there is no hero stage and no hero review.
 
@@ -43,14 +45,14 @@ It prints the findings grouped by gate and writes them to `.hallmark/before.txt`
 
 One message replaces the Step 1 ask; skip it when the request already answers it or no one can answer:
 
-> *Before I redesign, three things. 1. **What stays**: the look (I fix only what reads as generated), the layout (new colour and type on the same structure), or only the content (a new design)? And anything I must not touch. 2. **What is wrong with it**, in your words, and the feeling you want instead. 3. **Anything new to show**: screenshots, photos, numbers, a quote. Or say **go ahead** and I will pick the depth from the project and say which.*
+> *Before I redesign, three things. 1. **What must stay**: the brand, a section, a page? Say *keep the layout* and I only restyle. 2. **What is wrong with it**, in your words, and the feeling you want instead. 3. **Anything new to show**: screenshots, photos, numbers, a quote. Or say **go ahead** and I will redesign it in full.*
 
 ## The plan
 
 The Picks block opens with four rows of its own, and nothing is deleted until the user has seen the Files row:
 
 ```markdown
-- **Redesign** · restyle · 3 pages (/, /pricing, /docs)
+- **Redesign** · full · 3 pages (/, /pricing, /docs)
 - **Before** · Floor 14 FAIL · Reflex 9 · a centred template in a stock indigo; the pricing table is clear and stays
 - **Keeps** · every link, field and handler · the green and the brand face · the pricing table
 - **Files** · edit: app/page.tsx, app/pricing/page.tsx, app/globals.css · create: app/tokens.css, app/base.css · delete: none
@@ -72,17 +74,15 @@ Then the build rows the depth reaches: Theme at restyle and full (dealt, `brand`
 2. The project's own checks, where it has them: the type check, the build, the tests. A redesign that breaks one is not finished.
 3. The finish review also takes the `before` screenshots and answers what the old page did better (`review-finish.md`). A polish hands it only the full pages at 1440, before and after, and takes at most five findings. A finding that is a plain defect (a misalignment, a broken glyph, a label that lies) is fixed at any depth; one that asks for a new composition joins the layout findings; one that asks for content the page never had goes to the owner in the handoff.
 4. The log entry carries `mode: redesign`, `depth` and `scope` (page, site or app), plus the build's fields at full depth.
-5. The handoff, ahead of the material ask; the Layout and Next rows exist only where the layout stayed:
+5. The handoff, ahead of the material ask; where the layout stayed it adds a Layout row (the findings only a full redesign would settle):
 
 ```
-Redesign · restyle · 3 pages
+Redesign · full · 3 pages
 Before   Floor 14 FAIL · Reflex 9
 After    Floor 0 · Reflex 1 waived (47b)
-Kept     14/14 links · 5/5 fields · 9/9 handlers · 11/11 headings · every figure · the layout
-Changed  the system: colour, type, radius, motion, the controls
+Kept     14/14 links · 5/5 fields · 9/9 handlers · 11/11 headings · every figure
+Changed  the system and the composition: shape, hero, sections, chrome
 Dropped  none
-Layout   2 findings a full redesign would settle (8, 42), listed below
-Next     say *redesign it fully* to recompose the pages
 Yours    2 claims kept as found ("50,000+ teams", the Acme quote) · 4 lines reworded, listed below
 Compare  .hallmark/compare.html
 ```

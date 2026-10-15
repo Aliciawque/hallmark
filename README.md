@@ -92,9 +92,9 @@ node skills/hallmark/scripts/install.mjs
 
 | Harness | Install location | Invoke |
 | --- | --- | --- |
-| Claude Code | `~/.claude/skills/hallmark` | `/hallmark <brief>`, `/hallmark redesign <path>`, or just describe the build |
-| Codex CLI | `~/.agents/skills/hallmark` | `$hallmark <brief>`, `$hallmark redesign <path>`, or implicit |
-| OpenCode | auto-discovers the copies above | `/hallmark <brief>`, `/hallmark redesign <path>`, or implicit |
+| Claude Code | `~/.claude/skills/hallmark` | `/hallmark <brief>`, `/hallmark redesign <path>`, or describe a new build |
+| Codex CLI | `~/.agents/skills/hallmark` | `$hallmark <brief>`, `$hallmark redesign <path>`, or describe a new build |
+| OpenCode | auto-discovers the copies above | `/hallmark <brief>`, `/hallmark redesign <path>`, or describe a new build |
 
 On Claude Code, `node skills/hallmark/scripts/install-hook.mjs` wires the Floor gates into a PostToolUse hook so a failing artifact is reported the moment it is written; the taste gates wait for the end-of-build sweep, so the hook never nags. `--global`, `--print` and `--remove` do what they say.
 
@@ -102,20 +102,20 @@ On Claude Code, `node skills/hallmark/scripts/install-hook.mjs` wires the Floor 
 
 ## Redesign
 
-Hallmark runs by itself when you ask for something new. For a page, a site or an app that already exists, say the verb:
+Hallmark runs by itself when you ask for something new. It never starts on a page, a site or an app that already exists: ask your agent for new colours, a restyle or a redesign without naming Hallmark and it does the job the ordinary way. For a full redesign by Hallmark, say the verb:
 
 ```
 /hallmark redesign ./src/app
 /hallmark audit ./index.html
 ```
 
-A redesign keeps what the page says and does and changes how it looks, at the depth you ask for:
+A redesign keeps what the page says and does and changes how it looks and how it is laid out. Two lighter depths run only when you ask for them in the same request:
 
-| Depth | Stays | Changes |
-| --- | --- | --- |
-| **polish** | the system and the layout | only what reads as generated: the tells, contrast, states, motion |
-| **restyle** | the layout | colour, type, radius, shadow, motion, the controls |
-| **full** | the content and the wiring | the system and the composition |
+| Depth | Stays | Changes | Say |
+| --- | --- | --- | --- |
+| **full** | the content and the wiring | the system and the composition | the verb alone |
+| **restyle** | the layout | colour, type, radius, shadow, motion, the controls | *keep the layout* |
+| **polish** | the system and the layout | only what reads as generated: the tells, contrast, states, motion | *polish* |
 
 Before it touches anything, `sloplint --before` lints the page and records every link, form field, handler, test hook, heading and figure. After the build, `sloplint --kept` fails the redesign if any of them went missing, a fresh-context reviewer compares the new screens with the old ones, and the project's own build and tests have to pass. The handoff is a before and after: findings, what was kept, what changed, anything dropped with the reason on the record, and `.hallmark/compare.html`, the old and new screens side by side. `audit` stops after the report and edits nothing.
 

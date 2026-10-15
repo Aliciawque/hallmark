@@ -1,6 +1,6 @@
 ---
 name: hallmark
-description: "Design skill for pages, sites, app screens and components that look made, not generated. Builds new UI from a dealt theme or a derived world on a hard floor, then lints and reviews it; `redesign <path>` does the same to an existing page, site or app and keeps its content and wiring. Use when the user asks to build or design new UI, asks to redesign or restyle a whole page, site or app, says one looks generic or AI-generated, or invokes Hallmark by name. Not for small edits to an existing design."
+description: "Design skill for new pages, sites, app screens and components that look made, not generated: deals a theme or derives a world, builds on a hard floor, lints and reviews. Use when the user asks to build or design something new, or names Hallmark. Never use it to change an existing design (a restyle, new colours or theme, a polish, a redesign, a small edit) unless the user names Hallmark: `/hallmark redesign <path>` is the explicit full redesign, keeping content and wiring; `/hallmark audit <path>` only reports."
 argument-hint: "<brief> | redesign <path> | audit <path>"
 version: 2.7.0
 ---
@@ -45,7 +45,7 @@ Above the Floor, a **Reflex** gate is a default a model falls into, which a buil
 6. Build: the hero first, then the page; stamp, `tokens.css`, log.
 7. Sweep: `sloplint --render` until clean, the judged gates, the finish review, the material ask.
 
-**Verbs.** `redesign <target>`, `audit <target>`, or a plain ask to redesign, restyle or polish an existing page, site or app: read [`references/redesign.md`](references/redesign.md) first; it sets what the run keeps and adds a before and an after. A small edit to an existing design is not a Hallmark run.
+**Verbs,** only when the user names Hallmark: `redesign <target>` (a full redesign keeping content and wiring) and `audit <target>` (a report); read [`references/redesign.md`](references/redesign.md) first. Any other change to an existing design is not a Hallmark run: do it as asked, in the project's own system, with no deal, scaffold, stamp or sweep.
 
 Codex CLI and OpenCode read [`references/flow.md`](references/flow.md) § Harnesses first; other harnesses run this file as written.
 
@@ -77,7 +77,7 @@ Decide the page's shape, how it opens, which composition each section takes, wha
 
 **Signature.** Every page has one thing a visitor would remember, and it is the brief's strongest real thing shown at its best: the photograph that is the place, the product doing its one job, a price or a date set huge because it is the offer, a control that lets the visitor try it. Decide it here, make it in the dealt theme's material, show it on the first screen, and put it in the Picks block and the stamp; the reviewer checks it. A number drawn as marks (one dot a bottle, a dial of the year) is a device, not a signature (82).
 
-Decide all of this and hold it; it is said once, at Step 5.
+Hold all of it; it is said once, at Step 5.
 
 ### 3. Direction
 
