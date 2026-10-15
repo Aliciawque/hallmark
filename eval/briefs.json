@@ -79,5 +79,77 @@
       "scope": "page",
       "notes": "Run twice in fresh projects: two people asking for the same theme must not get the same page."
     }
+  },
+  {
+    "id": "b10",
+    "name": "landing comparison",
+    "brief": "Build a landing page for The Low Room, a 90-seat basement jazz club in Glasgow with live sets six nights a week and a late bar.",
+    "expect": {
+      "scope": "page",
+      "notes": "With and without Hallmark, for the landing page."
+    }
+  },
+  {
+    "id": "b11",
+    "name": "landing comparison",
+    "brief": "Build a landing page for Wheel House, a neighbourhood pottery school in Leeds that runs six-week beginner courses on weeknights.",
+    "expect": {
+      "scope": "page",
+      "notes": "With and without Hallmark, for the landing page."
+    }
+  },
+  {
+    "id": "b12",
+    "name": "landing comparison",
+    "brief": "Build a landing page for Tronc, a payroll tool for independent restaurants that handles shifts, tips and holiday pay in one run.",
+    "expect": {
+      "scope": "page",
+      "notes": "With and without Hallmark, for the landing page."
+    }
+  },
+  {
+    "id": "b13",
+    "name": "landing comparison",
+    "brief": "Build a portfolio page for Ines Calvo, a documentary photographer working on long projects about rivers and the people who live on them.",
+    "expect": {
+      "scope": "page",
+      "notes": "With and without Hallmark, for the landing page."
+    }
+  },
+  {
+    "id": "b14",
+    "name": "landing comparison",
+    "brief": "Build a landing page for Nightjar, a rooftop cinema in Manchester showing classic films on summer evenings, with deckchairs, blankets and a bar.",
+    "expect": {
+      "scope": "page",
+      "notes": "With and without Hallmark on Opus 5.5 at low effort, for the landing page."
+    }
+  },
+  {
+    "id": "b15",
+    "name": "landing comparison",
+    "brief": "Build a landing page for Murmur, an app that records your meetings and turns them into tidy notes and action items a minute after you hang up.",
+    "expect": {
+      "scope": "page",
+      "notes": "With and without Hallmark on Opus 5.5 at low effort, for the landing page."
+    }
+  },
+  {
+    "id": "b16",
+    "name": "landing comparison",
+    "brief": "Build a landing page for Crux, a bouldering gym in Leeds with 300 problems, reset every Monday, a cafe and kids' sessions at weekends.",
+    "expect": {
+      "scope": "page",
+      "notes": "With and without Hallmark on Opus 5.5 at low effort, for the landing page."
+    }
+  },
+  {
+    "id": "b17",
+    "name": "landing comparison",
+    "brief": "Build a landing page for Salt & Ember, a wood-fired bakery in Lisbon open from 7am, known for its sourdough and custard tarts.",
+    "expect": {
+      "scope": "page",
+      "notes": "With and without Hallmark on Opus 5.5 at low effort, for the landing page."
+    }
   }
 ]
