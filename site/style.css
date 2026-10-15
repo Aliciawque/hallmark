@@ -232,10 +232,8 @@ svg path, svg rect { vector-effect: non-scaling-stroke; }
 .hl__t { position: relative; display: inline-block; transform-origin: 0 0; }
 .hl__t > span { display: inline-block; }
 .hl__ink { position: absolute; left: -0.15em; top: -0.25em; padding: 0.25em 0.15em; color: var(--ink); -webkit-mask: linear-gradient(90deg, var(--ink) 44%, transparent 56%) 100% 0 / 260% 100% no-repeat; mask: linear-gradient(90deg, var(--ink) 44%, transparent 56%) 100% 0 / 260% 100% no-repeat; }
-.hl__fly { position: absolute; left: 0; top: 0; display: block; }
-.hl__slash { display: block; max-width: none; overflow: visible; }
-.hl__slash path { fill: none; stroke: var(--accent); stroke-linecap: round; vector-effect: none; }
-.brand__slash { transform-origin: 50% 60%; }
+.hl__slash { position: absolute; display: block; max-width: none; overflow: visible; }
+.hl__slash path { fill: none; stroke: var(--accent); stroke-linecap: round; stroke-dasharray: 1 1; vector-effect: none; }
 
 /* ---------- sections and heads ---------- */
 .sec { padding-top: var(--section-gap); }

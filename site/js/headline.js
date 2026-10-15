@@ -1,18 +1,18 @@
 // The hero head's edit. The page states "The design skill that ends AI slop."; where motion is allowed, the inline
 // script after the head sets it as "A design skill" before the first paint, and this file corrects it once the hand is
-// dealt. The logo's slash leaves the lockup, swoops into the A and strikes it; "The" is written small above in the
-// proof's orange, then dropped into the line, growing to display size with its optical size following, as the struck
-// A falls out and the line opens; ink runs into the orange, and the slash comes home. Every move is a Web Animation
-// on one shared clock, measured once at the start; the real words take over at the end with a short crossfade.
+// dealt, the way a proofreader would: a slash at the logo's lean is drawn through the A, "The" is written small above it
+// in the proof's orange, then set into the line, growing to display size with its optical size following, as the struck
+// A falls out and the line opens round it; last, ink runs into the orange. Every move is a Web Animation on one shared
+// clock, measured once at the start; the real words take over at the end with a short crossfade.
 (function () {
   const h = document.querySelector('[data-hl]');
   if (!h || !h.classList.contains('is-a')) return;
   const a = h.querySelector('.hl__a'), the = h.querySelector('.hl__the');
   const words = [...h.querySelectorAll('.hl__w')].filter((w) => w !== a && w !== the);
-  const logo = document.querySelector('.brand__slash');
   const ACC = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
   const SVG = 'http://www.w3.org/2000/svg';
   const START = 950; // ms after navigation: the head has risen and most of the hand is down
+  const T = { hit: 240, write: 340, out: 800, go: 880, land: 1540, ink: 1660, inked: 2140 };
   const anims = [], ghosts = [];
   let done = false;
 
@@ -23,7 +23,7 @@
     anims.push(an);
     return an;
   };
-  const OUT = 'cubic-bezier(.16,1,.3,1)', SET = 'cubic-bezier(.32,0,.12,1)', HIT = 'cubic-bezier(.2,.7,.2,1)';
+  const SET = 'cubic-bezier(.32,0,.12,1)', HIT = 'cubic-bezier(.2,.7,.2,1)';
   const rel = (r) => { const o = h.getBoundingClientRect(); return { x: r.left - o.left, y: r.top - o.top, w: r.width, h: r.height }; };
   const box = (el) => rel(el.getBoundingClientRect());
   const baseOf = (el) => { const i = document.createElement('i'); i.style.cssText = 'display:inline-block;width:0;height:0;vertical-align:baseline'; el.append(i); const y = box(i).y; i.remove(); return y; };
@@ -52,26 +52,22 @@
     });
   };
 
-  // the slash: the logo's own mark at the logo's lean, through the A from below the baseline to above the apex
+  // the slash: the logo's own mark at the logo's lean, drawn through the A from below the baseline to above the apex
   function slash(gA, bA, baseA, E) {
     const apex = baseA - 0.735 * E, ext = 0.14 * E, tan = 0.34, sw = 0.08 * E;
     const y0 = baseA - bA.y + ext, y1 = apex - bA.y - ext, cx = bA.w / 2 + 0.012 * E;
     const run = tan * (y0 - y1), x0 = cx - run / 2, x1 = cx + run / 2;
-    const L = x0 - sw, T = y1 - sw, W = run + 2 * sw, H = (y0 - y1) + 2 * sw;
-    const fly = document.createElement('span'), flyY = document.createElement('span');
-    fly.className = flyY.className = 'hl__fly';
-    fly.style.left = L + 'px'; fly.style.top = T + 'px';
-    [fly, flyY].forEach((f) => { f.style.width = W + 'px'; f.style.height = H + 'px'; });
+    const L = x0 - sw, Tp = y1 - sw, W = run + 2 * sw, H = (y0 - y1) + 2 * sw;
     const svg = document.createElementNS(SVG, 'svg');
     svg.setAttribute('class', 'hl__slash');
     svg.setAttribute('width', W); svg.setAttribute('height', H); svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-    svg.style.transformOrigin = `${W / 2}px ${H / 2}px`;
+    svg.style.left = L + 'px'; svg.style.top = Tp + 'px';
     const p = document.createElementNS(SVG, 'path');
-    p.setAttribute('d', `M${(x0 - L).toFixed(2)} ${(y0 - T).toFixed(2)} L${(x1 - L).toFixed(2)} ${(y1 - T).toFixed(2)}`);
+    p.setAttribute('d', `M${(x0 - L).toFixed(2)} ${(y0 - Tp).toFixed(2)} L${(x1 - L).toFixed(2)} ${(y1 - Tp).toFixed(2)}`);
     p.setAttribute('pathLength', '1');
     p.style.strokeWidth = sw + 'px';
-    svg.append(p); flyY.append(svg); fly.append(flyY); gA.append(fly);
-    return { fly, flyY, svg, p, cx: bA.x + L + W / 2, cy: bA.y + T + H / 2, len: (y0 - y1) / Math.cos(Math.atan(tan)), apex };
+    svg.append(p); gA.append(svg);
+    return { p, apex };
   }
 
   function run() {
@@ -79,33 +75,16 @@
     const before = measure(), bA = box(a), baseA = baseOf(a);
     h.classList.remove('is-a'); h.classList.add('is-run');
     const after = measure(), fT = box(the), bOff = baseOf(the) - fT.y;
-    const leap = !!logo && logo.getClientRects().length > 0;
-    const T = leap
-      ? { off: 110, hit: 600, write: 700, out: 1140, go: 1220, land: 1880, ink: 2000, inked: 2480, home: 2040 }
-      : { hit: 240, write: 340, out: 800, go: 880, land: 1540, ink: 1660, inked: 2140 };
 
+    // the strike, then the A takes the hit, a small knock along the stroke, and greys out
     const gA = ghost('A', bA), gAi = gA.firstChild.firstChild;
     const s = slash(gA, bA, baseA, E);
     gA.style.transformOrigin = `${bA.w / 2}px ${baseA - bA.y}px`;
-    if (leap) {
-      // the logo's slash dips and gives itself up; its double drops out of the lockup, glides in level and docks
-      const lr = rel(logo.getBoundingClientRect()), o = T.off;
-      const dx = lr.x + lr.w / 2 - s.cx, dy = lr.y + lr.h * 0.52 - s.cy, s0 = (lr.h * 0.8) / s.len;
-      const rest = 'translateY(0.02em)';
-      track(logo, 'transform', [[0, rest, 'cubic-bezier(.3,0,.2,1)'], [o, 'translateY(0.1em) scale(0.9, 0.84)'], [o + 1, rest], [T.home, `translateY(0.38em) scale(0.6)`, 'cubic-bezier(.2,.9,.25,1.25)'], [T.home + 520, rest]]);
-      track(logo, 'opacity', [[0, 1], [o, 1], [o + 1, 0], [T.home, 0, HIT], [T.home + 260, 1]]);
-      track(s.svg, 'opacity', [[0, 0], [o, 0], [o + 1, 1]]);
-      track(s.fly, 'transform', [[0, `translateX(${dx}px)`], [o, `translateX(${dx}px)`, 'cubic-bezier(.55,0,.35,1)'], [T.hit, `translateX(${0.035 * E}px)`, OUT], [T.hit + 240, 'none']]);
-      track(s.flyY, 'transform', [[0, `translateY(${dy}px)`], [o, `translateY(${dy}px)`, 'cubic-bezier(.25,.55,.35,1)'], [T.hit, 'none']]);
-      track(s.svg, 'transform', [[0, `scale(${s0})`], [o, `scale(${s0})`, 'cubic-bezier(.3,.45,.3,1)'], [o + (T.hit - o) * 0.55, `scale(${(s0 + 1) * 0.66}) rotate(7deg)`, 'cubic-bezier(.4,0,.3,1)'], [T.hit, 'rotate(-3deg)', 'cubic-bezier(.3,0,.3,1)'], [T.hit + 240, 'none']]);
-    } else {
-      s.p.style.strokeDasharray = '1 1';
-      track(s.p, 'strokeDashoffset', [[0, 1, 'cubic-bezier(.62,0,.24,1)'], [T.hit, 0]]);
-    }
-    // the A takes the hit, a small knock along the stroke, and greys out; then it falls out of the line, slash and all
-    const k = leap ? T.hit : T.hit * 0.55;
+    track(s.p, 'strokeDashoffset', [[0, 1, 'cubic-bezier(.62,0,.24,1)'], [T.hit, 0]]);
+    const k = T.hit * 0.55;
     track(gAi, 'opacity', [[0, 1], [k, 1, HIT], [k + 260, 0.28]]);
-    track(gAi, 'transform', [[0, 'none'], [k, 'none', HIT], [k + 70, leap ? px(0.016 * E, 0.012 * E) : px(-0.014 * E, 0.01 * E), 'cubic-bezier(.3,0,.2,1)'], [k + 260, 'none']]);
+    track(gAi, 'transform', [[0, 'none'], [k, 'none', HIT], [k + 70, px(-0.014 * E, 0.01 * E), 'cubic-bezier(.3,0,.2,1)'], [k + 260, 'none']]);
+    // then it falls out of the line, slash and all, a beat before the new word arrives
     track(gA, 'transform', [[0, 'none'], [T.out - 60, 'none', 'cubic-bezier(.5,0,.75,0)'], [T.out + 300, `translateY(${0.5 * E}px) rotate(-6deg)`]]);
     track(gA, 'opacity', [[0, 1], [T.out - 60, 1, 'cubic-bezier(.3,0,.7,.4)'], [T.out + 200, 0]]);
 
@@ -128,7 +107,7 @@
       if (Math.abs(dx) < 0.5 && Math.abs(dy) < 0.5) return;
       track(w, 'transform', [[0, px(dx, dy)], [T.go + i * 16, px(dx, dy), SET], [T.land + i * 16, 'none']]);
     });
-    return Math.max(T.inked, (T.home || 0) + 520);
+    return T.inked;
   }
 
   const go = () => {
