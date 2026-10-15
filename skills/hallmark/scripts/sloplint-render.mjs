@@ -141,7 +141,7 @@ export async function renderCheck(htmlFiles, metaIn) {
           const field = (/hero:\s*([^·*\n]+)/i.exec(stamp) || [])[1] || '';
           let route = ''; try { route = new URL(file).pathname.replace(/\/$/, '') || '/'; } catch {}
           const own = new RegExp(`(settled|banner|poster|ledge|corridor|stage)\\s*\\(${route.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\)`, 'i').exec(field);
-          meta.heroPostureByFile[file] = ((own || /(settled|banner|poster|ledge|corridor|stage)\b/i.exec(field) || [])[1] || '').toLowerCase();
+          meta.heroPostureByFile[file] = /theme:\s*custom\b/i.test(stamp) ? 'custom' : ((own || /(settled|banner|poster|ledge|corridor|stage)\b/i.exec(field) || [])[1] || '').toLowerCase();
         }
         const pageMeta = { genre: meta.genre, posture: meta.postureByFile[file] || 'restrained' };
         const prefix = heroOnly ? 'hero-' : '';
@@ -667,7 +667,7 @@ function observe(checkFold, meta) {
 }
 
 function observeSpace(atLaptop, heroOnly, heroPosture) {
-  const freeFold = /^(poster|ledge|banner)$/.test(heroPosture || '');
+  const freeFold = /^(poster|ledge|banner|custom)$/.test(heroPosture || '');
   const out = [];
   const push = (gate, grade, evidence, fix) => out.push({ gate: String(gate), grade, evidence, fix });
   const vw = window.innerWidth, vh = window.innerHeight;
@@ -847,7 +847,7 @@ function observeSpace(atLaptop, heroOnly, heroPosture) {
       const after = secs.find((x) => x !== hero && !hero.contains(x) && abs(x).top >= hb.bottom - 4);
       const bottomEdge = after ? Math.min(content(after).top, hb.bottom + 240) : hb.bottom;
       const topPad = cTop - navBottom, bottomPad = bottomEdge - cBottom;
-      if (isFinite(topPad) && isFinite(bottomPad) && topPad > 24 && bottomPad < topPad - 8) push('44a', 'REFLEX', `hero content sits low: ${Math.round(topPad)}px above it, ${Math.round(bottomPad)}px below`, 'Centre the content in its screen: the space below 1.0 to 1.5 times the space above (a Ledge sits low on purpose; say Ledge in the stamp)');
+      if (heroPosture !== 'custom' && isFinite(topPad) && isFinite(bottomPad) && topPad > 24 && bottomPad < topPad - 8) push('44a', 'REFLEX', `hero content sits low: ${Math.round(topPad)}px above it, ${Math.round(bottomPad)}px below`, 'Centre the content in its screen: the space below 1.0 to 1.5 times the space above (a Ledge sits low on purpose; say Ledge in the stamp)');
       heroFoot = { cBottom, navBottom };
     }
     if (heroEnd != null && !freeFold) {

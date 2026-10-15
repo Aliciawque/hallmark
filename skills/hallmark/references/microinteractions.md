@@ -68,7 +68,7 @@ catch { item.done = prev; render(); toast({ tone: "error", message: "Could not s
 
 ## Motion character
 
-Every system declares one: a catalog theme in its Motion section, a derived direction in its contract's FORM block. The same press is louder in a severe system than in a calm one.
+Every system declares one: a catalog theme in its Motion section, a custom page in its own stylesheet. The same press is louder in a severe system than in a calm one.
 
 | Character | Duration scale | Feels like |
 | --- | --- | --- |

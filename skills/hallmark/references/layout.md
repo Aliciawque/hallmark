@@ -1,6 +1,6 @@
 # Layout
 
-The one file every page build reads for space. A page looks made when every screen is full of one idea set at the right size, and generated when it is either crowded or a few small things adrift on a wide canvas: a 36px heading, one line and a small object in a 1300px container, under a hero with a dead band at its foot. This file sets the canvas, the sizes, how a section is built and how full it must be. The theme supplies the material; this file supplies the room. Numbers are at 1440 x 900 unless a line says otherwise; gate numbers in parentheses point at `gates.md`.
+The one file every theme build reads for space; a custom run designs its own (`direction.md`). A page looks made when every screen is full of one idea set at the right size, and generated when it is either crowded or a few small things adrift on a wide canvas: a 36px heading, one line and a small object in a 1300px container, under a hero with a dead band at its foot. This file sets the canvas, the sizes, how a section is built and how full it must be. The theme supplies the material; this file supplies the room. Numbers are at 1440 x 900 unless a line says otherwise; gate numbers in parentheses point at `gates.md`.
 
 ## 1. The canvas
 

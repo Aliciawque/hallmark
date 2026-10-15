@@ -1,6 +1,6 @@
 # Craft
 
-The file every page build reads beside `layout.md` and `imagery.md`. Type, colour, surfaces, motion, copy, section openings, slots and finish, as numbers wherever a number exists; `layout.md` owns the canvas, the sizes, the room, the sections and the hero. The theme file supplies the material; these two files supply the rules it sits in. Gate numbers in parentheses point at `gates.md`.
+The file every page build reads, beside `imagery.md` (and `layout.md` on a theme build). Type, colour, surfaces, motion, copy, section openings, slots and finish, as numbers wherever a number exists; `layout.md` owns the canvas, the sizes, the room, the sections and the hero. The theme file supplies the material; these two files supply the rules it sits in. Gate numbers in parentheses point at `gates.md`.
 
 ## 1. Type
 
@@ -12,7 +12,7 @@ Type carries the page. At most two families, a display face and a body face, whi
 - **Body:** 16px minimum (14px never for body), line-height 1.5 to 1.65, measure 45 to 75ch (`max-width: 65ch`) (25). Never all-caps body, never justified without hyphenation, never tracking above 0.05em on body.
 - **Labels, captions, table heads, meta, tags, chips, nav links:** the body face, a step smaller, sentence case (or lowercase on a theme whose voice is lowercase), untracked (67). Never uppercase, never small caps, never letter-spaced. Mono only when the content is code, a figure or a measurement, or when mono is the theme's material (64). Capitals belong to a wordmark and to a theme whose display voice is uppercase; there a control may follow the display's case at 0.04em of tracking or less.
 - **Headline sizing by copy length.** Count the rendered `h1`: 20 characters or fewer, full display (a single word may grow to 7rem); 21 to 50, display; 51 to 90, one step down (`--text-display-s`) or split at the sense break with `<br>`; over 90, rewrite. Self-written headlines aim for seven words and 50 characters.
-- **Heading measure rides on the element**, in `ch`: the scaffold sets `h1` 20ch, `h2` 30ch, `h3` 40ch; a head at display-s takes about 24ch. Never a `max-width` on the heading group's wrapper.
+- **Heading measure rides on the element**, in `ch`: a theme's scaffold sets `h1` 20ch, `h2` 30ch, `h3` 40ch (a custom page sets its own); a head at display-s takes about 24ch. Never a `max-width` on the heading group's wrapper.
 - **Required:** `font-display: swap`; a fallback stack of the same build (a grotesk falls back to `system-ui`, a serif to Georgia), with `size-adjust` and the overrides only where the face's metrics are published, never guessed; `font-variant-numeric: tabular-nums` on any figures that compare; `text-wrap: balance` on heads, `pretty` on ledes and body; curly quotes, a true ellipsis, a non-breaking space inside unit pairs (`10 MB`, `⌘ K`) in a proportional face (in mono the unit sits outside the mono span or takes a plain space, since a mono space is a full cell). No `--` and no em or en dash anywhere in rendered copy; a comma, a colon or a full stop does the work.
 - **Wordmark.** May take a different face from the body; on tone-rich themes it should. Collapse to one family only when the body voice is the brand (a letter, a manifesto, a long document).
 - **Load only the weights you use.** Never synthesise bold or italic.

@@ -2,7 +2,7 @@
 
 Loaded on a custom run. A catalog theme has already named its faces; do not read this to second-guess it.
 
-**Needs before reading:** the drawn idea and the material it shows. **Gives:** a display face, a body face, an optional outlier, and the load rules.
+**Needs before reading:** the page's idea and what it shows. **Gives:** a display face, a body face, an optional outlier, and the load rules.
 
 ## The rule
 
@@ -48,7 +48,7 @@ The wordmark in the nav and footer may take a different face from the body, and 
 .wordmark { font-family: var(--font-outlier); font-weight: 600; letter-spacing: -0.015em; }
 ```
 
-Collapse to one family only when the body voice is the brand (a letter, a manifesto, a long document) or a one-family discipline was dealt; then the wordmark takes the family's display cut or its heaviest weight. A product page whose wordmark is the body face at 600 is the un-designed default.
+Collapse to one family only when the body voice is the brand (a letter, a manifesto, a long document); then the wordmark takes the family's display cut or its heaviest weight. A product page whose wordmark is the body face at 600 is the un-designed default.
 
 ## Loading
 

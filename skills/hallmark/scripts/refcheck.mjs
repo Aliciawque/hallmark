@@ -283,14 +283,6 @@ for (const target of clean) {
   else if (s.fails || s.reflex || s.warns) add('error', target, 1, 'lint', `must lint clean, has ${s.fails} FAIL, ${s.reflex} REFLEX, ${s.warns} WARN`);
 }
 
-// the custom draw deals its faces from fonts.md's own table; a reformatted table must not empty the deal
-{
-  const out = spawnSync(process.execPath, [join(ROOT, 'scripts', 'seed.mjs'), '--brief', 'refcheck', '--material', 'photo'], { encoding: 'utf8' }).stdout || '';
-  const dealt = ((/^faces: (.*)$/m.exec(out) || [])[1] || '').split(' · ').filter(Boolean);
-  if (dealt.length < 10 || !dealt.some((f) => f.startsWith('body sans ')) || !dealt.some((f) => f.startsWith('body serif '))) add('error', join(ROOT, 'scripts', 'seed.mjs'), 1, 'faces', `seed.mjs dealt ${dealt.length} faces from fonts.md; the display table or the body paragraph no longer parses`);
-  if (!/^discipline: /m.test(out)) add('error', join(ROOT, 'scripts', 'seed.mjs'), 1, 'faces', 'seed.mjs printed no discipline');
-}
-
 const FIX = join(ROOT, 'scripts', 'fixtures');
 const lintJson = (t) => { const r = spawnSync(process.execPath, [join(ROOT, 'scripts', 'sloplint.mjs'), t, '--json'], { encoding: 'utf8' }); try { return JSON.parse(r.stdout); } catch { return null; } };
 const gatesOf = (j) => new Set(j.findings.map((x) => String(x.gate)));

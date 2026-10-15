@@ -30,7 +30,7 @@ The cache is the same block as JSON: `{ "scanned": "<date>", "findings": { "font
 
 Signals: the brief names one element (button, input, form, card, modal, dropdown, tooltip, select, checkbox, switch, tab strip, chip, badge, banner, snackbar, popover, slider, date picker, avatar, a single nav or footer); the brief is short and refers to one element; the target file is one component; the user says "just the X". Two signals: component. Ambiguous ("a pricing section"): ask once, *One pricing card, or the whole pricing page?*, defaulting to component.
 
-**Keeps:** pre-flight, the Step 1 questions (once), genre detection, existing tokens (otherwise the theme deal, since one component needs no derived world), the two-family type discipline, and a stricter state rule: every interactive component ships all eight states (default, hover, `:focus-visible`, `:active`, disabled, loading, error, success) per `interaction-and-states.md`.
+**Keeps:** pre-flight, the Step 1 questions (once), genre detection, existing tokens (otherwise the theme deal, since one component needs no custom design), the two-family type discipline, and a stricter state rule: every interactive component ships all eight states (default, hover, `:focus-visible`, `:active`, disabled, loading, error, success) per `interaction-and-states.md`.
 
 **Skips:** macrostructure, nav and footer, hero, imagery, the multi-section preview, and the log append (components do not rotate).
 
@@ -96,7 +96,7 @@ On Claude Code, `node <skill-dir>/scripts/install-hook.mjs` wires sloplint as a 
 
 ## Comp before build (signal 9)
 
-Fires only when `TOGETHER_API_KEY` is set. After the Picks block, load `comp.md`: two comps of the first viewport at 1280 x 800, built from the direction contract or the theme line rather than the brief, varied on one compositional axis, one approval, then a medium inventory naming how each region gets built. Reproduction is checked against the comp at its own size before anything below the fold exists. The comp never overrides the Floor (an image generator has read no gates; take its composition, not its compliance) and never blocks: two comp rounds is the ceiling, then build unconstrained and say so.
+Fires only when `TOGETHER_API_KEY` is set. After the Picks block, load `comp.md`: two comps of the first viewport at 1280 x 800, built from the idea or the theme line rather than the brief, varied on one compositional axis, one approval, then a medium inventory naming how each region gets built. Reproduction is checked against the comp at its own size before anything below the fold exists. The comp never overrides the Floor (an image generator has read no gates; take its composition, not its compliance) and never blocks: two comp rounds is the ceiling, then build unconstrained and say so.
 
 ## Harnesses
 

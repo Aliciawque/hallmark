@@ -4,7 +4,6 @@ Content-led briefs: portfolios, manifestos, type specimens, agency sites, magazi
 
 ## Voice
 
-- **Faces** (a theme names its own; this is for a custom run): a roman serif, a condensed sans or a display-heavy face at an extreme weight (300, or 700 and up), never a default sans; a workhorse serif or a plain non-default sans for the body.
 - **Accent:** one hue, held to the posture's footprint.
 - **Layout:** asymmetric; hairlines, not card borders; type set large enough to hold its screen.
 - **Motion:** quiet, one orchestrated entrance.

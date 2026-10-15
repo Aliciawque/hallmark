@@ -1,6 +1,6 @@
 ---
 name: hallmark
-description: "Design skill for new pages, sites, app screens and components that look made, not generated: deals a theme or derives a world, builds on a hard floor, lints and reviews. Use when the user asks to build or design something new, or names Hallmark. Never use it to change an existing design (a restyle, new colours or theme, a polish, a redesign, a small edit) unless the user names Hallmark: `/hallmark redesign <path>` is the explicit full redesign, keeping content and wiring; `/hallmark audit <path>` only reports."
+description: "Design skill for new pages, sites, app screens and components that look made, not generated: deals a theme or designs from scratch, builds on a hard floor, lints and reviews. Use when the user asks to build or design something new, or names Hallmark. Never use it to change an existing design (a restyle, new colours or theme, a polish, a redesign, a small edit) unless the user names Hallmark: `/hallmark redesign <path>` is the explicit full redesign, keeping content and wiring; `/hallmark audit <path>` only reports."
 argument-hint: "<brief> | redesign <path> | audit <path>"
 version: 2.7.0
 ---
@@ -39,7 +39,7 @@ Above the Floor, a **Reflex** gate is a default a model falls into, which a buil
 0. Pre-flight: read the project before asking anything.
 1. Ask once: material, audience, use, tone.
 2. Shape: design the page, then name it.
-3. Direction: deal a theme, or derive a world when asked for custom.
+3. Direction: deal a theme, or design freely when asked for custom.
 4. Load the craft, genre and theme files and `gates.md` § 1 to § 4.
 5. The Picks block, once.
 6. Build: the hero first, then the page; stamp, `tokens.css`, log.
@@ -47,7 +47,7 @@ Above the Floor, a **Reflex** gate is a default a model falls into, which a buil
 
 **Verbs,** only when the user names Hallmark: `redesign <target>` (a full redesign keeping content and wiring) and `audit <target>` (a report); read [`references/redesign.md`](references/redesign.md) first. Any other change to an existing design is not a Hallmark run: do it as asked, in the project's own system, with no deal, scaffold, stamp or sweep.
 
-Codex CLI and OpenCode read [`references/flow.md`](references/flow.md) § Harnesses first; other harnesses run this file as written.
+Codex CLI and OpenCode read `references/flow.md` § Harnesses first; other harnesses run this file as written.
 
 ### 0. Pre-flight
 
@@ -73,7 +73,7 @@ Skipped fields are opt-outs: infer them, state the inferences in one line at the
 
 Decide the page's shape, how it opens, which composition each section takes, what the nav and footer do, and what carries the hero. You are designing, not filling a form. For a starting point: 21 page shapes in [`references/macrostructures.md`](references/macrostructures.md) (load only the one file you pick), compositions, navs and footers in [`references/layout.md`](references/layout.md), what the page shows in [`references/imagery.md`](references/imagery.md).
 
-**Rotation and the draw.** Run `node <skill-dir>/scripts/theme.mjs draw --material photo|product|words [--theme <slug>] [--log .hallmark/log.json]` each build. From a fresh seed, clear of the log and the theme's picture, it deals a shape, the hero posture, the nav, the footer, the first section after the hero, two compositions to leave out, and what the hero leads with. Take it unless the brief's material refuses a pick, and name any swap in the Picks block: one brief in one theme, built twice, makes two pages. **Mirror test:** would a neighbouring brief in the same category get this exact combination? If yes, change one decision and say which.
+**Rotation and the draw.** Run `node <skill-dir>/scripts/theme.mjs draw --material photo|product|words [--theme <slug>] [--log .hallmark/log.json]` each theme build. From a fresh seed, clear of the log and the theme's picture, it deals a shape, the hero posture, the nav, the footer, the first section after the hero, two compositions to leave out, and what the hero leads with. Take it unless the brief's material refuses a pick, and name any swap in the Picks block: one brief in one theme, built twice, makes two pages. **Mirror test:** would a neighbouring brief in the same category get this exact combination? If yes, change one decision and say which.
 
 **Signature.** Every page has one thing a visitor would remember, and it is the brief's strongest real thing shown at its best: the photograph that is the place, the product doing its one job, a price or a date set huge because it is the offer, a control that lets the visitor try it. Decide it here, make it in the dealt theme's material, show it on the first screen, and put it in the Picks block and the stamp; the reviewer checks it. A number drawn as marks (one dot a bottle, a dial of the year) is a device, not a signature (82).
 
@@ -84,7 +84,7 @@ Hold all of it; it is said once, at Step 5.
 Check in order; the first match wins.
 
 1. **The user named a theme** → build it (stamp `theme: <name> (by request)`).
-2. **The user asked for custom** ("custom", "derive it", "bespoke", "no theme", "a world of its own") → load [`references/direction.md`](references/direction.md) and run the ritual: no deal and nothing from a theme. Silence never takes this route.
+2. **The user asked for custom** ("custom", "derive it", "bespoke", "no theme", "a world of its own") → load [`references/direction.md`](references/direction.md): the design is yours. It replaces the draw, the shapes, `layout.md`, the genre file and Step 6's composition and fold rules; the Floor, gates and sweep hold. Silence never takes this route.
 3. **Everything else deals a theme:**
 
 ```
@@ -97,7 +97,7 @@ A catalog theme is a material, not a plan: it never sets what the page contains 
 
 ### 4. Load
 
-Exactly these, for a page build: [`references/layout.md`](references/layout.md) · [`references/imagery.md`](references/imagery.md) · [`references/craft.md`](references/craft.md) · `references/genres/<genre>.md` · `references/themes/<slug>.md` and its picture, already seen at the deal (a named theme: look at `<slug>.jpg` now): take its palette balance, type voice and surfaces, never its layout (or `direction.md` on a custom run) · [`references/gates.md`](references/gates.md) § 1 to § 4.
+Exactly these, for a page build: [`references/layout.md`](references/layout.md) · [`references/imagery.md`](references/imagery.md) · [`references/craft.md`](references/craft.md) · `references/genres/<genre>.md` · `references/themes/<slug>.md` and its picture, already seen at the deal (a named theme: look at `<slug>.jpg` now): take its palette balance, type voice and surfaces, never its layout · [`references/gates.md`](references/gates.md) § 1 to § 4. A custom run loads `direction.md` instead of the layout, genre and theme files.
 
 Only when the build needs them, each in `references/`: one macrostructure file (Step 2) · `microinteractions.md` for stateful UI · `interaction-and-states.md` for forms · `responsive.md` for an unusual layout · `texture.md` when the theme earns texture · `scroll-choreography.md` for a scroll story · `dark-mode.md` when both modes are asked for · `data-viz.md` for charts · `fonts.md` on custom runs · `comp.md` on signal 9 · `design-md.md` when asked to lock the system.
 
@@ -120,7 +120,7 @@ The run's only prose recital of its decisions, and the user's five-second redire
 - **Sweep** · run after build
 ```
 
-A custom run's rows are in `direction.md` R.8. Then one quiet line: *System portable? Say `lock the system` for a `design.md`.* Skip it in component scope or when `design.md` exists.
+A custom run's rows are in `direction.md`. Then one quiet line: *System portable? Say `lock the system` for a `design.md`.* Skip it in component scope or when `design.md` exists.
 
 On signal 9, `comp.md` runs here.
 
@@ -128,7 +128,7 @@ On signal 9, `comp.md` runs here.
 
 Emit code that satisfies the theme and the shape. Always:
 
-- **Start from the scaffold.** `node <skill-dir>/scripts/theme.mjs scaffold <slug>` (with the deal's `--dealt`; `--custom` on a derived run) writes `tokens.css` (the theme's tokens and the shared scale) and `base.css` (the rules the Floor already decided) beside the project's stylesheet, and prints the stamp skeleton and the two imports that open it. Fill the stamp and write only the page.
+- **Start from the scaffold.** `node <skill-dir>/scripts/theme.mjs scaffold <slug>` (with the deal's `--dealt`; `--custom` on a custom run) writes `tokens.css` (the theme's tokens and the shared scale) and `base.css` (the rules the Floor already decided) beside the project's stylesheet, and prints the stamp skeleton and the two imports that open it. Fill the stamp and write only the page.
 - **Read [`references/patterns.md`](references/patterns.md) once:** controls in all eight states, a slot, a missing fact, a form that posts nowhere yet, one reveal, figures that compare, written to pass the gates. Take their shape, never their copy.
 - **Hero first.** Write the nav and the hero, run `node <skill-dir>/scripts/sloplint.mjs <file> --render --stage hero`, then the hero review in fresh context (`gates.md` § 6). Build the sections only once the hero ships.
 - **One idea per screen, set big.** Hero: headline (seven words or fewer, 50 characters or fewer), one sentence (twelve words or fewer), one or two actions. A section: an `h2` of six words or fewer and at most one line, then a composition from `layout.md` § 5 that spans ten of twelve columns and has mass (a visual 360px tall, a set of three across, rows, a statement). Six to nine sections, hero and footer included (five on a thin brief); 450 visible words at most. Fullness comes from scale and visuals, never from more words.
@@ -137,7 +137,7 @@ Emit code that satisfies the theme and the shape. Always:
 - **Page invariants.** One primary button style, one container width, one column gap for every multi-column section below the hero, one radius per nesting level, and never more centred heading groups than left-aligned ones.
 - **Type.** The theme's faces, at most two families (three with one outlier role), set per `craft.md` § 1; body 16px or more; heads roman, one weight and one colour (38iii); labels never mono unless mono is the material (64).
 - **States and motion.** Eight states on every interactive element; `transform` and `opacity` only; at most one orchestrated reveal per page, none where the theme keeps still, 0.4 to 0.8s, visible by default; exits at 60 to 75% of the enter; nothing bounces.
-- **Stamp.** Line 1 of CSS is the scaffold's stamp skeleton with every field filled, then the critique line (`gates.md` § 3), any `waive` and `answered` lines, and a custom run's direction contract. Everything the linter reads sits in the first 40 lines.
+- **Stamp.** Line 1 of CSS is the scaffold's stamp skeleton with every field filled, then the critique line (`gates.md` § 3), and any `waive` and `answered` lines. Everything the linter reads sits in the first 40 lines.
 - **Existing stylesheets are append-only:** the two imports go right after the file's last `@import`, never below a rule or a `@tailwind` directive; reuse the project's own token names ([`references/export-formats.md`](references/export-formats.md), which also refreshes a `design.md`'s `## Exports`); rewrite only on request.
 - **Log.** `node <skill-dir>/scripts/theme.mjs log --entry '<json>'` puts the build atop `.hallmark/log.json`: `shape`, `theme`, `axes`, `hero`, `nav`, `footer`, `imagery`, `photos` (the library ids used), `entry` (the section opening), `fingerprint` (`Hanging|Asymmetric spans|Hairline|Outlined|Margin-aligned|None`), `sections` (compositions in order), `signature`, `waived`, `brief`; it names any field you left out.
 

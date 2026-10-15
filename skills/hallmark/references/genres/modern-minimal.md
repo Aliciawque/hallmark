@@ -4,7 +4,6 @@ The polished product page: SaaS, enterprise, API, platform, developer tool, infr
 
 ## Voice
 
-- **Faces** (a theme names its own; this is for a custom run): a grotesk or geometric sans at 500 to 700, tracked -0.02 to -0.035em; the body in the same family at 400 or one plain sans beside it.
 - **Accent:** ink, or one hue on focus rings and one control; colour floods only under a declared posture.
 - **Layout:** two-column heroes (the title and its line beside a big slot), wide product visuals, thin visible borders rather than hairlines.
 - **Motion:** minimal; reveals off; the page is composed.

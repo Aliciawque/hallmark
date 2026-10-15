@@ -461,6 +461,9 @@ button, input, select, textarea { font: inherit; }
 @media (max-width: 40rem) { :root { --gutter: 16px; --section-gap-s: 56px; --section-gap: 72px; --section-gap-l: 96px; --gap-columns: 16px; } }
 @media (prefers-reduced-motion: reduce) { *:not(.keep-motion), *:not(.keep-motion)::before, *:not(.keep-motion)::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }`;
 
+// A custom run sets its own type: its base keeps the Floor's rules and drops the heading sizes, weight, leading and measure.
+const BASE_CUSTOM = BASE.replace(/^h1, h2, h3 \{[^}]*\}$/m, 'h1, h2, h3 { margin: 0; font-family: var(--font-display); font-synthesis: none; overflow-wrap: break-word; min-width: 0; text-wrap: balance; }').replace(/^h1 \{ max-width[^\n]*\n/m, '').replace(/^\.lead \{[^\n]*\n/m, '');
+
 const SLOTS_JS = `window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(\`[data-slot="\${k}"]\`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };\ndocument.querySelectorAll('[data-slot] img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });`;
 
 function scaffold() {
@@ -503,7 +506,7 @@ function scaffold() {
     : `:root {\n${scheme}${scale}\n${tokens}\n}\n`;
   writeFileSync(out, css);
   const own = !custom && /## Build hint[\s\S]*?(::selection\s*\{[^}]*\})/.exec(readFileSync(join(THEMES, `${slug}.md`), 'utf8'));
-  const base = own ? BASE.replace(/::selection \{[^}]*\}/, own[1].replace(/\s+/g, ' ')) : BASE;
+  const base = own ? BASE.replace(/::selection \{[^}]*\}/, own[1].replace(/\s+/g, ' ')) : custom && !brand ? BASE_CUSTOM : BASE;
   const steps = base.split('\n').filter((l) => /^@media[^{]*\{\s*:root/.test(l));
   const photo = custom ? '' : treatmentOf(header.photo, tokensOf(readFileSync(join(THEMES, `${slug}.md`), 'utf8'), slug)).css;
   writeFileSync(baseOut, (tw ? base.split('\n').filter((l) => !steps.includes(l)).join('\n') : base) + (photo ? `\n/* photographs: ${header.photo} */\n${photo}` : '') + '\n');
@@ -519,9 +522,9 @@ function scaffold() {
     : brand
     ? `/* Hallmark · shape: <shape, or kept> · genre: <genre> · theme: brand${tail}${made} · hero: <posture, or kept> · nav: <shape, or kept> · footer: <shape, or kept> · signature: <the one move, or kept>\n * axes: ${axes} · contrast: pass · fold: pass · v${VERSION} */`
     : custom
-    ? `/* Hallmark · shape: <shape> · genre: <genre> · theme: custom${tail} · idea: "<the drawn line, n/7>" · vibe: "<4 to 8 words>"${made} · hero: <posture> · nav: <shape> · footer: <shape> · imagery: <photographs, the product, or none> · signature: <the one move>\n * axes: ${axes} · seed: <key> · discipline: <the dealt rule, or refused: why> · contract: <after the finish review> · contrast: pass · fold: pass · v${VERSION} */`
+    ? `/* Hallmark · shape: <your name for the structure> · genre: <genre> · theme: custom${tail} · idea: "<one sentence>" · vibe: "<4 to 8 words>"${made} · hero: <in your own words> · nav: <shape> · footer: <shape> · imagery: <photographs, the product, or none> · signature: <the one thing a visitor remembers>\n * axes: ${axes} · contrast: pass · fold: pass · v${VERSION} */`
     : `/* Hallmark · shape: <shape${kept}> · genre: ${header.genre} · theme: ${theme}${tail}${depth ? '' : ' · draw: <seed>'}\n * hero: <posture${kept}> · nav: <shape${kept}> · footer: <shape${kept}> · imagery: <photographs, the product, or none> · signature: <the one move>${dial ? ` · ${dial[1]}: <the dials>` : ''}\n * axes: ${axes} · contrast: pass · fold: pass · v${VERSION} */`;
-  console.log(`wrote ${out} (${brand ? 'the shared scale; fill every --color-* and --font-* from the palette and faces the pre-flight found' : custom ? 'the shared scale; fill every --color-* and --font-* from direction.md § B and § C before building' : `${name} tokens plus the shared scale`}) and ${baseOut} (the base rules the Floor already decided)${sheet && !flag('dir', '') ? `, beside ${sheet}` : ''}`);
+  console.log(`wrote ${out} (${brand ? 'the shared scale; fill every --color-* and --font-* from the palette and faces the pre-flight found' : custom ? 'a starting scale, yours to rewrite; fill every --color-* and --font-* before building' : `${name} tokens plus the shared scale`}) and ${baseOut} (the base rules the Floor already decided)${sheet && !flag('dir', '') ? `, beside ${sheet}` : ''}`);
   if (!custom && !flag('dealt', '')) {
     const pic = join(THEMES, `${slug}.jpg`);
     if (existsSync(pic)) console.log(`look at ${pic}: the material at full size${header.pictured ? `, from a page built as ${header.pictured}` : ''}. Take its palette balance, type voice and surfaces, never its layout; the room and the sections are layout.md.`);

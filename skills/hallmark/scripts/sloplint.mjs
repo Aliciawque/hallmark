@@ -4089,7 +4089,8 @@ function buildContext(key, cssList, docList) {
     ...docs.flatMap((d) => d.styles.map((st) => head40(st.css))),
   ].join('\n');
   const posture = (/posture:\s*(restrained|committed|full-palette|drenched)/i.exec(stampText)?.[1] || 'restrained').toLowerCase();
-  const heroPosture = (/hero:\s*(settled|banner|poster|ledge|corridor|stage)\b/i.exec(stampText)?.[1] || '').toLowerCase();
+  // a custom page designs its own hero: 44a and 44c read it as free
+  const heroPosture = /theme:\s*custom\b/i.test(stampText) ? 'custom' : (/hero:\s*(settled|banner|poster|ledge|corridor|stage)\b/i.exec(stampText)?.[1] || '').toLowerCase();
   for (const d of docs) { postureByFile[d.file] = posture; heroPostureByFile[d.file] = heroPosture; }
   const allCss = cssFiles.map((c) => c.raw).join('\n') + '\n'
     + docs.map((d) => d.styles.map((st) => st.css).join('\n')).join('\n');
