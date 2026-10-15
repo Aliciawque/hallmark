@@ -221,6 +221,22 @@ svg path, svg rect { vector-effect: non-scaling-stroke; }
 .fan__deal:hover svg { transform: rotate(-200deg); }
 .fan__deal:active { transform: scale(0.96); }
 
+/* ---------- the head's edit: "A design skill" corrected to "The design skill" (js/headline.js) ---------- */
+.hl { position: relative; }
+.hl__w { display: inline-block; }
+.hl__a { display: none; }
+.hl.is-a .hl__a { display: inline-block; }
+.hl.is-a .hl__the { display: none; }
+.hl.is-run .hl__the { visibility: hidden; }
+.hl__ghost { position: absolute; left: 0; top: 0; white-space: nowrap; pointer-events: none; user-select: none; }
+.hl__t { position: relative; display: inline-block; transform-origin: 0 0; }
+.hl__t > span { display: inline-block; }
+.hl__ink { position: absolute; left: -0.15em; top: -0.25em; padding: 0.25em 0.15em; color: var(--ink); -webkit-mask: linear-gradient(90deg, var(--ink) 44%, transparent 56%) 100% 0 / 260% 100% no-repeat; mask: linear-gradient(90deg, var(--ink) 44%, transparent 56%) 100% 0 / 260% 100% no-repeat; }
+.hl__fly { position: absolute; left: 0; top: 0; display: block; }
+.hl__slash { display: block; max-width: none; overflow: visible; }
+.hl__slash path { fill: none; stroke: var(--accent); stroke-linecap: round; vector-effect: none; }
+.brand__slash { transform-origin: 50% 60%; }
+
 /* ---------- sections and heads ---------- */
 .sec { padding-top: var(--section-gap); }
 .head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--s-5); align-items: start; margin-bottom: var(--s-8); }
@@ -427,9 +443,8 @@ svg path, svg rect { vector-effect: non-scaling-stroke; }
 .js .reveal { opacity: 0; transform: translateY(14px); transition: opacity 700ms var(--ease-out), transform 700ms var(--ease-out); }
 .js .reveal.is-in { opacity: 1; transform: none; }
 .js .hero__copy > * { animation: rise 760ms var(--ease-out) both; }
-.js .hero__copy > :nth-child(2) { animation-delay: 70ms; }
-.js .hero__copy > :nth-child(3) { animation-delay: 140ms; }
-.js .hero__copy > :nth-child(4) { animation-delay: 200ms; }
+.js .hero__copy > .hero__sub { animation-delay: 70ms; }
+.js .hero__copy > .install { animation-delay: 140ms; }
 @keyframes rise { from { opacity: 0; transform: translateY(12px); } }
 
 /* ---------- smaller screens ---------- */
