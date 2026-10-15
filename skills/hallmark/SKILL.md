@@ -84,7 +84,7 @@ Hold all of it; it is said once, at Step 5.
 Check in order; the first match wins.
 
 1. **The user named a theme** → build it (stamp `theme: <name> (by request)`).
-2. **The user asked for custom** ("custom", "derive it", "bespoke", "no theme", "a world of its own") → load [`references/direction.md`](references/direction.md) and run the ritual. No deal and nothing from a theme: `theme.mjs check` on the triple, the display face and the accent hue comes back clear before code. Silence never takes this route.
+2. **The user asked for custom** ("custom", "derive it", "bespoke", "no theme", "a world of its own") → load [`references/direction.md`](references/direction.md) and run the ritual: no deal and nothing from a theme. Silence never takes this route.
 3. **Everything else deals a theme:**
 
 ```
@@ -120,7 +120,7 @@ The run's only prose recital of its decisions, and the user's five-second redire
 - **Sweep** · run after build
 ```
 
-A custom run's rows are in `direction.md` R.7. Then one quiet line: *System portable? Say `lock the system` for a `design.md`.* Skip it in component scope or when `design.md` exists.
+A custom run's rows are in `direction.md` R.8. Then one quiet line: *System portable? Say `lock the system` for a `design.md`.* Skip it in component scope or when `design.md` exists.
 
 On signal 9, `comp.md` runs here.
 

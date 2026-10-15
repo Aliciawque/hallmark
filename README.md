@@ -72,7 +72,7 @@ A theme is a material, not a plan: paper, ink, faces, rule weight, radius, shado
 
 ## Custom
 
-When the user asks for **custom** ("derive it", "bespoke", "no theme"), Hallmark leaves the catalog and designs the page from scratch: it names and rejects the category's reflex aesthetics, writes a slate of seven grounded directions, and a deterministic draw (`scripts/seed.mjs`) picks which one gets built while dealing three challengers from a curated atlas of complete design systems, each judged on audience identification and product clarity. A scene sentence sets the light, a colour posture sets how far the palette commits, `theme.mjs check` refuses any coordinate the catalog already occupies, and a five-block direction contract written into the artifact gets audited promise by promise before shipping. The protocol lives in [`direction.md`](skills/hallmark/references/direction.md).
+When the user asks for **custom** ("derive it", "bespoke", "no theme"), Hallmark leaves the catalog and designs the page from the client's own material: it lists what only this client has, rejects the category's default page and its predictable opposite, and writes seven ideas of the form *on this page, X becomes Y*, each tested against the nearest competitor. A deterministic draw (`scripts/seed.mjs`) picks which idea gets built and deals one system discipline. The idea owns the palette, the type voice and one signature move; everything else stays plain and exact. Colours are sampled from the subject and argued one by one, pictures appear only where they carry a fact, and a five-line contract is audited promise by promise before shipping. The protocol lives in [`direction.md`](skills/hallmark/references/direction.md).
 
 ---
 

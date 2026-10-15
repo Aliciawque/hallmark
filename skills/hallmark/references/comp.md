@@ -27,9 +27,9 @@ Two comps, three when the direction genuinely forks. One is not a choice and fou
 node <skill-dir>/scripts/imagegen.mjs "<prompt>" --size 1280x800 --n 1 --out .hallmark/comps/c1.png
 ```
 
-The prompt is built from the direction contract, not from the brief. A prompt that reads like the brief produces the category default in pixels, which is the exact thing R.1 spent its budget refusing. Carry, in this order: the **scene sentence** (R.5), the **direction** in three or four words, the **paper and accent** as plain colour words, the **display class** (not the face name; no generator knows Erode), and the **macrostructure** as a compositional instruction. Then one negative clause naming what the category does, so the generator is pushed off it too.
+The prompt is built from the direction contract or the theme line, not from the brief. A prompt that reads like the brief produces the category default in pixels, the rut `direction.md` R.2 refuses. Carry, in this order: the **first viewport** as the contract states it (what sits where, how large), the **idea** in a few plain words, the **ground and accent** as plain colour words, the **display class** (not the face name; no generator knows Erode), and the **macrostructure** as a compositional instruction. Then one negative clause naming what the category does, so the generator is pushed off it too.
 
-> *"Web page hero, top 1280x800 only. A postal sorting office at 4am, one clerk under a single lamp. Warm kraft paper ground, one frank-red mark, deep ink. Huge condensed sans headline set hard against the left margin, three lines, enormous empty right two-thirds. A thin rule under the headline, nothing else above the fold. Flat, printed, no depth. Not a centred hero, no cards, no gradient, no screenshot."*
+> *"Web page hero, top 1280x800 only. A rowing club's season set as one large race timetable, the next race the biggest line on the screen. White ground, deep green ink, one signal-yellow mark. Heavy grotesk headline flush left on five columns, two lines; the timetable on the other seven. A thin rule under the headline, nothing else above the fold. Flat, printed, no depth. Not a centred hero, no cards, no gradient, no device mockup."*
 
 **Vary the comps on one axis only.** Two comps that differ in everything are two briefs, and comparing them tells you nothing about the decision you are actually making. Vary the composition (where the weight sits, symmetry against asymmetry, type-led against image-led) and hold the system fixed.
 
@@ -84,9 +84,9 @@ Two rules on top:
 Ship the inventory as part of the comp message, under the comps:
 
 ```
-Hero ground        raster    kraft paper fibre, generated
+Timetable          code      a real table, must reflow
 Headline           code      type, must reflow
 Rule under head    code      1px, tokenised
-Frank mark         code      SVG, it animates on scroll
-Right two-thirds   neither   empty; the comp's floating card has no copy behind it
+Next-race mark     code      the accent on one row, it moves once on load
+Rower photograph   raster    library photo; the comp's crew is not a real crew
 ```

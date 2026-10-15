@@ -283,24 +283,13 @@ for (const target of clean) {
   else if (s.fails || s.reflex || s.warns) add('error', target, 1, 'lint', `must lint clean, has ${s.fails} FAIL, ${s.reflex} REFLEX, ${s.warns} WARN`);
 }
 
-const ATLAS_BAD = [
-  [/\b(?:tiny|small)\s+(?:\w+\s+)?caps\b/i, 'labels in small capitals (67)'],
-  [/\bcaps\s+(?:labels|placards)\b/i, 'labels in capitals (67)'],
-  [/\b(?:wide|generous)\s+tracking\b/i, 'letter-spaced type (67)'],
-  [/(?<!\bno |\bno outer )\bglow(?:s|ing)?\b/i, 'a glow (29)'],
-  [/(?<!\bno )\bhalo\b/i, 'a halo (29)'],
-  [/backdrop-filter/i, 'glass (29)'],
-  [/\b(?:cyan|purple|violet)-to-/i, 'a gradient gate 2a refuses'],
-  [/\bhand-drawn\b|\billustration\b|\bpictogram rows?\b|\bdrawn (?:cord|cable|curtain|check|object)s?\b/i, 'a drawn illustration (80)'],
-  [/\bone (?:mark|dot|pictogram|tick) (?:per|for each)\b/i, 'a counting device (82)'],
-];
-const atlasFile = join(ROOT, 'scripts', 'atlas.json');
-try {
-  for (const entry of JSON.parse(read(atlasFile))) {
-    const text = JSON.stringify(entry);
-    for (const [re, why] of ATLAS_BAD) if (re.test(text)) add('error', atlasFile, 1, 'atlas', `${entry.name} prescribes ${why}`);
-  }
-} catch (e) { add('error', atlasFile, 1, 'atlas', `atlas.json does not parse (${e.message})`); }
+// the custom draw deals its faces from fonts.md's own table; a reformatted table must not empty the deal
+{
+  const out = spawnSync(process.execPath, [join(ROOT, 'scripts', 'seed.mjs'), '--brief', 'refcheck', '--material', 'photo'], { encoding: 'utf8' }).stdout || '';
+  const dealt = ((/^faces: (.*)$/m.exec(out) || [])[1] || '').split(' · ').filter(Boolean);
+  if (dealt.length < 10 || !dealt.some((f) => f.startsWith('body sans ')) || !dealt.some((f) => f.startsWith('body serif '))) add('error', join(ROOT, 'scripts', 'seed.mjs'), 1, 'faces', `seed.mjs dealt ${dealt.length} faces from fonts.md; the display table or the body paragraph no longer parses`);
+  if (!/^discipline: /m.test(out)) add('error', join(ROOT, 'scripts', 'seed.mjs'), 1, 'faces', 'seed.mjs printed no discipline');
+}
 
 const FIX = join(ROOT, 'scripts', 'fixtures');
 const lintJson = (t) => { const r = spawnSync(process.execPath, [join(ROOT, 'scripts', 'sloplint.mjs'), t, '--json'], { encoding: 'utf8' }); try { return JSON.parse(r.stdout); } catch { return null; } };

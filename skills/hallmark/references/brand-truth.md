@@ -23,7 +23,7 @@ logo:    <official asset page URL>
 attestation: derived from the fetched sources above, not from memory
 ```
 
-5. **Theme from the spec.** Catalog route: the spec's primary anchors the accent conversion (OKLCH clamped per `craft.md` § 2). Custom route: `direction.md` § B.2's anchor accent IS the spec's primary; the ritual otherwise runs unchanged. The stamp records `brand: <name> (spec <date>)`.
+5. **Theme from the spec.** Catalog route: the spec's primary anchors the accent conversion (OKLCH clamped per `craft.md` § 2). Custom route: the spec's primary is the anchor `direction.md` § B.1 samples first; the ritual otherwise runs unchanged. The stamp records `brand: <name> (spec <date>)`.
 
 ## Caching and staleness
 

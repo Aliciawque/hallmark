@@ -15,7 +15,7 @@ In order, the first that fits:
 Which briefs want which:
 
 - **A place, a material, food or drink, an object, a craft, the outdoors, an event, people at work** (a bakery, a ski school, a gin, a weaving studio, a venue, a tailor, a farm): photographs lead, as they do on three in four real sites in these trades. The hero's photograph is the largest thing on the first screen (full-bleed behind the head, or beside it at 60 to 75% of the screen tall), and the page carries about one a screen after it, a third of them large, the rest in pairs and sets with a fact each.
-- **Software** (SaaS, an app, a developer tool): the product leads, and the hero visual is its interface. One or two photographs may set the scene: where it is used, the material it handles, hands at the work it serves.
+- **Software** (SaaS, an app, a developer tool): the product leads, and the hero visual is its interface. One or two photographs may set the scene: where it is used, the material it handles, hands at the work it serves. Each must pass the deletion test (take it away and the page loses a fact); a generic scene (a city at night, a laptop on a desk, an office building) fails it and goes.
 - **Words** (docs, an API, a CLI, a type specimen, a manifesto or a letter about an idea): type and code carry it; one photograph as a full-bleed band is the most a page takes. A manifesto or a letter about something physical (repair, a river, a street) shows it like any other page.
 
 A photograph never stands in for a fact: the brief's numbers, names and claims stay in type, and a picture of a person never stands in for a customer, a teammate or a testimonial (F9).

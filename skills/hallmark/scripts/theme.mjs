@@ -254,9 +254,10 @@ function check() {
   const hue = flag('hue') != null ? Number(flag('hue')) : null;
   const themes = loadIndex();
   const log = readLog(flag('log', '.hallmark/log.json'));
-  let bad = 0;
+  let bad = 0, near = 0;
+  const look = (t) => `look at references/themes/${t.slug}.jpg beside your plan and move an axis only if the two would read alike`;
   if (axes) for (const t of themes) {
-    if (t.paper.band === pb && t.display.class === dc && t.accent.band === ab) { bad++; console.log(`collision: ${t.name} owns ${triple(t)} · move one axis, accent first`); }
+    if (t.paper.band === pb && t.display.class === dc && t.accent.band === ab) { near++; console.log(`near: ${t.name} sits on ${triple(t)} · ${look(t)}`); }
   }
   const toks = (x) => x.split(/[\s-]+/).filter(Boolean);
   const sameFamily = (a, b) => { const A = toks(a), B = toks(b), n = Math.min(A.length, B.length); return n > 0 && A.slice(0, n).join(' ') === B.slice(0, n).join(' '); };
@@ -265,12 +266,12 @@ function check() {
     if (sameFamily(tf, face)) { bad++; console.log(`collision: ${t.name} already sets its display in ${t.display.face} · pick a face no theme uses (fonts.md)`); }
   }
   if (hue != null) for (const t of themes) {
-    if (t.paper.band === pb && t.display.class === dc && hueGap(t.accent.hue, hue) <= 20) { bad++; console.log(`adjacent: ${t.name} is ${triple(t)} at hue ${t.accent.hue} · move the accent hue more than 20 degrees (40 reads as another colour), or change the display class`); }
+    if (t.paper.band === pb && t.display.class === dc && hueGap(t.accent.hue, hue) <= 20) { near++; console.log(`near: ${t.name} is ${triple(t)} at hue ${t.accent.hue} · ${look(t)}`); }
   }
   const recent = axes ? log.slice(0, 3).filter((r) => r.axes === axes) : [];
-  for (const r of recent) { bad++; console.log(`recent: ${r.theme || 'a build'} on ${r.date || '?'} used ${axes}`); }
-  if (!bad) { console.log(axes ? `clear: ${axes}${face ? ` in ${face}` : ''}${hue != null ? ` at hue ${hue}` : ''} lands on no catalog theme and no recent build` : `clear: no catalog theme sets its display in ${flag('face')}`); return; }
-  process.exitCode = 1;
+  for (const r of recent) { near++; console.log(`recent: ${r.theme || 'a build'} on ${r.date || '?'} used ${axes} · vary another decision (the shape, the pictures, the type scale)`); }
+  if (!bad && !near) { console.log(axes ? `clear: ${axes}${face ? ` in ${face}` : ''}${hue != null ? ` at hue ${hue}` : ''} lands on no catalog theme and no recent build` : `clear: no catalog theme sets its display in ${flag('face')}`); return; }
+  if (bad) process.exitCode = 1;
 }
 
 function list() {
@@ -518,7 +519,7 @@ function scaffold() {
     : brand
     ? `/* Hallmark · shape: <shape, or kept> · genre: <genre> · theme: brand${tail}${made} · hero: <posture, or kept> · nav: <shape, or kept> · footer: <shape, or kept> · signature: <the one move, or kept>\n * axes: ${axes} · contrast: pass · fold: pass · v${VERSION} */`
     : custom
-    ? `/* Hallmark · shape: <shape> · genre: <genre> · theme: custom${tail} · direction: "<drawn, n/7>" · vibe: "<4 to 8 words>"${made} · hero: <posture> · nav: <shape> · footer: <shape> · imagery: <photographs, the product, or none> · signature: <the one move>\n * axes: ${axes} · seed: <key> · challenger: <name> (<verdict or raise>) · contract: <after the finish review> · contrast: pass · fold: pass · v${VERSION} */`
+    ? `/* Hallmark · shape: <shape> · genre: <genre> · theme: custom${tail} · idea: "<the drawn line, n/7>" · vibe: "<4 to 8 words>"${made} · hero: <posture> · nav: <shape> · footer: <shape> · imagery: <photographs, the product, or none> · signature: <the one move>\n * axes: ${axes} · seed: <key> · discipline: <the dealt rule, or refused: why> · contract: <after the finish review> · contrast: pass · fold: pass · v${VERSION} */`
     : `/* Hallmark · shape: <shape${kept}> · genre: ${header.genre} · theme: ${theme}${tail}${depth ? '' : ' · draw: <seed>'}\n * hero: <posture${kept}> · nav: <shape${kept}> · footer: <shape${kept}> · imagery: <photographs, the product, or none> · signature: <the one move>${dial ? ` · ${dial[1]}: <the dials>` : ''}\n * axes: ${axes} · contrast: pass · fold: pass · v${VERSION} */`;
   console.log(`wrote ${out} (${brand ? 'the shared scale; fill every --color-* and --font-* from the palette and faces the pre-flight found' : custom ? 'the shared scale; fill every --color-* and --font-* from direction.md § B and § C before building' : `${name} tokens plus the shared scale`}) and ${baseOut} (the base rules the Floor already decided)${sheet && !flag('dir', '') ? `, beside ${sheet}` : ''}`);
   if (!custom && !flag('dealt', '')) {
