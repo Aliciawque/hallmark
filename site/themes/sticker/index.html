@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pip and Pocket: five die-cut stickers for six pounds</title>
+  <meta name="description" content="Pip and Pocket is a two-person sticker studio selling die-cut vinyl stickers in packs of five for 6 pounds, with free shipping on orders over 20 pounds.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Sofia+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="top">
+    <p class="banner">Free post on orders over £20</p>
+    <div class="container bar">
+      <a class="wordmark" href="#top" aria-label="Pip and Pocket, home">Pip and Pocket</a>
+      <nav class="bar__links" aria-label="Main">
+        <a href="#stuck">Where they go</a>
+        <a href="#studio">The studio</a>
+        <a class="basket" href="#order"><span>Basket</span> <b role="status" aria-live="polite" id="basket-count">0</b></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-head">
+      <div class="container hero__grid">
+        <figure class="hero__figure">
+          <div class="diecut hero__photo" data-slot="hero" data-alt="Your own photograph of a Pip and Pocket sticker held up, or a laptop lid covered in them, in daylight">
+            <img src="photos/abziehen-der-r-ckseite-eines-geschlitzten-stickers-1920.jpg" width="4000" height="3000" fetchpriority="high" alt="Two hands peeling the backing off a white die-cut sticker" style="object-position: 45% 45%">
+          </div>
+          <span class="tag tag--price" aria-hidden="true">5 for £6</span>
+        </figure>
+        <div class="hero__text">
+          <h1 id="hero-head">Five <span class="nb">die-cut</span> stickers, six pounds.</h1>
+          <p class="lead">Vinyl stickers from a two-person studio, sold by the pack.</p>
+          <div class="actions">
+            <a class="btn btn--primary" href="#order">Order packs</a>
+            <a class="btn" href="#stuck">Where they go</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="stuck" id="stuck" aria-labelledby="stuck-head">
+      <div class="container">
+        <div class="stuck__head">
+          <h2 id="stuck-head">Where a pack of five ends up.</h2>
+          <p class="stuck__line">A board, a bottle, a stapler: anything that sits still.</p>
+        </div>
+        <div class="bento">
+          <figure class="tile tile--a">
+            <div class="diecut tile__photo" data-slot="stuck-1" data-alt="Your own photograph of Pip and Pocket stickers on a water bottle, close, daylight">
+              <img src="photos/elderflower-cordial-in-bottles-1920.jpg" width="2700" height="2048" loading="lazy" alt="Swing-top glass bottles of golden cordial standing in a row" style="object-position: 35% 55%">
+            </div>
+            <figcaption>Bottles</figcaption>
+          </figure>
+          <div class="tile tile--price">
+            <p class="tile__big">£6</p>
+            <p>Five stickers to a pack.</p>
+          </div>
+          <div class="tile tile--c tile--word">
+            <p class="tile__big">Boards</p>
+            <p>Decks, helmets and guitar cases.</p>
+          </div>
+          <figure class="tile tile--d">
+            <div class="diecut tile__photo" data-slot="stuck-3" data-alt="Your own photograph of a desk with Pip and Pocket stickers on the stapler, the lamp and the pen pot">
+              <img src="photos/a-green-stapler-1920.jpg" width="1920" height="1440" loading="lazy" alt="A lime green stapler on a pale grey desk with a soft shadow" style="object-position: 50% 40%">
+            </div>
+            <figcaption>Desks</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="order" id="order" aria-labelledby="order-head">
+      <div class="container order__grid">
+        <div class="order__text">
+          <h2 id="order-head">Four packs post free.</h2>
+          <table class="ladder">
+            <caption class="visually-hidden">What each number of packs costs</caption>
+            <thead><tr><th scope="col">Packs</th><th scope="col">Stickers</th><th scope="col">Total</th></tr></thead>
+            <tbody>
+              <tr data-row="1"><th scope="row">1</th><td>5</td><td class="ladder__price">£6</td></tr>
+              <tr data-row="2"><th scope="row">2</th><td>10</td><td class="ladder__price">£12</td></tr>
+              <tr data-row="3"><th scope="row">3</th><td>15</td><td class="ladder__price">£18</td></tr>
+              <tr data-row="4"><th scope="row">4</th><td>20</td><td class="ladder__price">£24 <span class="ladder__free">Post free</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <form class="counter diecut" data-endpoint="" novalidate aria-labelledby="order-head">
+          <div class="counter__row">
+            <span class="counter__label" id="packs-label">Packs</span>
+            <div class="stepper" role="group" aria-labelledby="packs-label">
+              <button class="stepper__btn" type="button" data-step="-1" aria-label="One pack fewer">&minus;</button>
+              <output class="stepper__value" id="packs" aria-live="polite">0</output>
+              <button class="stepper__btn" type="button" data-step="1" aria-label="One pack more">+</button>
+            </div>
+            <p class="counter__total"><span id="total">£0</span><small id="count">0 stickers</small></p>
+          </div>
+          <div class="meter" role="img" aria-label="Order total against the free post line at £20">
+            <span class="meter__fill" id="meter-fill" style="--fill: 0"></span>
+            <span class="meter__mark">£20</span>
+          </div>
+          <p class="counter__note" id="note" aria-live="polite">Four packs and the post is free.</p>
+          <button class="btn btn--primary" type="submit" aria-disabled="true">Check out</button>
+          <p class="counter__help" id="order-help" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="studio" id="studio" aria-labelledby="studio-head">
+      <div class="container studio__grid">
+        <figure class="studio__main">
+          <div class="diecut studio__photo" data-slot="studio-1" data-alt="Your own photograph of the studio table: sticker sheets, a cutting mat, hands at work, no faces">
+            <img src="photos/buntstifte-2021-9164-1920.jpg" width="6720" height="4480" loading="lazy" alt="A row of coloured pencils in rainbow order, tips close to the lens" style="object-position: 45% 55%">
+          </div>
+        </figure>
+        <div class="studio__text">
+          <h2 id="studio-head">Two of us and a cutting mat.</h2>
+          <p class="studio__line">Every pack is counted out and posted by one of us.</p>
+          <figure class="studio__small">
+            <div class="diecut studio__photo2" data-slot="studio-2" data-alt="Your own photograph of orders being packed into envelopes">
+              <img src="photos/tailor-s-scissors-macedonian-tailoring-craft-1920.jpg" width="5184" height="3456" loading="lazy" alt="Two pairs of old black scissors lying on creased brown kraft paper" style="object-position: 40% 50%">
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mast">
+    <div class="container">
+      <a class="mast__mark diecut" href="#top" aria-label="Pip and Pocket, back to the top">Pip and Pocket</a>
+      <div class="mast__row">
+        <nav class="mast__links" aria-label="Footer">
+          <a href="#order">Order packs</a>
+          <a href="#stuck">Where they go</a>
+          <a href="#studio">The studio</a>
+        </nav>
+        <small>© 2026 Pip and Pocket</small>
+      </div>
+      <p class="mast__credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Abziehen_der_R%C3%BCckseite_eines_geschlitzten_Stickers.jpg">.viviwords</a> <span>(CC0)</span>, <a href="https://commons.wikimedia.org/wiki/File:Elderflower_cordial_in_bottles.jpg">Jim Champion</a> <span>(CC BY-SA 2.0)</span>, <a href="https://commons.wikimedia.org/wiki/File:A_green_stapler.jpg">Jiafei Slay Queen</a> <span>(CC0)</span>, <a href="https://commons.wikimedia.org/wiki/File:Buntstifte_--_2021_--_9164.jpg">Dietmar Rabich</a> <span>(CC BY-SA 4.0)</span>, <a href="https://commons.wikimedia.org/wiki/File:Tailor%27s_scissors_-_Macedonian_tailoring_craft.jpg">Orce Wiki</a> <span>(CC BY-SA 4.0)</span>, via Wikimedia Commons.</p>
+    </div>
+  </footer>
+
+  <script>
+(() => {
+  const PRICE = 6, FREE = 20;
+  const $ = (id) => document.getElementById(id);
+  const packs = $('packs'), total = $('total'), count = $('count'), note = $('note'), fill = $('meter-fill'), basket = $('basket-count');
+  const form = document.querySelector('form.counter'), submit = form.querySelector('[type="submit"]'), help = $('order-help');
+  const rows = document.querySelectorAll('.ladder tbody tr');
+  let n = 0;
+  const render = () => {
+    const sum = n * PRICE, short = Math.ceil((FREE - sum) / PRICE);
+    packs.textContent = n; basket.textContent = n; total.textContent = '£' + sum; count.textContent = (n * 5) + ' stickers';
+    fill.style.setProperty('--fill', Math.min(sum / FREE, 1).toFixed(3));
+    note.textContent = n === 0 ? 'Four packs and the post is free.' : sum >= FREE ? 'The post is free.' : (short === 1 ? 'One more pack and the post is free.' : short + ' more packs and the post is free.');
+    rows.forEach((r) => r.classList.toggle('is-on', Number(r.dataset.row) === Math.min(n, 4)));
+    submit.setAttribute('aria-disabled', String(n === 0));
+    if (n > 0) help.textContent = '';
+  };
+  document.querySelectorAll('[data-step]').forEach((b) => b.addEventListener('click', () => { n = Math.min(20, Math.max(0, n + Number(b.dataset.step))); render(); }));
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (n === 0) { help.textContent = 'Add a pack first: press the plus.'; return; }
+    help.textContent = form.dataset.endpoint ? '' : 'Nothing was sent: checkout is not connected yet.';
+  });
+  render();
+})();
+  </script>
+
+  <script>window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
+document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });</script>
+</body>
+</html>

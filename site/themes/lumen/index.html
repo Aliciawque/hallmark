@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>quarry, open models on reserved GPUs</title>
+<meta name="description" content="Quarry runs open models on reserved GPUs at a fixed price per million tokens, with no cold starts.">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/monolith.webp">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the page</a>
+
+<header class="bar">
+  <div class="container bar__in">
+    <a class="bar__mark" href="#top">quarry</a>
+    <nav class="bar__links" aria-label="Sections">
+      <a href="#reserved">reserved</a>
+      <a href="#price">price</a>
+      <a href="#request">request</a>
+    </nav>
+    <a class="btn btn--brass btn--sm" href="#request">get an api key</a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="hero__grid" aria-hidden="true"></div>
+    <div class="container hero__in">
+      <div class="hero__text">
+        <h1 id="hero-title">the model waits, <span class="hero__accent">not&nbsp;you.</span></h1>
+        <p class="lead">Open models on reserved GPUs, at a fixed price per million&nbsp;tokens.</p>
+        <div class="actions">
+          <a class="btn btn--brass" href="#request">get an api key</a>
+          <a class="btn btn--line" href="#request">see one request</a>
+        </div>
+        <div class="stream" aria-label="A request answered by a warm deployment">
+          <div class="stream__top"><span class="dot"></span><span>support-bot</span><span class="stream__state">warm</span><span class="stream__cold">cold start <b>0 s</b></span></div>
+          <p class="stream__q"><span>prompt</span> Name three kinds of granite.</p>
+          <p class="stream__a" data-stream>Pink, grey and black granite.</p>
+        </div>
+      </div>
+      <div class="hero__stone">
+        <span class="hero__halo" aria-hidden="true"></span>
+        <img src="img/monolith.webp" width="630" height="1456" alt="A block of dark quarried stone split down the middle by a seam of glowing brass" fetchpriority="high">
+      </div>
+    </div>
+  </section>
+
+  <section class="reserved" id="reserved" aria-labelledby="res-title">
+    <div class="container">
+      <div class="head">
+        <h2 id="res-title">reserved, never&nbsp;shared.</h2>
+        <p class="lead">The GPUs are yours all day, so the model is loaded before the first&nbsp;call.</p>
+      </div>
+      <div class="rack">
+        <div class="rack__ctl" role="group" aria-label="Model size">
+          <span>model</span>
+          <button type="button" class="chip" aria-pressed="true" data-gpus="2">8B</button>
+          <button type="button" class="chip" aria-pressed="false" data-gpus="4">70B</button>
+          <button type="button" class="chip" aria-pressed="false" data-gpus="8">405B</button>
+        </div>
+        <ul class="rack__gpus" data-rack aria-label="Eight GPUs in one rack; the lit ones are reserved for you"></ul>
+        <div class="rack__foot">
+          <p><b data-res>2</b> of 8 GPUs reserved for your deployment</p>
+          <p class="rack__warm">loaded since this morning</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="price" id="price" aria-labelledby="price-title">
+    <div class="container price__grid">
+      <div>
+        <h2 id="price-title">one price, at 3 a.m. and at&nbsp;launch.</h2>
+        <p class="lead">A fixed rate per million tokens. Traffic moves; the rate&nbsp;doesn’t.</p>
+      </div>
+      <figure class="day" aria-label="A day of traffic that rises and falls under a flat price line">
+        <div class="day__plot" data-day></div>
+        <div class="day__axis"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div>
+        <figcaption><span class="key key--load"></span>your traffic <span class="key key--rate"></span>your rate per million tokens</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="request" id="request" aria-labelledby="req-title">
+    <div class="container">
+      <div class="head">
+        <h2 id="req-title">one request, plain&nbsp;https.</h2>
+        <p class="lead">To your own deployment, already&nbsp;warm.</p>
+      </div>
+      <div class="code">
+        <div class="code__tabs" role="tablist" aria-label="Language">
+          <button role="tab" aria-selected="true" aria-controls="c-curl" id="t-curl">curl</button>
+          <button role="tab" aria-selected="false" aria-controls="c-py" id="t-py" tabindex="-1">python</button>
+          <button role="tab" aria-selected="false" aria-controls="c-js" id="t-js" tabindex="-1">javascript</button>
+          <button class="copy" type="button" data-copy aria-label="Copy the request"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5.25" y="5.25" width="8" height="8" rx="2"/><path d="M10.75 5.25V4.5a1.75 1.75 0 0 0-1.75-1.75H4.5A1.75 1.75 0 0 0 2.75 4.5V9a1.75 1.75 0 0 0 1.75 1.75h.75"/></svg></button>
+        </div>
+        <div class="code__body">
+<pre role="tabpanel" id="c-curl" aria-labelledby="t-curl"><code>curl https://api.example.com/v1/generate \
+  -H <s>"Authorization: Bearer $QUARRY_API_KEY"</s> \
+  -d <s>'{ "deployment": "support-bot",
+        "prompt": "Name three kinds of granite." }'</s></code></pre>
+<pre role="tabpanel" id="c-py" aria-labelledby="t-py" hidden><code><i>import</i> quarry
+
+client = quarry.Client()
+out = client.generate(
+    deployment=<s>"support-bot"</s>,
+    prompt=<s>"Name three kinds of granite."</s>,
+)
+print(out.text)</code></pre>
+<pre role="tabpanel" id="c-js" aria-labelledby="t-js" hidden><code><i>import</i> { Quarry } <i>from</i> <s>"quarry"</s>;
+
+<i>const</i> client = <i>new</i> Quarry();
+<i>const</i> out = <i>await</i> client.generate({
+  deployment: <s>"support-bot"</s>,
+  prompt: <s>"Name three kinds of granite."</s>,
+});</code></pre>
+          <div class="code__out">
+            <p class="code__label">response</p>
+<pre><code>{ <s>"output"</s>: <s>"Pink, grey and black granite."</s>,
+  <s>"usage"</s>: { <s>"input_tokens"</s>: 7, <s>"output_tokens"</s>: 8 } }</code></pre>
+            <dl class="code__status"><div><dt>status</dt><dd>200</dd></div><div><dt>deployment</dt><dd>warm</dd></div><div><dt>cold start</dt><dd>0 s</dd></div></dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="container">
+    <p class="foot__word" aria-hidden="true">quarry</p>
+    <div class="foot__base">
+      <p>Open models on reserved GPUs.</p>
+      <nav aria-label="Footer"><a href="#reserved">reserved</a><a href="#price">price</a><a href="#request">request</a></nav>
+      <p class="foot__note">The stone is a generated picture.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="page.js"></script>
+</body>
+</html>

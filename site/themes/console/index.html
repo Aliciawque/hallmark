@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Benchmark: who changed the protocol, when, and why</title>
+<meta name="description" content="Benchmark is a lab notebook that versions experimental protocols and records every change with who, when and why, for research labs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600&family=Atkinson+Hyperlegible+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="container nav">
+  <div class="bar">
+    <a class="bar__mark" href="#top" aria-label="Benchmark, home">Benchmark</a>
+    <nav class="bar__links" aria-label="Main">
+      <a href="#before">Before</a>
+      <a href="#week">This week</a>
+      <a href="#who">Who writes</a>
+      <a href="#try">Try one</a>
+    </nav>
+    <div class="bar__end"><a class="btn btn--line btn--nav" href="#access">Request access</a></div>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="hero" id="top" aria-labelledby="hero-head">
+  <div class="container hero__grid">
+    <div class="hero__text">
+      <h1 id="hero-head">Who changed the anneal step?</h1>
+      <p class="lead">Benchmark records who changed a protocol, when, and why.</p>
+      <div class="actions">
+        <a class="btn btn--amber" href="#access">Request access</a>
+        <a class="btn btn--line" href="#try">Try a change</a>
+      </div>
+    </div>
+
+    <div class="hero__visual">
+      <div class="panels record" data-slot="hero" data-alt="One protocol in your Benchmark: its steps, the step that changed and the record of that change">
+        <div class="record__head">
+          <span class="record__name">PCR, 30 cycles</span>
+          <span class="chip chip--cool m">v5</span>
+          <span class="record__where">Protocols, molecular</span>
+        </div>
+        <table class="steps">
+          <caption class="visually-hidden">Steps of the sample protocol</caption>
+          <thead><tr><th scope="col">Step</th><th scope="col">Temperature</th><th scope="col">Time</th></tr></thead>
+          <tbody>
+            <tr><th scope="row"><span class="m n">1</span>Initial denaturation</th><td class="m">95&nbsp;°C</td><td class="m">3&nbsp;min</td></tr>
+            <tr><th scope="row"><span class="m n">2</span>Denature</th><td class="m">95&nbsp;°C</td><td class="m">30&nbsp;s</td></tr>
+            <tr class="is-changed"><th scope="row"><span class="m n">3</span>Anneal</th><td class="m"><del>58&nbsp;°C</del> <ins>60&nbsp;°C</ins></td><td class="m">30&nbsp;s</td></tr>
+            <tr><th scope="row"><span class="m n">4</span>Extend</th><td class="m">72&nbsp;°C</td><td class="m">1&nbsp;min</td></tr>
+            <tr><th scope="row"><span class="m n">5</span>Final extension</th><td class="m">72&nbsp;°C</td><td class="m">5&nbsp;min</td></tr>
+          </tbody>
+        </table>
+        <dl class="change">
+          <div><dt>Who</dt><dd><span class="chip chip--amber">Person</span> <span class="amber">Scientist</span></dd></div>
+          <div><dt>When</dt><dd><span class="chip chip--cool">System</span> <span class="m cool">2026-10-09 09:41:07</span></dd></div>
+          <div class="change__why"><dt>Why</dt><dd>“Primer dimers at 58&nbsp;°C.”</dd></div>
+          <div><dt>Version</dt><dd class="m cool">v4 to v5</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ask ask--before" id="before" aria-labelledby="before-head">
+  <div class="container">
+    <div class="ask__head">
+      <h2 id="before-head">What did it say before?</h2>
+      <p class="lead">Every version is kept. Read any two side by side.</p>
+    </div>
+    <div class="panels compare" data-slot="compare" data-alt="Two versions of one of your protocols side by side, and the reasons for what changed between them">
+      <ol class="vers" aria-label="Versions of PCR, 30 cycles">
+        <li><span class="m">v1</span><span>21 Aug</span></li>
+        <li><span class="m">v2</span><span>3 Sep</span></li>
+        <li class="is-pick"><span class="m">v3</span><span>18 Sep</span></li>
+        <li><span class="m">v4</span><span>2 Oct</span></li>
+        <li class="is-pick"><span class="m">v5</span><span>9 Oct</span></li>
+      </ol>
+      <table class="diff">
+        <caption class="visually-hidden">Version 3 against version 5, sample</caption>
+        <thead><tr><th scope="col">Step</th><th scope="col"><span class="m">v3</span> Lab manager</th><th scope="col"><span class="m">v5</span> Scientist</th></tr></thead>
+        <tbody>
+          <tr><th scope="row"><span class="m n">1</span>Initial denaturation</th><td class="m">95&nbsp;°C, 3&nbsp;min</td><td class="m">95&nbsp;°C, 3&nbsp;min</td></tr>
+          <tr><th scope="row"><span class="m n">2</span>Denature</th><td class="m">95&nbsp;°C, 30&nbsp;s</td><td class="m">95&nbsp;°C, 30&nbsp;s</td></tr>
+          <tr class="is-changed"><th scope="row"><span class="m n">3</span>Anneal</th><td class="m"><del>58&nbsp;°C</del>, 30&nbsp;s</td><td class="m"><ins>60&nbsp;°C</ins>, 30&nbsp;s</td></tr>
+          <tr class="is-changed"><th scope="row"><span class="m n">4</span>Extend</th><td class="m">72&nbsp;°C, <del>45&nbsp;s</del></td><td class="m">72&nbsp;°C, <ins>1&nbsp;min</ins></td></tr>
+          <tr><th scope="row"><span class="m n">5</span>Final extension</th><td class="m">72&nbsp;°C, 5&nbsp;min</td><td class="m">72&nbsp;°C, 5&nbsp;min</td></tr>
+        </tbody>
+      </table>
+      <ol class="between" aria-label="Changes between v3 and v5">
+        <li><span class="m cool">v4</span><span class="amber">Scientist</span><span class="m cool">2 Oct</span><q>Extension to 1&nbsp;min.</q></li>
+        <li><span class="m cool">v5</span><span class="amber">Scientist</span><span class="m cool">9 Oct</span><q>Primer dimers at 58&nbsp;°C.</q></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="ask ask--week" id="week" aria-labelledby="week-head">
+  <div class="container">
+    <div class="ask__head">
+      <h2 id="week-head">Which protocols changed this week?</h2>
+      <p class="lead">Every protocol that moved in the lab, newest first.</p>
+    </div>
+    <div class="week">
+      <figure class="week__photo" data-slot="photo-1" data-alt="Your own lab: the bench where the protocols are run, no faces needed">
+        <img src="photos/csiro-scienceimage-11401-csiro-researcher-with-pipette-1280.jpg" width="1280" height="1920" loading="lazy" style="object-position: 50% 40%" alt="A gloved hand gripping a pipette at a lab bench, the tip pointing down">
+      </figure>
+      <div class="panels feed" data-slot="feed" data-alt="Your lab’s changes this week, each with who, when and why">
+        <div class="feed__head"><span>This week in the lab</span><span class="m">4 changes</span></div>
+        <ol class="feed__list">
+          <li><p class="feed__top"><b>qPCR, standard curve</b><span class="chip chip--cool m">v6</span></p><p class="feed__why">“Dilution series to 1:10, five points.”</p><p class="feed__meta"><span class="amber">Scientist</span><span class="m cool">Thu 14:30</span></p></li>
+          <li><p class="feed__top"><b>Western blot transfer</b><span class="chip chip--cool m">v8</span></p><p class="feed__why">“Bands smeared at 100&nbsp;V.”</p><p class="feed__meta"><span class="amber">Lab manager</span><span class="m cool">Wed 16:05</span></p></li>
+          <li><p class="feed__top"><b>Cell passage</b><span class="chip chip--cool m">v12</span></p><p class="feed__why">“Confluent a day early, split at 80%.”</p><p class="feed__meta"><span class="amber">Scientist</span><span class="m cool">Tue 11:20</span></p></li>
+          <li><p class="feed__top"><b>Plasmid miniprep</b><span class="chip chip--cool m">v3</span></p><p class="feed__why">“Elute in 30&nbsp;µl, not 50.”</p><p class="feed__meta"><span class="amber">Scientist</span><span class="m cool">Mon 10:02</span></p></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ask ask--who" id="who" aria-labelledby="who-head">
+  <div class="container rows">
+    <div class="ask__head">
+      <h2 id="who-head">Who writes the record?</h2>
+      <p class="lead">A person writes the why. The system writes the when.</p>
+    </div>
+    <table class="parts">
+      <caption class="visually-hidden">The parts of a change record and who writes each</caption>
+      <thead><tr><th scope="col">Part</th><th scope="col">Written by</th><th scope="col">On the blot change</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">What changed</th><td><span class="chip chip--cool">System</span></td><td class="m"><del>100&nbsp;V</del> <ins>90&nbsp;V</ins></td></tr>
+        <tr><th scope="row">Who</th><td><span class="chip chip--amber">Person</span></td><td class="amber">Lab manager</td></tr>
+        <tr><th scope="row">When</th><td><span class="chip chip--cool">System</span></td><td class="m cool">2026-10-08 16:05:12</td></tr>
+        <tr><th scope="row">Why</th><td><span class="chip chip--amber">Person</span></td><td class="say">“Bands smeared at 100&nbsp;V.”</td></tr>
+        <tr><th scope="row">Version</th><td><span class="chip chip--cool">System</span></td><td class="m cool">v7 to v8</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="ask ask--try" id="try" aria-labelledby="try-head">
+  <div class="container try">
+    <div class="ask__head">
+      <h2 id="try-head">Change the anneal yourself.</h2>
+      <p class="lead">Say why. Nothing leaves this page.</p>
+    </div>
+    <div class="panels trybox">
+      <form class="try__form" novalidate>
+        <div class="field"><label for="temp">Step 3, anneal at</label><div class="unit"><input class="input m" id="temp" name="temperature" type="number" inputmode="decimal" min="40" max="80" step="0.5" value="62"><span>°C for 30&nbsp;s</span></div></div>
+        <div class="field"><label for="why">Why the change?</label><textarea class="input" id="why" name="why" rows="3" autocomplete="off">Faint bands at 60&nbsp;°C.</textarea><p class="field__help" id="why-help" aria-live="polite"></p></div>
+      </form>
+      <div class="try__record" aria-live="polite">
+        <p class="try__label">The record, as it would be saved</p>
+        <p class="try__diff m"><del data-old>60&nbsp;°C</del> <ins data-new>62&nbsp;°C</ins></p>
+        <dl class="try__parts">
+          <div><dt>Who</dt><dd><span class="chip chip--amber">Person</span> <span class="amber">You</span></dd></div>
+          <div><dt>When</dt><dd><span class="chip chip--cool">System</span> <span class="m cool" data-now>on saving</span></dd></div>
+          <div><dt>Why</dt><dd data-why>“Faint bands at 60&nbsp;°C.”</dd></div>
+          <div><dt>Version</dt><dd class="m cool">v5 to v6</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="statement" aria-label="Statement">
+  <div class="container"><p class="statement__line">Every change keeps its reason.</p></div>
+</section>
+
+<section class="access" id="access" aria-labelledby="access-head">
+  <div class="container access__grid">
+    <div class="access__text">
+      <h2 id="access-head">Bring Benchmark to your lab.</h2>
+      <p class="lead">For research labs. Leave a work email and the name of your lab.</p>
+    </div>
+    <form class="signup" data-endpoint="" novalidate>
+      <div class="field"><label for="email">Work email</label><input class="input" id="email" name="email" type="email" autocomplete="email" required></div>
+      <div class="field"><label for="lab">Lab name</label><input class="input" id="lab" name="lab" type="text" autocomplete="organization" required></div>
+      <button class="btn btn--amber" type="submit">Request access</button>
+      <p class="signup__help" id="signup-help" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="container foot__in">
+    <p class="foot__sign">Kept by Benchmark.</p>
+    <p class="foot__date"><time datetime="2026-10-12">12 October 2026</time></p>
+    <nav class="foot__links" aria-label="Footer"><a href="#before">Before</a><a href="#week">This week</a><a href="#who">Who writes</a><a href="#try">Try one</a></nav>
+    <p class="foot__legal">© 2026 Benchmark</p>
+    <p class="foot__credit" data-credits>Photograph: <a href="https://commons.wikimedia.org/wiki/File:CSIRO_ScienceImage_11401_CSIRO_researcher_with_pipette.jpg">Morgan Brown, CSIRO</a>, CC&nbsp;BY&nbsp;3.0, on Wikimedia Commons.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var temp = document.getElementById('temp'), why = document.getElementById('why');
+  if (!temp || !why) return;
+  var outNew = document.querySelector('[data-new]'), outWhy = document.querySelector('[data-why]'), help = document.getElementById('why-help');
+  function sync() {
+    var t = Number(temp.value);
+    var ok = temp.value !== '' && t >= 40 && t <= 80;
+    temp.toggleAttribute('aria-invalid', !ok);
+    outNew.textContent = ok ? (t % 1 ? t.toFixed(1) : String(t)) + ' °C' : 'between 40 and 80 °C';
+    var reason = why.value.trim();
+    outWhy.textContent = reason ? '“' + reason + '”' : 'A reason is needed before a change is saved.';
+    help.textContent = reason ? '' : 'Say why, in a few words.';
+  }
+  temp.addEventListener('input', sync); why.addEventListener('input', sync); sync();
+})();
+document.querySelectorAll('form[data-endpoint]').forEach(function (form) {
+  var help = form.querySelector('[aria-live]');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var bad = [].slice.call(form.querySelectorAll('input')).filter(function (i) { var ok = i.checkValidity(); i.toggleAttribute('aria-invalid', !ok); if (!ok) i.setAttribute('aria-describedby', help.id); return !ok; });
+    if (bad.length) { help.textContent = bad[0].type === 'email' ? 'That address looks incomplete. Write it as name@example.com.' : 'Add the name of your lab.'; bad[0].focus(); return; }
+    if (!form.dataset.endpoint) { help.textContent = 'Nothing was sent: this form is not connected yet.'; return; }
+  });
+});
+</script>
+
+<script>window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
+document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });</script>
+</body>
+</html>

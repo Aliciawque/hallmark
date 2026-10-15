@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Closewise: your bank accounts reconciled against the ledger every night</title>
+<meta name="description" content="Closewise checks every bank account against your ledger every night and flags every mismatch before month end, for finance teams of 3 to 30.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="slab">
+  <div class="container slab__in">
+    <a class="wordmark" href="#top" aria-label="Closewise, home">Closewise</a>
+    <nav class="slab__links" aria-label="Main">
+      <a href="#flag">Last night</a>
+      <a href="#nightly">Every night</a>
+      <a href="#close">Month end</a>
+    </nav>
+    <a class="btn btn--line btn--nav" href="#walkthrough">Book a walkthrough</a>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="hero" id="top" aria-labelledby="hero-head">
+  <div class="container hero__grid">
+    <div class="hero__text">
+      <h1 id="hero-head">Month end, already reconciled.</h1>
+      <p class="lead">Closewise checks every bank account against your ledger, every night.</p>
+      <div class="actions">
+        <a class="btn btn--bone" href="#walkthrough">Book a walkthrough</a>
+        <a class="btn btn--line" href="#flag">See the flagged line</a>
+      </div>
+    </div>
+
+    <div class="hero__visual">
+      <div class="app" data-slot="hero" data-alt="Your last night's run: each bank line set against its ledger entry, with the totals and the one flag">
+        <div class="app__bar">
+          <span class="app__mark">Closewise</span>
+          <span class="app__tabs"><span class="is-on">Last night</span><span>Month end</span><span>Accounts</span></span>
+          <span class="app__when"><span>Tuesday 14 October</span><span>Run at <span class="num">02:00</span></span></span>
+        </div>
+        <div class="app__accounts">
+          <span class="acct is-on">Current account</span><span class="acct">Card</span><span class="acct">Savings</span>
+          <span class="app__tally"><span><span class="num">6</span> matched</span><span class="tally-flag"><span class="num">1</span> flagged</span></span>
+        </div>
+        <table class="run">
+          <caption class="visually-hidden">Last night’s run on the current account, sample</caption>
+          <thead><tr><th scope="col" class="d">Date</th><th scope="col">Bank line</th><th scope="col">Ledger entry</th><th scope="col" class="r">In</th><th scope="col" class="r">Out</th><th scope="col">Status</th></tr></thead>
+          <tbody>
+            <tr><td class="d">12 Oct</td><th scope="row">Example Client</th><td>Invoice 2041</td><td class="num cr" data-label="In">3,200.00</td><td class="num"></td><td>Matched</td></tr>
+            <tr><td class="d">12 Oct</td><th scope="row">Example Payroll</th><td>Wages, October</td><td class="num"></td><td class="num dr" data-label="Out">8,450.00</td><td>Matched</td></tr>
+            <tr class="is-flag"><td class="d">13 Oct</td><th scope="row">Example Hosting</th><td>Hosting, October</td><td class="num"></td><td class="num dr" data-label="Out">1,200.00</td><td><b>Flagged</b> <span class="num">180.00</span></td></tr>
+            <tr><td class="d">13 Oct</td><th scope="row">Example Bank</th><td>Bank fee</td><td class="num"></td><td class="num dr" data-label="Out">12.00</td><td>Matched</td></tr>
+            <tr><td class="d">13 Oct</td><th scope="row">Example Client Co</th><td>Invoice 2043</td><td class="num cr" data-label="In">900.00</td><td class="num"></td><td>Matched</td></tr>
+            <tr><td class="d">14 Oct</td><th scope="row">Example Insurance</th><td>Insurance, October</td><td class="num"></td><td class="num dr" data-label="Out">300.00</td><td>Matched</td></tr>
+            <tr><td class="d">14 Oct</td><th scope="row">Example Supplies</th><td>Office supplies</td><td class="num"></td><td class="num dr" data-label="Out">64.00</td><td>Matched</td></tr>
+          </tbody>
+          <tfoot><tr><td class="d"></td><th scope="row">Totals</th><td></td><td class="num cr" data-label="In">4,100.00</td><td class="num dr" data-label="Out">10,026.00</td><td></td></tr></tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="row row--flag" id="flag" aria-labelledby="flag-head">
+  <div class="container row__grid row__grid--4-8">
+    <div class="row__text">
+      <h2 id="flag-head">One line didn’t match.</h2>
+      <p class="lead">Both sides and the difference, nothing to hunt for.</p>
+    </div>
+    <figure class="proof">
+      <div class="well" data-slot="flag" data-alt="One flagged mismatch from your own run: the bank line, the ledger entry and the difference between them">
+        <div class="well__head"><span class="well__title">Flagged on 14 October</span><span class="well__state">Waiting for you</span></div>
+        <div class="sides">
+          <div class="side">
+            <p class="side__label">Bank</p>
+            <p class="side__name">Example Hosting</p>
+            <p class="side__meta">Card payment, 13 October</p>
+            <p class="side__fig num dr">1,200.00</p>
+          </div>
+          <div class="side">
+            <p class="side__label">Ledger</p>
+            <p class="side__name">Hosting, October</p>
+            <p class="side__meta">Posted 13 October</p>
+            <p class="side__fig num dr">1,020.00</p>
+          </div>
+        </div>
+        <div class="diff"><span>Difference</span><span class="num">180.00</span></div>
+        <dl class="well__facts">
+          <div><dt>Account</dt><dd>Current account</dd></div>
+          <div><dt>Month end</dt><dd>In <span class="num">17</span> days</dd></div>
+        </dl>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<section class="row row--nightly" id="nightly" aria-labelledby="nightly-head">
+  <div class="container row__grid row__grid--5-7">
+    <div class="row__text">
+      <h2 id="nightly-head">A short list, not a search.</h2>
+      <p class="lead">Checked as each line lands, not all at once.</p>
+    </div>
+    <figure class="proof">
+      <table class="ways">
+        <caption class="visually-hidden">Month end by hand against every night with Closewise</caption>
+        <thead><tr><th scope="col"><span class="visually-hidden">Question</span></th><th scope="col">At month end, by hand</th><th scope="col">Every night, with Closewise</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">When it runs</th><td data-label="By hand">Once, at month end</td><td data-label="Closewise">Every night, every account</td></tr>
+          <tr><th scope="row">What you find</th><td data-label="By hand">A month of mismatches at once</td><td data-label="Closewise">One night’s mismatches</td></tr>
+          <tr><th scope="row">Where you look</th><td data-label="By hand">Statements beside the ledger</td><td data-label="Closewise">One line, both sides</td></tr>
+          <tr><th scope="row">Month end</th><td data-label="By hand">A search</td><td data-label="Closewise">A short list to clear</td></tr>
+        </tbody>
+      </table>
+    </figure>
+  </div>
+</section>
+
+<section class="row row--team" aria-labelledby="team-head">
+  <div class="container row__grid row__grid--6-6">
+    <div class="row__text">
+      <h2 id="team-head">For finance teams of 3 to 30.</h2>
+      <p class="lead">Every account the team looks after, checked the same way.</p>
+    </div>
+    <figure class="proof">
+      <div class="photo" data-slot="photo-1" data-alt="Your own finance team at work: hands, desks and screens, no faces needed">
+        <img src="photos/young-businesswoman-holding-her-smartphone-in-the-home-offic-1920.jpg" width="1920" height="1282" loading="lazy" alt="A hand holding a phone over an open planner, a laptop beside it on the desk" style="object-position: 62% 50%">
+      </div>
+    </figure>
+  </div>
+</section>
+
+<section class="row row--close" id="close" aria-labelledby="close-head">
+  <div class="container">
+    <div class="close__head">
+      <h2 id="close-head">October, before the close.</h2>
+      <p class="lead">Three flags left, each with its difference.</p>
+    </div>
+    <figure class="proof proof--wide">
+      <div class="well" data-slot="close" data-alt="Your month-end list: every open flag across your accounts and what they add up to">
+        <div class="well__head"><span class="well__title">Open flags on 29 October</span><span class="well__state">All accounts</span></div>
+        <table class="flags">
+          <caption class="visually-hidden">Open flags before the October close, sample</caption>
+          <thead><tr><th scope="col">Flagged</th><th scope="col">Bank line</th><th scope="col">Why</th><th scope="col" class="r">Difference</th></tr></thead>
+          <tbody>
+            <tr><td class="d">3 Oct</td><th scope="row">Example Bank fee</th><td>Not in the ledger</td><td class="num">24.00</td></tr>
+            <tr><td class="d">14 Oct</td><th scope="row">Example Hosting</th><td>Amount differs</td><td class="num">180.00</td></tr>
+            <tr><td class="d">22 Oct</td><th scope="row">Example Client Co</th><td>Amount differs</td><td class="num">90.00</td></tr>
+          </tbody>
+          <tfoot><tr><td></td><th scope="row" colspan="2">Three flags to clear</th><td class="num">294.00</td></tr></tfoot>
+        </table>
+      </div>
+    </figure>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot" id="walkthrough">
+  <div class="container">
+    <div class="foot__form">
+      <div class="foot__text">
+        <h2 class="foot__head">See one month, start to close.</h2>
+        <p class="lead">The runs, the flags and the short list they leave.</p>
+      </div>
+      <form class="book" data-endpoint="" novalidate>
+        <div class="field"><label for="email">Work email</label><input class="input" id="email" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="company">Company</label><input class="input" id="company" name="company" type="text" autocomplete="organization" required></div>
+        <button class="btn btn--bone" type="submit">Book a walkthrough</button>
+        <p class="book__help" id="book-help" aria-live="polite"></p>
+      </form>
+    </div>
+    <div class="foot__base">
+      <span class="wordmark">Closewise</span>
+      <nav class="foot__links" aria-label="Footer"><a href="#flag">Last night</a><a href="#nightly">Every night</a><a href="#close">Month end</a></nav>
+      <p class="foot__legal">© 2026 Closewise</p>
+      <p class="foot__credits" data-credits>Photograph: <a href="https://commons.wikimedia.org/wiki/File:Young_businesswoman_holding_her_smartphone_in_the_home_office.jpg">Shixart1985</a> (CC BY 2.0, Wikimedia Commons).</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('form[data-endpoint]').forEach(function (form) {
+  var help = form.querySelector('[aria-live]');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var bad = [].slice.call(form.querySelectorAll('input')).filter(function (i) { var ok = i.checkValidity(); i.toggleAttribute('aria-invalid', !ok); if (!ok) i.setAttribute('aria-describedby', help.id); return !ok; });
+    if (bad.length) { help.textContent = bad[0].type === 'email' ? 'That address looks incomplete. Write it as name@example.com.' : 'Add the company name so we know who to expect.'; bad[0].focus(); return; }
+    if (!form.dataset.endpoint) { help.textContent = 'Nothing was sent: this form is not connected yet.'; return; }
+  });
+});
+</script>
+
+<script>window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
+document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });</script>
+</body>
+</html>

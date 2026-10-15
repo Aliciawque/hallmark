@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tidetable 2027, every UK tide port by port</title>
+<meta name="description" content="Tidetable 2027: UK coastal tide and daylight data for 214 ports, as a print edition for £28 or a CSV for £12. Ships 2 December.">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/book.webp">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to the tables</a>
+
+<p class="strip">The 2027 edition ships 2 December. <a href="#order">Order now</a></p>
+<header class="bar">
+  <div class="container bar__in">
+    <a class="bar__mark" href="#top">Tidetable <span>2027</span></a>
+    <nav class="bar__links" aria-label="Sections"><a href="#day">A day</a><a href="#year">The year</a><a href="#order">Book or CSV</a></nav>
+    <a class="btn btn--ink btn--sm" href="#order">Order, from £12</a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <svg class="hero__tide" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true" data-hero-tide></svg>
+    <div class="container hero__grid">
+      <div class="hero__text">
+        <h1 id="hero-title">Every tide of 2027, port by&nbsp;port.</h1>
+        <p class="lead">Tide and daylight for 214 UK ports, printed or as&nbsp;CSV.</p>
+        <div class="actions">
+          <a class="btn btn--accent" href="#order">Order the book, £28</a>
+          <a class="btn btn--line" href="#order">Buy the CSV, £12</a>
+        </div>
+        <dl class="facts">
+          <div><dt>Ports</dt><dd>214</dd></div>
+          <div><dt>Edition</dt><dd>2027</dd></div>
+          <div><dt>Ships</dt><dd>2 Dec</dd></div>
+        </dl>
+      </div>
+      <div class="hero__book">
+        <div class="book">
+          <img src="img/book.webp" width="878" height="1426" alt="The 2027 edition: a slate-blue cloth hardback with a magenta ribbon" fetchpriority="high">
+          <div class="book__foil" aria-hidden="true">
+            <p class="book__title">Tidetable</p>
+            <p class="book__year">2027</p>
+            <p class="book__sub">Tide and daylight for 214 UK ports</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="day" id="day" aria-labelledby="day-title">
+    <div class="container">
+      <div class="head">
+        <h2 id="day-title">A day of tide and daylight.</h2>
+        <p class="lead">Two highs, two lows, and the light between them. Drag through the&nbsp;year.</p>
+      </div>
+      <div class="chart">
+        <div class="chart__ctl">
+          <div class="seg" role="group" aria-label="Example port">
+            <button type="button" aria-pressed="true" data-port="0">Falmouth</button>
+            <button type="button" aria-pressed="false" data-port="1">Whitby</button>
+            <button type="button" aria-pressed="false" data-port="2">Lerwick</button>
+          </div>
+          <label class="scrub"><span data-date>12 April</span><input type="range" min="0" max="364" value="101" data-day aria-label="Day of the year"></label>
+        </div>
+        <div class="chart__plot" data-plot></div>
+        <dl class="chart__read" data-read></dl>
+      </div>
+      <p class="note">An example drawn from a simple model of the tide and the sun to show the parts of a page, not a forecast.</p>
+    </div>
+  </section>
+
+  <section class="year" id="year" aria-labelledby="year-title">
+    <div class="container">
+      <div class="head">
+        <h2 id="year-title">The year, springs and&nbsp;neaps.</h2>
+        <p class="lead">Each mark is a day. The taller it stands, the bigger that day’s&nbsp;range.</p>
+      </div>
+      <div class="months" data-months></div>
+    </div>
+  </section>
+
+  <section class="photo-band" aria-label="The coast the tables cover">
+    <div class="container band__grid">
+      <figure class="band__a"><div class="photo" data-slot="pier"><img src="photos/newlyn-old-harbour-pier-july-2026-01-1920.jpg" width="1920" height="1280" loading="lazy" alt="Newlyn's old harbour pier with boats at their moorings"></div><figcaption>Newlyn, old harbour pier</figcaption></figure>
+      <figure class="band__b"><div class="photo" data-slot="marker"><img src="photos/tide-marker-at-formby-point-geograph-org-uk-2052952-1280.jpg" width="1280" height="960" loading="lazy" alt="A tide marker post standing on wet sand at Formby Point"></div><figcaption>Formby Point, the tide marker</figcaption></figure>
+      <blockquote class="band__who"><p>For sailors, swimmers and harbour masters: anyone who plans by the&nbsp;water.</p></blockquote>
+    </div>
+  </section>
+
+  <section class="order" id="order" aria-labelledby="order-title">
+    <div class="container">
+      <div class="head">
+        <h2 id="order-title">The book, or the&nbsp;data.</h2>
+        <p class="lead">Both cover 214 ports for every day of 2027. Shipping from 2&nbsp;December.</p>
+      </div>
+      <div class="order__grid">
+        <article class="buy buy--book">
+          <div class="buy__art"><img src="img/book.webp" width="878" height="1426" alt="" loading="lazy"></div>
+          <div class="buy__body">
+            <h3>The print edition</h3>
+            <p>Cloth-bound, with a ribbon. One page a port, a year to a&nbsp;book.</p>
+            <p class="buy__price">£28</p>
+            <a class="btn btn--accent btn--wide" href="#top">Order the book</a>
+          </div>
+        </article>
+        <article class="buy buy--csv">
+          <div class="buy__art buy__art--csv">
+<pre aria-label="The first rows of the CSV"><code><b>port,date,time,height_m,event</b>
+falmouth,2027-01-01,03:12,4.9,high
+falmouth,2027-01-01,09:28,0.8,low
+falmouth,2027-01-01,15:36,4.7,high
+falmouth,2027-01-01,21:51,0.9,low
+falmouth,2027-01-01,08:22,,sunrise
+falmouth,2027-01-01,16:14,,sunset
+<span>… 214 ports, 365 days</span></code></pre>
+          </div>
+          <div class="buy__body">
+            <h3>The CSV</h3>
+            <p>Every row in one file, for a spreadsheet, a chart plotter or your own&nbsp;app.</p>
+            <p class="buy__price">£12</p>
+            <a class="btn btn--line btn--wide" href="#top">Buy the CSV</a>
+          </div>
+        </article>
+      </div>
+      <p class="note">The rows shown are an example of the format.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="container">
+    <div class="foot__top">
+      <p class="foot__mark">Tidetable <span>2027</span></p>
+      <nav aria-label="Footer"><a href="#day">A day</a><a href="#year">The year</a><a href="#order">Book or CSV</a></nav>
+    </div>
+    <p class="foot__credit" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Tide_marker_at_Formby_Point_-_geograph.org.uk_-_2052952.jpg">Gary Rogers</a>, CC&nbsp;BY-SA&nbsp;2.0; <a href="https://commons.wikimedia.org/wiki/File:Newlyn_old_harbour_pier_July_2026_01.jpg">ArildV</a>, CC&nbsp;BY-SA&nbsp;4.0, both on Wikimedia Commons. The book is a generated picture.</p>
+  </div>
+</footer>
+
+<script src="page.js"></script>
+</body>
+</html>

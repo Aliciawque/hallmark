@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ashgrove Concrete, skateparks poured from Bristol</title>
+<meta name="description" content="Ashgrove Concrete builds skateparks and public concrete landscapes for councils and skate communities: 37 parks so far, poured from Bristol.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Archivo:wght@400;500&family=Archivo+Narrow:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="slab">
+  <div class="container slab__in">
+    <a class="slab__mark" href="#top" aria-label="Ashgrove Concrete, home">Ashgrove Concrete</a>
+    <nav aria-label="Main">
+      <ul class="slab__links">
+        <li class="slab__wide"><a href="#work">The work</a></li>
+        <li class="slab__wide"><a href="#build">How a park gets built</a></li>
+        <li><a class="btn btn--secondary" href="#site">Send the site</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top" aria-labelledby="hero-head">
+    <div class="hero__text">
+      <h1 id="hero-head">37 parks, poured to be skated</h1>
+      <p class="lead">Skateparks and public concrete for councils, built from Bristol.</p>
+      <div class="acts">
+        <a class="btn btn--primary" href="#site">Start park 38</a>
+        <a class="btn btn--secondary" href="#work">See the work</a>
+      </div>
+    </div>
+    <figure class="photo hero__fig" data-slot="hero" data-alt="One of your parks in use: a board on a ledge or coping, close, in hard light">
+      <img src="photos/br-ssel-skater-schattenriss-20081108-rm-164748-1920.jpg" width="1920" height="1440" fetchpriority="high" style="object-position: 55% 55%" alt="Young skaters in silhouette on the deck behind a mesh fence">
+    </figure>
+  </section>
+
+  <section class="work" id="work" aria-labelledby="work-head">
+    <div class="container">
+      <h2 id="work-head">What 37 parks are made of</h2>
+      <div class="board">
+        <div class="board__lead">
+          <figure class="photo board__pic" data-slot="work-1" data-alt="Board-marked concrete from one of your parks: a wall, a block or a bank, close">
+            <img src="photos/p-rtschach-10-oktober-stra-e-27-telekommunikationsgeb-ude-si-1920.jpg" width="1920" height="1281" loading="lazy" style="object-position: 50% 50%" alt="A concrete wall marked by the boards it was cast against">
+          </figure>
+          <p class="cap">Concrete cast against boards.</p>
+        </div>
+        <div class="board__b">
+          <figure class="photo board__pic" data-slot="work-2" data-alt="A pour on one of your parks, concrete going into the forms">
+            <img src="photos/in-situ-concrete-pouring-1920.jpg" width="1920" height="2560" loading="lazy" style="object-position: 45% 50%" alt="A pump boom feeding concrete into a column against a low sun">
+          </figure>
+          <p class="cap">Pumped in from the boom, column by column.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="build band--cast" id="build" aria-labelledby="build-head">
+    <div class="container build__grid">
+      <div class="build__text">
+        <h2 id="build-head">How park 38 gets built</h2>
+        <ol class="stages">
+          <li><span class="fig-num stages__n">1</span><h3>Dig</h3><p>The ground comes out to the shape on the drawings.</p></li>
+          <li><span class="fig-num stages__n">2</span><h3>Form</h3><p>Steel goes in, and the edges and transitions are set.</p></li>
+          <li><span class="fig-num stages__n">3</span><h3>Pour</h3><p>Concrete goes in and is floated smooth before it sets.</p></li>
+          <li><span class="fig-num stages__n">4</span><h3>Open</h3><p>The fences come down and the park is skated.</p></li>
+        </ol>
+      </div>
+      <figure class="photo build__fig" data-slot="build" data-alt="One of your sites before a pour: the ground dug and the forms set">
+        <img src="photos/construction-workers-in-mexico-1920.jpg" width="1920" height="1044" loading="lazy" style="object-position: 45% 50%" alt="Workers climbing a steel rebar grid, in silhouette">
+      </figure>
+    </div>
+  </section>
+
+  <section class="site" id="site" aria-labelledby="site-head">
+    <div class="container">
+      <div class="card site__card">
+        <div class="site__head">
+          <h2 id="site-head">Park 38</h2>
+          <p class="lead">Send us the site.</p>
+          <dl class="site__who">
+            <div><dt>Councils</dt><dd>The site and the budget line.</dd></div>
+            <div><dt>Skate groups</dt><dd>Your council and the spot you skate now.</dd></div>
+          </dl>
+        </div>
+        <form class="form" data-endpoint="" novalidate>
+          <fieldset class="seg">
+            <legend>Who is asking</legend>
+            <div class="seg__opts">
+              <input type="radio" name="who" id="w-council" value="council" checked><label for="w-council">A council</label>
+              <input type="radio" name="who" id="w-group" value="skate group"><label for="w-group">A skate group</label>
+            </div>
+          </fieldset>
+          <div class="field">
+            <label for="f-site">Where is the site</label>
+            <input id="f-site" name="site" type="text" autocomplete="off" required aria-describedby="site-hint">
+            <p class="field__hint" id="site-hint">A town and a place is enough.</p>
+          </div>
+          <div class="field">
+            <label for="f-email">Email</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required>
+          </div>
+          <div class="form__end">
+            <button class="btn btn--primary" type="submit">Send the site</button>
+            <p class="form__help" id="form-help" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot band--ink">
+  <div class="container">
+    <p class="foot__line">The next one starts with a site.</p>
+    <div class="foot__row">
+      <nav class="foot__links" aria-label="Footer">
+        <a href="#work">The work</a>
+        <a href="#build">How a park gets built</a>
+        <a href="#site">Send the site</a>
+      </nav>
+      <p class="foot__legal">© 2026 Ashgrove Concrete, Bristol</p>
+    </div>
+    <p class="foot__credit" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Br%C3%BCssel_Skater_Schattenriss-20081108-RM-164748.jpg">Ermell</a> <span>(<abbr>CC BY-SA 4.0</abbr>)</span>, <a href="https://commons.wikimedia.org/wiki/File:P%C3%B6rtschach_10.-Oktober-Stra%C3%9Fe_27_Telekommunikationsgeb%C3%A4ude_Sichtbeton_30012022_2068.jpg">Johann Jaritz</a> <span>(<abbr>CC BY-SA 4.0</abbr>)</span>, <a href="https://commons.wikimedia.org/wiki/File:In-situ_concrete_pouring.jpg">Bernardobenzecry</a> <span>(<abbr>CC BY-SA 4.0</abbr>)</span> and <a href="https://commons.wikimedia.org/wiki/File:Construction_workers_in_Mexico.jpg">Tomascastelazo</a> <span>(<abbr>CC BY-SA 4.0</abbr>)</span>, all on Wikimedia Commons.</p>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('form[data-endpoint]').forEach((form) => {
+  const help = form.querySelector('[aria-live]');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const fields = [...form.querySelectorAll('input[required]')];
+    fields.forEach((i) => i.toggleAttribute('aria-invalid', !i.checkValidity()));
+    const bad = fields.find((i) => !i.checkValidity());
+    if (bad) {
+      bad.setAttribute('aria-describedby', help.id);
+      help.textContent = bad.type === 'email' ? 'That address looks incomplete. Write it as name@example.com.' : 'Name the town and the place, so we can find the site.';
+      bad.focus();
+      return;
+    }
+    if (!form.dataset.endpoint) { help.textContent = 'Nothing was sent: this form is not connected yet.'; return; }
+    fetch(form.dataset.endpoint, { method: 'POST', body: new FormData(form) })
+      .then((r) => { help.textContent = r.ok ? 'The site reached us.' : 'That did not go through. Try again in a minute.'; })
+      .catch(() => { help.textContent = 'That did not go through. Try again in a minute.'; });
+  });
+});
+</script>
+<script>window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
+document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });</script>
+</body>
+</html>

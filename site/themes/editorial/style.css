@@ -1,0 +1,144 @@
+/* Hallmark · shape: Marquee Hero · genre: editorial · theme: Editorial (by request)
+ * hero: Poster · nav: slab, a paper flag on a heavy ink rule across the top of the cover, the condensed wordmark in ink · footer: colophon block · imagery: photographs, library 6, natural sat=-10 con=4 · signature: the issue's cover, a rebuild photographed full-bleed with Repair printed on it as the cover line
+ * axes: light/display-condensed/chromatic-green · posture: restrained · contrast: pass · fold: pass · v2.7.0 */
+/* Hallmark · pre-emit critique: P4 H5 E4 S4 R5 V4 · weakest: S, a cover hero could open any magazine; the cover line is the issue's one word, the issue's number sits beside it, and the photograph is a person at work on a repair */
+/* Hallmark · hero-review: in-thread · fix · 1 finding · 1 resolved (the first screen showed none of the white stock; the flag is now paper on a heavy ink rule) */
+/* Hallmark · finish-review: subagent · fix · 7 findings · 7 resolved (a stand-in showing another magazine's named contributor swapped for a stack of magazines; the cover stays a Poster on a phone; the cover gives the date; the about head is the quarterly's own facts and the unsourced claim is cut; the colophon rule sits on the pre-order's edge; one measure in about; the button reads Pre-order) · gap: green shows only as the one tag, which the restrained posture keeps */
+@import url("./tokens.css");
+@import url("./base.css");
+
+:root {
+  --flag-h: 72px;
+  --scrim: linear-gradient(to top, color-mix(in oklab, var(--color-ink) 82%, transparent) 0%, color-mix(in oklab, var(--color-ink) 55%, transparent) 38%, transparent 72%);
+}
+
+/* Type */
+body { color: var(--color-ink-2); font-optical-sizing: auto; }
+h1, h2, h3 { font-weight: var(--display-weight); font-variation-settings: "wdth" 75, "opsz" 96; color: var(--color-ink); }
+h3 { font-variation-settings: "wdth" 75; }
+small, figcaption, th, nav, label, .btn, .tag, .textlink { font-family: var(--font-display); font-weight: 500; font-variation-settings: "opsz" 12; }
+.lead { color: var(--color-ink-2); }
+
+/* Controls */
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 var(--space-lg); border: var(--rule-hair) solid var(--color-ink); border-radius: 0; background: transparent; color: var(--color-ink); font-size: var(--text-md); line-height: 1; text-decoration: none; white-space: nowrap; cursor: pointer;
+  transition: background-color var(--dur-micro) var(--ease-out), color var(--dur-micro) var(--ease-out), border-color var(--dur-micro) var(--ease-out); }
+.btn:hover { background: var(--color-paper-2); }
+.btn:active { transform: translateY(1px); }
+.btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
+.btn:disabled, .btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; transform: none; }
+.btn--primary { background: var(--color-ink); color: var(--color-paper); }
+.btn--primary:hover { background: var(--color-ink-2); }
+.btn--on-photo { border-color: var(--color-paper); color: var(--color-paper); }
+.btn--on-photo:hover { background: var(--color-paper); color: var(--color-ink); }
+.textlink { font-size: var(--text-md); color: var(--color-ink); text-decoration: underline 1px; text-decoration-color: var(--color-rule-2); text-underline-offset: 0.2em; transition: text-decoration-color var(--dur-short) var(--ease-out); }
+.textlink:hover { text-decoration-color: var(--color-accent); }
+.textlink:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.tag { display: inline-block; padding: var(--space-3xs) var(--space-xs); background: var(--color-accent); color: var(--color-accent-ink); font-size: var(--text-sm); line-height: 1.4; }
+
+.skip { position: absolute; left: var(--space-md); top: calc(-1 * var(--space-3xl)); z-index: var(--z-toast); padding: var(--space-xs) var(--space-md); background: var(--color-ink); color: var(--color-paper); }
+.skip:focus-visible { top: var(--space-md); }
+
+/* The flag: an ink slab with the wordmark in paper */
+.flag { background: var(--color-paper); color: var(--color-ink); border-bottom: 4px solid var(--color-ink); }
+.flag__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-xl); min-height: calc(var(--flag-h) - 4px); }
+.wordmark { font: 800 2.125rem/1 var(--font-display); font-variation-settings: "wdth" 75, "opsz" 96; letter-spacing: -0.01em; color: var(--color-ink); text-decoration: none; }
+.flag__nav { display: flex; gap: var(--space-xl); }
+.flag__nav a { font-size: var(--text-sm); color: var(--color-ink); text-decoration: underline 1px; text-decoration-color: transparent; text-underline-offset: 0.3em; padding-block: var(--space-xs); transition: text-decoration-color var(--dur-short) var(--ease-out); }
+.flag__nav a:hover { text-decoration-color: var(--color-accent); }
+.flag :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+
+/* The cover: the photograph full-bleed, the cover line on its foot */
+.cover { position: relative; height: calc(100dvh - var(--flag-h)); min-height: 36rem; overflow: hidden; background: var(--color-ink); color: var(--color-paper); }
+.cover__photo { position: absolute; inset: 0; margin: 0; }
+.cover__photo > img { object-position: 50% 40%; }
+.cover__photo::after { content: ""; position: absolute; inset: 0; z-index: 2; background: var(--scrim); pointer-events: none; }
+.cover__inner { position: relative; z-index: var(--z-raised); height: 100%; display: flex; align-items: flex-end; padding-bottom: var(--space-2xl); box-sizing: border-box; }
+.cover h1 { font-size: clamp(4rem, 10vw, 9rem); line-height: 0.92; color: var(--color-paper); max-width: none; }
+.cover .lead { margin-top: var(--space-md); max-width: 30ch; color: var(--color-paper); }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-lg); margin-top: var(--space-xl); }
+.cover .textlink { color: var(--color-paper); text-decoration-color: var(--color-paper-3); }
+.cover .textlink:hover { text-decoration-color: var(--color-paper); }
+.cover :focus-visible { outline-color: var(--color-paper); }
+
+@media (max-width: 60rem) {
+  .cover { height: calc(100svh - 6rem); min-height: 32rem; }
+  .cover__photo > img { object-position: 42% 50%; }
+  .cover__inner { padding-bottom: var(--space-xl); }
+  .flag__nav { gap: var(--space-md); }
+}
+@media (max-width: 40rem) {
+  .flag__inner { flex-wrap: wrap; row-gap: var(--space-2xs); padding-block: var(--space-sm); }
+}
+
+/* Shared */
+.split { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); }
+.photo { margin: 0; }
+.photo > img { outline: 1px solid color-mix(in oklab, var(--color-ink) 8%, transparent); outline-offset: -1px; }
+figcaption { margin-top: var(--space-sm); font-size: var(--text-sm); color: var(--color-muted); }
+.about, .issue { padding-top: var(--section-gap); }
+.about__grid, .issue__head { padding-top: var(--space-lg); border-top: var(--rule-hair) solid var(--color-ink); }
+
+/* About: the magazine beside a studio */
+.about__grid { align-items: center; }
+.about__text { grid-column: 1 / span 5; }
+.about__text .lead { margin-top: var(--space-md); max-width: 30ch; color: var(--color-ink); }
+.about__photo { grid-column: 6 / span 7; aspect-ratio: 4 / 3; }
+
+/* The issue: one wide frame, then a pair */
+.issue { padding-top: var(--section-gap-l); }
+.issue__head { align-items: end; }
+.issue__head h2 { grid-column: 1 / span 7; font-size: var(--text-display-s); }
+.issue__head .lead { grid-column: 9 / span 4; }
+.issue__wide { margin-top: var(--space-2xl); aspect-ratio: 21 / 9; }
+.issue__pair { margin-top: var(--gap-columns); }
+.issue__tools { grid-column: 1 / span 8; height: 30rem; }
+.issue__chisel { grid-column: 9 / span 4; height: 30rem; }
+
+/* The thesis, on the one ink band */
+.thesis { margin-top: var(--section-gap); padding-block: var(--section-gap-s); background: var(--color-ink); }
+.thesis__line { max-width: 22ch; font: 800 var(--text-display)/1.02 var(--font-display); font-variation-settings: "wdth" 75, "opsz" 96; letter-spacing: var(--tracking-display); color: var(--color-paper); text-wrap: balance; }
+
+/* Pre-order, on a paper step */
+.preorder { padding-block: var(--section-gap-s); background: var(--color-paper-2); border-top: var(--rule-hair) solid var(--color-rule-2); }
+.preorder__grid { align-items: center; }
+.preorder__photo { grid-column: 1 / span 6; aspect-ratio: 4 / 5; }
+.preorder__text { grid-column: 8 / span 5; }
+.preorder__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-sm) var(--space-md); }
+.facts { margin: var(--space-xl) 0; border-top: var(--rule-hair) solid var(--color-rule-2); }
+.facts > div { display: flex; justify-content: space-between; align-items: baseline; padding-block: var(--space-sm); border-bottom: var(--rule-hair) solid var(--color-rule); }
+.facts dt { font-family: var(--font-display); font-weight: 500; font-variation-settings: "opsz" 12; font-size: var(--text-sm); color: var(--color-muted); }
+.facts dd { margin: 0; font-size: var(--text-lg); color: var(--color-ink); }
+.order { display: grid; gap: var(--space-lg); }
+.order__row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 3fr); gap: var(--space-sm); }
+.field { display: grid; gap: var(--space-xs); }
+.field label { font-size: var(--text-sm); color: var(--color-muted); }
+.field input, .field select { min-height: 48px; padding: 0 var(--space-md); border: var(--rule-hair) solid var(--color-muted); border-radius: 0; background: var(--color-paper); color: var(--color-ink); font: 400 var(--text-md)/1 var(--font-body); outline: 2px solid transparent; outline-offset: 2px; }
+.field select { appearance: none; padding-right: var(--space-2xl); background-image: linear-gradient(45deg, transparent 50%, var(--color-ink) 50%), linear-gradient(135deg, var(--color-ink) 50%, transparent 50%); background-position: calc(100% - 22px) 50%, calc(100% - 16px) 50%; background-size: 6px 6px; background-repeat: no-repeat; cursor: pointer; }
+.field input:focus-visible, .field select:focus-visible { outline-color: var(--color-focus); }
+.field input[aria-invalid] { border-color: var(--color-error); box-shadow: inset 0 0 0 1px var(--color-error); }
+.field input:disabled, .field select:disabled { opacity: 0.55; cursor: not-allowed; }
+.help { min-height: 1lh; font-size: var(--text-sm); color: var(--color-muted); }
+
+/* Colophon */
+.colophon { padding-block: 0 var(--space-2xl); }
+.colophon__inner { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); row-gap: var(--space-xl); align-items: end; padding-top: var(--space-xl); border-top: 4px solid var(--color-ink); }
+.colophon__mark { grid-column: 1 / span 5; font: 800 var(--text-display-s)/1 var(--font-display); font-variation-settings: "wdth" 75, "opsz" 96; letter-spacing: -0.01em; color: var(--color-ink); }
+.colophon__text { grid-column: 6 / span 4; font-size: var(--text-md); color: var(--color-ink-2); }
+.colophon__nav { grid-column: 10 / span 3; display: flex; flex-direction: column; gap: var(--space-xs); }
+.colophon__nav a { font-size: var(--text-sm); color: var(--color-ink); text-decoration-color: var(--color-rule-2); text-underline-offset: 0.2em; transition: text-decoration-color var(--dur-short) var(--ease-out); }
+.colophon__nav a:hover { text-decoration-color: var(--color-accent); }
+.colophon__nav a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.legal { grid-column: 1 / span 5; align-self: start; font-family: var(--font-display); font-weight: 500; font-variation-settings: "opsz" 12; font-size: var(--text-sm); color: var(--color-muted); }
+.credits { grid-column: 6 / -1; max-width: 72ch; font-size: var(--text-xs); line-height: 1.6; color: var(--color-muted); }
+.credits a { color: inherit; text-decoration-color: var(--color-rule-2); text-underline-offset: 0.2em; }
+.credits a:hover { color: var(--color-ink); }
+
+@media (max-width: 60rem) {
+  .split, .colophon__inner { grid-template-columns: minmax(0, 1fr); }
+  .about__text, .about__photo, .issue__head h2, .issue__head .lead, .issue__tools, .issue__chisel, .preorder__photo, .preorder__text, .colophon__mark, .colophon__text, .colophon__nav, .legal, .credits { grid-column: 1; }
+  .about__photo, .preorder__text { margin-top: var(--space-xl); }
+  .issue__head .lead { margin-top: var(--space-md); }
+  .issue__tools, .issue__chisel { height: auto; aspect-ratio: 4 / 3; }
+  .issue__pair { row-gap: var(--gap-columns); }
+  .colophon__nav { flex-direction: row; flex-wrap: wrap; gap: var(--space-md); }
+}

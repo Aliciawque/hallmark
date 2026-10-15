@@ -1,0 +1,111 @@
+/* Hallmark · shape: Narrative Workflow · genre: editorial · theme: Garden (by request)
+ * hero: Stage · nav: edge-aligned · footer: mast · imagery: photographs, library 3, natural con=6 sat=-6 · signature: red apples on the bough in daylight, bleeding off the edge beside the promise, then the visit in three numbered stages, the third a band in type
+ * axes: light/roman-serif/chromatic-green · posture: committed · contrast: pass · fold: pass · v2.7.0 */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: S, the brief names no varieties, hours or ciders, so each stage head carries one real fact (the season, the 22, the three ciders) and the rest sits in three text slots */
+/* Hallmark · hero-review: in-thread · fix · 2 findings · 2 resolved · finish-review: subagent · fix · 6 findings · 5 resolved 1 partial · gap: the library has no wide shot of the orchard rows, so the orchard itself is still unseen; the handoff asks for it first */
+@import url("./tokens.css");
+@import url("./base.css");
+
+:root { --nav-h: 72px; }
+
+/* Page */
+.skip { position: absolute; left: var(--space-md); top: calc(-1 * var(--space-3xl)); z-index: var(--z-toast); padding: var(--space-xs) var(--space-md); border-radius: var(--radius-pill); background: var(--color-accent); color: var(--color-accent-ink); font-weight: 500; }
+.skip:focus-visible { top: var(--space-md); }
+body { font-variant-numeric: oldstyle-nums; color: var(--color-ink-2); }
+h1, h2, h3, .figure__n { font-variant-numeric: lining-nums tabular-nums; }
+h1, h2, h3 { font-weight: 700; color: var(--color-ink); }
+p { color: var(--color-ink-2); }
+
+/* Controls: one leaf-green pill beside a hairline pill */
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 var(--space-lg); border: var(--rule-hair) solid var(--color-rule-2); border-radius: var(--radius-pill); background: transparent; color: var(--color-ink); font: 500 var(--text-md)/1 var(--font-body); white-space: nowrap; text-decoration: none; cursor: pointer; transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out); }
+.btn--primary { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-accent-ink); }
+.btn--primary:hover { background: color-mix(in oklab, var(--color-accent) 84%, var(--color-ink)); border-color: color-mix(in oklab, var(--color-accent) 84%, var(--color-ink)); }
+.btn--quiet:hover { background: var(--color-paper-2); border-color: var(--color-ink-2); }
+.btn:active { transform: translateY(1px); }
+.btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.btn:disabled, .btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; transform: none; }
+.btn[aria-busy="true"] { cursor: progress; }
+.actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+
+/* Nav: edge-aligned and quiet, straight on the oat */
+.nav { position: sticky; top: 0; z-index: var(--z-sticky-nav); background: var(--color-paper); }
+.nav__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); min-height: var(--nav-h); }
+.wordmark { font: 700 var(--text-xl)/1 var(--font-display); letter-spacing: var(--tracking-display); color: var(--color-ink); text-decoration: none; white-space: nowrap; }
+.wordmark:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; }
+.nav__right { display: flex; align-items: center; gap: var(--space-xl); }
+.nav__links { display: flex; gap: var(--space-xl); margin: 0; padding: 0; list-style: none; }
+.nav__links a { font-size: var(--text-sm); font-weight: 500; color: var(--color-ink); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 0.35em; white-space: nowrap; transition: text-decoration-color var(--dur-short) var(--ease-out); }
+.nav__links a:hover { text-decoration-color: var(--color-accent); }
+.nav__links a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; }
+.nav__action { min-height: 44px; font-size: var(--text-sm); }
+
+/* Photographs: daylight, 4px, a hairline in the rule colour */
+.photo { position: relative; margin: 0; border-radius: var(--radius-card); }
+.photo > img { border-radius: inherit; outline: var(--rule-hair) solid var(--color-rule); outline-offset: -1px; }
+
+/* Hero: Stage, the text on five columns, the apples running off the right edge at every width */
+.hero { --col: calc((min(100%, var(--container)) - 2 * var(--gutter) - 11 * var(--gap-columns)) / 12); --edge: max(var(--gutter), (100% - var(--container)) / 2 + var(--gutter));
+  display: grid; grid-template-columns: minmax(0, var(--edge)) minmax(0, calc(5 * var(--col) + 4 * var(--gap-columns))) minmax(0, 1fr); align-items: center; min-height: calc(100dvh - var(--nav-h)); padding-block: var(--space-lg) var(--space-2xl); }
+.hero__text { grid-column: 2; display: grid; gap: var(--space-lg); container-type: inline-size; }
+.hero__text h1 { max-width: none; font-size: min(4.75rem, 14.5cqi); line-height: 1.04; }
+.hero__text .lead { max-width: 34ch; }
+.hero__text .actions { margin-top: var(--space-sm); }
+.hero__photo { grid-column: 3; margin-left: var(--space-3xl); height: min(calc(100dvh - var(--nav-h) - var(--space-3xl) - var(--space-lg)), 760px); border-radius: var(--radius-card) 0 0 var(--radius-card); }
+.hero__photo > img { outline: 0; }
+
+/* The visit, in three numbered stages */
+.stages { margin: 0; padding: 0; list-style: none; }
+.stage h2 { font-size: var(--text-section); }
+.stage--visit { padding-top: var(--section-gap); }
+.stage--visit h2 { margin-bottom: var(--space-2xl); }
+.stage__wide { aspect-ratio: 21 / 9; }
+.plan { margin: var(--space-xl) 0 0; border-top: var(--rule-hair) solid var(--color-rule-2); }
+.plan__row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: baseline; padding-block: var(--space-lg); border-bottom: var(--rule-hair) solid var(--color-rule); }
+.plan dt { grid-column: 1 / span 4; font-size: var(--text-sm); font-weight: 500; color: var(--color-muted); }
+.plan dd { grid-column: 5 / -1; margin: 0; font-size: var(--text-lead); color: var(--color-ink); }
+.note { font: 400 var(--text-sm)/1.45 var(--font-outlier); color: var(--color-muted); }
+.stage__split { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: center; }
+.stage--pick { padding-top: var(--section-gap-l); }
+.stage--pick .stage__text { grid-column: 1 / span 5; display: grid; gap: var(--space-md); }
+.stage--pick .stage__photo { grid-column: 7 / -1; aspect-ratio: 4 / 3; }
+/* The ciders, on the one green ink band */
+.band--ink { background: var(--color-ink); color: var(--color-paper); }
+.stage--ciders { margin-top: var(--section-gap); padding-block: var(--section-gap-s); }
+.stage__band { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: center; }
+.stage--ciders .stage__text { grid-column: 1 / span 8; display: grid; gap: var(--space-md); }
+.stage--ciders h2 { font-size: var(--text-display-s); }
+.stage--ciders .btn { grid-column: 10 / -1; justify-self: end; }
+.btn--oat { border-color: var(--color-paper); color: var(--color-paper); }
+.btn--oat:hover { background: color-mix(in oklab, var(--color-paper) 12%, transparent); }
+.btn--oat:focus-visible { outline-color: var(--color-paper); }
+.band--ink h2 { color: var(--color-paper); }
+.band--ink p { color: color-mix(in oklab, var(--color-paper) 86%, var(--color-ink)); }
+.band--ink .note { font-family: var(--font-body); font-weight: 500; color: color-mix(in oklab, var(--color-paper) 78%, var(--color-ink)); }
+.fill { padding: 0 0.2em; border-radius: 2px; color: var(--color-muted); background: color-mix(in oklch, var(--color-muted) 14%, transparent); }
+.band--ink .fill { color: var(--color-paper); background: color-mix(in oklch, var(--color-paper) 16%, transparent); }
+
+/* Footer: the mast, the name large over a hairline */
+.mast { padding-block: var(--section-gap) var(--space-2xl); }
+.mast__name { max-width: none; font-size: clamp(3.5rem, 9vw, 9rem); line-height: 0.95; letter-spacing: -0.02em; }
+.mast__row { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-md) var(--space-xl); margin-top: var(--space-xl); padding-top: var(--space-lg); border-top: var(--rule-hair) solid var(--color-rule-2); }
+.mast__links { display: flex; flex-wrap: wrap; gap: var(--space-xl); margin: 0; padding: 0; list-style: none; }
+.mast__links a { color: var(--color-ink); text-decoration-color: var(--color-rule-2); text-underline-offset: 0.25em; white-space: nowrap; }
+.mast__links a:hover { text-decoration-color: var(--color-accent); }
+.mast__links a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.legal { margin-top: var(--space-xl); font-size: var(--text-sm); color: var(--color-muted); }
+.credits { margin-top: var(--space-2xs); max-width: none; font-size: var(--text-sm); line-height: 1.5; color: var(--color-muted); }
+.credits a { text-decoration-color: color-mix(in oklab, currentColor 40%, transparent); }
+
+@media (max-width: 60rem) {
+  .nav__links { display: none; }
+  .hero { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-xl); min-height: 0; padding-block: var(--space-xl) var(--space-2xl); }
+  .hero__text { grid-column: 1; padding-inline: var(--gutter); }
+  .hero__photo { grid-column: 1; height: auto; aspect-ratio: 4 / 3; margin-inline: var(--gutter); border-radius: var(--radius-card); }
+  .stage__split { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-xl); }
+  .stage--pick .stage__text, .stage--pick .stage__photo, .stage--ciders .stage__text { grid-column: 1; }
+  .stage--ciders .btn { grid-column: 1; justify-self: start; }
+  .stage__band { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-xl); }
+  .stage__wide { aspect-ratio: 4 / 3; }
+  .plan__row { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-2xs); }
+  .plan dt, .plan dd { grid-column: 1; }
+}

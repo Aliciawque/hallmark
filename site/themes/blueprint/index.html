@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Halden and Roe, timber frames for schools and housing</title>
+<meta name="description" content="Structural engineers in Glasgow designing timber frames for schools and housing: 140 projects since 2009, for architects and developers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="container">
+    <nav class="bar" aria-label="Main">
+      <a class="bar__mark" href="#top" aria-label="Halden and Roe, home">Halden and Roe</a>
+      <ul class="bar__links">
+        <li class="bar__cell bar__cell--wide"><a href="#schools">Schools</a></li>
+        <li class="bar__cell bar__cell--wide"><a href="#housing">Housing</a></li>
+        <li class="bar__cell"><a href="#drawings">Send drawings</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top" aria-labelledby="hero-head">
+    <div class="container hero__grid">
+      <figure class="fig hero__fig" data-slot="hero" data-alt="A timber frame from one of your projects going up, photographed from below against the sky">
+        <img src="photos/zimmermann-nagelt-verschalung-20160531-rm-110839-1920.jpg" width="4574" height="3430" alt="A carpenter in a hard hat nailing a timber frame, seen from above" style="object-position: 50% 40%" fetchpriority="high">
+      </figure>
+      <div class="hero__text">
+        <h1 id="hero-head">Timber frames for schools and housing</h1>
+        <span class="hero__rule" aria-hidden="true"></span>
+        <p class="lead">Structural engineers in Glasgow, for architects and developers.</p>
+        <div class="acts">
+          <a class="btn btn--primary" href="#drawings">Send us your drawings</a>
+          <a class="btn" href="#schools">See the schools</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet sheet--lead" id="schools" aria-labelledby="schools-head">
+    <div class="container split split--8-4">
+      <figure class="fig split__proof" data-slot="schools" data-alt="A school you framed in timber: a hall or a classroom with its structure showing">
+        <img src="photos/saxon-style-timber-roof-structure-inside-st-aidan-s-church-in-bamburgh-1920.jpg" width="2056" height="3088" alt="A timber roof of rafters, purlins and braces seen from below" style="object-position: 50% 42%" loading="lazy">
+      </figure>
+      <div class="notes">
+        <h2 id="schools-head">Schools</h2>
+        <p>Classrooms, halls and the long spans over them, framed in timber.</p>
+        <a class="btn" href="#drawings" data-building="school">Send a school’s drawings</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet" id="housing" aria-labelledby="housing-head">
+    <div class="container">
+      <div class="head-split">
+        <h2 id="housing-head">Housing</h2>
+        <div class="head-split__line">
+          <p>Flats and houses, framed in timber from the ground up.</p>
+          <a class="btn" href="#drawings" data-building="housing">Send a housing scheme</a>
+        </div>
+      </div>
+      <div class="pair">
+        <figure class="fig" data-slot="housing-1" data-alt="A housing scheme you framed in timber, finished, from the street">
+          <img src="photos/street-of-terraced-housing-1280.jpg" width="1617" height="1062" alt="Two rows of terraced houses either side of a street, from above" style="object-position: 62% 50%" loading="lazy">
+        </figure>
+        <figure class="fig" data-slot="housing-2" data-alt="A second housing scheme of yours, an entrance or a stair at dusk">
+          <img src="photos/nokia-networks-munich-office-april-2017-02-1920.jpg" width="5147" height="3866" alt="Looking up a round courtyard of windows to a cloudy sky" style="object-position: 50% 50%" loading="lazy">
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="statement" aria-label="The practice">
+    <div class="container">
+      <p class="statement__line">140&nbsp;projects since 2009, drawn in Glasgow.</p>
+    </div>
+  </section>
+
+  <section class="band" id="drawings" aria-labelledby="drawings-head">
+    <div class="container split split--6-6">
+      <figure class="fig split__proof" data-slot="drawings" data-alt="Drawings from one of your projects, a plan with its grid lines, on a desk">
+        <img src="photos/carpenter-working-on-an-item-4-1920.jpg" width="6000" height="4000" alt="A carpenter marking out a plank with a pencil and a square" style="object-position: 38% 55%" loading="lazy">
+      </figure>
+      <div class="send">
+        <h2 id="drawings-head">Send us your drawings</h2>
+        <p class="lead">Tell us the building and attach what you have.</p>
+        <form class="form" data-endpoint="" novalidate>
+          <fieldset class="seg">
+            <legend>Building</legend>
+            <div class="seg__opts">
+              <input type="radio" name="building" id="b-school" value="school" checked><label for="b-school">School</label>
+              <input type="radio" name="building" id="b-housing" value="housing"><label for="b-housing">Housing</label>
+            </div>
+          </fieldset>
+          <div class="form__row">
+            <div class="field">
+              <label for="f-name">Your name</label>
+              <input id="f-name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="f-email">Email</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-files">Drawings, PDF or DWG</label>
+            <input id="f-files" name="drawings" type="file" accept=".pdf,.dwg" multiple>
+          </div>
+          <div class="field">
+            <label for="f-notes">Notes</label>
+            <textarea id="f-notes" name="notes" rows="3"></textarea>
+          </div>
+          <div class="form__end">
+            <button class="btn btn--primary" type="submit">Send drawings</button>
+            <p class="form__help" id="form-help" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="container">
+    <div class="tblock">
+      <p class="tblock__mark">Halden and Roe</p>
+      <dl class="tblock__cells">
+        <div><dt>Practice</dt><dd>Structural engineers</dd></div>
+        <div><dt>Office</dt><dd>Glasgow</dd></div>
+        <div><dt>Frames</dt><dd>Timber, for schools and housing</dd></div>
+        <div><dt>Since</dt><dd class="num">2009</dd></div>
+      </dl>
+      <nav class="tblock__links" aria-label="Footer">
+        <a href="#schools">Schools</a>
+        <a href="#housing">Housing</a>
+        <a href="#drawings">Send drawings</a>
+      </nav>
+      <p class="tblock__legal">© 2026 Halden and Roe</p>
+      <p class="tblock__credit" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Zimmermann_nagelt_Verschalung-20160531-RM-110839.jpg">Reinhold Möller Ermell</a> (CC&nbsp;BY-SA&nbsp;4.0), <a href="https://commons.wikimedia.org/wiki/File:Saxon_style_timber_roof_structure_inside_St_Aidan%27s_Church_in_Bamburgh.jpg">Stephencdickson</a> (CC&nbsp;BY-SA&nbsp;4.0), <a href="https://commons.wikimedia.org/wiki/File:Street_of_terraced_housing.jpg">Duncharris on en.wikipedia</a> (CC&nbsp;BY-SA&nbsp;3.0), <a href="https://commons.wikimedia.org/wiki/File:Nokia_Networks_Munich_Office,_April_2017_-02.jpg">Martin Falbisoner</a> (CC&nbsp;BY-SA&nbsp;4.0), <a href="https://commons.wikimedia.org/wiki/File:Carpenter_working_on_an_item_4.jpg">Kambai Akau</a> (CC&nbsp;BY-SA&nbsp;4.0), all on Wikimedia Commons.</p>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+document.querySelectorAll('a[data-building]').forEach((a) => a.addEventListener('click', () => {
+  const r = document.querySelector(`input[name="building"][value="${a.dataset.building}"]`);
+  if (r) r.checked = true;
+}));
+document.querySelectorAll('form[data-endpoint]').forEach((form) => {
+  const help = form.querySelector('[aria-live]');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const fields = [...form.querySelectorAll('input[required]')];
+    fields.forEach((i) => i.toggleAttribute('aria-invalid', !i.checkValidity()));
+    const bad = fields.find((i) => !i.checkValidity());
+    if (bad) {
+      bad.setAttribute('aria-describedby', help.id);
+      help.textContent = bad.type === 'email' ? 'That address looks incomplete. Write it as name@example.com.' : 'Add your name so we know whose drawings these are.';
+      bad.focus();
+      return;
+    }
+    if (!form.dataset.endpoint) { help.textContent = 'Nothing was sent: this form is not connected yet.'; return; }
+    fetch(form.dataset.endpoint, { method: 'POST', body: new FormData(form) })
+      .then((r) => { help.textContent = r.ok ? 'Your drawings reached us.' : 'That did not go through. Try again in a minute.'; })
+      .catch(() => { help.textContent = 'That did not go through. Try again in a minute.'; });
+  });
+});
+</script>
+<script>window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
+document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });</script>
+</body>
+</html>

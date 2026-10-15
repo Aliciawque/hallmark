@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Lantern: Hebden Bridge news, in one weekly email</title>
+  <meta name="description" content="The Lantern is a weekly local news newsletter for Hebden Bridge, free to its 4,800 subscribers and paid for by readers who choose to support it at 5 pounds a month.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@700&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="masthead">
+    <div class="container">
+      <div class="masthead__bar">
+        <a class="masthead__link" href="#subscribe">Subscribe</a>
+        <a class="wordmark" href="#top" aria-label="The Lantern, home">The Lantern</a>
+        <a class="masthead__link masthead__link--end" href="#support">Support it</a>
+      </div>
+      <hr class="rule--double">
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-head">
+      <div class="container hero__grid">
+        <figure class="hero__lead">
+          <div class="photo hero__photo" data-slot="lead" data-alt="Your own lead photograph of Hebden Bridge: the town in the valley, a street in the rain, the canal; black and white">
+            <img src="photos/hebden-bridge-53190059068-1920.jpg" width="2407" height="3009"
+                 alt="A narrowboat moored on the canal below a tall stone mill" style="object-position: 50% 55%" fetchpriority="high">
+          </div>
+          <figcaption>The canal, by the mill.</figcaption>
+        </figure>
+        <div class="hero__text">
+          <h1 id="hero-head">Hebden Bridge news, in one weekly email.</h1>
+          <p class="lead">Free to read, and paid for by the readers who choose to.</p>
+          <form class="signup" id="subscribe" data-endpoint="" novalidate>
+            <label for="s-email">Email address</label>
+            <div class="signup__row">
+              <input id="s-email" name="email" type="email" inputmode="email" autocomplete="email" required>
+              <button class="btn btn--primary" type="submit">Subscribe free</button>
+            </div>
+            <p class="signup__help" id="s-help" aria-live="polite"></p>
+          </form>
+          <a class="btn btn--secondary" href="#support">Support it, £5 a month</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="edition-sec" aria-labelledby="edition-head">
+      <div class="container edition-sec__grid">
+        <div class="edition-sec__text">
+          <h2 id="edition-head">The valley’s week, in one email.</h2>
+          <p class="edition-sec__line">It lands in your inbox; there is nothing to log into.</p>
+        </div>
+        <div class="edition" data-slot="edition" data-alt="A screenshot of a recent edition of The Lantern as it arrives in the inbox, full width">
+          <article class="edition__sheet" aria-label="A sample edition of The Lantern">
+            <header class="edition__mast">
+              <span class="edition__name">The Lantern</span>
+              <span class="edition__date">Hebden Bridge</span>
+            </header>
+            <hr class="rule--double">
+            <h3 class="edition__headline">The week in Hebden Bridge</h3>
+            <p class="edition__standfirst dropcap">Planning, schools, the market and what is on: the town’s week in one read.</p>
+            <ul class="edition__items">
+              <li><span class="edition__kind">Planning</span><span>This week’s applications, and where to comment on them.</span></li>
+              <li><span class="edition__kind">What’s on</span><span>The weekend’s listings, from the town hall to the pubs.</span></li>
+              <li><span class="edition__kind">Letters</span><span>Readers answer last week’s edition.</span></li>
+            </ul>
+            <p class="edition__foot">Know someone in town who should read this? Forward it on.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="town" aria-labelledby="town-head">
+      <div class="container">
+        <hr class="rule--double">
+        <div class="town__head">
+          <h2 id="town-head">From the canal to the tops.</h2>
+          <p class="town__line">The streets, the houses and the weather, as the paper sees them.</p>
+        </div>
+        <figure class="town__wide">
+          <div class="photo" data-slot="town-1" data-alt="Your own wide photograph of Hebden Bridge: the town in the valley, or the market on a busy day">
+            <img src="photos/blassenstein-erlauftal-mit-nebel-02-panorama-1920.jpg" width="5958" height="2979" loading="lazy"
+                 alt="Morning mist filling a valley below dark wooded hills" style="object-position: 50% 50%">
+          </div>
+          <figcaption>Mist down the valley.</figcaption>
+        </figure>
+        <div class="town__pair">
+          <figure>
+            <div class="photo town__photo" data-slot="town-2" data-alt="Your own photograph of a Hebden Bridge street: stone houses, the canal or the bridge">
+              <img src="photos/english-queue-flickr-gagilas-1920.jpg" width="3224" height="2102" loading="lazy"
+                 alt="People under umbrellas waiting at a crossing on a wet street" style="object-position: 50% 50%">
+            </div>
+            <figcaption>Umbrellas up at the crossing.</figcaption>
+          </figure>
+          <figure>
+            <div class="photo town__photo" data-slot="town-3" data-alt="Your own photograph of the town in the rain, from the pavement">
+              <img src="photos/bicycle-reflections-960.jpg" width="1200" height="1800" loading="lazy"
+                 alt="A man pushing a bicycle, reflected in a rain puddle" style="object-position: 50% 40%">
+            </div>
+            <figcaption>Rain, again.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="paid" id="support" aria-labelledby="paid-head">
+      <div class="container">
+        <div class="paid__head">
+          <h2 id="paid-head">Hebden Bridge pays for its own news.</h2>
+          <form class="signup paid__form" data-endpoint="" data-done="We will email {email} to set up your 5 pounds a month." novalidate>
+            <label for="p-email">Email address</label>
+            <div class="signup__row">
+              <input id="p-email" name="email" type="email" inputmode="email" autocomplete="email" required>
+              <button class="btn btn--primary" type="submit">Support it, £5 a month</button>
+            </div>
+            <p class="signup__help" id="p-help" aria-live="polite"></p>
+          </form>
+        </div>
+        <div class="stats">
+          <div><b>4,800</b><span>subscribers, every week</span></div>
+          <div><b>£0</b><span>to read every edition</span></div>
+          <div><b>£5</b><span>a month, from those who choose to</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="container">
+      <hr class="rule--double">
+      <div class="foot__grid">
+        <form class="signup foot__form" data-endpoint="" novalidate>
+          <p class="foot__line">Get next week’s Lantern.</p>
+          <label for="f-email">Email address</label>
+          <div class="signup__row">
+            <input id="f-email" name="email" type="email" inputmode="email" autocomplete="email" required>
+            <button class="btn btn--primary" type="submit">Subscribe free</button>
+          </div>
+          <p class="signup__help" id="f-help" aria-live="polite"></p>
+        </form>
+        <nav class="foot__links" aria-label="Footer">
+          <a href="#subscribe">Subscribe</a>
+          <a href="#support">Support it</a>
+        </nav>
+      </div>
+      <p class="foot__legal">The Lantern, local news for Hebden Bridge. © 2026</p>
+      <p class="foot__credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Hebden_Bridge_-_53190059068.jpg">Tim Green</a> (CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:Blassenstein_Erlauftal_mit_Nebel_02_Panorama.JPG">Uoaei1</a> (CC BY-SA 3.0), <a href="https://commons.wikimedia.org/wiki/File:English_queue_-_Flickr_-_gagilas.jpg">Petras Gagilas</a> (CC BY-SA 2.0), <a href="https://commons.wikimedia.org/wiki/File:Bicycle_reflections.jpg">Tomascastelazo</a> (CC BY-SA 3.0), all via Wikimedia Commons.</p>
+    </div>
+  </footer>
+
+  <script>
+document.querySelectorAll('form[data-endpoint]').forEach((form) => {
+  const input = form.querySelector('input'), help = form.querySelector('[aria-live]');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const ok = input.checkValidity();
+    input.toggleAttribute('aria-invalid', !ok);
+    if (!ok) { input.setAttribute('aria-describedby', help.id); help.textContent = 'That address looks incomplete. Write it as name@example.com.'; input.focus(); return; }
+    if (!form.dataset.endpoint) { help.textContent = 'Nothing was sent: this form is not connected to the mailing list yet.'; return; }
+    fetch(form.dataset.endpoint, { method: 'POST', body: new FormData(form) })
+      .then((r) => { help.textContent = r.ok ? (form.dataset.done || 'The next edition goes to {email}.').replace('{email}', input.value.trim()) : 'That did not go through. Try again in a minute.'; })
+      .catch(() => { help.textContent = 'That did not go through. Try again in a minute.'; });
+  });
+});
+  </script>
+
+  <script>window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
+document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });</script>
+</body>
+</html>

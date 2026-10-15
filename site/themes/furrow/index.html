@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fieldbook, farm records kept from your phone</title>
+<meta name="description" content="Fieldbook keeps a small livestock farm's records: animal movements, medicines and field work logged from a phone, ready for inspection. 12 pounds a month per farm.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@600&amp;family=Red+Hat+Text:wght@400;500&amp;family=Red+Hat+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js'); let tick = 0; addEventListener('resize', () => document.documentElement.style.setProperty('--tick', String(tick ^= 1)));</script>
+</head>
+<body id="top">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="bar">
+  <div class="container bar__in">
+    <a class="wordmark" href="#top" aria-label="Fieldbook, back to the top">Fieldbook</a>
+    <nav class="bar__links" aria-label="Page"><a href="#logs">The three logs</a><a href="#inspection">Inspection</a><a href="#field">In the field</a><a href="#start">Price</a></nav>
+    <div class="bar__end">
+      <p class="bar__price"><span class="num">£12</span> a month per farm</p>
+      <a class="btn btn--sm" href="#start">Open a farm book</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="hero-head">
+    <div class="container hero__grid">
+      <div class="hero__text">
+        <h1 id="hero-head">Farm records, kept at the gate.</h1>
+        <p class="lead">Movements, medicines and field work, logged on your phone, ready for inspection.</p>
+        <div class="actions">
+          <a class="btn btn--primary" href="#start">Open a farm book</a>
+          <a class="btn" href="#logs">See the three logs</a>
+        </div>
+      </div>
+      <figure class="hero__photo" data-slot="hero" data-alt="Your own stock, at your own pens">
+        <img src="photos/swaledale-sheep-lake-district-england-june-2009-1920.jpg" width="1920" height="1580" fetchpriority="high" decoding="async" alt="A horned, black-faced ewe in a shaggy fleece on a green fell, a raddle mark on her back" style="object-position: 92% 50%">
+      </figure>
+    </div>
+  </section>
+
+  <section class="logs" id="logs" aria-labelledby="s1">
+    <div class="container">
+      <div class="logs__head">
+        <h2 id="s1">Three logs, one book.</h2>
+        <p class="lead">Each entry made on your phone and filed by date.</p>
+      </div>
+      <div class="logs__grid">
+        <figure class="log">
+          <figcaption><h3>Movements</h3><p>Each move on or off the holding, with the count.</p></figcaption>
+          <div class="slot phone" data-slot="demo-1" data-alt="The log screen, with a movement being entered" role="img" aria-label="The Fieldbook log screen on Thursday 8 October: a movement of 24 ewes from Hill field to Home paddock at 07:40 being saved, with a field job and another movement already logged today.">
+            <div class="ui ph" aria-hidden="true">
+              <div class="ph__top"><span class="ph__title">Log</span><span class="num ph__date">Thu 8 Oct</span></div>
+              <div class="ph__seg"><span class="is-on">Movement</span><span>Medicine</span><span>Field work</span></div>
+              <div class="ph__form">
+                <span class="ph__field"><span>Animals</span><b class="num">24 ewes</b></span>
+                <span class="ph__field"><span>From</span><b>Hill field</b></span>
+                <span class="ph__field"><span>To</span><b>Home paddock</b></span>
+                <span class="ph__pair"><span class="ph__field"><span>Date</span><b class="num">08/10/2026</b></span><span class="ph__field"><span>Time</span><b class="num">07:40</b></span></span>
+              </div>
+              <span class="ph__save">Save to the book</span>
+              <div class="ph__today">
+                <span class="ph__today-label">Today</span>
+                <span class="ph__entry"><b class="num">06:10</b><span>Field work<small>Long acre, rolled</small></span><b class="num">3.6 ha</b></span>
+                <span class="ph__entry"><b class="num">05:40</b><span>Movement<small>Home paddock to the yard</small></span><b class="num">2 tups</b></span>
+              </div>
+              <div class="ph__tabs"><span class="is-on"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Log</span><span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>Book</span><span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Farm</span></div>
+            </div>
+          </div>
+        </figure>
+        <figure class="log">
+          <figcaption><h3>Medicines</h3><p>Each dose with its batch and withdrawal date.</p></figcaption>
+          <div class="slot phone" data-slot="demo-2" data-alt="A medicine entry with its batch and withdrawal" role="img" aria-label="A medicine entry for 6 October: ewe 0417 given wormer, 10 ml, batch B2241, a 28 day withdrawal running until 3 November, given by you, with ewe 0412 from the same batch also in withdrawal and the ewe's fly treatment of 17 September beneath.">
+            <div class="ui ph" aria-hidden="true">
+              <div class="ph__top"><span class="ph__title">Medicine</span><span class="num ph__date">06 Oct</span></div>
+              <dl class="ph__dl">
+                <dt>Animal</dt><dd class="num">Ewe 0417</dd>
+                <dt>Medicine</dt><dd>Wormer</dd>
+                <dt>Dose</dt><dd class="num">10 ml</dd>
+                <dt>Batch</dt><dd class="num">B2241</dd>
+                <dt>Withdrawal</dt><dd><span class="num">28 days</span><i class="ph__chip">Until <span class="num">3 Nov</span></i></dd>
+                <dt>Given by</dt><dd>You</dd>
+              </dl>
+              <span class="ph__save">Save to the book</span>
+              <div class="ph__note"><span>Same batch, same day</span><b>Ewe <span class="num">0412</span>, until <span class="num">3 Nov</span></b></div>
+              <div class="ph__today">
+                <span class="ph__today-label">Earlier for ewe <span class="num">0417</span></span>
+                <span class="ph__entry"><b class="num">17 Sep</b><span>Fly treatment<small>Batch <span class="num">F1105</span></small></span><b class="num">20 ml</b></span>
+              </div>
+              <div class="ph__tabs"><span class="is-on"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Log</span><span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>Book</span><span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Farm</span></div>
+            </div>
+          </div>
+        </figure>
+        <figure class="log">
+          <figcaption><h3>Field work</h3><p>Each job by field, with the hectares covered.</p></figcaption>
+          <div class="slot phone" data-slot="demo-3" data-alt="The field work log by field" role="img" aria-label="The field work log for the last month: Long acre rolled, 3.6 hectares; Hill field topped, 5.2 hectares; Home paddock fertiliser at 125 kilograms a hectare, 2.1 hectares; Top meadow harrowed, 4.0 hectares; Long acre topped, 3.6 hectares; Hill field limed at 2 tonnes a hectare, 5.2 hectares; Top meadow rolled, 4.0 hectares.">
+            <div class="ui ph" aria-hidden="true">
+              <div class="ph__top"><span class="ph__title">Field work</span><span class="num ph__date">Oct 2026</span></div>
+              <ol class="ph__list">
+                <li><b class="num">08 Oct</b><span><b>Long acre</b><small>Rolled</small></span><b class="num">3.6 ha</b></li>
+                <li><b class="num">06 Oct</b><span><b>Hill field</b><small>Topped</small></span><b class="num">5.2 ha</b></li>
+                <li><b class="num">03 Oct</b><span><b>Home paddock</b><small>Fertiliser, <span class="num">125 kg/ha</span></small></span><b class="num">2.1 ha</b></li>
+                <li><b class="num">30 Sep</b><span><b>Top meadow</b><small>Harrowed</small></span><b class="num">4.0 ha</b></li>
+                <li><b class="num">26 Sep</b><span><b>Long acre</b><small>Topped</small></span><b class="num">3.6 ha</b></li>
+                <li><b class="num">22 Sep</b><span><b>Hill field</b><small>Lime, <span class="num">2 t/ha</span></small></span><b class="num">5.2 ha</b></li>
+                <li><b class="num">18 Sep</b><span><b>Top meadow</b><small>Rolled</small></span><b class="num">4.0 ha</b></li>
+              </ol>
+              <span class="ph__save">New field job</span>
+              <div class="ph__tabs"><span class="is-on"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>Log</span><span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>Book</span><span><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>Farm</span></div>
+            </div>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="field-band" id="field" aria-labelledby="s2">
+    <div class="field-band__pic">
+      <figure class="field-band__photo" data-slot="photo-2" data-alt="Your own stock in your own fields">
+        <img src="photos/2014-fields-swaledale-gunnerside-1920.jpg" width="1920" height="1440" loading="lazy" decoding="async" alt="Stone field barns among drystone walls on green dale meadows" style="object-position: 60% 62%">
+      </figure>
+      <div class="container field-band__in">
+        <h2 id="s2">Logged in the field, not later.</h2>
+      </div>
+    </div>
+    <div class="container">
+      <ol class="places">
+        <li><b>At the gate</b><span><span class="num">24</span> ewes counted through at <span class="num">07:40</span></span></li>
+        <li><b>At the pen</b><span>Wormer, <span class="num">10 ml</span>, batch <span class="num">B2241</span></span></li>
+        <li><b>From the cab</b><span>Long acre rolled, <span class="num">3.6 ha</span></span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="record" id="inspection" aria-labelledby="s3">
+    <div class="container">
+      <div class="record__head">
+        <h2 id="s3">Withdrawal dates ready before the inspector asks.</h2>
+        <p class="lead">The medicine record for the holding, ruled and in date order.</p>
+      </div>
+      <figure class="slot book" data-slot="demo-4" data-alt="The medicine record as the inspector sees it" role="img" aria-label="The medicine record for Example Farm on 8 October: six entries, each with date, animal or group, medicine, dose, batch, withdrawal end and who gave it; three are clear and three are still in withdrawal.">
+        <div class="ui bk" aria-hidden="true">
+          <div class="bk__top">
+            <span class="bk__title">Medicine record</span>
+            <span class="bk__farm">Example Farm, holding <span class="num">12/345/6789</span></span>
+            <span class="bk__tabs"><span>Movements</span><span class="is-on">Medicines</span><span>Field work</span></span>
+          </div>
+          <div class="bk__table">
+            <div class="bk__row bk__row--head"><span>Date</span><span>Animal or group</span><span>Medicine</span><span class="r">Dose</span><span>Batch</span><span>Withdrawal ends</span><span>Given by</span></div>
+            <div class="bk__row"><span class="num">06 Oct</span><span>Ewe <span class="num">0417</span></span><span>Wormer</span><span class="num r">10 ml</span><span class="num">B2241</span><span class="bk__end"><span class="num">03 Nov</span><i class="chip">In withdrawal</i></span><span>You</span></div>
+            <div class="bk__row"><span class="num">06 Oct</span><span>Ewe <span class="num">0412</span></span><span>Wormer</span><span class="num r">10 ml</span><span class="num">B2241</span><span class="bk__end"><span class="num">03 Nov</span><i class="chip">In withdrawal</i></span><span>You</span></div>
+            <div class="bk__row"><span class="num">01 Oct</span><span><span class="num">12</span> lambs</span><span>Vaccine</span><span class="num r">2 ml each</span><span class="num">V0918</span><span class="bk__end"><span class="num">01 Oct</span><i class="chip chip--ok">Clear</i></span><span>Farm hand</span></div>
+            <div class="bk__row"><span class="num">24 Sep</span><span>Tup <span class="num">0033</span></span><span>Antibiotic</span><span class="num r">5 ml</span><span class="num">A7730</span><span class="bk__end"><span class="num">22 Oct</span><i class="chip">In withdrawal</i></span><span>Vet</span></div>
+            <div class="bk__row"><span class="num">17 Sep</span><span><span class="num">24</span> ewes</span><span>Fly treatment</span><span class="num r">20 ml each</span><span class="num">F1105</span><span class="bk__end"><span class="num">01 Oct</span><i class="chip chip--ok">Clear</i></span><span>You</span></div>
+            <div class="bk__row"><span class="num">09 Sep</span><span>Ewe <span class="num">0388</span></span><span>Wound spray</span><span class="num r">1 spray</span><span class="num">S0457</span><span class="bk__end"><span class="num">09 Sep</span><i class="chip chip--ok">Clear</i></span><span>You</span></div>
+          </div>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="band" id="start" aria-labelledby="s4">
+    <div class="container band__grid">
+      <div class="band__text">
+        <h2 id="s4">£12 a month, per farm.</h2>
+        <p class="lead">Start the book with today’s first job.</p>
+      </div>
+      <form class="sheet signup" data-endpoint="" novalidate>
+        <label for="email">Email address</label>
+        <div class="signup__row">
+          <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="email-help">
+          <button class="btn btn--primary" type="submit">Open a farm book</button>
+        </div>
+        <p class="signup__help" id="email-help" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="close">
+  <div class="container">
+    <p class="close__line">The book is done before you’re back indoors.</p>
+    <div class="close__row">
+      <nav class="close__links" aria-label="Footer"><a href="#logs">The three logs</a><a href="#inspection">Inspection</a><a href="#field">In the field</a><a href="#start">Price</a></nav>
+      <p class="close__legal">© 2026 Fieldbook. Records for small livestock farms.</p>
+    </div>
+    <p class="close__credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Swaledale_Sheep,_Lake_District,_England_-_June_2009.jpg">Diliff</a> (CC BY-SA 3.0), <a href="https://commons.wikimedia.org/wiki/File:2014_Fields_Swaledale_Gunnerside.jpg">Kreuzschnabel</a> (CC BY-SA 3.0), both via Wikimedia Commons.</p>
+  </div>
+</footer>
+
+<script>
+window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
+document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });
+document.querySelectorAll('form[data-endpoint]').forEach((form) => {
+  const input = form.querySelector('input'), help = form.querySelector('[aria-live]'), button = form.querySelector('button');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const ok = input.checkValidity();
+    input.toggleAttribute('aria-invalid', !ok);
+    if (!ok) { help.textContent = 'That address looks incomplete. Write it as name@example.com.'; input.focus(); return; }
+    if (!form.dataset.endpoint) { help.textContent = 'Nothing was sent: this form is not connected yet.'; return; }
+    button.setAttribute('aria-busy', 'true');
+    fetch(form.dataset.endpoint, { method: 'POST', body: new FormData(form) })
+      .then((r) => { help.textContent = r.ok ? 'Thanks. Fieldbook will write to ' + input.value.trim() + '.' : 'That did not go through. Try again in a minute.'; })
+      .catch(() => { help.textContent = 'That did not go through. Try again in a minute.'; })
+      .finally(() => button.removeAttribute('aria-busy'));
+  });
+});
+</script>
+</body>
+</html>

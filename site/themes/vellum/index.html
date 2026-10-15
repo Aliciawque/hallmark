@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fenwick and Daughters, coffee roasted in York since 1921</title>
+<meta name="description" content="Fenwick and Daughters roasts six coffees a week in York, sold in 250 g bags or by subscription.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@600&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body id="top">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="mast">
+  <div class="container mast__bar">
+    <a class="mast__link" href="#daybook">The day book</a>
+    <a class="wordmark" href="#top" aria-label="Fenwick and Daughters, back to the top">Fenwick and Daughters</a>
+    <a class="mast__link mast__link--end" href="#order">Order</a>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="hero-h">
+    <figure class="hero__photo" data-slot="roaster" data-alt="The York roaster at work, a fresh roast tipping into the cooling tray">
+      <img src="photos/cooling-time-for-coffee-1920.jpg" width="1920" height="1348" fetchpriority="high"
+           alt="A fresh roast swept round the cooling tray by its paddle arm" style="object-position: 50% 55%">
+    </figure>
+    <div class="container hero__inner">
+      <div class="plate fibre">
+        <h1 id="hero-h">Roasted in York<br> since 1921</h1>
+        <p class="lead">Six coffees a week, sold by the bag or by subscription.</p>
+        <div class="actions">
+          <a class="btn btn--primary" href="#order" data-kind="subscription">Start a subscription</a>
+          <a class="btn" href="#order" data-kind="bag">Buy a bag</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ledger band fibre" id="daybook" aria-labelledby="ledger-h">
+    <div class="container split ledger__grid">
+      <div class="ledger__text">
+        <h2 id="ledger-h">Written in the day book</h2>
+        <p class="lead">Five lines the roastery keeps to.</p>
+        <table class="book">
+          <thead>
+            <tr><th scope="col">No.</th><th scope="col">Entry</th><th scope="col" class="r">Kept</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="idx">1</td><th scope="row">Coffees roasted each week</th><td class="r"><span class="num">6</span></td></tr>
+            <tr><td class="idx">2</td><th scope="row">Weight of each bag</th><td class="r"><span class="num">250</span>&nbsp;g</td></tr>
+            <tr><td class="idx">3</td><th scope="row">Ways to buy</th><td class="r">By the bag, or by subscription</td></tr>
+            <tr><td class="idx">4</td><th scope="row">Roastery</th><td class="r">York</td></tr>
+            <tr><td class="idx">5</td><th scope="row">Roasting since</th><td class="r"><span class="num">1921</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <figure class="photo ledger__photo" data-slot="daybooks" data-alt="The roastery's own day books on the shelf, or the bench where the week is written up">
+        <img src="photos/13-11-02-olb-by-ralfr-03-1920.jpg" width="1920" height="1275" loading="lazy"
+             alt="Wooden arches lined with old bound books in a library">
+      </figure>
+    </div>
+  </section>
+
+  <section class="cup" id="cup" aria-labelledby="cup-h">
+    <div class="container">
+      <div class="split cup__head">
+        <h2 id="cup-h">From a York drum to your kettle</h2>
+        <p class="lead">Fenwick and Daughters roasts the coffee. The cup is yours to make.</p>
+      </div>
+      <figure class="photo cup__wide" data-slot="brew" data-alt="A cup of the week's coffee being brewed, at the roastery or at home">
+        <img src="photos/dulmen-privatrosterei-schroer-2018-0553-1920.jpg" width="1920" height="1280" loading="lazy"
+             alt="A wall of brass scoop bins filled with coffee beans in a roastery shop" style="object-position: 45% 55%">
+      </figure>
+      <div class="split cup__pair">
+        <figure class="cup__note">
+          <div class="photo" data-slot="desk" data-alt="The York roaster between roasts, the drum over its cooling tray">
+            <img src="photos/coffee-roasting-machine-the-roastery-coaltown-coffee-ammanfo-1920.jpg" width="1920" height="2560" loading="lazy"
+                 alt="A drum coffee roaster above its copper cooling tray in a roastery" style="object-position: 50% 69%">
+          </div>
+          <figcaption>Six coffees a week</figcaption>
+        </figure>
+        <figure class="cup__cup">
+          <div class="photo" data-slot="cup" data-alt="A cup of Fenwick and Daughters coffee on the shop counter">
+            <img src="photos/espresso-coffee-pouring-from-retro-espresso-machine-1920.jpg" width="1920" height="2876" loading="lazy"
+                 alt="Espresso streaming from a chrome machine into two glass cups" style="object-position: 50% 62%">
+          </div>
+          <figcaption>Sold in 250&nbsp;g bags</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="order-band" id="order" aria-labelledby="order-h">
+    <div class="container">
+      <form class="split order" data-endpoint="" novalidate>
+        <div class="order__text">
+          <h2 id="order-h">250&nbsp;g bags, or a subscription</h2>
+          <p class="lead">Tell the roastery which you would like, and where to reach you.</p>
+          <fieldset class="seg">
+            <legend class="visually-hidden">How would you like it?</legend>
+            <input type="radio" name="kind" id="kind-bag" value="bag" checked><label for="kind-bag">One 250&nbsp;g bag</label>
+            <input type="radio" name="kind" id="kind-sub" value="subscription"><label for="kind-sub">A subscription</label>
+          </fieldset>
+        </div>
+        <div class="order__fields">
+          <div class="field">
+            <label for="order-name">Full name</label>
+            <input id="order-name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="order-email">Email address</label>
+            <input id="order-email" name="email" type="email" autocomplete="email" inputmode="email" required>
+          </div>
+          <button class="btn btn--on-field" type="submit">Send the order</button>
+          <p class="help" id="order-help" aria-live="polite"></p>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="letter">
+  <div class="container letter__inner">
+    <p class="letter__sign">With thanks from the roastery,</p>
+    <p class="letter__name">Fenwick and Daughters</p>
+    <div class="letter__foot">
+      <nav class="letter__nav" aria-label="Footer">
+        <a href="#daybook">The day book</a>
+        <a href="#cup">The cup</a>
+        <a href="#order">Order</a>
+      </nav>
+      <p class="legal">&copy; 2026 Fenwick and Daughters</p>
+      <p class="letter__credit" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Cooling_time_for_coffee.jpg">Jameswasswa</a> (CC&nbsp;BY-SA&nbsp;4.0), <a href="https://commons.wikimedia.org/wiki/File:13-11-02-olb-by-RalfR-03.jpg">Ralf Roletschek</a> (CC&nbsp;BY&nbsp;3.0), <a href="https://commons.wikimedia.org/wiki/File:D%C3%BClmen,_Privatr%C3%B6sterei_Schr%C3%B6er_--_2018_--_0553.jpg">Dietmar Rabich</a> (CC&nbsp;BY-SA&nbsp;4.0), <a href="https://commons.wikimedia.org/wiki/File:Coffee_roasting_machine,_The_Roastery,_Coaltown_Coffee,_Ammanford,_Wales.jpg">Vouliagmeni</a> (CC&nbsp;BY-SA&nbsp;4.0), <a href="https://commons.wikimedia.org/wiki/File:Espresso_coffee_pouring_from_retro_espresso_machine.jpg">Shixart1985</a> (CC&nbsp;BY&nbsp;2.0), all on Wikimedia Commons.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
+document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });
+document.querySelectorAll('[data-kind]').forEach((a) => a.addEventListener('click', () => { const r = document.getElementById(a.dataset.kind === 'subscription' ? 'kind-sub' : 'kind-bag'); if (r) r.checked = true; }));
+document.querySelectorAll('form[data-endpoint]').forEach((form) => {
+  const help = form.querySelector('[aria-live]');
+  const fields = [...form.querySelectorAll('input[required]')];
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const bad = fields.filter((i) => !i.checkValidity());
+    fields.forEach((i) => { i.toggleAttribute('aria-invalid', bad.includes(i)); if (bad.includes(i)) i.setAttribute('aria-describedby', help.id); else i.removeAttribute('aria-describedby'); });
+    if (bad.length) { help.textContent = bad[0].type === 'email' ? 'That email address looks incomplete. Write it as name@example.com.' : 'Add your name, so the roastery knows who the coffee is for.'; bad[0].focus(); return; }
+    if (!form.dataset.endpoint) { help.textContent = 'Nothing was sent: this form is not connected yet.'; return; }
+    fetch(form.dataset.endpoint, { method: 'POST', body: new FormData(form) })
+      .then((r) => { help.textContent = r.ok ? 'The roastery has your order and will write to ' + form.elements.email.value.trim() + '.' : 'That did not go through. Try again in a minute.'; })
+      .catch(() => { help.textContent = 'That did not go through. Try again in a minute.'; });
+  });
+});
+</script>
+</body>
+</html>

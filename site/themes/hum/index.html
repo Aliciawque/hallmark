@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sprout: read a little, grow a garden</title>
+<meta name="description" content="Sprout is a daily five-minute reading game for kids aged 5 to 8 that grows a little garden as they read. Free for 14 days, then 4 pounds a month.">
+<link href="https://api.fontshare.com/v2/css?f[]=chillax@500,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="bar">
+  <div class="container bar__inner">
+    <a class="wordmark" href="#top" aria-label="Sprout, back to the top">Sprout</a>
+    <nav class="knobs" aria-label="Main">
+      <a class="knob" href="#garden">The garden</a>
+      <a class="knob" href="#five">Five minutes</a>
+      <a class="knob" href="#try">Price</a>
+    </nav>
+    <a class="btn btn--secondary btn--small" href="#try">Try 14 days free</a>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="hero" id="top" aria-labelledby="hero-head">
+  <div class="container hero__grid">
+    <div class="hero__text">
+      <h1 id="hero-head">Read a little.<br> Grow a garden.</h1>
+      <p class="lead">A daily five-minute reading game for kids aged 5 to 8.</p>
+      <div class="actions">
+        <a class="btn btn--primary" href="#try">Start 14 free days</a>
+        <a class="btn btn--secondary" href="#garden">See the garden</a>
+      </div>
+    </div>
+
+    <figure class="round" data-slot="hero" data-alt="A Sprout reading round in progress: one sentence on screen, the word being read lit up, the minutes left and today's garden">
+      <div class="round__screen" aria-hidden="true">
+        <div class="round__top">
+          <span class="round__tag">Today’s round</span>
+          <span class="round__pages"><span class="round__page is-done"></span><span class="round__page is-done"></span><span class="round__page is-now"></span><span class="round__page"></span><span class="round__page"></span><span class="round__page"></span></span>
+          <span class="round__time"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2 2"/><path d="M10 2h4"/></svg>3 min left</span>
+        </div>
+        <p class="round__sentence"><span class="is-read">The fox</span> <mark>ran</mark> <span class="is-next">up the hill.</span></p>
+        <div class="round__bottom">
+          <span class="round__listen"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>Hear it</span>
+          <span class="round__gain"><span>Today’s plant: <b>Peas</b></span><span class="plot__grow" style="--g: 0.55"></span></span>
+          <span class="round__next">Next page</span>
+        </div>
+      </div>
+      <figcaption class="visually-hidden">A reading round: page 3 of 6, the sentence “The fox ran up the hill.” with “ran” being read, three minutes left and the peas growing in today’s garden.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="garden-sec" id="garden" aria-labelledby="garden-head">
+  <div class="container">
+    <h2 id="garden-head">Every round grows the garden.</h2>
+    <div class="bento">
+      <figure class="tile tile--garden garden" data-slot="garden" data-alt="The Sprout garden screen: the plants a child has grown by reading, and what today's round grew">
+        <div class="garden__screen" aria-hidden="true">
+          <div class="garden__top"><span class="garden__title">Your garden</span><span class="garden__count">6 plants so far</span></div>
+          <div class="garden__today">
+            <span class="garden__today-label"><mark>Grew today</mark></span>
+            <span class="garden__today-name">Peas</span>
+            <span class="plot__grow plot__grow--big" style="--g: 0.55"></span>
+            <span class="garden__today-line">From today’s round, six pages read</span>
+          </div>
+          <ul class="garden__beds">
+            <li class="plot"><span class="plot__name">Sunflower</span><span class="plot__state">In bloom</span><span class="plot__grow" style="--g: 1"></span></li>
+            <li class="plot"><span class="plot__name">Tomato</span><span class="plot__state">Growing</span><span class="plot__grow" style="--g: 0.7"></span></li>
+            <li class="plot"><span class="plot__name">Daisy</span><span class="plot__state">In bloom</span><span class="plot__grow" style="--g: 1"></span></li>
+            <li class="plot"><span class="plot__name">Carrot</span><span class="plot__state">Just planted</span><span class="plot__grow" style="--g: 0.15"></span></li>
+            <li class="plot"><span class="plot__name">Bean</span><span class="plot__state">Just planted</span><span class="plot__grow" style="--g: 0.2"></span></li>
+          </ul>
+          <div class="garden__foot"><span class="garden__next">Next up: a pumpkin</span></div>
+        </div>
+        <figcaption class="visually-hidden">The garden: six plants grown by reading, the peas grown in today’s round, a pumpkin next.</figcaption>
+      </figure>
+      <figure class="tile tile--pens photo" data-slot="photo-1" data-alt="Your child's hands on the tablet during a round, no face in frame">
+        <img src="photos/child-draws-on-tablet-while-sitting-indoors-1920.jpg" width="5718" height="3804" loading="lazy" alt="A small child's hands on a tablet, a stylus in one hand, lamplight behind" style="object-position: 45% 85%">
+      </figure>
+      <figure class="tile tile--done done" data-slot="done" data-alt="The end of a Sprout round: five minutes done, see you tomorrow">
+        <div class="done__screen" aria-hidden="true">
+          <div class="done__main">
+            <span class="done__title">That’s five minutes.</span>
+            <span class="done__line">See you tomorrow.</span>
+            <span class="done__btn">Back to the garden</span>
+          </div>
+          <dl class="done__stats">
+            <div><dt>Pages</dt><dd>6</dd></div>
+            <div><dt>New words</dt><dd>4</dd></div>
+            <div><dt>Grew</dt><dd>Peas</dd></div>
+          </dl>
+        </div>
+        <figcaption class="visually-hidden">The end of a round: five minutes done, six pages and four new words read, the peas grown, back tomorrow.</figcaption>
+      </figure>
+      <div class="tile tile--ages">
+        <h3>One sentence at a time.</h3>
+        <p>Made for early readers <span class="nowrap">aged 5 to 8</span>.</p>
+      </div>
+      <figure class="tile tile--seeds photo" data-slot="photo-2" data-alt="Something growing and in flower, in daylight">
+        <img src="photos/apple-tree-blossoms-2017-g3-1920.jpg" width="1920" height="1396" loading="lazy" alt="Pink and white apple blossom opening on a branch in spring sun" style="object-position: 50% 22%">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="five" id="five" aria-labelledby="five-head">
+  <div class="five__grid">
+    <figure class="photo five__photo" data-slot="photo-3" data-alt="Your child after the round, outdoors, seen from behind, no face in frame">
+      <img src="photos/child-playing-with-a-kite-1920.jpg" width="3093" height="2325" loading="lazy" alt="A boy seen from behind holding up a homemade kite against a blue sky" style="object-position: 45% 45%">
+    </figure>
+    <div class="five__text">
+      <h2 id="five-head">Five minutes, then it stops.</h2>
+      <p class="lead">One round a day, short enough for a school night.</p>
+    </div>
+  </div>
+</section>
+
+<section class="try" id="try" aria-labelledby="try-head">
+  <div class="container try__grid">
+    <div class="try__head">
+      <h2 id="try-head">Start their first round.</h2>
+      <dl class="try__facts">
+        <div><dt>Free for</dt><dd>14 days</dd></div>
+        <div><dt>Then</dt><dd>£4 a month</dd></div>
+      </dl>
+    </div>
+    <form class="signup" data-endpoint="" novalidate>
+      <label for="email">A grown-up’s email, for the download link</label>
+      <div class="signup__row">
+        <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required aria-describedby="email-help">
+        <button class="btn btn--primary" type="submit">Start 14 free days</button>
+      </div>
+      <p class="signup__help" id="email-help" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="statement">
+  <div class="container">
+    <p class="statement__line">Words in, flowers out.</p>
+    <div class="statement__row">
+      <nav class="statement__links" aria-label="Footer">
+        <a href="#garden">The garden</a>
+        <a href="#five">Five minutes</a>
+        <a href="#try">Price</a>
+      </nav>
+      <p class="statement__legal">© 2026 Sprout</p>
+    </div>
+    <p class="statement__credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Child_draws_on_tablet_while_sitting_indoors.jpg">Shixart1985</a> (CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:Apple-tree_blossoms_2017_G3.jpg">George Chernilevsky</a> (public domain), <a href="https://commons.wikimedia.org/wiki/File:Child_playing_with_a_kite.jpg">Wilfredor</a> (CC0), via Wikimedia Commons</p>
+  </div>
+</footer>
+
+<script>window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
+document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });</script>
+<script>
+document.querySelectorAll('form[data-endpoint]').forEach((form) => {
+  const input = form.querySelector('input'), help = form.querySelector('[aria-live]');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const ok = input.checkValidity();
+    input.toggleAttribute('aria-invalid', !ok);
+    if (!ok) { help.textContent = 'That address looks incomplete. Write it as name@example.com.'; input.focus(); return; }
+    if (!form.dataset.endpoint) { help.textContent = 'Nothing was sent: this form is not connected yet.'; return; }
+    fetch(form.dataset.endpoint, { method: 'POST', body: new FormData(form) })
+      .then((r) => { help.textContent = r.ok ? 'The link is on its way to ' + input.value.trim() + '.' : 'That did not go through. Try again in a minute.'; })
+      .catch(() => { help.textContent = 'That did not go through. Try again in a minute.'; });
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pixel Picnic, an indie game demo night in Leeds</title>
+<meta name="description" content="Pixel Picnic: 22 playable indie game demos for one night in Leeds, 14 November, 7pm to midnight. Entry by ticket, £6 on the door.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Chivo:wght@400;700;900&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="banner"><div class="container"><p>14 November, Leeds, 7pm to midnight.</p></div></div>
+<header class="bar">
+  <div class="container bar__in">
+    <a class="bar__mark" href="#top" aria-label="Pixel Picnic, back to the top">Pixel Picnic</a>
+    <nav class="bar__links" aria-label="Sections">
+      <a href="#night">The night</a>
+      <a href="#tickets">Tickets</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="hero" id="top" aria-labelledby="hero-head">
+  <div class="container hero__grid">
+    <div class="hero__text">
+      <h1 id="hero-head">Play it<br>before it<br>ships</h1>
+      <p class="lead">Pixel Picnic is 22 playable indie demos, for one night only.</p>
+      <div class="hero__acts">
+        <a class="btn" href="#tickets">Get a ticket</a>
+        <a class="btn btn--open" href="#night">See the night</a>
+      </div>
+    </div>
+    <figure class="hero__photo pic crt" data-slot="hero" data-alt="A player at Pixel Picnic with a pad in hand, lit by the screen, from behind">
+      <img src="photos/arcade-8409657650-1920.jpg" width="2448" height="2448" alt="An arcade joystick and three buttons on a black cabinet, close" style="object-position: 35% 50%" fetchpriority="high">
+    </figure>
+  </div>
+</section>
+
+<section class="claim claim--games" id="night" aria-labelledby="games-head">
+  <div class="container">
+    <h2 id="games-head">None of them are finished.</h2>
+    <div class="tagged">
+    <figure class="pic crt games__wide" data-slot="games" data-alt="The room at Pixel Picnic: the 22 games set up and playable, wide">
+      <img src="photos/asus-rog-strix-g15-g513qy-hq012t-top-keyboard-wasd-pnr-0888-1920.jpg" width="3216" height="2173" alt="The W, A, S and D keys lit from below on a black keyboard, close" style="object-position: 50% 62%" loading="lazy">
+    </figure>
+    <p class="tag"><span class="figure">22</span> games</p>
+    </div>
+    <div class="games__pair">
+      <figure class="pic crt games__a" data-slot="games-2" data-alt="Players and developers in the room on the night, from behind">
+        <img src="photos/beach-please-2022-crowd-stage-lights-night-performance-1920.jpg" width="6016" height="4016" alt="A crowd with hands raised under beams of light at night" style="object-position: 50% 70%" loading="lazy">
+      </figure>
+      <figure class="pic crt games__b" data-slot="games-3" data-alt="A maker's hands at work on a demo, close">
+        <img src="photos/soldering-a-0805-1920.jpg" width="4064" height="2704" alt="Fingers placing a tiny part on a circuit board with tweezers" style="object-position: 52% 50%" loading="lazy">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="claim claim--dev" aria-labelledby="dev-head">
+  <div class="container grid">
+    <figure class="pic crt dev__photo" data-slot="dev" data-alt="A developer showing their game to a player, over the shoulder">
+      <img src="photos/backlit-keyboard-1920.jpg" width="4357" height="2451" alt="Fingers on a backlit keyboard in the dark" style="object-position: 50% 60%" loading="lazy">
+    </figure>
+    <div class="dev__text">
+      <h2 id="dev-head">Tell its maker what broke.</h2>
+      <p class="lead">The developers showing work are in the room with their demos.</p>
+    </div>
+  </div>
+</section>
+
+<section class="hours crt" aria-labelledby="hours-head">
+  <div class="container hours__in">
+    <h2 id="hours-head">Play until the screens go dark.</h2>
+    <dl class="hours__figs">
+      <div><dt>Doors</dt><dd class="figure figure--ember">7PM</dd></div>
+      <div><dt>Screens off</dt><dd class="figure">12AM</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="tickets" id="tickets" aria-labelledby="tickets-head">
+  <div class="container grid">
+    <div class="tickets__text">
+      <h2 id="tickets-head">Entry is by ticket.</h2>
+      <p class="tickets__price"><span class="figure">£6</span> <span>on the door</span></p>
+      <dl class="tickets__facts">
+        <div><dt>When</dt><dd>14 November, 7pm to midnight</dd></div>
+        <div><dt>Where</dt><dd>Leeds, <span class="fill" data-fill="venue">venue to be announced</span></dd></div>
+      </dl>
+    </div>
+    <form class="ticket" data-endpoint="" novalidate aria-label="Request tickets">
+      <div class="ticket__field">
+        <label for="mail">Email address</label>
+        <input id="mail" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="ticket-help">
+      </div>
+      <div class="ticket__field">
+        <span class="ticket__label" id="count-label">Tickets</span>
+        <div class="count" role="group" aria-labelledby="count-label">
+          <button type="button" class="count__btn" data-step="-1" aria-label="One ticket fewer">&minus;</button>
+          <input class="count__n" id="count" name="count" type="number" inputmode="numeric" min="1" value="1" aria-labelledby="count-label">
+          <button type="button" class="count__btn" data-step="1" aria-label="One ticket more">+</button>
+        </div>
+      </div>
+      <div class="ticket__go">
+        <button class="btn" type="submit">Get tickets</button>
+        <p class="ticket__help" id="ticket-help" aria-live="polite"></p>
+      </div>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="container foot__in">
+    <p class="foot__line">See you in Leeds on the 14th.</p>
+    <p class="foot__sign">Pixel Picnic</p>
+    <div class="foot__row">
+      <nav class="foot__links" aria-label="Footer">
+        <a href="#night">The night</a>
+        <a href="#tickets">Tickets</a>
+      </nav>
+      <p class="foot__legal">Pixel Picnic, an indie game demo night</p>
+      <p class="foot__credit" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Arcade_(8409657650).jpg">Faruk Ateş from Vancouver &amp; SF</a> (CC&nbsp;BY&nbsp;2.0), <a href="https://commons.wikimedia.org/wiki/File:ASUS_ROG_Strix_G15_(G513QY-HQ012T)-top_keyboard_WASD_PNr%C2%B00888.jpg">D-Kuru</a> (CC&nbsp;BY-SA&nbsp;4.0), <a href="https://commons.wikimedia.org/wiki/File:Beach-Please-2022-crowd-stage-lights-night-performance.jpg">PinkBeachPlanet</a> (CC&nbsp;BY-SA&nbsp;4.0), <a href="https://commons.wikimedia.org/wiki/File:Soldering_a_0805.jpg">Aisart</a> (CC&nbsp;BY-SA&nbsp;3.0), <a href="https://commons.wikimedia.org/wiki/File:Backlit_keyboard.jpg">Colin</a> (CC&nbsp;BY-SA&nbsp;4.0), all on Wikimedia Commons.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.count').forEach((c) => { const n = c.querySelector('input'); c.querySelectorAll('[data-step]').forEach((b) => b.addEventListener('click', () => { n.value = Math.max(1, (Number(n.value) || 1) + Number(b.dataset.step)); })); });
+document.querySelectorAll('form.ticket[data-endpoint]').forEach((form) => {
+  const input = form.querySelector('input[type="email"]'), help = form.querySelector('[aria-live]');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const ok = input.checkValidity();
+    input.toggleAttribute('aria-invalid', !ok);
+    if (!ok) { help.textContent = 'That address looks incomplete. Write it as name@example.com.'; input.focus(); return; }
+    if (!form.dataset.endpoint) { help.textContent = 'Nothing was sent: tickets are not connected yet.'; return; }
+    fetch(form.dataset.endpoint, { method: 'POST', body: new FormData(form) })
+      .then((r) => { help.textContent = r.ok ? 'Request received.' : 'That did not go through. Try again in a minute.'; })
+      .catch(() => { help.textContent = 'That did not go through. Try again in a minute.'; });
+  });
+});
+</script>
+
+<script>window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
+document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });</script>
+</body>
+</html>

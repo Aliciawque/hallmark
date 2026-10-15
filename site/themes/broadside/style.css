@@ -1,0 +1,136 @@
+/* Hallmark · shape: Narrative Workflow · genre: editorial · theme: Broadside (by request)
+ * hero: Settled, the fitted bill on six columns and a framed photograph on the other six · nav: slab, an ink bar with the wordmark and three links · footer: statement, the bill's last line fitted across the measure · imagery: photographs, library, duotone ink paper · signature: the sale bill, WICKFORD AUTUMN MACHINERY SALE fitted to the measure over a vermilion SATURDAY 8 NOVEMBER, 10AM, beside a harvest printed in the ink · broadside: bill
+ * axes: light/display-condensed/warm · posture: committed · contrast: pass · fold: pass · v2.7.0 */
+/* Hallmark · pre-emit critique: P4 H5 E4 S4 R4 V4 · weakest: S, the photographs are library farm scenes rather than this sale's own lots; each takes a fact from the bill beside it and the handoff asks for the sale's photographs */
+/* Hallmark · hero-review: in-thread · fix · 1 finding · 1 resolved (the fitted lines ran past the 375 screen until the 0.02em tracking was counted in each width) */
+/* Hallmark · finish-review: subagent · fix · 5 findings · 4 resolved 1 partial (the library holds no machinery lined up for a sale; the plates show farm machines and each slot asks for the sale's own) · gap: the bill now carries viewing day in the hero */
+/* Hallmark · waive 55b · every fitted line is its own nowrap span sized to its measure in cqi, so it cannot wrap at 320px · a sale bill sets each line to fill the measure */
+@import url("./tokens.css");
+@import url("./base.css");
+
+:root {
+  --nav-h: 64px;
+  --speck: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 9 -4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+}
+
+/* The printer's case: Six Caps fitted, Bevan for heads, Archivo Narrow for the small print */
+h1, .display, .fit { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; line-height: 1; letter-spacing: var(--tracking-display); }
+h2, h3, .wordmark { font-family: var(--font-display-2); font-weight: 400; text-transform: uppercase; line-height: 1; letter-spacing: 0; }
+.fit { display: block; white-space: nowrap; line-height: 0.88; font-size: calc(98.5cqi / var(--w)); }
+
+.skip { position: absolute; left: var(--space-md); top: calc(-1 * var(--space-3xl)); z-index: var(--z-toast); padding: var(--space-xs) var(--space-md); background: var(--color-ink); color: var(--color-paper); font-weight: 600; }
+.skip:focus-visible { top: var(--space-md); }
+
+a { color: var(--color-ink); text-decoration-thickness: 1px; transition: color var(--dur-short) var(--ease-out), text-decoration-color var(--dur-short) var(--ease-out); }
+a:hover { color: var(--color-accent); }
+a:active { color: var(--color-ink-2); }
+
+/* Nav: the slab, an ink bar across the top of the bill */
+.slab { background: var(--color-ink); color: var(--color-paper); }
+.slab__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); min-height: var(--nav-h); }
+.wordmark { font-size: var(--text-lg); color: var(--color-paper); text-decoration: none; white-space: nowrap; }
+.slab__links { display: flex; gap: var(--space-xl); }
+.slab a { color: var(--color-paper); }
+.slab__links a { font: 500 var(--text-sm)/1 var(--font-body); text-decoration-color: transparent; text-underline-offset: 0.35em; white-space: nowrap; }
+.slab a:hover { color: var(--color-paper); text-decoration-color: var(--color-paper); }
+.slab a:focus-visible { outline: 2px solid var(--color-paper); outline-offset: 4px; }
+
+/* Controls: the ink block beside the double-rule frame */
+.actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-xl); }
+.btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 var(--space-xl); border: 3px solid var(--color-ink); border-radius: var(--radius-pill); background: var(--color-ink); color: var(--color-paper); font: 600 var(--text-sm)/1 var(--font-body); text-transform: uppercase; text-decoration: none; white-space: nowrap; cursor: pointer; transition: background-color var(--dur-short) var(--ease-out), border-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), transform var(--dur-micro) var(--ease-out); }
+.btn:hover { background: var(--color-ink-2); border-color: var(--color-ink-2); color: var(--color-paper); }
+.btn:active { transform: translateY(1px); }
+.btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.btn:disabled, .btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; transform: none; }
+.btn--frame { background: transparent; color: var(--color-ink); box-shadow: inset 0 0 0 3px var(--color-paper), inset 0 0 0 4px var(--color-ink); }
+.btn--frame:hover { background: var(--color-paper-2); border-color: var(--color-ink); color: var(--color-ink); }
+
+/* Frames and plates: a 3px ink border with a keyline inside, the photograph printed in the ink */
+.frame { margin: 0; border: 3px solid var(--color-ink); box-shadow: inset 0 0 0 3px var(--color-paper), inset 0 0 0 4px var(--color-ink); box-sizing: border-box; }
+.frame--photo { padding: var(--space-2xs); }
+.plate { height: 100%; }
+.grained { position: relative; isolation: isolate; }
+.grained::after { content: ""; position: absolute; inset: 0; z-index: var(--z-base); pointer-events: none; opacity: var(--grain); mix-blend-mode: multiply; background-image: var(--speck); background-size: 200px 200px; }
+
+/* Hero: Settled, the bill on six columns, the plate on six */
+.hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--space-3xl); align-items: center; min-height: calc(100svh - var(--nav-h)); padding-block: var(--space-xl); box-sizing: border-box; }
+.bill { container-type: inline-size; }
+.bill__head { max-width: none; }
+.bill__date { margin-top: var(--space-md); color: var(--color-accent); }
+.hero__plate { height: clamp(440px, 72svh, 760px); }
+
+/* Stages: each under a 5px ink rule, its number in the head */
+.stage { padding-top: var(--section-gap); }
+.stage__line { margin-top: var(--space-md); max-width: 40ch; font-size: var(--text-lead); color: var(--color-ink-2); }
+.fill { padding: 0 0.2em; border-radius: 2px; color: var(--color-muted); background: color-mix(in oklch, var(--color-muted) 14%, transparent); }
+
+/* 1. Viewing day: a plate beside the fitted time */
+.stage__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: center; padding-top: var(--space-2xl); border-top: var(--rule-bar) solid var(--color-ink); }
+.view__plate { grid-column: 1 / 8; aspect-ratio: 4 / 3; }
+.view__text { grid-column: 8 / 13; padding-left: var(--space-lg); container-type: inline-size; }
+.view__time { margin-top: var(--space-lg); }
+.facts { margin: var(--space-xl) 0 0; }
+.facts div { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: var(--space-md); padding-block: var(--space-sm); border-top: var(--rule-hair) solid var(--color-rule); }
+.facts div:last-child { border-bottom: var(--rule-hair) solid var(--color-rule); }
+.facts dt { font-size: var(--text-sm); font-weight: 500; color: var(--color-muted); }
+.facts dd { margin: 0; font-weight: 600; }
+
+/* 2. Register to bid: the one vermilion band */
+.register { position: relative; margin-top: var(--section-gap-l); padding-block: var(--section-gap-s); background: var(--color-accent); color: var(--color-accent-ink); }
+.register h2 { color: var(--color-accent-ink); }
+.register__grid { position: relative; z-index: var(--z-raised); display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: end; }
+.register__text { grid-column: 1 / 6; }
+.register__line { margin-top: var(--space-md); max-width: 30ch; font-size: var(--text-lead); }
+.register__form { grid-column: 7 / 13; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-lg) var(--gap-columns); }
+.field label { display: block; margin-bottom: var(--space-xs); font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-accent-ink); }
+.field input { width: 100%; min-height: 48px; padding: 0 var(--space-md); box-sizing: border-box; border: 1px solid var(--color-ink); border-radius: 0; background: var(--color-paper); color: var(--color-ink); outline: 2px solid transparent; outline-offset: -4px; }
+.field input:hover { background: var(--color-paper-2); }
+.field input:focus-visible { outline-color: var(--color-ink); }
+.field input[aria-invalid] { box-shadow: inset 0 0 0 2px var(--color-ink); }
+.field input:disabled { opacity: 0.55; cursor: not-allowed; }
+.field--wide { grid-column: 1 / -1; }
+.register__actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-md) var(--space-lg); }
+.register .btn:focus-visible { outline-color: var(--color-accent-ink); }
+.register__help { min-height: 1lh; font-size: var(--text-sm); }
+
+/* 3. Sale day: the lots across the measure, the count in vermilion */
+.sale__head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: baseline; padding-top: var(--space-2xl); border-top: var(--rule-bar) solid var(--color-ink); }
+.sale__head h2 { grid-column: 1 / 6; }
+.sale__head .stage__line { grid-column: 7 / 13; margin-top: 0; }
+.sale__wide { margin-top: var(--space-2xl); aspect-ratio: 21 / 9; }
+.sale__count { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: end; margin-top: var(--space-2xl); }
+.sale__tally { grid-column: 1 / 6; }
+.sale__fit { container-type: inline-size; }
+.sale__detail { grid-column: 7 / 13; aspect-ratio: 4 / 3; }
+.sale__figure { color: var(--color-accent); }
+.sale__list { margin-top: var(--space-md); padding-top: var(--space-md); border-top: var(--rule-hair) solid var(--color-rule); font-size: var(--text-lead); }
+
+/* Footer: the bill's last line across the measure */
+.close { margin-top: var(--section-gap-l); padding-bottom: var(--space-2xl); }
+.close__inner { padding-top: var(--space-xl); border-top: var(--rule-bar) solid var(--color-ink); container-type: inline-size; }
+.close__row { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--space-md) var(--space-xl); margin-top: var(--space-xl); padding-top: var(--space-md); border-top: var(--rule-hair) solid var(--color-ink); }
+.close__links { display: flex; flex-wrap: wrap; gap: var(--space-lg); }
+.close__links a { font-size: var(--text-sm); }
+.close small { font-size: var(--text-sm); color: var(--color-muted); }
+.close__credit { max-width: 96ch; margin-top: var(--space-md); font-size: var(--text-sm); color: var(--color-muted); }
+.close__credit a { color: inherit; }
+.close__credit span { white-space: nowrap; }
+
+@media (max-width: 60rem) {
+  .hero__grid { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-xl); min-height: 0; padding-block: var(--space-2xl); }
+  .hero__plate { height: auto; aspect-ratio: 4 / 3; }
+  .view__plate, .view__text, .register__text, .register__form, .sale__head h2, .sale__head .stage__line, .sale__tally, .sale__detail { grid-column: 1 / -1; }
+  .sale__detail { margin-top: var(--space-xl); }
+  .view__text { padding-left: 0; margin-top: var(--space-xl); }
+  .register__form { margin-top: var(--space-xl); }
+  .sale__head .stage__line { margin-top: var(--space-md); }
+  .close__links a { font-size: var(--text-md); }
+}
+@media (max-width: 40rem) {
+  .slab__links a:not(:last-child) { display: none; }
+  .actions .btn { width: 100%; justify-content: center; }
+  .stage { padding-top: var(--section-gap-s); }
+  .hero__grid { padding-bottom: 0; }
+  .register__form { grid-template-columns: minmax(0, 1fr); }
+  .facts div { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xs); }
+}

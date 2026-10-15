@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sample Room, a materials library in London</title>
+<meta name="description" content="Sample Room is a London library where architects borrow physical samples of 2,600 surfaces: stone, timber, terrazzo and ceramic. Visits by booking.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700&family=Onest:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="container">
+    <nav class="plate bar" aria-label="Main">
+      <a class="bar__mark" href="#top" aria-label="Sample Room, home">Sample Room</a>
+      <ul class="bar__links">
+        <li><a href="#families">The catalogue</a></li>
+        <li><a href="#borrow">Borrowing</a></li>
+      </ul>
+      <a class="btn bar__act" href="#visit">Book a visit</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top" aria-labelledby="hero-head">
+    <div class="container hero__grid">
+      <div class="hero__text">
+        <h1 id="hero-head">Borrow the stone before you specify it</h1>
+        <p class="lead">A London library of stone, timber, terrazzo and ceramic samples for architects.</p>
+        <div class="acts">
+          <a class="btn btn--primary" href="#visit">Book a visit</a>
+          <a class="btn" href="#families">See the catalogue</a>
+        </div>
+      </div>
+      <figure class="plate hero__plate">
+        <div class="plate__pic hero__pic zoom-hero" data-slot="hero" data-alt="A surface from the library, flat-on and close, in daylight">
+              <img src="photos/red-marble-quarry-cava-buscada-erto-e-casso-pordenone-friuli-1920.jpg" width="3951" height="2963" fetchpriority="high"
+               style="object-position: 48% 52%" alt="A sawn face of rose-red marble, banded in pale lines and streaked with grey">
+            </div>
+            <figcaption class="plate__cap">Red marble, sawn face</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="families" id="families" aria-labelledby="families-head">
+    <div class="container">
+      <div class="head">
+        <h2 id="families-head">2,600 surfaces in four families</h2>
+        <p class="lead">Two from each family, shot close.</p>
+      </div>
+      <ul class="cat">
+        <li class="cat__col" id="stone">
+          <h3>Stone</h3>
+          <figure class="plate cat__plate">
+            <div class="plate__pic" data-slot="stone-1" data-alt="A stone sample from the library, flat-on and close, with its finish named">
+              <img src="photos/marble-top-1920.jpg" width="3120" height="4160" loading="lazy" decoding="async"
+               style="object-position: 50% 45%" alt="White marble with grey and gold veins running on the diagonal">
+            </div>
+            <figcaption class="plate__cap">White marble, honed</figcaption>
+          </figure>
+          <figure class="plate cat__plate">
+            <div class="plate__pic zoom-flint" data-slot="stone-2" data-alt="A stone sample from the library, flat-on and close, with its finish named">
+              <img src="photos/stone-wall-old-farm-dordogne-1920.jpg" width="4173" height="2750" loading="lazy" decoding="async"
+               style="object-position: 50% 55%" alt="Knapped flint and pale stone cobbles set close in lime">
+            </div>
+            <figcaption class="plate__cap">Flint, knapped in lime</figcaption>
+          </figure>
+        </li>
+        <li class="cat__col" id="timber">
+          <h3>Timber</h3>
+          <figure class="plate cat__plate">
+            <div class="plate__pic" data-slot="timber-1" data-alt="A timber sample from the library, flat-on and close, with its finish named">
+              <img src="photos/d-lmen-kreuzkapelle-b-nke-2021-7365-1920.jpg" width="6338" height="4480" loading="lazy" decoding="async"
+               style="object-position: 50% 45%" alt="An oak panel carved with gothic tracery, close up">
+            </div>
+            <figcaption class="plate__cap">Oak, carved panel</figcaption>
+          </figure>
+          <figure class="plate cat__plate">
+            <div class="plate__pic zoom-clt" data-slot="timber-2" data-alt="A timber sample from the library, flat-on and close, with its finish named">
+              <img src="photos/fichte-dreischichtplatte-2009-1920.jpg" width="3000" height="1737" loading="lazy" decoding="async"
+               style="object-position: 42% 55%" alt="A cut block of three-layer spruce board showing its layers, on black">
+            </div>
+            <figcaption class="plate__cap">Spruce, three-layer board</figcaption>
+          </figure>
+        </li>
+        <li class="cat__col" id="terrazzo">
+          <h3>Terrazzo</h3>
+          <figure class="plate cat__plate">
+            <div class="plate__pic" data-slot="terrazzo-1" data-alt="A terrazzo sample from the library, flat-on and close, with its finish named">
+              <img src="photos/zellige-loose-tile-shapes-1920.jpg" width="3872" height="2592" loading="lazy" decoding="async"
+               style="object-position: 50% 50%" alt="Loose chips of terracotta and glazed tile in cream, wine and blue">
+            </div>
+            <figcaption class="plate__cap">Mixed chip, before casting</figcaption>
+          </figure>
+          <figure class="plate cat__plate">
+            <div class="plate__pic zoom-fine" data-slot="terrazzo-2" data-alt="A terrazzo sample from the library, flat-on and close, with its finish named">
+              <img src="photos/vitoria-adurza-iturritxu-bt-03-1920.jpg" width="4506" height="2580" loading="lazy" decoding="async"
+               style="object-position: 50% 30%" alt="A pale ground packed with fine stone chips, a joint across it">
+            </div>
+            <figcaption class="plate__cap">Pale ground, fine chip</figcaption>
+          </figure>
+        </li>
+        <li class="cat__col" id="ceramic">
+          <h3>Ceramic</h3>
+          <figure class="plate cat__plate">
+            <div class="plate__pic" data-slot="ceramic-1" data-alt="A ceramic sample from the library, flat-on and close, with its finish named">
+              <img src="photos/travessa-couto-fernandes-60-centro-s-o-lu-s-2025-6016-pcorr--1920.jpg" width="3881" height="3878" loading="lazy" decoding="async"
+               style="object-position: 50% 50%" alt="Blue and white glazed tiles with a repeating floral pattern, flat on">
+            </div>
+            <figcaption class="plate__cap">Blue and white, glazed</figcaption>
+          </figure>
+          <figure class="plate cat__plate">
+            <div class="plate__pic" data-slot="ceramic-2" data-alt="A ceramic sample from the library, flat-on and close, with its finish named">
+              <img src="photos/old-brickwork-red-brick-1920.jpg" width="3610" height="2400" loading="lazy" decoding="async"
+               style="object-position: 50% 50%" alt="Weathered red bricks laid in thick lime mortar">
+            </div>
+            <figcaption class="plate__cap">Red brick, handmade</figcaption>
+          </figure>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="borrow" id="borrow" aria-labelledby="borrow-head">
+    <div class="container borrow__grid">
+      <h2 id="borrow-head">Book, borrow, bring back</h2>
+      <ol class="steps">
+        <li><span class="steps__n" aria-hidden="true">1</span><h3>Book a visit</h3><p>Pick a day and the families you want to see.</p></li>
+        <li><span class="steps__n" aria-hidden="true">2</span><h3>Borrow</h3><p>Take the samples to your desk and your drawings.</p></li>
+        <li><span class="steps__n" aria-hidden="true">3</span><h3>Bring back</h3><p>They go back on the shelf for the next practice.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="visit" id="visit" aria-labelledby="visit-head">
+    <div class="container visit__grid">
+      <div class="visit__text">
+        <h2 id="visit-head">Pick your samples in London</h2>
+        <p class="lead">Visits are by booking. Tell us the day and the families.</p>
+        <dl class="facts">
+          <div><dt>Where</dt><dd>London, <span class="fill" data-fill="address">street address to come</span></dd></div>
+          <div><dt>Open</dt><dd><span class="fill" data-fill="days">visiting days to come</span></dd></div>
+        </dl>
+      </div>
+      <form class="plate visit__form" data-endpoint="" novalidate>
+        <div class="form__row">
+          <div class="field">
+            <label for="f-name">Your name</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="f-practice">Practice</label>
+            <input id="f-practice" name="practice" type="text" autocomplete="organization">
+          </div>
+        </div>
+        <div class="form__row">
+          <div class="field">
+            <label for="f-email">Email</label>
+            <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required>
+          </div>
+          <div class="field">
+            <label for="f-day">Day</label>
+            <input id="f-day" name="day" type="date" required>
+          </div>
+        </div>
+        <fieldset class="chips">
+          <legend>Families to see</legend>
+          <div class="chips__row">
+            <input type="checkbox" name="families" id="c-stone" value="stone"><label for="c-stone">Stone</label>
+            <input type="checkbox" name="families" id="c-timber" value="timber"><label for="c-timber">Timber</label>
+            <input type="checkbox" name="families" id="c-terrazzo" value="terrazzo"><label for="c-terrazzo">Terrazzo</label>
+            <input type="checkbox" name="families" id="c-ceramic" value="ceramic"><label for="c-ceramic">Ceramic</label>
+          </div>
+        </fieldset>
+        <div class="form__end">
+          <button class="btn btn--primary" type="submit">Request a visit</button>
+          <p class="form__help" id="form-help" aria-live="polite"></p>
+        </div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="container">
+    <p class="foot__mark">Sample Room</p>
+    <div class="foot__row">
+      <nav class="foot__links" aria-label="Footer">
+        <a class="ulink" href="#families">The catalogue</a>
+        <a class="ulink" href="#borrow">Borrowing</a>
+        <a class="ulink" href="#visit">Book a visit</a>
+      </nav>
+      <p class="foot__place">London</p>
+      <p class="foot__legal">© 2026 Sample Room</p>
+    </div>
+    <p class="foot__credit" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Red_marble_quarry_Cava_Buscada_-_Erto_e_Casso,_Pordenone,_Friuli-Venezia_Giulia,_Italy_-_2021-09-27.jpg">Mænsard vokser</a>, CC&nbsp;BY-SA&nbsp;4.0; <a href="https://commons.wikimedia.org/wiki/File:Marble_Top.jpg">Ambadyanands</a>, CC0; <a href="https://commons.wikimedia.org/wiki/File:Stone_wall_old_farm_Dordogne.jpg">Jebulon</a>, CC0; <a href="https://commons.wikimedia.org/wiki/File:D%C3%BClmen,_Kreuzkapelle,_B%C3%A4nke_--_2021_--_7365.jpg">Dietmar Rabich</a>, CC&nbsp;BY-SA&nbsp;4.0; <a href="https://commons.wikimedia.org/wiki/File:Fichte_Dreischichtplatte_2009.jpg">Elke Wetzig (elya)</a>, CC&nbsp;BY-SA&nbsp;3.0; <a href="https://commons.wikimedia.org/wiki/File:Zellige_loose_tile_shapes.jpg">Jadcooper</a>, CC&nbsp;BY-SA&nbsp;4.0; <a href="https://commons.wikimedia.org/wiki/File:Vitoria_-_Adurza_-_Iturritxu_-BT-_03.jpg">Basotxerri</a>, CC&nbsp;BY-SA&nbsp;4.0; <a href="https://commons.wikimedia.org/wiki/File:Travessa_Couto_Fernandes_60_Centro_S%C3%A3o_Lu%C3%ADs_2025-6016_(pcorr,_crop).jpg">Prburley, derivative work by Aristeas</a>, CC&nbsp;BY&nbsp;4.0; <a href="https://commons.wikimedia.org/wiki/File:Old_brickwork._Red_brick.jpg">Dmitry Makeev</a>, CC&nbsp;BY-SA&nbsp;3.0, all on Wikimedia Commons.</p>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('form[data-endpoint]').forEach((form) => {
+  const help = form.querySelector('[aria-live]');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const fields = [...form.querySelectorAll('input[required]')];
+    fields.forEach((i) => i.toggleAttribute('aria-invalid', !i.checkValidity()));
+    const bad = fields.find((i) => !i.checkValidity());
+    if (bad) {
+      bad.setAttribute('aria-describedby', help.id);
+      help.textContent = bad.type === 'email' ? 'That address looks incomplete. Write it as name@example.com.' : bad.type === 'date' ? 'Pick the day you would like to visit.' : 'Add your name so we know who is coming.';
+      bad.focus();
+      return;
+    }
+    if (!form.dataset.endpoint) { help.textContent = 'Nothing was sent: this form is not connected yet.'; return; }
+    fetch(form.dataset.endpoint, { method: 'POST', body: new FormData(form) })
+      .then((r) => { help.textContent = r.ok ? 'Your request reached us.' : 'That did not go through. Try again in a minute.'; })
+      .catch(() => { help.textContent = 'That did not go through. Try again in a minute.'; });
+  });
+});
+</script>
+<script>window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
+document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });</script>
+</body>
+</html>
