@@ -9,7 +9,7 @@ posture: restrained
 keywords: almanac, yearbook, field guide, reference, handbook, manual, index, catalogue, encyclopedia, data, figures, tables, statistics, research, dataset, records, directory, glossary, specifications
 material: cool slate stock, blue-black ink, Hanken Grotesk heads over Newsreader prose with mono figures, two rule weights and square corners, one chart magenta
 photo: muted
-pictured: Workbench, Stage hero
+pictured: Yearbook, Split hero
 ---
 
 # Almanac

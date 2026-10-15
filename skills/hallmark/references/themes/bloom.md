@@ -9,7 +9,7 @@ posture: committed
 keywords: generative, ai creative, music, song, video, image, voice, art, make, create, compose, render, imagine, prompt, creative studio, playground, expressive, warm, daylight, consumer creative, portrait, headshot, selfie, retouch
 material: warm off-white paper lit by two terracotta blooms, warm umber ink, Ranade throughout with one roman Gambarino line, raised warm surfaces, one terracotta signal
 photo: warm exp=4
-pictured: Workbench, Stage hero
+pictured: Kitchen Session, Split hero
 ---
 
 # Bloom

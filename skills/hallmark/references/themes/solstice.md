@@ -9,7 +9,7 @@ posture: restrained
 keywords: farm, orchard, cider, perry, winery, harvest, seasonal, food, almanac, produce, vineyard, calendar, market, craft drink, label, bottle, rural, slow, sun, midsummer
 material: cream paper, warm brown ink, Yeseva One over Archivo and Archivo Narrow, gold hairlines and hard paper shadows, photographs in low warm light, one vermilion signal
 photo: warm high=-12
-pictured: Split Studio, Settled hero
+pictured: Midsummer, Stage hero
 ---
 
 # Solstice

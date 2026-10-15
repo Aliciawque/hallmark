@@ -9,7 +9,7 @@ posture: restrained
 keywords: typography, type specimen, foundry, letterform, portfolio, editorial, magazine, essay, type studio, agency, brand story, print, publication, craft, considered, literary
 material: warm oat paper, warm near-black ink, razor-hairline Bodoni Moda over Geist, square 1px rules, one ink-blue signal
 photo: duotone ink paper con=8
-pictured: Type Specimen, Settled hero
+pictured: Specimen Book, Poster hero
 ---
 
 # Specimen

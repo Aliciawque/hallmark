@@ -1,5 +1,5 @@
 {
- "built": "2026-10-14",
+ "built": "2026-10-15",
  "themes": [
   {
    "name": "Almanac",
@@ -43,7 +43,7 @@
    "material": "cool slate stock, blue-black ink, Hanken Grotesk heads over Newsreader prose with mono figures, two rule weights and square corners, one chart magenta",
    "file": "references/themes/almanac.md",
    "photo": "muted",
-   "pictured": "Workbench, Stage hero",
+   "pictured": "Yearbook, Split hero",
    "picture": "references/themes/almanac.jpg"
   },
   {
@@ -187,7 +187,7 @@
    "material": "warm off-white paper lit by two terracotta blooms, warm umber ink, Ranade throughout with one roman Gambarino line, raised warm surfaces, one terracotta signal",
    "file": "references/themes/bloom.md",
    "photo": "warm exp=4",
-   "pictured": "Workbench, Stage hero",
+   "pictured": "Kitchen Session, Split hero",
    "picture": "references/themes/bloom.jpg"
   },
   {
@@ -1194,7 +1194,7 @@
    "material": "violet-black ground, near-white ink, lowercase Instrument Serif heads over Geist, hairline wells, a faint blueprint grid, one molten brass signal and one rose verb",
    "file": "references/themes/lumen.md",
    "photo": "duotone paper ink-2",
-   "pictured": "Request Path, Settled hero",
+   "pictured": "Quarry, Split hero",
    "picture": "references/themes/lumen.jpg"
   },
   {
@@ -1645,7 +1645,7 @@
    "material": "cream paper, warm brown ink, Yeseva One over Archivo and Archivo Narrow, gold hairlines and hard paper shadows, photographs in low warm light, one vermilion signal",
    "file": "references/themes/solstice.md",
    "photo": "warm high=-12",
-   "pictured": "Split Studio, Settled hero",
+   "pictured": "Midsummer, Stage hero",
    "picture": "references/themes/solstice.jpg"
   },
   {
@@ -1687,7 +1687,7 @@
    "material": "warm oat paper, warm near-black ink, razor-hairline Bodoni Moda over Geist, square 1px rules, one ink-blue signal",
    "file": "references/themes/specimen.md",
    "photo": "duotone ink paper con=8",
-   "pictured": "Type Specimen, Settled hero",
+   "pictured": "Specimen Book, Poster hero",
    "picture": "references/themes/specimen.jpg"
   },
   {

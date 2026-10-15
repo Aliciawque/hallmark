@@ -9,7 +9,7 @@ posture: restrained
 keywords: inference, model, llm, ai tool, agent, voice, synthesis, api, gpu, serverless, runtime, tokens, latency, open models, developer, research lab, ml platform, dev tools, premium
 material: violet-black ground, near-white ink, lowercase Instrument Serif heads over Geist, hairline wells, a faint blueprint grid, one molten brass signal and one rose verb
 photo: duotone paper ink-2
-pictured: Request Path, Settled hero
+pictured: Quarry, Split hero
 ---
 
 # Lumen
