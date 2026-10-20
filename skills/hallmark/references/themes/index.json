@@ -794,19 +794,19 @@
    "name": "Grid",
    "slug": "grid",
    "genre": "editorial",
-   "posture": "committed",
+   "posture": "full-palette",
    "paper": {
     "band": "light",
-    "L": 99,
-    "hue": 255
+    "L": 97.5,
+    "hue": 90
    },
    "display": {
-    "class": "grotesk-heavy",
-    "face": "Archivo"
+    "class": "grotesk-sans",
+    "face": "Radio Canada Big"
    },
    "accent": {
-    "band": "warm",
-    "hue": 28
+    "band": "cool",
+    "hue": 266
    },
    "keywords": [
     "identity",
@@ -827,12 +827,13 @@
     "grotesque",
     "manual",
     "programme",
-    "poster"
+    "poster",
+    "collection"
    ],
-   "material": "cool near-white paper, cool near-black ink, Archivo 800 lowercase over Archivo 400, square hairlines and column rails, one signal ink",
+   "material": "white poster stock, blue-black ink, Radio Canada Big 700 in sentence case over Radio Canada, flat fields of ultramarine and one Swiss red mark, no strokes",
    "file": "references/themes/grid.md",
-   "photo": "duotone ink paper con=10",
-   "pictured": "Index-First, Settled hero",
+   "photo": "duotone ink paper-2 con=12",
+   "pictured": "Poster Sequence, Poster hero",
    "picture": "references/themes/grid.jpg"
   },
   {
@@ -1642,10 +1643,10 @@
     "sun",
     "midsummer"
    ],
-   "material": "cream paper, warm brown ink and one brown dusk band, Yeseva One over Archivo and Archivo Narrow, 2px ink bars and gold hairlines, square wells on hard paper shadows, photographs in low warm light, one vermilion signal",
+   "material": "cream paper, warm brown ink, Yeseva One over Archivo and Archivo Narrow, gold hairlines and hard paper shadows, photographs in low warm light, one vermilion signal",
    "file": "references/themes/solstice.md",
    "photo": "warm high=-12",
-   "pictured": "Release Sheet, Stage hero",
+   "pictured": "Midsummer, Stage hero",
    "picture": "references/themes/solstice.jpg"
   },
   {
@@ -1776,7 +1777,7 @@
    "material": "cool concrete paper, blue-black ink, uppercase Saira Condensed over Albert Sans, condensed figures and mono times, two-weight rules, one volt fill",
    "file": "references/themes/sport.md",
    "photo": "duotone ink paper con=20",
-   "pictured": "Stat-Led, Stage hero",
+   "pictured": "Stat-Led, Poster hero",
    "picture": "references/themes/sport.jpg"
   },
   {

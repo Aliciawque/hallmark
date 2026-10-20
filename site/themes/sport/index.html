@@ -14,35 +14,34 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="banner"><div class="container banner__in"><p>The Calder Valley Half Marathon. Chip timed, splits live.</p><a href="#enter">Entry £34</a></div></div>
 <header class="bar">
   <div class="container bar__in">
     <a class="bar__mark" href="#top" aria-label="Calder Valley Half Marathon, back to the top">Calder Valley Half</a>
+    <form class="bar__find" role="search" action="#live" data-find>
+      <label class="visually-hidden" for="find">Find a runner by bib number or surname</label>
+      <input id="find" name="runner" type="search" placeholder="Find a runner: bib or surname" autocomplete="off" enterkeyhint="search">
+    </form>
     <nav class="bar__links" aria-label="Sections">
-      <a href="#timing">Timing</a>
       <a href="#pace">Pace</a>
-      <a href="#live">Live</a>
+      <a href="#enter">Enter</a>
     </nav>
-    <a class="btn btn--primary btn--s" href="#enter">Enter</a>
   </div>
 </header>
 
 <main id="main">
 
 <section class="hero" id="top" aria-labelledby="hero-head">
-  <div class="container hero__grid">
-    <div class="hero__text">
-      <h1 id="hero-head">Run the Calder Valley</h1>
-      <p class="lead hero__lead">A half marathon, chip timed, with every split posted live.</p>
-      <div class="hero__acts">
-        <a class="btn btn--primary" href="#enter">Enter the race</a>
-        <a class="btn btn--secondary" href="#live">Follow a runner</a>
-      </div>
+  <figure class="hero__photo" data-slot="hero" data-alt="The pack on the Calder Valley course on race morning, from behind, at road level">
+    <img src="photos/human-running-gait-terminal-swing-to-heel-strike-runner-with-1920.jpg" width="1920" height="1260" alt="A runner's legs in compression socks and racing shoes, mid stride on the road" style="object-position: 50% 70%" fetchpriority="high">
+  </figure>
+  <div class="hero__scrim" aria-hidden="true"></div>
+  <div class="container hero__in">
+    <h1 id="hero-head">Run the<br>Calder Valley</h1>
+    <p class="lead hero__lead">Sunday 19 April. Chip timed, with every split posted live.</p>
+    <div class="hero__acts">
+      <a class="btn btn--primary" href="#enter">Enter for £34</a>
+      <a class="btn btn--ghost" href="#live">Follow a runner</a>
     </div>
-    <figure class="hero__photo" data-slot="hero" data-alt="The pack on the Calder Valley course on race morning, legs and shoes on the road, at road level">
-      <img src="photos/human-running-gait-terminal-swing-to-heel-strike-runner-with-1920.jpg" width="1920" height="1260" alt="A runner's legs in compression socks and racing shoes, mid stride on the road" style="object-position: 62% 60%" fetchpriority="high">
-      <p class="hero__tag" data-keep><span class="hero__tag-fig">19 April</span> Sunday, race day</p>
-    </figure>
   </div>
 </section>
 

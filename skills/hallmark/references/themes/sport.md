@@ -9,7 +9,7 @@ posture: restrained
 keywords: running, marathon, race, training, fitness, gym, team, league, fixtures, standings, scoreboard, athletics, performance, splits, sportswear, club, match, tournament
 material: cool concrete paper, blue-black ink, uppercase Saira Condensed over Albert Sans, condensed figures and mono times, two-weight rules, one volt fill
 photo: duotone ink paper con=20
-pictured: Stat-Led, Stage hero
+pictured: Stat-Led, Poster hero
 ---
 
 # Sport

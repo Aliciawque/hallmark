@@ -7,10 +7,11 @@ What a page shows, read on every page build. A page looks made when it shows the
 In order, the first that fits:
 
 1. **The user's own images and recordings**, asked for at Step 1. They win every slot.
-2. **The product itself, built.** Software is shown as its working interface (§ 4).
-3. **Photographs from the library**, picked by script and treated in the theme's way (§ 2, § 5).
-4. **Generated stills**, only when `TOGETHER_API_KEY` is set and the user asked for them (§ 6).
-5. **Type at full scale**, when the brief is about words.
+2. **Screenshots of the real product,** taken by the build itself whenever the product can be reached: a URL, a running dev server, a project in the folder that starts with one command, a desktop or phone app on this machine (§ 4). A real screen beats any picture of one.
+3. **The product built,** only when there is no product to capture yet (§ 4).
+4. **Photographs from the library**, picked by script and treated in the theme's way (§ 2, § 5).
+5. **Generated stills**, only when `TOGETHER_API_KEY` is set and the user asked for them (§ 6).
+6. **Type at full scale**, when the brief is about words.
 
 Which briefs want which:
 
@@ -47,9 +48,19 @@ A slot is any picture the user will replace: `data-slot="<name>"` (`hero`, `demo
 - A child that must stay once the user's image lands (a credit, a plate number) carries `data-keep`; text over a slotted photograph (a Poster hero's head and scrim) sits in a sibling layer above the slot (`z-index: 2` or more; the slot's image takes 1), never inside it.
 - Never more than four slots in a row, and never a set of frames for things the page has no pictures of (a team, a list of venues): set those in type (68).
 
-## 4. The product, built
+## 4. The product: captured first, built only when it cannot be
 
-On a software page the hero visual is the product's main screen built in HTML and CSS: real controls, at least eight elements, the brief's nouns, the theme's surfaces and type, at the size `layout.md` § 6 gives the visual. Sample values read as samples (`example.com`, *Example Kitchen*, round plausible amounts), never a figure a visitor could take as a claim (46a). It sits in a `data-slot` so the user's screenshot replaces it. Lower down, show it from other angles: a detail cropped large, a second screen, a state change. No drawn browser bar, device frame, traffic lights or notch (47a, 47b).
+**Capture it.** When the product exists, the page shows it, not a mock of it. Find it at Step 0: a URL in the brief, a dev server already running, a `package.json` with a `dev` or `start` script, a built app on the machine, or a path the user names. Start it if it needs starting (install, run, wait for the port), put it in the state that tells the page's story (sample data, a real project open, the one screen that does the job), then:
+
+```
+node <skill-dir>/scripts/capture.mjs http://localhost:3000 --routes /,/settings --sizes desktop,phone [--selector ".editor"] [--full] [--out images/screens]
+```
+
+It writes 2x PNGs at 1440 x 900 and 390 x 844 (or one element with `--selector`) and prints an `<img>` for each. A desktop app is captured with the OS (`screencapture -l <window id>` or `-R x,y,w,h` on macOS), a phone app with its simulator (`xcrun simctl io booted screenshot`), a terminal tool by running it and setting its real output in a code block. Look at every capture before it ships: nothing personal on screen (names, emails, tokens, file paths), no error states unless they are the point, no debug overlays. Use several: the main screen in the hero, a detail cropped large lower down, a second screen, the phone view. Stamp `imagery: screenshots <n> (capture.mjs)` and credit nothing; they are the user's own.
+
+**Frame it in the theme.** A capture sits in a `data-slot` with the theme's radius and the inset outline (§ 5), never inside a drawn browser bar, device frame, traffic lights or notch (47a, 47b). Crop to the part that sells (`object-position`, or `--selector`), keep text in it legible at its displayed size (scale 2, never upscaled), and never retouch what the product shows. Captures are product pictures: mark their slots `data-kind="product"`, so they do not count toward the photo balance (83).
+
+**Build it only when it cannot be captured** (an idea, a product not built yet, nothing reachable): the hero visual is the product's main screen built in HTML and CSS: real controls, at least eight elements, the brief's nouns, the theme's surfaces and type, at the size `layout.md` § 6 gives the visual. Sample values read as samples (`example.com`, *Example Kitchen*, round plausible amounts), never a figure a visitor could take as a claim (46a). It sits in a `data-slot` so the real screenshot replaces it, and the handoff says which screens to capture once the product runs. Never build a mock of a product the build could have captured (84).
 
 A working control (a calculator on the user's prices, a booking form) is a fine section and a fine close, once a page; it is not the default hero.
 

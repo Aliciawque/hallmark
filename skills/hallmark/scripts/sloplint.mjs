@@ -808,7 +808,7 @@ const TIERS = new Map(Object.entries({
   '39a': 'floor', '39b': 'reflex', '44a': 'reflex', '44b': 'floor', '44c': 'reflex', '44d': 'floor',
   '46a': 'floor', '46b': 'reflex', '47a': 'floor', '47b': 'reflex', '47c': 'reflex', '49a': 'floor', '49b': 'reflex',
   '55a': 'floor', '55b': 'reflex', '71': 'reflex', '72': 'reflex', '73': 'floor', '74': 'reflex', '75': 'reflex', '76': 'floor',
-  '77': 'reflex', '78': 'reflex', '79': 'reflex', '80': 'reflex', '81': 'reflex', '82': 'reflex', '83': 'reflex',
+  '77': 'reflex', '78': 'reflex', '79': 'reflex', '80': 'reflex', '81': 'reflex', '82': 'reflex', '83': 'reflex', '84': 'reflex',
 }));
 
 const HERO_SKIP = new Set(['8', '9', '32', '59', '77', '78', 'F8', 'F15']);
