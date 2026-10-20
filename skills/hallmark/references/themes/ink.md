@@ -22,9 +22,9 @@ A notice printed in plain black: white paper, a black with no hue, Epilogue at 7
 :root {
   --color-paper: oklch(99.5% 0.003 100); --color-paper-2: oklch(97% 0.004 100); --color-paper-3: oklch(94% 0.006 100);
   --color-ink: oklch(16% 0 0); --color-ink-2: oklch(28% 0 0); --color-muted: oklch(44% 0 0);
-  --color-rule: oklch(92% 0.003 100); --color-rule-2: oklch(95% 0.003 100);
-  --color-accent: oklch(50% 0.085 190); --color-accent-ink: oklch(99.5% 0.003 100); --color-accent-soft: oklch(93% 0.05 190); --color-accent-soft-ink: oklch(27% 0.045 190);
-  --color-focus: oklch(50% 0.085 190);
+  --color-rule: oklch(89% 0.004 100); --color-rule-2: oklch(93.5% 0.003 100);
+  --color-accent: oklch(50% 0.095 188); --color-accent-ink: oklch(99.5% 0.003 100); --color-accent-soft: oklch(93% 0.05 190); --color-accent-soft-ink: oklch(27% 0.045 190);
+  --color-focus: oklch(50% 0.095 188);
   --font-display: "Epilogue", ui-sans-serif, system-ui, sans-serif; --font-body: var(--font-display);
   --font-outlier: "IBM Plex Mono", ui-monospace, monospace;
   --radius-card: 12px; --radius-pill: 999px; --rule-hair: 1px;
@@ -42,8 +42,8 @@ Two colourways, both light, stated in the stamp (`ink: paper` or `ink: board`).
 
 ## Type
 
-- **Display:** Epilogue 700, `--tracking-display`, line-height 1.02, sentence case, roman.
-- **Body:** Epilogue 400 at 16px, line-height 1.55, in `--color-muted`; the name in a row, links and tags at 600.
+- **Display:** Epilogue 700, `--tracking-display`, line-height 1.0 at hero size and 1.05 below, sentence case, roman; a figure (a count, a price, an hour) takes the same setting, a step larger than the head beside it.
+- **Body:** Epilogue 400 at 16 to 17px, line-height 1.55, in `--color-ink-2` (muted greys tire on white); the name in a row, links and tags at 600.
 - **Labels, captions, table heads, meta:** Epilogue 400 a step smaller, sentence case, untracked; never mono.
 - **Outlier:** IBM Plex Mono only inside code and on figures that compare in a column (loan counts, a card number, times on a rota). Large figures and prices are Epilogue 700 in ink; the teal marks only what is in or open.
 
@@ -55,6 +55,13 @@ Two colourways, both light, stated in the stamp (`ink: paper` or `ink: board`).
 - Bands: a `--color-paper-2` band or an ink band with paper text. Two a page at most; never a teal field.
 - Photographs: the things and the street that shares them, in plain daylight at arm's length: a pegboard of tools, a ladder against a wall, a neighbour carrying something home, seen from behind; no face to the lens, no brand mark to the camera. The colour is turned down (the `photo:` muted) so the teal stays the one colour that means anything; 12px radius, a 1px `--color-rule` hairline, no shadow. A thing's name and its state tag sit under its picture, never on it.
 - No texture.
+
+## Range
+
+- **The shelf as a ruled list:** every thing a row under the ink rule, its name at 600, one line on what it is, its state pill at the row's end, a filter field that narrows the rows as you type.
+- **Steps as a notice:** how it works as three or four numbered stages across the columns, each numeral in Epilogue 700 at display size over a hairline, the stage that means in carrying the pale teal pill.
+- **A timetable of opening days:** the next dates as rows, the hours in each, the next one inked; the dates come from the clock, never typed in.
+- **Figures in plain black:** a count, a fee and the hours set large in Epilogue 700 on a `--color-paper-2` well, the one that means open in teal.
 
 ## Controls
 

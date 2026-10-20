@@ -46,4 +46,4 @@ The `[data-mode]` attribute wins over the media query by construction (the media
 
 ## Verification
 
-Both modes run the full gate sweep: contrast gates 40-41 on every pairing in both modes (the render tier only sees the default mode; check the dark pairings numerically), gate 7 (no pure black/white) binds on the dark block too, and the stamp records `modes: light+dark` so the log knows.
+Both modes run the full gate sweep: contrast gates 40-41 on every pairing in both modes (the render tier only sees the default mode; check the dark pairings numerically), gate 7a and 7b (no pure black or white) bind on the dark block too, and the stamp records `modes: light+dark` so the log knows.

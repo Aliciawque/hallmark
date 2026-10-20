@@ -8,7 +8,7 @@ The first recipe is the one to try in a fresh project to see the flow before rea
 
 > Build me a landing page for Coffeebox, a small-batch coffee subscription. Roast on Sunday, ship on Monday, drink Tuesday. Audience: people who already buy good coffee and want fewer trips to the shop. Tone: warm, hand-set, editorial, like a small café's chalkboard.
 
-Explicit audience, use and tone; genre editorial. Expect a deal of three warm-paper editorial themes, one long-document or letter shape, one photograph at most, and a hero that states the Sunday-to-Tuesday fact.
+Explicit audience, use and tone; genre editorial. Expect a deal of three warm editorial themes, library photographs of roasting and beans standing in for the user's own (a quarter to a third of the page, the theme's type and rules carrying the rest), and a hero that states the Sunday-to-Tuesday fact.
 
 ## 01. Tide, an indie podcast
 
@@ -38,7 +38,7 @@ Partial context; the skill infers peers and clients, read it and sign on, declar
 
 > Build me a landing page for Tracejam, a tracing and observability tool for distributed systems. Audience: SREs and platform engineers. Use case: try it or contact sales. Tone: technical.
 
-Genre modern-minimal. Expect a hero with the visual beside the text in a `data-slot`, a demo strip instead of a feature grid, and a pricing table with the user's tiers or a labelled placeholder, never invented figures.
+Genre modern-minimal. Expect the product built in a `data-slot` beside the hero's text, a demo strip instead of a feature grid, and a pricing table with the user's tiers or a text slot where a price belongs, never invented figures.
 
 ## 06. Anya, a personal one-pager
 
@@ -50,7 +50,7 @@ The user opted out. Expect an index-style page: a short bio, a tabular work hist
 
 > Build me a landing page for Foundry, SOC 2 and ISO 27001 compliance automation for B2B SaaS. Show how many companies got compliant, what it costs, who uses it. Audience: founders and CTOs. Tone: technical but trustworthy.
 
-The brief asks for counts and logos the user has not supplied: Hallmark asks for them once at Step 1 and otherwise leaves labelled slots (gate 46a). Expect a bento or stat-led shape with one real number if one is given.
+The brief asks for counts and logos the user has not supplied: Hallmark asks for them once at Step 1 and otherwise leaves them out (gate 46a). Expect a bento or stat-led shape with one real number if one is given.
 
 ## 08. Cohort, cohort-based courses
 
@@ -72,7 +72,7 @@ Polish depth. The system and the layout stay; the tells, the contrast, the state
 
 > `/hallmark redesign ./src/app`
 
-It asks once what stays (the look, the layout, or only the content), or on *go ahead* picks the lighter depth the project supports and says which. An app screen is restyled on its existing layout; a marketing page that reads as a template is recomposed. Either way the handoff shows the before and after counts, what was kept, and anything dropped with its reason.
+It asks once what stays, what is wrong and what is new to show, or on *go ahead* redesigns in full: the content and the wiring stay, the system and the composition change. App screens are recomposed inside the shell they have. The handoff shows the before and after counts, what was kept, and anything dropped with its reason.
 
 ## Reading a recipe
 

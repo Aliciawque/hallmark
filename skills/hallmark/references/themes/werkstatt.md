@@ -2,34 +2,34 @@
 name: Werkstatt
 slug: werkstatt
 genre: playful
-paper: mid 80 80
+paper: mid 84 82
 display: geometric-sans Jost
-accent: cool 265
+accent: cool 264
 posture: full-palette
 keywords: school, programme, workshop, maker, course, bootcamp, academy, apply, admissions, tuition, timetable, bauhaus, craft, design education, design school, residency, cohort, prospectus
-material: warm putty ground, near-black ink, Jost 700 capitals over Karla, square 2px and 3px ink rules, flat blue, red and yellow primaries
+material: warm putty ground with a lighter well, near-black ink, Jost 700 capitals and numerals over Karla, square 2px and 3px ink rules that box cells, flat ultramarine, vermilion and yellow primaries
 photo: mono
-pictured: Prospectus, Stage hero
+pictured: Catalogue, Settled hero
 ---
 
 # Werkstatt
 
-A design school's printed prospectus: a warm putty ground, near-black ink, heavy Jost capitals over a plain Karla body, square 2px and 3px ink rules, and three flat primaries, blue, red and yellow, each with one job. Its photographs are black and white records of the shops at work. It reads taught and sure of itself, like a programme pinned to a workshop wall. It is not a toy-box palette and not a pattern of confetti shapes.
+A design school's printed prospectus: a warm putty ground, near-black ink, heavy Jost capitals over a plain Karla body, square 2px and 3px ink rules, and three flat primaries, blue, red and yellow, each with one job. Its photographs are black and white records of the shops at work. It reads taught and sure of itself, like a programme pinned to a workshop wall: facts boxed in ruled cells, dates and numbers set as large as heads. It is not a toy-box palette and not a pattern of confetti shapes.
 
 ## Tokens
 
 ```css
 :root {
-  --color-paper: oklch(80% 0.02 80); --color-paper-2: oklch(76% 0.022 80); --color-paper-3: oklch(84% 0.018 80);
-  --color-ink: oklch(18% 0.005 60); --color-ink-2: oklch(26% 0.008 60); --color-muted: oklch(38% 0.012 60);
-  --color-rule: oklch(55% 0.02 70);
-  --color-accent: oklch(52% 0.24 265); --color-accent-2: oklch(60% 0.2 30); --color-accent-2-deep: oklch(52% 0.2 30); --color-accent-3: oklch(84% 0.17 90);
-  --color-accent-ink: oklch(96% 0.01 80); --color-focus: oklch(52% 0.24 265);
+  --color-paper: oklch(84% 0.024 82); --color-paper-2: oklch(79.5% 0.028 80); --color-paper-3: oklch(89.5% 0.018 84);
+  --color-ink: oklch(18% 0.008 60); --color-ink-2: oklch(27% 0.01 60); --color-muted: oklch(39% 0.014 62);
+  --color-rule: oklch(58% 0.022 72);
+  --color-accent: oklch(46% 0.2 264); --color-accent-2: oklch(58% 0.205 33); --color-accent-2-deep: oklch(50% 0.19 31); --color-accent-3: oklch(85% 0.165 92);
+  --color-accent-ink: oklch(96% 0.012 82); --color-focus: oklch(46% 0.2 264);
   --font-display: "Jost", "Futura", sans-serif; --font-body: "Karla", ui-sans-serif, system-ui, sans-serif;
   --font-outlier: "JetBrains Mono", ui-monospace, monospace;
   --radius-card: 0; --radius-pill: 0; --rule-hair: 1px; --rule-bar: 2px; --rule-box: 3px;
   --shadow-card: none;
-  --tracking-display: -0.005em;
+  --tracking-display: -0.005em; --display-weight: 700;
 }
 ```
 
@@ -43,18 +43,25 @@ Three colourways, set once per page and stated in the stamp (`werkstatt: putty`)
 
 ## Type
 
-- **Display:** Jost 700, uppercase, `--tracking-display`, line-height 1.02, at the shared steps. Capitals are the material: every head is set in them.
+- **Display:** Jost 700, uppercase, `--tracking-display`, line-height 1.02, at the shared steps. Capitals are the material: every head is set in them. Numerals and dates take the same face at display size and up, tabular, inside their cell.
 - **Body:** Karla 400, line-height 1.5.
-- **Labels, captions, tags, table heads:** Karla 600 a step smaller, sentence case, untracked, in `--color-muted`. Figures and prices in Karla with `tabular-nums`; mono only inside code.
+- **Labels, captions, tags, table heads:** Karla 600 a step smaller, sentence case, untracked, in `--color-muted`. Small figures and prices in Karla with `tabular-nums`; mono only inside code.
 - **Controls:** Karla 600 in capitals, following the display (the case gate 67 allows on an uppercase page), untracked.
 
 ## Surfaces
 
 - Rules: `--rule-box` ink lines box and cross a grid, `--rule-bar` ink runs under a nav and over every table, `--rule-hair` in `--color-rule` between rows. No card has a background; a cell is what the rules enclose.
 - Zero radius and zero shadow everywhere.
-- Bands: a `--color-paper-2` band, an `--color-ink` band with paper text in the `blackboard` colours, or one blue field with `--color-accent-ink` text; two bands a page at most.
+- Bands: a `--color-paper-2` band, an `--color-ink` band with paper text in the `blackboard` colours, or one blue field with `--color-accent-ink` text; two bands a page at most. `--color-paper-3` is a well inside a ruled cell, never a band.
 - Photographs: the shops at work, documentary and plain, at bench height or from just above: a bench and its tools, hands at a plane, a press or a wheel, wood, type and clay close enough to read the grain; daylight, nobody facing the lens. Printed black and white (the `photo:` mono) so the primaries stay the only colour; square, in a `--rule-bar` ink border, flush with the cells around them. A shop's primary runs as the flat cell or bar beside or under its picture and carries the caption; it never tints the photograph, and type never sits on one.
 - No texture, and no gradient anywhere.
+
+## Range
+
+- **Figures in boxed cells:** the brief's real numbers in Jost 700 at display size, each in its own `--rule-box` cell across the twelve columns, the label in Karla beneath; no primary, since a set of one kind takes no colour.
+- **Dates as a ruled schedule:** the deadline and the term set as rows of capitals as large as a section head, the day left, what happens right, a `--rule-bar` over the first row.
+- **The categories as a coded grid:** each shop, track or room in its primary cell, flush with its neighbours, with a black and white photograph or a list of what it covers above the fill.
+- **Forms as a ruled sheet:** fields boxed in a grid of cells like an entry form, the category choice in its primaries, the submit an ink block at the foot.
 
 ## Controls
 

@@ -6,7 +6,7 @@ Real product captures are the primary content. The page is a guided tour of the 
 - **Body:** a sequence of capture blocks, each a `<figure>` with a `<figcaption>` that states a fact and one inline annotation.
 - **Divider:** the figure is the divider; sections separate by gap and figure.
 - **Button:** the hero's one action (44b), then, where the theme allows a sticky element, a bottom bar carrying it after the third capture, labelled with the verb ("Start a project").
-- **Image:** the real capture, unframed, in a `<figure>`, or a labelled `data-slot` when the user has not supplied it (`craft.md` § 8). No browser or device chrome (47a, 47b).
+- **Image:** the real capture, unframed, in a `<figure>`; until the user supplies it, the product built in a `data-slot` (`imagery.md` § 4). No browser or device chrome (47a, 47b).
 - **Reveal:** one type-unmask, on the first caption; the captures load instantly and the rest is simply there.
 
 Reach for it for SaaS, developer tools, editor extensions, anywhere seeing the product in use is the sale.

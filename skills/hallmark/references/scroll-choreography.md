@@ -41,7 +41,7 @@ The tall track owns a named view-timeline; the pinned pane's steps consume it in
 
 ## 2 · Scrub-linked headline: one display element, clip wipe
 
-For a mid-page statement head (Ft5 / T3 register), never the hero h1 (that is load-orchestration territory). One element per page, ever.
+For a mid-page Statement head (`layout.md` § 5), never the hero `h1`, whose entrance is the load reveal. One element a page.
 
 ```css
 .statement__head { /* base: fully drawn */ }

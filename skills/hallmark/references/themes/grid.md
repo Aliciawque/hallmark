@@ -20,15 +20,15 @@ A rational, institutional voice: a cool near-white sheet, cool near-black ink, o
 
 ```css
 :root {
-  --color-paper: oklch(99% 0.005 255); --color-paper-2: oklch(97.2% 0.005 255); --color-paper-3: oklch(94.5% 0.005 255);
+  --color-paper: oklch(99% 0.005 255); --color-paper-2: oklch(96.6% 0.006 255); --color-paper-3: oklch(93.5% 0.007 255);
   --color-ink: oklch(16% 0.010 255); --color-ink-2: oklch(26% 0.010 255); --color-muted: oklch(48% 0.012 255);
-  --color-rule: oklch(88% 0.006 255);
+  --color-rule: oklch(87% 0.007 255);
   --color-accent: oklch(54% 0.21 28); --color-accent-ink: oklch(99% 0.005 255); --color-focus: oklch(54% 0.21 28);
   --color-field: oklch(54% 0.21 28); --color-field-ink: oklch(99% 0.005 255);
   --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif; --font-body: var(--font-display);
   --font-outlier: var(--font-display);
   --radius-card: 0; --radius-pill: 0; --rule-hair: 1px; --shadow-card: none;
-  --tracking-display: -0.015em; --display-weight: 800;
+  --tracking-display: -0.025em; --display-weight: 800;
 }
 ```
 
@@ -42,7 +42,7 @@ One dial, the signal ink, stated in the stamp (`grid: red`). `--color-focus` and
 
 ## Type
 
-- **Display:** Archivo 800, lowercase, `--tracking-display`, line-height 1.0; one weight and one colour per head, section heads included. Every line starts on a column line, flush left and ragged right; nothing is centred or justified.
+- **Display:** Archivo 800, lowercase, `--tracking-display`, line-height 0.95 at hero size and 1.0 below; one weight and one colour per head. Every line starts on a column line, flush left and ragged right; nothing is centred or justified. Figures and index letters take the display setting with `tabular-nums`, larger than any head beside them.
 - **Body:** Archivo 400 at 16px, line-height 1.5, flush left. One family: discipline comes from weight, scale and tracking, never from a second face.
 - **Labels, captions, table heads, meta, units:** Archivo 500 a step smaller, sentence case, untracked, `--color-muted`. Figures take `tabular-nums` in Archivo; there is no mono.
 
@@ -54,10 +54,17 @@ One dial, the signal ink, stated in the stamp (`grid: red`). `--color-focus` and
 - Photographs: documentary and frontal, in even light, the subject squared to the frame: a drawer from above, a sheet flat on a table, a press from the side, a room from its door. They print in the cool ink on the paper (the `photo:` duotone), square, edged with a 1px `--color-rule` hairline and cropped so their edges fall on column lines. Type never sits on one; the caption runs beneath, flush left on the picture's first column, in the label style.
 - Texture, the rails: a 1px `--color-rule` line at the left edge of each of the shared twelve columns, painted over the content box of a band's container or a well; across a signal field they run at 15% paper. Never under running text or a photograph.
 
+## Range
+
+- **The index as type:** letters, decades or names set at display size as links, one to a column cell on the rails, the cell stepping to `--color-paper-2` on hover and the chosen one flooding the signal ink.
+- **The record as rows:** a pinned head on columns 1 to 4 beside full-width rows on 5 to 12, each field name at section size in lowercase, its definition and one link on the right, parted by hairlines under a solid ink rule.
+- **Figures on the rails:** the brief's own counts and dates at display size in a `--color-paper-2` well, the rails running through the air between them, one figure at most in the signal ink.
+- **A field of the signal ink:** a working control (a filter, the year field, the search) flooded edge to edge, paper type on its own rails at 15%.
+
 ## Controls
 
 - An ink-filled square block with paper text beside a 1px ink-outlined block whose outline moves to the signal ink on hover.
-- Links in ink with a 1px underline; inputs square with a 1px `--color-muted` border.
+- Links in ink with a 1px underline; inputs square with a 1px `--color-muted` border; a keyboard hint is a 1px square around one character.
 - `::selection` is the signal ink with paper text (ink on yellow). Otherwise the ink sits on a field band, an outline's hover, the focus ring and one figure.
 
 ## Motion

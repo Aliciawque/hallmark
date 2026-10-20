@@ -6,8 +6,8 @@ Sticky left pane holding the heading, scroll-synced right pane cycling through r
 - **Body:** two columns, left sticky, right scrolling; the right pane plays through 3 to 6 detail captures per section.
 - **Divider:** section bands; the sticky pane re-anchors per section, at `top: var(--banner-height)` under a sticky nav (56).
 - **Button:** in the sticky pane, shown once the section's last capture is reached; with scripting off it is simply there (62).
-- **Image:** the scrolling column is mostly real captures, or labelled slots, five empty ones at most on the page (68).
-- **Reveal:** none of the fade kind; the sticky scroll is the motion. Choreograph it with [`../scroll-choreography.md`](../scroll-choreography.md) § 4 Sticky diptych with the pane kept on the left (`craft.md` § 3), or § 1 Pinned chapter: one pattern per page.
+- **Image:** the scrolling column is real captures, or the product built in slots until they arrive (`imagery.md` § 4); never a run of empty frames (68).
+- **Reveal:** none of the fade kind; the sticky scroll is the motion. Choreograph it with [`../scroll-choreography.md`](../scroll-choreography.md) § 4 Sticky diptych with the pane kept on the left, or § 1 Pinned chapter: one pattern per page.
 
 Reach for it for premium products, complex feature stories, anywhere the pacing should be controlled as the visitor scrolls.
 

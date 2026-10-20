@@ -51,7 +51,7 @@ When the shape is **Bento Grid, Stat-Led, Workbench or Marquee Hero** and the br
 
 | Card | Needs | Without it |
 | --- | --- | --- |
-| Hero visual | a real capture, or "leave slots" for a labelled `data-slot` | a typographic hero; never a styled-div product UI (47c) |
+| Hero visual | a real capture | the product built in a `data-slot` (`imagery.md` § 4), or a typographic hero; never a styled-div UI outside a slot (47c) |
 | Logo row | the user's own customer marks, with permission to show them | the card does not exist; no invented marks, no "Trusted by" line (46a, 54) |
 | Three features | three named capabilities, each with a capture or figure to show | fold them into the worked example or the spec sheet |
 | Testimonials | quotes the user supplied verbatim, with the person's name, role and company as given | the card does not exist; no plausible names, no paraphrase (46a, 19) |
@@ -67,6 +67,8 @@ For non-SaaS work (Editorial, Manifesto, Letter, Long Document, Quote-Led) this 
 ---
 
 ## How to pick
+
+On a theme build the draw deals the shape (SKILL.md Step 2); these steps are for a swap the material forces, or a run without Node.
 
 0. **Read the material inventory** (SKILL.md Step 2). A shape built on screenshots or figures needs them, real or as slots the user asked for; with neither, pick a shape that carries type and facts.
 1. **Read the brief.** Note any words that strongly signal one shape ("data heavy", "tell a story", "a list of links", "many small features", "personal note").

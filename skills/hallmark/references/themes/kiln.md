@@ -9,7 +9,7 @@ posture: full-palette
 keywords: kiln, ceramics, pottery, firing, glaze, heat, temperature, ceramics studio, craft, sensor, monitor, hardware, iot, warmth, dark, glow, schedule, workshop
 material: near-black ground, cream ink, Boska over Geist, smoked wells, photographs lit by the work, a heat ramp that marks temperature, one ember signal
 photo: warm sepia=50 sat=-12 con=8 exp=-6
-pictured: Photographic, Stage hero
+pictured: Workbench, Stage hero
 ---
 
 # Kiln
@@ -20,7 +20,7 @@ A dark workshop with the kiln door open a crack: a near-black ground, cream ink,
 
 ```css
 :root {
-  --color-paper: oklch(13% 0.012 40); --color-paper-2: oklch(16% 0.014 40); --color-paper-3: oklch(20% 0.016 40);
+  --color-paper: oklch(13% 0.012 40); --color-paper-2: oklch(17.5% 0.016 40); --color-paper-3: oklch(22% 0.018 40);
   --color-ink: oklch(94% 0.02 80); --color-ink-2: oklch(84% 0.025 70); --color-muted: oklch(72% 0.03 60);
   --color-rule: oklch(96% 0.01 80 / 0.12);
   --color-accent: oklch(70% 0.2 45); --color-accent-ink: oklch(14% 0.02 40); --color-focus: oklch(76% 0.19 56);
@@ -28,7 +28,7 @@ A dark workshop with the kiln door open a crack: a near-black ground, cream ink,
   --heat-4: oklch(76% 0.19 56); --heat-5: oklch(89% 0.14 78); --heat-6: oklch(98% 0.04 95);
   --font-display: "Boska", "Iowan Old Style", Georgia, serif; --font-body: "Geist", ui-sans-serif, system-ui, sans-serif;
   --font-outlier: "Geist Mono", ui-monospace, monospace;
-  --radius-card: 28px; --radius-pill: 999px; --rule-hair: 1px;
+  --radius-card: 28px; --radius-well: 16px; --radius-pill: 999px; --rule-hair: 1px;
   --shadow-card: 0 50px 90px -30px oklch(8% 0.01 40 / 0.5);
   --tracking-display: -0.02em; --display-weight: 500;
 }
@@ -44,18 +44,26 @@ Three colourways, stated in the stamp (`kiln: ember`).
 
 ## Type
 
-- **Display:** Boska 500, `--tracking-display`, line-height 1.04, sentence case, roman, one colour per head. Figures that carry the story (a temperature, a firing time, the price) are Boska too, lining, at -0.03em.
+- **Display:** Boska 500, `--tracking-display`, line-height 1.04, sentence case, roman, one colour per head; a statement set in it may run to `--text-display` at line-height 1.0.
+- **Figures:** a temperature, a firing time or the price that carries the story is Boska 500, lining and tabular, at -0.03em, its unit (°C, h, £) in the same face; a lone figure may run twice the hero head.
 - **Body:** Geist 400 and 500 at 16 to 18px, line-height 1.55.
 - **Labels, captions, axis ticks, table heads:** Geist 500 a step smaller, sentence case, untracked, in `--color-muted`. Geist Mono only inside code.
 
 ## Surfaces
 
 - 1px `--color-rule` between rows, on a well's edge and on a chart's grid; no rule brighter than that.
-- Radius 28px on photographs and built screens, scaled down with the viewport; 16px on wells and inputs; pills on controls.
-- Wells are smoked: `--color-paper-2`, a 1px rule edge, no shadow, never blurred, never nested. `--shadow-card`, a deep low drop, only under a built screen standing on the ground or a photograph, never with a ring.
+- Radius 28px on photographs and built screens, scaled down with the viewport; `--radius-well` on wells and inputs; pills on controls.
+- Wells are smoked: `--color-paper-2` a clear step above the ground, a 1px rule edge, no shadow, never blurred, never nested. `--shadow-card`, a deep low drop, only under a built screen standing on the ground or a photograph, never with a ring.
 - Heat marks temperature and nothing else: the ramp colours a firing curve in steps, each band of degrees its own colour, oxblood low to white heat at the peak, and a range track (three stops). It never fills a box, a band, a slot or the ground, and no text sits on it.
 - Bands: a `--color-paper-2` band, two a page at most.
-- Photographs: the work, close and in low light: a kiln at temperature, cones on a pad, glaze, pots on a shelf, hands in clay, lit only by the kiln's glow, a bench lamp or a window, shadows falling into the ground. A 28px frame with a 1px inset ring of cream at 8%. Captions sit beside or under in the label style; type on a photograph sits only on its dark side, over a paper scrim at 40 to 65%.
+- Photographs: the work, close and in low light: a kiln at temperature, a loaded kiln, glaze, pots on a shelf, hands in clay, lit by the kiln, a bench lamp or a window, shadows falling into the ground. A 28px frame with a 1px inset ring of cream at 8%; type on one sits only on its dark side, over a paper scrim at 40 to 65%.
+
+## Range
+
+- A firing schedule as rows: each segment's rate and target in Boska figures, keyed by a short bar of the ramp step its target reaches.
+- A reading or a warning set as a statement: Boska at `--text-display` across ten columns, cream on the ground, the hour and the kiln beside it in Geist; nothing else on the screen.
+- A log as a full-width table: date, firing and cone in Geist, the peak in Boska keyed to its ramp step, a sparkline of the whole curve per row in `--color-ink-2`.
+- A price or a temperature as one figure on a smoked band, the action beside it.
 
 ## Controls
 
@@ -78,6 +86,7 @@ Calm and physical, in a potter's words: the cone, the degrees, the hour, the loa
 - Never a brown or warm-lit ground; it stays near-black so the heat has somewhere to rise from.
 - Never a bright, flat-lit photograph or a pot on white seamless.
 - Never a third hue beside the ramp.
+- Never a photograph on every screen: the fire lives in the curve and the figures too.
 
 ## Build hint
 
@@ -90,7 +99,8 @@ h1, h2, h3 { font-weight: var(--display-weight); line-height: 1.04; }
 .btn { display: inline-flex; align-items: center; min-height: 50px; padding: 0 var(--space-lg); border-radius: var(--radius-pill); font-weight: 500; transition: background-color var(--dur-short) var(--ease-out); }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--ghost { background: transparent; color: var(--color-ink); box-shadow: inset 0 0 0 var(--rule-hair) var(--color-rule); }
-.well { background: var(--color-paper-2); border: var(--rule-hair) solid var(--color-rule); border-radius: 16px; }
+.well { background: var(--color-paper-2); border: var(--rule-hair) solid var(--color-rule); border-radius: var(--radius-well); }
+.figure { font-family: var(--font-display); font-weight: var(--display-weight); letter-spacing: -0.03em; font-variant-numeric: lining-nums tabular-nums; }
 .photo { border-radius: min(2vw, var(--radius-card)); outline: var(--rule-hair) solid color-mix(in oklab, var(--color-ink) 8%, transparent); outline-offset: -1px; }
 .scrim { background: linear-gradient(to top, color-mix(in oklab, var(--color-paper) 65%, transparent), transparent 55%); }
 .range-track { background: linear-gradient(to right, var(--heat-2), var(--heat-4), var(--heat-6)); }

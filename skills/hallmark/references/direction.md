@@ -33,7 +33,7 @@ What every model ships, refused on sight:
 
 ## Pictures
 
-Only when the subject has something to show. A place, food, people at work, an object, a craft: photographs, few and large, the user's or the library's (`imagery.md` § 2), credited. Software: the product itself, built and working (`imagery.md` § 4). A service, an idea or a body of words: type and colour can carry the whole page, and often should. Every picture passes the deletion test: take it away and the page loses a fact. A picture for mood alone goes.
+Only when the subject has something to show. A place, food, people at work, an object, a craft: photographs, few and large, the user's or the library's (`imagery.md` § 2), credited, never a wall of them (83). Software: the product itself, built and working (`imagery.md` § 4). A service, an idea or a body of words: type and colour can carry the whole page, and often should. Every picture passes the deletion test: take it away and the page loses a fact. A picture for mood alone goes.
 
 ## Words
 

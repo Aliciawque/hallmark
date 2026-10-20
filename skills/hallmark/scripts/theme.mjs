@@ -7,7 +7,7 @@ import { createHash, randomBytes } from 'node:crypto';
 const HERE = dirname(fileURLToPath(import.meta.url));
 const THEMES = join(HERE, '..', 'references', 'themes');
 const INDEX = join(THEMES, 'index.json');
-const VERSION = '2.7.0';
+const VERSION = '2.8.0';
 const PHOTOS = join(HERE, 'photos.json');
 const args = process.argv.slice(2);
 const cmd = args[0];
@@ -377,7 +377,7 @@ async function photos() {
       const file = join(resolve(saveDir), `${savedName(p.id)}-${w}.jpg`);
       try {
         let res;
-        for (let t = 0; t < 4; t++) { res = await fetch(thumbOf(p, w), { headers: { 'User-Agent': 'Hallmark/2.7 (https://github.com/Nutlope/hallmark; theme.mjs photos --save)' } }); if (res.status !== 429) break; await new Promise((ok) => setTimeout(ok, 10000 * (t + 1))); }
+        for (let t = 0; t < 4; t++) { res = await fetch(thumbOf(p, w), { headers: { 'User-Agent': 'Hallmark/2.8 (https://github.com/Nutlope/hallmark; theme.mjs photos --save)' } }); if (res.status !== 429) break; await new Promise((ok) => setTimeout(ok, 10000 * (t + 1))); }
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         writeFileSync(file, Buffer.from(await res.arrayBuffer())); p.saved = file;
       } catch (e) { p.saved = null; p.error = String(e.message || e); }
@@ -559,8 +559,8 @@ function validate(files) {
       if (!['restrained', 'committed', 'full-palette', 'drenched'].includes(e.posture)) problems.push(`posture ${e.posture}`);
       if (e.keywords.length < 8) problems.push(`only ${e.keywords.length} keywords`);
       if (/[\u2014\u2013]/.test(src)) problems.push('contains an em or en dash');
-      if (src.length > 7000) problems.push(`${src.length} bytes, over 7 KB`);
-      for (const sec of ['Tokens', 'Type', 'Surfaces', 'Controls', 'Motion', 'Voice', 'Do-nots', 'Build hint']) if (!new RegExp(`^## ${sec}\\b`, 'm').test(src)) problems.push(`missing the ${sec} section`);
+      if (Buffer.byteLength(src) > 8000) problems.push(`${Buffer.byteLength(src)} bytes, over 8,000`);
+      for (const sec of ['Tokens', 'Type', 'Surfaces', 'Range', 'Controls', 'Motion', 'Voice', 'Do-nots', 'Build hint']) if (!new RegExp(`^## ${sec}\\b`, 'm').test(src)) problems.push(`missing the ${sec} section`);
       if (!/^photo:/m.test(src)) problems.push('no photo: line in the header (natural, warm, muted, mono, duotone <dark> <light> or tint <token>, imagery.md § 5)');
       else { const t = treatmentOf(/^photo:\s*(.*)$/m.exec(src)[1], tokensOf(src, f)); if (t.bad.length) problems.push(`photo: ${t.bad.join('; ')}`); }
       if (/\b(?:hand-built|hand-drawn|drawn) (?:svg|illustration|object|figure)|\bsvg (?:illustration|drawing|figure)/i.test(src)) problems.push('prescribes a drawn illustration (imagery.md § 7, gate 80)');
@@ -591,7 +591,7 @@ function validate(files) {
       if (/\/\*/.test(fence)) problems.push('comment inside the token block');
       if (!existsSync(f.replace(/\.md$/, '.jpg'))) console.log(`${f}: note, no picture yet (scripts/picture.mjs)`);
       if (!/waive 22/.test(src)) for (const m of fence.matchAll(/(--color-(?:paper|paper-2|paper-3|ink|ink-2|muted|rule|rule-2)):\s*oklch\(\s*[\d.]+%\s+([\d.]+)/g)) if (Number(m[2]) < 0.005) problems.push(`${m[1]} chroma ${m[2]} is under the 0.005 floor (gate 22), or the file names waive 22`);
-      for (const k of ['--color-paper', '--color-ink', '--color-muted', '--color-rule', '--color-accent', '--color-accent-ink', '--color-focus', '--font-display', '--font-body', '--radius-card', '--tracking-display']) if (!fence.includes(k + ':')) problems.push(`token block lacks ${k}`);
+      for (const k of ['--color-paper', '--color-ink', '--color-muted', '--color-rule', '--color-accent', '--color-accent-ink', '--color-focus', '--font-display', '--font-body', '--radius-card', '--tracking-display', '--display-weight']) if (!fence.includes(k + ':')) problems.push(`token block lacks ${k}`);
       const tok = {};
       for (const m of fence.matchAll(/(--color-[\w-]+):\s*oklch\(\s*([\d.]+)%\s+([\d.]+)\s+([\d.]+)\s*\)/g)) tok[m[1]] = [Number(m[2]) / 100, Number(m[3]), Number(m[4])];
       const pairs = [['--color-ink-2', '--color-paper'], ['--color-muted', '--color-paper'], ['--color-muted', '--color-paper-2'], ['--color-accent-ink', '--color-accent']];

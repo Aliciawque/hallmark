@@ -2,69 +2,76 @@
 name: Editorial
 slug: editorial
 genre: editorial
-paper: light 96.5 88
+paper: light 97 86
 display: display-condensed Bricolage Grotesque
 accent: chromatic-green 152
 posture: restrained
 keywords: magazine, editorial, feature, culture, fashion, design annual, interview, longform, publication, issue, contemporary, art direction, profile, lookbook, brand story, journal, considered, travel, city guide, guide
-material: warm white uncoated stock, printed black ink with a cool tilt, Bricolage Grotesque condensed at 800 over Source Serif 4, square corners and 1px hairlines, one printer's green
+material: warm white uncoated stock, printed black ink with a cool tilt, Bricolage Grotesque condensed at 800 over Source Serif 4, square corners, a heavy ink rule over 1px hairlines, one printer's green
 photo: natural sat=-10 con=4
-pictured: Marquee Hero, Poster hero
+pictured: Marquee Hero, Stage hero
 ---
 
 # Editorial
 
-A contemporary magazine voice: warm white uncoated stock, a printed black with a faint cool tilt (hue 280), Bricolage Grotesque at 800 squeezed to width 75 for every head, Source Serif 4 for reading, square corners, 1px hairlines and one printer's green. It reads as art-directed because the condensed head, the serif text and the photographs carry it, not ornament. It is not a serif literary journal, not a cream page with a terracotta accent, and not a poster of giant numerals.
+A contemporary magazine voice: warm white uncoated stock, a printed black with a faint cool tilt that runs through the reading text too, Bricolage Grotesque at 800 squeezed to width 75 for every head, Source Serif 4 for reading and the standfirst, square corners, a heavy ink rule over 1px hairlines, one printer's green. The condensed head, the serif standfirst and the rule carry it, not ornament. It is not a serif literary journal, not cream with terracotta, and not a gallery of captioned photographs.
 
 ## Tokens
 
 ```css
 :root {
-  --color-paper: oklch(96.5% 0.008 88); --color-paper-2: oklch(93.5% 0.010 88); --color-paper-3: oklch(90.5% 0.012 86);
-  --color-ink: oklch(16% 0.012 280); --color-ink-2: oklch(27% 0.010 60); --color-muted: oklch(47% 0.012 70);
-  --color-rule: oklch(84% 0.010 85); --color-rule-2: oklch(66% 0.010 80);
+  --color-paper: oklch(97% 0.007 86); --color-paper-2: oklch(94% 0.010 86); --color-paper-3: oklch(91% 0.012 84);
+  --color-ink: oklch(16% 0.012 280); --color-ink-2: oklch(29% 0.011 280); --color-muted: oklch(48% 0.010 75);
+  --color-rule: oklch(85% 0.009 85); --color-rule-2: oklch(64% 0.010 80);
   --color-accent: oklch(49% 0.130 152); --color-accent-ink: oklch(98% 0.005 88); --color-focus: oklch(52% 0.135 152);
   --font-display: "Bricolage Grotesque", ui-sans-serif, sans-serif; --font-body: "Source Serif 4", ui-serif, Georgia, serif;
-  --radius-card: 0; --radius-pill: 0; --rule-hair: 1px; --shadow-card: none;
-  --tracking-display: -0.01em; --display-weight: 800;
+  --radius-card: 0; --radius-pill: 0; --rule-hair: 1px; --rule-heavy: 4px; --shadow-card: none;
+  --tracking-display: -0.012em; --display-weight: 800;
 }
 ```
 
 ## Type
 
-- **Display:** Bricolage Grotesque 800 with `"wdth" 75, "opsz" 96`, `--tracking-display`, sentence case, roman, line-height 1.0 to 1.05. Condensed, it sets narrow for its size, so a section head may take one step up (`--text-display-s`). One weight and one colour per head.
-- **Body:** Source Serif 4 400 and its italic at 17 to 19px, optical size automatic, line-height 1.55, in `--color-ink-2`. A quotation takes the italic at `--text-lead` to `--text-title`, never a head and never a word inside one.
-- **Labels, captions, nav links, controls, table heads, bylines:** Bricolage Grotesque 500 at `"opsz" 12` and full width, a step smaller, sentence case, untracked; captions in `--color-muted`. No mono on the page.
+- **Display:** Bricolage Grotesque 800 with `"wdth" 75, "opsz" 96`, `--tracking-display`, sentence case, roman. Line-height 0.92 at hero size, 1.0 for heads. Condensed, it takes one step up: a section head may run at `--text-display-s`, a lone hero word at twice `--text-display`. One weight and one colour per head.
+- **Body:** Source Serif 4 400 and its italic at 18px, optical size automatic, line-height 1.55, oldstyle figures in running text, in `--color-ink-2`. The standfirst (the line under a head, or a statement) is the same face at `--text-lead` up to `--text-display-s`, ink, line-height 1.2 at the large end. A quotation takes the italic; italic never enters a head.
+- **Labels, captions, nav links, controls, table heads, bylines:** Bricolage Grotesque 500 at `"opsz" 12`, full width, a step smaller, sentence case, untracked; captions in `--color-muted`. Figures set in the display face take lining tabular numerals. No mono on the page.
 
 ## Surfaces
 
-- 1px `--color-rule` hairlines part rows, columns and sections; `--color-rule-2` is the firmer rule over a table or a list. Nothing is boxed: no card border, no shadow, no blur.
+- Two rule weights: a `--rule-heavy` ink rule opens a section or a table, the head flush under it; 1px `--color-rule` hairlines part rows, columns and figures, `--color-rule-2` under a table head. Nothing is boxed, nothing casts a shadow.
 - Radius 0 on everything: controls, tags, inputs, wells and photographs are sharp rectangles.
-- Depth is a paper step: a well is `--color-paper-2` under a `--color-rule-2` rule, never a raised card.
-- Bands: a `--color-paper-2` band or one `--color-ink` band with `--color-paper` text; never a green band. Two a page at most.
-- Photographs: editorial photography, seen close: hands at work, an object on a table, a room or a street in daylight, printed pages. Mid to close distance, soft window light, people from behind or cropped at the shoulder, never a face to the lens. Natural colour, a little quieter than life (the `photo:` line). Square corners, no border, an inset ink outline at 8%; full-bleed, or cut to a column edge with the type beside it. Captions sit under the frame in the label face; a head crosses a photograph only as a cover line, once a page, on its calmest third over an ink scrim.
+- Depth is a paper step: a well is `--color-paper-2` under a `--color-rule-2` hairline, never a raised card.
+- Bands: a `--color-paper-2` well and one `--color-ink` band with `--color-paper` type, two a page at most; never a green band.
+- Photographs: seen close: hands at work, an object on a bench, a room in daylight, printed pages. Soft window light, people from behind, never a face to the lens; a little quieter than life, square, an inset ink outline at 8%, full-bleed or cut to a column edge. A head crosses a photograph only as a cover line, once a page, over an ink scrim. Two or three big pictures below the first screen; the material carries the rest.
 - No texture, no grain, no mesh.
+
+## Range
+
+- **Contents as rows:** under the heavy rule, three to six hairline rows, a title in the condensed head at about 40px on the left, its standfirst in the serif on the right, a page or date in the display face at the far edge.
+- **The standfirst as a statement:** one or two sentences in Source Serif at `--text-display-s`, ink across ten columns under the heavy rule; the serif at size is as much this theme as the head.
+- **Figures reversed out:** on the ink band, three or four of the brief's numbers in the condensed head at `--text-display`, parted by hairlines, labels beneath.
+- **The order as a spec sheet:** a form on the paper-2 well, its facts in a ruled table beside the fields, the total in the display face, updated as the quantity changes.
 
 ## Controls
 
-- An ink-filled square block (`--color-paper` on `--color-ink`) beside a 1px ink-outlined block, both in the label face; a tag may be the one filled green rectangle.
-- Links carry a hairline underline that turns green on hover; inputs are square with a 1px `--color-muted` border.
-- Green stays under 5% of a screen: a link's hover, one tag, the focus ring; never a field, never behind running text.
+- An ink-filled square block (`--color-paper` on `--color-ink`) beside a 1px ink-outlined block, both in the label face, 48px tall; a tag may be the one filled green rectangle.
+- Links carry a hairline underline that turns green on hover; inputs and selects are square, 52px tall, with a 1px `--color-rule-2` border that turns ink on focus.
+- Green stays under 5% of a screen: a hover, one tag, the focus ring.
 
 ## Motion
 
-State only: a green underline grows under a link over `--dur-short` on `--ease-out`, a block darkens one step. No reveal, nothing on scroll.
+State only: a green underline grows under a link over `--dur-short` on `--ease-out`, a block darkens one step, a total changes in place. No reveal, nothing on scroll.
 
 ## Voice
 
-Contemporary, lightly literary, exact. Name the issue, the piece, the page count, the date; a head reads like a cover line, never a category.
+Contemporary, lightly literary, exact. Name the issue, the page count, the date; a head reads like a cover line, a standfirst says the argument in one breath.
 
 ## Do-nots
 
-- Never a serif head; Source Serif 4 sets reading text and quotations, never an `h1` to `h3`.
+- Never a serif head; Source Serif 4 sets reading text, standfirsts and quotations, never an `h1` to `h3`.
 - Never Bricolage at its default width; without `"wdth" 75` the head loses the magazine proportion.
-- Never a rounded corner, a pill or a shadow.
-- Never a figure at poster size standing in for a cover: a price, a page count or a date sets at the section size beside its label, and the cover is a photograph.
+- Never a rounded corner, a pill, a shadow, or a rule in green.
+- Never two picture sections in a row; follow each with rows, a standfirst or the figures.
 - Never an all-caps shout; sentence case, tight, magazine-modern.
 
 ## Build hint
@@ -74,12 +81,12 @@ Contemporary, lightly literary, exact. Name the issue, the piece, the page count
 ```
 
 ```css
-body { color: var(--color-ink-2); font-optical-sizing: auto; }
-h1, h2, h3 { font-weight: var(--display-weight); font-variation-settings: "wdth" 75, "opsz" 96; color: var(--color-ink); }
-h3 { font-variation-settings: "wdth" 75; }
+body { color: var(--color-ink-2); font-optical-sizing: auto; font-variant-numeric: oldstyle-nums; }
+h1, h2, h3 { font-weight: var(--display-weight); font-variation-settings: "wdth" 75, "opsz" 96; color: var(--color-ink); font-variant-numeric: lining-nums tabular-nums; }
 small, figcaption, th, nav, label, .btn, .tag { font-family: var(--font-display); font-weight: 500; font-variation-settings: "opsz" 12; }
-blockquote { font: italic 400 var(--text-lead)/1.35 var(--font-body); color: var(--color-ink); }
-.btn { border: var(--rule-hair) solid var(--color-ink); border-radius: 0; padding: var(--space-sm) var(--space-lg); }
+.standfirst { font: 400 var(--text-display-s)/1.2 var(--font-body); color: var(--color-ink); }
+.opens { border-top: var(--rule-heavy) solid var(--color-ink); padding-top: var(--space-lg); }
+.btn { border: var(--rule-hair) solid var(--color-ink); border-radius: 0; min-height: 48px; padding: 0 var(--space-lg); }
 .btn--primary { background: var(--color-ink); color: var(--color-paper); }
 .btn--secondary { background: none; color: var(--color-ink); }
 .tag { background: var(--color-accent); color: var(--color-accent-ink); padding: var(--space-3xs) var(--space-xs); }

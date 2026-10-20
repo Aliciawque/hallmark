@@ -151,5 +151,32 @@
       "scope": "page",
       "notes": "With and without Hallmark on Opus 5.5 at low effort, for the landing page."
     }
+  },
+  {
+    "id": "b18",
+    "name": "landing comparison",
+    "brief": "Build a landing page for Tidepool, a sea-swimming club in Brighton that meets at 7am every day of the year, with a sauna on the beach and a beginners' week each month.",
+    "expect": {
+      "scope": "page",
+      "notes": "With and without Hallmark on Opus 5.5 at low effort, for the landing page."
+    }
+  },
+  {
+    "id": "b19",
+    "name": "landing comparison",
+    "brief": "Build a landing page for Ledgerline, an API that turns bank statements from any UK bank into clean, categorised transactions for accounting software.",
+    "expect": {
+      "scope": "page",
+      "notes": "With and without Hallmark on Opus 5.5 at low effort, for the landing page."
+    }
+  },
+  {
+    "id": "b20",
+    "name": "landing comparison",
+    "brief": "Build a landing page for Fold & Thread, a bookbinding studio in Edinburgh that runs weekend courses and repairs old books.",
+    "expect": {
+      "scope": "page",
+      "notes": "With and without Hallmark on Opus 5.5 at low effort, for the landing page."
+    }
   }
 ]

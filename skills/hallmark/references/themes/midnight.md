@@ -9,21 +9,21 @@ posture: committed
 keywords: render, 3d, animation, vfx, film, video, frames, pipeline, generative, ai tool, model playground, dark mode, nocturnal, late-night, after-hours, overnight, moody, cinematic, cerebral, calm, technical, midnight
 material: midnight-blue ground to every edge, cool white ink, Mona Sans expanded at 300 over its normal width, square-cut surfaces in lightness steps, photographs as moonlight, one azure signal
 photo: duotone paper ink-2
-pictured: Feature Stack, Stage hero
+pictured: Narrative Workflow, Settled hero
 ---
 
 # Midnight
 
-A cold, calm night instrument whose blue is the ground itself: deep midnight blue to every edge, cool white ink, Mona Sans at an expanded 300 for the heads like titles on a film, the same family at its normal width for reading, surfaces cut square in steps of lighter blue, and one azure signal. Photographs arrive as moonlight, their shadows in the ground's blue and their highlights in the ink. It is not a neon dark mode, not frosted glass, and not a black page with a blue button.
+A cold, calm night instrument whose blue is the ground itself: deep midnight blue to every edge, cool white ink, Mona Sans at an expanded 300 for the heads like titles on a film, the same family at its normal width for reading, surfaces cut square in steps of lighter blue, one azure signal. Photographs arrive as moonlight, shadows in the ground's blue and highlights in the ink. It is not a neon dark mode, not frosted glass, and not a black page with a blue button.
 
 ## Tokens
 
 ```css
 :root {
   --color-paper: oklch(14% 0.048 264); --color-paper-2: oklch(18.5% 0.052 264); --color-paper-3: oklch(23% 0.055 264);
-  --color-ink: oklch(95% 0.016 250); --color-ink-2: oklch(88% 0.05 245); --color-muted: oklch(71% 0.04 256);
+  --color-ink: oklch(95% 0.016 250); --color-ink-2: oklch(88% 0.05 245); --color-muted: oklch(73% 0.04 256);
   --color-rule: oklch(29% 0.058 264); --color-rule-2: oklch(40% 0.06 262);
-  --color-accent: oklch(80% 0.11 230); --color-accent-ink: oklch(16% 0.05 264); --color-focus: oklch(84% 0.12 228);
+  --color-accent: oklch(80% 0.11 230); --color-accent-2: oklch(58% 0.1 236); --color-accent-ink: oklch(16% 0.05 264); --color-focus: oklch(84% 0.12 228);
   --font-display: "Mona Sans", ui-sans-serif, system-ui, sans-serif; --font-body: var(--font-display); --font-outlier: var(--font-display);
   --radius-card: 0; --radius-pill: 0; --rule-hair: 1px;
   --shadow-card: 0 24px 48px -24px oklch(6% 0.04 264 / 0.7);
@@ -33,37 +33,44 @@ A cold, calm night instrument whose blue is the ground itself: deep midnight blu
 
 ## Type
 
-- **Display:** Mona Sans 300 at the expanded width (`--display-stretch`) on `h1` and `h2`, `--tracking-display`, line-height 1.04, sentence case, roman. The wide light cut is the voice, calm and cold; a head that runs long steps down to `--text-display-s` rather than closing up. Item titles (`h3`) take Mona Sans 500 at the normal width.
+- **Display:** Mona Sans 300 at the expanded width on `h1` and `h2`, `--tracking-display`, line-height 1.04, sentence case, roman. The wide light cut is the voice; a long head steps down to `--text-display-s` rather than closing up. Item titles take 500 at the normal width.
+- **Figures that are the point:** the display cut at 300, tabular, from `--text-display` up to twice it, tracking -0.03em, the unit beside it at the normal width 400 in `--color-ink-2`.
 - **Body:** Mona Sans 400 at the normal width, line-height 1.6. One family at two widths: the cold comes from the ground and the ink, never from a second face.
-- **Labels, captions, table heads, meta, status:** Mona Sans 500 a step smaller, sentence case, untracked, `--color-muted`.
-- **Figures:** tabular Mona Sans wherever numbers compare (frames, hours, pence); no mono anywhere. A figure that is the point may take the display cut at 300.
+- **Labels, table heads, meta, status:** 500 a step smaller, sentence case, untracked, `--color-muted`. Tabular figures wherever numbers compare; no mono anywhere.
 
 ## Surfaces
 
-- No outlines on surfaces: depth is a step of lightness from paper to paper-2 to paper-3, cut square at radius 0 like a frame. A lifted surface takes `--shadow-card` in the ground's own dark. A 1px `--color-rule` parts rows inside a dense product table and nowhere else.
+- Depth is a step of lightness from paper to paper-2 to paper-3, cut square at radius 0 like a frame; a lifted surface takes `--shadow-card` in the ground's own dark. No outline around a surface; a 1px `--color-rule` parts rows in a table or a list and nothing else.
 - Bands: `--color-paper-2` or `--color-paper-3`, two a page at most; never an azure field and never a light band.
-- Photographs: low-key pictures of light after dark, architecture at night, a lit window or stairwell, a long corridor, a city seen from above, one subject held still and cropped wide (16:9, 21:9) or tall (4:5). The duotone runs from the paper to the pale moon blue of ink-2, so a frame's shadows are the ground and its light is moonlight; a daylight or high-key picture turns to a pale sheet, so pick night. Frames are square with a 1px inset outline of ink at 8%; text on a photograph sits on its darkest part over a paper scrim at 40 to 65%; a caption beneath, in the label style, gives the hour or the frame.
+- Photographs: low-key light after dark, architecture at night, a lit stairwell, a long corridor; one subject held still, cropped wide or tall. The duotone runs from paper to ink-2, so a daylight picture turns to a pale sheet: pick night. Square frames, a 1px inset outline of ink at 8%, a label-style caption giving the hour or the frame.
 - No texture, no glass, no blur, no bloom.
+
+## Range
+
+- **A figure as the statement:** one real number in the display cut at up to twice `--text-display`, alone on the ground with its unit and one line; the wide light cut makes a price read like a title card.
+- **The product from another angle:** a detail of the interface cropped large on a paper-2 well (a job sheet, a meter, a contact sheet), stepped in lightness, never framed in a drawn window.
+- **Steps or a night log:** an `<ol>` of stages or hours, each head in the expanded cut, figures tabular, the current one in ink and the rest in muted; the meter (a 2px `--color-rule-2` track, an `--color-accent-2` or azure fill) is the only line that moves.
+- **Rows and forms on the ground:** hairline rows with expanded titles on the left and the normal width on the right; a calculator on a paper-2 band whose answer is a display-cut figure.
 
 ## Controls
 
-- The pair: a solid azure rectangle with `--color-accent-ink` text beside a secondary outlined in `--color-rule-2`, both square, Mona Sans 500.
-- Links take an azure underline on hover; inputs sit on `--color-paper-2` with a 1px `--color-rule` edge, square.
-- The azure stays under 5%: the one primary control, a link's hover, an active nav item, one progress value or one figure. It is never a field, a gradient or a second light.
+- The pair: a solid azure rectangle with `--color-accent-ink` text beside a secondary outlined in `--color-rule-2`, both square, 500. A segmented choice is the same square, filled ink when chosen.
+- Links take an azure underline on hover; inputs sit on the paper with a 1px `--color-muted` edge, square.
+- The azure stays under 5%: the one primary control, a link's hover, one meter value or one figure. Never a field, a gradient or a second light.
 
 ## Motion
 
-One settle: the hero's text fades from 0.6 to 1 over `--dur-long` on `--ease-out`, once, from an already-visible default. Hover steps a surface one lightness up. A product value changes when its source does; nothing slides, loops or follows the cursor.
+One settle: the hero's text fades from 0.6 to 1 over `--dur-long` on `--ease-out`, once, from a visible default. Hover steps a surface one lightness up. A value changes when its source does; nothing slides, loops or follows the cursor.
 
 ## Voice
 
-Cool and spare, the night shift's register: the hour, the count, the cost. Short declaratives; a number always carries its unit or its time. Never hype, never a superlative.
+Cool and spare, the night shift's register: the hour, the count, the cost. Short declaratives; a number always carries its unit or its time. Never hype.
 
 ## Do-nots
 
-- Never a warm accent (amber, orange, gold); the light here is cold.
+- Never a warm accent; the light here is cold.
 - Never a heavy display weight or a head at the normal width; the expanded 300 is the face.
-- Never a lamp: no radial glow, no halo, no lit edge on a card. The light is the ink and the photographs.
+- Never a lamp: no radial glow, no halo, no lit edge on a card.
 - Never a rounded corner or a light section; dark and square end to end.
 - Never a photograph in its own colours beside the duotone, and never a daylight scene.
 
@@ -76,16 +83,15 @@ Cool and spare, the night shift's register: the hour, the count, the cost. Short
 ```css
 h1, h2 { font-weight: var(--display-weight); font-stretch: var(--display-stretch); line-height: 1.04; }
 h3 { font-weight: 500; }
-.num, td.num { font-variant-numeric: tabular-nums; }
+.fig { font-weight: var(--display-weight); font-stretch: var(--display-stretch); letter-spacing: -0.03em; line-height: 0.9; font-variant-numeric: tabular-nums; }
 .well { background: var(--color-paper-2); border-radius: var(--radius-card); }
 .well--raised { background: var(--color-paper-3); box-shadow: var(--shadow-card); }
 .btn { border: var(--rule-hair) solid transparent; background: none; border-radius: var(--radius-pill); padding: var(--space-sm) var(--space-lg); font-weight: 500; color: var(--color-ink); transition: background-color var(--dur-short) var(--ease-out); }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--secondary { border-color: var(--color-rule-2); }
 .btn--secondary:hover { background: var(--color-paper-2); }
+.meter { height: 2px; background: var(--color-rule-2); } .meter > span { display: block; height: 100%; background: var(--color-accent); }
 a:hover { text-decoration-color: var(--color-accent); }
-.photo { outline: var(--rule-hair) solid color-mix(in oklab, var(--color-ink) 8%, transparent); outline-offset: calc(var(--rule-hair) * -1); }
 .settle { animation: settle var(--dur-long) var(--ease-out) both; }
 @keyframes settle { from { opacity: 0.6; } }
-::selection { background: color-mix(in oklab, var(--color-accent) 30%, transparent); color: var(--color-ink); }
 ```

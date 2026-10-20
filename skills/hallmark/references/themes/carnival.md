@@ -7,14 +7,14 @@ display: display-heavy Big Shoulders Display
 accent: chromatic-yellow 95
 posture: full-palette
 keywords: record label, podcast, comedy, indie, zine, poster, illustrator, games, hot sauce, merch, streetwear, cassette, vinyl, live show, festival, loud, maximalist, scrappy
-material: tinted paper, deep warm ink, Big Shoulders Display 800 capitals over Golos Text, 2px rules, a hard 4px ink shadow, two accents that compete
+material: tinted paper, deep warm ink, Big Shoulders Display 800 capitals set poster-large over Golos Text, 2px rules, a hard 4px ink shadow, two accents that compete as whole fields
 photo: natural vib=20 con=10
-pictured: Conversational FAQ, Stage hero
+pictured: Label and Ledger, Stage hero
 ---
 
 # Carnival
 
-A loud, screen-printed register: tinted paper, deep warm ink, Big Shoulders Display capitals over Golos Text, a hard ink shadow and two accents that compete. Every surface is a flat fill with a hard edge, like a print pinned to a wall, and photographs come close and hot, framed the same way. It is not a pastel playground, a soft-shadow app or a retro costume.
+A loud, screen-printed register: tinted paper, deep warm ink, Big Shoulders Display capitals over Golos Text, a hard ink shadow and two accents that compete. Every surface is a flat fill with a hard edge, like a print pinned to a wall, and photographs come close and hot, framed the same way. The loudest thing on a page is a fact in the capitals at poster size, not a picture. It is not a pastel playground, a soft-shadow app or a retro costume.
 
 ## Tokens
 
@@ -27,7 +27,7 @@ A loud, screen-printed register: tinted paper, deep warm ink, Big Shoulders Disp
   --font-display: "Big Shoulders Display", Impact, sans-serif; --font-body: "Golos Text", system-ui, sans-serif;
   --font-outlier: var(--font-body);
   --radius-card: 2px; --radius-pill: 2px; --rule-hair: 1px; --rule-bar: 2px; --shadow-card: 4px 4px 0 var(--color-ink);
-  --tracking-display: 0.02em;
+  --tracking-display: 0.015em; --display-weight: 800;
 }
 ```
 
@@ -44,9 +44,10 @@ One dial, the drop, stated in the stamp (`carnival: diner-sign`); its second acc
 
 ## Type
 
-- **Display:** Big Shoulders Display 800, capitals, `--tracking-display`, line-height 1.0 where a head can wrap; a lone word on one nowrap line may run at -0.005em and 0.9. The face is narrow, so a head may set a step above the scale.
+- **Display:** Big Shoulders Display 800, capitals, `--tracking-display`, line-height 1.0 where a head can wrap; a lone word on one nowrap line may run at -0.005em and 0.9. The face is narrow, so it sets a step above the scale: the hero head up to about 160px at 1440, a section head at `--text-display-s`, an item title at `--text-2xl`.
 - **Body:** Golos Text 400 and 500, sentence case, full ink.
-- **Labels, captions, table heads:** Golos Text 500 a step smaller, sentence case. Never mono: figures are Golos Text with `tabular-nums`.
+- **Labels, captions, table heads:** Golos Text 500 a step smaller, sentence case. Never mono.
+- **Figures:** a fact that sells (a price, a volume, a count) sets in the display face at the hero's size, tabular, its unit beside it in the same capitals; small figures are Golos Text with `tabular-nums`.
 
 ## Surfaces
 
@@ -56,6 +57,13 @@ One dial, the drop, stated in the stamp (`carnival: diner-sign`); its second acc
 - Bands: a field of either accent (the second under paper text) or `--color-paper-2`; two a page at most.
 - Photographs: the thing itself, close, in hard light or flash, colour pushed, one subject filling the frame: the bottle in a hand, the fruit cut open, a sleeve. A `--rule-bar` ink border on the hard shadow, like a print pinned up, free to tilt a degree or two; type never sits on one, though a flat accent block with a fact may overlap a corner.
 - Texture: the halftone screen (`texture.md` § 2) in ink on a well or a band, never under running text or over a photograph.
+
+## Range
+
+- **Figures** on a whole accent field: three or four facts in the display capitals at poster size, each over its line in Golos, parted by 2px ink bars, the halftone in one corner of the field and never under a figure.
+- **Rows** ruled with `--rule-bar` in the second accent: a question or a name in capitals at item-title size on the left, the answer in Golos at lead size on the right; a picked row inverts to ink with paper type.
+- **Statements** on the second accent under paper type, the line at poster size across ten columns, one action beside it.
+- **Forms** as a well on the hard shadow: options as ruled rows that invert when chosen, a live total in the capitals.
 
 ## Controls
 

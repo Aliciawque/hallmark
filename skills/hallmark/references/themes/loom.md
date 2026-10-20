@@ -7,28 +7,28 @@ display: roman-serif Libre Caslon Display
 accent: cool 266
 posture: committed
 keywords: weaving, textile, linen, wool, weaving studio, cloth, craft, atelier, handmade, natural, indigo, fabric, by the metre, workshop, maker, slow, commission, interiors, samples
-material: ecru paper, warm near-black ink, Libre Caslon Display over Hanken Grotesk, thin rules, cloth photographed close in window light, one deep indigo
+material: ecru paper with sand steps, warm near-black ink, Libre Caslon Display heads and prices over Hanken Grotesk, thin rules and one ink rule, cloth photographed close in window light, one deep indigo
 photo: natural sat=-12 con=-4
-pictured: Cloth Sheet, Stage hero
+pictured: Narrative Workflow, Poster hero
 ---
 
 # Loom
 
-A weaving studio speaking quietly: ecru paper, Caslon cut for display with a book's calm over a plain Hanken Grotesk, thin rules, and one deep indigo, the colour of dyed yarn, that arrives as a band or a button and never as a wash. The cloth is photographed close in window light; nothing is drawn to stand in for it. It is not a cream-and-terracotta craft page and not a linen photograph behind everything.
+A weaving studio speaking quietly: ecru paper, Caslon cut for display with a book's calm over a plain Hanken Grotesk, thin rules, and one deep indigo, the colour of dyed yarn, that arrives as a band or a button and never as a wash. The cloth is photographed close in window light; nothing is drawn to stand in for it. It reads crafted because the page is ruled like a pattern book. It is not a cream-and-terracotta craft page and not a linen photograph behind everything.
 
 ## Tokens
 
 ```css
 :root {
-  --color-paper: oklch(95% 0.015 85); --color-paper-2: oklch(92% 0.02 85); --color-paper-3: oklch(84% 0.03 80);
-  --color-ink: oklch(20% 0.01 60); --color-ink-2: oklch(30% 0.012 60); --color-muted: oklch(45% 0.012 60);
-  --color-rule: oklch(84% 0.02 85);
-  --color-accent: oklch(36% 0.10 266); --color-accent-2: oklch(44% 0.11 266); --color-accent-ink: oklch(95% 0.015 85); --color-focus: oklch(44% 0.14 266);
+  --color-paper: oklch(95.5% 0.014 85); --color-paper-2: oklch(92% 0.022 84); --color-paper-3: oklch(85% 0.032 80);
+  --color-ink: oklch(21% 0.012 60); --color-ink-2: oklch(31% 0.012 60); --color-muted: oklch(46% 0.014 62);
+  --color-rule: oklch(83% 0.022 84); --color-rule-ink: oklch(21% 0.012 60);
+  --color-accent: oklch(34% 0.115 267); --color-accent-2: oklch(43% 0.125 267); --color-accent-ink: oklch(95.5% 0.014 85); --color-focus: oklch(43% 0.15 267);
   --font-display: "Libre Caslon Display", "Libre Caslon Text", ui-serif, Georgia, serif; --font-body: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-outlier: "DM Mono", ui-monospace, monospace;
-  --radius-card: 0; --radius-pill: 0; --rule-hair: 1px;
+  --radius-card: 0; --radius-pill: 0; --rule-hair: 1px; --rule-ink: 2px;
   --shadow-card: none;
-  --tracking-display: -0.01em;
+  --tracking-display: -0.01em; --display-weight: 400;
 }
 ```
 
@@ -42,18 +42,26 @@ Three colourways, stated in the stamp (`loom: ecru`).
 
 ## Type
 
-- **Display:** Libre Caslon Display 400 for every head, `--tracking-display`, line-height 1.04 (1.0 on a hero head of two lines), sentence case, roman. The face has one weight and no italic; never synthesise either.
+- **Display:** Libre Caslon Display 400 for the h1, every h2 and any price or figure at 40px or more, `--tracking-display`, line-height 1.04 (1.0 on a hero head of two lines), sentence case, roman. The face has one weight and no italic; never synthesise either, and never set it under 32px, where its hairlines break up.
+- **Item titles (h3):** Hanken Grotesk 500 at `--text-title`, line-height 1.25, the ink.
 - **Body:** Hanken Grotesk 400 and 500 at 16 to 18px, line-height 1.5; the lead in `--color-muted`.
 - **Labels, captions, tags, table heads:** Hanken Grotesk 500 a step smaller, sentence case, untracked, in `--color-muted`. DM Mono only for figures that compare in a row (widths in centimetres, grams per metre, metres on the beam) and for code.
 
 ## Surfaces
 
-- 1px rules: `--color-rule` under heads and between rows, the ink above a list's first row; no borders on wells.
+- 1px rules: `--color-rule` between rows; a `--rule-ink` line in the ink above a list's first row, under a table's head and under the nav; no borders on wells.
 - Square everywhere: radius 0 on wells, photographs, inputs and controls.
 - Flat: depth is a paper step, `--color-paper-2` as a band or well and sand (`--color-paper-3`) as a deeper well; nothing casts a shadow.
 - Bands: a `--color-paper-2` band, or one indigo band (`--color-accent` ground, `--color-accent-ink` text). Two a page at most.
-- Photographs: the cloth and the loom, close and in side light from a window: the weave filling the frame, warp threads through the reed, a shuttle in the shed, a folded length on a table, yarn on cones; the studio wide once. Colour kept true and softened a little (the `photo:` line). Square, an inset outline of ink at 8%, no shadow; captions beneath in the label style carry a fact (the fibre, the price a metre); type sits on a photograph only over an ink scrim at its calmest edge.
+- Photographs: the cloth and the loom, close and in side light from a window: the weave filling the frame, warp on the beam, a folded length, yarn on cones; the studio wide once. Colour kept true and softened a little (the `photo:` line). Square, an inset outline of ink at 8%, no shadow; captions beneath in the label style carry a fact (the fibre, the price a metre); type sits on a photograph only over an ink scrim at its calmest edge.
 - No texture: the photographs carry the weave.
+
+## Range
+
+- **The specification as ruled rows:** fibre, width, weight, lead time and price as a pattern-book sheet, the label on the left in Hanken, the value in Caslon at title size and up, the price row set largest; an ink rule above the first row.
+- **The price as a figure:** the price a metre in Caslon at display size beside the sum worked out in rows (metres, rate, total), on a sand well or on the indigo band where the order is placed.
+- **Time as a ruled scale:** a lead time drawn as weeks on a hairline scale in DM Mono, the span the cloth is on the loom as a sand bar and the window it lands in as an indigo line; a chart of the brief's own weeks, never a drawn thread.
+- **A comparison in two columns:** linen beside wool, parted by one ink rule, rows aligned.
 
 ## Controls
 
@@ -95,5 +103,4 @@ h1, h2, h3 { font-weight: 400; line-height: 1.04; font-synthesis: none; }
 .band--indigo { background: var(--color-accent); color: var(--color-accent-ink); }
 .band--indigo .btn { background: var(--color-paper); color: var(--color-accent); }
 .band--indigo :focus-visible { outline-color: var(--color-accent-ink); }
-::selection { background: color-mix(in oklab, var(--color-accent) 25%, transparent); }
 ```

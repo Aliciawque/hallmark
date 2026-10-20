@@ -70,7 +70,7 @@ async function shoot(page, file, tag, fullPage) {
 
 export async function renderCheck(htmlFiles, metaIn) {
   const failed = [];
-  const meta = { genre: null, postureByFile: {}, heroPostureByFile: {}, stage: 'page', scope: 'page', before: false, ...(metaIn || {}) };
+  const meta = { genre: null, postureByFile: {}, heroPostureByFile: {}, photoShapeByFile: {}, stage: 'page', scope: 'page', before: false, ...(metaIn || {}) };
   const heroOnly = meta.stage === 'hero';
   SHOT_DIR = meta.before ? 'before' : 'shots';
   const inventories = {};
@@ -141,6 +141,7 @@ export async function renderCheck(htmlFiles, metaIn) {
           const field = (/hero:\s*([^·*\n]+)/i.exec(stamp) || [])[1] || '';
           let route = ''; try { route = new URL(file).pathname.replace(/\/$/, '') || '/'; } catch {}
           const own = new RegExp(`(settled|banner|poster|ledge|corridor|stage)\\s*\\(${route.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\)`, 'i').exec(field);
+          meta.photoShapeByFile[file] = /shape:\s*(photographic|portfolio)/i.test(stamp);
           meta.heroPostureByFile[file] = /theme:\s*custom\b/i.test(stamp) ? 'custom' : ((own || /(settled|banner|poster|ledge|corridor|stage)\b/i.exec(field) || [])[1] || '').toLowerCase();
         }
         const pageMeta = { genre: meta.genre, posture: meta.postureByFile[file] || 'restrained' };
@@ -175,7 +176,7 @@ export async function renderCheck(htmlFiles, metaIn) {
             await shoot(page, file, '1440-full', true);
           }
           await frames(page);
-          const res = await page.evaluate(observeSpace, w === 1440, heroOnly, meta.heroPostureByFile[file] || '');
+          const res = await page.evaluate(observeSpace, w === 1440, heroOnly, meta.heroPostureByFile[file] || '', !!meta.photoShapeByFile[file]);
           for (const f of res) findings.push({ ...f, file, line: 1, evidence: `[${w}px] ${f.evidence}` });
         }
         if (!heroOnly) {
@@ -540,7 +541,9 @@ function observe(checkFold, meta) {
           const layers = []; let depth = 0, cur = '';
           for (const ch of cs2.backgroundImage) { if (ch === '(') depth++; if (ch === ')') depth--; if (ch === ',' && depth === 0) { layers.push(cur); cur = ''; } else cur += ch; }
           layers.push(cur);
-          for (const layer of layers) {
+          const sizes = cs2.backgroundSize.split(',');
+          for (const [li, layer] of layers.entries()) {
+            const bh = /\s([\d.]+)px\s*$/.exec((sizes[li] || sizes[0] || '').trim()); if (bh && parseFloat(bh[1]) <= 6) continue;
             if (!/^\s*(linear|radial|conic)-gradient/.test(layer) || /[\s,(]\d(?:\.\d+)?px\b/.test(layer)) continue;
             for (const m of layer.matchAll(/(?:oklch|oklab|lab|lch|rgba?|hsla?|color)\([^()]*\)|#[0-9a-fA-F]{3,8}\b/g)) out.push(over(toRgb(m[0]), base));
           }
@@ -666,7 +669,7 @@ function observe(checkFold, meta) {
   return out;
 }
 
-function observeSpace(atLaptop, heroOnly, heroPosture) {
+function observeSpace(atLaptop, heroOnly, heroPosture, photoShape) {
   const freeFold = /^(poster|ledge|banner|custom)$/.test(heroPosture || '');
   const out = [];
   const push = (gate, grade, evidence, fix) => out.push({ gate: String(gate), grade, evidence, fix });
@@ -793,7 +796,7 @@ function observeSpace(atLaptop, heroOnly, heroPosture) {
       let area = 0;
       for (const m of box.querySelectorAll('img, video, picture, canvas, iframe, svg')) { if (!vis(m) || (m.tagName.toLowerCase() === 'svg' && m.parentElement.closest('svg'))) continue; if (m.tagName === 'IMG' && !(m.getAttribute('src') || m.getAttribute('srcset') || '').trim()) continue; const q = m.getBoundingClientRect(); area += q.width * q.height; if (area >= b.width * b.height * 0.25) return true; }
       const bits = [...box.querySelectorAll('*')].filter((e) => vis(e) && ((e.innerText || '').trim() || /^(INPUT|SELECT|TEXTAREA|BUTTON)$/.test(e.tagName)) && !e.children.length);
-      return bits.length >= 6 || (box.innerText || '').trim().length >= 160;
+      return bits.length >= 4 || (box.innerText || '').trim().length >= 80 || box.matches('[data-kind="product"]') || !!box.closest('[data-kind="product"]');
     };
     for (const sl of document.querySelectorAll('[data-slot]')) { if (!vis(sl) || sl.closest('[hidden]')) continue; const r = sl.getBoundingClientRect(); if (r.width < 160 || r.height < 120) continue; if (!shows(sl)) empty.push(`${nameOf(sl)} ${Math.round(r.width)}x${Math.round(r.height)}`); }
     for (const e of document.querySelectorAll('div, figure, span, i, aside')) {
@@ -830,6 +833,20 @@ function observeSpace(atLaptop, heroOnly, heroPosture) {
       if (counting && !marks.some((m) => m.el.contains(e))) marks.push({ el: e, text: `"${t.trim().slice(0, 60)}"` });
     }
     if (marks.length) push(82, 'REFLEX', `counting device: ${marks.slice(0, 2).map((m) => m.text).join('; ')}`, 'Set the number in type at the size it deserves; never one mark for each thing (imagery.md § 7)');
+
+    if (heroEnd != null) {
+      const foot = [...document.querySelectorAll('body footer, [role="contentinfo"]')].filter(vis).pop();
+      const docH = foot ? Math.min(document.documentElement.scrollHeight, abs(foot).top) : document.documentElement.scrollHeight, from = Math.max(heroEnd, vh);
+      const box = document.querySelector('.container') || document.body;
+      const cw = Math.min(box.getBoundingClientRect().width || vw, vw);
+      let area = 0, n = 0;
+      const seenA = [];
+      const add = (el) => { if (!vis(el) || el.closest('footer') || seenA.some((o) => o.contains(el))) return; const b = abs(el); const top = Math.max(b.top, from), bot = Math.min(b.bottom, docH); if (bot - top < 80 || b.w < 160) return; seenA.push(el); area += (bot - top) * Math.min(b.w, cw); n++; };
+      for (const m of document.querySelectorAll('img, video')) { if (m.closest('[data-kind="product"], [data-product]')) continue; const nw = m.naturalWidth || m.videoWidth || 0; if (m.tagName === 'IMG' && /\.svg(\?|$)/i.test(m.currentSrc || m.src || '')) continue; if (m.tagName === 'IMG' && nw && nw < 200) continue; add(m); }
+      for (const e of document.querySelectorAll('section *, main *')) { const bi = getComputedStyle(e).backgroundImage; if (/url\(/.test(bi) && !/svg|data:image\/svg/i.test(bi)) add(e); }
+      const share = area / Math.max(1, (docH - from) * cw);
+      if (share > (photoShape ? 0.45 : 0.36) && n >= 3) push(83, 'REFLEX', `photographs cover ${Math.round(share * 100)}% of the page below the hero (${n} pictures${photoShape ? ', a photograph-led shape' : ''})`, 'Balance the page: cut or shrink pictures until they cover a quarter to a third of it, and carry the freed sections in type, figures, the product or a list (imagery.md § 5)');
+    }
 
     let heroFoot = null;
     if (hero && !/^(poster|ledge)$/.test(heroPosture || '')) {
@@ -1036,7 +1053,8 @@ function observeQuality(scope) {
     if (t.length < 240) continue;
     const cs = getComputedStyle(el);
     const lh = parseFloat(cs.lineHeight) || parseFloat(cs.fontSize) * 1.4;
-    const lines = Math.round(el.getBoundingClientRect().height / lh);
+    let cols = 1; for (let q = el; q && q !== document.body && cols === 1; q = q.parentElement) { const qc = getComputedStyle(q); if (qc.columnCount !== 'auto' || qc.columnWidth !== 'auto') cols = Math.max(1, Math.round(q.getBoundingClientRect().width / Math.max(1, el.getClientRects()[0]?.width || q.getBoundingClientRect().width))); }
+    const lines = Math.round(el.getBoundingClientRect().height / lh) * cols;
     if (lines >= 3 && t.length / lines > 88) long.push(`${name(el)} about ${Math.round(t.length / lines)} characters a line`);
   }
   if (long.length) push(25, 'REFLEX', `running prose set too wide: ${long.join(', ')}`, 'Cap the measure at 45 to 75ch');
@@ -1158,7 +1176,9 @@ async function observeOcclusion() {
         if (q.width < 6 || q.height < 6) continue;
         const cx = q.left + q.width / 2, cy = q.top + q.height / 2;
         if (cy < 0 || cy >= innerHeight || cx < 0 || cx >= innerWidth) continue;
+        const ghost = getComputedStyle(host).pointerEvents === 'none'; if (ghost) host.style.setProperty('pointer-events', 'auto', 'important');
         const top = document.elementFromPoint(cx, cy);
+        if (ghost) host.style.removeProperty('pointer-events');
         if (!top || top === host || host.contains(top) || top.contains(host) || pinned(top) || unseen(top)) continue;
         const tr = top.getBoundingClientRect();
         if (!(cx >= tr.left && cx <= tr.right && cy >= tr.top && cy <= tr.bottom)) {

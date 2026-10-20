@@ -2,33 +2,33 @@
 name: Paste-up
 slug: pasteup
 genre: playful
-paper: mid 74 72
+paper: mid 73 70
 display: display-condensed League Gothic
 accent: chromatic-yellow 112
 posture: committed
 keywords: zine, fair, market, festival, print fair, book fair, exhibitors, punk, diy, collective, gig, poster, workshop, night market, flea, indie, community, launch, loud, photocopy, flyer
 material: kraft board, a fibre wash, near-black toner, League Gothic capitals over a Newsreader galley, white copy paper on paper lifts, hard ink offsets, one sheet of fluorescent yellow
 photo: mono con=45
-pictured: Bento Grid, Settled hero
+pictured: Bento Grid, Stage hero
 ---
 
 # Paste-up
 
-A hand-made flyer: kraft board, near-black toner, League Gothic capitals over a Newsreader galley, white copy paper on real paper shadows, controls on hard ink offsets, one sheet of fluorescent yellow. Photographs come off the copier, black and white, the greys crushed. The paste-up lives in the paper, the tilt and the lift, never in props. It is not a grunge texture pack, a scrapbook of stickers and tape, or a clean modern poster.
+A hand-made flyer: kraft board, near-black toner, League Gothic capitals at poster size over a Newsreader galley, white copy paper on real paper shadows, controls on hard ink offsets, one sheet of fluorescent yellow. Photographs come off the copier, black and white, the greys crushed. The paste-up lives in the paper, the tilt and the lift, never in props. It is not a grunge texture pack, a scrapbook of stickers and tape, or a clean modern poster.
 
 ## Tokens
 
 ```css
 :root {
-  --color-paper: oklch(74% 0.06 72); --color-paper-2: oklch(67% 0.065 70); --color-paper-3: oklch(97% 0.008 90);
-  --color-ink: oklch(17% 0.01 60); --color-ink-2: oklch(24% 0.014 60); --color-muted: oklch(30% 0.025 62);
-  --color-rule: oklch(56% 0.05 70);
+  --color-paper: oklch(73% 0.068 70); --color-paper-2: oklch(66% 0.072 68); --color-paper-3: oklch(97% 0.008 90);
+  --color-ink: oklch(17% 0.01 60); --color-ink-2: oklch(24% 0.014 60); --color-muted: oklch(28% 0.026 62);
+  --color-rule: oklch(50% 0.055 68); --color-rule-2: oklch(84% 0.012 85);
   --color-accent: oklch(93% 0.2 112); --color-accent-ink: oklch(17% 0.01 60); --color-focus: oklch(17% 0.01 60);
   --font-display: "League Gothic", Impact, sans-serif; --font-body: "Newsreader", Georgia, serif;
   --radius-card: 0; --radius-pill: 999px; --rule-hair: 1px;
   --shadow-card: 0 1px 0 oklch(18% 0.01 60 / 0.2), 0 4px 10px oklch(18% 0.01 60 / 0.12);
   --shadow-sheet: 0 14px 30px oklch(18% 0.01 60 / 0.26), 0 2px 4px oklch(18% 0.01 60 / 0.14);
-  --tracking-display: 0.01em;
+  --tracking-display: 0.01em; --display-weight: 400;
 }
 ```
 
@@ -36,18 +36,25 @@ The fluorescent is a paper, not an ink: it carries toner type and is never type 
 
 ## Type
 
-- **Display:** League Gothic 400, uppercase, `--tracking-display`, line-height 1.1 so wrapped caps never touch, never under 28px, so item titles (`h3`) set in Newsreader 500 instead.
-- **Body:** Newsreader 400 and 500 at 17px; italic is emphasis in running text only.
+- **Display:** League Gothic 400, uppercase, `--tracking-display`, never under 28px, so item titles (`h3`) set in Newsreader 500 instead. It is a poster face: a flyer head or a figure takes up to twice `--text-display` at line-height 0.92; a section head takes one step up from `--text-section` at 1.0.
+- **Body:** Newsreader 400 and 500 at 18px, line-height 1.5; italic is emphasis in running text only. On a sheet, text sits on copy white; on the board it takes `--color-ink`, never `--color-muted`, under 18px.
 - **Labels, captions, table heads, meta, controls:** Newsreader 500 a step smaller, sentence case, untracked. No mono.
 
 ## Surfaces
 
-- Paper lifts, not boxes: a well is a sheet of copy paper (`--color-paper-3`) on `--shadow-card`, a raised sheet takes `--shadow-sheet`. Radius 0; hairlines in `--color-rule` part rows.
+- Paper lifts, not boxes: a well is a sheet of copy paper (`--color-paper-3`) on `--shadow-card`, a raised sheet takes `--shadow-sheet`. Radius 0; hairlines in `--color-rule` part rows on the board, `--color-rule-2` on a sheet.
 - Tilt is the paste: a sheet or a photograph may sit 0.5° to 2° off square, three tilted surfaces a screen at most; inputs, tables and long reading stay square.
 - The fluorescent sheet fills the primary control and one sheet a screen, with toner type on it; never a band, a head or a word on the board.
 - Bands: `--color-paper-2` (a deeper kraft) or the toner with board-coloured type; two a page at most.
 - Photographs: zines, hands, copiers, staplers and fair tables, close and flat-lit, a crowd from behind at most; through the copier (the `photo:` line), hard black and white. Printed multiply on a copy sheet with a 10 to 16px margin and lifted, or straight onto the board so the kraft shows through the whites; never colour, never full-bleed. A caption sits on the sheet's foot.
 - Texture: the fibre wash (`texture.md` § 1, a low-frequency tan tint) on a kraft band at the board's opacity and blend, never on a sheet or under running text.
+
+## Range
+
+- **The facts as a wall of flyers:** the brief's date, count, price and deadline each on its own sheet in League Gothic at poster size, mixed spans and heights, overlapping by a few pixels, two or three tilted, one on the fluorescent; no photograph among them.
+- **A typed sheet:** a timetable, a price list or the where-and-when as a ruled table on one copy sheet at a slight tilt, the left column in League Gothic, the rest in Newsreader.
+- **The toner band:** one line in League Gothic at `--text-display` or larger, board-coloured on toner, across ten columns.
+- **The form as a sheet:** fields on copy paper, square, on a hard offset, beside its head and the deadline set big on the board.
 
 ## Controls
 
@@ -76,7 +83,7 @@ Flyer voice: the date, the door, the price, the table number.
 ```
 
 ```css
-h1, h2 { font-weight: 400; text-transform: uppercase; line-height: 1.1; }
+h1, h2 { font-weight: 400; text-transform: uppercase; line-height: 1; } h1 { line-height: 0.92; }
 h3 { font: 500 var(--text-title)/1.2 var(--font-body); }
 .btn { border: 0; border-radius: 0; padding: var(--space-sm) var(--space-md); font: 500 15px/1.2 var(--font-body); color: var(--color-ink); box-shadow: 4px 4px 0 var(--color-ink); transition: translate var(--dur-micro) var(--ease-out), box-shadow var(--dur-micro) var(--ease-out); }
 .btn:hover { translate: 1px 1px; box-shadow: 3px 3px 0 var(--color-ink); }

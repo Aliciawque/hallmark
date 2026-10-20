@@ -1,5 +1,5 @@
 {
- "built": "2026-10-15",
+ "built": "2026-10-20",
  "themes": [
   {
    "name": "Almanac",
@@ -40,10 +40,10 @@
     "glossary",
     "specifications"
    ],
-   "material": "cool slate stock, blue-black ink, Hanken Grotesk heads over Newsreader prose with mono figures, two rule weights and square corners, one chart magenta",
+   "material": "cool slate stock with a pale printed sheet, blue-black ink, Hanken Grotesk heads over Newsreader prose with mono figures, two rule weights and square corners, one chart magenta",
    "file": "references/themes/almanac.md",
    "photo": "muted",
-   "pictured": "Yearbook, Split hero",
+   "pictured": "Workbench, Stage hero",
    "picture": "references/themes/almanac.jpg"
   },
   {
@@ -53,8 +53,8 @@
    "posture": "full-palette",
    "paper": {
     "band": "dark",
-    "L": 15,
-    "hue": 315
+    "L": 14,
+    "hue": 312
    },
    "display": {
     "class": "pixel",
@@ -87,7 +87,7 @@
    "material": "aubergine CRT ground, lilac-white ink, Bungee capitals split in RGB over Chivo, Silkscreen figures, hard offset shadows, ember and acid signals",
    "file": "references/themes/arcade.md",
    "photo": "tint accent",
-   "pictured": "Manifesto, Settled hero",
+   "pictured": "Marquee Hero, Stage hero",
    "picture": "references/themes/arcade.jpg"
   },
   {
@@ -98,7 +98,7 @@
    "paper": {
     "band": "light",
     "L": 94.5,
-    "hue": 70
+    "hue": 76
    },
    "display": {
     "class": "roman-serif",
@@ -106,7 +106,7 @@
    },
    "accent": {
     "band": "cool",
-    "hue": 250
+    "hue": 248
    },
    "keywords": [
     "fashion",
@@ -134,10 +134,10 @@
     "hospitality",
     "stay"
    ],
-   "material": "warm limewash paper, umber ink, bold Sentient heads over Hanken Grotesk, hairlines and square corners, still photographs in warm daylight, one cool slate signal",
+   "material": "limewash paper, deep umber ink, Sentient in two weights over Hanken Grotesk, hairlines with an ink head rule, square corners, still photographs in warm daylight, one cool slate signal",
    "file": "references/themes/atelier.md",
    "photo": "warm con=-6 vib=-10",
-   "pictured": "Gallery Hang, Settled hero",
+   "pictured": "Gallery Hang, Stage hero",
    "picture": "references/themes/atelier.jpg"
   },
   {
@@ -156,7 +156,7 @@
    },
    "accent": {
     "band": "warm",
-    "hue": 35
+    "hue": 36
    },
    "keywords": [
     "generative",
@@ -184,10 +184,10 @@
     "selfie",
     "retouch"
    ],
-   "material": "warm off-white paper lit by two terracotta blooms, warm umber ink, Ranade throughout with one roman Gambarino line, raised warm surfaces, one terracotta signal",
+   "material": "warm off-white paper lit by two terracotta blooms, warm umber ink, Ranade throughout with one roman Gambarino figure or line, raised warm surfaces, one terracotta signal over a soft clay wash",
    "file": "references/themes/bloom.md",
    "photo": "warm exp=4",
-   "pictured": "Kitchen Session, Split hero",
+   "pictured": "Workbench, Stage hero",
    "picture": "references/themes/bloom.jpg"
   },
   {
@@ -197,8 +197,8 @@
    "posture": "drenched",
    "paper": {
     "band": "mid",
-    "L": 36,
-    "hue": 255
+    "L": 35,
+    "hue": 256
    },
    "display": {
     "class": "geometric-sans",
@@ -231,10 +231,10 @@
     "architecture studio",
     "timber"
    ],
-   "material": "prussian-blue sheet, white line ink, Chakra Petch capitals over IBM Plex Sans with mono measurements, square double keylines, photographs printed as cyanotypes, the white line as the only signal",
+   "material": "prussian-blue sheet, white line ink, Chakra Petch capitals over IBM Plex Sans with mono measurements, square double keylines and dimension strings, photographs printed as cyanotypes, the white line as the only signal",
    "file": "references/themes/blueprint.md",
    "photo": "duotone paper-3 ink con=30 exp=-10",
-   "pictured": "Split Studio, Settled hero",
+   "pictured": "Bento Grid, Poster hero",
    "picture": "references/themes/blueprint.jpg"
   },
   {
@@ -253,7 +253,7 @@
    },
    "accent": {
     "band": "warm",
-    "hue": 34
+    "hue": 33
    },
    "keywords": [
     "auction",
@@ -280,7 +280,7 @@
    "material": "grained buff stock, near-black ink, Six Caps and Bevan wood capitals over Archivo Narrow, ink rules at one point or five, one vermilion",
    "file": "references/themes/broadside.md",
    "photo": "duotone ink paper con=20",
-   "pictured": "Narrative Workflow, Settled hero",
+   "pictured": "Marquee Hero, Settled hero",
    "picture": "references/themes/broadside.jpg"
   },
   {
@@ -290,8 +290,8 @@
    "posture": "committed",
    "paper": {
     "band": "light",
-    "L": 98,
-    "hue": 25
+    "L": 97.5,
+    "hue": 95
    },
    "display": {
     "class": "grotesk-heavy",
@@ -321,7 +321,7 @@
     "no-nonsense",
     "uncompromising"
    ],
-   "material": "near-white paper, near-black ink as 3px rules and solid fills, uppercase Libre Franklin 900 over its 400, zero radius, one acid-yellow fill",
+   "material": "near-white poster stock, near-black ink as 3px rules, boxed cells and solid fills, uppercase Libre Franklin 900 over its 400, zero radius, one acid-yellow fill",
    "file": "references/themes/brutal.md",
    "photo": "duotone ink paper con=24",
    "pictured": "Marquee Hero, Poster hero",
@@ -365,10 +365,10 @@
     "maximalist",
     "scrappy"
    ],
-   "material": "tinted paper, deep warm ink, Big Shoulders Display 800 capitals over Golos Text, 2px rules, a hard 4px ink shadow, two accents that compete",
+   "material": "tinted paper, deep warm ink, Big Shoulders Display 800 capitals set poster-large over Golos Text, 2px rules, a hard 4px ink shadow, two accents that compete as whole fields",
    "file": "references/themes/carnival.md",
    "photo": "natural vib=20 con=10",
-   "pictured": "Conversational FAQ, Stage hero",
+   "pictured": "Label and Ledger, Stage hero",
    "picture": "references/themes/carnival.jpg"
   },
   {
@@ -413,7 +413,7 @@
    "material": "cool near-white paper, blue-grey ink and hairlines, Familjen Grotesk over IBM Plex Sans, JetBrains Mono on a graphite surface in three tones, one electric cobalt signal",
    "file": "references/themes/cobalt.md",
    "photo": "duotone graphite paper",
-   "pictured": "Narrative Workflow, Stage hero",
+   "pictured": "Feature Ledger, Stage hero",
    "picture": "references/themes/cobalt.jpg"
   },
   {
@@ -457,10 +457,10 @@
     "dark",
     "developer"
    ],
-   "material": "graphite ground in three lightness steps, pale ink, hairline panels cut from one surface, Host Grotesk for reading, Atkinson Hyperlegible Mono for what was measured, amber for a person and cool blue for an instrument",
+   "material": "graphite ground in three lightness steps, pale ink, hairline panels cut from one surface, Host Grotesk 500 for reading, Atkinson Hyperlegible Mono for what was measured, amber for a person and cool blue for an instrument",
    "file": "references/themes/console.md",
    "photo": "duotone paper-3 ink",
-   "pictured": "Conversational FAQ, Settled hero",
+   "pictured": "Audit Trail, Stage hero",
    "picture": "references/themes/console.jpg"
   },
   {
@@ -502,10 +502,10 @@
     "human",
     "calm"
    ],
-   "material": "warm grey paper, warm charcoal ink, General Sans throughout with Geist Mono figures, soft pills, one coral signal in two strengths",
+   "material": "warm grey paper, warm charcoal ink, General Sans throughout with Geist Mono figures, soft pills, the product built on paper wells, one coral signal in two strengths",
    "file": "references/themes/coral.md",
    "photo": "muted sepia=8",
-   "pictured": "Conversational FAQ, Settled hero",
+   "pictured": "Conversational FAQ, Stage hero",
    "picture": "references/themes/coral.jpg"
   },
   {
@@ -515,8 +515,8 @@
    "posture": "restrained",
    "paper": {
     "band": "dark",
-    "L": 9,
-    "hue": 30
+    "L": 12.5,
+    "hue": 55
    },
    "display": {
     "class": "display-condensed",
@@ -524,7 +524,7 @@
    },
    "accent": {
     "band": "chromatic-amber",
-    "hue": 62
+    "hue": 58
    },
    "keywords": [
     "photographer",
@@ -553,7 +553,7 @@
     "portrait",
     "photo studio"
    ],
-   "material": "near-black ground, a fine light grain, warm pale ink, hairline Sofia Sans Extra Condensed capitals over Barlow, zero radius, black-and-white photographs printed deep and large, one amber safelight",
+   "material": "warm print-black ground, a fine light grain, fibre-white ink, hairline Sofia Sans Extra Condensed capitals over Barlow, zero radius, black-and-white photographs printed deeper than the ground, one amber safelight",
    "file": "references/themes/darkroom.md",
    "photo": "mono high=-20 shad=-12",
    "pictured": "Photographic, Poster hero",
@@ -599,10 +599,10 @@
     "elderly",
     "parents"
    ],
-   "material": "near-white paper with pale green tint bands, green-black ink, Schibsted Grotesk over Instrument Sans with DM Mono for times and doses, soft app radii, one pharmacy green",
+   "material": "near-white paper with pale green tint bands and one green-black ink band, green-black ink, Schibsted Grotesk over Instrument Sans with DM Mono for times and doses, soft app radii, one pharmacy green with a mint second strength",
    "file": "references/themes/dose.md",
    "photo": "natural sat=-15 con=-6",
-   "pictured": "Feature Stack, Settled hero",
+   "pictured": "Care Register, Settled hero",
    "picture": "references/themes/dose.jpg"
   },
   {
@@ -612,8 +612,8 @@
    "posture": "restrained",
    "paper": {
     "band": "light",
-    "L": 96.5,
-    "hue": 88
+    "L": 97,
+    "hue": 86
    },
    "display": {
     "class": "display-condensed",
@@ -645,10 +645,10 @@
     "city guide",
     "guide"
    ],
-   "material": "warm white uncoated stock, printed black ink with a cool tilt, Bricolage Grotesque condensed at 800 over Source Serif 4, square corners and 1px hairlines, one printer's green",
+   "material": "warm white uncoated stock, printed black ink with a cool tilt, Bricolage Grotesque condensed at 800 over Source Serif 4, square corners, a heavy ink rule over 1px hairlines, one printer's green",
    "file": "references/themes/editorial.md",
    "photo": "natural sat=-10 con=4",
-   "pictured": "Marquee Hero, Poster hero",
+   "pictured": "Marquee Hero, Stage hero",
    "picture": "references/themes/editorial.jpg"
   },
   {
@@ -692,7 +692,7 @@
    "material": "warm grey concrete paper with a speck grain, near-black ink, Oswald capitals over Archivo, square cast edges and hard shadows, hard black-and-white photographs of poured concrete, one safety orange signal",
    "file": "references/themes/formwork.md",
    "photo": "natural sat=-100 con=35 exp=8",
-   "pictured": "Site Board, Stage hero",
+   "pictured": "Site Board, Poster hero",
    "picture": "references/themes/formwork.jpg"
   },
   {
@@ -702,8 +702,8 @@
    "posture": "committed",
    "paper": {
     "band": "light",
-    "L": 96.5,
-    "hue": 90
+    "L": 96,
+    "hue": 85
    },
    "display": {
     "class": "grotesk-sans",
@@ -736,10 +736,10 @@
     "working",
     "units"
    ],
-   "material": "warm office paper, near-black ink in rules and hairlines, Red Hat Display 600 over Red Hat Text with Red Hat Mono figures, flat 6px controls, one tangerine signal",
+   "material": "warm manila office paper, near-black ink in rules and hairlines, Red Hat Display 600 over Red Hat Text with Red Hat Mono figures, flat 6px controls, one white sheet that lifts, one tangerine signal and a grass green for what is in date",
    "file": "references/themes/furrow.md",
    "photo": "natural con=8 sat=-6",
-   "pictured": "Photographic, Stage hero",
+   "pictured": "Field Record, Stage hero",
    "picture": "references/themes/furrow.jpg"
   },
   {
@@ -749,8 +749,8 @@
    "posture": "committed",
    "paper": {
     "band": "light",
-    "L": 95.5,
-    "hue": 92
+    "L": 95.8,
+    "hue": 90
    },
    "display": {
     "class": "roman-serif",
@@ -784,10 +784,10 @@
     "field",
     "homestead"
    ],
-   "material": "warm oat paper, deep green ink, Vollkorn 700 over Hanken Grotesk, hairlines and soft moss or clay tints, daylight photographs in true colour, one leaf-green signal",
+   "material": "warm oat paper, deep green ink, Vollkorn 600 with old-style figures over Hanken Grotesk, hairlines and soft moss or clay tints, daylight photographs in true colour, one leaf-green signal",
    "file": "references/themes/garden.md",
    "photo": "natural con=6 sat=-6",
-   "pictured": "Narrative Workflow, Stage hero",
+   "pictured": "Field Guide, Stage hero",
    "picture": "references/themes/garden.jpg"
   },
   {
@@ -842,8 +842,8 @@
    "posture": "committed",
    "paper": {
     "band": "light",
-    "L": 96.5,
-    "hue": 92
+    "L": 96.2,
+    "hue": 94
    },
    "display": {
     "class": "slab-serif",
@@ -878,7 +878,7 @@
    "material": "butter-cream stock, brown-black ink, Ultra over Chivo, three-pixel ink rules and square wells, one vermilion printed solid and through a dot screen, photographs in full colour",
    "file": "references/themes/halftone.md",
    "photo": "natural vib=25 sat=10 con=6",
-   "pictured": "Can Label, Settled hero",
+   "pictured": "Back of the Can, Settled hero",
    "picture": "references/themes/halftone.jpg"
   },
   {
@@ -889,7 +889,7 @@
    "paper": {
     "band": "dark",
     "L": 24,
-    "hue": 165
+    "hue": 158
    },
    "display": {
     "class": "high-contrast-serif",
@@ -897,7 +897,7 @@
    },
    "accent": {
     "band": "chromatic-green",
-    "hue": 115
+    "hue": 118
    },
    "keywords": [
     "distillery",
@@ -921,7 +921,7 @@
     "map",
     "miles"
    ],
-   "material": "deep hedge-green paper, cream ink, Prata heads over Manrope, low-key photographs in true colour, square flat surfaces with pill controls, one chartreuse signal",
+   "material": "deep leaf-green paper, cream ink, Prata heads over Manrope, low-key photographs in true colour, square flat surfaces with pill controls, one chartreuse signal with a moss strength for cream",
    "file": "references/themes/hedgerow.md",
    "photo": "natural sat=-10 con=8 exp=-8",
    "pictured": "Field Guide, Poster hero",
@@ -967,7 +967,7 @@
     "playful",
     "alive"
    ],
-   "material": "cream paper pulled toward pear-yellow, blue-black ink, Chillax throughout, round corners and a press you can feel, three accents that never blend",
+   "material": "cream paper pulled toward pear-yellow, blue-black ink, Chillax throughout, round corners and a press you can feel, three accents that never blend and a mint for growth",
    "file": "references/themes/hum.md",
    "photo": "natural vib=12 exp=4",
    "pictured": "Bento Grid, Settled hero",
@@ -1058,7 +1058,7 @@
    "material": "near-black ground, cream ink, Boska over Geist, smoked wells, photographs lit by the work, a heat ramp that marks temperature, one ember signal",
    "file": "references/themes/kiln.md",
    "photo": "warm sepia=50 sat=-12 con=8 exp=-6",
-   "pictured": "Photographic, Stage hero",
+   "pictured": "Workbench, Stage hero",
    "picture": "references/themes/kiln.jpg"
   },
   {
@@ -1069,7 +1069,7 @@
    "paper": {
     "band": "dark",
     "L": 19,
-    "hue": 20
+    "hue": 18
    },
    "display": {
     "class": "grotesk-sans",
@@ -1104,7 +1104,7 @@
    "material": "oxblood binding for a ground, bone ink, Instrument Sans with tabular IBM Plex Mono figures, ruled rows and double-ruled totals, two inks with one job each",
    "file": "references/themes/ledger.md",
    "photo": "duotone paper ink",
-   "pictured": "Split Studio, Stage hero",
+   "pictured": "Narrative Workflow, Stage hero",
    "picture": "references/themes/ledger.jpg"
   },
   {
@@ -1146,10 +1146,10 @@
     "interiors",
     "samples"
    ],
-   "material": "ecru paper, warm near-black ink, Libre Caslon Display over Hanken Grotesk, thin rules, cloth photographed close in window light, one deep indigo",
+   "material": "ecru paper with sand steps, warm near-black ink, Libre Caslon Display heads and prices over Hanken Grotesk, thin rules and one ink rule, cloth photographed close in window light, one deep indigo",
    "file": "references/themes/loom.md",
    "photo": "natural sat=-12 con=-4",
-   "pictured": "Cloth Sheet, Stage hero",
+   "pictured": "Narrative Workflow, Poster hero",
    "picture": "references/themes/loom.jpg"
   },
   {
@@ -1168,7 +1168,7 @@
    },
    "accent": {
     "band": "warm",
-    "hue": 58
+    "hue": 62
    },
    "keywords": [
     "inference",
@@ -1191,10 +1191,10 @@
     "dev tools",
     "premium"
    ],
-   "material": "violet-black ground, near-white ink, lowercase Instrument Serif heads over Geist, hairline wells, a faint blueprint grid, one molten brass signal and one rose verb",
+   "material": "violet-black ground, near-white ink, lowercase Instrument Serif heads a step large over Geist and Geist Mono, hairline wells, a faint blueprint grid, one molten brass signal and one rose verb",
    "file": "references/themes/lumen.md",
    "photo": "duotone paper ink-2",
-   "pictured": "Quarry, Split hero",
+   "pictured": "Map / Diagram, Settled hero",
    "picture": "references/themes/lumen.jpg"
   },
   {
@@ -1237,10 +1237,10 @@
     "punk",
     "record label"
    ],
-   "material": "warm near-black ground, warm off-white ink, Anton capitals leaded tight over a quiet Public Sans body, hairlines and square edges, one fighting red",
+   "material": "warm near-black ground, warm off-white ink, Anton capitals at poster size leaded tight over a quiet Public Sans body, hairlines, a heavy ink bar and square edges, one fighting red",
    "file": "references/themes/manifesto.md",
    "photo": "duotone paper ink con=24",
-   "pictured": "Manifesto, Stage hero",
+   "pictured": "Manifesto, Ledge hero",
    "picture": "references/themes/manifesto.jpg"
   },
   {
@@ -1288,7 +1288,7 @@
    "material": "midnight-blue ground to every edge, cool white ink, Mona Sans expanded at 300 over its normal width, square-cut surfaces in lightness steps, photographs as moonlight, one azure signal",
    "file": "references/themes/midnight.md",
    "photo": "duotone paper ink-2",
-   "pictured": "Feature Stack, Stage hero",
+   "pictured": "Narrative Workflow, Settled hero",
    "picture": "references/themes/midnight.jpg"
   },
   {
@@ -1298,8 +1298,8 @@
    "posture": "restrained",
    "paper": {
     "band": "light",
-    "L": 93.5,
-    "hue": 90
+    "L": 94,
+    "hue": 92
    },
    "display": {
     "class": "slab-serif",
@@ -1329,10 +1329,10 @@
     "dispatch",
     "literary"
    ],
-   "material": "pale newsprint stock, warm black ink, Zilla Slab heads over a Spectral body, hairlines, column rules and a double rule, one dried-brick signal",
+   "material": "pale newsprint stock, warm black ink, Zilla Slab heads over a Spectral body with Libre Franklin agate for listed figures, justified columns under hairline column rules, a double rule, one dried-brick signal",
    "file": "references/themes/newsprint.md",
    "photo": "mono",
-   "pictured": "Front Page, Stage hero",
+   "pictured": "Broadsheet Front, Stage hero",
    "picture": "references/themes/newsprint.jpg"
   },
   {
@@ -1351,7 +1351,7 @@
    },
    "accent": {
     "band": "cool",
-    "hue": 213
+    "hue": 212
    },
    "keywords": [
     "venue",
@@ -1378,7 +1378,7 @@
    "material": "grey newsprint stock, near-black ink, wide heavy Anybody capitals over Archivo, flat square fills, a teal pass and an orange pass that print moss where they cross, photographs pulled through one pass",
    "file": "references/themes/overprint.md",
    "photo": "mono con=30",
-   "pictured": "Photographic, Poster hero",
+   "pictured": "Marquee Hero, Poster hero",
    "picture": "references/themes/overprint.jpg"
   },
   {
@@ -1388,8 +1388,8 @@
    "posture": "committed",
    "paper": {
     "band": "mid",
-    "L": 74,
-    "hue": 72
+    "L": 73,
+    "hue": 70
    },
    "display": {
     "class": "display-condensed",
@@ -1425,7 +1425,7 @@
    "material": "kraft board, a fibre wash, near-black toner, League Gothic capitals over a Newsreader galley, white copy paper on paper lifts, hard ink offsets, one sheet of fluorescent yellow",
    "file": "references/themes/pasteup.md",
    "photo": "mono con=45",
-   "pictured": "Bento Grid, Settled hero",
+   "pictured": "Bento Grid, Stage hero",
    "picture": "references/themes/pasteup.jpg"
   },
   {
@@ -1469,7 +1469,7 @@
    "material": "snow-white paper, cold near-black ink, Barlow Condensed 800 caps over Barlow, square edges on 2px ink rules, one cobalt for signal and field",
    "file": "references/themes/piste.md",
    "photo": "natural con=10 vib=15",
-   "pictured": "Photographic, Ledge hero",
+   "pictured": "Morning Report, Poster hero",
    "picture": "references/themes/piste.jpg"
   },
   {
@@ -1514,7 +1514,7 @@
    "material": "warm off-white paper, soft near-black ink, Newsreader light italic over Figtree, pills on hairline rules, a teal signal and a copper wash",
    "file": "references/themes/ribbon.md",
    "photo": "muted sepia=14",
-   "pictured": "Narrative Workflow, Settled hero",
+   "pictured": "Night Notes, Stage hero",
    "picture": "references/themes/ribbon.jpg"
   },
   {
@@ -1524,8 +1524,8 @@
    "posture": "committed",
    "paper": {
     "band": "dark",
-    "L": 6,
-    "hue": 80
+    "L": 9,
+    "hue": 75
    },
    "display": {
     "class": "grotesk-sans",
@@ -1558,7 +1558,7 @@
    "material": "warm black paper, warm off-white ink, Switzer 500 with Geist Mono for every measurement, square hairline surfaces, the earth photographed straight down, an orange signal and a sky-blue second",
    "file": "references/themes/rim.md",
    "photo": "natural sat=-20 con=10",
-   "pictured": "Bento Grid, Stage hero",
+   "pictured": "Map / Diagram, Ledge hero",
    "picture": "references/themes/rim.jpg"
   },
   {
@@ -1568,8 +1568,8 @@
    "posture": "committed",
    "paper": {
     "band": "light",
-    "L": 97.5,
-    "hue": 95
+    "L": 97,
+    "hue": 90
    },
    "display": {
     "class": "grotesk-heavy",
@@ -1596,10 +1596,10 @@
     "prints",
     "open studio"
    ],
-   "material": "bright uncoated stock and no black, a blue drum for every word, a fluorescent pink drum for the fills, purple where they cross, Cabinet Grotesk 800 over Literata, grain, a hair out of register",
+   "material": "bright uncoated stock and no black, a medium blue drum for every word, a fluorescent pink drum for the fills, purple where they cross, Cabinet Grotesk 800 over Literata, grain, one word a hair out of register",
    "file": "references/themes/riso.md",
-   "photo": "duotone ink paper-3",
-   "pictured": "Print Run, Stage hero",
+   "photo": "duotone ink paper-2 con=14",
+   "pictured": "Job Sheet, Stage hero",
    "picture": "references/themes/riso.jpg"
   },
   {
@@ -1642,10 +1642,10 @@
     "sun",
     "midsummer"
    ],
-   "material": "cream paper, warm brown ink, Yeseva One over Archivo and Archivo Narrow, gold hairlines and hard paper shadows, photographs in low warm light, one vermilion signal",
+   "material": "cream paper, warm brown ink and one brown dusk band, Yeseva One over Archivo and Archivo Narrow, 2px ink bars and gold hairlines, square wells on hard paper shadows, photographs in low warm light, one vermilion signal",
    "file": "references/themes/solstice.md",
    "photo": "warm high=-12",
-   "pictured": "Midsummer, Stage hero",
+   "pictured": "Release Sheet, Stage hero",
    "picture": "references/themes/solstice.jpg"
   },
   {
@@ -1655,8 +1655,8 @@
    "posture": "restrained",
    "paper": {
     "band": "light",
-    "L": 96,
-    "hue": 80
+    "L": 96.5,
+    "hue": 82
    },
    "display": {
     "class": "high-contrast-serif",
@@ -1684,7 +1684,7 @@
     "considered",
     "literary"
    ],
-   "material": "warm oat paper, warm near-black ink, razor-hairline Bodoni Moda over Geist, square 1px rules, one ink-blue signal",
+   "material": "warm oat paper, warm near-black ink, razor-hairline Bodoni Moda over Geist, square 1px rules, one ink-blue signal that also draws the metric guides",
    "file": "references/themes/specimen.md",
    "photo": "duotone ink paper con=8",
    "pictured": "Specimen Book, Poster hero",
@@ -1729,10 +1729,10 @@
     "subscription",
     "small batch"
    ],
-   "material": "coffee-ground black with a warm grain, cream ink, Young Serif over Instrument Sans, soft pills and panels, photographs lit by lamps and candles, one oyster pink",
+   "material": "coffee-ground black with a warm grain, parchment ink, Young Serif over Instrument Sans, soft pills and grained wells, photographs lit by lamps and candles, one oyster pink",
    "file": "references/themes/spore.md",
    "photo": "warm con=6 exp=-4",
-   "pictured": "Photographic, Settled hero",
+   "pictured": "Photographic, Stage hero",
    "picture": "references/themes/spore.jpg"
   },
   {
@@ -1773,10 +1773,10 @@
     "match",
     "tournament"
    ],
-   "material": "cool concrete paper, blue-black ink, uppercase Saira Condensed over Albert Sans, tabular mono figures, two-weight rules, one volt fill",
+   "material": "cool concrete paper, blue-black ink, uppercase Saira Condensed over Albert Sans, condensed figures and mono times, two-weight rules, one volt fill",
    "file": "references/themes/sport.md",
    "photo": "duotone ink paper con=20",
-   "pictured": "Marquee Hero, Poster hero",
+   "pictured": "Stat-Led, Stage hero",
    "picture": "references/themes/sport.jpg"
   },
   {
@@ -1795,7 +1795,7 @@
    },
    "accent": {
     "band": "warm",
-    "hue": 55
+    "hue": 56
    },
    "keywords": [
     "fruit",
@@ -1817,7 +1817,7 @@
     "local",
     "fresh"
    ],
-   "material": "forest-green paper with real chroma, warm white ink, Gabarito 800 heads over Manrope, soft rounded tiles, fruit photographed bright and close, peach controls",
+   "material": "forest-green paper with real chroma, warm white ink, Gabarito 800 heads and figures over Manrope, soft rounded tiles a step lighter or deeper, fruit photographed bright and close, juicy peach controls",
    "file": "references/themes/squeeze.md",
    "photo": "natural vib=12 con=4",
    "pictured": "Bento Grid, Stage hero",
@@ -1862,10 +1862,10 @@
     "ship",
     "order"
    ],
-   "material": "warm off-white paper, warm black ink, Bowlby One SC over Sofia Sans, white die-cut borders on hard offset shadows, hot pink and lime fills",
+   "material": "warm off-white paper, warm black ink, Bowlby One SC over Sofia Sans, white die-cut borders on hard offset shadows, hot pink, lime and ink fills set with type",
    "file": "references/themes/sticker.md",
    "photo": "natural vib=15 con=5",
-   "pictured": "Price List, Settled hero",
+   "pictured": "Bento Grid, Stage hero",
    "picture": "references/themes/sticker.jpg"
   },
   {
@@ -1875,8 +1875,8 @@
    "posture": "restrained",
    "paper": {
     "band": "light",
-    "L": 96.5,
-    "hue": 200
+    "L": 97.2,
+    "hue": 215
    },
    "display": {
     "class": "roman-serif",
@@ -1903,10 +1903,10 @@
     "considered",
     "curatorial"
    ],
-   "material": "cool studio-white paper, blue-black ink, Hedvig Letters Serif heads over Geist, square hairlines, the work photographed in true colour, one cadmium-orange signal",
+   "material": "cool studio-white paper, blue-black ink, Hedvig Letters Serif heads over Geist, hairlines with an ink rule at the head of a set, the work photographed in true colour, one cadmium-orange signal",
    "file": "references/themes/studio.md",
    "photo": "natural",
-   "pictured": "Portfolio Grid, Stage hero",
+   "pictured": "Portfolio Index, Stage hero",
    "picture": "references/themes/studio.jpg"
   },
   {
@@ -1916,7 +1916,7 @@
    "posture": "committed",
    "paper": {
     "band": "dark",
-    "L": 12,
+    "L": 12.5,
     "hue": 150
    },
    "display": {
@@ -1947,7 +1947,7 @@
     "developer tool",
     "phosphor"
    ],
-   "material": "a near-black ground with a green cast, pale phosphor ink and one bright phosphor signal, every glyph Martian Mono with heads wide and text narrow, and pictures printed in the page's own glyphs: a photograph rendered as a grid of characters taken from the product's own text, dim cells small, bright cells full, stirred by the cursor",
+   "material": "a near-black ground with a green cast in three lightness steps, pale phosphor ink and one bright phosphor signal with a dim wash of itself, every glyph Martian Mono with heads wide and text narrow, and pictures printed in the page's own glyphs: a photograph rendered as a grid of characters taken from the product's own text, dim cells small, bright cells full, stirred by the cursor",
    "file": "references/themes/terminal.md",
    "photo": "duotone paper accent con=20",
    "pictured": "Session, Split hero",
@@ -1961,7 +1961,7 @@
    "paper": {
     "band": "light",
     "L": 96,
-    "hue": 80
+    "hue": 82
    },
    "display": {
     "class": "geometric-sans",
@@ -1969,7 +1969,7 @@
    },
    "accent": {
     "band": "warm",
-    "hue": 35
+    "hue": 38
    },
    "keywords": [
     "materials",
@@ -1993,10 +1993,10 @@
     "photography",
     "tactile"
    ],
-   "material": "off-white paper, white plates ruled in ink, wide Syne heads over Onest, hard offset shadows, surfaces photographed flat-on in true colour, rust the one signal",
+   "material": "off-white paper, white card surfaces ruled in ink over a hard offset, wide Syne heads over Onest, JetBrains Mono for codes and millimetres, surfaces photographed flat-on in true colour, rust the one signal",
    "file": "references/themes/terrazzo.md",
    "photo": "natural con=4",
-   "pictured": "Catalogue, Settled hero",
+   "pictured": "Sample Drawer, Ledge hero",
    "picture": "references/themes/terrazzo.jpg"
   },
   {
@@ -2037,10 +2037,10 @@
     "beats",
     "recording studio"
    ],
-   "material": "lavender paper, violet-black ink, Outfit set lowercase over Onest, hairline pills, photographs pulled into the one saturated violet",
+   "material": "lavender paper or a violet-black night, Outfit set lowercase over Onest, hairline pills, one saturated violet in two strengths, photographs pulled into the violet",
    "file": "references/themes/ultraviolet.md",
    "photo": "tint accent con=10",
-   "pictured": "Workbench, Settled hero, in the night colourway",
+   "pictured": "Workbench, Stage hero, in the night colourway",
    "picture": "references/themes/ultraviolet.jpg"
   },
   {
@@ -2050,8 +2050,8 @@
    "posture": "committed",
    "paper": {
     "band": "light",
-    "L": 93,
-    "hue": 80
+    "L": 94,
+    "hue": 82
    },
    "display": {
     "class": "blackletter",
@@ -2059,7 +2059,7 @@
    },
    "accent": {
     "band": "cool",
-    "hue": 275
+    "hue": 268
    },
    "keywords": [
     "roastery",
@@ -2083,7 +2083,7 @@
     "old world",
     "slow"
    ],
-   "material": "parchment paper, a long tan fibre wash on bands, umber ink, Grenze Gotisch heads over Hanken Grotesk, hairline and double rules, one ultramarine pigment",
+   "material": "parchment paper, a long tan fibre wash on bands, umber ink, Grenze Gotisch heads over Hanken Grotesk with Grenze roman for statements, hairline and double rules, one ultramarine pigment",
    "file": "references/themes/vellum.md",
    "photo": "warm con=6",
    "pictured": "Trade Ledger, Poster hero",
@@ -2096,7 +2096,7 @@
    "posture": "committed",
    "paper": {
     "band": "light",
-    "L": 95,
+    "L": 95.5,
     "hue": 250
    },
    "display": {
@@ -2134,10 +2134,10 @@
     "flights",
     "airport"
    ],
-   "material": "cool grey paper, blue-black ink, Chivo Mono throughout, square 2px ink borders, cobalt for what is live, amber for figures",
+   "material": "cool grey paper, blue-black ink, Chivo Mono throughout, square 2px ink borders, ink plates, cobalt for what is live, amber for figures on ink",
    "file": "references/themes/wayfind.md",
    "photo": "natural sat=-12 con=10",
-   "pictured": "Split Studio, Stage hero",
+   "pictured": "Station Sequence, Stage hero",
    "picture": "references/themes/wayfind.jpg"
   },
   {
@@ -2147,8 +2147,8 @@
    "posture": "full-palette",
    "paper": {
     "band": "mid",
-    "L": 80,
-    "hue": 80
+    "L": 84,
+    "hue": 82
    },
    "display": {
     "class": "geometric-sans",
@@ -2156,7 +2156,7 @@
    },
    "accent": {
     "band": "cool",
-    "hue": 265
+    "hue": 264
    },
    "keywords": [
     "school",
@@ -2178,10 +2178,10 @@
     "cohort",
     "prospectus"
    ],
-   "material": "warm putty ground, near-black ink, Jost 700 capitals over Karla, square 2px and 3px ink rules, flat blue, red and yellow primaries",
+   "material": "warm putty ground with a lighter well, near-black ink, Jost 700 capitals and numerals over Karla, square 2px and 3px ink rules that box cells, flat ultramarine, vermilion and yellow primaries",
    "file": "references/themes/werkstatt.md",
    "photo": "mono",
-   "pictured": "Prospectus, Stage hero",
+   "pictured": "Catalogue, Settled hero",
    "picture": "references/themes/werkstatt.jpg"
   }
  ]

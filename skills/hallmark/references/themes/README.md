@@ -36,17 +36,18 @@ photo: muted
 
 Every theme ships `<slug>.jpg` beside its file: the first screen and one lower screen of a finished page built in the theme with the skill, each at 1440 x 900, scaled to 960 wide and stacked (`node scripts/picture.mjs <slug> <page.html> <y of the lower screen>`). The page must sweep clean, pass `layout.md` on every screen, and be one a designer would sign; its lower screen shows the material at work in a full section, and its pictures are real (photographs or the product built), never an empty slot. A build reads the picture for palette balance, type voice and surfaces, never for layout. A theme without a picture validates with a warning.
 
-## The body, in order, 3 to 7 KB
+## The body, in order, 3,000 to 8,000 bytes
 
 1. **One paragraph:** what the theme feels like and what it is not. No brand names: describe the register, never the sites that have it.
-2. **Tokens:** a `:root` block with the real values in OKLCH: paper, paper-2, paper-3, ink, ink-2, muted, rule, accent, accent-ink, focus; the three font tokens; `--radius-card`, `--radius-pill`, `--rule-hair`, `--shadow-card`; `--tracking-display`. Optional: `--color-slot` when the slot wash should take a second hue rather than the accent. No comments inside the block: `theme.mjs scaffold` copies it verbatim into a page's `tokens.css`. A theme with colourways lists the alternates in a short table under the block, and the page states its choice in the stamp.
+2. **Tokens:** a `:root` block with the real values in OKLCH: paper, paper-2, paper-3, ink, ink-2, muted, rule, accent, accent-ink, focus; the three font tokens; `--radius-card`, `--radius-pill`, `--rule-hair`, `--shadow-card`; `--tracking-display`, `--display-weight` (the weight every head takes). Optional: `--color-slot` when the slot wash should take a second hue rather than the accent. No comments inside the block: `theme.mjs scaffold` copies it verbatim into a page's `tokens.css`. A theme with colourways lists the alternates in a short table under the block, and the page states its choice in the stamp.
 3. **Type:** display, body, and the outlier if any, with weights, tracking, case and leading; sizes come from the shared scale (`layout.md` § 2), so a theme names a step only where its face needs one (a condensed face may set one step larger). Labels, captions, table heads, tags and nav links are the body face a step smaller, sentence case, untracked, or one label face the theme names, never mono unless mono is this theme's material. A head is one weight and one colour; a theme built on an accented word names it and says it appears once.
 4. **Surfaces:** four to six bullets: rule weight and where rules run, radius, depth stance, the bands a page may use (which paper, how many), photographs (what kind of picture suits the material, how it is framed and cropped, how it meets the type), the texture budget (naming the `texture.md` recipe if any).
-5. **Controls:** two or three bullets: the control pair, links, inputs, and where the accent may sit.
-6. **Motion:** one to three lines: how fast, how it eases, what may move.
-7. **Voice:** one or two lines on the copy's register.
-8. **Do-nots:** three to five bullets specific to this theme's own failure modes, never restatements of a gate.
-9. **Build hint:** at most 20 lines of CSS carrying the rules that make the material recognisable (the head setting, the control pair, a well or band surface, a texture if any), every colour, duration, easing and space a token (validate refuses raw milliseconds, a bare `ease`, named colours and raw spacing). Font links as one line.
+5. **Range:** three or four bullets on what this material makes without a photograph: which compositions of `layout.md` § 5 it sets best and with what (a figure in the display face, rules drawn into a table, the accent as a band that holds a form, a line set as a specimen, the product's own surface). A page in the theme alternates pictures with sections only this material could make (83), so the range is what keeps it from reading as a stock gallery. These are treatments of the shared compositions, never a component a page must include, and never a section order.
+6. **Controls:** two or three bullets: the control pair, links, inputs, and where the accent may sit.
+7. **Motion:** one to three lines: how fast, how it eases, what may move.
+8. **Voice:** one or two lines on the copy's register.
+9. **Do-nots:** three to five bullets specific to this theme's own failure modes, never restatements of a gate.
+10. **Build hint:** at most 20 lines of CSS carrying the rules that make the material recognisable (the head setting, the control pair, a well or band surface, a texture if any), every colour, duration, easing and space a token (validate refuses raw milliseconds, a bare `ease`, named colours and raw spacing). Font links as one line.
 
 ## What a theme may not carry
 

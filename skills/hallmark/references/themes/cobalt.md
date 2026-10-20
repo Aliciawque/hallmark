@@ -9,7 +9,7 @@ posture: restrained
 keywords: api, sdk, cli, dev tool, developer platform, docs, documentation, infrastructure, backend, database, observability, webhooks, events, type-safe, open source, ship, deploy, developer experience, technical
 material: cool near-white paper, blue-grey ink and hairlines, Familjen Grotesk over IBM Plex Sans, JetBrains Mono on a graphite surface in three tones, one electric cobalt signal
 photo: duotone graphite paper
-pictured: Narrative Workflow, Stage hero
+pictured: Feature Ledger, Stage hero
 ---
 
 # Cobalt
@@ -20,22 +20,22 @@ An exact, technical register: cool near-white paper ruled with hairlines, Familj
 
 ```css
 :root {
-  --color-paper: oklch(98.5% 0.005 250); --color-paper-2: oklch(96% 0.007 250); --color-paper-3: oklch(93% 0.009 250);
-  --color-ink: oklch(24% 0.020 258); --color-ink-2: oklch(34% 0.018 257); --color-muted: oklch(50% 0.015 256);
-  --color-rule: oklch(90% 0.008 250); --color-rule-2: oklch(84% 0.010 250);
-  --color-graphite: oklch(22% 0.016 260); --color-graphite-2: oklch(27% 0.018 260); --color-graphite-ink: oklch(92% 0.010 250); --color-graphite-muted: oklch(68% 0.020 255);
-  --color-accent: oklch(52% 0.185 257); --color-accent-2: oklch(74% 0.14 256); --color-accent-ink: oklch(98.5% 0.005 250); --color-focus: oklch(52% 0.185 257);
+  --color-paper: oklch(98.6% 0.005 250); --color-paper-2: oklch(96.2% 0.008 252); --color-paper-3: oklch(93% 0.011 252);
+  --color-ink: oklch(21% 0.028 262); --color-ink-2: oklch(36% 0.022 260); --color-muted: oklch(50% 0.018 258);
+  --color-rule: oklch(90% 0.009 252); --color-rule-2: oklch(83% 0.012 252);
+  --color-graphite: oklch(21% 0.024 262); --color-graphite-2: oklch(26.5% 0.026 262); --color-graphite-ink: oklch(93% 0.010 250); --color-graphite-muted: oklch(69% 0.022 256);
+  --color-accent: oklch(52% 0.19 258); --color-accent-2: oklch(76% 0.13 254); --color-accent-wash: oklch(95% 0.028 256); --color-accent-ink: oklch(98.6% 0.005 250); --color-focus: oklch(52% 0.19 258);
   --font-display: "Familjen Grotesk", system-ui, sans-serif; --font-body: "IBM Plex Sans", system-ui, sans-serif;
   --font-outlier: "JetBrains Mono", ui-monospace, monospace;
-  --radius-card: 10px; --radius-input: 6px; --radius-pill: 999px;
-  --rule-hair: 1px; --shadow-card: 0 1px 2px oklch(24% 0.02 258 / 0.05);
-  --tracking-display: -0.02em;
+  --radius-card: 8px; --radius-input: 6px; --radius-pill: 999px;
+  --rule-hair: 1px; --shadow-card: 0 1px 2px oklch(21% 0.028 262 / 0.06);
+  --tracking-display: -0.028em; --display-weight: 600;
 }
 ```
 
 ## Type
 
-- **Display:** Familjen Grotesk 600 on heads and 500 on item titles, `--tracking-display`, line-height 1.05, sentence case, roman. Its flared terminals keep it from reading as a default grotesk.
+- **Display:** Familjen Grotesk 600 on heads and figures, 500 on item titles, `--tracking-display` (item titles at -0.01em), line-height 1.02 on heads, sentence case, roman, tabular figures. Its flared terminals keep it from reading as a default grotesk, and a status code or a count set in it at 60px and over is the page's loudest type.
 - **Body:** IBM Plex Sans 400 and 500, body only.
 - **Labels, captions, table heads, status:** Familjen Grotesk 500 a step smaller, sentence case, in `--color-muted`, the theme's label face. Never mono.
 - **Code:** JetBrains Mono 400 and 500 for code, commands and machine values in a table (event names, IDs, timestamps); never a label, a head or a chip.
@@ -43,10 +43,17 @@ An exact, technical register: cool near-white paper ruled with hairlines, Familj
 ## Surfaces
 
 - Hairlines do the work: a 1px `--color-rule` edges every surface and splits every row, never a heavy boxed card. Every neutral tilts to hue 250 to 260.
-- Radius 10px on surfaces, 6px on controls and inputs, concentric inside a well. Depth is the whisper `--shadow-card` on an interactive surface and a paper step on a well; nothing else lifts. No texture, no gradient text.
-- Graphite is the dark material: `--color-graphite` under `--color-graphite-ink`, `--color-graphite-2` for a selected line or a panel's header strip, `--color-graphite-muted` for comments, line numbers and secondary text. Syntax takes the lighter cobalt `--color-accent-2` for types and strings; never a rainbow.
+- Radius 8px on surfaces, 6px on controls and inputs, concentric inside a well. `--color-accent-wash` is the cobalt's second strength: the selected row, a meter's track, a highlighted line in a diff. Depth is the whisper `--shadow-card` and a paper step; nothing else lifts. No texture.
+- Graphite is the dark material, a blue-tinted ink rather than black: `--color-graphite` under `--color-graphite-ink`, `--color-graphite-2` for a selected line or a panel's header strip, `--color-graphite-muted` for comments, line numbers and secondary text. Syntax takes the lighter cobalt `--color-accent-2` for types and strings; never a rainbow.
 - Bands: a `--color-paper-2` band or the one graphite band; two a page at most.
-- Photographs are rare: one at most, of a real system at work seen from a distance (rail switches in a yard, a patch panel, a signal box), never people at laptops or glowing code. In the graphite and paper duotone, 10px radius, a 1px hairline, no type on it.
+- Photographs are rare: one at most, of a real system seen from a distance (a rail yard, a patch panel), never people at laptops or glowing code; graphite and paper duotone, 8px radius, a hairline, no type on it.
+
+## Range
+
+- **A table that is the API:** sources, endpoints or limits as a full-width ruled table, the row's name in Familjen 500, machine values in JetBrains Mono, the column that matters one step heavier, one row on the cobalt wash.
+- **A comparison as a diff:** two graphite panes side by side, the raw payload and what the product makes of it, file names in the header strip, lines that changed on `--color-graphite-2`.
+- **A timeline as figures:** attempts, deploys or a schedule set on one hairline axis spaced by their real times, each status or duration in Familjen 600 at display size, the time beneath in mono, failure in the error colour and success in cobalt.
+- **A working control on the brief's numbers:** a calculator or a filter on paper-2, its result as one large Familjen figure over a single cobalt meter on the wash, beside the signup.
 
 ## Controls
 
@@ -56,7 +63,7 @@ An exact, technical register: cool near-white paper ruled with hairlines, Familj
 
 ## Motion
 
-One settle a page: a code surface fades in once over `--dur-long` on `--ease-out`, or one command types in once and stays; never both. Hover grows a cobalt underline on a link and turns a hairline cobalt on a focusable surface. No bounce, no parallax.
+One settle a page: a code surface fades in once over `--dur-long` on `--ease-out`. Hover grows a cobalt underline on a link and turns a hairline cobalt on a focusable surface. No bounce, no parallax.
 
 ## Voice
 
@@ -66,7 +73,6 @@ Declarative, technical, specific, like a good changelog: name the event, the end
 
 - Never a warm accent; the signal is cobalt at hue 256.
 - Never a pill or a gradient button; one solid cobalt button at 6px, plus typographic links.
-- Never glass, blur or a floating shadowed bar; chrome is as flat as every surface.
 - Never fake code: a snippet compiles, resolves or returns, and an invented endpoint is the theme's worst failure. With no host in the brief, call `example.com`.
 - Never a second graphite band; two dark beats turn the light theme into a striped one.
 

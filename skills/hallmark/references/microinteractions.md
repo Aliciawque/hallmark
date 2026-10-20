@@ -64,7 +64,7 @@ catch { item.done = prev; render(); toast({ tone: "error", message: "Could not s
 
 **Command palette.** Opens at once on ⌘K or `/`; the input keeps focus throughout. Arrow keys move a highlight that slides by `transform` over `--dur-micro`; the rows themselves never move. Enter selects, Escape closes. Rows may fade in on first open, never on filtering.
 
-**Page-load reveal.** One orchestrated entrance, per `craft.md` § 5: staggered by DOM order, 500ms in total, IntersectionObserver rather than scroll listeners, once. A still theme skips it, and that is correct.
+**Page-load reveal.** One orchestrated entrance, per `craft.md` § 5: staggered by DOM order, 0.4 to 0.8s in all, IntersectionObserver rather than scroll listeners, once. A still theme skips it, and that is correct.
 
 ## Motion character
 

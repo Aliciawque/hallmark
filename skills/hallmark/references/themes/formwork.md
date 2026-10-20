@@ -9,7 +9,7 @@ posture: restrained
 keywords: construction, concrete, skatepark, contractor, civil, landscape, foundry, industrial, fabrication, workshop, engineering, cast, welded, builders, hardware, tools, site, heavy
 material: warm grey concrete paper with a speck grain, near-black ink, Oswald capitals over Archivo, square cast edges and hard shadows, hard black-and-white photographs of poured concrete, one safety orange signal
 photo: natural sat=-100 con=35 exp=8
-pictured: Site Board, Stage hero
+pictured: Site Board, Poster hero
 ---
 
 # Formwork
@@ -21,8 +21,8 @@ A site-office voice: warm grey concrete for paper, near-black ink, Oswald 700 ca
 ```css
 :root {
   --color-paper: oklch(74% 0.008 80); --color-paper-2: oklch(69% 0.009 80); --color-paper-3: oklch(64% 0.01 80);
-  --color-plate: oklch(81% 0.008 80);
-  --color-ink: oklch(18% 0.005 270); --color-ink-2: oklch(30% 0.006 80); --color-muted: oklch(32% 0.008 80);
+  --color-plate: oklch(82% 0.007 80); --color-plate-ink: oklch(95% 0.006 80);
+  --color-ink: oklch(18% 0.005 270); --color-ink-2: oklch(28% 0.006 80); --color-muted: oklch(31.5% 0.008 80);
   --color-rule: oklch(64% 0.01 80);
   --color-accent: oklch(66% 0.21 38); --color-accent-ink: oklch(18% 0.005 270); --color-focus: oklch(42% 0.15 38);
   --color-accent-deep: oklch(48% 0.17 38);
@@ -31,7 +31,7 @@ A site-office voice: warm grey concrete for paper, near-black ink, Oswald 700 ca
   --font-outlier: "Archivo Narrow", ui-sans-serif, sans-serif;
   --radius-card: 0; --radius-pill: 0; --rule-hair: 1px; --rule-bar: 3px;
   --shadow-card: 6px 6px 0 var(--color-ink);
-  --tracking-display: -0.005em;
+  --tracking-display: -0.005em; --display-weight: 700;
 }
 ```
 
@@ -45,7 +45,7 @@ Three pours, stated in the stamp (`formwork: cast`). Muted sits on paper and pap
 
 ## Type
 
-- **Display:** Oswald 700, uppercase, `--tracking-display`, roman; line-height 1.0 to 1.05 (55a), 0.92 only on a line that cannot wrap. One colour per head. Condensed, a section head may take one step up (`--text-display-s`).
+- **Display:** Oswald 700, uppercase, `--tracking-display`, roman; line-height 1.0 to 1.05 (55a), 0.9 only on a line that cannot wrap. One colour per head. Condensed, a section head takes one step up (`--text-display-s` and up), and a lone figure may run to 20rem.
 - **Body:** Archivo 400 and 500, 16 to 17px, line-height 1.5, in `--color-ink-2`.
 - **Figures (the outlier):** Archivo Narrow 500, tabular, sentence case, for measurements and counts: a radius in millimetres, a depth, a week, a park's number.
 - **Labels, captions, table heads, meta:** Archivo 500 a step smaller, sentence case, untracked. No mono on the page.
@@ -54,10 +54,17 @@ Three pours, stated in the stamp (`formwork: cast`). Muted sits on paper and pap
 
 - Rules: `--rule-bar` in ink across the top of a section or a table, `--rule-hair` in `--color-paper-3` between rows.
 - Radius 0 on everything; concrete is cast against straight boards.
-- Depth is cast, never soft: a card is `--color-plate` with a `--rule-bar` ink border and the hard `--shadow-card` in ink; nothing is blurred.
+- Depth is cast, never soft: a plate is `--color-plate` with a `--rule-bar` ink border and the hard `--shadow-card` in ink, one or two a page; nothing is blurred.
 - Bands: `--color-paper-2` (a darker pour) or one `--color-ink` band with `--color-paper` text; never an orange field. Two a page at most.
 - Photographs: concrete close and at work in hard daylight: a bowl's transition from the deck, board-marked walls, coping and edges, the pour and the float, a skater from behind or far off. Hard black and white, the whites clean and the blacks deep (the `photo:` line), so a picture stands off the grey paper and the orange stays the only colour. Square in a 2px ink frame, no shadow; a caption beneath in the label style; type on a photograph only over an ink scrim from its edge.
 - Texture, the grain: `texture.md` § 1 across the whole paper at `--texture-opacity` (0.05, so it may sit under running text), multiplied, screened on the night pour; it is what makes the paper read as cast.
+
+## Range
+
+- **A figure cast as a plate:** the brief's one real count in Oswald at 14 to 20rem on a plate with the hard shadow, its unit and what it counts in Archivo beside it.
+- **Steps as a pour sequence:** three or four stages across the twelve columns under a `--rule-bar`, each an Oswald numeral at `--text-display-s`, a one-word stage and one plain line, verticals in `--color-paper-3` between.
+- **Comparison as two plates:** two audiences or two jobs side by side, each a plate with its rows on hairlines; orange only on the one action.
+- **Statement on the ink band:** one line of Oswald capitals at display size in `--color-plate-ink` on `--color-ink`, grain screened.
 
 ## Controls
 
@@ -75,8 +82,7 @@ A foreman's plain talk: what was poured, where, for whom and when it opens. Shor
 
 ## Do-nots
 
-- Never a second accent; a blue link on the concrete is a different site.
-- Never a rounded corner or a blurred shadow; the hard shadow is the material.
+- Never a rounded corner, a blurred shadow or a second accent; the hard shadow and the orange are the material.
 - Never draw the concrete (board seams, tie holes, cracks, a hazard stripe); photograph it.
 - Never a colour photograph beside the orange; pictures print in black and white.
 - Never Oswald in lowercase or at a light weight; it is 700 capitals.

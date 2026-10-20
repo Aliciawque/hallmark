@@ -4,7 +4,7 @@ Loaded only when the picked theme earns texture (affinity table below) or a cust
 
 ## The budget (binds on every artifact)
 
-- **One artifact family per page.** Grain OR halftone OR misregistration OR scanline OR deckle; combinations are mud. A risograph print is one family: its grain and its misregistration come from the same drum. A halftone inside a drawn print or a placeholder is the image, not a page texture, and does not count against the page's one family.
+- **One artifact family per page.** Grain, halftone, misregistration, scanline or deckle, never two. A risograph print is one family: its grain and its misregistration come from the same drum. A halftone that is a photograph's treatment belongs to the image, not the page, and does not count.
 - **Tokened opacity, declared in the token block:** `--texture-opacity` <= 0.08 page-wide, <= 0.15 scoped to a card or plate. Under running body text, <= 0.05 or nothing. A low-frequency wash (a base frequency of 0.02 or lower: a fibre, a paper tone) tints rather than specks and may run to 0.12 page-wide, with contrast measured on the result.
 - **Never animated.** No drifting grain, no pulsing dots.
 - **`pointer-events: none` and `aria-hidden="true"`** on every overlay; texture never intercepts input, and the retro signal is atmosphere, never a drawn monitor bezel (47a).
@@ -28,7 +28,7 @@ The colour matrix turns the noise into discrete specks (alpha is the noise times
 
 ## 2 · Halftone (dot field)
 
-Carnival's recipe, generalised with a size token:
+A dot screen with a size token:
 
 ```css
 :root { --halftone-size: 12px; --halftone-dot: 1.5px; }
@@ -36,11 +36,11 @@ Carnival's recipe, generalised with a size token:
   background-size: var(--halftone-size) var(--halftone-size); }
 ```
 
-Placeholder image regions, plate fills, section bands. Never under or overlapping typography (Carnival's own pitfall rule). Dot in ink or one spot colour, never the accent at full field strength.
+Plate fills and section bands. Never under or overlapping type. Dot in ink or one spot colour, never the accent at full field strength.
 
 ## 3 · Misregistration (chromatic echo)
 
-Riso's signature, portable to any print-lineage custom:
+Riso's signature, portable to any print-lineage custom run:
 
 ```css
 .misreg { position: relative; display: inline-block; isolation: isolate; }
@@ -81,7 +81,7 @@ One edge, one element class per page (a ticket edge, a stamp perforation). Never
 
 ## Affinity: who earns texture
 
-A theme earns texture when its Surfaces section names one; a custom draw earns it when its lineage is print (risograph, letterpress, ticket stock, line printer), and then it picks the one artifact that lineage used. The budget above binds every theme, whatever its file says: page-wide grain at 0.08 or less, 0.15 inside one plate, 0.05 or nothing under running text. Examples: Riso's grain and misregistration, Halftone's dot screen inside its fruit, Paste-up's fibre wash on the board, Darkroom's film grain over the wall, Arcade's scanlines (atmosphere, never a bezel), Ledger's ruled bands.
+A theme earns texture when its Surfaces section names one; a custom draw earns it when its lineage is print (risograph, letterpress, ticket stock, line printer), and then it picks the one artifact that lineage used. The budget above binds every theme, whatever its file says: page-wide grain at 0.08 or less, 0.15 inside one plate, 0.05 or nothing under running text. Examples: Riso (grain and misregistration), Halftone (a dot screen), Paste-up (a fibre wash), Darkroom (film grain), Arcade (scanlines).
 
 **Never:** a texture a theme does not name, grain on a modern-minimal page, two artifact families on one page, or a texture as ambience over everything because the page felt flat.
 

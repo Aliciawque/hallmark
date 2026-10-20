@@ -2,7 +2,7 @@
 
 Large serif display, asymmetric column spans, hairline rules, a typographic CTA, generous whitespace. The voice of a foundry, a journal or a press.
 
-- **Heading:** a large serif phrase, standing alone. When the run is genuinely ordinal the figure is generated on the heading itself (`<ol>` with `counter()`, S1); a number typed beside or above it is an eyebrow (54).
+- **Heading:** a large serif phrase, standing alone. When the run is genuinely ordinal the figure is generated on the heading itself (`<ol>` with `counter()`); a number typed beside or above it is an eyebrow (54).
 - **Body:** asymmetric spans: a narrow marginalia column (captions, dates, sidenotes) beside a wide content column.
 - **Divider:** hairline rules between sections.
 - **Button:** a typographic link carrying a verb ("Open your studio"); no box, no fill, no arrow (63).

@@ -786,10 +786,10 @@ function pxOf(value) {
 const rel = (f) => f.startsWith(process.cwd()) ? f.slice(process.cwd().length + 1) : f;
 const trunc = (s, n = 72) => (s.length > n ? s.slice(0, n - 1) + '…' : s);
 
-const PAGE_ONLY = new Set(['3', '8', '9', '25', '28', '32', '34', '42', '44', '46b', '47b', '47c', '49', '50', '54', '55', '56', '58', '59', '65', '66', '68', '69', '71', '77', '78', '79', '81', 'F7', 'F8', 'F15', 'F16', 'F20']);
+const PAGE_ONLY = new Set(['3', '8', '9', '25', '28', '32', '34', '42', '44', '46b', '47b', '47c', '49', '50', '54', '55', '56', '58', '59', '65', '66', '68', '69', '71', '77', '78', '79', '80', '81', '82', '83', 'F7', 'F8', 'F15', 'F16', 'F20']);
 const gateNumber = (id) => (/^(\d{1,2})/.exec(String(id)) || [])[1] || null;
 const pageOnly = (id) => PAGE_ONLY.has(String(id)) || PAGE_ONLY.has(gateNumber(id));
-const APP_SKIP = new Set(['1', '6', '8', '9', '32', '42', '44', '46b', '58', '59', '66', '68', '77', '78', '79', '81', '82', 'F8', 'F15', 'F20']);
+const APP_SKIP = new Set(['1', '6', '8', '9', '32', '42', '44', '46b', '58', '59', '66', '68', '77', '78', '79', '81', '82', '83', 'F8', 'F15', 'F20']);
 const appSkip = (id) => APP_SKIP.has(String(id)) || APP_SKIP.has(gateNumber(id));
 
 const TIERS = new Map(Object.entries({
@@ -808,7 +808,7 @@ const TIERS = new Map(Object.entries({
   '39a': 'floor', '39b': 'reflex', '44a': 'reflex', '44b': 'floor', '44c': 'reflex', '44d': 'floor',
   '46a': 'floor', '46b': 'reflex', '47a': 'floor', '47b': 'reflex', '47c': 'reflex', '49a': 'floor', '49b': 'reflex',
   '55a': 'floor', '55b': 'reflex', '71': 'reflex', '72': 'reflex', '73': 'floor', '74': 'reflex', '75': 'reflex', '76': 'floor',
-  '77': 'reflex', '78': 'reflex', '79': 'reflex', '80': 'reflex', '81': 'reflex', '82': 'reflex',
+  '77': 'reflex', '78': 'reflex', '79': 'reflex', '80': 'reflex', '81': 'reflex', '82': 'reflex', '83': 'reflex',
 }));
 
 const HERO_SKIP = new Set(['8', '9', '32', '59', '77', '78', 'F8', 'F15']);
@@ -1237,7 +1237,7 @@ function check4(ctx) {
       }
       if (t.selfClosing) continue;
       const cls = getAttr(t.attrs, 'class') || '';
-      const isCard = cls.split(/\s+/).some((c) => cardWord.test(c) && !containerish.test(c));
+      const isCard = cls.split(/\s+/).some((c) => { const base = c.split('--')[0]; return base && cardWord.test(base) && !containerish.test(base); });
       if (isCard && stack.some((s) => s.isCard)) {
         report(4, 'FAIL', doc.file, t.line, `card nested in card: class="${trunc(cls, 40)}"`, 'Keep one containment layer');
       }
@@ -2065,7 +2065,7 @@ function check48(ctx) {
   for (const [prop, val] of Object.entries(ctx.tokens)) {
     if (/^--(font|color)-/.test(prop) && /FILL ME/i.test(val)) {
       const tr = ctx.rules.find((r) => isTokenRule(r) && r.decls.some((d) => d.prop === prop));
-      report(48, 'FAIL', tr ? tr.file : ctx.cssFiles[0]?.file || ctx.docs[0]?.file, tr ? tr.decls.find((d) => d.prop === prop)?.line : 1, `${prop} is still the scaffold placeholder "FILL ME"`, /^--font-/.test(prop) ? 'Fill the face from direction.md § C before building' : 'Fill the colour from direction.md § B before building');
+      report(48, 'FAIL', tr ? tr.file : ctx.cssFiles[0]?.file || ctx.docs[0]?.file, tr ? tr.decls.find((d) => d.prop === prop)?.line : 1, `${prop} is still the scaffold placeholder "FILL ME"`, /^--font-/.test(prop) ? 'Fill the face from the theme tokens (scaffold) or fonts.md on a custom run before building' : 'Fill the colour from the theme tokens (scaffold) or direction.md on a custom run before building');
     }
   }
   for (const r of ctx.rules) {
@@ -2074,7 +2074,7 @@ function check48(ctx) {
       if (d.prop === 'font-family') {
         const v = d.value;
         if (/FILL ME/i.test(resolveVars(v, ctx.tokens))) {
-          report(48, 'FAIL', r.file, d.line, `font-family on ${r.selector} resolves to the placeholder "FILL ME"`, 'Fill the face from direction.md § C before building');
+          report(48, 'FAIL', r.file, d.line, `font-family on ${r.selector} resolves to the placeholder "FILL ME"`, 'Fill the face from the theme tokens (scaffold) or fonts.md on a custom run before building');
           continue;
         }
         if (!v.includes('var(')) {
@@ -3093,7 +3093,7 @@ function check68(ctx) {
       if (hiddenUp) continue;
       slots.push({ i, t });
     }
-    if (slots.length && !ctx.docs.some((d) => d.kind !== 'html') && !/hallmarkSlots/.test(doc.src) && !ctx.docs.some((d) => d !== doc && /hallmarkSlots/.test(d.src))) report('F18', 'WARN', doc.file, slots[0].t.line, `${slots.length} slot${slots.length > 1 ? 's' : ''} and no slot script`, 'Paste the hallmarkSlots script the scaffold printed before </body>, so the user\'s images drop in (craft.md § 8)');
+    if (slots.length && !ctx.docs.some((d) => d.kind !== 'html') && !/hallmarkSlots/.test(doc.src) && !ctx.docs.some((d) => d !== doc && /hallmarkSlots/.test(d.src))) report('F18', 'WARN', doc.file, slots[0].t.line, `${slots.length} slot${slots.length > 1 ? 's' : ''} and no slot script`, 'Paste the hallmarkSlots script the scaffold printed before </body>, so the user\'s images drop in (imagery.md § 3)');
     if (slots.length > 5) report(68, 'FAIL', doc.file, slots[5].t.line, `${slots.length} empty slots on one page`, 'Two to four slots carry a page; set the rest in type, names and facts in a list or table');
     const byRun = new Map();
     for (const sl of slots) {
@@ -4042,6 +4042,7 @@ function shareProjects(contexts) {
 const waiversByKey = new Map();
 const postureByFile = {};
 const heroPostureByFile = {};
+const photoShapeByFile = {};
 const contexts = [];
 const parsedDocs = new Map();
 const docOf = (f) => {
@@ -4091,7 +4092,8 @@ function buildContext(key, cssList, docList) {
   const posture = (/posture:\s*(restrained|committed|full-palette|drenched)/i.exec(stampText)?.[1] || 'restrained').toLowerCase();
   // a custom page designs its own hero: 44a and 44c read it as free
   const heroPosture = /theme:\s*custom\b/i.test(stampText) ? 'custom' : (/hero:\s*(settled|banner|poster|ledge|corridor|stage)\b/i.exec(stampText)?.[1] || '').toLowerCase();
-  for (const d of docs) { postureByFile[d.file] = posture; heroPostureByFile[d.file] = heroPosture; }
+  const photoShape = /shape:\s*(photographic|portfolio)/i.test(stampText);
+  for (const d of docs) { postureByFile[d.file] = posture; heroPostureByFile[d.file] = heroPosture; photoShapeByFile[d.file] = photoShape; }
   const allCss = cssFiles.map((c) => c.raw).join('\n') + '\n'
     + docs.map((d) => d.styles.map((st) => st.css).join('\n')).join('\n');
   const tokensOnly = !docs.length && rules.length > 0 && rules.every(isTokenRule);
@@ -4140,7 +4142,7 @@ if (opts.render) {
   if (!htmlFiles.length && !opts.urls.length) renderNotRun = 'no HTML page to render; pass --url for a running dev server';
   else try {
     const mod = await import(new URL('./sloplint-render.mjs', import.meta.url).href);
-    const extra = await mod.renderCheck([...htmlFiles, ...opts.urls], { genre: opts.genre, postureByFile, heroPostureByFile, stage: opts.stage, selectors: opts.before || opts.kept ? Object.fromEntries([...new Set(contexts.flatMap(([, c]) => c.docs))].filter((d) => d.kind === 'html').map((d) => [d.file, scriptSelectors(d)])) : {}, scope: opts.scope === 'app' || [...waiversByKey.values()].some((x) => x.APPSCREEN) ? 'app' : opts.scope, before: opts.before });
+    const extra = await mod.renderCheck([...htmlFiles, ...opts.urls], { genre: opts.genre, postureByFile, heroPostureByFile, photoShapeByFile, stage: opts.stage, selectors: opts.before || opts.kept ? Object.fromEntries([...new Set(contexts.flatMap(([, c]) => c.docs))].filter((d) => d.kind === 'html').map((d) => [d.file, scriptSelectors(d)])) : {}, scope: opts.scope === 'app' || [...waiversByKey.values()].some((x) => x.APPSCREEN) ? 'app' : opts.scope, before: opts.before });
     domInventories = extra.inventories || {};
     const allWaivers = { WAIVED: new Set([...waiversByKey.values()].flatMap((x) => [...x.WAIVED])), ANSWERED: new Set([...waiversByKey.values()].flatMap((x) => [...x.ANSWERED])), DISMISSED: new Set([...waiversByKey.values()].flatMap((x) => [...(x.DISMISSED || [])])), VERBATIM: [...waiversByKey.values()].some((x) => x.VERBATIM), APPSCREEN: [...waiversByKey.values()].some((x) => x.APPSCREEN), LAYOUT_KEPT: [...waiversByKey.values()].map((x) => x.LAYOUT_KEPT).find(Boolean) || false };
     for (const f of extra) {

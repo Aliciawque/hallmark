@@ -1,6 +1,6 @@
 # Patterns
 
-How the parts every page repeats are written, in the shape that passes the gates. Take the code's shape; the names, the copy, the values and the composition are yours. The scaffold already wrote `tokens.css` and `base.css` and printed the slot script.
+The parts every page repeats, written to pass the gates. Take the code's shape; the names, copy, values and composition are yours. `tokens.css`, `base.css` and the slot script come from the scaffold.
 
 ## Controls, all eight states
 
@@ -16,7 +16,7 @@ How the parts every page repeats are written, in the shape that passes the gates
 @media (prefers-reduced-motion: reduce) { .btn { transition: background-color var(--dur-short) linear; } }
 ```
 
-One filled primary per page; the quiet one goes somewhere else. Error and success belong to the form, below.
+One filled primary a page (F4); the quiet one goes somewhere else. Error and success belong to the form, below.
 
 ## A photograph in a slot
 
@@ -35,7 +35,7 @@ One filled primary per page; the quiet one goes somewhere else. Error and succes
 .caption { margin-top: var(--space-sm); font-size: var(--text-sm); color: var(--color-ink-2); }
 ```
 
-The `<img>` comes from `theme.mjs photos`; set `sizes` to the layout and crop with the frame's `aspect-ratio`. The scaffold supplies the slot's base rules (the cover fit, the loading wash, the swap) and the theme's treatment; the photo's credit goes in the footer's *Photographs* line; the caption is a fact from the brief, outside the frame. A product sample sits in the same kind of slot with no `<img>`: the interface built in HTML at full size (`imagery.md` § 4).
+The `<img>` comes from `theme.mjs photos`; `base.css` supplies the cover fit, the loading wash and the theme's treatment. The credit goes in the footer's *Photographs* line; the caption is a fact from the brief, outside the frame. A product sample takes the same kind of slot with no `<img>`: the interface built at full size (`imagery.md` § 4).
 
 ## A choice between a few
 
@@ -53,7 +53,7 @@ The `<img>` comes from `theme.mjs photos`; set `sizes` to the layout and crop wi
 .seg input:focus-visible + label { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 ```
 
-The radios stay in the flow at one pixel (53), the label carries the state and the ring, and the label is a label: the body face, sentence case.
+The radios stay in the flow at one pixel (53); the label carries the state and the ring, in the body face, sentence case.
 
 ## A fact the brief did not give
 
@@ -65,7 +65,7 @@ The radios stay in the flow at one pixel (53), the label carries the state and t
 .fill { padding: 0 0.2em; border-radius: 2px; color: var(--color-muted); background: color-mix(in oklch, var(--color-muted) 14%, transparent); }
 ```
 
-At most three on a page, each named in the handoff. A link whose URL the brief did not give points at the section of this page that does the most of it.
+Three a page at most, each named in the handoff (`craft.md` § 8).
 
 ## A form that posts nowhere yet
 
@@ -137,7 +137,7 @@ Only figures the user gave (46a), each with its unit and what it counts.
 
 ## A loop that can pause
 
-Anything that moves past 5 seconds (a marquee, an ambient loop, a looping video) holds still until the script runs, stops off-screen and under reduced motion, pauses on hover and focus, and carries a visible pause control (18, WCAG 2.2.2). A motion that ends inside 5 seconds needs none of this.
+Anything moving past 5 seconds (a marquee, an ambient loop, a looping video) holds still until the script runs, stops off-screen and under reduced motion, pauses on hover and focus, and carries a visible pause control (18, WCAG 2.2.2).
 
 ```html
 <figure data-loop>

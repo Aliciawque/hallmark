@@ -10,9 +10,9 @@ Made by Together AI.
   <img src="site/OG-hallmark.png" alt="Hallmark, a design skill that refuses to look AI-generated" />
 </p>
 
-Hallmark holds a hard floor and then gets out of the way. It deals three themes from a catalog of forty-eight materials, and a script applies the rotation so consecutive builds cannot converge. When the user asks for **custom** it steps further back: no theme and no plan, only the floor and a brief to make something it has never made before. It keeps every page to one idea per screen, set big enough to fill it. Then it lints the result against the tells that read as machine-made in 2026: the eyebrow above every heading, the small label in tracked capitals, the one coloured word in a headline, middle-dot meta strings, arrows glued to link text, mono labels as a technical costume, cream paper with a high-contrast serif and a clay accent, a page of empty picture frames, a heading and a line adrift on a wide canvas, a hero that stops short of its screen, one price said four times, a form that says thanks without sending anything, content that ships invisible when a script fails, text crammed against the edge of its box, and text painted under another element.
+Hallmark holds a hard floor and then gets out of the way. It deals three themes from a catalog of forty-eight materials, and a script applies the rotation so consecutive builds cannot converge. When the user asks for **custom** it steps further back: no theme and no plan, only the floor and a brief to make something it has never made before. It keeps every page to one idea per screen, set big enough to fill it. Then it lints the result against the tells that read as machine-made: the eyebrow above every heading, the small label in tracked capitals, the one coloured word in a headline, middle-dot meta strings, arrows glued to link text, mono labels as a technical costume, cream paper with a high-contrast serif and a clay accent, a page of empty picture frames, a page that is nothing but photographs, a heading and a line adrift on a wide canvas, a hero that stops short of its screen, one price said four times, a form that says thanks without sending anything, content that ships invisible when a script fails, text crammed against the edge of its box, and text painted under another element.
 
-The gates come in tiers. The **Floor** never ships: contrast, focus, reduced motion, invented metrics, layout that breaks on a phone, the fold at three widths, the eyebrow. **Reflex** gates are the defaults a language model falls into rather than laws, and a build with an argument may overrule one on the record, with the reason in the CSS stamp and the guard re-derived by the checker. **Finish** checks are craft detail that never blocks a ship. A fresh-context reviewer with no memory of the build gets the last word.
+The gates come in tiers. The **Floor** never ships: contrast, focus, reduced motion, invented metrics, layout that breaks on a phone, a hero that misses the first screen, the eyebrow. **Reflex** gates are the defaults a language model falls into rather than laws, and a build with an argument may overrule one on the record, with the reason in the CSS stamp and the guard re-derived by the checker. **Finish** checks are craft detail that never blocks a ship. A fresh-context reviewer with no memory of the build gets the last word.
 
 Two pages by Hallmark for two different briefs feel like different sites, not colour-swaps of the same template. The skill is built to stop a model looking generic, not to stop it being good.
 
@@ -23,8 +23,8 @@ Two pages by Hallmark for two different briefs feel like different sites, not co
 1. Pre-flight reads the project (fonts, palette, framework, a locked `design.md`).
 2. One message asks for the material first (screenshots, photos, real numbers, a quote with a name), then audience, use and tone. Facts are never invented: a number, a quote or a logo nobody gave stays absent.
 3. The page is designed from that inventory, then named; the signature is the strongest real thing shown at its best. `scripts/theme.mjs deal` prints three themes that fit the brief and clear the log.
-4. Pictures come first: the user's own, the product built at full fidelity, or photographs from a library of 755 verified, openly licensed photos from Wikimedia Commons that `scripts/theme.mjs photos` picks for each subject; the theme treats them in CSS (black and white, duotone in its inks, muted, natural) and the footer credits each one. Stand-ins sit in slots the user's own files replace. Hallmark never draws an illustration, never leaves an empty box where a picture belongs, and never counts with rows of marks.
-5. The build loads the layout, imagery and craft files, one genre file, one theme file (a material: palette, faces, surfaces, controls, never a component) with its picture (a finished page in that theme, for finish, never composition) and the gate table. The layout file sets the canvas, the type steps, how a section fills its width and how the hero fills its screen. `scripts/theme.mjs scaffold` writes `tokens.css` and `base.css`, so the page starts with the Floor already in place.
+4. Pictures come first: the user's own, the product built at full fidelity, or photographs from a library of 755 verified, openly licensed photos from Wikimedia Commons that `scripts/theme.mjs photos` picks for each subject; the theme treats them in CSS (black and white, duotone in its inks, muted, natural) and the footer credits each one. Stand-ins sit in slots the user's own files replace. Pictures take a quarter to a third of the page, and the theme's own material carries the sections between them. Hallmark never draws an illustration, never leaves an empty box where a picture belongs, and never counts with rows of marks.
+5. The build loads the layout, imagery and craft files, one genre file, one theme file (a material: palette, faces, surfaces, controls and its range without a photograph, never a component) with its picture (a finished page in that theme, for finish, never composition) and the gate table. The layout file sets the canvas, the type steps, how a section fills its width and how the hero fills its screen. `scripts/theme.mjs scaffold` writes `tokens.css` and `base.css`, so the page starts with the Floor already in place.
 6. A Picks block states every decision once. A short patterns file shows how controls, slots, forms and reveals are written to pass the gates, without a whole page to copy.
 7. The nav and hero are built alone first, rendered at four sizes and reviewed cold before the rest of the page exists.
 8. `scripts/sloplint.mjs --render` runs the mechanical gates at 320 to 1920 wide, the model walks the judged ones, and a subagent reviews the finished page cold.
@@ -37,38 +37,38 @@ Each page is self-contained HTML and CSS, stamped in its first CSS comment with 
 
 <table>
   <tr>
-    <td width="25%"><a href="https://www.usehallmark.com/examples/hum-07/"><img src="docs/screenshots/hero-hum-07.jpg" alt="Bubble guided sourdough app hero" /></a></td>
-    <td width="25%"><a href="https://www.usehallmark.com/examples/cobalt-01/"><img src="docs/screenshots/hero-cobalt-01.jpg" alt="Distil content-extraction API hero" /></a></td>
-    <td width="25%"><a href="https://www.usehallmark.com/examples/carnival-01/"><img src="docs/screenshots/hero-carnival-01.jpg" alt="Cold Snap record-label EP hero" /></a></td>
-    <td width="25%"><a href="https://www.usehallmark.com/examples/lumen-01/"><img src="docs/screenshots/hero-lumen-01.jpg" alt="Cinder serverless GPU inference hero" /></a></td>
+    <td width="25%"><a href="https://www.usehallmark.com/made/darkroom-photographer/"><img src="docs/screenshots/darkroom-photographer.jpg" alt="Ines Calvo, documentary photographer, Darkroom theme" /></a></td>
+    <td width="25%"><a href="https://www.usehallmark.com/made/furrow-farm-shop/"><img src="docs/screenshots/furrow-farm-shop.jpg" alt="Long Acre Farm Shop, farm shop, Furrow theme" /></a></td>
+    <td width="25%"><a href="https://www.usehallmark.com/made/coral-physio-booking/"><img src="docs/screenshots/coral-physio-booking.jpg" alt="Kneedle, physio booking app, Coral theme" /></a></td>
+    <td width="25%"><a href="https://www.usehallmark.com/made/terminal-migrations-cli/"><img src="docs/screenshots/terminal-migrations-cli.jpg" alt="shift, migrations CLI, Terminal theme" /></a></td>
   </tr>
   <tr>
-    <td><b>Bubble</b><br/><sub>Sourdough app · Hum</sub></td>
-    <td><b>Distil</b><br/><sub>Extraction API · Cobalt</sub></td>
-    <td><b>Cold Snap</b><br/><sub>Record label · Carnival</sub></td>
-    <td><b>Cinder</b><br/><sub>GPU inference · Lumen</sub></td>
+    <td><b>Ines Calvo</b><br/><sub>Documentary photographer, Darkroom</sub></td>
+    <td><b>Long Acre Farm Shop</b><br/><sub>Farm shop, Furrow</sub></td>
+    <td><b>Kneedle</b><br/><sub>Physio booking app, Coral</sub></td>
+    <td><b>shift</b><br/><sub>Migrations CLI, Terminal</sub></td>
   </tr>
   <tr>
-    <td><a href="https://www.usehallmark.com/examples/custom-03/"><img src="docs/screenshots/hero-custom-03.jpg" alt="Ferns and Fathom tea menu hero" /></a></td>
-    <td><a href="https://www.usehallmark.com/examples/garden-01/"><img src="docs/screenshots/hero-garden-01.jpg" alt="Hollowback Apiary honey farm hero" /></a></td>
-    <td><a href="https://www.usehallmark.com/examples/riso-01/"><img src="docs/screenshots/hero-riso-01.jpg" alt="Off-Register risograph print fair hero" /></a></td>
-    <td><a href="https://www.usehallmark.com/examples/press-01/"><img src="docs/screenshots/hero-press-01.jpg" alt="Press Quaternary type studio hero" /></a></td>
+    <td width="25%"><a href="https://www.usehallmark.com/themes/hedgerow/"><img src="docs/screenshots/hedgerow.jpg" alt="Five Mile Gin, gin distillery, Hedgerow theme" /></a></td>
+    <td width="25%"><a href="https://www.usehallmark.com/themes/cobalt/"><img src="docs/screenshots/cobalt.jpg" alt="Relay, webhook API, Cobalt theme" /></a></td>
+    <td width="25%"><a href="https://www.usehallmark.com/themes/studio/"><img src="docs/screenshots/studio.jpg" alt="Field Office, identity studio, Studio theme" /></a></td>
+    <td width="25%"><a href="https://www.usehallmark.com/themes/sport/"><img src="docs/screenshots/sport.jpg" alt="Calder Valley Half, half marathon, Sport theme" /></a></td>
   </tr>
   <tr>
-    <td><b>Ferns &amp; Fathom</b><br/><sub>Tea menu · Custom</sub></td>
-    <td><b>Hollowback Apiary</b><br/><sub>Honey farm · Garden</sub></td>
-    <td><b>Off-Register</b><br/><sub>Print fair · Riso</sub></td>
-    <td><b>Press Quaternary</b><br/><sub>Type studio · Custom</sub></td>
+    <td><b>Five Mile Gin</b><br/><sub>Gin distillery, Hedgerow</sub></td>
+    <td><b>Relay</b><br/><sub>Webhook API, Cobalt</sub></td>
+    <td><b>Field Office</b><br/><sub>Identity studio, Studio</sub></td>
+    <td><b>Calder Valley Half</b><br/><sub>Half marathon, Sport</sub></td>
   </tr>
 </table>
 
-The fifteen featured examples on [usehallmark.com](https://www.usehallmark.com) were rebuilt with v2.3, one run each from a fixed brief, and lint clean; their sources are in [`site/examples/`](site/examples/). The other pages there predate v2.
+Every page here was built by Hallmark in one run from a one-sentence brief; the top row are client briefs, the bottom row the pages that picture four of the forty-eight themes. Open any of them on [usehallmark.com](https://www.usehallmark.com).
 
 ---
 
 ## Themes
 
-A theme is a material, not a plan: paper, ink, faces, rule weight, radius, shadow stance, texture budget, motion character, voice. It never says what a page contains or in what order, so two pages in one theme do not share a section sequence. Every theme is one file of four to seven kilobytes in [`references/themes/`](skills/hallmark/references/themes/) with a header block that `theme.mjs index` compiles into `index.json`, and a picture beside it: two screens of a finished page built in that theme, so a build sees the material at full size before it writes a line. The deal reads the index and a build reads exactly one theme file. Forty-eight themes cost a build what twenty-three did.
+A theme is a material, not a plan: paper, ink, faces, rule weight, radius, shadow stance, texture budget, motion character, voice, and its range: what the material makes without a photograph. It never says what a page contains or in what order, so two pages in one theme do not share a section sequence. Every theme is one file of at most 8 KB in [`references/themes/`](skills/hallmark/references/themes/) with a header block that `theme.mjs index` compiles into `index.json`, and a picture beside it: two screens of a finished page built in that theme, so a build sees the material at full size before it writes a line. The deal reads the index and a build reads exactly one theme file, so the size of the catalog costs a build nothing.
 
 ## Custom
 
@@ -78,13 +78,13 @@ When the user asks for **custom** ("bespoke", "no theme", "a world of its own"),
 
 ## One skill, three harnesses
 
-The same SKILL.md, references, gates and scripts run in **Claude Code**, **Codex CLI** and **OpenCode**; [`flow.md`](skills/hallmark/references/flow.md) § Harnesses carries the per-harness tuning. The mechanically checkable gates live in a zero-dependency checker that reads HTML and CSS, React, Vue, Svelte and Astro components and their Tailwind classes, and with `--render` the page itself at seven widths (or a running dev server with `--url`):
+The same SKILL.md, references, gates and scripts run in **Claude Code**, **Codex CLI** and **OpenCode**; [`flow.md`](skills/hallmark/references/flow.md) § Harnesses carries the per-harness tuning. The mechanically checkable gates live in a zero-dependency checker that reads HTML and CSS, React, Vue, Svelte and Astro components and their Tailwind classes, and with `--render` the page itself at eight widths from 320 to 1920 (or a running dev server with `--url`):
 
 ```
 node skills/hallmark/scripts/sloplint.mjs <file-or-dir> --genre <genre> --render
 ```
 
-One command installs a lean copy (skill, references, scripts, never the marketing site) everywhere it belongs. On the way it rebuilds the theme index and runs `scripts/refcheck.mjs`, which reads every reference file for dead links, missing sections, retired gate numbers, unknown tokens, stale stamps and sample copy that breaks a gate, lints four complete pages (one per genre) that must pass every gate, and checks that the deliberately broken fixtures still fail; the install stops if it finds a problem:
+One command installs a lean copy (skill, references, scripts, never the marketing site) everywhere it belongs. On the way it rebuilds the theme index, validates every theme and runs `scripts/refcheck.mjs`, which reads every reference file for dead links, missing sections, retired gate numbers, unknown tokens, stale stamps and sample copy that breaks a gate, lints four complete pages (one per genre) that must pass every gate, and checks that the deliberately broken fixtures still fail; the install stops if it finds a problem:
 
 ```bash
 node skills/hallmark/scripts/install.mjs

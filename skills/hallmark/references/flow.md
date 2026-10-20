@@ -42,11 +42,11 @@ Signals: the brief names one element (button, input, form, card, modal, dropdown
 .btn:active, .btn.is-active { transform: translateY(1px); }
 ```
 
-Stamp: `/* Hallmark · component: <type> · genre: <genre> · theme: <theme> · states: 8 · contrast: pass · v2.7.0 */`. Sweep: `sloplint --scope component`, which runs the Floor tier minus the page-only gates.
+Stamp: `/* Hallmark · component: <type> · genre: <genre> · theme: <theme> · states: 8 · contrast: pass · v2.8.0 */`. Sweep: `sloplint --scope component`, which skips the page-only gates.
 
 ## App screens
 
-A dashboard, an admin, a settings page, a tool: a screen someone works in rather than reads. Signals: the brief says app, dashboard, admin, console, settings or tool; the target sits behind a sign-in; the screen is tables, forms and controls. The bar is earned familiarity: the tool disappears into the task, and someone fluent in the category trusts it at once. The marketing rules step aside: no shape from `macrostructures.md`, no hero or fold, no screen word budget, no section rhythm, no stand-in photographs, no reveal on load. `sloplint --scope app` skips their gates (1, 6, 8, 9, 32, 42, 44, 46b, 58, 59, 66 and 68) and reads control heights on the app range. Everything else binds, the Floor first: tokens, contrast, focus, states, no eyebrow, no tracked-caps label on a table head, no invented figure.
+A dashboard, an admin, a settings page, a tool: a screen someone works in rather than reads. Signals: the brief says app, dashboard, admin, console, settings or tool; the target sits behind a sign-in; the screen is tables, forms and controls. The bar is earned familiarity: the tool disappears into the task, and someone fluent in the category trusts it at once. The marketing rules step aside: no shape from `macrostructures.md`, no hero or fold, no screen word budget, no section rhythm, no stand-in photographs, no reveal on load. `sloplint --scope app` skips their gates (1, 6, 8, 9, 32, 42, 44, 46b, 58, 59, 66, 68, 77 to 79 and 81 to 83, and F8, F15 and F20) and reads control heights on the app range. Everything else binds, the Floor first: tokens, contrast, focus, states, no eyebrow, no tracked-caps label on a table head, no invented figure.
 
 What takes their place:
 
@@ -70,12 +70,12 @@ Two runs fix a page in place instead of building one: a polish (`redesign.md`) a
 - **Fix in place, and only the material half:** tokens, colour, type, motion, states, contrast, single elements (fold an eyebrow into its heading, add a focus ring, flatten a gradient, tint a grey). **Never restructure:** no moving sections, no re-picking a system, no swapping a nav.
 - **Structural findings print, they do not get rebuilt:** 6b and 44 (the hero and the fold), 8 (page shape), 9 (section rhythm), 32 (composition repeat), 42 (chrome), 58 (the screen budget). A short list with file:line and a one-line fix each; the user decides whether any of it earns a deeper redesign.
 - **The log:** a polish logs its redesign entry; a signal 8 sweep logs nothing, since Hallmark built nothing and nothing rotates.
-- **The check stamp** replaces the build stamp as the first line of CSS, so gate 20 reads it, and it has no critique line (nothing was planned). Its last line says who built the page: `built: the project · redesign: polish`, or `built: external (reference archive)`. A page an earlier Hallmark built keeps its old stamp's fields on a second line, `built: Hallmark v1.2 · theme: Grid · hero: Settled · nav: … · footer: … · redesign: polish`, so the chrome and hero guards still read them, and the polish loads that theme's file for its faces.
+- **The check stamp** replaces the build stamp as the first line of CSS, so gate 20 reads it, and it has no critique line (nothing was planned). Its last line says who built the page: `built: the project · redesign: polish`, or `built: external (reference archive)`. A page an earlier Hallmark run built keeps its old stamp's fields on a second line, `built: Hallmark · theme: Grid · hero: Settled · nav: … · footer: … · redesign: polish`, so the chrome and hero guards still read them, and the polish loads that theme's file for its faces.
 
 ```css
 /* Hallmark · checked: 2026-09-22 · genre: modern-minimal (inferred)
  * floor: 0 FAIL · fixed: 6 (2, 7, 22, 27, 38, 54) · structural: 2 printed (8, 42)
- * built: the project · redesign: polish · v2.7.0 */
+ * built: the project · redesign: polish · v2.8.0 */
 ```
 
 The fresh-context review still runs, one round, with the narrower question: *does anything here read as machine-made?* Close with the counts: `Swept 4 files · fixed 6 · 2 structural findings printed · Floor 0 FAIL`.

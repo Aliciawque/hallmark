@@ -1,8 +1,8 @@
 # Comp before build: composing in pixels before composing in CSS
 
-Loaded at the comp step after the Picks block, and **only** when the pre-flight found both `TOGETHER_API_KEY` and `scripts/imagegen.mjs`. With no key this file never loads, the step never runs, and the build goes from the Picks block straight to Step 6. The comp step is never a blocker, never a dependency, and never something to apologise for skipping.
+Loaded **only** when the pre-flight found `TOGETHER_API_KEY` (signal 9): at the comp step after the Picks block, and for a generated still (§ Generated stills, at the end). With no key this file never loads and the build goes from the Picks block straight to Step 6. The comp step is never a blocker and never something to apologise for skipping.
 
-**Why it exists.** Prose is bad at composition: it can say "asymmetric spans" but not where the weight sits. A rendered comp carries mass, interval and alignment at a glance, and reproducing an approved image is an easier task than inventing a composition from a paragraph.
+A rendered comp carries mass, interval and alignment at a glance, which prose cannot; reproducing an approved image is easier than inventing a composition from a paragraph.
 
 ---
 
@@ -41,7 +41,7 @@ Show both, side by side, at their own size. One line each on what differs. Then 
 
 This is the second and last redirect window (the Picks block was the first) and it is much cheaper than the one after the build. **Do not build past a comp the user has not chosen.** "I'll build A and we can adjust" is how the approval point turns into decoration.
 
-If the user picks neither, that is information: ask which of the two was closer on composition, change that axis, and re-call once. Two rounds is the ceiling, same as the finish review. After that, build without a comp and say so in one line.
+If the user picks neither, ask which was closer on composition, change that axis, and re-call once. Two rounds is the ceiling; after that, build without a comp and say so in one line.
 
 ---
 
@@ -78,7 +78,7 @@ Before writing a line of the build, every region of the approved comp gets a wri
 
 Two rules on top:
 
-- **A raster region needs a real source.** A user-supplied asset, a library photograph (`imagery.md` § 2) or a generated still (§ 6). A photograph from memory is not a source, and the hierarchy in `craft.md` § 4 still binds: typography, then CSS art, then SVG, then generated, and Lottie last.
+- **A raster region needs a real source:** a user-supplied asset, a library photograph (`imagery.md` § 2) or a generated still (§ Generated stills). A photograph from memory is not a source, and a region the comp painted as a picture never becomes a drawing (80).
 - **A region cannot change medium silently during the build.** Downgrading raster to CSS mid-build is the whole failure this section catches. Change it if the code argues for it, and say so in one line.
 
 Ship the inventory as part of the comp message, under the comps:
@@ -90,3 +90,15 @@ Rule under head    code      1px, tokenised
 Next-race mark     code      the accent on one row, it moves once on load
 Rower photograph   raster    library photo; the comp's crew is not a real crew
 ```
+
+---
+
+## § Generated stills
+
+A picture for the page itself, outside the comp step: only when `TOGETHER_API_KEY` is set and the user asked for generated images, or for a subject the library cannot reach (`imagery.md` § 1).
+
+```
+node <skill-dir>/scripts/imagegen.mjs "<prompt>" --size 1536x1024 --out <project>/images/<name>.png
+```
+
+Prompt like a photographer's brief: one concrete subject, the place, the light and the lens (*a stack of rye loaves on a flour-dusted steel counter, early window light from the left, 50mm, shallow depth*), with *no text, no people facing the camera*. Look at every result; six fingers, doubled furniture and melted labels go back. Treatment and frame as for a library photo. Stamp `generated: <model> via imagegen.mjs`. Never auto-fire it.
