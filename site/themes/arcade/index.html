@@ -7,7 +7,7 @@
 <meta name="description" content="Pixel Picnic: 22 playable indie game demos for one night in Leeds, 14 November, 7pm to midnight. Entry by ticket, £6 on the door.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Chivo:wght@400;700;900&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Chivo:wght@400;700;900&family=Silkscreen:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -28,88 +28,110 @@
 <main id="main">
 
 <section class="hero" id="top" aria-labelledby="hero-head">
-  <div class="container hero__grid">
-    <div class="hero__text">
-      <h1 id="hero-head">Play it<br>before it<br>ships</h1>
-      <p class="lead">Pixel Picnic is 22 playable indie demos, for one night only.</p>
-      <div class="hero__acts">
-        <a class="btn" href="#tickets">Get a ticket</a>
-        <a class="btn btn--open" href="#night">See the night</a>
-      </div>
+  <div class="hero__text">
+    <h1 id="hero-head">Play it<br>before it<br>ships</h1>
+    <p class="lead">22 indie games, mid-build and playable, for one night only.</p>
+    <div class="hero__acts">
+      <a class="btn" href="#tickets">Get a ticket</a>
+      <a class="btn btn--open" href="#night">See the night</a>
     </div>
-    <figure class="hero__photo pic crt" data-slot="hero" data-alt="A player at Pixel Picnic with a pad in hand, lit by the screen, from behind">
-      <img src="photos/arcade-8409657650-1920.jpg" width="2448" height="2448" alt="An arcade joystick and three buttons on a black cabinet, close" style="object-position: 35% 50%" fetchpriority="high">
-    </figure>
   </div>
+  <figure class="hero__photo pic crt" data-slot="hero" data-alt="A player at Pixel Picnic with a pad in hand, lit by the screen, from behind">
+    <img src="photos/arcade-8409657650-1920.jpg" width="2448" height="2448" alt="An arcade joystick and its buttons on a black cabinet, close" style="object-position: 30% 55%" fetchpriority="high">
+  </figure>
 </section>
 
-<section class="claim claim--games" id="night" aria-labelledby="games-head">
+<section class="score" aria-labelledby="score-head">
   <div class="container">
-    <h2 id="games-head">None of them are finished.</h2>
-    <div class="tagged">
-    <figure class="pic crt games__wide" data-slot="games" data-alt="The room at Pixel Picnic: the 22 games set up and playable, wide">
-      <img src="photos/asus-rog-strix-g15-g513qy-hq012t-top-keyboard-wasd-pnr-0888-1920.jpg" width="3216" height="2173" alt="The W, A, S and D keys lit from below on a black keyboard, close" style="object-position: 50% 62%" loading="lazy">
-    </figure>
-    <p class="tag"><span class="figure">22</span> games</p>
+    <div class="split-head">
+      <h2 id="score-head">One night, then they ship.</h2>
+      <p class="lead">Come early: every game is gone by midnight.</p>
     </div>
-    <div class="games__pair">
-      <figure class="pic crt games__a" data-slot="games-2" data-alt="Players and developers in the room on the night, from behind">
-        <img src="photos/beach-please-2022-crowd-stage-lights-night-performance-1920.jpg" width="6016" height="4016" alt="A crowd with hands raised under beams of light at night" style="object-position: 50% 70%" loading="lazy">
-      </figure>
-      <figure class="pic crt games__b" data-slot="games-3" data-alt="A maker's hands at work on a demo, close">
-        <img src="photos/soldering-a-0805-1920.jpg" width="4064" height="2704" alt="Fingers placing a tiny part on a circuit board with tweezers" style="object-position: 52% 50%" loading="lazy">
-      </figure>
-    </div>
-  </div>
-</section>
-
-<section class="claim claim--dev" aria-labelledby="dev-head">
-  <div class="container grid">
-    <figure class="pic crt dev__photo" data-slot="dev" data-alt="A developer showing their game to a player, over the shoulder">
-      <img src="photos/backlit-keyboard-1920.jpg" width="4357" height="2451" alt="Fingers on a backlit keyboard in the dark" style="object-position: 50% 60%" loading="lazy">
-    </figure>
-    <div class="dev__text">
-      <h2 id="dev-head">Tell its maker what broke.</h2>
-      <p class="lead">The developers showing work are in the room with their demos.</p>
-    </div>
-  </div>
-</section>
-
-<section class="hours crt" aria-labelledby="hours-head">
-  <div class="container hours__in">
-    <h2 id="hours-head">Play until the screens go dark.</h2>
-    <dl class="hours__figs">
-      <div><dt>Doors</dt><dd class="figure figure--ember">7PM</dd></div>
-      <div><dt>Screens off</dt><dd class="figure">12AM</dd></div>
+    <dl class="score__line">
+      <div><dt>games to play</dt><dd class="figure">22</dd></div>
+      <div><dt>hours, seven to midnight</dt><dd class="figure figure--ember">5</dd></div>
+      <div><dt>on the door</dt><dd class="figure">£6</dd></div>
     </dl>
   </div>
 </section>
 
+<section class="games" id="night" aria-labelledby="games-head">
+  <div class="container">
+    <div class="split-head">
+      <h2 id="games-head">None of them are finished.</h2>
+      <p class="lead">Every one is a demo, set up on a screen and ready for your hands.</p>
+    </div>
+    <figure class="pic crt games__wide" data-slot="games" data-alt="The room at Pixel Picnic: games set up and playable, wide">
+      <img src="photos/asus-rog-strix-g15-g513qy-hq012t-top-keyboard-wasd-pnr-0888-1920.jpg" width="3216" height="2173" alt="The W, A, S and D keys lit from below on a black keyboard, close" style="object-position: 50% 62%" loading="lazy">
+    </figure>
+  </div>
+</section>
+
+<section class="sides" aria-labelledby="sides-head">
+  <div class="container">
+    <div class="split-head">
+      <h2 id="sides-head">Pick a side of the screen.</h2>
+      <p class="lead">Half the room plays. The other half made what they are playing.</p>
+    </div>
+    <table class="duel">
+      <caption class="visually-hidden">What the night is for players and for developers</caption>
+      <thead>
+        <tr><td></td><th scope="col" class="duel__one">You came to play</th><th scope="col" class="duel__two">You made one</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Arrive</th><td>Walk up to any screen and pick up the pad</td><td>Set your build up and step back</td></tr>
+        <tr><th scope="row">Play</th><td>Play what nobody outside the studio has seen</td><td>Watch strangers find what you never tested</td></tr>
+        <tr><th scope="row">Leave</th><td>Having played it before it ships</td><td>With notes from real hands, not a review</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="say" aria-labelledby="say-head">
+  <div class="container say__in">
+    <h2 id="say-head" class="say__line">Tell its maker what broke.</h2>
+    <p class="say__by">The developers stand next to their demos all night.</p>
+  </div>
+</section>
+
+<section class="clock" aria-labelledby="clock-head">
+  <div class="container clock__grid">
+    <div class="clock__text">
+      <h2 id="clock-head">Seven till the screens go dark.</h2>
+      <ol class="menu">
+        <li class="menu__row" aria-current="true"><span class="figure">7PM</span><span class="menu__what">Doors open, every demo switched on</span></li>
+        <li class="menu__row"><span class="figure">12AM</span><span class="menu__what">Screens off, builds packed up</span></li>
+        <li class="menu__row menu__row--place"><span class="menu__where">Leeds</span><span class="menu__what"><span class="fill" data-fill="venue">Venue to be announced</span></span></li>
+      </ol>
+    </div>
+    <figure class="pic crt clock__photo" data-slot="night" data-alt="A developer at Pixel Picnic watching someone play their game, over the shoulder">
+      <img src="photos/backlit-keyboard-1920.jpg" width="4357" height="2451" alt="Fingers on a backlit keyboard in the dark" style="object-position: 46% 60%" loading="lazy">
+    </figure>
+  </div>
+</section>
+
 <section class="tickets" id="tickets" aria-labelledby="tickets-head">
-  <div class="container grid">
+  <div class="container tickets__grid">
     <div class="tickets__text">
       <h2 id="tickets-head">Entry is by ticket.</h2>
-      <p class="tickets__price"><span class="figure">£6</span> <span>on the door</span></p>
-      <dl class="tickets__facts">
-        <div><dt>When</dt><dd>14 November, 7pm to midnight</dd></div>
-        <div><dt>Where</dt><dd>Leeds, <span class="fill" data-fill="venue">venue to be announced</span></dd></div>
-      </dl>
+      <p class="lead">Six pounds a head on the door. Bring the crew and count them in.</p>
     </div>
-    <form class="ticket" data-endpoint="" novalidate aria-label="Request tickets">
-      <div class="ticket__field">
-        <label for="mail">Email address</label>
-        <input id="mail" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="ticket-help">
-      </div>
-      <div class="ticket__field">
+    <form class="ticket well" data-endpoint="" novalidate aria-label="Request tickets">
+      <div class="ticket__count">
         <span class="ticket__label" id="count-label">Tickets</span>
         <div class="count" role="group" aria-labelledby="count-label">
           <button type="button" class="count__btn" data-step="-1" aria-label="One ticket fewer">&minus;</button>
-          <input class="count__n" id="count" name="count" type="number" inputmode="numeric" min="1" value="1" aria-labelledby="count-label">
+          <input class="count__n" id="count" name="count" type="number" inputmode="numeric" min="1" max="20" value="2" aria-labelledby="count-label">
           <button type="button" class="count__btn" data-step="1" aria-label="One ticket more">+</button>
         </div>
       </div>
+      <p class="ticket__total"><span class="ticket__label">On the door</span><output class="figure" id="total" for="count" aria-live="polite">£12</output></p>
+      <div class="ticket__mail">
+        <label for="mail">Email address</label>
+        <input id="mail" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="ticket-help">
+      </div>
       <div class="ticket__go">
-        <button class="btn" type="submit">Get tickets</button>
+        <button class="btn" type="submit">Request tickets</button>
         <p class="ticket__help" id="ticket-help" aria-live="polite"></p>
       </div>
     </form>
@@ -119,24 +141,29 @@
 </main>
 
 <footer class="foot">
-  <div class="container foot__in">
-    <p class="foot__line">See you in Leeds on the 14th.</p>
-    <p class="foot__sign">Pixel Picnic</p>
+  <div class="container">
+    <p class="foot__mast">Pixel Picnic</p>
     <div class="foot__row">
+      <p class="foot__line">See you in Leeds on the 14th.</p>
       <nav class="foot__links" aria-label="Footer">
         <a href="#night">The night</a>
         <a href="#tickets">Tickets</a>
       </nav>
-      <p class="foot__legal">Pixel Picnic, an indie game demo night</p>
-      <p class="foot__credit" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Arcade_(8409657650).jpg">Faruk Ateş from Vancouver &amp; SF</a> (CC&nbsp;BY&nbsp;2.0), <a href="https://commons.wikimedia.org/wiki/File:ASUS_ROG_Strix_G15_(G513QY-HQ012T)-top_keyboard_WASD_PNr%C2%B00888.jpg">D-Kuru</a> (CC&nbsp;BY-SA&nbsp;4.0), <a href="https://commons.wikimedia.org/wiki/File:Beach-Please-2022-crowd-stage-lights-night-performance.jpg">PinkBeachPlanet</a> (CC&nbsp;BY-SA&nbsp;4.0), <a href="https://commons.wikimedia.org/wiki/File:Soldering_a_0805.jpg">Aisart</a> (CC&nbsp;BY-SA&nbsp;3.0), <a href="https://commons.wikimedia.org/wiki/File:Backlit_keyboard.jpg">Colin</a> (CC&nbsp;BY-SA&nbsp;4.0), all on Wikimedia Commons.</p>
     </div>
+    <p class="foot__credit" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Arcade_(8409657650).jpg">Faruk Ateş from Vancouver &amp; SF</a> (CC&nbsp;BY&nbsp;2.0), <a href="https://commons.wikimedia.org/wiki/File:ASUS_ROG_Strix_G15_(G513QY-HQ012T)-top_keyboard_WASD_PNr%C2%B00888.jpg">D-Kuru</a> (CC&nbsp;BY-SA&nbsp;4.0), <a href="https://commons.wikimedia.org/wiki/File:Backlit_keyboard.jpg">Colin</a> (CC&nbsp;BY-SA&nbsp;4.0), all on Wikimedia Commons.</p>
   </div>
 </footer>
 
 <script>
-document.querySelectorAll('.count').forEach((c) => { const n = c.querySelector('input'); c.querySelectorAll('[data-step]').forEach((b) => b.addEventListener('click', () => { n.value = Math.max(1, (Number(n.value) || 1) + Number(b.dataset.step)); })); });
+const PRICE = 6;
+document.querySelectorAll('.count').forEach((c) => {
+  const n = c.querySelector('input'), out = document.getElementById('total');
+  const show = () => { const v = Math.min(20, Math.max(1, Math.round(Number(n.value) || 1))); n.value = v; out.textContent = '£' + v * PRICE; c.querySelector('[data-step="-1"]').disabled = v <= 1; c.querySelector('[data-step="1"]').disabled = v >= 20; };
+  c.querySelectorAll('[data-step]').forEach((b) => b.addEventListener('click', () => { n.value = (Number(n.value) || 1) + Number(b.dataset.step); show(); }));
+  n.addEventListener('change', show); show();
+});
 document.querySelectorAll('form.ticket[data-endpoint]').forEach((form) => {
-  const input = form.querySelector('input[type="email"]'), help = form.querySelector('[aria-live]');
+  const input = form.querySelector('input[type="email"]'), help = form.querySelector('.ticket__help');
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const ok = input.checkValidity();

@@ -7,21 +7,20 @@
 <meta name="description" content="Driftsong turns a hummed melody into a finished song arrangement in about 40 seconds. Free for 10 songs a month.">
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-<link href="https://api.fontshare.com/v2/css?f[]=ranade@400,500,600&f[]=gambarino@400&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="img/recorder.webp">
+<link href="https://api.fontshare.com/v2/css?f[]=ranade@400,500,600&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=gambarino@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to the page</a>
-<div class="blooms" aria-hidden="true"><i></i><i></i></div>
 
-<header class="bar">
-  <div class="container bar__in">
-    <a class="bar__mark" href="#top"><span class="bar__dot" aria-hidden="true"></span>Driftsong</a>
-    <nav class="bar__links" aria-label="Sections"><a href="#listen">Listen</a><a href="#where">Where</a><a href="#free">Free</a></nav>
-    <a class="btn btn--ink btn--sm" href="#free">Hum a song</a>
+<header class="mast">
+  <div class="container mast__in">
+    <nav class="mast__links" aria-label="Sections"><a href="#how">How it works</a><a href="#questions">Questions</a></nav>
+    <a class="mast__mark" href="#top">Driftsong</a>
+    <a class="btn btn--line btn--sm mast__act" href="#start">Hum a song</a>
   </div>
 </header>
 
@@ -29,20 +28,31 @@
   <section class="hero" id="top" aria-labelledby="hero-title">
     <div class="container hero__grid">
       <div class="hero__text">
-        <h1 id="hero-title">Hum it. <span class="serif">Hear the band.</span></h1>
+        <h1 id="hero-title">Hum it. Hear the band.</h1>
         <p class="lead">Driftsong turns your hum into a finished arrangement in about 40 seconds.</p>
         <div class="actions">
-          <a class="btn btn--clay" href="#free">Hum your first song</a>
+          <a class="btn btn--clay" href="#start">Hum your first song</a>
           <span class="hero__free">Free for 10 songs a month</span>
         </div>
       </div>
-      <div class="hero__stage">
-        <img class="recorder" src="img/recorder.webp" width="1536" height="1024" alt="A small terracotta cassette recorder" fetchpriority="high">
-        <div class="player" data-player>
+      <div class="app surface surface--lead" data-slot="app" data-alt="A screenshot of Driftsong with an arranged song open" data-player>
+        <aside class="app__side" aria-label="Your songs">
+          <p class="app__label">Your songs</p>
+          <ul class="songs">
+            <li class="is-open"><span>Kitchen tune</span><small class="code">0:10</small></li>
+            <li><span>Walk home</span><small class="code">0:14</small></li>
+            <li><span>Shower chorus</span><small class="code">0:08</small></li>
+            <li><span>Lullaby, take 2</span><small class="code">0:21</small></li>
+          </ul>
+          <button class="app__new" type="button" disabled aria-disabled="true">Hum a new one</button>
+        </aside>
+        <div class="app__main">
           <div class="player__head">
-            <div><p class="player__name">Kitchen tune</p><p class="player__sub">Hummed by the kettle</p></div>
+            <div><p class="player__name">Kitchen tune</p><p class="player__sub">Hummed by the kettle, D major</p></div>
             <span class="player__tag">Arranged</span>
           </div>
+          <div class="ruler code" aria-hidden="true"><span>0:00</span><span>0:03</span><span>0:05</span><span>0:08</span><span>0:10</span></div>
+          <div class="lanes-wrap">
           <ol class="lanes" data-lanes>
             <li class="lane lane--hum"><span>Your hum</span><div class="lane__track"><i data-hum></i></div></li>
             <li class="lane lane--keys"><span>Keys</span><div class="lane__track"><b style="--a:0;--b:25"></b><b style="--a:25;--b:50"></b><b style="--a:50;--b:75"></b><b style="--a:75;--b:100"></b></div></li>
@@ -50,51 +60,123 @@
             <li class="lane lane--drums"><span>Drums</span><div class="lane__track"><b style="--a:25;--b:100"></b></div></li>
             <li class="lane lane--strings"><span>Strings</span><div class="lane__track"><b style="--a:50;--b:100"></b></div></li>
           </ol>
+          <span class="playhead" aria-hidden="true" data-head></span>
+          </div>
           <div class="player__foot">
             <button class="play" type="button" data-play aria-label="Play the arrangement"><svg class="play__i" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7.5-4.5z"/></svg><svg class="play__p" viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 3.5h2.5v9H4.5zM9 3.5h2.5v9H9z"/></svg></button>
             <div class="seg" role="group" aria-label="What to play">
               <button type="button" aria-pressed="false" data-mode="hum">Your hum</button>
               <button type="button" aria-pressed="true" data-mode="band">The band</button>
             </div>
-            <span class="player__time" data-time>0:00</span>
+            <span class="player__time code" data-time>0:00</span>
           </div>
-          <span class="playhead" aria-hidden="true" data-head></span>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="listen" id="listen" aria-labelledby="listen-title">
-    <div class="container">
-      <div class="head">
-        <h2 id="listen-title">Your tune stays on top.</h2>
-        <p class="lead">Driftsong writes the parts around your melody, never over it.</p>
-      </div>
-      <ol class="steps">
-        <li class="step"><span class="step__n">1</span><h3>Hum it</h3><p>Into your phone, wherever the tune turns up.</p><div class="step__art step__art--wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></li>
-        <li class="step"><span class="step__n">2</span><h3>Wait about 40 seconds</h3><p>Keys, bass, drums and strings are written to fit.</p><div class="step__art step__art--ring" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="50"/><circle class="ring__run" cx="60" cy="60" r="50"/></svg><b>40 s</b></div></li>
-        <li class="step"><span class="step__n">3</span><h3>Listen back</h3><p>The finished song, with your hum leading.</p><div class="step__art step__art--stack" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div></li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="where" id="where" aria-labelledby="where-title">
-    <div class="container">
-      <h2 id="where-title">Wherever the tune turns up.</h2>
-      <div class="where__grid">
-        <figure class="where__a"><div class="photo" data-slot="kitchen"><img src="photos/kneading-bread-by-hand-1920.jpg" width="1920" height="1280" loading="lazy" alt="Hands kneading dough on a floured wooden table"></div><figcaption>While the bread proves</figcaption></figure>
-        <figure class="where__b"><div class="photo" data-slot="sofa"><img src="photos/a-man-sits-comfortably-on-a-sofa-in-a-living-room-focused-on-1920.jpg" width="1920" height="1280" loading="lazy" alt="A man on a sofa in a living room playing an acoustic guitar"></div><figcaption>On the sofa, guitar out</figcaption></figure>
-        <figure class="where__c"><div class="photo" data-slot="breakfast"><img src="photos/breakfast-in-le-d-orl-ans-072-1920.jpg" width="1920" height="1280" loading="lazy" alt="A breakfast table in morning light"></div><figcaption>Over breakfast</figcaption></figure>
+  <section class="where" id="how" aria-labelledby="where-title">
+    <div class="container where__grid">
+      <figure class="where__fig">
+        <div class="photo" data-slot="room" data-alt="Your own room or instrument in daylight, where a tune turns up">
+          <img src="photos/brac-and-celo-on-the-sofa-2019-04-20-16-48-01-by-marko-miliv-1920.jpg" width="1920" height="2880" sizes="(min-width: 60rem) 42vw, 100vw" loading="lazy" alt="Two old acoustic guitars resting in a velvet armchair by a sunny window" style="object-position: 50% 62%">
+        </div>
+      </figure>
+      <div class="where__text">
+        <h2 id="where-title">Hum it the moment it arrives</h2>
+        <p class="lead">No instrument to hand, no words yet. Your phone and the tune are enough.</p>
+        <ol class="how">
+          <li><h3>Hum into your phone</h3><p>A verse, a chorus, the riff that keeps coming back.</p></li>
+          <li><h3>Driftsong writes the parts</h3><p>Keys, bass, drums and strings, fitted to your key and tempo.</p></li>
+          <li><h3>Your melody stays on top</h3><p>Every part is written around the hum, never over it.</p></li>
+        </ol>
       </div>
     </div>
   </section>
 
-  <section class="free" id="free" aria-labelledby="free-title">
+  <section class="clock" aria-labelledby="clock-title">
     <div class="container">
-      <div class="free__card">
-        <h2 id="free-title">Free for ten songs a month.</h2>
-        <p class="lead">Hum the first one tonight. No card needed.</p>
-        <a class="btn btn--clay" href="#top">Hum your first song</a>
+      <h2 id="clock-title">Back before the kettle boils</h2>
+      <div class="clock__grid">
+        <p class="clock__fig"><span class="serif-figure">40</span><span class="clock__unit">seconds, more or less, from your hum to a finished song.</span></p>
+        <div class="surface work" aria-label="An arrangement in progress, shown as a sample">
+          <div class="work__head"><p class="player__name">Arranging Walk home</p><span class="code work__t">0:26</span></div>
+          <div class="work__bar" aria-hidden="true"><i style="--p: 0.66"></i></div>
+          <ol class="work__steps">
+            <li class="is-done"><span class="tick" aria-hidden="true"></span>Hearing the melody</li>
+            <li class="is-done"><span class="tick" aria-hidden="true"></span>Finding the key and tempo</li>
+            <li class="is-now"><span class="tick" aria-hidden="true"></span>Writing keys, bass, drums and strings</li>
+            <li><span class="tick" aria-hidden="true"></span>Mixing the song</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pair" aria-labelledby="pair-title">
+    <div class="container">
+      <div class="head-split">
+        <h2 id="pair-title">One voice in, a band out</h2>
+        <p class="lead">The same ten seconds, before and after.</p>
+      </div>
+      <div class="pair__grid">
+        <figure class="pair__in">
+          <figcaption>What you hum</figcaption>
+          <ol class="mini">
+            <li class="mini__hum"><span>Your hum</span><div class="mini__track"><i data-hum></i></div></li>
+            <li><span>Keys</span><div class="mini__track"></div></li>
+            <li><span>Bass</span><div class="mini__track"></div></li>
+            <li><span>Drums</span><div class="mini__track"></div></li>
+            <li><span>Strings</span><div class="mini__track"></div></li>
+          </ol>
+        </figure>
+        <figure class="pair__out surface surface--lead">
+          <figcaption>What Driftsong plays back</figcaption>
+          <ol class="mini mini--full">
+            <li class="mini__hum"><span>Your hum</span><div class="mini__track"><i data-hum></i></div></li>
+            <li class="lane--keys"><span>Keys</span><div class="mini__track"><b style="--a:0;--b:25"></b><b style="--a:25;--b:50"></b><b style="--a:50;--b:75"></b><b style="--a:75;--b:100"></b></div></li>
+            <li class="lane--bass"><span>Bass</span><div class="mini__track"><b style="--a:0;--b:11"></b><b style="--a:12.5;--b:23"></b><b style="--a:25;--b:36"></b><b style="--a:37.5;--b:48"></b><b style="--a:50;--b:61"></b><b style="--a:62.5;--b:73"></b><b style="--a:75;--b:86"></b><b style="--a:87.5;--b:98"></b></div></li>
+            <li class="lane--drums"><span>Drums</span><div class="mini__track"><b style="--a:25;--b:100"></b></div></li>
+            <li class="lane--strings"><span>Strings</span><div class="mini__track"><b style="--a:50;--b:100"></b></div></li>
+          </ol>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="qs" id="questions" aria-labelledby="qs-title">
+    <div class="container qs__grid">
+      <div class="qs__head">
+        <h2 id="qs-title">Before your first hum</h2>
+      </div>
+      <dl class="qs__rows">
+        <div><dt>Do I need to sing well?</dt><dd>No. Driftsong listens for the notes, not the voice.</dd></div>
+        <div><dt>Do I need an instrument?</dt><dd>No. A hum is the whole input; the band is the output.</dd></div>
+        <div><dt>What does it cost?</dt><dd>Nothing for your first 10 songs each month.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="start" id="start" aria-labelledby="start-title">
+    <div class="container start__grid">
+      <div class="start__head">
+        <h2 id="start-title">Hum your first song tonight</h2>
+        <p class="lead">Leave your email and we&rsquo;ll send the link to your phone.</p>
+        <form class="start__form" data-endpoint="" novalidate>
+          <label for="f-email">Email</label>
+          <div class="start__row">
+            <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required placeholder="you@example.com">
+            <button class="btn btn--clay" type="submit">Send the link</button>
+          </div>
+          <p class="start__help" id="start-help" aria-live="polite">Free, with no card.</p>
+        </form>
+      </div>
+      <div class="rec surface surface--lead" data-slot="record" data-alt="A screenshot of Driftsong listening to a hum">
+        <div class="rec__head"><p class="player__name">New song</p><span class="player__tag">Listening</span></div>
+        <div class="rec__dot" aria-hidden="true"><span></span></div>
+        <p class="rec__hint">Hold to hum</p>
+        <div class="rec__line"><div class="mini__track"><i data-hum></i></div><span class="code">0:04</span></div>
+        <div class="rec__foot"><span class="rec__chip">Start over</span><span class="rec__chip rec__chip--on">Arrange it</span></div>
       </div>
     </div>
   </section>
@@ -102,12 +184,17 @@
 
 <footer class="foot">
   <div class="container foot__in">
-    <a class="bar__mark" href="#top"><span class="bar__dot" aria-hidden="true"></span>Driftsong</a>
-    <nav aria-label="Footer"><a href="#listen">Listen</a><a href="#where">Where</a><a href="#free">Free</a></nav>
-    <p class="foot__credit" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:A_man_sits_comfortably_on_a_sofa_in_a_living_room,_focused_on_playing_his_acoustic_guitar.jpg">Shixart1985</a>, CC&nbsp;BY&nbsp;2.0; <a href="https://commons.wikimedia.org/wiki/File:Kneading_bread_by_hand.jpg">Anna.Massini</a>, CC&nbsp;BY&nbsp;4.0; <a href="https://commons.wikimedia.org/wiki/File:Breakfast_in_%C3%8Ele_d%27Orl%C3%A9ans_072.jpg">Wilfredor</a>, CC0, on Wikimedia Commons. The recorder is a generated picture; the music is played by your browser.</p>
+    <p class="foot__note">Hum something on the way home. The band will be ready when you are.</p>
+    <p class="foot__sign">Driftsong</p>
+    <div class="foot__base">
+      <nav aria-label="Footer"><a href="#how">How it works</a><a href="#questions">Questions</a><a href="#start">Hum a song</a></nav>
+      <p class="foot__credit" data-credits>Photograph: <a href="https://commons.wikimedia.org/wiki/File:Bra%C4%8D_and_%C4%8Celo_on_the_sofa_(2019-04-20_16.48.01_by_Marko_Milivojevic_@PIXNIO_2592510).jpg">Marko Milivojevic (milim84)</a> (CC0, Wikimedia Commons). The music on this page is played by your browser.</p>
+    </div>
   </div>
 </footer>
 
 <script src="page.js"></script>
+<script>window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
+document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });</script>
 </body>
 </html>

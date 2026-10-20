@@ -8,9 +8,8 @@
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Geist:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Geist:wght@400;500&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to the specimen</a>
@@ -20,32 +19,31 @@
     <a class="bar__mark" href="#top">Halyard</a>
     <nav class="bar__links" aria-label="Sections">
       <a href="#tester">Tester</a>
-      <a href="#page">The page</a>
       <a href="#glyphs">Glyphs</a>
+      <a href="#sizes">Sizes</a>
     </nav>
-    <a class="btn btn--ink btn--sm" href="#licence">Buy, £290</a>
+    <a class="btn btn--primary btn--sm" href="#licence">Buy, &pound;290</a>
   </div>
 </header>
 
 <main id="main">
-  <section class="hero" id="top" aria-labelledby="hero-title" data-axis>
-    <div class="hero__poster">
-      <div class="metrics" aria-hidden="true">
-        <span class="metric metric--cap"><i>Cap height</i></span>
-        <span class="metric metric--x"><i>x-height</i></span>
-        <span class="metric metric--base"><i>Baseline</i></span>
-        <span class="metric metric--desc"><i>Descender</i></span>
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <div class="hero__poster" aria-hidden="true">
+      <div class="metrics">
+        <span class="metric metric--cap" data-name="Cap height"></span>
+        <span class="metric metric--x" data-name="x-height"></span>
+        <span class="metric metric--base" data-name="Baseline"></span>
+        <span class="metric metric--desc" data-name="Descender"></span>
       </div>
-      <p class="hero__word" aria-hidden="true" data-word>Halyard</p>
-      <p class="hero__readout" aria-hidden="true"><span>Weight</span> <b data-readout>400</b></p>
+      <div class="hero__word" data-word>Halyard</div>
     </div>
     <div class="container hero__foot">
       <h1 id="hero-title">For chapter twelve, not the&nbsp;cover.</h1>
       <div class="hero__side">
         <p class="lead">Eight weights with italics, drawn for books and long&nbsp;reading.</p>
         <div class="actions">
-          <a class="btn btn--ink" href="#licence">Buy the family, £290</a>
-          <a class="link" href="#tester">Set your own line</a>
+          <a class="btn btn--primary" href="#licence">Buy the family, &pound;290</a>
+          <a class="btn btn--secondary" href="#tester">Set your own line</a>
         </div>
       </div>
     </div>
@@ -55,11 +53,11 @@
     <div class="container">
       <div class="head">
         <h2 id="tester-title">Set your own&nbsp;line.</h2>
-        <p class="lead">Type anything. Drag the size and the weight.</p>
+        <p class="lead">Type anything, then try the size, the weight and the&nbsp;italic.</p>
       </div>
       <div class="tester__panel">
         <div class="tester__ctl" role="group" aria-label="Tester controls">
-          <label class="slider"><span>Size <b data-out="size">88</b> px</span><input type="range" min="18" max="160" value="88" data-ctl="size"></label>
+          <label class="slider"><span>Size <b data-out="size">88</b>&nbsp;px</span><input type="range" min="18" max="160" value="88" data-ctl="size"></label>
           <label class="slider"><span>Weight <b data-out="weight">400</b></span><input type="range" min="400" max="900" step="10" value="400" data-ctl="weight"></label>
           <div class="seg" role="group" aria-label="Style">
             <button type="button" aria-pressed="true" data-style="normal">Roman</button>
@@ -72,27 +70,21 @@
     </div>
   </section>
 
-  <section class="page" id="page" aria-labelledby="page-title">
-    <div class="container page__grid">
-      <div class="page__text">
-        <h2 id="page-title">Made for the middle of the&nbsp;book.</h2>
-        <p class="lead">Where a reader has settled in, three hundred pages deep, and the type has to&nbsp;disappear.</p>
+  <section class="pair" aria-labelledby="pair-title">
+    <div class="container">
+      <div class="head">
+        <h2 id="pair-title">Made for the middle of the&nbsp;book.</h2>
+        <p class="lead">Where a reader has settled in and the type has to&nbsp;disappear.</p>
       </div>
-      <div class="spread" aria-label="An open book set in Halyard">
-        <article class="leaf leaf--l">
-          <p class="leaf__run">The Long Way Back</p>
-          <p class="leaf__chap">Chapter</p>
-          <p class="leaf__num">12</p>
-          <p class="leaf__title">Low water</p>
-          <p class="leaf__body"><span class="drop">T</span>he tide had gone out an hour before she reached the quay. The boats lay over on the mud like sleepers, and she walked the harbour wall counting iron rings until the light went.</p>
-          <p class="leaf__folio">200</p>
-        </article>
-        <article class="leaf leaf--r">
-          <p class="leaf__run leaf__run--r">Low water</p>
-          <p class="leaf__body">Nobody had painted the bollards since the winter. She sat on the last of them with her back to the town and watched a gull work the same yard of mud, patient as a clerk.</p>
-          <p class="leaf__body">When the water came it came quietly, first in the channels and then all at once, the way news arrives in a small&nbsp;place.</p>
-          <p class="leaf__folio leaf__folio--r">201</p>
-        </article>
+      <div class="pair__grid">
+        <figure class="pair__col">
+          <figcaption>Roman</figcaption>
+          <p class="pair__text">The boats lay over on the mud like sleepers.</p>
+        </figure>
+        <figure class="pair__col">
+          <figcaption>Italic</figcaption>
+          <p class="pair__text pair__text--i">The boats lay over on the mud like sleepers.</p>
+        </figure>
       </div>
     </div>
   </section>
@@ -101,52 +93,148 @@
     <div class="container">
       <div class="head">
         <h2 id="glyphs-title">From A to the&nbsp;ampersand.</h2>
-        <p class="lead">Point at a letter to see it&nbsp;large.</p>
+        <p class="lead">The letters, the figures and the marks a book&nbsp;needs.</p>
       </div>
       <div class="glyphs__grid">
-        <figure class="loupe" aria-live="polite">
-          <span class="loupe__g" data-loupe>g</span>
-          <figcaption><b data-loupe-name>Lowercase g</b><span data-loupe-code>U+0067</span></figcaption>
+        <figure class="lead-glyph">
+          <span class="lead-glyph__g" aria-hidden="true">&amp;</span>
+          <figcaption><span>Ampersand</span><span class="code">U+0026</span></figcaption>
         </figure>
-        <ul class="chars" data-chars aria-label="The character set"></ul>
+        <ul class="chars" role="list" aria-label="The character set">
+          <li>A</li>
+          <li>B</li>
+          <li>C</li>
+          <li>D</li>
+          <li>E</li>
+          <li>F</li>
+          <li>G</li>
+          <li>H</li>
+          <li>I</li>
+          <li>J</li>
+          <li>K</li>
+          <li>L</li>
+          <li>M</li>
+          <li>N</li>
+          <li>O</li>
+          <li>P</li>
+          <li>Q</li>
+          <li>R</li>
+          <li>S</li>
+          <li>T</li>
+          <li>U</li>
+          <li>V</li>
+          <li>W</li>
+          <li>X</li>
+          <li>Y</li>
+          <li>Z</li>
+          <li>a</li>
+          <li>b</li>
+          <li>c</li>
+          <li>d</li>
+          <li>e</li>
+          <li>f</li>
+          <li>g</li>
+          <li>h</li>
+          <li>i</li>
+          <li>j</li>
+          <li>k</li>
+          <li>l</li>
+          <li>m</li>
+          <li>n</li>
+          <li>o</li>
+          <li>p</li>
+          <li>q</li>
+          <li>r</li>
+          <li>s</li>
+          <li>t</li>
+          <li>u</li>
+          <li>v</li>
+          <li>w</li>
+          <li>x</li>
+          <li>y</li>
+          <li>z</li>
+          <li>0</li>
+          <li>1</li>
+          <li>2</li>
+          <li>3</li>
+          <li>4</li>
+          <li>5</li>
+          <li>6</li>
+          <li>7</li>
+          <li>8</li>
+          <li>9</li>
+          <li>?</li>
+          <li>!</li>
+          <li>@</li>
+          <li>£</li>
+          <li class="is-lead">&amp;</li>
+          <li>.</li>
+          <li>,</li>
+          <li>;</li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <section class="waterfall" aria-labelledby="sizes-title">
+  <section class="sizes" id="sizes" aria-labelledby="sizes-title">
     <div class="container">
-      <h2 id="sizes-title" class="visually-hidden">Halyard at eight sizes</h2>
-      <ol class="fall" data-fall></ol>
+      <div class="head">
+        <h2 id="sizes-title">One line, eight sizes.</h2>
+        <p class="lead">From a chapter opening down to the&nbsp;footnotes.</p>
+      </div>
+      <ol class="fall" role="list">
+        <li><span class="fall__px">120 px</span><p style="--fs: 120px">Low water</p></li>
+        <li><span class="fall__px">96 px</span><p style="--fs: 96px">Low water, high summer</p></li>
+        <li><span class="fall__px">72 px</span><p style="--fs: 72px">The boats lay over on the mud</p></li>
+        <li><span class="fall__px">48 px</span><p style="--fs: 48px">The boats lay over on the mud like sleepers</p></li>
+        <li><span class="fall__px">32 px</span><p style="--fs: 32px">She walked the harbour wall counting iron rings.</p></li>
+        <li><span class="fall__px">24 px</span><p style="--fs: 24px">She walked the harbour wall counting iron rings.</p></li>
+        <li><span class="fall__px">16 px</span><p style="--fs: 16px">She walked the harbour wall counting iron rings.</p></li>
+        <li><span class="fall__px">12 px</span><p style="--fs: 12px">She walked the harbour wall counting iron rings.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="room" aria-labelledby="room-title">
+    <div class="container">
+      <div class="head">
+        <h2 id="room-title">For the long read.</h2>
+        <p class="lead">Hours with one book, not seconds with a&nbsp;cover.</p>
+      </div>
+      <figure class="photo room__photo">
+        <div class="room__frame" data-slot="photo-1" data-alt="A room or a desk where Halyard is read">
+          <img src="photos/salle-de-lecture-bibliotheque-sainte-genevieve-n03-1920.jpg" width="4288" height="2848" loading="lazy" sizes="(min-width: 90rem) 1312px, 100vw"
+               alt="A long vaulted reading room with rows of wooden desks, green lamps and walls of books" style="object-position: 50% 62%">
+        </div>
+        <figcaption>The reading room of the Biblioth&egrave;que Sainte-Genevi&egrave;ve, Paris, printed in ink on oat.</figcaption>
+      </figure>
     </div>
   </section>
 
   <section class="licence" id="licence" aria-labelledby="licence-title">
     <div class="container licence__grid">
-      <h2 id="licence-title">One licence, the whole&nbsp;family.</h2>
-      <div class="ticket">
-        <div class="ticket__top">
-          <p class="ticket__name">Halyard</p>
-          <p class="ticket__price"><span>£</span>290</p>
-        </div>
-        <ul class="ticket__list">
-          <li><span>Weights</span><b>Eight, Regular to Black</b></li>
-          <li><span>Italics</span><b>For every weight</b></li>
-          <li><span>Licence</span><b>Desktop</b></li>
-          <li><span>Made for</span><b>Books and long reading</b></li>
-        </ul>
-        <a class="btn btn--ink btn--wide" href="#top">Buy the family, £290</a>
+      <div class="licence__buy">
+        <h2 id="licence-title">One licence, the whole&nbsp;family.</h2>
+        <p class="licence__price"><span class="licence__cur">&pound;</span>290</p>
+        <a class="btn btn--primary" href="#top">Buy the family, &pound;290</a>
       </div>
+      <dl class="terms">
+        <div><dt>Weights</dt><dd>Eight</dd></div>
+        <div><dt>Italics</dt><dd>One for every weight</dd></div>
+        <div><dt>Styles in all</dt><dd class="terms__fig">16</dd></div>
+        <div><dt>Licence</dt><dd>Desktop</dd></div>
+        <div><dt>Made for</dt><dd>Books and long reading</dd></div>
+      </dl>
     </div>
   </section>
 </main>
 
-<footer class="foot">
-  <div class="container">
-    <p class="foot__word" aria-hidden="true">Halyard</p>
-    <div class="foot__base">
-      <p>A serif for books and long reading.</p>
-      <nav aria-label="Footer"><a href="#tester">Tester</a><a href="#glyphs">Glyphs</a><a href="#licence">Licence</a></nav>
-    </div>
+<footer class="colophon">
+  <div class="container colophon__grid">
+    <p class="colophon__mark">Halyard</p>
+    <p class="colophon__text">Halyard is a serif family in eight weights with italics, for books and long reading. This page is set in Bodoni Moda, standing in for Halyard, with Geist for the notes.</p>
+    <nav class="colophon__links" aria-label="Footer"><a href="#tester">Tester</a><a href="#glyphs">Glyphs</a><a href="#sizes">Sizes</a><a href="#licence">Licence</a></nav>
+    <p class="colophon__legal">&copy; 2026 Halyard. <span data-credits>Photograph: <a href="https://commons.wikimedia.org/wiki/File:Salle_de_lecture_Bibliotheque_Sainte-Genevieve_n03.jpg">Marie-Lan Nguyen</a> (CC BY 2.0 fr), via Wikimedia Commons.</span></p>
   </div>
 </footer>
 

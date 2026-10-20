@@ -13,14 +13,11 @@
 <body>
   <a class="skip" href="#main">Skip to content</a>
 
-  <header class="slab">
-    <div class="container slab__inner">
-      <a class="wordmark" href="#top" aria-label="Wickford Autumn Machinery Sale, home">Wickford Sale</a>
-      <nav class="slab__links" aria-label="Main">
-        <a href="#view">Viewing day</a>
-        <a href="#lots">Sale day</a>
-        <a href="#register">Register to bid</a>
-      </nav>
+  <header class="mast">
+    <div class="container mast__inner">
+      <span class="mast__side">Farm machinery auction</span>
+      <a class="wordmark mast__mark" href="#top" aria-label="Wickford Autumn Machinery Sale, home">Wickford Sale</a>
+      <a class="mast__side mast__link" href="#register">Register to bid</a>
     </div>
   </header>
 
@@ -32,7 +29,7 @@
           <p class="fit bill__date" style="--w: 5.823">Saturday 8 November, 10am</p>
           <div class="actions">
             <a class="btn" href="#register">Register to bid</a>
-            <a class="btn btn--frame" href="#view">View on Friday from noon</a>
+            <a class="btn btn--frame" href="#days">View on Friday from noon</a>
           </div>
         </div>
         <figure class="frame frame--photo hero__plate grained">
@@ -43,31 +40,60 @@
       </div>
     </section>
 
-    <section class="stage stage--view" id="view" aria-labelledby="view-head">
+    <section class="days" id="days" aria-labelledby="days-head">
       <div class="container">
-       <div class="stage__grid">
-        <figure class="frame frame--photo view__plate grained">
-          <div class="plate" data-slot="view" data-alt="Your own photograph of viewing day: buyers walking the lines of lots in the sale field, seen from behind, in daylight">
-            <img src="photos/round-hay-bales-on-a-field-with-hawkweed-in-the-foreground-n-1920.jpg" width="5568" height="3712" loading="lazy" style="object-position: 50% 45%" alt="Round straw bales spread across a harvested field below a line of trees">
+        <div class="days__head">
+          <h2 id="days-head">Two days at Wickford</h2>
+          <p class="days__line">Look on Friday, bid on Saturday.</p>
+        </div>
+        <div class="days__bill">
+          <div class="day">
+            <p class="day__what">Viewing</p>
+            <div class="day__fit"><p class="fit day__name" style="--w: 3.915">Friday 7 November</p></div>
+            <p class="day__hour">From noon</p>
+            <p class="day__note">Walk the lines and look every lot over, the day before the sale.</p>
+          </div>
+          <div class="day">
+            <p class="day__what">The sale</p>
+            <div class="day__fit"><p class="fit day__name" style="--w: 4.571">Saturday 8 November</p></div>
+            <p class="day__hour">From 10am</p>
+            <p class="day__note">Lot 1 is called at ten, and the lots sell one by one through the day.</p>
+          </div>
+        </div>
+        <dl class="days__where">
+          <div><dt>Sale ground</dt><dd><span class="fill" data-fill="sale-ground">Address to be announced</span>, Wickford</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="count" id="lots" aria-labelledby="count-head">
+      <div class="container">
+        <div class="count__fit"><h2 id="count-head" class="fit count__figure" style="--w: 3.640">312 lots, one day</h2></div>
+        <div class="count__row">
+          <p class="count__note">Every lot on the ground for Friday&rsquo;s viewing.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="plate-s" aria-labelledby="plate-head">
+      <div class="container plate-s__grid">
+        <figure class="frame frame--photo plate-s__plate grained">
+          <div class="plate" data-slot="lot-detail" data-alt="Your own photograph of one lot, plain and side-on: a tractor, a trailer or a digger">
+            <img src="photos/high-pressure-cleaning-with-personal-protective-equipment-01-1920.jpg" width="1920" height="1280" loading="lazy" style="object-position: 40% 50%" alt="A man in waterproofs pressure washing a rusty machine part on a pallet">
           </div>
         </figure>
-        <div class="view__text">
-          <h2 id="view-head">1. Viewing day</h2>
-          <p class="fit view__time" style="--w: 3.817">Friday from noon</p>
-          <p class="stage__line">Walk the lines and look every lot over, the day before the sale.</p>
-          <dl class="facts">
-            <div><dt>Viewing</dt><dd>Friday 7 November, from noon</dd></div>
-            <div><dt>Sale ground</dt><dd><span class="fill" data-fill="sale-ground">Address to be announced</span>, Wickford</dd></div>
-          </dl>
+        <div class="plate-s__text">
+          <h2 id="plate-head">Look it over first</h2>
+          <p class="stage__line">Friday is for walking the lines, side-on and close, before a single bid is taken.</p>
+          <a class="btn btn--frame" href="#register">Take a bidding number</a>
         </div>
-       </div>
       </div>
     </section>
 
     <section class="register grained" id="register" aria-labelledby="register-head">
       <div class="container register__grid">
         <div class="register__text">
-          <h2 id="register-head">2. Register to bid</h2>
+          <h2 id="register-head">Register to bid</h2>
           <p class="register__line">Take a bidding number before the first lot is called.</p>
         </div>
         <form class="register__form" data-endpoint="" novalidate>
@@ -91,30 +117,6 @@
       </div>
     </section>
 
-    <section class="stage stage--sale" id="lots" aria-labelledby="sale-head">
-      <div class="container">
-        <div class="sale__head">
-          <h2 id="sale-head">3. Sale day</h2>
-          <p class="stage__line">From lot 1 at 10am, sold one by one through the day.</p>
-        </div>
-        <figure class="frame frame--photo sale__wide grained">
-          <div class="plate" data-slot="lots" data-alt="Your own photograph of the lots: the machinery lined up in rows across the sale field, plain daylight">
-            <img src="photos/erntezeit-auf-dem-d-nischen-wohld-1920.jpg" width="5341" height="3000" loading="lazy" style="object-position: 50% 80%" alt="A harvested field rolling down to the sea, a tractor far off on the stubble">
-          </div>
-        </figure>
-        <div class="sale__count">
-          <div class="sale__tally">
-            <div class="sale__fit"><p class="fit sale__figure" style="--w: 1.760">312 lots</p></div>
-            <p class="sale__list">The full lot list: <span class="fill" data-fill="lot-list">to come</span></p>
-          </div>
-          <figure class="frame frame--photo sale__detail grained">
-            <div class="plate" data-slot="lot-detail" data-alt="Your own photograph of one lot, plain and side-on: a tractor, a trailer or a digger">
-              <img src="photos/high-pressure-cleaning-with-personal-protective-equipment-01-1920.jpg" width="1920" height="1280" loading="lazy" style="object-position: 40% 50%" alt="A man in waterproofs pressure washing a rusty machine part on a pallet">
-            </div>
-          </figure>
-        </div>
-      </div>
-    </section>
   </main>
 
   <footer class="close">
@@ -123,13 +125,13 @@
       <p class="fit close__line" style="--w: 4.509">See you at Wickford.</p>
       <div class="close__row">
         <nav class="close__links" aria-label="Footer">
-          <a href="#view">Viewing day</a>
+          <a href="#days">The two days</a>
+          <a href="#lots">The lots</a>
           <a href="#register">Register to bid</a>
-          <a href="#lots">Sale day</a>
         </nav>
         <small>© 2026 Wickford Autumn Machinery Sale</small>
       </div>
-      <p class="close__credit" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Fr%C3%A4nkische_Schweiz_Getreideernte-20210821-RM-154445.jpg">Ermell</a> <span>(<abbr>CC BY-SA 4.0</abbr>)</span>, <a href="https://commons.wikimedia.org/wiki/File:Round_hay_bales_on_a_field,_with_hawkweed_in_the_foreground,_near_Durnal,_Yvoir,_2025.jpg">DimiTalen</a> <span>(<abbr>CC0</abbr>)</span>, <a href="https://commons.wikimedia.org/wiki/File:Erntezeit_auf_dem_D%C3%A4nischen_Wohld.jpg">J&ouml;rg Braukmann</a> <span>(<abbr>CC BY-SA 4.0</abbr>)</span> and <a href="https://commons.wikimedia.org/wiki/File:High-Pressure-Cleaning-with-Personal-Protective-Equipment-01.jpg">CEphoto, Uwe Aranas</a> <span>(<abbr>CC BY-SA 3.0</abbr>)</span>, all on Wikimedia Commons.</p>
+      <p class="close__credit" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Fr%C3%A4nkische_Schweiz_Getreideernte-20210821-RM-154445.jpg">Ermell</a> <span>(<abbr>CC BY-SA 4.0</abbr>)</span> and <a href="https://commons.wikimedia.org/wiki/File:High-Pressure-Cleaning-with-Personal-Protective-Equipment-01.jpg">CEphoto, Uwe Aranas</a> <span>(<abbr>CC BY-SA 3.0</abbr>)</span>, all on Wikimedia Commons.</p>
      </div>
     </div>
   </footer>

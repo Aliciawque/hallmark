@@ -1,10 +1,6 @@
-/* Hallmark · shape: Site Board · genre: editorial · theme: Formwork (by request)
- * hero: Stage · nav: slab · footer: statement · imagery: photographs, library 4, hard black and white · signature: skaters in silhouette against bare concrete in hard black and white, orange the only colour on the page · formwork: cast
- * axes: mid/display-condensed/warm · posture: restrained · contrast: pass · fold: pass · v2.7.0 */
-/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: S, the library has no bowl yet; the ledge carries the skating and the board shows the concrete itself, cast and poured */
-/* Hallmark · shape fingerprint: Hanging | Full-bleed with margin reset | Bleed-colour block | Solid | Tightly cropped to the grid | None */
-/* Hallmark · hero-review: fix · 3 findings · 2 resolved (the speck grain now runs across the concrete paper; the treatment is harder, with clean whites) · 1 answered (the hero's softness is the photograph's own depth of field, from a 6000px source; the owner's grind replaces it) */
-/* Hallmark · finish-review: subagent · 8 findings · 7 resolved (steel and the palm-lined park out, the concrete itself in; the echo of 37 and 38 cut; the repeated hint cut; the hero gap closed; heads tied to Ashgrove; phone footer links stacked) · 1 partial (captions carry the material; park, town and year are not in the brief) · gap: the parks themselves, no bowl in the library yet */
+/* Hallmark · shape: Site Board, second pour (named here: a ramp in hard light under the count, the count cast as a plate, the concrete itself in two frames, the four stages across the cast band, the site sheet) · genre: editorial · theme: Formwork (by request) · formwork: cast
+ * hero: Poster · nav: slab · footer: statement on ink · imagery: photographs, library 3, natural sat=-100 con=35 exp=8 · signature: 37 cast at 18rem on a plate with the hard ink shadow
+ * axes: mid/display-condensed/warm · posture: restrained · contrast: pass · fold: pass · v2.8.0 */
 @import url("./tokens.css");
 @import url("./base.css");
 
@@ -56,34 +52,49 @@ body::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-e
 
 :root { --content: calc(min(100%, var(--container)) - 2 * var(--gutter)); }
 
-/* Hero: Stage. The text on five columns, the photograph on seven running off the right edge */
-.hero { box-sizing: border-box; min-height: calc(100svh - var(--bar-h)); display: grid; grid-template-columns: minmax(var(--gutter), 1fr) calc((var(--content) - var(--space-2xl)) * 0.36) var(--space-2xl) calc((var(--content) - var(--space-2xl)) * 0.64) minmax(var(--gutter), 1fr); align-items: center; padding-block: var(--space-2xl); }
-.hero__text { grid-column: 2; display: grid; justify-items: start; }
-.hero h1 { font-size: var(--text-display); }
-.hero .lead { margin-top: var(--space-lg); max-width: 34ch; font-size: var(--text-lead); line-height: 1.45; color: var(--color-ink-2); }
+/* Hero: Poster. The ramp full-bleed, the count low and left over an ink scrim */
+.hero { position: relative; display: grid; min-height: calc(100svh - var(--bar-h)); isolation: isolate; }
+.hero__fig { position: absolute; inset: 0; z-index: var(--z-base); }
+.hero__fig > img { outline: 0; }
+.hero__over { position: relative; z-index: var(--z-raised); align-self: end; padding-block: var(--space-4xl) var(--space-2xl); }
+.hero__text { display: grid; justify-items: start; width: fit-content; max-width: 100%; padding: var(--space-2xl) var(--space-2xl) var(--space-xl); background: var(--color-ink); color: var(--color-plate-ink); }
+.hero__text :focus-visible { outline-color: var(--color-accent); }
+.hero h1 { max-width: 15ch; font-size: clamp(3rem, 5vw + 1rem, 6rem); line-height: 0.98; color: var(--color-plate-ink); }
+.hero .lead { margin-top: var(--space-lg); max-width: 36ch; font-size: var(--text-lead); line-height: 1.45; color: var(--color-plate-ink); }
 .hero .acts { display: flex; flex-wrap: wrap; gap: var(--space-md); margin-top: var(--space-xl); }
-.hero__fig { grid-column: 4 / 6; height: clamp(520px, 75svh, 760px); }
+
+/* The count, cast as a plate */
+.count { padding-top: var(--section-gap); }
+.count__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: center; }
+.count__plate { grid-column: 1 / span 6; display: grid; align-content: end; min-height: 0; padding: var(--space-3xl) var(--space-2xl) var(--space-2xl); color: var(--color-ink); }
+.count__fig { margin: 0; font: 700 clamp(9rem, 24vw, 22rem)/0.86 var(--font-display); letter-spacing: -0.02em; font-variant-numeric: lining-nums tabular-nums; color: var(--color-ink); }
+.count__unit { margin-top: var(--space-lg); padding-top: var(--space-md); border-top: var(--rule-bar) solid var(--color-ink); font: 500 var(--text-lead)/1.3 var(--font-outlier); color: var(--color-ink); }
+.count__text { grid-column: 8 / -1; display: grid; justify-items: start; gap: var(--space-lg); }
+.count__text h2 { font-size: var(--text-display-s); font-variant-numeric: tabular-nums; }
+.count__link { font: 500 var(--text-md)/1.4 var(--font-body); color: var(--color-ink); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.25em; transition: text-decoration-color var(--dur-short) var(--ease-out); }
+.count__link:hover { text-decoration-color: var(--color-accent); }
 
 /* The work: two photographs, eight columns and four, captioned with the material */
-.work { padding-top: var(--section-gap); }
-.work h2 { margin-bottom: var(--space-2xl); }
+.work { padding-top: var(--section-gap-l); }
+.work h2 { margin-bottom: var(--space-2xl); font-size: var(--text-display-s); }
 .board { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--gap-columns); padding-top: var(--space-xl); border-top: var(--rule-bar) solid var(--color-ink); }
 .board__lead { grid-column: 1 / span 8; }
 .board__b { grid-column: 9 / span 4; }
-.board__pic { height: 640px; }
-.board .cap { margin-top: var(--space-sm); }
-.work { padding-bottom: var(--space-xl); }
+.board__pic { height: 600px; }
+.board__pic > img { outline: 2px solid var(--color-ink); outline-offset: -2px; }
 
-/* How a park is built: the stages on the cast band beside the steel */
+/* How a park is built: four stages across the cast band */
 .build { margin-top: var(--section-gap-l); padding-block: var(--section-gap-s); }
-.build__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: center; }
-.build__text { grid-column: 1 / span 6; }
-.build__fig { grid-column: 8 / span 5; aspect-ratio: 4 / 5; }
-.stages { margin: var(--space-2xl) 0 0; padding: 0; list-style: none; border-top: var(--rule-bar) solid var(--color-ink); }
-.stages li { display: grid; grid-template-columns: 3rem 9rem minmax(0, 1fr); align-items: baseline; column-gap: var(--gap-columns); padding-block: var(--space-lg); border-bottom: var(--rule-hair) solid var(--color-paper-3); }
-.stages__n { font-size: var(--text-title); color: var(--color-ink); }
-.stages h3 { font-size: var(--text-title); }
-.stages p { color: var(--color-ink-2); }
+.build__head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: end; margin-bottom: var(--space-2xl); }
+.build__head h2 { grid-column: 1 / span 7; font-size: var(--text-display-s); }
+.build__head .lead { grid-column: 9 / -1; }
+.stages { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; padding: 0; list-style: none; border-top: var(--rule-bar) solid var(--color-ink); }
+.stages li { display: grid; align-content: start; gap: var(--space-md); padding: var(--space-xl) var(--gap-columns) var(--space-lg); border-left: var(--rule-hair) solid var(--color-paper-3); }
+.stages li:first-child { padding-left: 0; border-left: 0; }
+.stages__n { font: 700 clamp(4rem, 6vw, 6.5rem)/0.9 var(--font-display); font-variant-numeric: lining-nums tabular-nums; color: var(--color-ink); }
+.stages li:nth-child(3) .stages__n { color: var(--color-accent-deep); }
+.stages h3 { font-size: var(--text-2xl); }
+.stages p { max-width: 30ch; color: var(--color-ink-2); }
 
 /* Park 38: the site form on a cast card */
 .site { padding-block: var(--section-gap) var(--section-gap-s); }
@@ -137,15 +148,18 @@ body::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-e
 
 @media (max-width: 60rem) {
   .slab__links a:not(.btn) { font-size: var(--text-md); }
-  .hero { min-height: 0; grid-template-columns: var(--gutter) minmax(0, 1fr) var(--gutter); row-gap: var(--space-xl); padding-block: var(--space-2xl) var(--space-3xl); }
-  .hero__text, .hero__fig { grid-column: 2; }
-  .hero__fig { height: auto; aspect-ratio: 7 / 6; }
-  .board { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; row-gap: var(--space-3xl); }
-  .board__lead, .board__b { grid-column: 1 / -1; }
+  .hero { min-height: 0; }
+  .hero__fig { position: relative; inset: auto; aspect-ratio: 4 / 3; }
+  .hero__over { padding-block: 0; background: var(--color-ink); color: var(--color-plate-ink); }
+  .hero__text { padding-inline: 0; }
+  .count__grid, .board, .build__head { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-xl); }
+  .count__plate, .count__text, .board__lead, .board__b, .build__head h2, .build__head .lead { grid-column: 1 / -1; }
+  .count__plate { min-height: 0; }
   .board__lead .board__pic { height: auto; aspect-ratio: 4 / 3; }
   .board__b .board__pic { height: auto; aspect-ratio: 4 / 5; }
-  .build__grid { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-xl); }
-  .build__text, .build__fig { grid-column: 1 / -1; }
+  .stages { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stages li:nth-child(3) { padding-left: 0; border-left: 0; }
+  .stages li:nth-child(n+3) { border-top: var(--rule-hair) solid var(--color-paper-3); }
   .site__card { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-xl); padding: var(--space-xl); }
   .site__head, .site__card .form { grid-column: 1 / -1; }
 }
@@ -155,8 +169,10 @@ body::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-e
   .slab__mark { font-size: var(--text-md); }
   .slab .btn { padding-inline: var(--space-md); }
   .hero .acts { display: grid; grid-template-columns: minmax(0, 1fr); justify-self: stretch; }
-  .stages li { grid-template-columns: 2rem minmax(0, 1fr); }
+  .count__plate { padding: var(--space-lg); }
+  .stages { grid-template-columns: minmax(0, 1fr); }
+  .stages li, .stages li:nth-child(3) { padding-inline: 0; border-left: 0; }
+  .stages li:nth-child(n+2) { border-top: var(--rule-hair) solid var(--color-paper-3); }
   .seg label { padding: 0 var(--space-xs); }
-  .stages li p { grid-column: 2; }
   .foot__links { flex-direction: column; gap: var(--space-md); }
 }

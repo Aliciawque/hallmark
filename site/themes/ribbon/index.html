@@ -14,9 +14,16 @@
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="nav">
-  <div class="container nav__bar">
+  <div class="nav__pill">
     <a class="wordmark" href="#top" aria-label="Lull, back to the top">Lull</a>
-    <a class="btn btn--quiet btn--small" href="#price">Start Lull</a>
+    <nav aria-label="Main">
+      <ul class="nav__links" role="list">
+        <li><a href="#sounds">The sounds</a></li>
+        <li><a href="#fade">The fade</a></li>
+        <li><a href="#price">Price</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn--primary btn--small" href="#price">Start Lull</a>
   </div>
 </header>
 
@@ -28,34 +35,30 @@
       <h1 id="hero-head">Rain, wind,<br> a distant train.</h1>
       <p class="lead">Lull layers all three, then fades them out once you fall asleep.</p>
       <div class="actions">
-        <a class="btn btn--primary" href="#price">Start for £3 a month</a>
-        <a class="btn btn--quiet" href="#fade">See how it fades</a>
+        <a class="btn btn--primary" href="#price">Start for &pound;3 a month</a>
+        <a class="btn" href="#fade">See how it fades</a>
       </div>
     </div>
 
     <div class="hero__visual">
-      <figure class="photo hero__photo" data-slot="hero-photo" data-alt="A window at night in the rain, seen from inside, lights blurred beyond the glass">
-        <img src="photos/night-rain-mode-1920.jpg" width="1920" height="2560" fetchpriority="high" alt="Rain beaded on a car window at night, a wing mirror full of blurred street lights" style="object-position: 62% 55%">
+      <figure class="photo hero__photo" data-slot="hero-photo" data-alt="Rain on a window at night, lights blurred beyond the glass">
+        <img src="photos/bokeh-raindrops-on-a-window-1-1920.jpg" width="3283" height="4385" sizes="(min-width: 60rem) 40vw, 100vw" fetchpriority="high" alt="Raindrops on a dark window, each one a soft disc of warm and silver light" style="object-position: 50% 60%">
       </figure>
 
-      <figure class="app hero__app" data-slot="hero" data-alt="The Lull mixer screen tonight: rain, wind and distant trains with their levels, and the fade-out switch">
+      <figure class="app hero__app" data-slot="hero" data-alt="The Lull mixer tonight: rain, wind and distant trains with their levels, and the fade-out switch">
         <div class="app__screen" aria-hidden="true">
           <div class="app__top">
             <span class="app__title">Tonight</span>
             <span class="app__status">Playing</span>
           </div>
           <ul class="app__layers">
-            <li class="app__layer" style="--level: 60%"><span class="app__name">Rain</span><span class="app__level">60</span><span class="app__fader"></span></li>
-            <li class="app__layer" style="--level: 35%"><span class="app__name">Wind</span><span class="app__level">35</span><span class="app__fader"></span></li>
-            <li class="app__layer" style="--level: 15%"><span class="app__name">Distant trains</span><span class="app__level">15</span><span class="app__fader"></span></li>
+            <li class="app__layer" style="--level: 60%"><span class="app__name">Rain</span><span class="app__level">60</span><span class="fader"></span></li>
+            <li class="app__layer" style="--level: 35%"><span class="app__name">Wind</span><span class="app__level">35</span><span class="fader"></span></li>
+            <li class="app__layer" style="--level: 15%"><span class="app__name">Distant trains</span><span class="app__level">15</span><span class="fader"></span></li>
           </ul>
           <div class="app__fade">
             <span class="app__fade-label">Fade out<span class="app__fade-when">When you fall asleep</span></span>
             <span class="app__switch is-on"></span>
-          </div>
-          <div class="app__transport">
-            <span class="app__pause"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/></svg></span>
-            <span class="app__elapsed">Playing for 42 min</span>
           </div>
         </div>
         <figcaption class="visually-hidden">The Lull mixer: rain at 60, wind at 35, distant trains at 15, set to fade out when you fall asleep.</figcaption>
@@ -64,66 +67,74 @@
   </div>
 </section>
 
-<section class="stage stage--mix" id="mix" aria-labelledby="mix-head">
+<section class="quiet" aria-labelledby="quiet-head">
   <div class="container">
-    <div class="stage__head">
-      <h2 id="mix-head">1. Set the three sounds</h2>
-      <p class="lead">Each sound has its own level, so rain can lead and the train stays far off.</p>
-    </div>
-    <figure class="mixer" data-slot="mixer" data-alt="The Lull mixer laid out wide: rain, wind and distant trains, each with its level">
-      <div class="mixer__screen" aria-hidden="true">
-      <div class="mixer__top"><span class="mixer__title">Tonight</span><span class="mixer__status">Playing</span></div>
-      <ol class="mixer__rows">
-        <li class="mixer__row" style="--level: 60%"><span class="mixer__name">Rain</span><span class="mixer__fader"></span><span class="mixer__level">60</span></li>
-        <li class="mixer__row" style="--level: 35%"><span class="mixer__name">Wind</span><span class="mixer__fader"></span><span class="mixer__level">35</span></li>
-        <li class="mixer__row" style="--level: 15%"><span class="mixer__name">Distant trains</span><span class="mixer__fader"></span><span class="mixer__level">15</span></li>
-      </ol>
-      </div>
-      <figcaption class="visually-hidden">The mixer: rain at 60, wind at 35, distant trains at 15.</figcaption>
-    </figure>
+    <h2 id="quiet-head" class="quiet__line">Light sleepers hear a sound that runs all night. Lull stops once you are asleep.</h2>
+    <p class="lead quiet__sub">Rain, wind and distant trains while you drift off, then nothing until morning.</p>
   </div>
 </section>
 
-<section class="band band--night" id="night" aria-labelledby="night-head">
+<section class="sounds" id="sounds" aria-labelledby="sounds-head">
+  <div class="container sounds__grid">
+    <div class="sounds__head">
+      <h2 id="sounds-head">Three sounds, one mix.</h2>
+      <p class="lead">Each has its own level, so rain can lead and the train stays far off.</p>
+    </div>
+    <ol class="sound-list" role="list">
+      <li style="--level: 60%"><h3>Rain</h3><p>Leads the mix, steady on the glass.</p><span class="sound-list__level">60</span></li>
+      <li style="--level: 35%"><h3>Wind</h3><p>Sits under the rain.</p><span class="sound-list__level">35</span></li>
+      <li style="--level: 15%"><h3>Distant trains</h3><p>Kept low, far off behind the rest.</p><span class="sound-list__level">15</span></li>
+    </ol>
+  </div>
+</section>
+
+<section class="band band--night" aria-labelledby="night-head">
   <div class="container">
-    <div class="stage__head stage__head--split">
-      <h2 id="night-head">2. Steady while you drift off</h2>
-      <p class="lead">Made for light sleepers, who notice a sound that runs all night.</p>
+    <div class="split-head">
+      <h2 id="night-head">The train stays far off.</h2>
+      <p class="lead">Low in the mix, for ears that notice everything.</p>
     </div>
     <figure class="photo night__photo" data-slot="photo-1" data-alt="Night, close: rain on glass, or a train passing far off">
-      <img src="photos/night-train-1920.jpg" width="1920" height="1277" loading="lazy" alt="A dark train sliding past at night, its lit windows drawn out in a blur" style="object-position: 50% 15%">
+      <img src="photos/night-train-1920.jpg" width="1920" height="1277" loading="lazy" sizes="(min-width: 90rem) 1312px, 100vw" alt="A dark train sliding past at night, its lit windows drawn out in a blur" style="object-position: 50% 20%">
     </figure>
   </div>
 </section>
 
-<section class="stage stage--fade" id="fade" aria-labelledby="fade-head">
-  <div class="container fade__grid">
-    <figure class="app fade__app" data-slot="fading" data-alt="The Lull mixer after you fall asleep: every level dropping and the status set to fading">
-      <div class="app__screen" aria-hidden="true">
-        <div class="app__top">
-          <span class="app__title">Tonight</span>
-          <span class="app__status">Fading</span>
+<section class="fade" id="fade" aria-labelledby="fade-head">
+  <div class="container">
+    <div class="split-head">
+      <h2 id="fade-head">Then it fades out.</h2>
+      <p class="lead">Once you fall asleep, all three drop away together.</p>
+    </div>
+    <div class="fade__pair">
+      <div class="state">
+        <p class="state__when">While you drift off</p>
+        <figure class="state__well" data-slot="playing" data-alt="The Lull mixer while you drift off: rain, wind and distant trains at their levels">
+        <div class="state__screen" aria-hidden="true">
+          <div class="state__top"><span class="state__title">Tonight</span><span class="state__status">Playing</span></div>
+          <ul class="state__rows">
+            <li style="--level: 60%"><span class="state__name">Rain</span><span class="state__level">60</span><span class="fader"></span></li>
+            <li style="--level: 35%"><span class="state__name">Wind</span><span class="state__level">35</span><span class="fader"></span></li>
+            <li style="--level: 15%"><span class="state__name">Distant trains</span><span class="state__level">15</span><span class="fader"></span></li>
+          </ul>
+          <p class="state__foot">Playing for 42 min</p>
         </div>
-        <ul class="app__layers">
-          <li class="app__layer" style="--level: 18%"><span class="app__name">Rain</span><span class="app__level">18</span><span class="app__fader"></span></li>
-          <li class="app__layer" style="--level: 9%"><span class="app__name">Wind</span><span class="app__level">9</span><span class="app__fader"></span></li>
-          <li class="app__layer" style="--level: 4%"><span class="app__name">Distant trains</span><span class="app__level">4</span><span class="app__fader"></span></li>
-        </ul>
-        <div class="app__fade">
-          <span class="app__fade-label">Fade out<span class="app__fade-when">Started when you fell asleep</span></span>
-          <span class="app__switch is-on"></span>
-        </div>
-        <div class="app__transport">
-          <span class="app__pause"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/></svg></span>
-          <span class="app__elapsed">Asleep for 6 min</span>
-        </div>
+        </figure>
       </div>
-      <figcaption class="visually-hidden">The mixer while it fades: rain at 18, wind at 9, distant trains at 4.</figcaption>
-    </figure>
-    <div class="fade__text">
-      <h2 id="fade-head">3. Lull fades them out</h2>
-      <p class="lead">Once you are asleep, all three drop away together.</p>
-      <p class="beat"><span class="beat__head">Quiet until morning</span><span class="beat__line">Nothing left playing at three</span></p>
+      <div class="state state--late">
+        <p class="state__when">Once you are asleep</p>
+        <figure class="state__well" data-slot="fading" data-alt="The Lull mixer after you fall asleep: every level dropping and the status set to fading">
+        <div class="state__screen" aria-hidden="true">
+          <div class="state__top"><span class="state__title">Tonight</span><span class="state__status">Fading</span></div>
+          <ul class="state__rows">
+            <li style="--level: 18%"><span class="state__name">Rain</span><span class="state__level">18</span><span class="fader"></span></li>
+            <li style="--level: 9%"><span class="state__name">Wind</span><span class="state__level">9</span><span class="fader"></span></li>
+            <li style="--level: 4%"><span class="state__name">Distant trains</span><span class="state__level">4</span><span class="fader"></span></li>
+          </ul>
+          <p class="state__foot">Asleep for 6 min</p>
+        </div>
+        </figure>
+      </div>
     </div>
   </div>
 </section>
@@ -131,15 +142,13 @@
 <section class="band band--price" id="price" aria-labelledby="price-head">
   <div class="container price__grid">
     <div class="price__text">
-      <h2 id="price-head">Three pounds a month.</h2>
-      <p class="lead">One price for all three sounds, every night.</p>
+      <h2 id="price-head">One price, every night.</h2>
+      <p class="lead">All three sounds and the fade, for three pounds a month.</p>
       <div class="actions">
-        <a class="btn btn--primary" href="#price">Start for £3 a month</a>
+        <a class="btn btn--primary" href="#price">Start for &pound;3 a month</a>
       </div>
     </div>
-    <figure class="photo price__photo" data-slot="photo-2" data-alt="A single lamp in the dark at night, its light warm on the wall">
-      <img src="photos/staircase-of-the-bgk-building-26620981474-1920.jpg" width="1920" height="1080" loading="lazy" alt="A round wall lamp glowing warm on a dark wall beside the white turns of a stairwell" style="object-position: 100% 50%">
-    </figure>
+    <p class="price__figure" aria-hidden="true"><span class="price__num">&pound;3</span><span class="price__per">a month</span></p>
   </div>
 </section>
 
@@ -149,12 +158,11 @@
   <div class="container footer__grid">
     <p class="footer__signoff">Goodnight, light sleeper.</p>
     <nav class="footer__links" aria-label="Footer">
-      <a href="#mix">The mix</a>
+      <a href="#sounds">The sounds</a>
       <a href="#fade">The fade</a>
       <a href="#price">Price</a>
     </nav>
-    <p class="footer__legal">© 2026 Lull</p>
-    <p class="footer__credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Night_Rain_mode.jpg">Nadinviki</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Night_Train.jpg">Tiraspolsky</a> (CC0), <a href="https://commons.wikimedia.org/wiki/File:Staircase_of_the_BGK_Building_(26620981474).jpg">Bart Lumber</a> (CC0), via Wikimedia Commons</p>
+    <p class="footer__legal">&copy; 2026 Lull. <span data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Bokeh_raindrops_on_a_window_1.jpg">W.carter</a> (CC0), <a href="https://commons.wikimedia.org/wiki/File:Night_Train.jpg">Tiraspolsky</a> (CC0), via Wikimedia Commons.</span></p>
   </div>
 </footer>
 

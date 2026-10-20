@@ -9,13 +9,14 @@
   --color-error: oklch(52% 0.19 27); --color-success: oklch(50% 0.12 150);
   --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap-s: 120px; --section-gap: 144px; --section-gap-l: 176px;
   --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
-  --color-paper: oklch(99% 0.005 160); --color-paper-2: oklch(97% 0.016 160); --color-paper-3: oklch(94% 0.03 160);
-  --color-ink: oklch(19% 0.012 170); --color-ink-2: oklch(30% 0.015 170); --color-muted: oklch(50% 0.022 165);
-  --color-rule: oklch(88% 0.02 160);
-  --color-accent: oklch(50% 0.13 160); --color-accent-ink: oklch(99% 0.005 160); --color-focus: oklch(45% 0.14 160);
+  --color-paper: oklch(99% 0.006 160); --color-paper-2: oklch(96.5% 0.02 160); --color-paper-3: oklch(93% 0.036 160);
+  --color-ink: oklch(21% 0.025 170); --color-ink-2: oklch(31% 0.02 170); --color-muted: oklch(49% 0.024 165);
+  --color-rule: oklch(87% 0.024 160);
+  --color-accent: oklch(50% 0.13 160); --color-accent-deep: oklch(42% 0.11 162); --color-accent-soft: oklch(88% 0.08 160); --color-accent-ink: oklch(99% 0.006 160);
+  --color-focus: oklch(45% 0.14 160);
   --font-display: "Schibsted Grotesk", ui-sans-serif, sans-serif; --font-body: "Instrument Sans", ui-sans-serif, sans-serif;
   --font-outlier: "DM Mono", ui-monospace, monospace;
-  --radius-card: 12px; --radius-input: 8px; --radius-pill: 999px; --rule-hair: 1px;
+  --radius-card: 14px; --radius-input: 8px; --radius-pill: 999px; --rule-hair: 1px;
   --shadow-card: 0 1px 2px oklch(30% 0.03 165 / 0.08), 0 24px 48px -24px oklch(40% 0.08 165 / 0.35);
-  --tracking-display: -0.028em;
+  --tracking-display: -0.03em;
 }

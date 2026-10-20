@@ -19,7 +19,7 @@
       <a class="knob" href="#five">Five minutes</a>
       <a class="knob" href="#try">Price</a>
     </nav>
-    <a class="btn btn--secondary btn--small" href="#try">Try 14 days free</a>
+    <a class="btn btn--secondary btn--small" href="#try">Start free</a>
   </div>
 </header>
 
@@ -55,9 +55,27 @@
   </div>
 </section>
 
+<section class="figs" aria-labelledby="figs-head">
+  <div class="container">
+    <div class="figs__head">
+      <h2 id="figs-head">Small enough for every day.</h2>
+      <p class="lead">Short rounds, a small price, and a garden that keeps growing.</p>
+    </div>
+    <dl class="figs__row">
+      <div><dt>minutes a day</dt><dd>5</dd></div>
+      <div><dt>years old</dt><dd>5 to 8</dd></div>
+      <div><dt>days free to try</dt><dd>14</dd></div>
+      <div><dt>a month after that</dt><dd>£4</dd></div>
+    </dl>
+  </div>
+</section>
+
 <section class="garden-sec" id="garden" aria-labelledby="garden-head">
   <div class="container">
-    <h2 id="garden-head">Every round grows the garden.</h2>
+    <div class="split-head">
+      <h2 id="garden-head">Every round grows the garden.</h2>
+      <p class="lead">Read a page, water a plant. Their garden is still there tomorrow.</p>
+    </div>
     <div class="bento">
       <figure class="tile tile--garden garden" data-slot="garden" data-alt="The Sprout garden screen: the plants a child has grown by reading, and what today's round grew">
         <div class="garden__screen" aria-hidden="true">
@@ -80,7 +98,7 @@
         <figcaption class="visually-hidden">The garden: six plants grown by reading, the peas grown in today’s round, a pumpkin next.</figcaption>
       </figure>
       <figure class="tile tile--pens photo" data-slot="photo-1" data-alt="Your child's hands on the tablet during a round, no face in frame">
-        <img src="photos/child-draws-on-tablet-while-sitting-indoors-1920.jpg" width="5718" height="3804" loading="lazy" alt="A small child's hands on a tablet, a stylus in one hand, lamplight behind" style="object-position: 45% 85%">
+        <img src="photos/child-draws-on-tablet-while-sitting-indoors-1920.jpg" width="5718" height="3804" loading="lazy" sizes="(min-width: 60rem) 40vw, 100vw" alt="A small child's hands on a tablet, a stylus in one hand, lamplight behind" style="object-position: 45% 85%">
       </figure>
       <figure class="tile tile--done done" data-slot="done" data-alt="The end of a Sprout round: five minutes done, see you tomorrow">
         <div class="done__screen" aria-hidden="true">
@@ -97,24 +115,55 @@
         </div>
         <figcaption class="visually-hidden">The end of a round: five minutes done, six pages and four new words read, the peas grown, back tomorrow.</figcaption>
       </figure>
-      <div class="tile tile--ages">
-        <h3>One sentence at a time.</h3>
-        <p>Made for early readers <span class="nowrap">aged 5 to 8</span>.</p>
-      </div>
-      <figure class="tile tile--seeds photo" data-slot="photo-2" data-alt="Something growing and in flower, in daylight">
-        <img src="photos/apple-tree-blossoms-2017-g3-1920.jpg" width="1920" height="1396" loading="lazy" alt="Pink and white apple blossom opening on a branch in spring sun" style="object-position: 50% 22%">
+      <figure class="tile tile--word word" data-slot="word" data-alt="A Sprout word card: today's new word, large, ready to be heard">
+        <div class="word__screen" aria-hidden="true">
+          <div class="word__side">
+            <span class="word__tag">New word</span>
+            <span class="word__from">from “The fox ran up the hill.”</span>
+            <span class="word__week"><span>This week</span><span class="word__chip">fox</span><span class="word__chip">ran</span><span class="word__chip">up</span></span>
+          </div>
+          <span class="word__word"><mark>hill</mark></span>
+          <span class="word__listen"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>Hear it</span>
+        </div>
+        <figcaption class="visually-hidden">A word card: the new word “hill”, from today’s sentence, with a button to hear it.</figcaption>
       </figure>
     </div>
+  </div>
+</section>
+
+<section class="steps-sec" aria-labelledby="steps-head">
+  <div class="container">
+    <div class="split-head">
+      <h2 id="steps-head">How a round goes.</h2>
+      <p class="lead">The same three beats, every day.</p>
+    </div>
+    <ol class="steps">
+      <li class="step">
+        <h3>Read a page</h3>
+        <p>Short sentences, one at a time, with the word being read lit up.</p>
+        <span class="step__bit" aria-hidden="true">The fox <mark>ran</mark></span>
+      </li>
+      <li class="step">
+        <h3>Grow a plant</h3>
+        <p>Every page they read helps today’s plant along.</p>
+        <span class="step__bit step__bit--grow" aria-hidden="true">Peas <span class="plot__grow" style="--g: 0.55"></span></span>
+      </li>
+      <li class="step">
+        <h3>Stop at five</h3>
+        <p>The round ends after five minutes, before anyone gets tired.</p>
+        <span class="step__bit step__bit--done" aria-hidden="true">That’s five minutes.</span>
+      </li>
+    </ol>
   </div>
 </section>
 
 <section class="five" id="five" aria-labelledby="five-head">
   <div class="five__grid">
     <figure class="photo five__photo" data-slot="photo-3" data-alt="Your child after the round, outdoors, seen from behind, no face in frame">
-      <img src="photos/child-playing-with-a-kite-1920.jpg" width="3093" height="2325" loading="lazy" alt="A boy seen from behind holding up a homemade kite against a blue sky" style="object-position: 45% 45%">
+      <img src="photos/child-playing-with-a-kite-1920.jpg" width="3093" height="2325" loading="lazy" sizes="(min-width: 60rem) 55vw, 100vw" alt="A boy seen from behind holding up a homemade kite against a blue sky" style="object-position: 45% 45%">
     </figure>
     <div class="five__text">
-      <h2 id="five-head">Five minutes, then it stops.</h2>
+      <h2 id="five-head">Then off they go.</h2>
       <p class="lead">One round a day, short enough for a school night.</p>
     </div>
   </div>
@@ -122,19 +171,22 @@
 
 <section class="try" id="try" aria-labelledby="try-head">
   <div class="container try__grid">
-    <div class="try__head">
+    <div class="try__plan">
       <h2 id="try-head">Start their first round.</h2>
-      <dl class="try__facts">
-        <div><dt>Free for</dt><dd>14 days</dd></div>
-        <div><dt>Then</dt><dd>£4 a month</dd></div>
-      </dl>
+      <fieldset class="pick">
+        <legend>When do they start?</legend>
+        <div class="pick__row">
+          <label class="pill"><input type="radio" name="start" value="0" checked><span>Today</span></label>
+          <label class="pill"><input type="radio" name="start" value="sat"><span>Saturday</span></label>
+          <label class="pill"><input type="radio" name="start" value="mon"><span>Monday</span></label>
+        </div>
+      </fieldset>
+      <p class="pick__out" aria-live="polite">Free for 14 days, then <mark>£4 a month</mark>.</p>
     </div>
     <form class="signup" data-endpoint="" novalidate>
       <label for="email">A grown-up’s email, for the download link</label>
-      <div class="signup__row">
-        <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required aria-describedby="email-help">
-        <button class="btn btn--primary" type="submit">Start 14 free days</button>
-      </div>
+      <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required aria-describedby="email-help">
+      <button class="btn btn--primary" type="submit">Start free</button>
       <p class="signup__help" id="email-help" aria-live="polite"></p>
     </form>
   </div>
@@ -142,24 +194,32 @@
 
 </main>
 
-<footer class="statement">
+<footer class="mast">
   <div class="container">
-    <p class="statement__line">Words in, flowers out.</p>
-    <div class="statement__row">
-      <nav class="statement__links" aria-label="Footer">
+    <p class="mast__word" aria-hidden="true">Sprout</p>
+    <div class="mast__row">
+      <p class="mast__line">A daily reading game that grows a garden.</p>
+      <nav class="mast__links" aria-label="Footer">
         <a href="#garden">The garden</a>
         <a href="#five">Five minutes</a>
-        <a href="#try">Price</a>
+        <a href="#try">Start free</a>
       </nav>
-      <p class="statement__legal">© 2026 Sprout</p>
+      <p class="mast__legal">© 2026 Sprout</p>
     </div>
-    <p class="statement__credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Child_draws_on_tablet_while_sitting_indoors.jpg">Shixart1985</a> (CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:Apple-tree_blossoms_2017_G3.jpg">George Chernilevsky</a> (public domain), <a href="https://commons.wikimedia.org/wiki/File:Child_playing_with_a_kite.jpg">Wilfredor</a> (CC0), via Wikimedia Commons</p>
+    <p class="mast__credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Child_draws_on_tablet_while_sitting_indoors.jpg">Shixart1985</a> (CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:Child_playing_with_a_kite.jpg">Wilfredor</a> (CC0), via Wikimedia Commons</p>
   </div>
 </footer>
 
 <script>window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
 document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });</script>
 <script>
+(() => {
+  const out = document.querySelector('.pick__out'); if (!out) return;
+  const fmt = (d) => d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+  const startOf = (v) => { const d = new Date(); d.setHours(12, 0, 0, 0); const want = v === 'sat' ? 6 : v === 'mon' ? 1 : null; if (want !== null) { d.setDate(d.getDate() + (((want - d.getDay()) + 7) % 7 || 7)); } return d; };
+  const show = () => { const v = document.querySelector('input[name="start"]:checked').value; const s = startOf(v), e = new Date(s); e.setDate(e.getDate() + 14); out.innerHTML = 'Free from ' + fmt(s) + ' until <mark>' + fmt(e) + '</mark>, then £4 a month.'; };
+  document.querySelectorAll('input[name="start"]').forEach((r) => r.addEventListener('change', show)); show();
+})();
 document.querySelectorAll('form[data-endpoint]').forEach((form) => {
   const input = form.querySelector('input'), help = form.querySelector('[aria-live]');
   form.addEventListener('submit', (e) => {

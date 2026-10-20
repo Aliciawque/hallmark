@@ -9,17 +9,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,500..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<script>document.documentElement.classList.add('js');</script>
 </head>
 <body id="top">
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="flag">
-  <div class="container flag__inner">
+<header class="mast">
+  <div class="container mast__inner">
+    <p class="mast__date">Issue 9, out 3 October</p>
     <a class="wordmark" href="#top" aria-label="Margin Notes, back to the top">Margin Notes</a>
-    <nav class="flag__nav" aria-label="Sections">
-      <a href="#about">About</a>
-      <a href="#issue">The issue</a>
+    <nav class="mast__nav" aria-label="Pre-order">
       <a href="#preorder">Pre-order</a>
     </nav>
   </div>
@@ -27,82 +25,90 @@
 
 <main id="main">
   <section class="cover" aria-labelledby="cover-h">
-    <figure class="cover__photo" data-slot="cover" data-alt="The cover photograph of Issue 9, Repair">
-      <img src="photos/bike-repair-is-taking-place-in-a-workshop-with-focus-on-fixi-1920.jpg" width="1920" height="1277" fetchpriority="high"
-           alt="Hands tightening the stem of a red bicycle in a dark workshop">
-    </figure>
-    <div class="container cover__inner">
+    <div class="container cover__grid">
       <div class="cover__text">
         <h1 id="cover-h">Repair</h1>
-        <p class="lead">Issue 9 of the quarterly on design, out 3&nbsp;October.</p>
+        <p class="cover__lead">Issue 9 of the independent quarterly on design, out 3&nbsp;October.</p>
         <div class="actions">
-          <a class="btn btn--on-photo" href="#preorder">Pre-order, £18</a>
+          <a class="btn btn--primary" href="#preorder">Pre-order, £18</a>
           <a class="textlink" href="#issue">Inside the issue</a>
         </div>
       </div>
+      <figure class="photo cover__photo" data-slot="cover" data-alt="The cover photograph of Issue 9, Repair">
+        <img src="photos/bike-repair-is-taking-place-in-a-workshop-with-focus-on-fixi-1920.jpg" width="1920" height="1277" fetchpriority="high" sizes="60vw"
+             alt="Hands tightening the stem of a red bicycle in a dark workshop">
+      </figure>
     </div>
   </section>
 
-  <section class="about" id="about" aria-labelledby="about-h">
+  <section class="about" aria-label="About Margin Notes">
     <div class="container">
-      <div class="split about__grid">
-        <div class="about__text">
-          <h2 id="about-h">Independent, four times a year</h2>
-          <p class="lead">Margin Notes is about design and the people behind it.</p>
-        </div>
-        <figure class="photo about__photo" data-slot="studio" data-alt="A contributor at work in their studio, from behind">
-          <img src="photos/a-luthier-at-work-on-a-violin-02-1920.jpg" width="1920" height="1280" loading="lazy" style="object-position: 55% 45%"
-           alt="A luthier's hands carving the top of a violin held in a wooden jig">
-        </figure>
+      <div class="opens">
+        <p class="standfirst">Margin Notes is an independent quarterly about design and the people behind it. Issue&nbsp;9 gives every page to one word.</p>
       </div>
     </div>
   </section>
 
   <section class="issue" id="issue" aria-labelledby="issue-h">
     <div class="container">
-      <div class="split issue__head">
+      <div class="headblock opens">
         <h2 id="issue-h">164 pages on mending things</h2>
-        <p class="lead">What gets fixed, who fixes it, and why it is worth the trouble.</p>
+        <p class="lead">Three questions run through the whole issue.</p>
       </div>
-      <figure class="photo issue__wide" data-slot="spread-1" data-alt="An opening spread from Issue 9, photographed flat">
-        <img src="photos/phone-repair-02-1920.jpg" width="1920" height="1280" loading="lazy" style="object-position: 40% 45%"
-           alt="Hands holding an opened phone over a cluttered repair bench">
-      </figure>
-      <div class="split issue__pair">
-        <figure class="photo issue__tools" data-slot="spread-2" data-alt="A second spread from Issue 9">
-          <img src="photos/kintsugi-on-broken-ky-su-lid-bottom-oblique-pnr-1260-1920.jpg" width="1920" height="1297" loading="lazy" style="object-position: 50% 50%"
-           alt="A broken stoneware lid mended with seams of gold">
+      <ol class="contents">
+        <li><h3>What gets fixed</h3><p>The objects, rooms and systems that designers are asked to keep going.</p></li>
+        <li><h3>Who fixes it</h3><p>The people who do the patient work, and how they learned it.</p></li>
+        <li><h3>Why it is worth it</h3><p>What a repair costs, what it saves, and what it says about the thing.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="spread" aria-labelledby="spread-h">
+    <div class="container">
+      <div class="spread__frame">
+        <figure class="photo spread__photo" data-slot="spread" data-alt="An opening spread from Issue 9, photographed flat">
+          <img src="photos/traditional-hand-plane-china-1920.jpg" width="1920" height="1172" loading="lazy" sizes="(min-width: 1440px) 1312px, 100vw"
+               alt="A worn wooden plane resting in curled shavings on an old workbench">
         </figure>
-        <figure class="photo issue__chisel" data-slot="spread-3" data-alt="A detail from a story in Issue 9">
-          <img src="photos/biidermeiertooli-restaureerimine-2005-aasta-1280.jpg" width="1280" height="1707" loading="lazy" style="object-position: 50% 40%"
-           alt="A carved wooden chair held in orange bar clamps while the glue sets">
-        </figure>
+        <h2 class="spread__line" id="spread-h">Some things are worth keeping</h2>
       </div>
     </div>
   </section>
 
-  <section class="thesis" aria-label="The issue in one line">
+  <section class="figures" aria-labelledby="figures-h">
     <div class="container">
-      <p class="thesis__line">A repair is a decision that something is worth keeping.</p>
+      <div class="headblock">
+        <h2 id="figures-h">The issue in hand</h2>
+        <p class="lead">Four times a year, each one a single subject.</p>
+      </div>
+      <dl class="figures__row">
+        <div><dt>Pages</dt><dd>164</dd></div>
+        <div><dt>A copy</dt><dd>£18</dd></div>
+        <div><dt>On sale</dt><dd>3 Oct</dd></div>
+        <div><dt>Issues a year</dt><dd>4</dd></div>
+      </dl>
     </div>
   </section>
 
   <section class="preorder" id="preorder" aria-labelledby="preorder-h">
-    <div class="container split preorder__grid">
+    <div class="container preorder__grid">
       <figure class="photo preorder__photo" data-slot="issue" data-alt="Issue 9 itself, open on a table">
-        <img src="photos/old-books-01-1920.jpg" width="1920" height="1973" loading="lazy" style="object-position: 55% 50%"
-           alt="Four old leather-bound books stacked on a white table">
+        <img src="photos/wooden-chairs-in-workshop-awaiting-restoration-and-repair-in-1920.jpg" width="1920" height="2876" loading="lazy" sizes="(min-width: 60rem) 40vw, 100vw"
+             alt="Wooden chairs part way through restoration, stacked on benches in a furniture workshop">
       </figure>
       <div class="preorder__text">
         <div class="preorder__head">
           <h2 id="preorder-h">Pre-order Issue 9</h2>
           <p class="tag">Out 3 October</p>
         </div>
-        <dl class="facts">
-          <div><dt>Pages</dt><dd>164</dd></div>
-          <div><dt>Price</dt><dd>£18 a copy</dd></div>
-        </dl>
         <form class="order" data-endpoint="" novalidate>
+          <table class="spec">
+            <tbody>
+              <tr><th scope="row">Issue</th><td>9, Repair</td></tr>
+              <tr><th scope="row">Pages</th><td>164</td></tr>
+              <tr><th scope="row">Price</th><td>£18 a copy</td></tr>
+            </tbody>
+          </table>
           <div class="order__row">
             <div class="field field--copies">
               <label for="copies">Copies</label>
@@ -115,7 +121,10 @@
               <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required>
             </div>
           </div>
-          <button class="btn btn--primary" type="submit">Pre-order</button>
+          <div class="order__foot">
+            <p class="total"><span class="total__label">Total</span> <output class="total__sum" for="copies" id="total">£18</output></p>
+            <button class="btn btn--primary" type="submit">Pre-order</button>
+          </div>
           <p class="help" id="order-help" aria-live="polite"></p>
         </form>
       </div>
@@ -123,17 +132,22 @@
   </section>
 </main>
 
-<footer class="colophon">
-  <div class="container colophon__inner">
-    <p class="colophon__mark">Margin Notes</p>
-    <p class="colophon__text">An independent quarterly about design and the people behind it. This page is set in Bricolage Grotesque and Source Serif 4.</p>
-    <nav class="colophon__nav" aria-label="Footer">
-      <a href="#about">About</a>
-      <a href="#issue">The issue</a>
-      <a href="#preorder">Pre-order</a>
-    </nav>
-    <p class="legal">&copy; 2026 Margin Notes</p>
-    <p class="credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Bike_repair_is_taking_place_in_a_workshop_with_focus_on_fixing_handlebars_and_adjusting_components.jpg">Shixart1985</a> (CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:A_luthier_at_work_on_a_violin_02.jpg">Kritzolina</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Phone_Repair_02.jpg">Amuzujoe</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Kintsugi_on_broken_Ky%C5%ABsu_lid-bottom_oblique_PNr%C2%B01260.jpg">D-Kuru</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Biidermeiertooli_restaureerimine._2005._aasta.jpg">Sillerkiil</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Old_Books_01.JPG">Ch. Maderthoner</a> (CC0), via Wikimedia Commons.</p>
+<footer class="foot">
+  <div class="container">
+    <div class="foot__close">
+      <p class="foot__line">Repair is out on 3&nbsp;October.</p>
+      <a class="btn btn--primary" href="#preorder">Pre-order Issue 9</a>
+    </div>
+    <div class="foot__row">
+      <p class="foot__text"><span class="foot__mark">Margin Notes</span> is an independent quarterly about design and the people behind it. Set in Bricolage Grotesque and Source Serif&nbsp;4.</p>
+      <nav class="foot__nav" aria-label="Footer">
+        <a href="#issue">Issue 9</a>
+        <a href="#preorder">Pre-order</a>
+        <a href="#top">Back to the top</a>
+      </nav>
+      <p class="foot__legal">&copy; 2026 Margin Notes</p>
+    </div>
+    <p class="credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Bike_repair_is_taking_place_in_a_workshop_with_focus_on_fixing_handlebars_and_adjusting_components.jpg">Shixart1985</a> (CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:Traditional_Hand_Plane,_China.jpg">Rod Waddington</a> (CC BY-SA 2.0), <a href="https://commons.wikimedia.org/wiki/File:Wooden_chairs_in_workshop_awaiting_restoration_and_repair_in_a_rustic_setting.jpg">Shixart1985</a> (CC BY 2.0), via Wikimedia Commons.</p>
   </div>
 </footer>
 
@@ -142,6 +156,9 @@ window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const 
 document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });
 document.querySelectorAll('form[data-endpoint]').forEach((form) => {
   const help = form.querySelector('[aria-live]'), email = form.querySelector('input[type=email]');
+  const copies = form.querySelector('#copies'), total = form.querySelector('#total');
+  const sum = () => { total.value = '£' + (18 * Number(copies.value)); };
+  copies.addEventListener('change', sum); sum();
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const ok = email.checkValidity();

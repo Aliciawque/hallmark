@@ -7,92 +7,119 @@
 <meta name="description" content="Wren Weaving is a two-loom studio in the Scottish Borders weaving linen and wool to order by the metre for interior designers, from £64 a metre.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Hanken+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Hanken+Grotesk:wght@400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<header class="mast">
-  <div class="container mast__in">
-    <a class="mast__link" href="#cloth">The cloth</a>
-    <a class="mast__mark" href="#top" aria-label="Wren Weaving, home">Wren Weaving</a>
-    <a class="mast__link mast__link--order" href="#order">Start an order</a>
+<header class="slab">
+  <div class="container slab__in">
+    <a class="slab__mark" href="#top" aria-label="Wren Weaving, home">Wren Weaving</a>
+    <nav class="slab__nav" aria-label="Main">
+      <a href="#cloth">The cloth</a>
+      <a href="#weeks">Lead time</a>
+      <a class="btn btn--sm" href="#order">Start an order</a>
+    </nav>
   </div>
 </header>
 
 <main id="main">
   <section class="hero" id="top" aria-labelledby="hero-head">
-    <figure class="photo hero__fig" data-slot="hero" data-alt="Your cloth, close, in window light: lengths or swatches laid in layers">
-      <img src="photos/jeansfabric-1920.jpg" width="2232" height="3406" fetchpriority="high"
-             alt="A blue and white twill weave, close, filling the frame" style="object-position: 50% 50%">
+    <figure class="hero__fig" data-slot="hero" data-alt="One of your looms in window light, a warp on the beam">
+      <img src="photos/nabburg-freilandmuseum-kolbeckhof-webstuhl-20190823-rm-11533-1920.jpg" width="1920" height="1440" sizes="100vw" fetchpriority="high"
+             alt="The warp beam of a wooden loom, wound with linen threads running up to the reed" style="object-position: 50% 60%">
     </figure>
-    <div class="hero__text">
-      <h1 id="hero-head">Linen and wool,<br> woven by the metre</h1>
-      <p class="lead">On two looms in the Scottish&nbsp;Borders, from £64&nbsp;a&nbsp;metre.</p>
-      <div class="acts">
-        <a class="btn" href="#order">Start an order</a>
-        <a class="link" href="#cloth"><span>See the cloth</span></a>
+    <div class="container hero__in">
+      <div class="hero__text">
+        <h1 id="hero-head">Linen and wool, woven by the metre</h1>
+        <p class="lead">Woven to order on two looms in the Scottish Borders.</p>
+        <div class="acts">
+          <a class="btn" href="#order">Start an order</a>
+          <a class="link link--light" href="#cloth">See the cloth</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="cloth" id="cloth" aria-labelledby="cloth-head">
-    <div class="container cloth__grid">
-      <div class="cloth__text">
-        <h2 id="cloth-head">Close enough to count the threads</h2>
-        <p class="lead">Every length is woven to order, in linen or in wool.</p>
-        <dl class="terms">
-          <div><dt>Fibres</dt><dd>Linen or wool</dd></div>
-          <div><dt>Lengths</dt><dd>Cut to the metres you order</dd></div>
-          <div><dt>Lead time</dt><dd>Six to eight weeks</dd></div>
-        </dl>
+  <section class="spec" id="cloth" aria-labelledby="spec-head">
+    <div class="container spec__grid">
+      <div class="spec__head">
+        <h2 id="spec-head">The cloth, in short</h2>
+        <p class="lead">Every length is woven after you order it.</p>
       </div>
-      <div class="cloth__media">
-        <figure class="photo cloth__fig" data-slot="weave" data-alt="Your cloth folded in lengths, close, in window light">
-          <img src="photos/nabburg-freilandmuseum-kolbeckhof-webstuhl-20190823-rm-11533-1920.jpg" width="5184" height="3888" loading="lazy"
-             alt="The warp beam of an old wooden loom, wound with linen threads running up to the reed" style="object-position: 50% 58%">
-        </figure>
-        <p class="cap">Linen warp wound on the beam.</p>
-      </div>
+      <dl class="spec__rows">
+        <div><dt>Fibre</dt><dd>Linen or wool</dd></div>
+        <div><dt>Woven</dt><dd>To order, cut from the beam</dd></div>
+        <div><dt>Sold</dt><dd>By the metre, in the length you need</dd></div>
+        <div class="spec__price"><dt>Price</dt><dd><span class="spec__fig">£64</span><span class="spec__unit">a metre, from</span></dd></div>
+      </dl>
     </div>
   </section>
 
-
-  <section class="room" id="room" aria-labelledby="room-head">
-    <div class="container room__head">
-      <h2 id="room-head">Woven for the room you are drawing</h2>
-      <p class="lead">For interior designers, woven in the widths and metres you need.</p>
+  <section class="close-up" aria-labelledby="close-head">
+    <div class="container">
+      <div class="head-split">
+        <h2 id="close-head">Close enough to count the threads</h2>
+        <p class="lead">The weave, as the window light finds it.</p>
+      </div>
+      <figure class="close-up__fig">
+        <div class="photo" data-slot="weave" data-alt="Your cloth, close, in window light">
+          <img src="photos/jeansfabric-1920.jpg" width="1920" height="2930" sizes="(min-width: 90rem) 1312px, 100vw" loading="lazy"
+             alt="An indigo and white twill weave, close, filling the frame" style="object-position: 50% 50%">
+        </div>
+        <figcaption>A twill, close, in window light.</figcaption>
+      </figure>
     </div>
-    <figure class="photo room__fig" data-slot="room" data-alt="A room made up in your cloth, in daylight">
-      <img src="photos/canopy-bed-of-khan-pool-suite-in-amantaka-luxury-resort-hote-1920.jpg" width="6390" height="4260" loading="lazy"
-             alt="A four-poster bed hung with white drapes in a room with tall shuttered doors" style="object-position: 50% 58%">
-    </figure>
   </section>
 
   <section class="weeks" id="weeks" aria-labelledby="weeks-head">
-    <div class="container weeks__grid">
-      <figure class="photo weeks__fig" data-slot="weeks" data-alt="A length of your cloth rolled off the beam">
-        <img src="photos/cloth-roll-1920.jpg" width="4032" height="3024" loading="lazy"
-             alt="Rolls of handwoven striped and checked cloth stacked side by side, a fringed end loose" style="object-position: 40% 55%">
-      </figure>
-      <div class="weeks__text">
-        <h2 id="weeks-head">Six to eight weeks from order</h2>
-        <ol class="stages">
-          <li><h3>Your order</h3><p>The cloth, the metres and the room it is for.</p></li>
-          <li><h3>On the loom</h3><p>The warp is set and your length is woven.</p></li>
-          <li><h3>Off the loom</h3><p>Cut from the beam and sent to you.</p></li>
+    <div class="container">
+      <div class="head-split">
+        <h2 id="weeks-head">Six to eight weeks, beam to door</h2>
+        <p class="lead">Counted from the day your order reaches the studio.</p>
+      </div>
+      <figure class="scale" aria-labelledby="scale-cap">
+        <div class="scale__axis" aria-hidden="true">
+          <span class="scale__lab">Weeks from order</span>
+          <div class="scale__ticks"><span style="--i: 0">0</span><span style="--i: 1">1</span><span style="--i: 2">2</span><span style="--i: 3">3</span><span style="--i: 4">4</span><span style="--i: 5">5</span><span style="--i: 6">6</span><span style="--i: 7">7</span><span style="--i: 8">8</span></div>
+        </div>
+        <ol class="scale__rows">
+          <li><h3>Your order</h3><div class="scale__track"><i class="scale__mark" style="--a: 0"></i></div></li>
+          <li><h3>Warped, woven and finished</h3><div class="scale__track"><i class="scale__bar" style="--a: 0; --b: 6"></i></div></li>
+          <li><h3>Your cloth arrives</h3><div class="scale__track"><i class="scale__bar scale__bar--in" style="--a: 6; --b: 8"></i></div></li>
         </ol>
+        <figcaption id="scale-cap" class="visually-hidden">Your order is placed at week 0; the cloth is warped, woven and finished on the loom, and arrives between week 6 and week 8.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="cut" aria-labelledby="cut-head">
+    <div class="container cut__grid">
+      <figure class="cut__fig">
+        <div class="photo" data-slot="cut" data-alt="Your cloth on the cutting table, measured out by the metre">
+          <img src="photos/tailor-s-shop-werkstatt-2-1920.jpg" width="1920" height="1284" sizes="(min-width: 60rem) 56vw, 100vw" loading="lazy"
+             alt="Tailor's shears, a tape measure and a folded length of cloth on a worn wooden table" style="object-position: 45% 50%">
+        </div>
+      </figure>
+      <div class="cut__text">
+        <h2 id="cut-head">Cut to the metres you order</h2>
+        <p class="lead">Tell us the room and the length. We weave it, cut it from the beam and send it.</p>
+        <a class="link" href="#order">Work out the price</a>
       </div>
     </div>
   </section>
 
-  <section class="order band--indigo" id="order" aria-labelledby="order-head">
+  <section class="order" id="order" aria-labelledby="order-head">
     <div class="container order__grid">
       <div class="order__text">
         <h2 id="order-head">Start an order</h2>
-        <p class="lead">Tell us the cloth, the metres and the room.</p>
-        <p class="price" aria-live="polite"><span class="price__sum" id="price-sum">From £768</span><span class="price__note" id="price-note">for 12 metres at £64 a metre</span></p>
+        <p class="lead">The cloth, the metres and the room it is for.</p>
+        <dl class="sum" aria-live="polite">
+          <div><dt>Metres</dt><dd class="num" id="sum-m">12</dd></div>
+          <div><dt>A metre, from</dt><dd class="num">£64</dd></div>
+          <div class="sum__total"><dt>From</dt><dd id="sum-t">£768</dd></div>
+        </dl>
       </div>
       <form class="order__form" data-endpoint="" novalidate>
         <fieldset class="seg">
@@ -102,7 +129,7 @@
             <input type="radio" name="cloth" id="cl-wool" value="wool"><label for="cl-wool">Wool</label>
           </div>
         </fieldset>
-        <div class="field field--metres">
+        <div class="field">
           <label for="f-metres">Metres</label>
           <div class="stepper">
             <button class="stepper__btn" type="button" data-step="-1" aria-label="One metre fewer"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="square" fill="none"/></svg></button>
@@ -125,7 +152,7 @@
           </div>
         </div>
         <div class="form__end">
-          <button class="btn" type="submit">Send the order</button>
+          <button class="btn btn--ecru" type="submit">Send the order</button>
           <p class="form__help" id="form-help" aria-live="polite"></p>
         </div>
       </form>
@@ -133,33 +160,29 @@
   </section>
 </main>
 
-<footer class="close">
-  <div class="container">
-    <p class="close__line">With thanks from the looms,</p>
-    <p class="close__sign">Wren Weaving</p>
-    <div class="close__row">
-      <p class="close__addr">The Scottish Borders, <span class="fill" data-fill="address">studio address to come</span></p>
-      <nav class="close__links" aria-label="Footer">
-        <a class="link" href="#cloth"><span>The cloth</span></a>
-        <a class="link" href="#weeks"><span>Six to eight weeks</span></a>
-        <a class="link" href="#order"><span>Start an order</span></a>
-      </nav>
-      <p class="close__legal">© 2026 Wren Weaving</p>
-    </div>
-    <p class="close__credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Nabburg_Freilandmuseum_Kolbeckhof_Webstuhl-20190823-RM-115330.jpg">Ermell</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Jeansfabric.jpg">Thegreenj</a> (CC BY-SA 3.0), <a href="https://commons.wikimedia.org/wiki/File:Canopy_bed_of_Khan_Pool_Suite_in_Amantaka_luxury_Resort_%26_Hotel_in_Luang_Prabang_Laos.jpg">Basile Morin</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Cloth-roll.jpg">Samanthafara</a> (CC BY-SA 4.0), all via Wikimedia Commons.</p>
+<footer class="colophon">
+  <div class="container colophon__grid">
+    <p class="colophon__mark">Wren Weaving</p>
+    <p class="colophon__text">Linen and wool, woven to order by the metre in the Scottish Borders. Studio address: <span class="fill" data-fill="address">to come</span>. Photographs: <a href="https://commons.wikimedia.org/wiki/File:Nabburg_Freilandmuseum_Kolbeckhof_Webstuhl-20190823-RM-115330.jpg">Ermell</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Jeansfabric.jpg">Thegreenj</a> (CC BY-SA 3.0), <a href="https://commons.wikimedia.org/wiki/File:Tailor%C2%B4s_shop_-_Werkstatt_2.jpg">Wolfgang Sauber</a> (CC BY-SA 3.0), via Wikimedia Commons.</p>
+    <nav class="colophon__links" aria-label="Footer">
+      <a class="link" href="#cloth">The cloth</a>
+      <a class="link" href="#weeks">Lead time</a>
+      <a class="link" href="#order">Start an order</a>
+    </nav>
+    <p class="colophon__legal">&copy; 2026 Wren Weaving</p>
   </div>
 </footer>
 
 <script>
 (() => {
   const metres = document.getElementById('f-metres');
-  const sum = document.getElementById('price-sum');
-  const note = document.getElementById('price-note');
+  const m1 = document.getElementById('sum-m');
+  const tot = document.getElementById('sum-t');
   const fmt = new Intl.NumberFormat('en-GB', { style: 'currency', currency: 'GBP', maximumFractionDigits: 0 });
   const update = () => {
     const m = Math.max(1, Math.min(200, Math.round(Number(metres.value) || 1)));
-    sum.textContent = 'From ' + fmt.format(m * 64);
-    note.textContent = 'for ' + m + (m === 1 ? ' metre' : ' metres') + ' at £64 a metre';
+    m1.textContent = m;
+    tot.textContent = fmt.format(m * 64);
   };
   metres.addEventListener('input', update);
   document.querySelectorAll('[data-step]').forEach((b) => b.addEventListener('click', () => {

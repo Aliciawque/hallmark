@@ -9,14 +9,14 @@
   --color-error: oklch(72% 0.15 27); --color-success: oklch(76% 0.13 150);
   --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap-s: 120px; --section-gap: 144px; --section-gap-l: 176px;
   --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
-  --color-paper: oklch(19% 0.034 20); --color-paper-2: oklch(23% 0.036 20); --color-paper-3: oklch(21.5% 0.035 20);
-  --color-ink: oklch(94% 0.014 75); --color-ink-2: oklch(85% 0.018 60); --color-muted: oklch(71% 0.022 45);
-  --color-rule: oklch(31% 0.036 20);
-  --color-accent: oklch(80% 0.11 182); --color-accent-2: oklch(81% 0.11 88); --color-accent-ink: oklch(19% 0.034 20);
+  --color-paper: oklch(19% 0.040 18); --color-paper-2: oklch(23.5% 0.044 18); --color-paper-3: oklch(21% 0.042 18);
+  --color-ink: oklch(94% 0.014 75); --color-ink-2: oklch(85% 0.018 60); --color-muted: oklch(72% 0.024 45);
+  --color-rule: oklch(33% 0.042 18);
+  --color-accent: oklch(80% 0.11 182); --color-accent-2: oklch(81% 0.11 88); --color-accent-ink: oklch(19% 0.040 18);
   --color-focus: oklch(80% 0.11 182);
   --font-display: "Instrument Sans", ui-sans-serif, system-ui, sans-serif; --font-body: var(--font-display);
   --font-outlier: "IBM Plex Mono", ui-monospace, monospace;
-  --radius-card: 10px; --radius-input: 6px; --radius-pill: 0; --rule-hair: 1px;
-  --shadow-card: 0 12px 32px -16px oklch(8% 0.03 20 / 0.6);
-  --tracking-display: -0.02em;
+  --radius-card: 10px; --radius-input: 6px; --radius-pill: 0; --rule-hair: 1px; --rule-total: 3px;
+  --shadow-card: 0 12px 32px -16px oklch(8% 0.03 18 / 0.6);
+  --tracking-display: -0.025em;
 }

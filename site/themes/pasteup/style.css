@@ -1,8 +1,6 @@
-/* Hallmark · shape: Bento Grid, a paste-up wall: the fair's facts and its photocopies pasted on the kraft in mixed spans · genre: playful · theme: Paste-up (by request)
- * hero: Settled · nav: a pasted strip, one length of white copy paper across the board holding the wordmark, the links and the apply link · footer: letter close, a sign-off from the fair over the links · imagery: photographs, library 6, photocopied · signature: riso posters drying on a line, pasted large on the kraft, the dates on a fluorescent sheet over its corner · pasteup: kraft
- * axes: mid/display-condensed/chromatic-yellow · posture: committed · contrast: pass · fold: pass · v2.7.0 */
-/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: S, a fair page could be any fair, so every head carries Small Hours, Bristol, the tables or the November dates, and the wall pastes the brief's own facts */
-/* Hallmark · hero-review: in-thread · fix · 3 findings · 3 resolved (the hero caption sat under the dates sheet, now the dates are the picture's caption; the head broke into three lines short of its visual, now two) · finish-review: in-thread · fix · 3 findings · 3 resolved (a small head over the closing date read as an eyebrow, now the date is the head; the count was undersized for its sheet; the dates sheet crowded its type) · gap: the library holds no zines, copier or fair hall, so a book stall, a page-papered wall and a bookshop stand in */
+/* Hallmark · shape: Bento Grid, a paste-up wall: the fair's facts pasted on the kraft as type-only flyers, then the copies, the typed sheet and the form · genre: playful · theme: Paste-up (by request)
+ * hero: Stage, reversed, the name at poster size on seven columns, the photocopy pasted portrait on five with the dates on the fluorescent over its corner · nav: a pasted strip, one length of white copy paper across the board holding the wordmark, the links and the apply link · footer: letter close, a sign-off from the fair over the links · imagery: photographs, library 3, photocopied · range: a wall of flyers, a typed sheet, the toner band, the form as a sheet · pasteup: kraft
+ * axes: mid/display-condensed/chromatic-yellow · posture: committed · contrast: pass · fold: pass · v2.8 launch pass */
 @import url("./tokens.css");
 @import url("./base.css");
 
@@ -11,9 +9,9 @@
   --fibre: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.02 0.03' numOctaves='3' seed='7'/%3E%3CfeColorMatrix values='0 0 0 0 0.55 0 0 0 0 0.45 0 0 0 0 0.3 0 0 0 0.28 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
 }
 
-h1, h2 { font-weight: 400; text-transform: uppercase; line-height: 1.1; letter-spacing: var(--tracking-display); }
+h1, h2 { font-weight: 400; text-transform: uppercase; line-height: 1; letter-spacing: var(--tracking-display); }
 h3 { font: 500 var(--text-title)/1.2 var(--font-body); }
-body { font-size: 1.0625rem; }
+body { font-size: 1.125rem; line-height: 1.5; }
 
 .skip { position: absolute; left: var(--space-md); top: calc(-1 * var(--space-3xl)); z-index: var(--z-toast); padding: var(--space-xs) var(--space-md); background: var(--color-ink); color: var(--color-paper-3); }
 .skip:focus-visible { top: var(--space-md); }
@@ -49,44 +47,62 @@ a:focus-visible, .btn:focus-visible { outline: 2px solid var(--color-focus); out
 .strip__links a:hover { text-decoration-color: var(--color-ink); }
 .strip__apply { font: 500 var(--text-sm)/1 var(--font-body); white-space: nowrap; }
 
-/* hero: Settled, the name on the board, the photocopy pasted large beside it */
-.hero__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--space-2xl); align-items: center; min-height: calc(100dvh - var(--strip-h) - var(--space-md)); padding-block: var(--space-2xl); }
-.hero__text { grid-column: 1 / 7; display: grid; justify-items: start; gap: var(--space-lg); }
-.hero h1 { font-size: clamp(4rem, 8.4vw, 8.25rem); line-height: 1.02; max-width: none; }
-.hero .lead { max-width: 32ch; color: var(--color-ink-2); }
+/* hero: the name at poster size, the photocopy pasted portrait beside it */
+.hero__grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); column-gap: var(--space-3xl); align-items: center; min-height: calc(100dvh - var(--strip-h) - var(--space-md)); padding-block: var(--space-xl); box-sizing: border-box; }
+.hero__text { display: grid; justify-items: start; gap: var(--space-lg); }
+.hero h1 { font-size: clamp(4.5rem, 12.4vw, 11.25rem); line-height: 0.9; max-width: 6.2em; margin-left: -0.02em; }
+.hero .lead { max-width: 30ch; color: var(--color-ink); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-md); margin-top: var(--space-xs); }
-.hero__visual { grid-column: 7 / 13; position: relative; margin: 0; padding-block: var(--space-xl); }
-.hero__visual > .sheet { --r: -1.2deg; padding: var(--space-md); }
-.hero__visual .copy { aspect-ratio: 5 / 4; }
-.dates { position: absolute; left: calc(-1 * var(--space-xl)); bottom: 0; --r: 2deg; padding: var(--space-md) var(--space-lg); }
-.hero__visual > .dates { padding: var(--space-lg) var(--space-xl); }
-.dates { font: 400 clamp(2.5rem, 3.6vw, 3.5rem)/1.05 var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-display); }
+.hero__visual { position: relative; margin: 0; }
+.hero__sheet { --r: 1.4deg; padding: var(--space-md) var(--space-md) var(--space-xl); }
+.hero__sheet .copy { aspect-ratio: 4 / 5; max-height: 68svh; width: 100%; }
+.dates { position: absolute; left: calc(-1 * var(--space-2xl)); bottom: var(--space-2xl); --r: -2deg; padding: var(--space-lg) var(--space-xl); font: 400 clamp(2.5rem, 3.8vw, 3.75rem)/1 var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-display); }
 
 /* sections */
 .head-row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: end; }
-.head-row h2 { grid-column: 1 / 8; font-size: clamp(2.75rem, 3.4vw + 1rem, 4.5rem); }
-.head-row .lead { grid-column: 8 / 13; color: var(--color-ink-2); }
+.head-row h2 { grid-column: 1 / 8; font-size: clamp(3rem, 3.8vw + 1rem, 5rem); }
+.head-row .lead { grid-column: 9 / 13; color: var(--color-ink); padding-bottom: var(--space-2xs); }
 
-/* the wall */
+/* the wall of flyers: type only */
 .wall { padding-top: var(--section-gap); }
-.wall__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: repeat(3, 320px); gap: var(--space-2xl) var(--gap-columns); margin-top: var(--space-2xl); padding-block: var(--space-xl); }
-.wall__grid > * { min-width: 0; }
-.tile { display: flex; flex-direction: column; padding: var(--space-sm) var(--space-sm) var(--space-xs); }
-.tile .copy { flex: 1; min-height: 0; }
-.tile--lead { grid-column: 1 / 9; grid-row: 1 / 3; --r: -0.6deg; }
-.tile--count { grid-column: 9 / 13; grid-row: 1; justify-content: space-between; padding: var(--space-lg); --r: 1.4deg; }
-.tile--count b { font: 400 clamp(6rem, 11vw, 10rem)/0.9 var(--font-display); }
-.tile--count p { margin: 0; font: 500 var(--text-md)/1.3 var(--font-body); }
-.tile--b { grid-column: 9 / 13; grid-row: 2; }
-.tile--entry { grid-column: 1 / 5; grid-row: 3; justify-content: flex-end; padding: var(--space-lg); }
-.tile--entry b { font: 400 clamp(3rem, 4vw, 4rem)/1.05 var(--font-display); text-transform: uppercase; }
-.tile--entry p { margin: var(--space-xs) 0 0; font: 500 var(--text-md)/1.3 var(--font-body); }
-.tile--c { grid-column: 5 / 9; grid-row: 3; --r: 0.8deg; }
-.tile--d { grid-column: 9 / 13; grid-row: 3; }
+.wall__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: 300px 320px; gap: var(--space-xl) var(--gap-columns); margin-top: var(--space-2xl); padding-block: var(--space-lg); }
+.flyer { display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-md); padding: var(--space-xl); }
+.flyer b { font: 400 clamp(3.5rem, 5.6vw, 5.5rem)/0.92 var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-display); }
+.flyer p { margin: 0; font: 500 var(--text-md)/1.35 var(--font-body); }
+.flyer--count { grid-column: 1 / 6; grid-row: 1 / 3; --r: -1.2deg; }
+.flyer--count b { font-size: clamp(12rem, 25vw, 24rem); line-height: 0.8; font-variant-numeric: tabular-nums; }
+.flyer--count .flyer__unit { font-size: clamp(2.5rem, 4vw, 3.75rem); line-height: 1; font-variant-numeric: tabular-nums; }
+.flyer--entry { grid-column: 6 / 13; grid-row: 1; justify-content: flex-end; }
+.flyer--entry b { font-size: clamp(5rem, 8.4vw, 8rem); }
+.flyer--city { grid-column: 6 / 9; grid-row: 2; --r: 1.6deg; }
+.flyer--toner { grid-column: 9 / 13; grid-row: 2; background: var(--color-ink); color: var(--color-paper); }
+.flyer--toner .fill { color: inherit; }
+
+/* the copies: one wide on the board, one smaller sheet pasted over its corner */
+.tables { padding-top: var(--section-gap-l); }
+.tables__paste { position: relative; margin-top: var(--space-2xl); padding-bottom: var(--space-3xl); }
+.tables__big { --r: -0.4deg; padding: var(--space-md) var(--space-md) var(--space-2xl); }
+.tables__wide { aspect-ratio: 21 / 9; }
+.tables__small { position: absolute; right: calc(-1 * var(--space-md)); bottom: 0; width: 32%; --r: 2deg; padding: var(--space-sm) var(--space-sm) var(--space-lg); }
+.tables__small .copy { aspect-ratio: 4 / 3; }
+
+/* when and where: a typed sheet */
+.when { padding-top: var(--section-gap); }
+.when__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: center; }
+.when__head { grid-column: 1 / 5; display: grid; gap: var(--space-lg); }
+.when__head h2 { font-size: clamp(3rem, 3.8vw + 1rem, 5rem); }
+.when__head .lead { color: var(--color-ink); max-width: 22ch; }
+.when__sheet { grid-column: 6 / 13; --r: -0.6deg; padding: var(--space-xl) var(--space-2xl); }
+.when__table { width: 100%; border-collapse: collapse; border-top: 3px solid var(--color-ink); }
+.when__table th, .when__table td { padding: var(--space-lg) var(--space-md) var(--space-lg) 0; border-bottom: var(--rule-hair) solid var(--color-rule-2); text-align: left; vertical-align: baseline; }
+.when__table tr:last-child th, .when__table tr:last-child td { border-bottom: 0; }
+.when__table th { width: 18%; font: 500 var(--text-sm)/1.3 var(--font-body); color: var(--color-ink-2); }
+.when__table td:nth-child(2) { width: 42%; font: 400 clamp(2rem, 2.8vw, 3rem)/1 var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-display); color: var(--color-ink); }
+.when__table td:last-child { padding-right: 0; font-size: var(--text-md); color: var(--color-ink-2); }
 
 /* the statement on the ink band */
 .say { margin-top: var(--section-gap); padding-block: var(--section-gap-s); background: var(--color-ink); color: var(--color-paper); }
-.say p { margin: 0; max-width: 28ch; font: 400 clamp(3.5rem, 6vw, 6.5rem)/1.05 var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-display); }
+.say p { margin: 0; max-width: 28ch; font: 400 clamp(3.5rem, 7.4vw, 8rem)/0.95 var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-display); }
 
 /* when and where */
 .when { padding-top: var(--section-gap); }
@@ -103,9 +119,9 @@ a:focus-visible, .btn:focus-visible { outline: 2px solid var(--color-focus); out
 .apply { padding-block: var(--section-gap-l) var(--section-gap); }
 .apply__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: center; }
 .apply__text { grid-column: 1 / 6; display: grid; gap: var(--space-lg); }
-.apply__close { margin: 0; font: 400 clamp(3.5rem, 5.5vw, 6rem)/1.02 var(--font-display); text-transform: uppercase; }
-.apply__text .lead { margin: 0; color: var(--color-ink-2); max-width: 30ch; }
-.apply__form { grid-column: 7 / 13; display: grid; gap: var(--space-md); padding: var(--space-xl); }
+.apply__close { margin: 0; font: 400 clamp(4rem, 6.6vw, 7rem)/0.92 var(--font-display); text-transform: uppercase; }
+.apply__text .lead { margin: 0; color: var(--color-ink); max-width: 30ch; }
+.apply__form { grid-column: 7 / 13; display: grid; gap: var(--space-md); padding: var(--space-xl); --r: 0.5deg; }
 .field { display: grid; gap: var(--space-xs); }
 .field label { font: 500 var(--text-sm)/1.2 var(--font-body); }
 .field input, .field textarea { width: 100%; box-sizing: border-box; min-height: 48px; padding: var(--space-sm) var(--space-md); border: 1px solid var(--color-ink); border-radius: 0; background: var(--color-paper-3); color: var(--color-ink); font: 400 var(--text-md)/1.4 var(--font-body); outline: 2px solid transparent; outline-offset: 2px; }
@@ -116,7 +132,7 @@ a:focus-visible, .btn:focus-visible { outline: 2px solid var(--color-focus); out
 
 /* footer: the letter close */
 .signoff { padding-block: var(--section-gap-s) var(--space-2xl); background: var(--color-paper-2); }
-.signoff__line { margin: 0; font: 400 clamp(3rem, 5vw, 5.5rem)/1.05 var(--font-display); text-transform: uppercase; }
+.signoff__line { margin: 0; font: 400 clamp(3.5rem, 7vw, 7.5rem)/0.95 var(--font-display); text-transform: uppercase; }
 .signoff__from { margin: var(--space-md) 0 0; font-size: var(--text-lead); }
 .signoff__row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--space-lg); margin-top: var(--space-2xl); padding-top: var(--space-lg); border-top: var(--rule-hair) solid var(--color-ink); }
 .signoff__links { display: flex; flex-wrap: wrap; gap: var(--space-lg); margin: 0; padding: 0; list-style: none; }
@@ -128,19 +144,27 @@ a:focus-visible, .btn:focus-visible { outline: 2px solid var(--color-focus); out
 
 @media (max-width: 60rem) {
   .strip__links { display: none; }
-  .hero__grid { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-2xl); min-height: 0; }
-  .hero__text, .hero__visual { grid-column: 1; }
-  .dates { left: calc(-1 * var(--space-xs)); }
-  .head-row h2, .head-row .lead, .when__grid > h2, .when__rows, .apply__text, .apply__form { grid-column: 1 / -1; }
-  .head-row .lead, .when__rows, .apply__form { margin-top: var(--space-xl); }
-  .wall__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; grid-auto-rows: minmax(240px, auto); }
-  .tile--lead, .tile--count, .tile--b, .tile--entry, .tile--c, .tile--d { grid-column: auto; grid-row: auto; }
-  .tile--lead { grid-column: 1 / -1; min-height: 320px; }
+  .hero__grid { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-2xl); min-height: 0; padding-block: var(--space-2xl); }
+  .hero h1 { font-size: 19vw; }
+  .dates { left: calc(-1 * var(--space-xs)); bottom: var(--space-lg); }
+  .head-row h2, .head-row .lead, .when__head, .when__sheet, .apply__text, .apply__form { grid-column: 1 / -1; }
+  .head-row .lead, .when__sheet, .apply__form { margin-top: var(--space-xl); }
+  .wall__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; grid-auto-rows: minmax(220px, auto); }
+  .flyer--count, .flyer--entry, .flyer--city, .flyer--toner { grid-column: auto; grid-row: auto; }
+  .flyer--count, .flyer--entry { grid-column: 1 / -1; }
+  .flyer--count b { font-size: 14rem; }
+  .tables__wide { aspect-ratio: 4 / 3; }
+  .tables__small { position: relative; right: auto; width: 70%; margin: calc(-1 * var(--space-2xl)) 0 0 auto; }
+  .tables__paste { padding-bottom: 0; }
+  .when__sheet { padding: var(--space-lg); }
 }
 @media (max-width: 40rem) {
   .strip { gap: var(--space-md); padding: 0 var(--space-md); }
   .strip__mark { font-size: 1.75rem; }
   .wall__grid { grid-template-columns: minmax(0, 1fr); }
-  .tile--lead { grid-column: 1; }
+  .flyer--count b { font-size: 10rem; }
+  .when__table th, .when__table td, .when__table td:nth-child(2) { display: block; width: auto; padding: 0; border: 0; }
+  .when__table tr { display: grid; gap: var(--space-2xs); padding-block: var(--space-md); border-bottom: var(--rule-hair) solid var(--color-rule-2); }
+  .when__table tr:last-child { border-bottom: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .btn { transition: none; } .btn:hover, .btn:active { translate: none; } }

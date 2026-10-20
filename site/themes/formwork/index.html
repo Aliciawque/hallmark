@@ -19,7 +19,7 @@
     <nav aria-label="Main">
       <ul class="slab__links">
         <li class="slab__wide"><a href="#work">The work</a></li>
-        <li class="slab__wide"><a href="#build">How a park gets built</a></li>
+        <li class="slab__wide"><a href="#build">How it gets built</a></li>
         <li><a class="btn btn--secondary" href="#site">Send the site</a></li>
       </ul>
     </nav>
@@ -28,53 +28,69 @@
 
 <main id="main">
   <section class="hero" id="top" aria-labelledby="hero-head">
-    <div class="hero__text">
-      <h1 id="hero-head">37 parks, poured to be skated</h1>
-      <p class="lead">Skateparks and public concrete for councils, built from Bristol.</p>
-      <div class="acts">
-        <a class="btn btn--primary" href="#site">Start park 38</a>
-        <a class="btn btn--secondary" href="#work">See the work</a>
+    <figure class="photo hero__fig" data-slot="hero" data-alt="One of your parks: a bowl or a transition in hard light, no one on it">
+      <img src="photos/part-of-ramp-at-brastad-sk8-the-new-skatepark-in-lysekil-mun-1920.jpg" width="4925" height="3010" sizes="100vw" fetchpriority="high" style="object-position: 60% 50%" alt="A smooth concrete skate ramp and its coping, a lamp post's shadow drawn across the deck">
+    </figure>
+    <div class="hero__over">
+      <div class="container">
+        <div class="hero__text">
+          <h1 id="hero-head">37 parks, poured to be skated</h1>
+          <p class="lead">Skateparks and public concrete for councils, built from Bristol.</p>
+          <div class="acts">
+            <a class="btn btn--primary" href="#site">Start park 38</a>
+            <a class="btn btn--secondary" href="#work">See the work</a>
+          </div>
+        </div>
       </div>
     </div>
-    <figure class="photo hero__fig" data-slot="hero" data-alt="One of your parks in use: a board on a ledge or coping, close, in hard light">
-      <img src="photos/br-ssel-skater-schattenriss-20081108-rm-164748-1920.jpg" width="1920" height="1440" fetchpriority="high" style="object-position: 55% 55%" alt="Young skaters in silhouette on the deck behind a mesh fence">
-    </figure>
+  </section>
+
+  <section class="count" aria-labelledby="count-head">
+    <div class="container count__grid">
+      <div class="card count__plate">
+        <p class="count__fig">37</p>
+        <p class="count__unit">Parks built and skated</p>
+      </div>
+      <div class="count__text">
+        <h2 id="count-head">For councils and the people who skate</h2>
+        <p class="lead">Skateparks and public concrete landscapes, each one poured from Bristol.</p>
+        <a class="count__link" href="#build">How a park gets built</a>
+      </div>
+    </div>
   </section>
 
   <section class="work" id="work" aria-labelledby="work-head">
     <div class="container">
-      <h2 id="work-head">What 37 parks are made of</h2>
+      <h2 id="work-head">What the parks are made of</h2>
       <div class="board">
-        <div class="board__lead">
-          <figure class="photo board__pic" data-slot="work-1" data-alt="Board-marked concrete from one of your parks: a wall, a block or a bank, close">
-            <img src="photos/p-rtschach-10-oktober-stra-e-27-telekommunikationsgeb-ude-si-1920.jpg" width="1920" height="1281" loading="lazy" style="object-position: 50% 50%" alt="A concrete wall marked by the boards it was cast against">
-          </figure>
-          <p class="cap">Concrete cast against boards.</p>
-        </div>
-        <div class="board__b">
-          <figure class="photo board__pic" data-slot="work-2" data-alt="A pour on one of your parks, concrete going into the forms">
-            <img src="photos/in-situ-concrete-pouring-1920.jpg" width="1920" height="2560" loading="lazy" style="object-position: 45% 50%" alt="A pump boom feeding concrete into a column against a low sun">
-          </figure>
-          <p class="cap">Pumped in from the boom, column by column.</p>
-        </div>
+        <figure class="photo board__lead">
+          <div class="board__pic" data-slot="work-1" data-alt="Board-marked concrete from one of your parks: a wall, a block or a bank, close">
+            <img src="photos/p-rtschach-10-oktober-stra-e-27-telekommunikationsgeb-ude-si-1920.jpg" width="1920" height="1281" loading="lazy" sizes="(min-width: 60rem) 60vw, 100vw" style="object-position: 50% 50%" alt="A concrete wall marked by the boards it was cast against">
+          </div>
+          <figcaption>Concrete cast against boards.</figcaption>
+        </figure>
+        <figure class="photo board__b">
+          <div class="board__pic" data-slot="work-2" data-alt="A pour on one of your parks, concrete going into the forms">
+            <img src="photos/in-situ-concrete-pouring-1920.jpg" width="1920" height="2560" loading="lazy" sizes="(min-width: 60rem) 30vw, 100vw" style="object-position: 45% 50%" alt="A pump boom feeding concrete into a column against a low sun">
+          </div>
+          <figcaption>Pumped in from the boom, column by column.</figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
   <section class="build band--cast" id="build" aria-labelledby="build-head">
-    <div class="container build__grid">
-      <div class="build__text">
+    <div class="container">
+      <div class="build__head">
         <h2 id="build-head">How park 38 gets built</h2>
-        <ol class="stages">
-          <li><span class="fig-num stages__n">1</span><h3>Dig</h3><p>The ground comes out to the shape on the drawings.</p></li>
-          <li><span class="fig-num stages__n">2</span><h3>Form</h3><p>Steel goes in, and the edges and transitions are set.</p></li>
-          <li><span class="fig-num stages__n">3</span><h3>Pour</h3><p>Concrete goes in and is floated smooth before it sets.</p></li>
-          <li><span class="fig-num stages__n">4</span><h3>Open</h3><p>The fences come down and the park is skated.</p></li>
-        </ol>
+        <p class="lead">From the ground out to the fences down.</p>
       </div>
-      <figure class="photo build__fig" data-slot="build" data-alt="One of your sites before a pour: the ground dug and the forms set">
-        <img src="photos/construction-workers-in-mexico-1920.jpg" width="1920" height="1044" loading="lazy" style="object-position: 45% 50%" alt="Workers climbing a steel rebar grid, in silhouette">
-      </figure>
+      <ol class="stages" role="list">
+        <li><span class="stages__n" aria-hidden="true">1</span><h3>Dig</h3><p>The ground comes out to the drawings.</p></li>
+        <li><span class="stages__n" aria-hidden="true">2</span><h3>Form</h3><p>Steel goes in; edges and transitions are set.</p></li>
+        <li><span class="stages__n" aria-hidden="true">3</span><h3>Pour</h3><p>Concrete goes in, floated smooth as it sets.</p></li>
+        <li><span class="stages__n" aria-hidden="true">4</span><h3>Open</h3><p>The fences come down and it is skated.</p></li>
+      </ol>
     </div>
   </section>
 
@@ -127,7 +143,7 @@
       </nav>
       <p class="foot__legal">© 2026 Ashgrove Concrete, Bristol</p>
     </div>
-    <p class="foot__credit" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Br%C3%BCssel_Skater_Schattenriss-20081108-RM-164748.jpg">Ermell</a> <span>(<abbr>CC BY-SA 4.0</abbr>)</span>, <a href="https://commons.wikimedia.org/wiki/File:P%C3%B6rtschach_10.-Oktober-Stra%C3%9Fe_27_Telekommunikationsgeb%C3%A4ude_Sichtbeton_30012022_2068.jpg">Johann Jaritz</a> <span>(<abbr>CC BY-SA 4.0</abbr>)</span>, <a href="https://commons.wikimedia.org/wiki/File:In-situ_concrete_pouring.jpg">Bernardobenzecry</a> <span>(<abbr>CC BY-SA 4.0</abbr>)</span> and <a href="https://commons.wikimedia.org/wiki/File:Construction_workers_in_Mexico.jpg">Tomascastelazo</a> <span>(<abbr>CC BY-SA 4.0</abbr>)</span>, all on Wikimedia Commons.</p>
+    <p class="foot__credit" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Part_of_ramp_at_Brastad_SK8,_the_new_skatepark_in_Lysekil_Municipality.jpg">W.carter</a> <span>(CC BY-SA 4.0)</span>, <a href="https://commons.wikimedia.org/wiki/File:P%C3%B6rtschach_10.-Oktober-Stra%C3%9Fe_27_Telekommunikationsgeb%C3%A4ude_Sichtbeton_30012022_2068.jpg">Johann Jaritz</a> <span>(CC BY-SA 4.0)</span> and <a href="https://commons.wikimedia.org/wiki/File:In-situ_concrete_pouring.jpg">Bernardobenzecry</a> <span>(CC BY-SA 4.0)</span>, all on Wikimedia Commons.</p>
   </div>
 </footer>
 

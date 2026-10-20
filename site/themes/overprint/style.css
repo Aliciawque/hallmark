@@ -1,14 +1,14 @@
-/* Hallmark · shape: Photographic · genre: playful · theme: Overprint (by request)
- * hero: Poster · nav: slab, the ink bar with the wordmark in stock colour, three links and a knocked-out Tickets outline · footer: mast, the wordmark across the container over the bar rule · imagery: photographs, library 6, mono pulled through one pass each · signature: the bill knocked out of a gig photograph printed in the orange pass · overprint: newsprint
- * axes: light/grotesk-heavy/cool · posture: full-palette · contrast: pass · fold: pass · v2.7.0 */
-/* Hallmark · pre-emit critique: P4 H5 E4 S4 R4 V4 · weakest: S, the brief names no acts, so the listing is one honest slot and the photographs and the two times carry the night */
-/* Hallmark · hero-review: in-thread · fix · 2 findings · 1 resolved 1 partial (the stage act is a laptop duo; the library holds no band shot with a dark foot, so the handoff asks for the venue's own) · finish-review: in-thread · fix · 1 finding · 1 resolved (the bill's room under the Poster raised to 96px) · gap: the two passes never cross on this page, so the moss shows nowhere */
+/* Hallmark · shape: Marquee Hero · genre: playful · theme: Overprint (v2.8 launch pass)
+ * hero: Poster · nav: slab, the ink bar with the wordmark in stock colour, three links and a pass-1 on-sale control · footer: mast, the wordmark across the container over the bar rule · imagery: photographs, library 3, mono pulled through one pass each · signature: the bill printed on an orange pass field, and three ticket steps flooded teal, orange, teal whose overlaps print moss · overprint: newsprint
+ * axes: light/grotesk-heavy/cool · posture: full-palette · contrast: pass · fold: pass · v2.8.0 */
 @import url("./tokens.css");
 @import url("./base.css");
 
 :root {
   --nav-h: 72px;
   --text-bill: clamp(2.125rem, 6vw, 5.75rem);
+  --text-figure: clamp(5rem, 12vw, 11.5rem);
+  --overlap: 40px;
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 9 -4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
 }
 
@@ -18,26 +18,27 @@ h1, h2, h3 { font-weight: 900; font-stretch: var(--display-stretch); text-transf
 .skip { position: absolute; left: var(--space-md); top: calc(-1 * var(--space-3xl)); z-index: var(--z-toast); padding: var(--space-xs) var(--space-md); background: var(--color-ink); color: var(--color-paper); }
 .skip:focus-visible { top: var(--space-md); outline-color: var(--color-accent); }
 
-/* controls: the pass-1 fill beside an inset ink outline; the press changes a fill at once */
+/* controls: the pass-1 fill beside an inset ink outline; hover pulls it through the other pass at once */
 .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 var(--space-lg); border: 0; border-radius: 0; background: none; font: 600 var(--text-sm)/1 var(--font-outlier); text-transform: uppercase; text-decoration: none; white-space: nowrap; cursor: pointer; }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
-.btn--primary:hover { background: color-mix(in oklab, var(--color-accent) 78%, var(--color-ink)); }
-.btn--primary:active { background: color-mix(in oklab, var(--color-accent) 62%, var(--color-ink)); }
+.btn--primary:hover { background: var(--color-accent-2); color: var(--color-accent-2-ink); }
+.btn--primary:active { background: color-mix(in oklab, var(--color-accent-2) 80%, var(--color-ink)); }
 .btn--secondary { box-shadow: inset 0 0 0 2px var(--color-ink); color: var(--color-ink); }
 .btn--secondary:hover { background: var(--color-ink); color: var(--color-paper); }
-.btn--secondary:active { background: var(--color-ink-2); color: var(--color-paper); }
 .btn--knock { box-shadow: inset 0 0 0 2px var(--color-paper); color: var(--color-paper); }
 .btn--knock:hover { background: var(--color-paper); color: var(--color-ink); }
 .btn--knock:active { background: var(--color-paper-3); color: var(--color-ink); }
 .btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 .btn:disabled, .btn[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; }
+.onsale input:disabled { opacity: 0.55; cursor: not-allowed; }
 
-/* the two passes: flat fills, multiplied, a photograph pulled through one of them */
+/* the two passes: flat fills, multiplied */
 .pass-1 { background: var(--color-accent); color: var(--color-accent-ink); mix-blend-mode: var(--blend); }
 .pass-2 { background: var(--color-accent-2); color: var(--color-accent-2-ink); mix-blend-mode: var(--blend); }
 .pass-1 > img, .pass-2 > img { mix-blend-mode: var(--blend); }
-.grain { isolation: isolate; }
+.grain { position: relative; isolation: isolate; }
 .grain::after { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: var(--texture-opacity); background: var(--grain) 0 0 / 200px; }
+.fill { padding: 0 0.2em; border-radius: 2px; font: 400 var(--text-md)/1.5 var(--font-body); text-transform: none; color: var(--color-muted); background: color-mix(in oklch, var(--color-muted) 14%, transparent); }
 
 /* nav: the slab */
 .slab { background: var(--color-ink); color: var(--color-paper); }
@@ -52,64 +53,76 @@ h1, h2, h3 { font-weight: 900; font-stretch: var(--display-stretch); text-transf
 /* hero: Poster, the bill knocked out to the stock over the photograph's darkest third */
 .hero { position: relative; isolation: isolate; display: grid; align-items: end; min-height: calc(100dvh - var(--nav-h)); background: var(--color-ink); color: var(--color-paper); }
 .hero__photo { position: absolute; inset: 0; margin: 0; z-index: 0; mix-blend-mode: normal; }
-.hero__photo > img { object-position: 50% 40%; }
-.hero__scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(to top, color-mix(in oklab, var(--color-ink) 62%, transparent), transparent 58%); }
+.hero__scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(to top, color-mix(in oklab, var(--color-ink) 64%, transparent), transparent 58%); }
 .hero__inner { position: relative; z-index: 3; display: grid; justify-items: start; gap: var(--space-lg); padding-block: var(--space-3xl); }
 .hero__head { max-width: none; font-size: var(--text-bill); color: var(--color-paper); }
-.hero__lead { max-width: 34ch; color: var(--color-paper); }
+.hero__lead { max-width: 36ch; color: var(--color-paper); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
 
-/* photographs: square, no frame, each printed through one pass */
+/* the bill: this month printed on the orange pass, the times in wide figures */
+.bill { padding-block: var(--section-gap-s); mix-blend-mode: normal; }
+.bill__head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: end; }
+.bill__head h2 { grid-column: 1 / 9; max-width: none; font-size: var(--text-bill); line-height: 1; }
+.bill__head .lead { grid-column: 9 / 13; color: var(--color-ink); }
+.bill__table { width: 100%; margin-top: var(--space-2xl); border-collapse: collapse; border-top: var(--rule-bar) solid var(--color-ink); border-bottom: var(--rule-bar) solid var(--color-ink); font-variant-numeric: tabular-nums; }
+.bill__table th { padding: var(--space-md) var(--space-lg) var(--space-md) 0; border-bottom: var(--rule-hair) solid var(--color-ink); font: 600 var(--text-sm)/1.2 var(--font-outlier); text-align: left; white-space: nowrap; }
+.bill__table td { padding: var(--space-xl) var(--space-lg) var(--space-xl) 0; vertical-align: middle; }
+.bill__table th:first-child, .bill__act { width: 46%; }
+.bill__act .fill { font-size: var(--text-lead); color: var(--color-ink-2); background: color-mix(in oklch, var(--color-ink) 12%, transparent); }
+.bill__time { font: 900 var(--text-section)/1 var(--font-display); font-stretch: 150%; text-transform: uppercase; letter-spacing: var(--tracking-display); white-space: nowrap; }
+.bill__tix { padding-right: 0; }
+.bill :focus-visible { outline-color: var(--color-ink); }
+.bill__tix a { white-space: nowrap; font: 600 var(--text-md)/1.3 var(--font-body); color: var(--color-ink); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.25em; }
+.bill__tix a:hover { text-decoration-color: var(--color-paper); }
+
+/* the room: one photograph across the width in the teal pass */
+.room { padding-top: var(--section-gap); }
+.room__head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: end; margin-bottom: var(--space-2xl); }
+.room__head h2 { grid-column: 1 / 8; }
+.room__head .lead { grid-column: 8 / 13; }
 .photo { position: relative; margin: 0; }
-.photo--tall { aspect-ratio: 4 / 5; }
-.photo--wide { aspect-ratio: 21 / 9; width: 100%; }
-.photo--hull { aspect-ratio: 4 / 3; }
-.caption { margin-top: var(--space-sm); font-size: var(--text-sm); color: var(--color-ink-2); }
-.fill { padding: 0 0.2em; border-radius: 2px; color: var(--color-muted); background: color-mix(in oklch, var(--color-muted) 14%, transparent); }
+.photo--wide { aspect-ratio: 2 / 1; width: 100%; }
+.photo--hull { aspect-ratio: 4 / 5; }
 
-/* this month: the listing beside a photograph in the teal pass */
-.listing { padding-top: var(--section-gap); }
-.listing__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: center; }
-.listing__text { grid-column: 1 / 8; display: grid; justify-items: start; }
-.listing__text .lead { margin-top: var(--space-md); max-width: 44ch; }
-.listing__shot { grid-column: 8 / 13; margin: 0; }
-.bill { width: 100%; margin-block: var(--space-2xl) var(--space-xl); border-collapse: collapse; border-top: var(--rule-bar) solid var(--color-ink); font-variant-numeric: tabular-nums; }
-.bill th { padding: var(--space-sm) var(--space-md) var(--space-sm) 0; border-bottom: var(--rule-hair) solid var(--color-rule); font: 600 var(--text-sm)/1.2 var(--font-outlier); text-align: left; white-space: nowrap; }
-.bill td { padding: var(--space-lg) 0; border-bottom: var(--rule-hair) solid var(--color-rule); }
+/* tickets: three numbered bills, flooded teal, orange, teal; where two cross the stock prints moss */
+.steps { padding-top: var(--section-gap); isolation: isolate; }
+.steps__head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: end; padding-top: var(--space-lg); border-top: var(--rule-bar) solid var(--color-ink); }
+.steps__head h2 { grid-column: 1 / 8; }
+.steps__head .lead { grid-column: 8 / 13; }
+.steps__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: var(--space-2xl) 0 0; padding: 0; list-style: none; counter-reset: step; isolation: isolate; }
+.steps__cell { position: relative; display: grid; grid-template-rows: auto auto; align-content: space-between; gap: var(--space-xl); min-height: 30rem; padding: var(--space-xl) calc(var(--overlap) + var(--space-lg)) var(--space-xl) var(--space-xl); counter-increment: step; }
+.steps__cell + .steps__cell { margin-left: calc(-1 * var(--overlap)); padding-left: calc(var(--overlap) + var(--space-xl)); }
+.steps__cell:last-child { padding-right: var(--space-xl); }
+.steps__cell::before { content: counter(step); font: 900 var(--text-figure)/0.8 var(--font-display); font-stretch: 150%; letter-spacing: var(--tracking-display); }
+.steps__cell h3 { font-size: var(--text-section); max-width: none; line-height: 1; }
+.steps__cell p { margin-top: var(--space-sm); max-width: 30ch; font-size: var(--text-md); }
 
-/* the room: the stage before doors, full bleed, then the night in two */
-.room { padding-top: var(--section-gap-l); }
-.room h2 { margin-bottom: var(--space-2xl); }
-.room__pair { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); margin-top: var(--space-2xl); }
-.room__shot { margin: 0; }
-.room__shot--doors { grid-column: 1 / 5; }
-.room__shot--doors .photo { aspect-ratio: 6 / 7; }
-.room__shot--band { grid-column: 5 / 13; }
-.room__shot--band .photo { aspect-ratio: 16 / 9; }
-
-/* hull: the photograph on the other side, the facts as a list under the bar rule */
-.hull { padding-block: var(--section-gap) var(--section-gap-s); }
+/* hull: the photograph on the other side, the facts as rows under the bar */
+.hull { padding-block: var(--section-gap) var(--section-gap); }
 .hull__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: center; }
 .hull__grid > .photo { grid-column: 1 / 7; }
 .hull__text { grid-column: 8 / 13; }
 .facts { margin: var(--space-2xl) 0 0; border-top: var(--rule-bar) solid var(--color-ink); }
-.facts > div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: var(--space-md); padding-block: var(--space-md); border-bottom: var(--rule-hair) solid var(--color-rule); }
+.facts > div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr); gap: var(--space-md); align-items: baseline; padding-block: var(--space-lg); border-bottom: var(--rule-hair) solid var(--color-rule); }
 .facts dt { font: 600 var(--text-sm)/1.5 var(--font-outlier); }
-.facts dd { margin: 0; }
+.facts dd { margin: 0; font: 900 var(--text-xl)/1.15 var(--font-display); font-stretch: 115%; text-transform: uppercase; }
+.facts dd .fill { font-size: var(--text-md); }
 
-/* tickets: the ink band, stock type, the on-sale field */
-.tickets { padding-block: var(--section-gap-s); background: var(--color-ink); color: var(--color-paper); }
-.tickets__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: end; }
-.tickets__text { grid-column: 1 / 8; }
-.tickets__text .lead { margin-top: var(--space-md); max-width: 40ch; }
+/* on-sales: the ink band, stock type, the on-sale field */
+.onsales { padding-block: var(--section-gap-s); background: var(--color-ink); color: var(--color-paper); }
+.onsales__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: end; }
+.onsales__text { grid-column: 1 / 7; }
+.onsales__text h2 { line-height: 1; }
+.onsales__text .lead { margin-top: var(--space-lg); max-width: 40ch; }
 .onsale { grid-column: 8 / 13; }
 .onsale label { display: block; margin-bottom: var(--space-xs); font: 600 var(--text-sm)/1.2 var(--font-outlier); }
 .onsale__row { display: flex; gap: var(--space-xs); }
-.onsale input { flex: 1; min-width: 0; min-height: 48px; padding: 0 var(--space-md); border: 0; border-radius: 0; background: var(--color-ink); color: var(--color-paper); box-shadow: inset 0 0 0 2px var(--color-paper); font: 400 var(--text-md) var(--font-body); outline: 2px solid transparent; outline-offset: 2px; }
+.onsale input { flex: 1; min-width: 0; min-height: 52px; padding: 0 var(--space-md); border: 0; border-radius: 0; background: var(--color-ink); color: var(--color-paper); box-shadow: inset 0 0 0 2px var(--color-paper); font: 400 var(--text-md) var(--font-body); outline: 2px solid transparent; outline-offset: 2px; }
+.onsale .btn { min-height: 52px; }
 .onsale input:focus-visible { outline-color: var(--color-accent); }
 .onsale input[aria-invalid] { box-shadow: inset 0 0 0 2px var(--color-error); }
 .onsale__help { min-height: 1lh; margin-top: var(--space-xs); font-size: var(--text-sm); color: var(--color-paper-3); }
-.tickets :focus-visible { outline-color: var(--color-accent); }
+.onsales :focus-visible { outline-color: var(--color-accent); }
 
 /* footer: the mast */
 .mast { padding-block: var(--section-gap-s) var(--space-2xl); }
@@ -121,21 +134,41 @@ h1, h2, h3 { font-weight: 900; font-stretch: var(--display-stretch); text-transf
 .mast__note { margin: 0; font-size: var(--text-sm); color: var(--color-ink-2); }
 .mast__credits { max-width: none; margin: var(--space-xl) 0 0; font-size: var(--text-sm); line-height: 1.6; color: var(--color-ink-2); }
 .mast__credits span { white-space: nowrap; }
-.mast__credits a { color: inherit; text-decoration: underline; text-decoration-color: var(--color-rule); text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+.mast__credits a { color: inherit; text-decoration: underline; text-decoration-color: var(--color-rule); text-underline-offset: 0.2em; }
 .mast__credits a:hover { text-decoration-color: var(--color-ink); }
 
 @media (max-width: 60rem) {
   .slab__links { display: none; }
   .hero { min-height: calc(92dvh - var(--nav-h)); }
-  .listing__text, .listing__shot, .hull__grid > .photo, .hull__text, .tickets__text, .onsale { grid-column: 1 / -1; }
-  .listing__shot, .hull__text, .onsale { margin-top: var(--space-2xl); }
-  .room__shot--doors, .room__shot--band { grid-column: 1 / -1; }
-  .room__shot--band { margin-top: var(--space-xl); }
+  .bill__head h2, .bill__head .lead, .room__head h2, .room__head .lead, .steps__head h2, .steps__head .lead, .hull__grid > .photo, .hull__text, .onsales__text, .onsale { grid-column: 1 / -1; }
+  .bill__head .lead, .room__head .lead, .steps__head .lead, .onsale { margin-top: var(--space-lg); }
+  .hull__text { margin-top: var(--space-2xl); }
+  .photo--hull { aspect-ratio: 4 / 3; }
+  .photo--wide { aspect-ratio: 4 / 3; }
+  .steps__list { grid-template-columns: minmax(0, 1fr); }
+  .steps__cell { min-height: 0; padding: var(--space-xl) var(--space-xl) calc(var(--overlap) + var(--space-lg)); }
+  .steps__cell + .steps__cell { margin: calc(-1 * var(--overlap)) 0 0; padding: calc(var(--overlap) + var(--space-lg)) var(--space-xl) calc(var(--overlap) + var(--space-lg)); }
+  .steps__cell:last-child { padding-bottom: var(--space-xl); }
+  .steps__cell { grid-template-columns: auto 1fr; align-items: end; column-gap: var(--space-xl); }
+  .steps__cell::before { grid-row: span 2; font-size: clamp(4.5rem, 18vw, 7rem); }
+  .steps__cell .steps__text { grid-column: 2; }
+  .steps__cell h3 { font-size: var(--text-xl); }
+  .steps__cell { gap: var(--space-xs) var(--space-xl); }
 }
 @media (max-width: 40rem) {
-  .wordmark { font-size: 1.0625rem; }
-  .slab__nav { gap: var(--space-md); }
+  .wordmark { font-size: 1rem; }
+  .slab__nav .btn { padding: 0 var(--space-md); }
   .hero__inner { padding-block: var(--space-2xl) var(--space-xl); }
-  .bill th:nth-child(n+3) { display: none; }
+  .bill__table thead { display: none; }
+  .bill__table, .bill__table tbody, .bill__table tr { display: block; }
+  .bill__table td { display: block; padding: var(--space-md) 0; border-bottom: var(--rule-hair) solid var(--color-ink); }
+  .bill__table td.bill__time::before { content: attr(data-label); display: block; margin-bottom: var(--space-xs); font: 600 var(--text-sm)/1.2 var(--font-outlier); text-transform: none; }
+  .bill__table td:last-child { border-bottom: 0; }
+  .bill__act { width: auto; }
+  .steps__cell { grid-template-columns: minmax(0, 1fr); }
+  .steps__cell::before { grid-row: auto; }
+  .steps__cell .steps__text { grid-column: 1; }
+  .facts dd { font-size: var(--text-lg); }
+  .facts > div { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xs); }
   .onsale__row { flex-direction: column; }
 }

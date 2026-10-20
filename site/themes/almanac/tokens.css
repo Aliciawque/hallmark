@@ -11,18 +11,12 @@
   --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
   --color-paper: oklch(84% 0.012 245); --color-paper-2: oklch(81% 0.012 245); --color-paper-3: oklch(77% 0.012 245);
   --color-ink: oklch(16% 0.020 245); --color-ink-2: oklch(24% 0.018 245); --color-muted: oklch(38% 0.016 245);
-  --color-rule: oklch(74% 0.012 240); --color-rule-2: oklch(38% 0.018 240);
-  --color-accent: oklch(46% 0.18 350); --color-accent-deep: oklch(38% 0.16 350); --color-accent-light: oklch(74% 0.14 350); --color-accent-ink: oklch(97% 0.006 245); --color-focus: oklch(46% 0.190 350);
-  --color-foil: oklch(86% 0.03 245); --color-sky: oklch(90% 0.03 85); --color-night: oklch(72% 0.016 250);
+  --color-rule: oklch(73% 0.013 240); --color-rule-2: oklch(32% 0.018 240);
+  --color-accent: oklch(45% 0.180 350); --color-accent-2: oklch(37% 0.160 350); --color-accent-ink: oklch(97% 0.006 245); --color-focus: oklch(46% 0.190 350);
+  --color-sheet: oklch(93.5% 0.008 245);
   --font-display: "Hanken Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-body: "Newsreader", ui-serif, Georgia, serif;
   --font-outlier: "IBM Plex Mono", ui-monospace, monospace;
-  --radius-card: 0; --radius-pill: 2px; --radius-btn: 2px; --rule-hair: 1px; --rule-bar: 2px; --shadow-card: none;
-  --tracking-display: -0.014em;
-  --c-almanac-1: oklch(20% 0.03 245 / 0.35);
-  --c-almanac-2: oklch(20% 0.03 245 / 0.3);
-  --c-almanac-3: oklch(84% 0.01 245);
-  --c-almanac-4: oklch(60% 0.012 245);
-  --c-almanac-5: oklch(34% 0.016 245);
-  --c-almanac-6: oklch(70% 0.012 245);
+  --radius-card: 0; --radius-pill: 2px; --rule-hair: 1px; --rule-bar: 2px; --shadow-card: none;
+  --tracking-display: -0.02em;
 }

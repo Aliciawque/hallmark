@@ -8,8 +8,7 @@
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="img/monolith.webp">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Geist:wght@400;500&family=Geist+Mono:wght@400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -17,73 +16,135 @@
 <a class="skip" href="#main">Skip to the page</a>
 
 <header class="bar">
-  <div class="container bar__in">
+  <div class="bar__pill">
     <a class="bar__mark" href="#top">quarry</a>
     <nav class="bar__links" aria-label="Sections">
-      <a href="#reserved">reserved</a>
-      <a href="#price">price</a>
-      <a href="#request">request</a>
+      <a href="#path">the path</a>
+      <a href="#rate">the rate</a>
+      <a href="#request">a request</a>
     </nav>
-    <a class="btn btn--brass btn--sm" href="#request">get an api key</a>
+    <a class="btn btn--primary btn--sm" href="#key">get an api key</a>
   </div>
 </header>
 
 <main id="main">
   <section class="hero" id="top" aria-labelledby="hero-title">
-    <div class="hero__grid" aria-hidden="true"></div>
-    <div class="container hero__in">
+    <div class="container hero__grid">
       <div class="hero__text">
-        <h1 id="hero-title">the model waits, <span class="hero__accent">not&nbsp;you.</span></h1>
-        <p class="lead">Open models on reserved GPUs, at a fixed price per million&nbsp;tokens.</p>
+        <h1 id="hero-title">the model <span class="nb"><span class="verb">waits</span>,</span> not&nbsp;you.</h1>
+        <p class="lead">Open models on reserved GPUs, at one fixed price per million&nbsp;tokens.</p>
         <div class="actions">
-          <a class="btn btn--brass" href="#request">get an api key</a>
-          <a class="btn btn--line" href="#request">see one request</a>
-        </div>
-        <div class="stream" aria-label="A request answered by a warm deployment">
-          <div class="stream__top"><span class="dot"></span><span>support-bot</span><span class="stream__state">warm</span><span class="stream__cold">cold start <b>0 s</b></span></div>
-          <p class="stream__q"><span>prompt</span> Name three kinds of granite.</p>
-          <p class="stream__a" data-stream>Pink, grey and black granite.</p>
+          <a class="btn btn--primary" href="#key">get an api key</a>
+          <a class="btn btn--secondary" href="#request">read a request</a>
         </div>
       </div>
-      <div class="hero__stone">
-        <span class="hero__halo" aria-hidden="true"></span>
-        <img src="img/monolith.webp" width="630" height="1456" alt="A block of dark quarried stone split down the middle by a seam of glowing brass" fetchpriority="high">
+
+      <div class="console" data-slot="console" data-kind="product" data-alt="The Quarry console: one deployment, its model, its reserved GPUs and its live requests">
+        <div class="console__bar">
+          <span class="readout">example-project / deployments</span>
+          <span class="console__live"><span class="live-dot" aria-hidden="true"></span>live</span>
+        </div>
+        <div class="console__body">
+          <ul class="console__list" aria-label="Deployments">
+            <li class="is-on"><b>support-bot</b><span class="readout">warm</span></li>
+            <li><b>search-rerank</b><span class="readout">warm</span></li>
+            <li><b>draft-writer</b><span class="readout">warm</span></li>
+            <li class="console__new"><span>new deployment</span></li>
+          </ul>
+          <div class="console__main">
+            <div class="console__head">
+              <p class="console__name">support-bot</p>
+              <span class="state"><span class="live-dot" aria-hidden="true"></span>warm</span>
+            </div>
+            <dl class="readouts">
+              <div><dt>model</dt><dd>open-model-70b</dd></div>
+              <div><dt>gpus</dt><dd>4 reserved</dd></div>
+              <div><dt>cold start</dt><dd class="is-brass">0 s</dd></div>
+              <div><dt>rate</dt><dd>fixed per 1m tokens</dd></div>
+            </dl>
+            <div class="stream" aria-label="A request answered by the warm deployment">
+              <p class="stream__q"><span>prompt</span>Where is my order?</p>
+              <p class="stream__a" data-stream>It shipped this morning; the tracking link is in your inbox.</p>
+            </div>
+            <table class="log">
+              <caption class="visually-hidden">Recent requests to support-bot (sample)</caption>
+              <thead><tr><th scope="col">time</th><th scope="col">tokens in</th><th scope="col">tokens out</th><th scope="col">status</th></tr></thead>
+              <tbody>
+                <tr><td>09:41:07</td><td>212</td><td>58</td><td>200</td></tr>
+                <tr><td>09:41:03</td><td>188</td><td>41</td><td>200</td></tr>
+                <tr><td>09:40:52</td><td>304</td><td>96</td><td>200</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="reserved" id="reserved" aria-labelledby="res-title">
+  <section class="path" id="path" aria-labelledby="path-title">
     <div class="container">
       <div class="head">
-        <h2 id="res-title">reserved, never&nbsp;shared.</h2>
-        <p class="lead">The GPUs are yours all day, so the model is loaded before the first&nbsp;call.</p>
+        <h2 id="path-title">two paths to a first&nbsp;token</h2>
+        <p class="lead">A model scaled to zero loads before it answers. A reserved one is already&nbsp;loaded.</p>
       </div>
-      <div class="rack">
-        <div class="rack__ctl" role="group" aria-label="Model size">
-          <span>model</span>
-          <button type="button" class="chip" aria-pressed="true" data-gpus="2">8B</button>
-          <button type="button" class="chip" aria-pressed="false" data-gpus="4">70B</button>
-          <button type="button" class="chip" aria-pressed="false" data-gpus="8">405B</button>
+      <figure class="diagram well blueprint" aria-label="Diagram of a request on two paths: scaled to zero, and reserved on Quarry">
+        <div class="track track--slow">
+          <p class="track__name">scaled to zero</p>
+          <ol class="track__nodes">
+            <li>request</li>
+            <li>find a free gpu</li>
+            <li>load the weights</li>
+            <li>warm up</li>
+            <li class="track__end">first token</li>
+          </ol>
         </div>
-        <ul class="rack__gpus" data-rack aria-label="Eight GPUs in one rack; the lit ones are reserved for you"></ul>
-        <div class="rack__foot">
-          <p><b data-res>2</b> of 8 GPUs reserved for your deployment</p>
-          <p class="rack__warm">loaded since this morning</p>
+        <div class="track track--fast">
+          <p class="track__name">quarry, reserved</p>
+          <ol class="track__nodes">
+            <li>request</li>
+            <li class="track__skip" aria-label="no wait: the model is already loaded on your gpus"><span>already loaded on your gpus</span></li>
+            <li class="track__end">first token</li>
+          </ol>
         </div>
-      </div>
+        <figcaption>Each box is a step the request waits on. The reserved path has&nbsp;two.</figcaption>
+      </figure>
     </div>
   </section>
 
-  <section class="price" id="price" aria-labelledby="price-title">
-    <div class="container price__grid">
-      <div>
-        <h2 id="price-title">one price, at 3 a.m. and at&nbsp;launch.</h2>
-        <p class="lead">A fixed rate per million tokens. Traffic moves; the rate&nbsp;doesn’t.</p>
+  <section class="aisle" aria-labelledby="aisle-title">
+    <div class="container">
+      <div class="head">
+        <h2 id="aisle-title">reserved, never&nbsp;shared.</h2>
+        <p class="lead">The GPUs hold your model and nobody else’s, so it stays loaded between&nbsp;calls.</p>
       </div>
-      <figure class="day" aria-label="A day of traffic that rises and falls under a flat price line">
-        <div class="day__plot" data-day></div>
-        <div class="day__axis"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div>
-        <figcaption><span class="key key--load"></span>your traffic <span class="key key--rate"></span>your rate per million tokens</figcaption>
+      <figure class="aisle__fig">
+        <div class="aisle__photo" data-slot="aisle" data-alt="The racks where Quarry's reserved GPUs run">
+          <img src="photos/virginia-tech-data-center-1920.jpg" width="1920" height="1440" loading="lazy" decoding="async" style="object-position: 50% 62%"
+               alt="A long aisle between black server racks under a white ceiling in a data centre">
+        </div>
+        <figcaption>Server racks in a data centre aisle, the kind of hardware a reservation holds for&nbsp;you.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="rate" id="rate" aria-labelledby="rate-title">
+    <div class="container rate__grid">
+      <div class="rate__text">
+        <h2 id="rate-title">the rate holds at 3&nbsp;a.m.</h2>
+        <p class="lead">One price per million tokens. Traffic moves; the price&nbsp;doesn’t.</p>
+        <table class="card">
+          <caption class="visually-hidden">What moves and what holds</caption>
+          <tbody>
+            <tr><th scope="row">requests a minute</th><td>move with your users</td></tr>
+            <tr><th scope="row">price per million tokens</th><td class="is-brass">holds</td></tr>
+            <tr><th scope="row">cold starts</th><td>none</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <figure class="chart well blueprint" aria-label="Chart of a sample day: traffic rises and falls under a flat price line">
+        <div class="chart__plot" data-day></div>
+        <div class="chart__axis readout" aria-hidden="true"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div>
+        <figcaption><span class="legend"><span class="key key--load"></span>a sample day of traffic</span><span class="legend"><span class="key key--rate"></span>your price per million tokens</span></figcaption>
       </figure>
     </div>
   </section>
@@ -92,9 +153,9 @@
     <div class="container">
       <div class="head">
         <h2 id="req-title">one request, plain&nbsp;https.</h2>
-        <p class="lead">To your own deployment, already&nbsp;warm.</p>
+        <p class="lead">To your own deployment, already warm. No client library to&nbsp;install.</p>
       </div>
-      <div class="code">
+      <div class="code well">
         <div class="code__tabs" role="tablist" aria-label="Language">
           <button role="tab" aria-selected="true" aria-controls="c-curl" id="t-curl">curl</button>
           <button role="tab" aria-selected="false" aria-controls="c-py" id="t-py" tabindex="-1">python</button>
@@ -102,48 +163,66 @@
           <button class="copy" type="button" data-copy aria-label="Copy the request"><svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5.25" y="5.25" width="8" height="8" rx="2"/><path d="M10.75 5.25V4.5a1.75 1.75 0 0 0-1.75-1.75H4.5A1.75 1.75 0 0 0 2.75 4.5V9a1.75 1.75 0 0 0 1.75 1.75h.75"/></svg></button>
         </div>
         <div class="code__body">
-<pre role="tabpanel" id="c-curl" aria-labelledby="t-curl"><code>curl https://api.example.com/v1/generate \
+<pre role="tabpanel" id="c-curl" aria-labelledby="t-curl" tabindex="0"><code>curl https://api.example.com/v1/generate \
   -H <s>"Authorization: Bearer $QUARRY_API_KEY"</s> \
   -d <s>'{ "deployment": "support-bot",
-        "prompt": "Name three kinds of granite." }'</s></code></pre>
-<pre role="tabpanel" id="c-py" aria-labelledby="t-py" hidden><code><i>import</i> quarry
+        "prompt": "Where is my order?" }'</s></code></pre>
+<pre role="tabpanel" id="c-py" aria-labelledby="t-py" tabindex="0" hidden><code><i>import</i> os, requests
 
-client = quarry.Client()
-out = client.generate(
-    deployment=<s>"support-bot"</s>,
-    prompt=<s>"Name three kinds of granite."</s>,
+r = requests.post(
+    <s>"https://api.example.com/v1/generate"</s>,
+    headers={<s>"Authorization"</s>: <s>f"Bearer {os.environ['QUARRY_API_KEY']}"</s>},
+    json={<s>"deployment"</s>: <s>"support-bot"</s>, <s>"prompt"</s>: <s>"Where is my order?"</s>},
 )
-print(out.text)</code></pre>
-<pre role="tabpanel" id="c-js" aria-labelledby="t-js" hidden><code><i>import</i> { Quarry } <i>from</i> <s>"quarry"</s>;
-
-<i>const</i> client = <i>new</i> Quarry();
-<i>const</i> out = <i>await</i> client.generate({
-  deployment: <s>"support-bot"</s>,
-  prompt: <s>"Name three kinds of granite."</s>,
-});</code></pre>
+print(r.json()[<s>"output"</s>])</code></pre>
+<pre role="tabpanel" id="c-js" aria-labelledby="t-js" tabindex="0" hidden><code><i>const</i> r = <i>await</i> fetch(<s>"https://api.example.com/v1/generate"</s>, {
+  method: <s>"POST"</s>,
+  headers: { Authorization: <s>`Bearer ${process.env.QUARRY_API_KEY}`</s> },
+  body: JSON.stringify({ deployment: <s>"support-bot"</s>, prompt: <s>"Where is my order?"</s> }),
+});
+console.log((<i>await</i> r.json()).output);</code></pre>
           <div class="code__out">
             <p class="code__label">response</p>
-<pre><code>{ <s>"output"</s>: <s>"Pink, grey and black granite."</s>,
-  <s>"usage"</s>: { <s>"input_tokens"</s>: 7, <s>"output_tokens"</s>: 8 } }</code></pre>
+<pre><code>{ <s>"output"</s>: <s>"It shipped this morning; the tracking
+             link is in your inbox."</s>,
+  <s>"usage"</s>: { <s>"input_tokens"</s>: 212, <s>"output_tokens"</s>: 58 } }</code></pre>
             <dl class="code__status"><div><dt>status</dt><dd>200</dd></div><div><dt>deployment</dt><dd>warm</dd></div><div><dt>cold start</dt><dd>0 s</dd></div></dl>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <section class="getkey blueprint" id="key" aria-labelledby="key-title">
+    <div class="container getkey__grid">
+      <div class="getkey__head">
+        <h2 id="key-title">start with one key.</h2>
+        <p class="lead">Leave a work address and the key comes back to&nbsp;it.</p>
+      </div>
+      <form class="getkey__form" data-endpoint="" novalidate>
+        <label for="email">work email</label>
+        <div class="getkey__row">
+          <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required aria-required="true" aria-describedby="key-help">
+          <button class="btn btn--primary" type="submit">get an api key</button>
+        </div>
+        <p class="help" id="key-help" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
 </main>
 
 <footer class="foot">
-  <div class="container">
-    <p class="foot__word" aria-hidden="true">quarry</p>
-    <div class="foot__base">
-      <p>Open models on reserved GPUs.</p>
-      <nav aria-label="Footer"><a href="#reserved">reserved</a><a href="#price">price</a><a href="#request">request</a></nav>
-      <p class="foot__note">The stone is a generated picture.</p>
-    </div>
+  <div class="container foot__in">
+    <p class="foot__mark">quarry</p>
+    <p class="foot__line">An inference API for open models on reserved GPUs, at a fixed price per million tokens.</p>
+    <nav aria-label="Footer"><a href="#path">the path</a><a href="#rate">the rate</a><a href="#request">a request</a><a href="#key">get an api key</a></nav>
+    <p class="foot__legal">© 2026 quarry</p>
+    <p class="foot__credits" data-credits>Photograph: <a href="https://commons.wikimedia.org/wiki/File:Virginia_Tech_-_data_center.jpg">Christopher Bowns</a> (CC BY-SA 2.0), via Wikimedia Commons.</p>
   </div>
 </footer>
 
+<script>window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
+document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });</script>
 <script src="page.js"></script>
 </body>
 </html>

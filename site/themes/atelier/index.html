@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://api.fontshare.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://api.fontshare.com/v2/css?f[]=sentient@700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=sentient@400,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -21,7 +21,7 @@
     <nav class="mast__start" aria-label="Sections">
       <ul>
         <li><a href="#batch">The batch</a></li>
-        <li><a href="#atelier">The atelier</a></li>
+        <li><a href="#week">The week</a></li>
       </ul>
     </nav>
     <a class="wordmark" href="#top" aria-label="Maison Orla, back to the top">Maison Orla</a>
@@ -34,78 +34,92 @@
     <div class="container hero__grid">
       <div class="hero__text">
         <h1 id="hero-title">Four scents, made in Ghent.</h1>
-        <p class="lead">A fragrance atelier making each scent in batches of 300&nbsp;bottles.</p>
+        <p class="lead">Made in batches of 300&nbsp;bottles, and smelled by&nbsp;appointment.</p>
         <div class="actions">
           <a class="btn" href="#visit">Book a visit</a>
-          <a class="textlink" href="#atelier">See the atelier</a>
+          <a class="textlink" href="#how">How a visit goes</a>
         </div>
       </div>
-      <figure class="photo hero__photo" data-slot="hero" data-alt="One of the four bottles in the atelier's light, on stone or plaster">
-        <img src="photos/rosemary-oil-in-a-bottle-and-rosemary-herb-1920.jpg" width="1920" height="1280" fetchpriority="high" style="object-position: 50% 50%"
-             alt="An unlabelled amber dropper bottle standing among sprigs of rosemary on a wooden table">
+      <figure class="photo hero__photo" data-slot="hero" data-alt="One of the four bottles on stone or plaster, in the atelier's daylight">
+        <img src="photos/perfume-glass-bottle-1920.jpg" width="1920" height="1440" fetchpriority="high" style="object-position: 54% 60%"
+             alt="A ribbed glass perfume bottle with a black cap on a pale wooden shelf against a limewashed wall">
       </figure>
+    </div>
+  </section>
+
+  <section class="entry" aria-labelledby="entry-title">
+    <div class="container">
+      <h2 id="entry-title" class="visually-hidden">The atelier in figures</h2>
+      <p class="statement">Made three hundred bottles at a time, for people who buy fragrance&nbsp;slowly.</p>
+      <dl class="figures">
+        <div><dt class="figure">4</dt><dd><b>Scents</b>Made in the atelier</dd></div>
+        <div><dt class="figure">300</dt><dd><b>Bottles to a batch</b>One scent at a time</dd></div>
+        <div><dt class="figure">5</dt><dd><b>Days open to visits</b>Tuesday to Saturday</dd></div>
+      </dl>
     </div>
   </section>
 
   <section class="batch" id="batch" aria-labelledby="batch-title">
     <div class="container">
-      <h2 id="batch-title">Three hundred bottles at a time</h2>
-      <figure class="photo batch__wide" data-slot="batch-1" data-alt="The bench where a batch is made, photographed in the atelier">
-        <img src="photos/eucalypt-oils-1-1920.jpg" width="1920" height="1440" loading="lazy" decoding="async" style="object-position: 50% 62%"
-             alt="Rows of tall glass cylinders holding amber and gold oils">
+      <div class="head-split">
+        <h2 id="batch-title">One scent, one batch</h2>
+        <p class="lead">Each scent is made here in batches of 300&nbsp;bottles, one scent at a&nbsp;time.</p>
+      </div>
+      <figure class="photo batch__wide" data-slot="batch" data-alt="The bench where a batch is made, photographed in the atelier">
+        <img src="photos/eucalypt-oils-1-1920.jpg" width="1920" height="1440" loading="lazy" decoding="async" style="object-position: 50% 58%"
+             alt="Rows of tall glass cylinders holding amber and gold oils on a white bench">
       </figure>
-      <div class="hang">
-        <figure class="hang__item hang__a">
-          <div class="photo hang__img" data-slot="batch-2" data-alt="What goes into a scent, close up">
-            <img src="photos/gewuerze-004-2024-08-10-1920.jpg" width="1920" height="1295" loading="lazy" decoding="async" style="object-position: 50% 50%"
-             alt="Star anise, cinnamon sticks and cloves scattered on white">
-          </div>
-          <figcaption class="label"><b>Batch</b>300 bottles of one scent</figcaption>
-        </figure>
-        <figure class="hang__item hang__b">
-          <div class="photo hang__img" data-slot="batch-3" data-alt="A second still life from the atelier">
-            <img src="photos/rosa-canina-focus-stacked-20220522-rm-123334-1920.jpg" width="1920" height="1440" loading="lazy" decoding="async" style="object-position: 52% 50%"
-             alt="A single pale pink dog rose with gold stamens against dark leaves">
-          </div>
-          <figcaption class="label"><b>Made</b>In the atelier, Ghent</figcaption>
-        </figure>
+      <div class="batch__foot">
+        <p class="label"><b>The bench</b>In the atelier, Ghent</p>
+        <p class="dropcap">A batch is one making of one scent, so every bottle in it is the&nbsp;same.</p>
       </div>
     </div>
   </section>
 
-  <section class="visit" id="atelier" aria-labelledby="visit-title">
-    <div class="container visit__grid">
-      <figure class="photo visit__photo" data-slot="visit" data-alt="The four bottles together on the atelier's table">
-        <img src="photos/perfume-glass-bottle-1920.jpg" width="1920" height="1440" loading="lazy" decoding="async" style="object-position: 60% 50%"
-             alt="A ribbed glass perfume bottle with a black cap on a pale wooden shelf">
-      </figure>
-      <div class="visit__text">
-        <h2 id="visit-title">Smell all four, slowly</h2>
+  <section class="how" id="how" aria-labelledby="how-title">
+    <div class="container">
+      <div class="head-split">
+        <h2 id="how-title">How a visit goes</h2>
         <p class="lead">By appointment, so the room is yours while you&nbsp;choose.</p>
-        <dl class="sheet">
-          <div><dt>The four</dt><dd><span class="fill" data-fill="scent-names">Names to come</span></dd></div>
-          <div><dt>Address</dt><dd><span class="fill" data-fill="address">Street address to come</span></dd></div>
-        </dl>
-        <a class="btn" href="#visit">Book a visit</a>
       </div>
+      <ol class="steps">
+        <li><h3>Ask for a day</h3><p>Any open day, through the form below.</p></li>
+        <li><h3>Hear back with a time</h3><p>The reply names the hour and the&nbsp;street.</p></li>
+        <li><h3>Smell all four</h3><p>Side by side, with nobody waiting behind you.</p></li>
+        <li><h3>Leave with one, or none</h3><p>Or come back to&nbsp;decide.</p></li>
+      </ol>
     </div>
   </section>
 
-  <section class="room" aria-label="The atelier">
-    <figure class="container room__fig">
-      <div class="photo room__img" data-slot="room" data-alt="The atelier's room in daylight, where visitors sit with the four">
-        <img src="photos/lobby-lounge-of-amantaka-suite-amantaka-luxury-resort-hotel--1920.jpg" width="1920" height="1280" loading="lazy" decoding="async" style="object-position: 50% 68%"
-             alt="A quiet lounge with a teak daybed, a cane armchair and tall shuttered doors">
+  <section class="week" id="week" aria-labelledby="week-title">
+    <div class="container week__grid">
+      <figure class="photo week__photo" data-slot="room" data-alt="The atelier's room in daylight, where visitors sit with the four">
+        <img src="photos/lobby-lounge-of-amantaka-suite-amantaka-luxury-resort-hotel--1920.jpg" width="1920" height="1280" loading="lazy" decoding="async" style="object-position: 62% 66%"
+             alt="A quiet room with a teak daybed, a cane armchair and tall shuttered doors">
+      </figure>
+      <div class="week__text">
+        <h2 id="week-title">The week at the atelier</h2>
+        <table class="timetable">
+          <caption class="visually-hidden">Visiting days</caption>
+          <tbody>
+            <tr class="off"><th scope="row">Monday</th><td>No visits</td></tr>
+            <tr><th scope="row">Tuesday</th><td>By appointment</td></tr>
+            <tr><th scope="row">Wednesday</th><td>By appointment</td></tr>
+            <tr><th scope="row">Thursday</th><td>By appointment</td></tr>
+            <tr><th scope="row">Friday</th><td>By appointment</td></tr>
+            <tr><th scope="row">Saturday</th><td>By appointment</td></tr>
+            <tr class="off"><th scope="row">Sunday</th><td>No visits</td></tr>
+          </tbody>
+        </table>
       </div>
-      <figcaption class="label"><b>Visits</b>Tuesday to Saturday, by appointment</figcaption>
-    </figure>
+    </div>
   </section>
 
   <section class="ask" id="visit" aria-labelledby="ask-title">
     <div class="container ask__grid">
       <div class="ask__head">
         <h2 id="ask-title">Ask for a day</h2>
-        <p class="lead">Choose a day and leave an address; the reply comes with a time.</p>
+        <p class="lead">Choose a day and leave an address; the reply comes with a&nbsp;time.</p>
       </div>
       <form class="ask__form" data-endpoint="" novalidate>
         <fieldset class="days">
@@ -139,18 +153,20 @@
 
 <footer class="foot">
   <div class="container foot__in">
-    <p class="foot__line">Four scents, and time to choose one.</p>
+    <p class="foot__line">Four scents, and the time to choose&nbsp;one.</p>
     <div class="foot__base">
+      <p class="foot__name">Maison Orla<br><span>Fragrance atelier, Ghent</span></p>
       <nav aria-label="Footer">
         <ul>
           <li><a href="#batch">The batch</a></li>
-          <li><a href="#atelier">The atelier</a></li>
+          <li><a href="#how">The visit</a></li>
+          <li><a href="#week">The week</a></li>
           <li><a href="#visit">Book a visit</a></li>
         </ul>
       </nav>
-      <p class="legal">© 2026 Maison Orla, Ghent</p>
+      <p class="legal">© 2026 Maison Orla</p>
     </div>
-    <p class="credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Rosemary_Oil_in_a_bottle_and_rosemary_herb.jpg">formulatehealth</a> (CC BY 2.0), <a href="https://commons.wikimedia.org/wiki/File:Eucalypt_oils_1.jpg">Mx. Granger</a> (CC0), <a href="https://commons.wikimedia.org/wiki/File:Gewuerze_004_2024_08_10.jpg">Friedrich Haag</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Rosa_canina_focus_stacked-20220522-RM-123334.jpg">Ermell</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Perfume_glass_bottle.jpg">Santeri Viinamäki</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Lobby_lounge_of_Amantaka_Suite_Amantaka_luxury_Resort_%26_Hotel_Luang_Prabang_Laos.jpg">Basile Morin</a> (CC BY-SA 4.0), all via Wikimedia Commons.</p>
+    <p class="credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Perfume_glass_bottle.jpg">Santeri Viinamäki</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Eucalypt_oils_1.jpg">Mx. Granger</a> (CC0), <a href="https://commons.wikimedia.org/wiki/File:Lobby_lounge_of_Amantaka_Suite_Amantaka_luxury_Resort_%26_Hotel_Luang_Prabang_Laos.jpg">Basile Morin</a> (CC BY-SA 4.0), all via Wikimedia Commons.</p>
   </div>
 </footer>
 

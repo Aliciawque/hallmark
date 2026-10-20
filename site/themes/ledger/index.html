@@ -17,8 +17,8 @@
   <div class="container slab__in">
     <a class="wordmark" href="#top" aria-label="Closewise, home">Closewise</a>
     <nav class="slab__links" aria-label="Main">
-      <a href="#flag">Last night</a>
       <a href="#nightly">Every night</a>
+      <a href="#flag">The flag</a>
       <a href="#close">Month end</a>
     </nav>
     <a class="btn btn--line btn--nav" href="#walkthrough">Book a walkthrough</a>
@@ -34,7 +34,7 @@
       <p class="lead">Closewise checks every bank account against your ledger, every night.</p>
       <div class="actions">
         <a class="btn btn--bone" href="#walkthrough">Book a walkthrough</a>
-        <a class="btn btn--line" href="#flag">See the flagged line</a>
+        <a class="btn btn--line" href="#nightly">How a night runs</a>
       </div>
     </div>
 
@@ -68,8 +68,22 @@
   </div>
 </section>
 
+<section class="night" id="nightly" aria-labelledby="night-head">
+  <div class="container">
+    <div class="night__head">
+      <h2 id="night-head">How a night becomes a short list.</h2>
+      <p class="lead">Every account, every night, while the team is away.</p>
+    </div>
+    <ol class="night__steps" role="list">
+      <li><span class="night__n num" aria-hidden="true">1</span><h3>Overnight</h3><p>Every bank line is set against its ledger entry, on every account.</p></li>
+      <li><span class="night__n num" aria-hidden="true">2</span><h3>By morning</h3><p>Anything that does not match waits as a flag, with both sides shown.</p></li>
+      <li><span class="night__n num" aria-hidden="true">3</span><h3>Before month end</h3><p>Flags are cleared as they come, so the close starts from a short list.</p></li>
+    </ol>
+  </div>
+</section>
+
 <section class="row row--flag" id="flag" aria-labelledby="flag-head">
-  <div class="container row__grid row__grid--4-8">
+  <div class="container row__grid row__grid--5-7">
     <div class="row__text">
       <h2 id="flag-head">One line didn’t match.</h2>
       <p class="lead">Both sides and the difference, nothing to hunt for.</p>
@@ -101,86 +115,79 @@
   </div>
 </section>
 
-<section class="row row--nightly" id="nightly" aria-labelledby="nightly-head">
-  <div class="container row__grid row__grid--5-7">
-    <div class="row__text">
-      <h2 id="nightly-head">A short list, not a search.</h2>
-      <p class="lead">Checked as each line lands, not all at once.</p>
+<section class="ways" aria-labelledby="ways-head">
+  <div class="container">
+    <div class="ways__head">
+      <h2 id="ways-head">Month end, two ways.</h2>
+      <p class="lead">The same month, checked once at the end or every night.</p>
     </div>
-    <figure class="proof">
-      <table class="ways">
-        <caption class="visually-hidden">Month end by hand against every night with Closewise</caption>
-        <thead><tr><th scope="col"><span class="visually-hidden">Question</span></th><th scope="col">At month end, by hand</th><th scope="col">Every night, with Closewise</th></tr></thead>
-        <tbody>
-          <tr><th scope="row">When it runs</th><td data-label="By hand">Once, at month end</td><td data-label="Closewise">Every night, every account</td></tr>
-          <tr><th scope="row">What you find</th><td data-label="By hand">A month of mismatches at once</td><td data-label="Closewise">One night’s mismatches</td></tr>
-          <tr><th scope="row">Where you look</th><td data-label="By hand">Statements beside the ledger</td><td data-label="Closewise">One line, both sides</td></tr>
-          <tr><th scope="row">Month end</th><td data-label="By hand">A search</td><td data-label="Closewise">A short list to clear</td></tr>
-        </tbody>
-      </table>
-    </figure>
+    <div class="t" role="table" aria-labelledby="ways-head">
+      <div class="t__row t__row--head" role="row"><span class="visually-hidden" role="columnheader">Question</span><span class="t__side t__side--by" role="columnheader">By hand, at month end</span><span class="t__side" role="columnheader">Closewise, every night</span></div>
+      <div class="t__row" role="row"><span class="t__q" role="rowheader">When it runs</span><span class="t__side t__side--by" role="cell">Once, at the end</span><span class="t__side" role="cell">Every night, every account</span></div>
+      <div class="t__row" role="row"><span class="t__q" role="rowheader">What you find</span><span class="t__side t__side--by" role="cell">A month of mismatches</span><span class="t__side" role="cell">One night&rsquo;s mismatches</span></div>
+      <div class="t__row" role="row"><span class="t__q" role="rowheader">Where you look</span><span class="t__side t__side--by" role="cell">Statements beside the ledger</span><span class="t__side" role="cell">One flag, both sides</span></div>
+      <div class="t__row t__row--total" role="row"><span class="t__q" role="rowheader">Left at the close</span><span class="t__side t__side--by" role="cell">A search</span><span class="t__side" role="cell">A short list</span></div>
+    </div>
   </div>
 </section>
 
-<section class="row row--team" aria-labelledby="team-head">
-  <div class="container row__grid row__grid--6-6">
-    <div class="row__text">
+<section class="team" aria-labelledby="team-head">
+  <div class="container team__grid">
+    <p class="team__fig figure" aria-hidden="true">3<span class="team__to">to</span>30</p>
+    <div class="team__text">
       <h2 id="team-head">For finance teams of 3 to 30.</h2>
-      <p class="lead">Every account the team looks after, checked the same way.</p>
+      <p class="lead">One run a night covers every account the team looks after.</p>
     </div>
-    <figure class="proof">
-      <div class="photo" data-slot="photo-1" data-alt="Your own finance team at work: hands, desks and screens, no faces needed">
-        <img src="photos/young-businesswoman-holding-her-smartphone-in-the-home-offic-1920.jpg" width="1920" height="1282" loading="lazy" alt="A hand holding a phone over an open planner, a laptop beside it on the desk" style="object-position: 62% 50%">
-      </div>
-    </figure>
   </div>
 </section>
 
-<section class="row row--close" id="close" aria-labelledby="close-head">
+<section class="close" id="close" aria-labelledby="close-head">
   <div class="container">
     <div class="close__head">
       <h2 id="close-head">October, before the close.</h2>
-      <p class="lead">Three flags left, each with its difference.</p>
+      <p class="lead">Three flags left, each with its difference, footing as it goes.</p>
     </div>
     <figure class="proof proof--wide">
       <div class="well" data-slot="close" data-alt="Your month-end list: every open flag across your accounts and what they add up to">
         <div class="well__head"><span class="well__title">Open flags on 29 October</span><span class="well__state">All accounts</span></div>
         <table class="flags">
           <caption class="visually-hidden">Open flags before the October close, sample</caption>
-          <thead><tr><th scope="col">Flagged</th><th scope="col">Bank line</th><th scope="col">Why</th><th scope="col" class="r">Difference</th></tr></thead>
+          <thead><tr><th scope="col">Flagged</th><th scope="col">Bank line</th><th scope="col">Why</th><th scope="col" class="r">Difference</th><th scope="col" class="r">Running</th></tr></thead>
           <tbody>
-            <tr><td class="d">3 Oct</td><th scope="row">Example Bank fee</th><td>Not in the ledger</td><td class="num">24.00</td></tr>
-            <tr><td class="d">14 Oct</td><th scope="row">Example Hosting</th><td>Amount differs</td><td class="num">180.00</td></tr>
-            <tr><td class="d">22 Oct</td><th scope="row">Example Client Co</th><td>Amount differs</td><td class="num">90.00</td></tr>
+            <tr><td class="d num">03 Oct</td><th scope="row">Example Bank fee</th><td>Not in the ledger</td><td class="num">24.00</td><td class="num run-t">24.00</td></tr>
+            <tr><td class="d num">14 Oct</td><th scope="row">Example Hosting</th><td>Amount differs</td><td class="num">180.00</td><td class="num run-t">204.00</td></tr>
+            <tr><td class="d num">22 Oct</td><th scope="row">Example Client Co</th><td>Amount differs</td><td class="num">90.00</td><td class="num run-t">294.00</td></tr>
           </tbody>
-          <tfoot><tr><td></td><th scope="row" colspan="2">Three flags to clear</th><td class="num">294.00</td></tr></tfoot>
+          <tfoot><tr><td></td><th scope="row" colspan="2">Three flags to clear</th><td class="num">294.00</td><td></td></tr></tfoot>
         </table>
       </div>
     </figure>
   </div>
 </section>
 
+<section class="book-s" id="walkthrough" aria-labelledby="book-head">
+  <div class="container book-s__grid">
+    <div class="book-s__text">
+      <h2 id="book-head">See one month, start to close.</h2>
+      <p class="lead">A walkthrough of the runs, the flags and the short list they leave.</p>
+    </div>
+    <form class="book well" data-endpoint="" novalidate>
+      <div class="field"><label for="email">Work email</label><input class="input" id="email" name="email" type="email" autocomplete="email" required></div>
+      <div class="field"><label for="company">Company</label><input class="input" id="company" name="company" type="text" autocomplete="organization" required></div>
+      <div class="book__foot"><button class="btn btn--bone" type="submit">Book a walkthrough</button><p class="book__help" id="book-help" aria-live="polite"></p></div>
+    </form>
+  </div>
+</section>
+
 </main>
 
-<footer class="foot" id="walkthrough">
+<footer class="foot">
   <div class="container">
-    <div class="foot__form">
-      <div class="foot__text">
-        <h2 class="foot__head">See one month, start to close.</h2>
-        <p class="lead">The runs, the flags and the short list they leave.</p>
-      </div>
-      <form class="book" data-endpoint="" novalidate>
-        <div class="field"><label for="email">Work email</label><input class="input" id="email" name="email" type="email" autocomplete="email" required></div>
-        <div class="field"><label for="company">Company</label><input class="input" id="company" name="company" type="text" autocomplete="organization" required></div>
-        <button class="btn btn--bone" type="submit">Book a walkthrough</button>
-        <p class="book__help" id="book-help" aria-live="polite"></p>
-      </form>
-    </div>
+    <p class="foot__mark">Closewise</p>
     <div class="foot__base">
-      <span class="wordmark">Closewise</span>
-      <nav class="foot__links" aria-label="Footer"><a href="#flag">Last night</a><a href="#nightly">Every night</a><a href="#close">Month end</a></nav>
-      <p class="foot__legal">© 2026 Closewise</p>
-      <p class="foot__credits" data-credits>Photograph: <a href="https://commons.wikimedia.org/wiki/File:Young_businesswoman_holding_her_smartphone_in_the_home_office.jpg">Shixart1985</a> (CC BY 2.0, Wikimedia Commons).</p>
+      <p class="foot__line">Every bank account against the ledger, every night.</p>
+      <nav class="foot__links" aria-label="Footer"><a href="#nightly">Every night</a><a href="#flag">The flag</a><a href="#close">Month end</a><a href="#walkthrough">Walkthrough</a></nav>
+      <p class="foot__legal">&copy; 2026 Closewise</p>
     </div>
   </div>
 </footer>

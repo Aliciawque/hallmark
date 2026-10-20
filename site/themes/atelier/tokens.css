@@ -9,12 +9,12 @@
   --color-error: oklch(52% 0.19 27); --color-success: oklch(50% 0.12 150);
   --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap-s: 120px; --section-gap: 144px; --section-gap-l: 176px;
   --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
-  --color-paper: oklch(94.5% 0.009 70); --color-paper-2: oklch(91.5% 0.011 68); --color-paper-3: oklch(87.5% 0.013 65);
-  --color-ink: oklch(12% 0.020 40); --color-ink-2: oklch(28% 0.014 45); --color-muted: oklch(46% 0.012 55);
-  --color-rule: oklch(79% 0.009 62);
-  --color-accent: oklch(40% 0.080 250); --color-accent-ink: oklch(96% 0.008 70); --color-focus: oklch(50% 0.090 250);
+  --color-paper: oklch(94.5% 0.010 76); --color-paper-2: oklch(91.8% 0.013 74); --color-paper-3: oklch(88% 0.015 72);
+  --color-ink: oklch(19% 0.024 52); --color-ink-2: oklch(31% 0.018 54); --color-muted: oklch(47% 0.014 60);
+  --color-rule: oklch(81% 0.011 70);
+  --color-accent: oklch(41% 0.075 248); --color-accent-ink: oklch(96% 0.008 76); --color-focus: oklch(50% 0.095 248);
   --font-display: "Sentient", Georgia, serif; --font-body: "Hanken Grotesk", system-ui, sans-serif;
   --font-outlier: var(--font-body);
-  --radius-card: 0; --radius-pill: 3px; --rule-hair: 1px; --shadow-card: none;
-  --tracking-display: -0.018em; --display-weight: 700;
+  --radius-card: 0; --radius-pill: 3px; --rule-hair: 1px; --rule-head: 1px; --shadow-card: none;
+  --tracking-display: -0.018em; --tracking-statement: -0.022em; --display-weight: 700; --statement-weight: 400;
 }

@@ -7,21 +7,20 @@
 <meta name="description" content="Hollins Orchard is a six-acre cider orchard in Herefordshire with 22 apple varieties, open for pick-your-own from September to October, selling three ciders.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@700&amp;family=Hanken+Grotesk:wght@400;500&amp;family=Newsreader:opsz,wght@6..72,400&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@600&amp;family=Hanken+Grotesk:wght@400;500&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="nav">
-  <div class="container nav__inner">
+  <p class="nav__banner"><a href="#season">Pick-your-own opens in September<span class="banner__more"> and runs to the end of October</span></a></p>
+  <div class="container nav__bar">
     <a class="wordmark" href="#top" aria-label="Hollins Orchard, home">Hollins Orchard</a>
     <nav aria-label="Main" class="nav__right">
-      <ul class="nav__links" role="list">
-        <li><a href="#pick">Picking</a></li>
-        <li><a href="#ciders">The ciders</a></li>
-      </ul>
-      <a class="btn btn--quiet nav__action" href="#visit">Plan a visit</a>
+      <a href="#season">The season</a>
+      <a href="#varieties">Varieties</a>
+      <a href="#ciders">Ciders</a>
     </nav>
   </div>
 </header>
@@ -32,7 +31,7 @@
       <h1 id="hero-title">Six acres of apples, yours to pick.</h1>
       <p class="lead">A Herefordshire cider orchard with 22 varieties, open September to October.</p>
       <div class="actions">
-        <a class="btn btn--primary" href="#visit">Plan a visit</a>
+        <a class="btn btn--primary" href="#season">Plan a visit</a>
         <a class="btn btn--quiet" href="#ciders">The three ciders</a>
       </div>
     </div>
@@ -41,61 +40,117 @@
     </figure>
   </section>
 
-  <ol class="stages" role="list">
-    <li class="stage stage--visit" id="visit">
-      <section class="container" aria-labelledby="visit-title">
-        <h2 id="visit-title">1. Open September to October.</h2>
-        <figure class="photo stage__wide" data-slot="photo-1" data-alt="Someone picking in the orchard">
-        <img src="photos/apple-picker-grythengen-toten-norway-1920.jpg" width="4864" height="3647" loading="lazy" alt="A grey-haired picker reaching into an old apple tree, seen from behind" style="object-position: 60% 35%">
-        </figure>
-        <dl class="plan">
-          <div class="plan__row"><dt>Picking days and hours</dt><dd><span class="fill" data-fill="hours">To be announced</span></dd></div>
-          <div class="plan__row"><dt>Where</dt><dd>Herefordshire, <span class="fill" data-fill="address">address to be announced</span></dd></div>
-        </dl>
-      </section>
-    </li>
+  <section class="count" aria-labelledby="count-title">
+    <div class="container">
+      <div class="head">
+        <h2 id="count-title">What grows here</h2>
+        <p class="lead">One orchard in Herefordshire, planted for cider.</p>
+      </div>
+      <dl class="figures">
+        <div><dt>acres of orchard</dt><dd class="figure">6</dd></div>
+        <div><dt>apple varieties in the rows</dt><dd class="figure">22</dd></div>
+        <div><dt>ciders to take home</dt><dd class="figure">3</dd></div>
+      </dl>
+    </div>
+  </section>
 
-    <li class="stage stage--pick" id="pick">
-      <section class="container stage__split" aria-labelledby="pick-title">
-        <div class="stage__text">
-          <h2 id="pick-title">2. Pick from 22 varieties.</h2>
-          <p class="lead">Walk the rows and pick what&rsquo;s ripe.</p>
-        </div>
-        <figure class="photo stage__photo" data-slot="photo-2" data-alt="Apples of several varieties, picked">
-          <img src="photos/mixed-apples-for-cider-pressing-1280.jpg" width="1920" height="1280" loading="lazy" alt="Green, gold and red-flushed apples of several kinds piled in a wooden crate" style="object-position: 50% 50%">
-        </figure>
-      </section>
-    </li>
+  <section class="rows" aria-labelledby="rows-title">
+    <div class="container">
+      <div class="head">
+        <h2 id="rows-title">Walk the rows, pick what&rsquo;s ripe</h2>
+        <p class="lead">Reach in, lift and twist: a ripe apple comes away in your hand.</p>
+      </div>
+      <figure class="photo rows__wide" data-slot="photo-1" data-alt="Someone picking in the orchard, seen from behind">
+        <img src="photos/apple-picker-grythengen-toten-norway-1920.jpg" width="4864" height="3647" loading="lazy" decoding="async" alt="A grey-haired picker reaching into an old apple tree, seen from behind" style="object-position: 60% 38%">
+      </figure>
+    </div>
+  </section>
 
-    <li class="stage stage--ciders band--ink" id="ciders">
-      <section class="container stage__band" aria-labelledby="ciders-title">
-        <div class="stage__text">
-          <h2 id="ciders-title">3. Take one of three ciders home.</h2>
-          <p class="note">Names and prices: <span class="fill" data-fill="ciders">to be announced</span></p>
-        </div>
-        <a class="btn btn--oat" href="#visit">Plan a visit</a>
-      </section>
-    </li>
-  </ol>
+  <section class="season" id="season" aria-labelledby="season-title">
+    <div class="container">
+      <div class="head">
+        <h2 id="season-title">The picking season</h2>
+        <p class="lead">Two months of the year, while the fruit is on the trees.</p>
+      </div>
+      <ol class="months" aria-label="The year, with the pick-your-own months marked">
+        <li>Jan</li><li>Feb</li><li>Mar</li><li>Apr</li><li>May</li><li>Jun</li><li>Jul</li><li>Aug</li>
+        <li class="is-open"><b>September</b><span>Pick-your-own</span></li>
+        <li class="is-open"><b>October</b><span>Pick-your-own</span></li>
+        <li>Nov</li><li>Dec</li>
+      </ol>
+      <dl class="plan">
+        <div class="plan__row"><dt>Where</dt><dd>Herefordshire, on six acres of cider orchard</dd></div>
+        <div class="plan__row"><dt>Picking</dt><dd>Straight from the trees, while the fruit is ripe</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="kinds" id="varieties" aria-labelledby="kinds-title">
+    <div class="container kinds__grid">
+      <div class="kinds__text">
+        <h2 id="kinds-title">Twenty-two varieties to choose from</h2>
+        <p class="lead">Taste as you go, then fill your bag from the trees you liked.</p>
+      </div>
+      <figure class="photo kinds__photo" data-slot="photo-2" data-alt="A basket of apples just picked, in the grass">
+        <img src="photos/apples-in-basket-2018-g1-1920.jpg" width="1920" height="1670" loading="lazy" decoding="async" alt="A wicker basket heaped with red apples, standing in the grass" style="object-position: 50% 40%">
+      </figure>
+    </div>
+  </section>
+
+  <section class="ciders band--ink" id="ciders" aria-labelledby="ciders-title">
+    <div class="container ciders__grid">
+      <h2 id="ciders-title" class="ciders__line">Three ciders from the orchard, to take home after picking.</h2>
+      <a class="btn btn--leaf" href="#season">Plan a visit</a>
+    </div>
+  </section>
 </main>
 
-<footer class="mast" id="find" aria-labelledby="find-title">
-  <div class="container">
-    <h2 id="find-title" class="mast__name">Hollins Orchard</h2>
-    <div class="mast__row">
-      <p class="mast__where">A cider orchard in Herefordshire</p>
-      <ul class="mast__links" role="list">
-        <li><a href="#visit">Visiting</a></li>
-        <li><a href="#pick">Picking</a></li>
-        <li><a href="#ciders">The ciders</a></li>
-      </ul>
+<footer class="foot" aria-labelledby="foot-title">
+  <div class="container foot__grid">
+    <div class="foot__head">
+      <h2 id="foot-title">Hear when picking opens</h2>
+      <p class="lead">Leave an address and the orchard will write when the first rows are ready.</p>
     </div>
-    <p class="legal">&copy; 2026 Hollins Orchard</p>
-    <p class="credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:%C3%84pfel_P1260372.jpg">Fischer.H</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Apple_picker_Grythengen_Toten_Norway.jpg">Øyvind Holmstad</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Mixed_Apples_for_Cider_Pressing.jpg">Anne Dirkse</a> (CC BY-SA 4.0), via Wikimedia Commons</p>
+    <form class="signup" data-endpoint="" novalidate>
+      <label for="email">Email address</label>
+      <div class="signup__row">
+        <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="email-help">
+        <button class="btn btn--primary" type="submit">Tell me</button>
+      </div>
+      <p class="help" id="email-help" aria-live="polite"></p>
+    </form>
+    <div class="foot__base">
+      <p class="foot__name">Hollins Orchard, a cider orchard in Herefordshire</p>
+      <p class="foot__addr">Full address to come</p>
+      <nav aria-label="Footer">
+        <a href="#season">The season</a>
+        <a href="#varieties">Varieties</a>
+        <a href="#ciders">Ciders</a>
+      </nav>
+      <p class="legal">&copy; 2026 Hollins Orchard</p>
+    </div>
+    <p class="credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:%C3%84pfel_P1260372.jpg">Fischer.H</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Apple_picker_Grythengen_Toten_Norway.jpg">Øyvind Holmstad</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Apples_in_basket_2018_G1.jpg">George Chernilevsky</a> (public domain), via Wikimedia Commons</p>
   </div>
 </footer>
 
 <script>window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
 document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });</script>
+<script>
+document.querySelectorAll('form[data-endpoint]').forEach((form) => {
+  const input = form.querySelector('input'), help = form.querySelector('[aria-live]'), button = form.querySelector('button');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const ok = input.checkValidity();
+    input.toggleAttribute('aria-invalid', !ok);
+    if (!ok) { help.textContent = 'That address looks incomplete. Write it as name@example.com.'; input.focus(); return; }
+    if (!form.dataset.endpoint) { help.textContent = 'Nothing was sent: this form is not connected yet.'; return; }
+    button.setAttribute('aria-busy', 'true');
+    fetch(form.dataset.endpoint, { method: 'POST', body: new FormData(form) })
+      .then((r) => { help.textContent = r.ok ? 'The orchard will write to ' + input.value.trim() + ' when picking opens.' : 'That did not go through. Try again in a minute.'; })
+      .catch(() => { help.textContent = 'That did not go through. Try again in a minute.'; })
+      .finally(() => button.removeAttribute('aria-busy'));
+  });
+});
+</script>
 </body>
 </html>

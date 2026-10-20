@@ -7,7 +7,7 @@
 <meta name="description" content="stemcell splits any track into vocals, drums, bass and other stems in under a minute. Free for five tracks.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500&family=Onest:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500&family=Onest:wght@400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <script>document.documentElement.classList.add('js');</script>
 </head>
@@ -147,6 +147,20 @@
     </div>
   </section>
 
+  <section class="figs" aria-labelledby="figs-h">
+    <div class="container">
+      <div class="grid figs__head">
+        <h2 id="figs-h">one drop, four files</h2>
+        <p class="lead">Every split hands back the same four lanes, ready to load.</p>
+      </div>
+      <dl class="figs__row">
+        <div class="fig fig--lit"><dt>from every track: vocals, drums, bass and other</dt><dd><span class="figure">4</span><span class="fig__unit">stems</span></dd></div>
+        <div class="fig"><dt>at most, from drop to four lanes</dt><dd><span class="figure">1</span><span class="fig__unit">min</span></dd></div>
+        <div class="fig"><dt>to split for free, on us</dt><dd><span class="figure">5</span><span class="fig__unit">tracks</span></dd></div>
+      </dl>
+    </div>
+  </section>
+
   <section class="booth" aria-labelledby="booth-h">
     <div class="container">
       <div class="grid booth__head">
@@ -202,18 +216,21 @@
     </div>
   </section>
 
-  <section class="studio" aria-labelledby="studio-h">
-    <div class="container grid studio__grid">
-      <figure class="photo studio__photo" data-slot="photo-studio" data-alt="Your own photograph: a producer's desk after dark">
-        <img src="photos/neumann-u87-condenser-microphone-studio-a-in-your-ear-studio-1920.jpg" width="5184" height="3456" loading="lazy" decoding="async" alt="A large condenser microphone in its cradle, angled down, in a dark studio" style="object-position: 40% 40%">
-      </figure>
-      <div class="studio__text">
-        <h2 id="studio-h">a remix starts from one stem</h2>
-        <dl class="uses">
-          <div><dt>remix</dt><dd>Keep the vocal and build new parts under it.</dd></div>
-          <div><dt>flip</dt><dd>Loop four bars of drums under a track of your own.</dd></div>
-        </dl>
+  <section class="uses" aria-labelledby="uses-h">
+    <div class="container grid">
+      <div class="uses__head">
+        <h2 id="uses-h">what a stem is for</h2>
+        <p class="lead">Four moves a split opens up.</p>
       </div>
+      <table class="uses__table">
+        <thead><tr><th scope="col">the move</th><th scope="col">the stems</th><th scope="col">what you hear</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">acapella</th><td><span class="tag tag--lit">vocals</span></td><td>The voice alone, over the next record.</td></tr>
+          <tr><th scope="row">drum loop</th><td><span class="tag">drums</span></td><td>Four bars of kit under your own track.</td></tr>
+          <tr><th scope="row">bass swap</th><td><span class="tag">bass</span></td><td>The low end alone, to cut or replace.</td></tr>
+          <tr><th scope="row">instrumental</th><td><span class="tag">drums</span> <span class="tag">bass</span> <span class="tag">other</span></td><td>Everything but the voice.</td></tr>
+        </tbody>
+      </table>
     </div>
   </section>
 
@@ -231,7 +248,7 @@
           <span class="drop__pick">or choose a file</span>
         </label>
         <button class="btn btn--inverse" type="submit">split a track</button>
-        <p class="drop__help" id="drop-help" aria-live="polite">Your file is read in this browser to draw it. Nothing is uploaded from this page.</p>
+        <p class="drop__help" id="drop-help" aria-live="polite">Read in this browser. Nothing is uploaded.</p>
       </form>
     </div>
   </section>
@@ -248,7 +265,7 @@
       </nav>
       <p class="foot__legal">© 2026 stemcell</p>
     </div>
-    <p class="foot__credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Behringer_X32_Digital_Mixer_in_operation_-_angled_(2017-07-21_17.23.52_@pxhere_174508).jpg">unknown author, pxhere</a> <span>(CC0)</span>, <a href="https://commons.wikimedia.org/wiki/File:Neumann_U87_Condenser_Microphone_-_Studio_A,_In_Your_Ear_Studios.jpg">Will Fisher</a> <span>(CC BY-SA 2.0)</span>, via Wikimedia Commons.</p>
+    <p class="foot__credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Behringer_X32_Digital_Mixer_in_operation_-_angled_(2017-07-21_17.23.52_@pxhere_174508).jpg">unknown author, pxhere</a> <span>(CC0)</span>, via Wikimedia Commons.</p>
   </div>
 </footer>
 <script>

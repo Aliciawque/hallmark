@@ -20,7 +20,7 @@
     <a class="bar__search" href="#search" data-focus="q-designer" aria-keyshortcuts="/">Search the index<kbd>/</kbd></a>
     <nav class="bar__links" aria-label="Ways into the index">
       <a href="#years">Years</a>
-      <a href="#printers">Printers</a>
+      <a href="#fields">Fields</a>
       <a href="#designers">Designers</a>
     </nav>
   </div>
@@ -66,20 +66,36 @@
   </section>
 
 
-  <section class="printers" id="printers" aria-labelledby="printers-h">
-    <div class="container printers__grid">
-      <div class="printers__text">
-        <h2 id="printers-h">by the press that printed it</h2>
-        <p class="lead">The printer is the third field on every record, named as the sheet names it.</p>
-        <div class="actions">
-          <a class="btn btn--secondary" href="#search" data-focus="q-printer">Search by printer</a>
-        </div>
+  <section class="record" id="fields" aria-labelledby="record-h">
+    <div class="container record__grid">
+      <div class="record__head">
+        <h2 id="record-h">three fields to a record</h2>
+        <p class="lead">Fill one, two or all three, and the search reads across the whole index.</p>
+        <p class="record__count"><span class="record__fig">9,400</span> posters, one record each</p>
       </div>
-      <figure class="printers__figure">
-        <div class="photo" data-slot="printers" data-alt="A press or print room the archive's posters came from, or the archive's own reading room">
-          <img src="photos/statsbiblioteket-l-sesalen-2-1920.jpg" width="1920" height="1420" loading="lazy" alt="A two-storey reading room, galleries of shelves around rows of desks" style="object-position: 50% 55%">
-        </div>
-      </figure>
+      <ol class="record__rows">
+        <li class="row">
+          <h3>designer</h3>
+          <div class="row__def">
+            <p>Who drew the poster, filed by surname.</p>
+            <a href="#designers">Designers, a to z</a>
+          </div>
+        </li>
+        <li class="row" id="years-row">
+          <h3>year</h3>
+          <div class="row__def">
+            <p>1920 to 1990, by decade or by single year.</p>
+            <a href="#years">Years, by decade</a>
+          </div>
+        </li>
+        <li class="row" id="printers">
+          <h3>printer</h3>
+          <div class="row__def">
+            <p>The press that printed the sheet.</p>
+            <a href="#search" data-focus="q-printer">Search by printer</a>
+          </div>
+        </li>
+      </ol>
     </div>
   </section>
 
@@ -96,12 +112,47 @@
     </div>
   </section>
 
+  <section class="room" aria-labelledby="room-h">
+    <div class="container">
+      <div class="head head--split">
+        <h2 id="room-h">for designers and researchers</h2>
+        <p class="lead">The posters stay in the archive; the index opens to anyone online.</p>
+      </div>
+      <figure class="room__figure">
+        <div class="photo" data-slot="room" data-alt="The Kessler Archive's own reading room or poster store, frontal, in even light">
+          <img src="photos/statsbiblioteket-l-sesalen-2-1920.jpg" width="1920" height="1420" loading="lazy" alt="A two-storey reading room, galleries of shelves around rows of desks" style="object-position: 50% 58%">
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="combos" aria-labelledby="combos-h">
+    <div class="container">
+      <div class="head head--split">
+        <h2 id="combos-h">one field, two or all three</h2>
+        <p class="lead">Each field you fill narrows the 9,400 to fewer sheets.</p>
+      </div>
+      <table class="combos__table">
+        <caption class="visually-hidden">What a search finds for each set of fields filled</caption>
+        <thead>
+          <tr><th scope="col">Designer</th><th scope="col">Year</th><th scope="col">Printer</th><th scope="col">What it finds</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="cell cell--on">designer</span></td><td><span class="cell"><span class="visually-hidden">empty</span></span></td><td><span class="cell"><span class="visually-hidden">empty</span></span></td><th scope="row">every poster one designer drew</th></tr>
+          <tr><td><span class="cell"><span class="visually-hidden">empty</span></span></td><td><span class="cell cell--on">year</span></td><td><span class="cell"><span class="visually-hidden">empty</span></span></td><th scope="row">every poster from one year</th></tr>
+          <tr><td><span class="cell"><span class="visually-hidden">empty</span></span></td><td><span class="cell"><span class="visually-hidden">empty</span></span></td><td><span class="cell cell--on">printer</span></td><th scope="row">every poster one press printed</th></tr>
+          <tr><td><span class="cell"><span class="visually-hidden">empty</span></span></td><td><span class="cell cell--on">year</span></td><td><span class="cell cell--on">printer</span></td><th scope="row">what one press printed that year</th></tr>
+          <tr><td><span class="cell cell--on">designer</span></td><td><span class="cell cell--on">year</span></td><td><span class="cell cell--on">printer</span></td><th scope="row">one designer, one year, one press</th></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 
   <section class="search" id="search" aria-labelledby="search-h">
     <div class="container search__grid">
       <div class="search__head">
-        <h2 id="search-h">search 9,400 posters</h2>
-        <p class="lead">Fill one field, two or all three.</p>
+        <h2 id="search-h">search the index</h2>
+        <p class="lead">Designer, year and printer, as every record holds them.</p>
       </div>
       <form class="search__form" data-endpoint="" novalidate>
         <div class="f f--designer">
@@ -126,17 +177,32 @@
 </main>
 
 <footer class="foot">
-  <div class="container">
-    <a class="foot__mast" href="#top" aria-label="Kessler Archive, back to the top">kessler archive</a>
-    <div class="foot__row">
-      <nav class="foot__links" aria-label="The index">
-        <a href="#years">Years</a>
-        <a href="#printers">Printers</a>
-        <a href="#designers">Designers</a>
-        <a href="#search">Search</a>
-      </nav>
-      <p class="foot__line">Swiss poster design, 1920 to 1990, in one index.</p>
-      <p class="foot__legal">© 2026 Kessler Archive</p>
+  <div class="container foot__grid">
+    <div class="foot__id">
+      <a class="foot__word" href="#top" aria-label="Kessler Archive, back to the top">kessler archive</a>
+      <p>Swiss poster design, 1920 to 1990, in one index.</p>
+    </div>
+    <nav class="foot__col" aria-label="The index">
+      <h2 class="foot__h">the index</h2>
+      <a href="#fields">Fields</a>
+      <a href="#designers">Designers</a>
+      <a href="#years">Years</a>
+      <a href="#search" data-focus="q-printer">Printers</a>
+      <a href="#search">Search</a>
+    </nav>
+    <nav class="foot__col foot__col--decades" aria-label="Decades">
+      <h2 class="foot__h">decades</h2>
+      <a href="#years" data-decade-link="1920">1920s</a>
+      <a href="#years" data-decade-link="1930">1930s</a>
+      <a href="#years" data-decade-link="1940">1940s</a>
+      <a href="#years" data-decade-link="1950">1950s</a>
+      <a href="#years" data-decade-link="1960">1960s</a>
+      <a href="#years" data-decade-link="1970">1970s</a>
+      <a href="#years" data-decade-link="1980">1980s</a>
+      <a href="#years" data-decade-link="1990">1990</a>
+    </nav>
+    <div class="foot__legal">
+      <p>© 2026 Kessler Archive</p>
       <p class="foot__credits" data-credits>Photograph: <a href="https://commons.wikimedia.org/wiki/File:Statsbiblioteket_l%C3%A6sesalen-2.jpg">Villy Fink Isaksen</a> (CC BY-SA 4.0, Wikimedia Commons).</p>
     </div>
   </div>
@@ -159,6 +225,10 @@
 
   const field = (id) => document.getElementById(id);
   const focusLater = (el) => requestAnimationFrame(() => el.focus({ preventScroll: true }));
+  document.querySelectorAll('[data-decade-link]').forEach((l) => l.addEventListener('click', () => {
+    const b = document.querySelector(`.decade[data-decade="${l.dataset.decadeLink}"]`);
+    if (b) b.click();
+  }));
   document.addEventListener('click', (e) => {
     const a = e.target.closest('a[data-year], a[data-letter], a[data-focus]');
     if (!a) return;

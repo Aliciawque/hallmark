@@ -34,7 +34,7 @@
         <h1>410 things to borrow on Barton Road.</h1>
         <p class="lead">A lending library of tools and equipment for the street.</p>
         <div class="actions">
-          <a class="btn btn--primary" href="#join">Join for £15 a year</a>
+          <a class="btn btn--primary" href="#join">Become a member</a>
           <a class="btn" href="#shelf">See what’s in</a>
         </div>
       </div>
@@ -42,99 +42,86 @@
   </section>
 
   <section class="shelf" id="shelf" aria-labelledby="shelf-h">
-    <div class="container">
+    <div class="container shelf__grid">
       <div class="shelf__head">
-        <div>
-          <h2 id="shelf-h">What’s on the shelves</h2>
-          <p class="lead">Type a thing and the shelf filters as you go.</p>
-        </div>
+        <h2 id="shelf-h">What’s on the shelves</h2>
+        <p class="lead">Type a thing; the list narrows as you go.</p>
         <div class="find">
           <label for="find">Find a thing</label>
           <input id="find" type="search" autocomplete="off" spellcheck="false" placeholder="Drill, ladder, tent">
         </div>
       </div>
-      <ul class="things" id="things">
-          <li class="thing" data-words="hand tool set tools hammer pliers screwdriver">
-            <figure class="thing__photo photo" data-slot="thing-hand-tool-set" data-alt="Your own hand tool set, photographed on the shelf">
-              <img src="photos/diy-means-choosing-the-right-tool-for-the-purpose-a-watchmak-1920.jpg" width="1920" height="1280" loading="lazy"
-               style="object-position: 50% 50%" alt="A hammer, pliers, spanners, screwdrivers and a tester laid in a ring on white">
-            </figure>
-            <div class="thing__row"><h3>Hand tool set</h3><span class="tag tag--in">In</span></div>
-            <p>Hammer, pliers, spanners and a tester.</p>
-          </li>
-          <li class="thing" data-words="tent camping tent dome">
-            <figure class="thing__photo photo" data-slot="thing-tent" data-alt="Your own tent, photographed on the shelf">
-              <img src="photos/zagedan-ridge-camping-tent-caucasus-mountains-1920.jpg" width="1920" height="1276" loading="lazy"
-               style="object-position: 45% 60%" alt="A small dome tent pitched on a grassy hillside in low sun">
-            </figure>
-            <div class="thing__row"><h3>Tent for two</h3><span class="tag tag--out">Out until Saturday</span></div>
-            <p>A dome tent for a weekend away.</p>
-          </li>
-          <li class="thing" data-words="drill hammer drill masonry bits">
-            <figure class="thing__photo photo" data-slot="thing-drill" data-alt="Your own drill, photographed on the shelf">
-              <img src="photos/drill-bits-2017-g1-1920.jpg" width="1920" height="1200" loading="lazy"
-               style="object-position: 50% 50%" alt="Spiral masonry drill bits lying side by side">
-            </figure>
-            <div class="thing__row"><h3>Drill and bits</h3><span class="tag tag--in">In</span></div>
-            <p>A hammer drill with bits for brick.</p>
-          </li>
-          <li class="thing" data-words="bicycle bike bicycle cycle">
-            <figure class="thing__photo photo" data-slot="thing-bicycle" data-alt="Your own bicycle, photographed on the shelf">
-              <img src="photos/raleigh-lady-s-loop-frame-bicycle-1930s-1920.jpg" width="1920" height="1210" loading="lazy"
-               style="object-position: 50% 55%" alt="An old black town bicycle leaning on a stone wall">
-            </figure>
-            <div class="thing__row"><h3>Bicycle</h3><span class="tag tag--in">In</span></div>
-            <p>A town bike for the week yours is mended.</p>
-          </li>
-          <li class="thing" data-words="ladder step ladder extension ladder">
-            <figure class="thing__photo photo" data-slot="thing-ladder" data-alt="Your own ladder, photographed on the shelf">
-              <img src="photos/ladder-in-gyumri-1920.jpg" width="1920" height="2896" loading="lazy"
-               style="object-position: 50% 12%" alt="An aluminium ladder leaning up a pale wall, its shadow beside it">
-            </figure>
-            <div class="thing__row"><h3>Ladder</h3><span class="tag tag--out">Out until Saturday</span></div>
-            <p>Reaches a first floor gutter.</p>
-          </li>
-          <li class="thing" data-words="paint brushes decorating paint brush">
-            <figure class="thing__photo photo" data-slot="thing-paint-brushes" data-alt="Your own paint brushes, photographed on the shelf">
-              <img src="photos/brushes-2-1920.jpg" width="1920" height="1920" loading="lazy"
-               style="object-position: 50% 50%" alt="Paint brushes of every size laid out in a row">
-            </figure>
-            <div class="thing__row"><h3>Paint brushes</h3><span class="tag tag--in">In</span></div>
-            <p>Flat and round, for walls and frames.</p>
-          </li>
-      </ul>
-      <p class="things__none" id="none" hidden>Nothing called that on the shelf yet. Ask on Saturday.</p>
+      <div class="shelf__list">
+        <ul class="items" id="things">
+          <li class="item" data-words="hand tool set tools hammer pliers screwdriver spanner"><h3>Hand tool set</h3><p>Hammer, pliers, spanners, a tester.</p><span class="tag tag--in">In</span></li>
+          <li class="item" data-words="tent camping dome"><h3>Tent for two</h3><p>A dome tent that sleeps two.</p><span class="tag tag--out">Out until Saturday</span></li>
+          <li class="item" data-words="drill hammer drill masonry bits"><h3>Drill and bits</h3><p>Hammer drill, bits for brick.</p><span class="tag tag--in">In</span></li>
+          <li class="item" data-words="bicycle bike cycle"><h3>Bicycle</h3><p>A town bike while yours is mended.</p><span class="tag tag--in">In</span></li>
+          <li class="item" data-words="ladder step ladder extension"><h3>Ladder</h3><p>Reaches a first floor gutter.</p><span class="tag tag--out">Out until Saturday</span></li>
+          <li class="item" data-words="paint brushes decorating brush"><h3>Paint brushes</h3><p>Flat and round, for walls.</p><span class="tag tag--in">In</span></li>
+        </ul>
+        <p class="things__none" id="none" hidden>Nothing called that on the list yet. Ask at the desk on Saturday.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="shared" aria-labelledby="shared-h">
+    <div class="container">
+      <div class="head-split">
+        <h2 id="shared-h">Things the street shares</h2>
+        <p class="lead">Use it, bring it back, pass it on.</p>
+      </div>
+      <div class="bento">
+        <figure class="tile tile--lead">
+          <div class="photo" data-slot="shared-lead" data-alt="The library's own hand tool set, laid out on the desk">
+            <img src="photos/diy-means-choosing-the-right-tool-for-the-purpose-a-watchmak-1920.jpg" width="1920" height="1280" loading="lazy" style="object-position: 50% 50%" alt="A hammer, pliers, spanners, screwdrivers and a tester laid in a ring on white">
+          </div>
+          <figcaption><span>Hand tool set</span><span class="tag tag--in">In</span></figcaption>
+        </figure>
+        <div class="tile tile--ink">
+          <p>The things you need twice a year belong to the whole street.</p>
+        </div>
+        <div class="tile tile--well">
+          <dl class="nums">
+            <div><dt>things on the shelves</dt><dd>410</dd></div>
+            <div><dt>a year to borrow any of them</dt><dd>£15</dd></div>
+          </dl>
+        </div>
+        <figure class="tile">
+          <div class="photo" data-slot="shared-tent" data-alt="The library's own tent, pitched or packed">
+            <img src="photos/zagedan-ridge-camping-tent-caucasus-mountains-1920.jpg" width="1920" height="1276" loading="lazy" style="object-position: 45% 62%" alt="A small dome tent pitched on a grassy hillside in low sun">
+          </div>
+          <figcaption><span>Tent for two</span><span class="tag tag--out">Out until Saturday</span></figcaption>
+        </figure>
+        <figure class="tile tile--wide">
+          <div class="photo" data-slot="shared-bike" data-alt="The library's own bicycle against a wall on Barton Road">
+            <img src="photos/raleigh-lady-s-loop-frame-bicycle-1930s-1920.jpg" width="1920" height="1210" loading="lazy" style="object-position: 50% 60%" alt="An old black town bicycle leaning on a stone wall">
+          </div>
+          <figcaption><span>Bicycle</span><span class="tag tag--in">In</span></figcaption>
+        </figure>
+      </div>
     </div>
   </section>
 
   <section class="how" id="how" aria-labelledby="how-h">
-    <div class="container how__grid">
-      <div class="how__text">
-        <h2 id="how-h">How borrowing works</h2>
-        <ol class="steps">
-          <li><h3>Join</h3><p>One membership covers the whole year.</p></li>
-          <li><h3>Come on a Saturday</h3><p>Pick things up while the doors are open.</p></li>
-          <li><h3>Take home what’s in</h3><p>Anything tagged in can go home with you.</p></li>
-          <li><h3>Bring it back</h3><p>Return it on a Saturday for the next neighbour.</p></li>
-        </ol>
-      </div>
-      <figure class="how__photo photo" data-slot="borrowing" data-alt="A neighbour using something borrowed from the library">
-        <img src="photos/scope-soldering-iron-early-model-1920.jpg" width="1920" height="1280" loading="lazy"
-               style="object-position: 60% 45%" alt="A hand holding a soldering iron to a wire over a wooden bench">
-      </figure>
-    </div>
-  </section>
-
-  <section class="street" aria-label="Why a library of things">
     <div class="container">
-      <p class="statement">The things you need twice a year belong to the whole street.</p>
+      <div class="head-split">
+        <h2 id="how-h">How borrowing works</h2>
+        <p class="lead">Four steps, and a Saturday at each end.</p>
+      </div>
+      <ol class="steps">
+        <li><h3>Join</h3><p>One membership covers the whole year.</p></li>
+        <li><h3>Come on a Saturday</h3><p>Pick things up while the doors are open.</p></li>
+        <li><h3>Take home what’s in</h3><p>Anything tagged <span class="tag tag--in">In</span> can go home with you.</p></li>
+        <li><h3>Bring it back</h3><p>Return it on a Saturday for the next neighbour.</p></li>
+      </ol>
     </div>
   </section>
 
   <section class="days" id="days" aria-labelledby="days-h">
     <div class="container days__grid">
       <div class="days__head">
-        <h2 id="days-h">Saturdays, 10 to 2</h2>
+        <h2 id="days-h">Saturdays,<br>10 to 2</h2>
         <p class="lead">At the library on Barton Road, <span class="fill" data-fill="address">street number to come</span>.</p>
       </div>
       <ol class="days__list" id="saturdays">
@@ -145,14 +132,12 @@
       </ol>
     </div>
   </section>
-</main>
 
-<footer class="foot" id="join">
-  <div class="container">
-    <div class="foot__join">
-      <div class="foot__head">
-        <h2>£15 covers a whole year.</h2>
-        <p class="lead">Leave your name and email to become a member.</p>
+  <section class="join-band" id="join" aria-labelledby="join-h">
+    <div class="container join-band__grid">
+      <div class="join-band__head">
+        <h2 id="join-h">£15 covers a whole year</h2>
+        <p class="lead">Leave your name and email, and the desk will have your card on Saturday.</p>
       </div>
       <form class="join" data-endpoint="" novalidate>
         <div class="f">
@@ -169,16 +154,19 @@
         </div>
       </form>
     </div>
-    <div class="foot__row">
-      <p class="foot__name">Barton Road Library of Things</p>
-      <nav class="foot__links" aria-label="This page">
-        <a href="#shelf">What’s in</a>
-        <a href="#how">How it works</a>
-        <a href="#days">Saturdays</a>
-      </nav>
-      <p class="foot__legal">A community lending library. © 2026</p>
-    </div>
-    <p class="foot__credit" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Various_tools_hanging_on_a_pegboard_in_a_workshop_setting_with_natural_light_filtering_in.jpg">Shixart1985</a>, CC&nbsp;BY&nbsp;2.0; <a href="https://commons.wikimedia.org/wiki/File:DIY_means_choosing_the_right_tool_for_the_purpose_-_a_watchmaker%27s_nightmare.jpg">Franz van Duns</a>, CC&nbsp;BY-SA&nbsp;4.0; <a href="https://commons.wikimedia.org/wiki/File:Zagedan_Ridge,_Camping_tent,_Caucasus_Mountains.jpg">Vyacheslav Argenberg</a>, CC&nbsp;BY&nbsp;4.0; <a href="https://commons.wikimedia.org/wiki/File:Drill_bits_2017_G1.jpg">George Chernilevsky</a>, public&nbsp;domain; <a href="https://commons.wikimedia.org/wiki/File:Raleigh_lady%27s_loop_frame_bicycle_1930s.jpg">DeFacto</a>, CC&nbsp;BY-SA&nbsp;4.0; <a href="https://commons.wikimedia.org/wiki/File:Ladder_in_Gyumri.jpg">Araqangaraq</a>, CC&nbsp;BY-SA&nbsp;4.0; <a href="https://commons.wikimedia.org/wiki/File:Brushes_2.jpg">Hans Bernhard (Schnobby)</a>, CC&nbsp;BY-SA&nbsp;3.0; <a href="https://commons.wikimedia.org/wiki/File:Scope_soldering_iron_(early_model).jpg">Doug butler</a>, CC&nbsp;BY-SA&nbsp;4.0, all on Wikimedia Commons.</p>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="container foot__grid">
+    <p class="foot__colophon"><strong>Barton Road Library of Things</strong> is a community lending library of tools and equipment on Barton Road, open Saturdays from 10 to 2. Membership is £15 a year.</p>
+    <nav class="foot__links" aria-label="This page">
+      <a href="#shelf">What’s in</a>
+      <a href="#how">How it works</a>
+      <a href="#days">Saturdays</a>
+      <a href="#join">Join</a>
+    </nav>
+    <p class="foot__credit" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Various_tools_hanging_on_a_pegboard_in_a_workshop_setting_with_natural_light_filtering_in.jpg">Shixart1985</a>, CC&nbsp;BY&nbsp;2.0; <a href="https://commons.wikimedia.org/wiki/File:DIY_means_choosing_the_right_tool_for_the_purpose_-_a_watchmaker%27s_nightmare.jpg">Franz van Duns</a>, CC&nbsp;BY-SA&nbsp;4.0; <a href="https://commons.wikimedia.org/wiki/File:Zagedan_Ridge,_Camping_tent,_Caucasus_Mountains.jpg">Vyacheslav Argenberg</a>, CC&nbsp;BY&nbsp;4.0; <a href="https://commons.wikimedia.org/wiki/File:Raleigh_lady%27s_loop_frame_bicycle_1930s.jpg">DeFacto</a>, CC&nbsp;BY-SA&nbsp;4.0, all on Wikimedia Commons. © 2026</p>
   </div>
 </footer>
 
@@ -210,7 +198,7 @@
 
   // the shelf filters as you type
   const find = document.getElementById('find');
-  const things = [...document.querySelectorAll('.thing')];
+  const things = [...document.querySelectorAll('.item')];
   const none = document.getElementById('none');
   find.addEventListener('input', () => {
     const q = find.value.trim().toLowerCase();

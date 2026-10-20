@@ -2,7 +2,7 @@
 // the hum alone, or the hum with keys, bass, drums and strings. Lanes light as the playhead crosses them.
 (() => {
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  requestAnimationFrame(() => requestAnimationFrame(() => document.querySelector('.hero').classList.add('is-ready')));
+  
 
   const player = document.querySelector('[data-player]');
   const btn = player.querySelector('[data-play]');
@@ -15,9 +15,8 @@
   const CHORDS = [[50, [62, 66, 69]], [47, [59, 62, 66]], [43, [59, 62, 67]], [45, [61, 64, 69]]];
 
   // draw the hum line in its lane from the melody itself
-  const humLane = player.querySelector('[data-hum]');
   const pts = MEL.flatMap(([m, s, l]) => { const y = 30 - (m - 60) * 2.2; return [[s / 16 * 100, y], [(s + l) / 16 * 100, y]]; });
-  humLane.innerHTML = `<svg viewBox="0 0 100 34" preserveAspectRatio="none" aria-hidden="true"><path d="M${pts.map((p) => p.join(' ')).join(' L')}" fill="none" stroke="oklch(56% 0.15 36)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round"/></svg>`;
+  document.querySelectorAll('[data-hum]').forEach((lane) => { lane.innerHTML = `<svg class="humline" viewBox="0 0 100 34" preserveAspectRatio="none" aria-hidden="true"><path d="M${pts.map((p) => p.join(' ')).join(' L')}" vector-effect="non-scaling-stroke"/></svg>`; });
 
   let ctx = null, master = null, mode = 'band', playing = false, t0 = 0, raf = 0, stopAt = 0;
   const blocks = [...player.querySelectorAll('.lane__track b')].map((b) => ({ el: b, a: parseFloat(b.style.getPropertyValue('--a')) / 100, b: parseFloat(b.style.getPropertyValue('--b')) / 100 }));
@@ -88,3 +87,18 @@
     if (playing) { stop(); play(); }
   }));
 })();
+
+document.querySelectorAll('form[data-endpoint]').forEach((form) => {
+  const help = form.querySelector('[aria-live]');
+  const input = form.querySelector('input[type="email"]');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const ok = input.checkValidity();
+    input.toggleAttribute('aria-invalid', !ok);
+    if (!ok) { input.setAttribute('aria-describedby', help.id); help.textContent = 'That address looks incomplete. Write it as name@example.com.'; input.focus(); return; }
+    if (!form.dataset.endpoint) { help.textContent = 'Nothing was sent: this form is not connected yet.'; return; }
+    fetch(form.dataset.endpoint, { method: 'POST', body: new FormData(form) })
+      .then((r) => { help.textContent = r.ok ? 'The link is on its way to your inbox.' : 'That did not go through. Try again in a minute.'; })
+      .catch(() => { help.textContent = 'That did not go through. Try again in a minute.'; });
+  });
+});

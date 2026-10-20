@@ -11,11 +11,12 @@
   --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
   --color-paper: oklch(95% 0.02 300); --color-paper-2: oklch(92% 0.03 300); --color-paper-3: oklch(89% 0.035 300);
   --color-ink: oklch(18% 0.02 300); --color-ink-2: oklch(28% 0.03 300); --color-muted: oklch(46% 0.05 300);
-  --color-rule: oklch(84% 0.04 300);
-  --color-accent: oklch(50% 0.25 290); --color-accent-ink: oklch(97% 0.01 300); --color-focus: oklch(50% 0.25 290);
+  --color-rule: oklch(84% 0.04 300); --color-rule-2: oklch(70% 0.08 295);
+  --color-accent: oklch(50% 0.25 290); --color-accent-deep: oklch(43% 0.22 290); --color-accent-soft: oklch(86% 0.08 295);
+  --color-accent-ink: oklch(97% 0.01 300); --color-focus: oklch(50% 0.25 290);
   --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif; --font-body: "Onest", ui-sans-serif, sans-serif;
   --font-outlier: "JetBrains Mono", ui-monospace, monospace;
   --radius-card: 16px; --radius-pill: 999px; --rule-hair: 1px;
   --shadow-card: 0 1px 2px oklch(18% 0.02 300 / 0.06);
-  --tracking-display: -0.025em;
+  --tracking-display: -0.03em;
 }

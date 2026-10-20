@@ -13,13 +13,12 @@
 <body>
   <a class="skip" href="#main">Skip to content</a>
 
-  <header class="top">
-    <p class="banner">Free post on orders over £20</p>
-    <div class="container bar">
+  <header class="slab">
+    <div class="container slab__in">
       <a class="wordmark" href="#top" aria-label="Pip and Pocket, home">Pip and Pocket</a>
-      <nav class="bar__links" aria-label="Main">
-        <a href="#stuck">Where they go</a>
-        <a href="#studio">The studio</a>
+      <nav class="slab__links" aria-label="Main">
+        <a href="#pack">The pack</a>
+        <a href="#how">How it works</a>
         <a class="basket" href="#order"><span>Basket</span> <b role="status" aria-live="polite" id="basket-count">0</b></a>
       </nav>
     </div>
@@ -38,41 +37,59 @@
           <h1 id="hero-head">Five <span class="nb">die-cut</span> stickers, six pounds.</h1>
           <p class="lead">Vinyl stickers from a two-person studio, sold by the pack.</p>
           <div class="actions">
-            <a class="btn btn--primary" href="#order">Order packs</a>
-            <a class="btn" href="#stuck">Where they go</a>
+            <a class="btn btn--primary" href="#order">Build an order</a>
+            <a class="btn" href="#how">How it works</a>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="stuck" id="stuck" aria-labelledby="stuck-head">
+    <section class="pack" id="pack" aria-labelledby="pack-head">
       <div class="container">
-        <div class="stuck__head">
-          <h2 id="stuck-head">Where a pack of five ends up.</h2>
-          <p class="stuck__line">A board, a bottle, a stapler: anything that sits still.</p>
+        <div class="split-head">
+          <h2 id="pack-head">What’s in a pack.</h2>
+          <p class="split-head__line">Five stickers, cut to shape and ready to stick.</p>
         </div>
-        <div class="bento">
-          <figure class="tile tile--a">
-            <div class="diecut tile__photo" data-slot="stuck-1" data-alt="Your own photograph of Pip and Pocket stickers on a water bottle, close, daylight">
-              <img src="photos/elderflower-cordial-in-bottles-1920.jpg" width="2700" height="2048" loading="lazy" alt="Swing-top glass bottles of golden cordial standing in a row" style="object-position: 35% 55%">
-            </div>
-            <figcaption>Bottles</figcaption>
-          </figure>
-          <div class="tile tile--price">
-            <p class="tile__big">£6</p>
-            <p>Five stickers to a pack.</p>
-          </div>
-          <div class="tile tile--c tile--word">
-            <p class="tile__big">Boards</p>
-            <p>Decks, helmets and guitar cases.</p>
-          </div>
-          <figure class="tile tile--d">
-            <div class="diecut tile__photo" data-slot="stuck-3" data-alt="Your own photograph of a desk with Pip and Pocket stickers on the stapler, the lamp and the pen pot">
-              <img src="photos/a-green-stapler-1920.jpg" width="1920" height="1440" loading="lazy" alt="A lime green stapler on a pale grey desk with a soft shadow" style="object-position: 50% 40%">
-            </div>
-            <figcaption>Desks</figcaption>
-          </figure>
+        <ul class="bento" role="list">
+          <li class="fact fact--lead">
+            <p class="fact__big" aria-hidden="true">5</p>
+            <p class="fact__name">Stickers to a pack</p>
+            <p class="fact__line">One price for all five of them.</p>
+          </li>
+          <li class="fact fact--lime">
+            <p class="fact__word">Die-cut</p>
+            <p class="fact__line">Each one cut to its own outline, not to a square.</p>
+          </li>
+          <li class="fact fact--ink">
+            <p class="fact__word">Vinyl</p>
+            <p class="fact__line">Peel it, place it, press it flat.</p>
+          </li>
+          <li class="fact fact--white">
+            <p class="fact__word">£6</p>
+            <p class="fact__line">A pack, every pack.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="studio" aria-labelledby="studio-head">
+      <div class="container studio__in">
+        <h2 id="studio-head" class="statement">Two of us make every single pack.</h2>
+        <span class="tag tag--mark studio__tag" aria-hidden="true">A two-person studio</span>
+      </div>
+    </section>
+
+    <section class="how" id="how" aria-labelledby="how-head">
+      <div class="container">
+        <div class="split-head">
+          <h2 id="how-head">How an order goes.</h2>
+          <p class="split-head__line">Three steps from the counter to your door.</p>
         </div>
+        <ol class="steps" role="list">
+          <li class="step"><span class="step__n" aria-hidden="true">1</span><h3>Pick your packs</h3><p>Add them on the counter below, five stickers to each.</p></li>
+          <li class="step"><span class="step__n" aria-hidden="true">2</span><h3>Pass £20</h3><p>Go over twenty pounds and the post is on us.</p></li>
+          <li class="step"><span class="step__n" aria-hidden="true">3</span><h3>We post it</h3><p>Counted out and sent by one of the two of us.</p></li>
+        </ol>
       </div>
     </section>
 
@@ -99,11 +116,11 @@
               <output class="stepper__value" id="packs" aria-live="polite">0</output>
               <button class="stepper__btn" type="button" data-step="1" aria-label="One pack more">+</button>
             </div>
-            <p class="counter__total"><span id="total">£0</span><small id="count">0 stickers</small></p>
           </div>
+          <p class="counter__total"><span id="total">£0</span><small id="count">0 stickers</small></p>
           <div class="meter" role="img" aria-label="Order total against the free post line at £20">
             <span class="meter__fill" id="meter-fill" style="--fill: 0"></span>
-            <span class="meter__mark">£20</span>
+            <span class="meter__mark">Free post</span>
           </div>
           <p class="counter__note" id="note" aria-live="polite">Four packs and the post is free.</p>
           <button class="btn btn--primary" type="submit" aria-disabled="true">Check out</button>
@@ -111,39 +128,21 @@
         </form>
       </div>
     </section>
-
-    <section class="studio" id="studio" aria-labelledby="studio-head">
-      <div class="container studio__grid">
-        <figure class="studio__main">
-          <div class="diecut studio__photo" data-slot="studio-1" data-alt="Your own photograph of the studio table: sticker sheets, a cutting mat, hands at work, no faces">
-            <img src="photos/buntstifte-2021-9164-1920.jpg" width="6720" height="4480" loading="lazy" alt="A row of coloured pencils in rainbow order, tips close to the lens" style="object-position: 45% 55%">
-          </div>
-        </figure>
-        <div class="studio__text">
-          <h2 id="studio-head">Two of us and a cutting mat.</h2>
-          <p class="studio__line">Every pack is counted out and posted by one of us.</p>
-          <figure class="studio__small">
-            <div class="diecut studio__photo2" data-slot="studio-2" data-alt="Your own photograph of orders being packed into envelopes">
-              <img src="photos/tailor-s-scissors-macedonian-tailoring-craft-1920.jpg" width="5184" height="3456" loading="lazy" alt="Two pairs of old black scissors lying on creased brown kraft paper" style="object-position: 40% 50%">
-            </div>
-          </figure>
-        </div>
-      </div>
-    </section>
   </main>
 
-  <footer class="mast">
+  <footer class="close">
     <div class="container">
-      <a class="mast__mark diecut" href="#top" aria-label="Pip and Pocket, back to the top">Pip and Pocket</a>
-      <div class="mast__row">
-        <nav class="mast__links" aria-label="Footer">
-          <a href="#order">Order packs</a>
-          <a href="#stuck">Where they go</a>
-          <a href="#studio">The studio</a>
+      <p class="close__line">Thanks for shopping small.</p>
+      <p class="close__sign"><a class="close__mark" href="#top" aria-label="Pip and Pocket, back to the top">Pip and Pocket</a></p>
+      <div class="close__row">
+        <nav class="close__links" aria-label="Footer">
+          <a href="#pack">The pack</a>
+          <a href="#how">How it works</a>
+          <a href="#order">Order</a>
         </nav>
         <small>© 2026 Pip and Pocket</small>
       </div>
-      <p class="mast__credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Abziehen_der_R%C3%BCckseite_eines_geschlitzten_Stickers.jpg">.viviwords</a> <span>(CC0)</span>, <a href="https://commons.wikimedia.org/wiki/File:Elderflower_cordial_in_bottles.jpg">Jim Champion</a> <span>(CC BY-SA 2.0)</span>, <a href="https://commons.wikimedia.org/wiki/File:A_green_stapler.jpg">Jiafei Slay Queen</a> <span>(CC0)</span>, <a href="https://commons.wikimedia.org/wiki/File:Buntstifte_--_2021_--_9164.jpg">Dietmar Rabich</a> <span>(CC BY-SA 4.0)</span>, <a href="https://commons.wikimedia.org/wiki/File:Tailor%27s_scissors_-_Macedonian_tailoring_craft.jpg">Orce Wiki</a> <span>(CC BY-SA 4.0)</span>, via Wikimedia Commons.</p>
+      <p class="close__credits" data-credits>Photograph: <a href="https://commons.wikimedia.org/wiki/File:Abziehen_der_R%C3%BCckseite_eines_geschlitzten_Stickers.jpg">.viviwords</a> <span>(CC0)</span>, via Wikimedia Commons.</p>
     </div>
   </footer>
 

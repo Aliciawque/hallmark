@@ -1,9 +1,6 @@
-/* Hallmark · shape: Marquee Hero · genre: editorial · theme: Sport (by request)
- * hero: Poster · nav: search-led bar · footer: statement · imagery: photographs, library 4, ink duotone · product sample in pace and tracker · signature: a runner's stride on the road, printed in the race ink under RUN THE CALDER VALLEY
- * axes: light/display-condensed/chromatic-volt · posture: restrained · contrast: pass · fold: pass · v2.7.0 */
-/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4 · weakest: S, the valley photograph is a stand-in for a course the brief does not describe; its head names the race, never the frame */
-/* Hallmark · hero-review: in-thread · fix · 1 finding · 1 resolved (recropped 2:1 low so the pack fills the screen) */
-/* Hallmark · finish-review: in-thread (subagent limit reached) · fix · 4 findings · 3 resolved 1 unresolved (the race-day frame is a track; the library has no start mat) · gap: none */
+/* Hallmark · shape: Stat-Led · genre: editorial · theme: Sport (v2.8 launch pass)
+ * hero: Stage · nav: banner over a bar, the race line on ink above a paper bar with three links and a volt Enter · footer: statement · imagery: photographs, library 3, ink duotone · product sample in pace and tracker · signature: the runner's stride bleeding right with a volt corner holding the race day, then the race in four condensed figures under the bar rule
+ * axes: light/display-condensed/chromatic-volt · posture: restrained · contrast: pass · fold: pass · v2.8.0 */
 @import url("./tokens.css");
 @import url("./base.css");
 
@@ -54,30 +51,31 @@ h3 { font-size: var(--text-title); line-height: 1.04; }
 .btn--ghost:hover { background: var(--paper-veil); }
 .btn--ghost:active { background: var(--scrim-mid); }
 
-/* Nav: the search-led bar on ink */
-.bar { position: sticky; top: 0; z-index: var(--z-sticky-nav); background: var(--color-ink); color: var(--color-paper); border-bottom: var(--rule-bar) solid var(--color-rule-2); }
-.bar__in { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; column-gap: var(--gap-columns); min-height: var(--bar-h); }
+/* Nav: a banner over a bar */
+.banner { background: var(--color-ink); color: var(--color-paper); }
+.banner__in { display: flex; justify-content: space-between; align-items: center; gap: var(--space-lg); min-height: 40px; font-size: var(--text-sm); }
+.banner__in a { font-weight: 500; text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: 0.3em; white-space: nowrap; }
+.banner__in a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; }
+.bar { position: sticky; top: 0; z-index: var(--z-sticky-nav); background: var(--color-paper); border-bottom: var(--rule-bar) solid var(--color-rule-2); }
+.bar__in { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; column-gap: var(--space-2xl); min-height: var(--bar-h); }
 .bar__mark { font: var(--display-weight) var(--text-xl)/1 var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-display); text-decoration: none; white-space: nowrap; }
-.bar__mark:hover { text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: 0.2em; }
-.bar__find { justify-self: end; width: min(100%, 26rem); }
-.bar__find input { box-sizing: border-box; width: 100%; min-height: 40px; padding: 0 var(--space-md); border: 1px solid var(--ink-field); border-radius: var(--radius-card); background: var(--ink-well); color: var(--color-paper); caret-color: var(--color-accent); font-size: var(--text-sm); outline: 2px solid transparent; outline-offset: -3px; transition: border-color var(--dur-short) var(--ease-out); }
-.bar__find input::placeholder { color: var(--on-ink-muted); opacity: 1; }
-.bar__find input:hover { border-color: var(--on-ink-muted); }
-.bar__find input:focus-visible { outline-color: var(--color-accent); }
-.bar__links { display: flex; gap: var(--space-lg); }
-.bar__links a { font-size: var(--text-sm); font-weight: 500; text-decoration: none; white-space: nowrap; }
-.bar__links a:hover { text-decoration: underline; text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; text-underline-offset: 0.3em; }
+.bar__links { justify-self: end; display: flex; gap: var(--space-xl); }
+.bar__links a, .bar__mark { text-decoration: underline; text-decoration-color: transparent; text-decoration-thickness: 2px; text-underline-offset: 0.3em; transition: text-decoration-color var(--dur-short) var(--ease-out); }
+.bar__links a { font-weight: 500; white-space: nowrap; }
+.bar__links a:hover, .bar__mark:hover { text-decoration-color: var(--color-accent-deep); }
+.bar__in > .btn { grid-column: 3; justify-self: end; }
+.bar a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
 
-/* Hero: Poster */
-.hero { position: relative; isolation: isolate; display: grid; align-items: end; min-height: calc(100dvh - var(--bar-h)); background: var(--color-ink); color: var(--color-paper); }
-.hero__photo { position: absolute; inset: 0; margin: 0; z-index: 0; }
-.hero__photo > img { object-position: 50% 100%; }
-.hero__scrim { position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: linear-gradient(100deg, var(--scrim-deep) 0%, var(--scrim-mid) 42%, var(--scrim-none) 72%); }
-.hero__in { position: relative; z-index: 2; display: grid; justify-items: start; gap: var(--space-lg); padding-block: var(--space-3xl); }
-.hero h1 { max-width: none; font-size: var(--text-poster); line-height: 1; text-wrap: nowrap; }
-.hero__lead { max-width: 34ch; color: var(--color-paper); }
+/* Hero: Stage, the photograph bleeding off the right edge, a volt corner holding the distance */
+.hero { display: grid; align-items: center; min-height: calc(100dvh - var(--bar-h) - 40px); padding-block: var(--space-2xl); box-sizing: border-box; overflow: clip; }
+.hero__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--space-3xl); align-items: center; }
+.hero__text { display: grid; justify-items: start; gap: var(--space-lg); }
+.hero h1 { max-width: 8ch; font-size: var(--text-poster); line-height: 0.92; }
+.hero__lead { max-width: 30ch; color: var(--color-ink-2); }
 .hero__acts { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-xs); }
+.hero__photo { position: relative; height: min(72dvh, 680px); margin-right: calc(-1 * (var(--gutter) + max(0px, (100vw - var(--container)) / 2))); border-radius: var(--radius-card) 0 0 var(--radius-card); }
+.hero__tag { position: absolute; left: 0; bottom: 0; z-index: 3; display: grid; gap: var(--space-xs); padding: var(--space-md) var(--space-lg) var(--space-sm); background: var(--color-accent); color: var(--color-accent-ink); border-radius: 0 var(--radius-card) 0 0; font: 500 var(--text-sm)/1.2 var(--font-body); }
+.hero__tag-fig { font: var(--display-weight) var(--text-display-s)/0.9 var(--font-display); font-variant-numeric: tabular-nums; }
 
 /* Shared section parts */
 figure { margin: 0; }
@@ -88,25 +86,24 @@ figure { margin: 0; }
 .split-head h2 { grid-column: 1 / span 6; }
 .split-head .lead { grid-column: 8 / span 5; color: var(--color-ink-2); }
 
-/* The race card: a split, photograph on seven, the sheet on five */
-.card { padding-top: var(--section-gap); }
-.card .grid { align-items: center; }
-.card__photo { grid-column: 1 / span 7; aspect-ratio: 3 / 2; border-radius: var(--radius-card); }
-.card__text { grid-column: 8 / span 5; display: grid; gap: var(--space-xl); }
-.sheet { width: 100%; border-collapse: collapse; border-top: var(--rule-bar) solid var(--color-rule-2); border-bottom: var(--rule-bar) solid var(--color-rule-2); }
-.sheet th, .sheet td { padding: var(--space-md) 0; border-top: var(--rule-hair) solid var(--color-rule); text-align: left; vertical-align: baseline; }
-.sheet tr:first-child th, .sheet tr:first-child td { border-top: 0; }
-.sheet th { width: 32%; font-size: var(--text-sm); font-weight: 500; color: var(--color-muted); white-space: nowrap; }
-.sheet td { font-size: var(--text-lead); font-weight: 500; }
-.fig--row { font-size: var(--text-2xl); line-height: 1; margin-right: var(--space-2xs); }
+/* The race in four figures, condensed caps under the bar rule */
+.race { padding-top: var(--section-gap-s); }
+.figs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 0; border-top: var(--rule-bar) solid var(--color-rule-2); border-bottom: var(--rule-hair) solid var(--color-rule); }
+.figs > div { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: var(--space-sm); padding: var(--space-xl) var(--space-lg) var(--space-2xl); border-left: var(--rule-hair) solid var(--color-rule); }
+.figs > div:first-child { padding-left: 0; border-left: 0; }
+.figs dt { font-size: var(--text-sm); font-weight: 500; color: var(--color-muted); }
+.figs dd { margin: 0; font: var(--display-weight) clamp(4rem, 9vw, 9rem)/0.86 var(--font-display); letter-spacing: var(--tracking-display); font-variant-numeric: tabular-nums; text-transform: uppercase; white-space: nowrap; }
 
-/* Race day: steps under one wide photograph */
-.day { padding-top: var(--section-gap-l); }
-.day__photo { aspect-ratio: 21 / 9; border-radius: var(--radius-card); }
-.steps { list-style: none; margin: var(--space-2xl) 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: var(--gap-columns); }
-.steps li { display: grid; align-content: start; gap: var(--space-sm); padding-top: var(--space-md); border-top: var(--rule-bar) solid var(--color-rule-2); }
-.steps__n { font-size: var(--text-2xl); line-height: 1; }
-.steps p { max-width: 30ch; color: var(--color-ink-2); }
+/* Timing: four stages on one bar rule, the live one on volt */
+.timing { padding-top: var(--section-gap); }
+.stages { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); counter-reset: stage; border-top: var(--rule-bar) solid var(--color-rule-2); }
+.stages li { display: grid; align-content: start; gap: var(--space-sm); min-height: 300px; padding: var(--space-lg) var(--space-lg) var(--space-xl); border-left: var(--rule-hair) solid var(--color-rule); counter-increment: stage; }
+.stages li:first-child { border-left: 0; padding-left: 0; }
+.stages li::before { content: counter(stage); margin-bottom: auto; font: var(--display-weight) clamp(4.5rem, 7vw, 7rem)/0.9 var(--font-display); font-variant-numeric: tabular-nums; }
+.stages h3 { margin-top: var(--space-2xl); font-size: var(--text-xl); }
+.stages p { max-width: 28ch; color: var(--color-ink-2); }
+.stages .stages__live { background: var(--color-accent); color: var(--color-accent-ink); border-left-color: transparent; border-radius: 0 0 var(--radius-card) var(--radius-card); }
+.stages .stages__live p { color: var(--color-accent-ink); }
 
 /* The pace planner: the ink band */
 .pace { margin-top: var(--section-gap); padding-block: var(--section-gap-s); background: var(--color-ink); color: var(--color-paper); }
@@ -141,9 +138,8 @@ figure { margin: 0; }
 }
 
 /* The valley: one photograph across the width */
-.valley { padding-top: var(--section-gap); }
-.valley h2 { margin-bottom: var(--space-2xl); }
-.valley__photo { aspect-ratio: 2 / 1; border-radius: var(--radius-card); }
+.valley { padding-top: var(--section-gap-l); }
+.valley__photo { aspect-ratio: 16 / 9; border-radius: var(--radius-card); }
 
 /* The live tracker, built in a slot */
 .live { padding-top: var(--section-gap-l); }
@@ -183,10 +179,12 @@ figure { margin: 0; }
 /* Entry: the paper-2 band */
 .enter { margin-top: var(--section-gap); padding-block: var(--section-gap-s); background: var(--color-paper-2); border-top: var(--rule-bar) solid var(--color-rule-2); }
 .enter .grid { align-items: center; }
-.enter__text { grid-column: 1 / span 5; display: grid; gap: var(--space-md); }
+.enter__photo { grid-column: 1 / span 6; align-self: stretch; min-height: 560px; border-radius: var(--radius-card); }
+.enter__text { grid-column: 8 / span 5; display: grid; gap: var(--space-md); }
+.enter__text .entry { margin-top: var(--space-xl); }
 .enter__text h2 { font-size: var(--text-display); line-height: 1; }
 .enter__text .lead { color: var(--color-ink-2); }
-.entry { grid-column: 7 / span 6; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--gap-columns); row-gap: var(--space-lg); }
+.entry { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--gap-columns); row-gap: var(--space-lg); }
 .entry__field { display: grid; gap: var(--space-xs); }
 .entry__field--wide, .entry__go { grid-column: 1 / -1; }
 .entry label { font-size: var(--text-sm); font-weight: 500; color: var(--color-ink-2); }
@@ -214,15 +212,22 @@ figure { margin: 0; }
 .foot__credits a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 2px; }
 
 @media (max-width: 60rem) {
-  .bar__in { grid-template-columns: auto minmax(0, 1fr); gap: var(--space-md); }
   .bar__links { display: none; }
-  .hero { min-height: calc(100svh - var(--bar-h)); }
-  .hero h1 { text-wrap: balance; }
+  .hero { min-height: 0; }
+  .hero__grid { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-xl); }
+  .hero__photo { height: auto; aspect-ratio: 4 / 3; margin-right: calc(-1 * var(--gutter)); }
+  .figs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .figs > div:nth-child(3) { padding-left: 0; border-left: 0; }
+  .figs > div:nth-child(n + 3) { border-top: var(--rule-hair) solid var(--color-rule); }
+  .stages { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stages li { min-height: 240px; }
+  .stages li:nth-child(3) { border-left: 0; padding-left: 0; }
+  .stages .stages__live { padding-left: var(--space-lg); }
+  .enter__photo { min-height: 0; aspect-ratio: 16 / 9; }
   .split-head { row-gap: var(--space-md); }
   .split-head h2, .split-head .lead { grid-column: 1 / -1; }
-  .card__photo, .card__text, .enter__text, .entry { grid-column: 1 / -1; }
-  .card__text, .entry { margin-top: var(--space-xl); }
-  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--space-xl); }
+  .enter__photo, .enter__text { grid-column: 1 / -1; }
+  .enter__text { margin-top: var(--space-xl); }
   .planner__time, .planner__range { grid-column: 1 / -1; }
   .splits { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .splits li { padding-inline: 0; }
@@ -232,10 +237,19 @@ figure { margin: 0; }
   .tracker__figs dd { font-size: var(--text-2xl); }
 }
 @media (max-width: 40rem) {
-  .bar__in { grid-template-columns: minmax(0, 1fr); padding-block: var(--space-sm); gap: var(--space-xs); }
-  .bar__find { justify-self: stretch; width: 100%; }
-  .hero__in { padding-block: var(--space-2xl); }
-  .steps, .entry { grid-template-columns: minmax(0, 1fr); }
+  .banner__in p { font-size: var(--text-xs); }
+  .bar__in { column-gap: var(--space-md); }
+  .bar__mark { font-size: var(--text-lg); }
+  .figs dd { font-size: clamp(3rem, 15vw, 4rem); }
+  .figs > div { padding-inline: var(--space-md); }
+  .stages { grid-template-columns: minmax(0, 1fr); }
+  .stages li { min-height: 0; padding-left: 0; border-left: 0; border-top: var(--rule-hair) solid var(--color-rule); }
+  .stages li:first-child { border-top: 0; }
+  .stages h3 { margin-top: 0; }
+  .stages li { grid-template-columns: auto minmax(0, 1fr); column-gap: var(--space-lg); align-items: end; padding-block: var(--space-lg); }
+  .stages li::before { grid-row: span 2; margin: 0; font-size: 4rem; }
+  .stages .stages__live { padding-inline: var(--space-md); }
+  .entry { grid-template-columns: minmax(0, 1fr); }
   .tracker { padding: var(--space-lg); }
   .tracker__find { grid-template-columns: minmax(0, 1fr) auto; width: 100%; }
   .tracker__top { display: grid; }

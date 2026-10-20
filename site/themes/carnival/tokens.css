@@ -16,5 +16,5 @@
   --font-display: "Big Shoulders Display", Impact, sans-serif; --font-body: "Golos Text", system-ui, sans-serif;
   --font-outlier: var(--font-body);
   --radius-card: 2px; --radius-pill: 2px; --rule-hair: 1px; --rule-bar: 2px; --shadow-card: 4px 4px 0 var(--color-ink);
-  --tracking-display: 0.02em;
+  --tracking-display: 0.015em;
 }

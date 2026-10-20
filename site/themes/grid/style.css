@@ -1,10 +1,7 @@
-/* Hallmark · shape: Index-First (an archive front page: every section is a way into the collection, built as a working control in type) · genre: editorial · theme: Grid (by request)
- * hero: Settled · nav: search-led bar, the wordmark, a field-shaped jump to the search and three links, each part on a column line · footer: mast, the archive's name at display size over an ink rule · imagery: photographs, library 1, duotone ink paper con=10 · the index built in type: the year field in the hero, the alphabet and the search below · signature: the year field, the decades in the signal red at display size, a decade opening its ten years · grid: red
- * axes: light/grotesk-heavy/warm · posture: committed · contrast: pass · fold: pass · v2.7.0 */
-/* Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V4 · weakest: P, an index has little to argue, so the page argues by structure: every section is a way in and every way in ends at the one search */
+/* Hallmark · shape: Index-First · genre: editorial · theme: Grid (v2.8 launch pass)
+ * hero: Settled · nav: search-led bar, the wordmark, a field-shaped jump to the search and three links, each part on a column line · footer: index columns, the wordmark and line, the index, the decades, the legal line · imagery: photographs, library 1, duotone ink paper con=10 · the index built in type: the year field in the hero, the record as pinned rows, the alphabet, the search on the ink with rails · signature: the year field, the decades in the signal red at display size · grid: red
+ * axes: light/grotesk-heavy/warm · posture: committed · contrast: pass · fold: pass · v2.8.0 */
 /* Hallmark · waive 39b · the decade cells are the year field's own tiles, 137px at 1440 · the decades are chosen at display size because the field is the page's signature, not a row of buttons */
-/* Hallmark · dismissed 28a · the page's one photograph sits a screen down; the first screen's largest paint is the hero head and the year field, both type */
-/* Hallmark · hero-review: in-thread · fix · 1 finding · 1 resolved (the balanced break left "years of" dangling; the breaks are set by hand) · finish-review: in-thread · fix · 4 findings · 4 resolved (a figures band read as a stats strip, cut and the count moved into the hero line; the search band left half its width empty, now one row of fields; the mast ran past 375, now sized to the width; "every designer, a to z" passed the swap test, now "by the designer who drew it") · gap: none */
 @import url("./tokens.css");
 @import url("./base.css");
 
@@ -77,25 +74,54 @@ h1, h2, h3 { font-weight: var(--display-weight); text-transform: lowercase; line
 .head--split h2 { grid-column: 1 / span 6; }
 .head--split .lead { grid-column: 7 / span 5; margin-top: 0; }
 
-/* every designer, a to z */
-.designers { padding-top: var(--section-gap); }
-.az { display: grid; grid-template-columns: repeat(13, minmax(0, 1fr)); margin-top: var(--space-2xl); border-top: var(--rule-hair) solid var(--color-rule); border-inline-start: var(--rule-hair) solid var(--color-rule); }
-.az a { display: flex; align-items: flex-end; min-width: 0; min-height: 136px; padding: var(--space-xs) var(--space-sm) var(--space-md); border-inline-end: var(--rule-hair) solid var(--color-rule); border-bottom: var(--rule-hair) solid var(--color-rule); font: 800 clamp(2.5rem, 5.6vw + 0.25rem, 6rem)/1 var(--font-display); letter-spacing: -0.02em; text-decoration: none; transition: background-color var(--dur-short) var(--ease-out); }
+/* the record: a pinned head beside the three fields as rows */
+.record { padding-top: var(--section-gap); }
+.record__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: start; border-top: var(--rule-hair) solid var(--color-ink); padding-top: var(--space-lg); }
+.record__head { grid-column: 1 / span 4; }
+.record__head .lead { margin-top: var(--space-md); color: var(--color-ink-2); max-width: 30ch; }
+.record__count { margin-top: var(--space-3xl); padding-top: var(--space-md); border-top: var(--rule-hair) solid var(--color-rule); font-weight: 500; font-size: var(--text-sm); color: var(--color-muted); }
+.record__fig { display: block; margin-bottom: var(--space-xs); font: 800 var(--text-display)/0.9 var(--font-display); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; color: var(--color-accent); }
+.record__rows { grid-column: 5 / -1; margin: 0; padding: 0; list-style: none; }
+.row { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: end; min-height: 200px; padding-block: var(--space-xl); border-bottom: var(--rule-hair) solid var(--color-rule); transition: background-color var(--dur-short) var(--ease-out); }
+.row:first-child { padding-top: 0; min-height: 160px; }
+.row h3 { grid-column: 1 / span 5; max-width: none; font-size: clamp(3.25rem, 6vw, 6.5rem); line-height: 0.9; letter-spacing: -0.04em; }
+.row__def { grid-column: 6 / -1; display: grid; gap: var(--space-sm); justify-items: start; padding-bottom: var(--space-xs); }
+.row__def p { color: var(--color-ink-2); }
+.row__def a { font-weight: 500; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
+.row__def a:hover { text-decoration-color: var(--color-accent); }
+.row__def a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; }
+
+/* every designer, a to z: hairline cells on the column lines, a hover steps the cell, a press floods it */
+.designers { padding-top: var(--section-gap-l); }
+.az { display: grid; grid-template-columns: repeat(13, minmax(0, 1fr)); margin-top: var(--space-2xl); border-top: var(--rule-hair) solid var(--color-ink); }
+.az a { display: flex; align-items: flex-end; min-width: 0; min-height: 150px; padding: var(--space-xs) var(--space-sm) var(--space-md); border-inline-start: var(--rule-hair) solid var(--color-rule); border-bottom: var(--rule-hair) solid var(--color-rule); font: 800 clamp(2.5rem, 5.6vw + 0.25rem, 6.25rem)/1 var(--font-display); letter-spacing: -0.02em; text-decoration: none; transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out); }
 .az a:hover { background: var(--color-paper-2); }
-.az a:active { background: var(--color-paper-3); }
+.az a:active { background: var(--color-accent); color: var(--color-accent-ink); }
 .az a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: -4px; }
 
-/* by printer: a split, the one photograph */
-.printers { padding-top: var(--section-gap-s); }
-.printers__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: center; }
-.printers__text { grid-column: 1 / span 5; }
-.printers__text .lead { margin-top: var(--space-md); max-width: 34ch; color: var(--color-ink-2); }
-.printers__figure { grid-column: 6 / span 7; margin: 0; }
-.photo { aspect-ratio: 4 / 3; border-radius: 0; }
+/* the room: the one photograph across the columns */
+.room { padding-top: var(--section-gap); }
+.room__figure { margin: var(--space-2xl) 0 0; }
+.photo { aspect-ratio: 21 / 9; border-radius: 0; }
 .photo > img { outline: var(--rule-hair) solid var(--color-rule); outline-offset: calc(-1 * var(--rule-hair)); }
 
+/* one field, two or all three: the search's logic as a table, a filled field set as an ink block */
+.combos { padding-top: var(--section-gap-l); }
+.combos__table { width: 100%; margin-top: var(--space-2xl); border-collapse: collapse; table-layout: fixed; border-top: var(--rule-hair) solid var(--color-ink); }
+.combos__table thead th { padding: var(--space-sm) 0; font: 500 var(--text-sm)/1.2 var(--font-body); color: var(--color-muted); text-align: start; }
+.combos__table thead th:nth-child(-n + 3) { width: 17.07%; }
+.combos__table td, .combos__table tbody th { height: 80px; padding: 0; border-top: var(--rule-hair) solid var(--color-rule); vertical-align: middle; }
+.combos__table td { padding-inline-end: var(--gap-columns); }
+.cell { display: flex; align-items: center; height: 48px; padding-inline: var(--space-md); box-shadow: inset 0 0 0 var(--rule-hair) var(--color-rule); font: 500 var(--text-md)/1 var(--font-body); }
+.cell--on { background: var(--color-ink); box-shadow: none; color: var(--color-paper); }
+.combos__table tbody th { font: 800 var(--text-xl)/1.1 var(--font-display); letter-spacing: -0.015em; text-align: start; }
+.combos__table tbody tr:last-child th { color: var(--color-accent); }
+.combos__table tbody tr { transition: background-color var(--dur-short) var(--ease-out); }
+.combos__table tbody tr:hover { background: var(--color-paper-2); }
+
 /* the full search, on the ink band */
-.search { margin-top: var(--section-gap); padding-block: var(--section-gap-s); background: var(--color-ink); color: var(--color-paper); }
+.search { --rail: color-mix(in oklab, var(--color-paper) 12%, transparent); margin-top: var(--section-gap); padding-block: var(--section-gap-s); background: var(--color-ink); color: var(--color-paper); }
+.search__head h2 { font-size: var(--text-display); line-height: 0.95; }
 .search__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); row-gap: var(--space-2xl); }
 .search__head { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: baseline; border-top: var(--rule-hair) solid var(--color-paper); padding-top: var(--space-lg); }
 .search__head h2 { grid-column: 1 / span 6; }
@@ -115,18 +141,20 @@ h1, h2, h3 { font-weight: var(--display-weight); text-transform: lowercase; line
 .btn--paper:focus-visible { outline-color: var(--color-paper); }
 .search__help { grid-column: 1 / -1; min-height: 1lh; font-size: var(--text-sm); color: var(--color-paper-3); }
 
-/* the mast */
+/* footer: index columns */
 .foot { padding-block: var(--space-3xl) var(--space-2xl); }
-.foot__mast { display: block; border-top: var(--rule-hair) solid var(--color-ink); padding-top: var(--space-lg); font: 800 clamp(2.5rem, 12vw, 9rem)/0.9 var(--font-display); letter-spacing: -0.03em; text-transform: lowercase; text-decoration: none; white-space: nowrap; }
-.foot__mast:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; }
-.foot__row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: baseline; margin-top: var(--space-2xl); padding-top: var(--space-md); border-top: var(--rule-hair) solid var(--color-rule); }
-.foot__links { grid-column: 1 / span 6; display: flex; flex-wrap: wrap; gap: var(--space-lg); }
-.foot__links a { font-weight: 500; text-decoration: none; }
-.foot__links a:hover { text-decoration: underline; }
-.foot__links a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; }
-.foot__line { grid-column: 7 / span 4; font-size: var(--text-sm); color: var(--color-muted); }
-.foot__legal { grid-column: 11 / span 2; justify-self: end; font-size: var(--text-sm); color: var(--color-muted); }
-.foot__credits { grid-column: 7 / span 6; margin-top: var(--space-sm); font-size: var(--text-sm); color: var(--color-muted); }
+.foot__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); row-gap: var(--space-2xl); align-items: start; border-top: var(--rule-hair) solid var(--color-ink); padding-top: var(--space-lg); }
+.foot__id { grid-column: 1 / span 4; }
+.foot__word { display: inline-block; white-space: nowrap; font: 800 clamp(2rem, 3.4vw, 3.25rem)/0.95 var(--font-display); letter-spacing: var(--tracking-display); text-transform: lowercase; text-decoration: none; }
+.foot__id p { margin-top: var(--space-md); color: var(--color-ink-2); max-width: 30ch; }
+.foot__col { display: grid; gap: var(--space-xs); justify-items: start; align-content: start; }
+.foot__col:not(.foot__col--decades) { grid-column: 5 / span 3; }
+.foot__col--decades { grid-column: 8 / span 2; }
+.foot__h { margin-bottom: var(--space-xs); font: 500 var(--text-sm)/1.2 var(--font-body); text-transform: none; color: var(--color-muted); letter-spacing: 0; }
+.foot__col a { font-weight: 500; text-decoration: none; font-variant-numeric: tabular-nums; }
+.foot__col a:hover { text-decoration: underline; text-decoration-thickness: 1px; }
+.foot__word:focus-visible, .foot__col a:focus-visible, .foot__credits a:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; }
+.foot__legal { grid-column: 10 / -1; display: grid; gap: var(--space-sm); font-size: var(--text-sm); color: var(--color-muted); }
 .foot__credits a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
 .foot__credits a:hover { color: var(--color-ink); }
 
@@ -139,12 +167,24 @@ h1, h2, h3 { font-weight: var(--display-weight); text-transform: lowercase; line
   .hero__grid { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-xl); }
   .field { height: auto; }
   .field__decades { grid-auto-rows: minmax(120px, auto); }
-  .head--split, .printers__grid, .search__grid, .search__head, .search__form, .foot__row { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-lg); }
-  .head--split h2, .head--split .lead, .printers__text, .printers__figure, .search__head, .search__head h2, .search__head .lead, .search__form, .f--designer, .f--year, .f--printer, .f--go, .foot__links, .foot__line, .foot__legal { grid-column: 1; }
+  .head--split, .record__grid, .search__grid, .search__head, .search__form { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-lg); }
+  .record__head { position: static; }
+  .record__rows { margin-top: var(--space-xl); }
+  .record__count { margin-top: var(--space-xl); }
+  .row { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-md); min-height: 0; }
+  .row h3, .row__def { grid-column: 1; }
+  .photo { aspect-ratio: 4 / 3; }
+  .combos__table thead { display: none; }
+  .combos__table, .combos__table tbody { display: block; }
+  .combos__table tr { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-xs); padding-block: var(--space-md); border-top: var(--rule-hair) solid var(--color-rule); }
+  .combos__table td, .combos__table tbody th { height: auto; border: 0; padding: 0; }
+  .combos__table tbody th { grid-column: 1 / -1; order: -1; font-size: var(--text-lg); }
+  .cell { height: 40px; padding-inline: var(--space-sm); font-size: var(--text-sm); }
+  .foot__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .foot__id, .foot__legal { grid-column: 1 / -1; }
+  .foot__col:not(.foot__col--decades) { grid-column: 1; } .foot__col--decades { grid-column: 2; }
+  .head--split h2, .head--split .lead, .record__head, .record__rows, .search__head, .search__head h2, .search__head .lead, .search__form, .f--designer, .f--year, .f--printer, .f--go { grid-column: 1; }
   .head--split .lead { margin-top: 0; }
-  .foot__legal { justify-self: start; }
-  .foot__credits { grid-column: 1 / -1; margin-top: 0; }
-  .printers__figure { margin-top: var(--space-xl); }
 }
 @media (max-width: 40rem) {
   .wordmark { font-size: var(--text-lg); }

@@ -9,12 +9,12 @@
   --color-error: oklch(52% 0.19 27); --color-success: oklch(50% 0.12 150);
   --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap-s: 120px; --section-gap: 144px; --section-gap-l: 176px;
   --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
-  --color-paper: oklch(98% 0.005 25); --color-paper-2: oklch(95% 0.005 25); --color-paper-3: oklch(91% 0.005 25);
-  --color-ink: oklch(8% 0.005 25); --color-ink-2: oklch(12% 0.005 25); --color-muted: oklch(38% 0.005 25);
-  --color-rule: oklch(8% 0.005 25);
-  --color-accent: oklch(90% 0.19 105); --color-accent-ink: oklch(8% 0.005 25); --color-focus: oklch(48% 0.1 110);
+  --color-paper: oklch(97.5% 0.006 95); --color-paper-2: oklch(94% 0.007 95); --color-paper-3: oklch(89.5% 0.008 95);
+  --color-ink: oklch(10% 0.006 95); --color-ink-2: oklch(16% 0.006 95); --color-muted: oklch(40% 0.008 95);
+  --color-rule: oklch(10% 0.006 95);
+  --color-accent: oklch(90% 0.19 105); --color-accent-ink: oklch(10% 0.006 95); --color-focus: oklch(48% 0.1 110);
   --font-display: "Libre Franklin", ui-sans-serif, system-ui, sans-serif; --font-body: var(--font-display);
   --font-outlier: var(--font-display);
   --radius-card: 0; --radius-pill: 0; --rule-hair: 1px; --rule-bar: 3px; --shadow-card: none;
-  --tracking-display: -0.02em; --display-weight: 900;
+  --tracking-display: -0.03em; --display-weight: 900;
 }

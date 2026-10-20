@@ -10,16 +10,13 @@
   --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap-s: 120px; --section-gap: 144px; --section-gap-l: 176px;
   --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
   --color-paper: oklch(96.5% 0.016 82); --color-paper-2: oklch(93.5% 0.02 80); --color-paper-3: oklch(89% 0.024 78);
-  --color-ink: oklch(17% 0.012 60); --color-ink-2: oklch(28% 0.014 60); --color-muted: oklch(50% 0.014 65);
-  --color-rule: oklch(80% 0.018 75); --color-rule-2: oklch(70% 0.02 72);
+  --color-ink: oklch(17% 0.012 60); --color-ink-2: oklch(28% 0.014 60); --color-muted: oklch(49% 0.014 65);
+  --color-rule: oklch(80% 0.018 75); --color-rule-2: oklch(66% 0.02 72);
   --color-accent: oklch(45% 0.18 262); --color-accent-ink: oklch(97% 0.012 82); --color-focus: oklch(50% 0.18 262);
-  --color-guide: oklch(55% 0.16 262 / 0.55); --color-night: oklch(17% 0.012 60); --color-night-2: oklch(23% 0.012 60); --color-night-ink: oklch(94% 0.016 82); --color-night-muted: oklch(68% 0.014 70);
+  --color-guide: oklch(55% 0.16 262 / 0.5);
   --font-display: "Bodoni Moda", ui-serif, Georgia, serif; --font-body: "Geist", ui-sans-serif, system-ui, sans-serif;
   --font-outlier: "Geist Mono", ui-monospace, monospace;
-  --radius-card: 2px; --radius-pill: 999px; --rule-hair: 1px;
-  --shadow-card: none; --shadow-page: 0 1px 2px oklch(17% 0.012 60 / 0.06), 0 30px 60px -36px oklch(17% 0.012 60 / 0.4);
+  --radius-card: 0; --radius-pill: 0; --rule-hair: 1px;
+  --shadow-card: none;
   --tracking-display: -0.02em; --display-weight: 400; --display-optical: 96;
-  --c-specimen-1: oklch(17% 0.012 60 / 0.12);
-  --c-specimen-2: oklch(5% 0 0 / 0.6);
-  --c-specimen-3: oklch(17% 0.012 60 / 0.10);
 }

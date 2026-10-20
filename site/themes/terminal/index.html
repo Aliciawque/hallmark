@@ -20,7 +20,8 @@
     <a class="status__session" href="#top">burrow</a>
     <a class="status__win" href="#sync"><span aria-hidden="true">1</span> sync</a>
     <a class="status__win" href="#commands"><span aria-hidden="true">2</span> commands</a>
-    <a class="status__win" href="#install"><span aria-hidden="true">3</span> install</a>
+    <a class="status__win" href="#diff"><span aria-hidden="true">3</span> diff</a>
+    <a class="status__win" href="#install"><span aria-hidden="true">4</span> install</a>
     <span class="status__fill" aria-hidden="true"></span>
     <span class="status__meta">MIT</span>
     <a class="status__src" href="#source">source</a>
@@ -161,6 +162,21 @@
     </div>
   </section>
 
+  <section class="figs" aria-labelledby="figs-title">
+    <div class="container">
+      <div class="head">
+        <h2 id="figs-title">Small on purpose.</h2>
+        <p class="lead">Everything it needs is already on your machines.</p>
+      </div>
+      <dl class="figs__row">
+        <div><dt><span aria-hidden="true"># </span>servers</dt><dd class="figure">0</dd></div>
+        <div><dt><span aria-hidden="true"># </span>binary</dt><dd class="figure">1</dd></div>
+        <div><dt><span aria-hidden="true"># </span>ways to install</dt><dd class="figure">3</dd></div>
+        <div><dt><span aria-hidden="true"># </span>licence</dt><dd class="figure figure--word">MIT</dd></div>
+      </dl>
+    </div>
+  </section>
+
   <section class="sync" id="sync" aria-labelledby="sync-title">
     <div class="container">
       <div class="head">
@@ -210,6 +226,26 @@
         <div><dt><span class="p" aria-hidden="true">$</span> burrow sync <span class="arg">&lt;host&gt;…</span></dt><dd>Copy what is tracked to each host, over SSH.</dd></div>
         <div><dt><span class="p" aria-hidden="true">$</span> burrow status</dt><dd>The last sync, host by host.</dd></div>
       </dl>
+    </div>
+  </section>
+
+  <section class="diff" id="diff" aria-labelledby="diff-title">
+    <div class="container">
+      <div class="head">
+        <h2 id="diff-title">What you get to delete.</h2>
+        <p class="lead">No server in the middle, so nothing to keep running between syncs.</p>
+      </div>
+      <figure class="diff__file" aria-label="A diff of a dotfile sync setup: a server and its upkeep removed; your own SSH, one binary and an MIT licence added">
+        <figcaption class="diff__head"><span>--- a/sync-setup</span><span>+++ b/sync-setup</span></figcaption>
+        <ol class="diff__lines">
+          <li class="hunk"><span>@@ how your dotfiles move @@</span></li>
+          <li class="del"><span>a server in the middle</span></li>
+          <li class="del"><span>something to keep running between syncs</span></li>
+          <li class="add"><span>the ssh you already use</span></li>
+          <li class="add"><span>one binary</span></li>
+          <li class="add"><span>source under the MIT licence</span></li>
+        </ol>
+      </figure>
     </div>
   </section>
 

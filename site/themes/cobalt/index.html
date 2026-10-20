@@ -17,17 +17,17 @@
 <header class="site">
   <div class="container site__in">
     <a class="wordmark" href="#top" aria-label="Relay, back to the top">Relay</a>
-    <button class="jump" type="button" popovertarget="jump" aria-keyshortcuts="Meta+K Control+K" aria-label="Jump to a stage">
+    <button class="jump" type="button" popovertarget="jump" aria-keyshortcuts="Meta+K Control+K" aria-label="Jump to a section">
       <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      <span class="jump__long">Jump to a stage</span><span class="jump__short">Stages</span>
+      <span class="jump__long">Jump to a section</span><span class="jump__short">Jump</span>
       <kbd>⌘&nbsp;K</kbd>
     </button>
-    <div class="jump__menu" id="jump" popover aria-label="Stages of an event">
-      <a href="#in">1. Where events come in</a>
-      <a href="#typed">2. How each gets a type</a>
-      <a href="#retry">3. What a retry looks like</a>
-      <a href="#replay">4. Sending one again</a>
-      <a href="#start">Free up to 100,000 events</a>
+    <div class="jump__menu" id="jump" popover aria-label="Sections">
+      <a href="#in">Sources</a>
+      <a href="#typed">Types</a>
+      <a href="#retry">Retries</a>
+      <a href="#replay">Replay</a>
+      <a href="#start">Pricing</a>
     </div>
     <a class="btn btn--sm" href="#start">Start free</a>
   </div>
@@ -92,51 +92,31 @@
     </div>
   </section>
 
-  <section class="stage stage--in" id="in" aria-labelledby="s1">
-    <div class="container split">
-      <div class="split__text">
-        <h2 id="s1">1. invoice.paid arrives from billing</h2>
-        <p class="lead">Each provider posts to its own Relay address; every webhook lands in one stream.</p>
+  <section class="sources" id="in" aria-labelledby="s1">
+    <div class="container">
+      <div class="head">
+        <h2 id="s1">One address for each provider</h2>
+        <p class="lead">Every webhook lands in one stream, whoever sent it.</p>
       </div>
-      <figure class="slot app sources" data-slot="demo-2" data-alt="Your sources screen, with each provider's Relay address" role="img" aria-label="The Relay sources screen: shop, billing and crm on example.com, each with its own Relay address, the event types seen from it and its last event, all delivered to example.com/hooks.">
-        <div class="ui" aria-hidden="true">
-          <div class="ui__bar">
-            <span class="ui__mark">Relay</span>
-            <span class="ui__chips"><span class="ui__chip">Events</span><span class="ui__chip is-on">Sources</span><span class="ui__chip">Types</span><span class="ui__chip">Replays</span></span>
-            <span class="ui__control">Add source</span>
-          </div>
-          <div class="src">
-            <div class="src__row">
-              <span class="src__name">shop.example.com</span><span class="src__last">Last event <code>09:42:31</code></span>
-              <span class="src__addr"><code>https://relay.example.com/in/shop</code><svg aria-hidden="true" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></span>
-              <span class="src__types"><code>order.created</code><code>order.shipped</code></span>
-            </div>
-            <div class="src__row">
-              <span class="src__name">billing.example.com</span><span class="src__last">Last event <code>09:42:18</code></span>
-              <span class="src__addr"><code>https://relay.example.com/in/billing</code><svg aria-hidden="true" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></span>
-              <span class="src__types"><code>invoice.paid</code><code>refund.issued</code></span>
-            </div>
-            <div class="src__row">
-              <span class="src__name">crm.example.com</span><span class="src__last">Last event <code>09:41:55</code></span>
-              <span class="src__addr"><code>https://relay.example.com/in/crm</code><svg aria-hidden="true" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></span>
-              <span class="src__types"><code>customer.updated</code><code>contact.merged</code></span>
-            </div>
-            <div class="src__row">
-              <span class="src__name">forms.example.com</span><span class="src__last">Last event <code>09:39:40</code></span>
-              <span class="src__addr"><code>https://relay.example.com/in/forms</code><svg aria-hidden="true" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg></span>
-              <span class="src__types"><code>form.submitted</code></span>
-            </div>
-          </div>
-          <div class="src__out"><span>Delivering every event to</span><code>https://example.com/hooks</code></div>
-        </div>
-      </figure>
+      <div class="table-wrap" role="region" aria-labelledby="s1" tabindex="0">
+        <table class="src">
+          <thead><tr><th scope="col">Source</th><th scope="col">Posts to</th><th scope="col">Event types seen</th><th scope="col" class="r">Last event</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">shop.example.com</th><td><code>relay.example.com/in/shop</code></td><td><code>order.created</code> <code>order.shipped</code></td><td class="r"><code>09:42:31</code></td></tr>
+            <tr class="is-on"><th scope="row">billing.example.com</th><td><code>relay.example.com/in/billing</code></td><td><code>invoice.paid</code> <code>refund.issued</code></td><td class="r"><code>09:42:18</code></td></tr>
+            <tr><th scope="row">crm.example.com</th><td><code>relay.example.com/in/crm</code></td><td><code>customer.updated</code> <code>contact.merged</code></td><td class="r"><code>09:41:55</code></td></tr>
+            <tr><th scope="row">forms.example.com</th><td><code>relay.example.com/in/forms</code></td><td><code>form.submitted</code></td><td class="r"><code>09:39:40</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="src__out">All four deliver to <code>https://example.com/hooks</code></p>
     </div>
   </section>
 
-  <section class="stage stage--typed" id="typed" aria-labelledby="s2">
+  <section class="typed" id="typed" aria-labelledby="s2">
     <div class="container">
-      <div class="stage__head">
-        <h2 id="s2">2. It arrives already typed</h2>
+      <div class="head">
+        <h2 id="s2">It arrives already typed</h2>
         <p class="lead">Relay reads each payload and gives every field a type.</p>
       </div>
       <figure class="pair" data-reveal>
@@ -145,7 +125,7 @@
 <pre class="code code--lg"><code><span class="p">{</span>
   <span class="n">"type"</span><span class="p">:</span> <span class="s">"invoice.paid"</span><span class="p">,</span>
   <span class="n">"id"</span><span class="p">:</span> <span class="s">"evt_1042"</span><span class="p">,</span>
-  <span class="n">"amount"</span><span class="p">:</span> <span class="s">4800</span><span class="p">,</span>
+<span class="hl">  <span class="n">"amount"</span><span class="p">:</span> <span class="s">4800</span><span class="p">,</span></span>
   <span class="n">"currency"</span><span class="p">:</span> <span class="s">"GBP"</span><span class="p">,</span>
   <span class="n">"paid_at"</span><span class="p">:</span> <span class="s">"2026-10-08T09:42:16Z"</span>
 <span class="p">}</span></code></pre>
@@ -156,7 +136,7 @@
 <span class="k">export type</span> <span class="t">InvoicePaid</span> = {
   type: <span class="s">"invoice.paid"</span>;
   id: <span class="t">string</span>;
-  amount: <span class="t">number</span>;
+<span class="hl">  amount: <span class="t">number</span>;</span>
   currency: <span class="s">"GBP"</span>;
   paid_at: <span class="t">string</span>;
 };</code></pre>
@@ -165,40 +145,24 @@
     </div>
   </section>
 
-  <section class="stage stage--retry" id="retry" aria-labelledby="s3">
-    <div class="container split split--wide">
-      <div class="split__text">
-        <h2 id="s3">3. 503, a timeout, then 200 OK</h2>
-        <p class="lead">When your endpoint is down, Relay holds the event and tries again.</p>
+  <section class="retry" id="retry" aria-labelledby="s3">
+    <div class="container">
+      <div class="head">
+        <h2 id="s3">503, a timeout, then 200 OK</h2>
+        <p class="lead">When your endpoint is down, Relay holds <code>evt_1042</code> and tries again.</p>
       </div>
-      <figure class="slot app tries-view" data-slot="demo-3" data-alt="One event's delivery attempts, from the first failure to the success" role="img" aria-label="The delivery attempts of invoice.paid, event evt_1042, to example.com/hooks/billing: a 503 at 09:42:18, a timeout at 09:42:48 and a 200 OK at 09:43:48, delivered on attempt 3.">
-        <div class="ui" aria-hidden="true">
-          <div class="att__head">
-            <code class="att__event">invoice.paid</code><code class="att__id">evt_1042</code>
-            <span class="att__ok"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Delivered on attempt 3</span>
-            <span class="att__to">to <code>https://example.com/hooks/billing</code></span>
-          </div>
-          <div class="att__axis" aria-hidden="true">
-            <span class="att__mark att__mark--bad" style="--at: 0"><b>1</b><code>09:42:18</code></span>
-            <span class="att__mark att__mark--bad" style="--at: 0.3333"><b>2</b><code>09:42:48</code></span>
-            <span class="att__mark att__mark--good" style="--at: 1"><b>3</b><code>09:43:48</code></span>
-          </div>
-          <div class="att__table">
-            <div class="att__row att__row--head"><span>Attempt</span><span>Sent</span><span>Response</span><span>Took</span></div>
-            <div class="att__row"><span>1</span><code>09:42:18</code><span class="bad"><code>503</code> Service Unavailable</span><code>2.1 s</code></div>
-            <div class="att__row"><span>2</span><code>09:42:48</code><span class="bad">Timed out</span><code>10.0 s</code></div>
-            <div class="att__row"><span>3</span><code>09:43:48</code><span class="good"><code>200</code> OK</span><code>182 ms</code></div>
-          </div>
-          <div class="att__body"><span>Response body</span><code>{"received": true}</code></div>
-        </div>
-      </figure>
+      <ol class="axis" aria-label="Delivery attempts of evt_1042 to example.com/hooks/billing, spaced by time">
+        <li class="axis__at axis__at--bad" style="--at: 0"><span class="axis__fig">503</span><span class="axis__what">Service Unavailable in 2.1 s</span><code>Attempt 1, 09:42:18</code></li>
+        <li class="axis__at axis__at--bad" style="--at: 0.3333"><span class="axis__fig">10.0 s</span><span class="axis__what">No answer, timed out</span><code>Attempt 2, 09:42:48</code></li>
+        <li class="axis__at axis__at--good" style="--at: 1"><span class="axis__fig">200</span><span class="axis__what">OK in 182 ms</span><code>Attempt 3, 09:43:48</code></li>
+      </ol>
     </div>
   </section>
 
   <section class="band" id="replay" aria-labelledby="s4">
     <div class="container split split--even">
       <div class="split__text">
-        <h2 id="s4">4. Replayed to billing at 09:58</h2>
+        <h2 id="s4">Replayed to billing at 09:58</h2>
         <p class="lead">Send any past event to your endpoint again, from the stream.</p>
       </div>
       <figure class="slot replay" data-slot="demo-4" data-alt="The replay panel, sending one past event to your endpoint again" role="img" aria-label="The Relay replay panel: event evt_1042, invoice.paid, sent again to example.com/hooks/billing at 09:58:14 and answered 200 OK in 164 milliseconds.">
@@ -221,9 +185,19 @@
 
   <section class="close" id="start" aria-labelledby="s5">
     <div class="container close__grid">
-      <h2 class="close__offer" id="s5">100,000 events a month, free.</h2>
-      <p class="lead close__line">Point your first webhook at Relay today.</p>
+      <div class="close__head">
+        <h2 class="close__offer" id="s5">100,000 events a month, free.</h2>
+      </div>
+      <form class="calc" aria-labelledby="calc-label" onsubmit="return false">
+        <label id="calc-label" for="per-day">Webhooks your providers send a day</label>
+        <input id="per-day" name="per-day" type="number" inputmode="numeric" min="0" step="100" value="1200">
+        <output class="calc__fig" for="per-day" id="per-month">36,000</output>
+        <span class="calc__unit">events in a 30-day month</span>
+        <span class="calc__meter" aria-hidden="true"><i id="calc-bar" style="--fill: 0.36"></i></span>
+        <p class="calc__say" id="calc-say" aria-live="polite">Inside the free 100,000.</p>
+      </form>
       <form class="signup" data-endpoint="" novalidate>
+        <p class="lead signup__lead">Point your first webhook at Relay today.</p>
         <label for="email">Work email</label>
         <div class="signup__row">
           <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="email-help">
@@ -244,6 +218,7 @@
       <a href="#typed">Types</a>
       <a href="#retry">Retries</a>
       <a href="#replay">Replay</a>
+      <a href="#start">Pricing</a>
     </nav>
     <p class="colophon__legal">© 2026 Relay</p>
   </div>
@@ -260,6 +235,12 @@ if (jump && jump.showPopover) {
 }
 const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -10% 0px' });
 document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+const perDay = document.getElementById('per-day');
+if (perDay) {
+  const out = document.getElementById('per-month'), bar = document.getElementById('calc-bar'), say = document.getElementById('calc-say'), fmt = new Intl.NumberFormat('en-GB');
+  const run = () => { const n = Math.max(0, Math.round(Number(perDay.value) || 0)) * 30; out.textContent = fmt.format(n); bar.style.setProperty('--fill', String(Math.min(1, n / 100000))); bar.parentElement.classList.toggle('is-over', n > 100000); say.textContent = n <= 100000 ? 'Inside the free 100,000, with ' + fmt.format(100000 - n) + ' to spare.' : fmt.format(n - 100000) + ' over the free 100,000 a month.'; };
+  perDay.addEventListener('input', run); run();
+}
 document.querySelectorAll('form[data-endpoint]').forEach((form) => {
   const input = form.querySelector('input'), help = form.querySelector('[aria-live]'), button = form.querySelector('button');
   form.addEventListener('submit', (e) => {

@@ -1,10 +1,8 @@
-/* Hallmark · shape: Workbench · genre: modern-minimal · theme: Ultraviolet (by request) · data: sample
- * hero: Settled · nav: floating pill, the wordmark, two links and an outlined pill · footer: statement, one closing line over the links · imagery: photographs, library 2, tint accent · product sample in the hero, the stems, the steps and the drop · signature: one track split into four lanes in the hero, with solo and mute pills that work · ultraviolet: night, one record band
- * axes: light/geometric-sans/cool · posture: committed · contrast: pass · fold: pass · v2.7.0 */
-/* Hallmark · pre-emit critique: P4 H5 E4 S4 R4 V4 · weakest: S, a stems page reads like any splitter, so every wave is one song's real structure, the hero's solo works, and the night is shown in two tinted photographs */
-/* Hallmark · hero-review: in-thread · fix · 3 findings · 3 resolved (waves widened, the full mix added, the 1280 head break) */
+/* Hallmark · shape: Workbench · genre: modern-minimal · theme: Ultraviolet (by request) · ultraviolet: night, one lavender ink band and one record band · data: sample
+ * hero: Stage, the split player on seven columns beside the head · sections: rows (four stems over a bar ruler), figures on the lavender band, showcase (the booth), steps (three built states), table of uses, record band with a working drop · nav: floating pill · footer: statement · imagery: the product built in five places, one library photograph, tint accent
+ * axes: light/geometric-sans/cool · posture: committed · contrast: pass · fold: pass · v2.8.0 */
 /* Hallmark · dismissed 3 · the three columns are drop, split and play of one split, each a built product state with no icon in it */
-/* Hallmark · dismissed 23 · the rule is the scaffold's tint treatment in base.css: the accent mixed 55% with black, laid on the two photographs with lighten so their shadows print violet; it is the picture, never an accent fill */
+/* Hallmark · dismissed 23 · the rule is the scaffold's tint treatment in base.css: the accent mixed 55% with black, laid on the photograph with lighten so its shadows print violet; it is the picture, never an accent fill */
 /* Hallmark · answered F4 · the white pill on the record band is the theme's control on a violet field and the only filled control on that surface */
 /* Hallmark · answered F7 · Ultraviolet is round: every control and toggle is a pill and each link's focus ring follows that shape, as the theme sets */
 @import url("./tokens.css");
@@ -15,11 +13,11 @@
   color-scheme: dark;
   --color-paper: oklch(14% 0.02 290); --color-paper-2: oklch(17.5% 0.025 290); --color-paper-3: oklch(21% 0.03 290);
   --color-ink: oklch(92% 0.04 300); --color-ink-2: oklch(80% 0.05 300); --color-muted: oklch(68% 0.06 300);
-  --color-rule: oklch(28% 0.04 290); --color-rule-2: oklch(44% 0.07 292);
-  --color-accent: oklch(55% 0.25 290); --color-accent-deep: oklch(50% 0.25 290); --color-accent-ink: oklch(97% 0.01 300); --color-focus: oklch(62% 0.22 290);
+  --color-rule: oklch(28% 0.04 290); --color-rule-2: oklch(44% 0.07 292); --color-accent-soft: oklch(36% 0.09 293);
+  --color-accent: oklch(55% 0.25 290); --color-accent-deep: oklch(48% 0.24 290); --color-accent-ink: oklch(97% 0.01 300); --color-focus: oklch(62% 0.22 290);
   --color-error: oklch(72% 0.15 27);
   --color-field: oklch(50% 0.25 290); --color-field-ink: oklch(95% 0.02 300); --color-field-rule: oklch(72% 0.14 292); --color-field-btn: oklch(99% 0.005 300);
-  --color-wave-rest: oklch(38% 0.07 294);
+  --color-wave-rest: var(--color-accent-soft);
   --display-weight: 500;
   --nav-h: 88px;
   --lane-lead: 8.5rem;
@@ -60,10 +58,10 @@ h3 { line-height: 1.1; }
 /* The grid every section below the hero sits on */
 .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); }
 
-/* Hero: Settled, the text on six columns, the player on six */
+/* Hero: Stage, the text on five columns, the player on seven */
 .hero { min-height: calc(100svh - var(--nav-h)); display: grid; align-items: center; padding-block: var(--space-xl) var(--space-2xl); box-sizing: border-box; }
-.hero__grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--space-2xl); align-items: center; }
-.hero h1 { font-size: var(--text-display); max-width: 11ch; }
+.hero__grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--space-3xl); align-items: center; }
+.hero h1 { font-size: var(--text-display); max-width: 9ch; }
 .hero .lead { margin-top: var(--space-lg); max-width: 34ch; }
 .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-xl); }
 
@@ -74,7 +72,7 @@ h3 { line-height: 1.1; }
 .player__track { font: 500 var(--text-lg)/1.2 var(--font-display); color: var(--color-ink); text-transform: lowercase; }
 .player__time { font: 500 var(--text-sm)/1.2 var(--font-display); color: var(--color-muted); }
 .player__state { margin-left: auto; font: 500 var(--text-sm)/1.2 var(--font-display); color: var(--color-ink-2); }
-.lane { display: grid; grid-template-columns: var(--lane-lead) minmax(0, 1fr); align-items: center; column-gap: var(--space-md); min-height: 104px; border-top: 1px solid var(--color-rule); transition: opacity var(--dur-short) var(--ease-out); }
+.lane { display: grid; grid-template-columns: var(--lane-lead) minmax(0, 1fr); align-items: center; column-gap: var(--space-md); min-height: 112px; border-top: 1px solid var(--color-rule); transition: opacity var(--dur-short) var(--ease-out); }
 .lane__lead { display: grid; justify-items: start; gap: var(--space-sm); }
 .lane__name { font: 500 var(--text-lg)/1 var(--font-display); color: var(--color-ink); }
 .lane__togs { display: flex; gap: var(--space-2xs); }
@@ -148,15 +146,34 @@ h3 { line-height: 1.1; }
 .mini.is-dim .wave { opacity: 0.4; }
 .mini.is-dim .wave__played { fill: var(--color-wave-rest); }
 
-/* Studio: a photograph beside the two uses */
-.studio { padding-top: var(--section-gap); }
-.studio__grid { align-items: center; }
-.studio__photo { grid-column: 1 / span 7; aspect-ratio: 4 / 3; min-height: 440px; }
-.studio__text { grid-column: 8 / -1; }
-.uses { margin: var(--space-2xl) 0 0; border-bottom: 1px solid var(--color-rule); }
-.uses > div { display: grid; gap: var(--space-xs); padding-block: var(--space-lg); border-top: 1px solid var(--color-rule); }
-.uses dt { font: 500 var(--text-title)/1.1 var(--font-display); color: var(--color-ink); text-transform: lowercase; }
-.uses dd { margin: 0; color: var(--color-muted); max-width: 36ch; }
+/* Figures: the lavender ink band, three numbers in light Outfit */
+.figs { margin-top: var(--section-gap); padding-block: var(--section-gap-s); background: var(--color-ink); color: var(--color-paper); }
+.figs__head { align-items: end; }
+.figs__head h2 { grid-column: 1 / span 6; }
+.figs__head .lead { grid-column: 8 / -1; color: var(--color-paper-3); max-width: 34ch; }
+.figs__row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: var(--space-3xl) 0 0; }
+.fig { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: var(--space-md); padding: 0 var(--space-xl); border-left: 1px solid color-mix(in oklab, var(--color-paper) 22%, transparent); }
+.fig:first-child { padding-left: 0; border-left: 0; }
+.fig dt { max-width: 26ch; font-size: var(--text-md); color: var(--color-paper-3); }
+.fig dd { display: flex; align-items: baseline; gap: var(--space-sm); margin: 0; }
+.figure { font: 300 clamp(6rem, 14vw, 13rem)/0.8 var(--font-display); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.fig__unit { font: 500 var(--text-title)/1 var(--font-display); }
+.fig--lit .figure, .fig--lit .fig__unit { color: var(--color-accent-deep); }
+
+/* Uses: a table in lowercase, the stems as pills */
+.uses { padding-top: var(--section-gap); }
+.uses__head { grid-column: 1 / span 4; align-self: start; }
+.uses__head .lead { margin-top: var(--space-lg); max-width: 26ch; }
+.uses__table { grid-column: 5 / -1; width: 100%; border-collapse: collapse; }
+.uses__table thead th { padding-bottom: var(--space-md); font: 500 var(--text-sm)/1 var(--font-display); color: var(--color-muted); text-align: left; }
+.uses__table tbody tr { border-top: 1px solid var(--color-rule); }
+.uses__table tbody tr:last-child { border-bottom: 1px solid var(--color-rule); }
+.uses__table tbody th, .uses__table td { padding-block: var(--space-lg); vertical-align: middle; text-align: left; }
+.uses__table tbody th { width: 30%; font: 500 var(--text-title)/1.1 var(--font-display); letter-spacing: var(--tracking-display); color: var(--color-ink); }
+.uses__table td:nth-child(2) { width: 30%; }
+.uses__table td:last-child { color: var(--color-ink-2); max-width: 32ch; }
+.tag { display: inline-flex; align-items: center; min-height: 28px; margin: var(--space-3xs) 0; padding: 0 var(--space-sm); border-radius: var(--radius-pill); box-shadow: inset 0 0 0 1.5px var(--color-rule-2); font: 500 var(--text-sm)/1 var(--font-display); color: var(--color-ink); }
+.tag--lit { background: var(--color-accent); box-shadow: none; color: var(--color-accent-ink); }
 
 /* The record band: five free tracks and a drop that reads the file here */
 .free { margin-top: var(--section-gap-s); padding-block: var(--section-gap-s); background: var(--color-field); color: var(--color-field-ink); }
@@ -197,11 +214,10 @@ h3 { line-height: 1.1; }
 @media (max-width: 60rem) {
   .hero { min-height: 0; padding-block: var(--space-xl) var(--space-3xl); }
   .hero__grid { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-xl); }
-  .stems__head, .stems__body, .booth__head h2, .booth__head .lead, .how h2, .studio__photo, .studio__text, .free__head, .drop { grid-column: 1 / -1; }
-  .stems__body, .booth__head .lead, .studio__text, .drop { margin-top: var(--space-xl); }
+  .stems__head, .stems__body, .booth__head h2, .booth__head .lead, .how h2, .figs__head h2, .figs__head .lead, .uses__head, .uses__table, .free__head, .drop { grid-column: 1 / -1; }
+  .stems__body, .booth__head .lead, .figs__head .lead, .uses__table, .drop { margin-top: var(--space-xl); }
   .steps { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-2xl); }
   .booth__photo { aspect-ratio: 4 / 3; min-height: 0; }
-  .studio__photo { min-height: 0; }
 }
 @media (max-width: 40rem) {
   .nav__link { display: none; }
@@ -215,5 +231,12 @@ h3 { line-height: 1.1; }
   .stem .wave { height: 56px; }
   .player__state { margin-left: 0; width: 100%; }
   .player__top { flex-wrap: wrap; }
+  .figs__row { grid-template-columns: minmax(0, 1fr); row-gap: var(--space-xl); }
+  .fig { padding: var(--space-xl) 0 0; border-left: 0; border-top: 1px solid color-mix(in oklab, var(--color-paper) 22%, transparent); }
+  .fig:first-child { padding-top: 0; border-top: 0; }
+  .uses__table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .uses__table tbody tr { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--space-md); padding-block: var(--space-lg); }
+  .uses__table tbody th, .uses__table td { width: auto; padding: 0; }
+  .uses__table td:last-child { grid-column: 1 / -1; margin-top: var(--space-sm); }
 }
 @media (prefers-reduced-motion: reduce) { .btn, .pill, .tog, .lane, .drop__zone { transition: none; } .btn:active, .pill:active, .tog:active { transform: none; } }

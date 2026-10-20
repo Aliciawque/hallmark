@@ -18,8 +18,9 @@
     <a class="wordmark" href="#top" aria-label="Peachy, home">Peachy</a>
     <nav aria-label="Main">
       <ul class="knobs" role="list">
-        <li><a class="knob" href="#box">What&rsquo;s in it</a></li>
-        <li><a class="knob" href="#how">How it works</a></li>
+        <li><a class="knob" href="#sizes">Sizes</a></li>
+        <li><a class="knob" href="#fruit">The fruit</a></li>
+        <li><a class="knob" href="#thursdays">Thursdays</a></li>
         <li><a class="knob knob--action" href="#start">Start a box</a></li>
       </ul>
     </nav>
@@ -30,64 +31,72 @@
   <section class="hero" id="top" aria-labelledby="hero-title">
     <div class="container hero__grid">
       <div class="hero__text">
-        <h1 id="hero-title">Whatever&rsquo;s ripest,<br> every Thursday.</h1>
-        <p class="lead">A weekly fruit box for London families, in four sizes from &pound;12.</p>
+        <h1 id="hero-title">Whatever&rsquo;s ripest, every Thursday.</h1>
+        <p class="lead">A weekly fruit box for London families.</p>
         <div class="actions">
           <a class="btn btn--primary" href="#start">Start a box</a>
-          <a class="btn btn--secondary" href="#box">What comes in it</a>
+          <a class="btn btn--secondary" href="#sizes">See the sizes</a>
         </div>
       </div>
-      <figure class="photo hero__photo" data-slot="hero" data-alt="A handful of this week's ripest fruit">
+      <figure class="photo hero__photo" data-slot="hero" data-alt="A handful of this week's ripest fruit, held out">
         <img src="photos/javier-shows-part-of-the-grape-harvest-in-his-lysekil-vineya-1920.jpg" width="3948" height="2534" fetchpriority="high" alt="Two hands holding out fresh-cut bunches of green grapes" style="object-position: 42% 50%">
       </figure>
     </div>
   </section>
 
-  <section class="box" id="box" aria-labelledby="box-title">
+  <section class="sizes" id="sizes" aria-labelledby="sizes-title">
+    <div class="container sizes__grid">
+      <p class="sizes__figure" aria-hidden="true"><span class="sizes__from">from</span>&pound;12</p>
+      <div class="sizes__text">
+        <h2 id="sizes-title">Four sizes, starting small.</h2>
+        <p class="lead">The smallest box is twelve pounds. You pick the size that fits your fruit bowl when you start.</p>
+        <a class="btn btn--primary" href="#start">Pick a size</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="fruit" id="fruit" aria-labelledby="fruit-title">
     <div class="container">
-      <h2 id="box-title">No fixed list, just ripe fruit.</h2>
+      <h2 id="fruit-title">No fixed list, just ripe fruit.</h2>
       <div class="bento">
-        <figure class="photo tile tile--lead" data-slot="photo-1" data-alt="A week's fruit, cut open">
+        <figure class="photo tile tile--lead" data-slot="photo-1" data-alt="A week's fruit, heaped close">
           <img src="photos/alaska-wild-berries-1920.jpg" width="2401" height="1563" loading="lazy" alt="Blueberries and red cloudberries heaped together, close up" style="object-position: 50% 50%">
         </figure>
-        <figure class="photo tile tile--a" data-slot="photo-2" data-alt="Oranges with their leaves on">
+        <figure class="photo tile tile--a" data-slot="photo-2" data-alt="Ripe fruit in crates at the stall">
           <img src="photos/winterswijk-nl-wochenmarkt-2016-4139-1920.jpg" width="5472" height="3648" loading="lazy" alt="Market crates heaped with bright oranges" style="object-position: 50% 40%">
         </figure>
         <div class="tile tile--type">
-          <h3>Four sizes.</h3>
-          <p>From &pound;12 a box, chosen when you start.</p>
+          <h3>Ripe goes in.</h3>
+          <p>If it isn&rsquo;t ready this week, it waits for the next box.</p>
         </div>
-        <figure class="photo tile tile--b" data-slot="photo-3" data-alt="A bunch of this week's grapes, held out">
-          <img src="photos/sweet-cherries-in-basket-2018-g1-1920.jpg" width="1920" height="1803" loading="lazy" alt="A wicker basket full of dark sweet cherries on the grass" style="object-position: 50% 40%">
-        </figure>
-        <figure class="photo tile tile--c" data-slot="photo-4" data-alt="Apples cut for the lunchbox">
-          <img src="photos/still-life-with-strawberries-in-a-crystal-bowl-1920.jpg" width="1920" height="1280" loading="lazy" alt="Strawberries in a glass bowl on a blue striped cloth" style="object-position: 60% 50%">
-        </figure>
       </div>
+    </div>
+  </section>
+
+  <section class="days" id="thursdays" aria-labelledby="days-title">
+    <div class="container days__grid">
+      <div class="days__head">
+        <h2 id="days-title">Pick your first Thursday.</h2>
+        <p class="lead">We deliver across the city, once a week from then on.</p>
+      </div>
+      <fieldset class="days__list">
+        <legend class="visually-hidden">Your first delivery Thursday</legend>
+        <label class="day"><input type="radio" name="first" value="2026-10-22" checked><span class="day__wd">Thursday</span><span class="day__date">22 October</span><span class="day__pick">First box</span></label>
+        <label class="day"><input type="radio" name="first" value="2026-10-29"><span class="day__wd">Thursday</span><span class="day__date">29 October</span><span class="day__pick">First box</span></label>
+        <label class="day"><input type="radio" name="first" value="2026-11-05"><span class="day__wd">Thursday</span><span class="day__date">5 November</span><span class="day__pick">First box</span></label>
+        <label class="day"><input type="radio" name="first" value="2026-11-12"><span class="day__wd">Thursday</span><span class="day__date">12 November</span><span class="day__pick">First box</span></label>
+      </fieldset>
     </div>
   </section>
 
   <section class="season" aria-labelledby="season-title">
     <div class="container">
-      <h2 id="season-title">Ripe changes every week.</h2>
-      <figure class="photo season__photo" data-slot="photo-5" data-alt="The week's fruit on the market stalls">
-        <img src="photos/crates-of-peaches-in-the-orchard-delta-county-colo-lccn20178-1920.jpg" width="1920" height="1352" loading="lazy" alt="Crates of ripe peaches packed in rows in an orchard shed" style="object-position: 50% 55%; transform: scale(1.07)">
-      </figure>
-    </div>
-  </section>
-
-  <section class="how" id="how" aria-labelledby="how-title">
-    <div class="container how__grid">
-      <div class="how__text">
-        <h2 id="how-title">Three steps to Thursday.</h2>
-        <ol class="steps" role="list">
-          <li><span class="steps__n" aria-hidden="true">1</span><h3>Pick a size</h3><p>Whichever of the four suits you.</p></li>
-          <li><span class="steps__n" aria-hidden="true">2</span><h3>We pack the box</h3><p>With whatever is ripest that week.</p></li>
-          <li><span class="steps__n" aria-hidden="true">3</span><h3>It comes on Thursday</h3><p>Delivered across London.</p></li>
-        </ol>
+      <div class="season__head">
+        <h2 id="season-title">The season packs the box.</h2>
+        <p class="lead">What&rsquo;s ripe changes week to week, so the box does too.</p>
       </div>
-      <figure class="photo how__photo" data-slot="photo-6" data-alt="A box handed over at the door">
-        <img src="photos/d-lmen-kirchspiel-erdbeerfeld-2015-6522-1920.jpg" width="1920" height="2733" loading="lazy" alt="Wooden crates of strawberries stacked in a field" style="object-position: 50% 60%">
+      <figure class="photo season__photo" data-slot="photo-3" data-alt="The week's fruit in crates, straight from the grower">
+        <img src="photos/crates-of-peaches-in-the-orchard-delta-county-colo-lccn20178-1920.jpg" width="1920" height="1352" loading="lazy" alt="Crates of ripe peaches packed in rows in an orchard shed" style="object-position: 50% 55%">
       </figure>
     </div>
   </section>
@@ -97,8 +106,9 @@
   <div class="container foot__grid">
     <div class="card">
       <h2 id="start-title">Start your box.</h2>
-      <p class="card__line">Leave your email and pick your size on the next step.</p>
+      <p class="card__line">Your first box comes on <strong data-first>Thursday 22 October</strong>.</p>
       <form class="signup" data-endpoint="" novalidate>
+        <input type="hidden" name="first" value="2026-10-22" data-first-input>
         <label for="email">Email address</label>
         <div class="signup__row">
           <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required>
@@ -110,21 +120,38 @@
     <div class="foot__side">
       <p class="foot__mark">Peachy</p>
       <ul class="foot__links" role="list">
-        <li><a href="#box">What&rsquo;s in it</a></li>
-        <li><a href="#how">How it works</a></li>
+        <li><a href="#sizes">Sizes</a></li>
+        <li><a href="#fruit">The fruit</a></li>
+        <li><a href="#thursdays">Thursdays</a></li>
       </ul>
     </div>
   </div>
   <div class="container">
     <p class="legal">&copy; 2026 Peachy, London</p>
-    <p class="credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Javier_shows_part_of_the_grape_harvest_in_his_Lysekil_vineyard_1_-_cropped.jpg">W.carter</a> (CC0), <a href="https://commons.wikimedia.org/wiki/File:Alaska_wild_berries.jpg">U.S. Fish and Wildlife Service</a> (public domain), <a href="https://commons.wikimedia.org/wiki/File:Winterswijk_(NL),_Wochenmarkt_--_2016_--_4139.jpg">Dietmar Rabich</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Sweet_cherries_in_basket_2018_G1.jpg">George Chernilevsky</a> (public domain), <a href="https://commons.wikimedia.org/wiki/File:Still_life_with_strawberries_in_a_crystal_bowl.jpg">W.carter</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Crates_of_peaches_in_the_orchard,_Delta_County,_Colo._LCCN2017877605.jpg">Russell Lee</a> (public domain), <a href="https://commons.wikimedia.org/wiki/File:D%C3%BClmen,_Kirchspiel,_Erdbeerfeld_--_2015_--_6522.jpg">Dietmar Rabich</a> (CC BY-SA 4.0), all via Wikimedia Commons.</p>  </div>
+    <p class="credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Javier_shows_part_of_the_grape_harvest_in_his_Lysekil_vineyard_1_-_cropped.jpg">W.carter</a> (CC0), <a href="https://commons.wikimedia.org/wiki/File:Alaska_wild_berries.jpg">U.S. Fish and Wildlife Service</a> (public domain), <a href="https://commons.wikimedia.org/wiki/File:Winterswijk_(NL),_Wochenmarkt_--_2016_--_4139.jpg">Dietmar Rabich</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Crates_of_peaches_in_the_orchard,_Delta_County,_Colo._LCCN2017877605.jpg">Russell Lee</a> (public domain), all via Wikimedia Commons.</p>
+  </div>
 </footer>
 
 <script>window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
 document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });</script>
 <script>
+  (() => {
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const radios = [...document.querySelectorAll('input[name="first"][type="radio"]')];
+    const shown = document.querySelector('[data-first]'), hidden = document.querySelector('[data-first-input]');
+    const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() + ((4 - d.getDay() + 7) % 7 || 7));
+    radios.forEach((r, i) => {
+      const t = new Date(d); t.setDate(d.getDate() + i * 7);
+      r.value = `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`;
+      r.dataset.label = `${t.getDate()} ${months[t.getMonth()]}`;
+      r.parentElement.querySelector('.day__date').textContent = r.dataset.label;
+    });
+    const sync = () => { const r = radios.find((x) => x.checked) || radios[0]; shown.textContent = `Thursday ${r.dataset.label}`; hidden.value = r.value; };
+    radios.forEach((r) => r.addEventListener('change', sync));
+    sync();
+  })();
   document.querySelectorAll('form[data-endpoint]').forEach((form) => {
-    const input = form.querySelector('input'), help = form.querySelector('[aria-live]');
+    const input = form.querySelector('input[type="email"]'), help = form.querySelector('[aria-live]');
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const ok = input.checkValidity();

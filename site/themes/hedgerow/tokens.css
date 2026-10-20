@@ -9,13 +9,13 @@
   --color-error: oklch(72% 0.15 27); --color-success: oklch(76% 0.13 150);
   --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap-s: 120px; --section-gap: 144px; --section-gap-l: 176px;
   --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
-  --color-paper: oklch(24% 0.05 165); --color-paper-2: oklch(20% 0.045 165); --color-paper-3: oklch(30% 0.05 165);
-  --color-ink: oklch(93% 0.02 85); --color-ink-2: oklch(80% 0.04 160); --color-muted: oklch(68% 0.05 160);
-  --color-rule: oklch(36% 0.05 165);
-  --color-accent: oklch(86% 0.19 115); --color-accent-2: oklch(91% 0.13 115); --color-accent-ink: oklch(24% 0.05 165); --color-focus: oklch(91% 0.13 115);
+  --color-paper: oklch(24% 0.052 158); --color-paper-2: oklch(19.5% 0.045 158); --color-paper-3: oklch(29.5% 0.05 158);
+  --color-ink: oklch(93% 0.022 88); --color-ink-2: oklch(81% 0.035 150); --color-muted: oklch(69% 0.045 150);
+  --color-rule: oklch(35% 0.05 158);
+  --color-accent: oklch(87% 0.19 118); --color-accent-2: oklch(92% 0.13 118); --color-accent-deep: oklch(46% 0.12 128); --color-accent-ink: oklch(22% 0.05 158); --color-focus: oklch(92% 0.13 118);
   --font-display: "Prata", Georgia, serif; --font-body: "Manrope", ui-sans-serif, system-ui, sans-serif;
   --font-outlier: "IBM Plex Mono", ui-monospace, monospace;
   --radius-card: 0; --radius-pill: 999px; --rule-hair: 1px;
   --shadow-card: none;
-  --tracking-display: 0;
+  --tracking-display: -0.005em;
 }

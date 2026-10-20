@@ -86,7 +86,7 @@
     </div>
   </section>
 
-  <section class="q q--receive" id="receive" aria-labelledby="q2">
+  <section class="q q--receive well-band" id="receive" aria-labelledby="q2">
     <div class="container">
       <div class="q__head">
         <h2 id="q2">What does my client receive?</h2>
@@ -127,6 +127,25 @@
         </div>
         <figcaption>Reminder 2 for invoice 0042, as Example Kitchen receives it.</figcaption>
       </figure>
+    </div>
+  </section>
+
+  <section class="q q--who" id="who" aria-labelledby="q-who">
+    <div class="container">
+      <div class="q__head q__head--split">
+        <h2 id="q-who">Who does the asking?</h2>
+        <p class="lead">The same three jobs, by hand and by Tilly.</p>
+      </div>
+      <table class="compare">
+        <thead>
+          <tr><th scope="col">The job</th><th scope="col">On your own</th><th scope="col">With Tilly</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">Sending reminders</th><td>You spot that it’s late, then draft a careful email.</td><td><i class="status status--late">Chasing</i><span>Tilly writes and sends them.</span></td></tr>
+          <tr><th scope="row">Reading replies</th><td>Answers land in your inbox with everything else.</td><td><i class="status">Reply logged</i><span>Filed with the invoice they answer.</span></td></tr>
+          <tr><th scope="row">Marking it paid</th><td>You check the bank and update your records.</td><td><i class="status status--done">Paid</i><span>Marked paid, and the asking stops.</span></td></tr>
+        </tbody>
+      </table>
     </div>
   </section>
 
@@ -191,34 +210,41 @@
     <div class="container band__grid">
       <div class="band__text">
         <h2 id="q5">What does it cost?</h2>
-        <p class="price">£8 a month.</p>
-        <p class="band__line">Start with your next invoice.</p>
+        <p class="price"><span class="price__fig">£8</span><span class="price__unit">a month</span></p>
       </div>
-      <form class="signup" id="start" data-endpoint="" novalidate>
-        <label for="email">Email address</label>
-        <div class="signup__row">
-          <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="email-help">
-          <button class="btn btn--invert" type="submit">Start for £8 a month</button>
-        </div>
-        <p class="signup__help" id="email-help" aria-live="polite"></p>
-      </form>
+      <div class="band__side">
+        <ul class="inc" role="list" aria-label="What the £8 pays for">
+          <li>Reminders written and sent</li>
+          <li>Replies logged with the invoice</li>
+          <li>Invoices marked paid</li>
+        </ul>
+        <form class="signup" id="start" data-endpoint="" novalidate>
+          <label for="email">Start with your next invoice</label>
+          <div class="signup__row">
+            <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="email-help" placeholder="you@example.com">
+            <button class="btn btn--invert" type="submit">Start for £8 a month</button>
+          </div>
+          <p class="signup__help" id="email-help" aria-live="polite"></p>
+        </form>
+      </div>
     </div>
   </section>
 </main>
 
-<footer class="mast">
+<footer class="close">
   <div class="container">
-    <p class="mast__mark">Tilly</p>
-    <div class="mast__row">
-      <nav class="mast__links" aria-label="Footer">
+    <p class="close__line">Send the invoice. Tilly does the asking.</p>
+    <div class="close__row">
+      <a class="wordmark" href="#top" aria-label="Tilly, back to the top">Tilly</a>
+      <nav class="close__links" aria-label="Footer">
         <a href="#receive">What clients get</a>
+        <a href="#who">Who asks</a>
         <a href="#replies">Replies</a>
         <a href="#cost">Pricing</a>
-        <a href="#start">Sign up</a>
       </nav>
-      <p class="mast__legal">© 2026 Tilly. Invoicing for freelancers.</p>
+      <p class="close__legal">© 2026 Tilly. Invoicing for freelancers.</p>
     </div>
-    <p class="mast__credit" data-credits>Photograph: <a href="https://commons.wikimedia.org/wiki/File:Florist_working.jpg">direct2Florist</a>, CC&nbsp;BY&nbsp;2.0, on Wikimedia Commons.</p>
+    <p class="close__credit" data-credits>Photograph: <a href="https://commons.wikimedia.org/wiki/File:Florist_working.jpg">direct2Florist</a>, CC&nbsp;BY&nbsp;2.0, on Wikimedia Commons.</p>
   </div>
 </footer>
 
@@ -235,7 +261,7 @@ document.querySelectorAll('form[data-endpoint]').forEach((form) => {
     if (!form.dataset.endpoint) { help.textContent = 'Nothing was sent: this form is not connected yet.'; return; }
     button.setAttribute('aria-busy', 'true');
     fetch(form.dataset.endpoint, { method: 'POST', body: new FormData(form) })
-      .then((r) => { help.textContent = r.ok ? 'Thanks. Tilly will write to ' + input.value.trim() + '.' : 'That did not go through. Try again in a minute.'; })
+      .then((r) => { help.textContent = r.ok ? 'Tilly will write to ' + input.value.trim() + '.' : 'That did not go through. Try again in a minute.'; })
       .catch(() => { help.textContent = 'That did not go through. Try again in a minute.'; })
       .finally(() => button.removeAttribute('aria-busy'));
   });

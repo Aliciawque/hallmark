@@ -17,62 +17,69 @@
 <header class="nav">
   <div class="container nav__in">
     <a class="wordmark" href="#top" aria-label="Field Office, back to the top">Field Office</a>
-    <nav aria-label="Sections">
-      <ul>
-        <li><a href="#work">Work</a></li>
-        <li><a href="#studio">Studio</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
+    <nav class="nav__links" aria-label="Sections">
+      <a href="#cover">What we make</a>
+      <a href="#studio">Studio</a>
+      <a class="btn btn--small" href="#brief">Start a project</a>
     </nav>
-    <a class="btn btn--small" href="#contact">Start a project</a>
   </div>
 </header>
 
 <main id="main">
   <section class="hero" id="top" aria-labelledby="hero-title">
-    <div class="container hero__grid">
+    <div class="hero__grid">
       <figure class="photo hero__photo" data-slot="hero" data-alt="Your lead case study: the identity at work in its building, photographed in daylight">
-        <img src="photos/001-2011-10-02-einsamkeit-1920.jpg" width="1920" height="1162" fetchpriority="high" alt="A long white gallery hung with framed photographs, one visitor looking along the wall" style="object-position: 12% 60%">
+        <img src="photos/001-2011-10-02-einsamkeit-1920.jpg" width="1920" height="1162" fetchpriority="high" alt="A long white gallery hung with framed photographs, one visitor looking along the wall" style="object-position: 18% 60%">
       </figure>
       <div class="hero__text">
         <h1 id="hero-title">Sixty identities for cultural institutions.</h1>
         <p class="lead">Field Office is a brand identity studio of four, in&nbsp;Copenhagen.</p>
         <div class="actions">
-          <a class="btn btn--primary" href="#contact">Start a project</a>
-          <a class="btn" href="#work">See the work</a>
+          <a class="btn btn--primary" href="#brief">Start a project</a>
+          <a class="btn" href="#rooms">See the rooms</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="work" id="work" aria-labelledby="work-title">
+  <section class="cover" id="cover" aria-labelledby="cover-title">
     <div class="container">
       <div class="head">
-        <h2 id="work-title">Where an identity has to hold</h2>
-        <p class="lead">One system, from the auditorium to the stacks.</p>
+        <h2 id="cover-title">What an identity has to cover</h2>
+        <p class="lead">One system for every surface a visitor meets.</p>
       </div>
-      <div class="work__grid">
-        <figure class="work__item w1">
-          <div class="photo work__img" data-slot="work-1" data-alt="Case study photograph: the identity in an auditorium or a foyer">
-            <img src="photos/la-fenice-opera-house-from-the-stage-1920.jpg" width="1920" height="1526" loading="lazy" decoding="async" alt="A gilded opera house seen from the stage, tiers of boxes around red seats" style="object-position: 50% 55%">
-          </div>
-          <figcaption class="cap">The auditorium</figcaption>
-        </figure>
-        <figure class="work__item w2">
-          <div class="photo work__img" data-slot="work-2" data-alt="Case study photograph: the identity on a stage or a programme">
-            <img src="photos/don-quijote-in-teatro-teresa-carre-o-1920.jpg" width="1920" height="1259" loading="lazy" decoding="async" alt="A ballerina mid-leap before the company and a painted set" style="object-position: 40% 50%; transform: scale(1.18); transform-origin: 40% 30%">
-          </div>
-          <figcaption class="cap">The stage</figcaption>
-        </figure>
-        <figure class="work__item w3">
-          <div class="photo work__img" data-slot="work-3" data-alt="Case study photograph: the identity in a library or an archive">
-            <img src="photos/george-peabody-library-1920.jpg" width="1920" height="1440" loading="lazy" decoding="async" alt="Five tiers of cast-iron book galleries around a long reading floor" style="object-position: 50% 50%">
+      <ol class="set index">
+        <li><h3>The name</h3><p>Reads from across the square.</p><span class="index__where">Facade</span></li>
+        <li><h3>The typeface</h3><p>One family for sign, page and screen.</p><span class="index__where">Everywhere</span></li>
+        <li><h3>Signs and wayfinding</h3><p>From the front door to the stacks.</p><span class="index__where">Building</span></li>
+        <li><h3>Posters and programme</h3><p>A grid anyone can fill.</p><span class="index__where">Street</span></li>
+        <li><h3>Tickets, web and shop</h3><p>Where most visitors meet it first.</p><span class="index__where">In hand</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="rooms" id="rooms" aria-labelledby="rooms-title">
+    <div class="container">
+      <div class="head">
+        <h2 id="rooms-title">The rooms it has to hold in</h2>
+        <p class="lead">Gilt, cast iron and a white wall, under one system.</p>
+      </div>
+      <figure class="rooms__lead">
+        <div class="photo rooms__wide" data-slot="work-1" data-alt="Case study photograph: the identity in an auditorium or a foyer, wide">
+          <img src="photos/la-fenice-opera-house-from-the-stage-1920.jpg" width="1920" height="1526" loading="lazy" decoding="async" sizes="(max-width: 60rem) 100vw, 1312px" alt="A gilded opera house seen from the stage, tiers of boxes around red seats" style="object-position: 50% 52%">
+        </div>
+        <figcaption class="cap">The auditorium</figcaption>
+      </figure>
+      <div class="rooms__pair">
+        <figure>
+          <div class="photo rooms__img" data-slot="work-2" data-alt="Case study photograph: the identity in a library or an archive">
+            <img src="photos/george-peabody-library-1920.jpg" width="1920" height="1440" loading="lazy" decoding="async" alt="Five tiers of cast-iron book galleries around a long reading floor" style="object-position: 50% 46%">
           </div>
           <figcaption class="cap">The stacks</figcaption>
         </figure>
-        <figure class="work__item w4">
-          <div class="photo work__img" data-slot="work-4" data-alt="Case study photograph: the identity on a gallery wall">
-            <img src="photos/christchurch-art-gallery-interior-002-1920.jpg" width="1920" height="1281" loading="lazy" decoding="async" alt="A gallery room with grey walls, framed paintings and a bench on a timber floor" style="object-position: 50% 50%">
+        <figure>
+          <div class="photo rooms__img" data-slot="work-3" data-alt="Case study photograph: the identity on a gallery wall">
+            <img src="photos/christchurch-art-gallery-interior-002-1920.jpg" width="1920" height="1281" loading="lazy" decoding="async" alt="A gallery room with grey walls, framed paintings and a bench on a timber floor" style="object-position: 46% 50%">
           </div>
           <figcaption class="cap">The gallery wall</figcaption>
         </figure>
@@ -80,41 +87,44 @@
     </div>
   </section>
 
+  <section class="sizes" aria-labelledby="sizes-title">
+    <div class="container">
+      <div class="head">
+        <h2 id="sizes-title">Set once, read at every size</h2>
+        <p class="lead">Before anything ships, one line is tested from the banner down to the ticket.</p>
+      </div>
+      <dl class="set specimen">
+        <div class="specimen__row s1"><dt>On the banner</dt><dd>Opening night</dd></div>
+        <div class="specimen__row s2"><dt>On the poster</dt><dd>Opening night</dd></div>
+        <div class="specimen__row s3"><dt>In the programme</dt><dd>Opening night</dd></div>
+        <div class="specimen__row s4"><dt>On the ticket</dt><dd>Opening night</dd></div>
+      </dl>
+    </div>
+  </section>
+
   <section class="studio" id="studio" aria-labelledby="studio-title">
     <div class="container studio__grid">
       <div class="studio__text">
         <h2 id="studio-title">A studio of four</h2>
-        <p class="lead">Four people in Copenhagen.</p>
-        <dl class="facts">
-          <div><dt>Identities shipped</dt><dd class="num">60</dd></div>
-          <div><dt>Working with</dt><dd>Cultural institutions</dd></div>
-          <div><dt>Write to</dt><dd><span class="fill" data-fill="studio-email">Studio email to come</span></dd></div>
+        <p class="lead">Small enough that the people you meet in Copenhagen are the people who draw the work.</p>
+        <dl class="figures">
+          <div><dt>identities shipped</dt><dd class="figure">60</dd></div>
+          <div><dt>people in the studio</dt><dd class="figure">4</dd></div>
         </dl>
       </div>
       <figure class="photo studio__photo" data-slot="studio" data-alt="The studio itself: the table, the proofs on the wall, daylight">
-        <img src="photos/interior-of-camille-pissarro-s-studio-at-ragny-sur-epte-2026-1920.jpg" width="1920" height="1080" loading="lazy" decoding="async" alt="An empty attic studio with an arched window, a timber beam and daylight on the floor" style="object-position: 55% 50%">
+        <img src="photos/cowork-videmonte-1920.jpg" width="1920" height="1440" loading="lazy" decoding="async" alt="A white-panelled workroom with long timber tables, green chairs and an orange window bench" style="object-position: 58% 62%">
       </figure>
     </div>
   </section>
 
-  <section class="street" aria-label="The front steps">
-    <figure class="container street__fig">
-      <div class="photo street__img" data-slot="street" data-alt="A wide photograph of an identity at the scale of the building">
-        <img src="photos/jules-and-gabriel-at-the-metro-entrance-alameda-dom-afonso-h-1920.jpg" width="1920" height="1313" loading="lazy" decoding="async" alt="Pale stone steps going down, a woman and a child seen from behind" style="object-position: 60% 62%">
+  <section class="brief" id="brief" aria-labelledby="brief-title">
+    <div class="container brief__grid">
+      <div class="brief__head">
+        <h2 id="brief-title">Start the sixty-first</h2>
+        <p class="lead">Tell us about the institution and what it needs.</p>
       </div>
-      <figcaption class="cap">The front steps</figcaption>
-    </figure>
-  </section>
-</main>
-
-<footer class="foot" id="contact" aria-labelledby="contact-title">
-  <div class="container foot__grid">
-    <div class="foot__head">
-      <h2 id="contact-title">Start the sixty-first</h2>
-      <p class="lead">Tell us about the institution and what it needs.</p>
-    </div>
-    <form class="brief" data-endpoint="" novalidate>
-      <div class="fields">
+      <form class="form" data-endpoint="" novalidate>
         <div class="field">
           <label for="org">Institution</label>
           <input id="org" name="organization" type="text" autocomplete="organization" required aria-required="true">
@@ -123,32 +133,37 @@
           <label for="name">Your name</label>
           <input id="name" name="name" type="text" autocomplete="name" required aria-required="true">
         </div>
-      </div>
-      <div class="field">
-        <label for="email">Email address</label>
-        <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required aria-required="true">
-      </div>
-      <div class="field">
-        <label for="needs">What it needs, in a few lines</label>
-        <textarea id="needs" name="needs" rows="4"></textarea>
-      </div>
-      <div class="send">
-        <button class="btn btn--primary" type="submit">Send the brief</button>
-        <p class="help" id="form-help" aria-live="polite"></p>
-      </div>
-    </form>
-    <div class="foot__base">
-      <a class="wordmark" href="#top" aria-label="Field Office, back to the top">Field Office</a>
-      <nav aria-label="Footer">
-        <ul>
-          <li><a href="#work">Work</a></li>
-          <li><a href="#studio">Studio</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </nav>
-      <p class="legal">© 2026 Field Office, Copenhagen</p>
-      <p class="credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:001_2011_10_02_Einsamkeit.jpg">Friedrich Haag</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:La_Fenice_Opera_House_from_the_stage.jpg">Pietro Tessarin</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Don_Quijote_in_Teatro_Teresa_Carre%C3%B1o.jpg">Wilfredor, set by Laura Fiorucci</a> (CC0), <a href="https://commons.wikimedia.org/wiki/File:George-peabody-library.jpg">Matthew Petroff</a> (CC BY-SA 3.0), <a href="https://commons.wikimedia.org/wiki/File:Christchurch_art_gallery_interior_002.jpg">Sgerbic</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Interior_of_Camille_Pissarro_s_studio_at_%C3%89ragny-sur-Epte_-_2026.jpg">AlexDS05</a> (CC0), <a href="https://commons.wikimedia.org/wiki/File:Jules_and_Gabriel_at_the_Metro_entrance,_Alameda_Dom_Afonso_Henriques,_Lisbon,_Portugal_julesvernex2.jpg">Jules Verne Times Two</a> (CC BY-SA 4.0), all via Wikimedia Commons.</p>
+        <div class="field field--wide">
+          <label for="email">Email address</label>
+          <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required aria-required="true">
+        </div>
+        <div class="field field--wide">
+          <label for="needs">What it needs, in a few lines</label>
+          <textarea id="needs" name="needs" rows="4"></textarea>
+        </div>
+        <div class="send field--wide">
+          <button class="btn btn--primary" type="submit">Send the brief</button>
+          <p class="help" id="form-help" aria-live="polite"></p>
+        </div>
+      </form>
     </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="container">
+    <p class="foot__mast" aria-hidden="true">Field Office</p>
+    <div class="foot__row">
+      <nav aria-label="Footer">
+        <a href="#cover">What we make</a>
+        <a href="#rooms">Rooms</a>
+        <a href="#studio">Studio</a>
+        <a href="#brief">Start a project</a>
+      </nav>
+      <p class="foot__place">Brand identity, Copenhagen</p>
+      <p class="legal">© 2026 Field Office</p>
+    </div>
+    <p class="credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:001_2011_10_02_Einsamkeit.jpg">Friedrich Haag</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:La_Fenice_Opera_House_from_the_stage.jpg">Pietro Tessarin</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:George-peabody-library.jpg">Matthew Petroff</a> (CC BY-SA 3.0), <a href="https://commons.wikimedia.org/wiki/File:Christchurch_art_gallery_interior_002.jpg">Sgerbic</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Cowork_Videmonte.jpg">Hipersyl</a> (CC BY-SA 4.0), all via Wikimedia Commons.</p>
   </div>
 </footer>
 

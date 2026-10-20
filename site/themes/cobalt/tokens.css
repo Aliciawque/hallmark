@@ -9,14 +9,14 @@
   --color-error: oklch(52% 0.19 27); --color-success: oklch(50% 0.12 150);
   --container: 1440px; --gutter: 64px; --gap-columns: 32px; --section-gap-s: 120px; --section-gap: 144px; --section-gap-l: 176px;
   --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
-  --color-paper: oklch(98.5% 0.005 250); --color-paper-2: oklch(96% 0.007 250); --color-paper-3: oklch(93% 0.009 250);
-  --color-ink: oklch(24% 0.020 258); --color-ink-2: oklch(34% 0.018 257); --color-muted: oklch(50% 0.015 256);
-  --color-rule: oklch(90% 0.008 250); --color-rule-2: oklch(84% 0.010 250);
-  --color-graphite: oklch(22% 0.016 260); --color-graphite-2: oklch(27% 0.018 260); --color-graphite-ink: oklch(92% 0.010 250); --color-graphite-muted: oklch(68% 0.020 255);
-  --color-accent: oklch(52% 0.185 257); --color-accent-2: oklch(74% 0.14 256); --color-accent-ink: oklch(98.5% 0.005 250); --color-focus: oklch(52% 0.185 257);
+  --color-paper: oklch(98.6% 0.005 250); --color-paper-2: oklch(96.2% 0.008 252); --color-paper-3: oklch(93% 0.011 252);
+  --color-ink: oklch(21% 0.028 262); --color-ink-2: oklch(36% 0.022 260); --color-muted: oklch(50% 0.018 258);
+  --color-rule: oklch(90% 0.009 252); --color-rule-2: oklch(83% 0.012 252);
+  --color-graphite: oklch(21% 0.024 262); --color-graphite-2: oklch(26.5% 0.026 262); --color-graphite-ink: oklch(93% 0.010 250); --color-graphite-muted: oklch(69% 0.022 256);
+  --color-accent: oklch(52% 0.19 258); --color-accent-2: oklch(76% 0.13 254); --color-accent-wash: oklch(95% 0.028 256); --color-accent-ink: oklch(98.6% 0.005 250); --color-focus: oklch(52% 0.19 258);
   --font-display: "Familjen Grotesk", system-ui, sans-serif; --font-body: "IBM Plex Sans", system-ui, sans-serif;
   --font-outlier: "JetBrains Mono", ui-monospace, monospace;
-  --radius-card: 10px; --radius-input: 6px; --radius-pill: 999px;
-  --rule-hair: 1px; --shadow-card: 0 1px 2px oklch(24% 0.02 258 / 0.05);
-  --tracking-display: -0.02em;
+  --radius-card: 8px; --radius-input: 6px; --radius-pill: 999px;
+  --rule-hair: 1px; --shadow-card: 0 1px 2px oklch(21% 0.028 262 / 0.06);
+  --tracking-display: -0.028em; --display-weight: 600;
 }

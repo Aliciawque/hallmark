@@ -14,80 +14,81 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
+<div class="banner"><div class="container banner__in"><p>The Calder Valley Half Marathon. Chip timed, splits live.</p><a href="#enter">Entry £34</a></div></div>
 <header class="bar">
   <div class="container bar__in">
     <a class="bar__mark" href="#top" aria-label="Calder Valley Half Marathon, back to the top">Calder Valley Half</a>
-    <form class="bar__find" role="search" action="#live" data-find>
-      <label class="visually-hidden" for="find">Find a runner by bib number or surname</label>
-      <input id="find" name="runner" type="search" placeholder="Find a runner: bib or surname" autocomplete="off" enterkeyhint="search">
-    </form>
     <nav class="bar__links" aria-label="Sections">
+      <a href="#timing">Timing</a>
       <a href="#pace">Pace</a>
-      <a href="#enter">Enter</a>
+      <a href="#live">Live</a>
     </nav>
+    <a class="btn btn--primary btn--s" href="#enter">Enter</a>
   </div>
 </header>
 
 <main id="main">
 
 <section class="hero" id="top" aria-labelledby="hero-head">
-  <figure class="hero__photo" data-slot="hero" data-alt="The pack on the Calder Valley course on race morning, from behind, at road level">
-    <img src="photos/human-running-gait-terminal-swing-to-heel-strike-runner-with-1920.jpg" width="1920" height="1260" alt="A runner's legs in compression socks and racing shoes, mid stride on the road" style="object-position: 50% 70%" fetchpriority="high">
-  </figure>
-  <div class="hero__scrim" aria-hidden="true"></div>
-  <div class="container hero__in">
-    <h1 id="hero-head">Run the<br>Calder Valley</h1>
-    <p class="lead hero__lead">Sunday 19 April. Chip timed, with every split posted live.</p>
-    <div class="hero__acts">
-      <a class="btn btn--primary" href="#enter">Enter for £34</a>
-      <a class="btn btn--ghost" href="#live">Follow a runner</a>
+  <div class="container hero__grid">
+    <div class="hero__text">
+      <h1 id="hero-head">Run the Calder Valley</h1>
+      <p class="lead hero__lead">A half marathon, chip timed, with every split posted live.</p>
+      <div class="hero__acts">
+        <a class="btn btn--primary" href="#enter">Enter the race</a>
+        <a class="btn btn--secondary" href="#live">Follow a runner</a>
+      </div>
     </div>
-  </div>
-</section>
-
-<section class="card" id="race" aria-labelledby="card-head">
-  <div class="container grid">
-    <figure class="card__photo" data-slot="card" data-alt="A runner alone on a long stretch of the course road, from behind">
-      <img src="photos/trail-running-moscow-1920.jpg" width="1920" height="1434" alt="A runner climbing a dirt path through a summer meadow" style="object-position: 50% 100%" loading="lazy">
+    <figure class="hero__photo" data-slot="hero" data-alt="The pack on the Calder Valley course on race morning, legs and shoes on the road, at road level">
+      <img src="photos/human-running-gait-terminal-swing-to-heel-strike-runner-with-1920.jpg" width="1920" height="1260" alt="A runner's legs in compression socks and racing shoes, mid stride on the road" style="object-position: 62% 60%" fetchpriority="high">
+      <p class="hero__tag" data-keep><span class="hero__tag-fig">19 April</span> Sunday, race day</p>
     </figure>
-    <div class="card__text">
-      <h2 id="card-head">Take one of 1,800 places</h2>
-      <table class="sheet">
-        <caption class="visually-hidden">The race at a glance</caption>
-        <tbody>
-          <tr><th scope="row">Race day</th><td>Sunday 19 April</td></tr>
-          <tr><th scope="row">Distance</th><td><span class="fig fig--row">13.1</span> miles, 21.1 km</td></tr>
-          <tr><th scope="row">Entry</th><td><span class="fig fig--row">£34</span> a runner</td></tr>
-          <tr><th scope="row">Timing</th><td>Chip, start mat to finish mat</td></tr>
-          <tr><th scope="row">Splits</th><td>Posted live as you run</td></tr>
-        </tbody>
-      </table>
-    </div>
   </div>
 </section>
 
-<section class="day" id="day" aria-labelledby="day-head">
+<section class="race" id="race" aria-labelledby="race-head">
+  <div class="container">
+    <h2 id="race-head" class="visually-hidden">The race in four numbers</h2>
+    <dl class="figs">
+      <div><dt>Miles</dt><dd>13.1</dd></div>
+      <div><dt>Kilometres</dt><dd>21.1</dd></div>
+      <div><dt>Places</dt><dd>1,800</dd></div>
+      <div><dt>Entry</dt><dd>£34</dd></div>
+    </dl>
+  </div>
+</section>
+
+<section class="timing" id="timing" aria-labelledby="timing-head">
   <div class="container">
     <div class="split-head">
-      <h2 id="day-head">Your clock starts at the mat</h2>
-      <p class="lead">In the order the chip reads them.</p>
+      <h2 id="timing-head">Your clock starts at the mat</h2>
+      <p class="lead">Chip timing, in the order the chip reads you.</p>
     </div>
-    <figure class="day__photo" data-slot="day" data-alt="Runners crossing the start mat on race morning, seen from above">
-      <img src="photos/jogging-20210116-161032-1920.jpg" width="1920" height="1080" alt="A lone runner silhouetted on a hill crest against a pale sky" style="object-position: 62% 45%" loading="lazy">
-    </figure>
-    <ol class="steps">
-      <li><span class="fig steps__n">1</span><h3>Wear the chip</h3><p>It times you, not the crowd ahead.</p></li>
-      <li><span class="fig steps__n">2</span><h3>Cross the start mat</h3><p>Your clock starts as you cross.</p></li>
-      <li><span class="fig steps__n">3</span><h3>Every split, live</h3><p>Splits post as you run, for anyone following.</p></li>
-      <li><span class="fig steps__n">4</span><h3>Cross the finish mat</h3><p>Your time stops as you cross.</p></li>
+    <ol class="stages">
+      <li><h3>Wear the chip</h3><p>It times you, not the crowd ahead.</p></li>
+      <li><h3>Start mat</h3><p>Your clock starts as you cross it.</p></li>
+      <li class="stages__live"><h3>Splits, live</h3><p>Each split posts as you run it.</p></li>
+      <li><h3>Finish mat</h3><p>Your time stops as you cross.</p></li>
     </ol>
+  </div>
+</section>
+
+<section class="valley" id="valley" aria-labelledby="valley-head">
+  <div class="container">
+    <div class="split-head">
+      <h2 id="valley-head">One Sunday in the valley</h2>
+      <p class="lead">The race runs through the West Yorkshire valley it is named for.</p>
+    </div>
+    <figure class="valley__photo" data-slot="valley" data-alt="The course road climbing through the Calder Valley, wide">
+      <img src="photos/2014-track-on-fremington-edge-1920.jpg" width="1920" height="1440" alt="A sandy track across heather moor past a lone wind-bent tree, the dale below" style="object-position: 50% 62%" loading="lazy">
+    </figure>
   </div>
 </section>
 
 <section class="pace" id="pace" aria-labelledby="pace-head">
   <div class="container">
     <div class="split-head">
-      <h2 id="pace-head">13.1 miles at your pace</h2>
+      <h2 id="pace-head">Every mile at your pace</h2>
       <p class="lead">Every mile split for the time you want.</p>
     </div>
     <div class="planner" data-planner>
@@ -117,15 +118,6 @@
         <li class="splits__finish"><span>Finish, 13.1</span><span class="fig" data-mile="finish">2:00:00</span></li>
       </ol>
     </div>
-  </div>
-</section>
-
-<section class="valley" id="valley" aria-labelledby="valley-head">
-  <div class="container">
-    <h2 id="valley-head">One Sunday in the Calder Valley</h2>
-    <figure class="valley__photo" data-slot="valley" data-alt="The course road climbing through the Calder Valley, wide">
-      <img src="photos/2014-track-on-fremington-edge-1920.jpg" width="1920" height="1440" alt="A sandy track across heather moor past a lone wind-bent tree, the dale below" style="object-position: 50% 65%" loading="lazy">
-    </figure>
   </div>
 </section>
 
@@ -177,10 +169,12 @@
 
 <section class="enter" id="enter" aria-labelledby="enter-head">
   <div class="container grid">
+    <figure class="enter__photo" data-slot="enter" data-alt="A runner on a Calder Valley hilltop at first light, in silhouette">
+      <img src="photos/jogging-20210116-161032-1920.jpg" width="1920" height="1080" alt="A lone runner silhouetted on a hill crest against a pale sky" style="object-position: 64% 50%" loading="lazy">
+    </figure>
     <div class="enter__text">
       <h2 id="enter-head">Enter for £34</h2>
-      <p class="lead">1,800 places, and entry closes when they are gone.</p>
-    </div>
+      <p class="lead">1,800 places; entry closes when they are gone.</p>
     <form class="entry" data-endpoint="" novalidate>
       <div class="entry__field">
         <label for="name">Full name</label>
@@ -201,10 +195,11 @@
         </select>
       </div>
       <div class="entry__go">
-        <button class="btn btn--primary" type="submit">Enter for £34</button>
+        <button class="btn btn--primary" type="submit">Take a place</button>
         <p class="entry__help" id="entry-help" aria-live="polite"></p>
       </div>
     </form>
+    </div>
   </div>
 </section>
 
@@ -215,13 +210,14 @@
     <p class="foot__line">See you at the start mat.</p>
     <div class="foot__row">
       <nav class="foot__links" aria-label="Footer">
+        <a href="#timing">Timing</a>
         <a href="#pace">Pace planner</a>
         <a href="#live">Follow a runner</a>
         <a href="#enter">Enter</a>
       </nav>
       <p class="foot__legal">Calder Valley Half Marathon</p>
     </div>
-    <p class="foot__credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Human_running_gait_-_terminal_swing_to_heel_strike_(runner_with_Asics_Metaspeed_Edge_Paris_-_2024_Ljubljana_Marathon).jpg">Petar Milošević</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Trail_running_moscow.jpg">ValeryGL</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Jogging_20210116_161032.jpg">Ka23 13</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:2014_Track_on_Fremington_Edge.jpg">Kreuzschnabel</a> (CC BY-SA 3.0), all via Wikimedia Commons.</p>
+    <p class="foot__credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Human_running_gait_-_terminal_swing_to_heel_strike_(runner_with_Asics_Metaspeed_Edge_Paris_-_2024_Ljubljana_Marathon).jpg">Petar Milošević</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Jogging_20210116_161032.jpg">Ka23 13</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:2014_Track_on_Fremington_Edge.jpg">Kreuzschnabel</a> (CC BY-SA 3.0), all via Wikimedia Commons.</p>
   </div>
 </footer>
 
