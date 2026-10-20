@@ -178,5 +178,122 @@
       "scope": "page",
       "notes": "With and without Hallmark on Opus 5.5 at low effort, for the landing page."
     }
+  },
+  {
+    "id": "b21",
+    "name": "vague brief",
+    "brief": "Make a site for my dog walking business.",
+    "expect": {
+      "scope": "page",
+      "notes": "Opus 5.5 at medium effort, vague brief."
+    }
+  },
+  {
+    "id": "b22",
+    "name": "vague brief",
+    "brief": "Landing page for a meditation app.",
+    "expect": {
+      "scope": "page",
+      "notes": "Opus 5.5 at medium effort, vague brief."
+    }
+  },
+  {
+    "id": "b23",
+    "name": "vague brief",
+    "brief": "I need a website for my band.",
+    "expect": {
+      "scope": "page",
+      "notes": "Opus 5.5 at medium effort, vague brief."
+    }
+  },
+  {
+    "id": "b24",
+    "name": "vague brief",
+    "brief": "A page for my bike repair shop.",
+    "expect": {
+      "scope": "page",
+      "notes": "Opus 5.5 at medium effort, vague brief."
+    }
+  },
+  {
+    "id": "b25",
+    "name": "vague brief",
+    "brief": "Homepage for a small architecture studio.",
+    "expect": {
+      "scope": "page",
+      "notes": "Opus 5.5 at medium effort, vague brief."
+    }
+  },
+  {
+    "id": "b26",
+    "name": "vague brief",
+    "brief": "Landing page for a database GUI.",
+    "expect": {
+      "scope": "page",
+      "notes": "Opus 5.5 at medium effort, vague brief."
+    }
+  },
+  {
+    "id": "b27",
+    "name": "vague brief",
+    "brief": "Site for a kids' coding camp.",
+    "expect": {
+      "scope": "page",
+      "notes": "Opus 5.5 at medium effort, vague brief."
+    }
+  },
+  {
+    "id": "b28",
+    "name": "real product",
+    "brief": "Make a landing page for SubStudio, my subtitles app. It's on my Desktop at ~/Desktop/Apps/ai-subtitles. You can run it yourself (npm run dev -- -p 3128) and take screenshots of what it looks like to use on the page.",
+    "expect": {
+      "scope": "page",
+      "notes": "Opus 5.5 at medium effort; the product exists and should be captured, not mocked."
+    },
+    "addDirs": [
+      "~/Desktop/Apps/ai-subtitles"
+    ]
+  },
+  {
+    "id": "b29",
+    "name": "real product",
+    "brief": "Landing page for Moji, my Slack emoji generator. The code is at ~/Desktop/Apps/together-emoji.",
+    "expect": {
+      "scope": "page",
+      "notes": "Opus 5.5 at medium effort; the product exists and should be captured, not mocked."
+    },
+    "addDirs": [
+      "~/Desktop/Apps/together-emoji"
+    ]
+  },
+  {
+    "id": "b30",
+    "name": "real product",
+    "brief": "Build a landing page for Qwest, my game. It's live at https://playqwest.vercel.app.",
+    "expect": {
+      "scope": "page",
+      "notes": "Opus 5.5 at medium effort; the product exists and should be captured, not mocked."
+    }
+  },
+  {
+    "id": "b31",
+    "name": "real product",
+    "brief": "I need a landing page for Stylepicker, the app in ~/Desktop/Apps/stylepicker-v2.",
+    "expect": {
+      "scope": "page",
+      "notes": "Opus 5.5 at medium effort; the product exists and should be captured, not mocked."
+    },
+    "addDirs": [
+      "~/Desktop/Apps/stylepicker-v2"
+    ]
+  },
+  {
+    "id": "b32",
+    "name": "real product",
+    "brief": "Landing page for Model Arena, my side project, live at https://model-arena-flax.vercel.app.",
+    "expect": {
+      "scope": "page",
+      "notes": "Opus 5.5 at medium effort; the product exists and should be captured, not mocked."
+    }
   }
 ]

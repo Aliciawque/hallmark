@@ -221,6 +221,7 @@ async function runCell(brief, armId) {
     cliArgs.push("--strict-mcp-config");
   }
   cliArgs.push("--allowedTools", allowed.join(","));
+  for (const d of brief.addDirs || []) cliArgs.push("--add-dir", d.replace(/^~(?=\/)/, process.env.HOME));
   if (args.model) cliArgs.push("--model", args.model);
   if (args.effort) cliArgs.push("--effort", args.effort);
 
