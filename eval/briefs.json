@@ -243,60 +243,6 @@
     }
   },
   {
-    "id": "b28",
-    "name": "real product",
-    "brief": "Make a landing page for SubStudio, my subtitles app. It's on my Desktop at ~/Desktop/Apps/ai-subtitles. You can run it yourself (npm run dev -- -p 3128) and take screenshots of what it looks like to use on the page.",
-    "expect": {
-      "scope": "page",
-      "notes": "Opus 5.5 at medium effort; the product exists and should be captured, not mocked."
-    },
-    "addDirs": [
-      "~/Desktop/Apps/ai-subtitles"
-    ]
-  },
-  {
-    "id": "b29",
-    "name": "real product",
-    "brief": "Landing page for Moji, my Slack emoji generator. The code is at ~/Desktop/Apps/together-emoji.",
-    "expect": {
-      "scope": "page",
-      "notes": "Opus 5.5 at medium effort; the product exists and should be captured, not mocked."
-    },
-    "addDirs": [
-      "~/Desktop/Apps/together-emoji"
-    ]
-  },
-  {
-    "id": "b30",
-    "name": "real product",
-    "brief": "Build a landing page for Qwest, my game. It's live at https://playqwest.vercel.app.",
-    "expect": {
-      "scope": "page",
-      "notes": "Opus 5.5 at medium effort; the product exists and should be captured, not mocked."
-    }
-  },
-  {
-    "id": "b31",
-    "name": "real product",
-    "brief": "I need a landing page for Stylepicker, the app in ~/Desktop/Apps/stylepicker-v2.",
-    "expect": {
-      "scope": "page",
-      "notes": "Opus 5.5 at medium effort; the product exists and should be captured, not mocked."
-    },
-    "addDirs": [
-      "~/Desktop/Apps/stylepicker-v2"
-    ]
-  },
-  {
-    "id": "b32",
-    "name": "real product",
-    "brief": "Landing page for Model Arena, my side project, live at https://model-arena-flax.vercel.app.",
-    "expect": {
-      "scope": "page",
-      "notes": "Opus 5.5 at medium effort; the product exists and should be captured, not mocked."
-    }
-  },
-  {
     "id": "b33",
     "name": "custom",
     "brief": "Make me a custom landing page for a late-night ramen counter.",

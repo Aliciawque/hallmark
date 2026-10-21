@@ -28,9 +28,10 @@ for (const root of roots) {
   if (puppeteer) break;
 }
 if (!puppeteer) { console.error('picture.mjs needs puppeteer-core or puppeteer (local, global or HALLMARK_PUPPETEER)'); process.exit(1); }
-const chromes = [process.env.CHROME_PATH, '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', '/usr/bin/google-chrome', '/usr/bin/chromium', '/usr/bin/chromium-browser'];
-let chrome = chromes.find((p) => p && existsSync(p));
-if (!chrome && typeof puppeteer.executablePath === 'function') chrome = puppeteer.executablePath();
+const CHROMES = [process.env.CHROME_PATH, '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', '/Applications/Chromium.app/Contents/MacOS/Chromium', '/usr/bin/google-chrome', '/usr/bin/google-chrome-stable', '/usr/bin/chromium', '/usr/bin/chromium-browser', '/snap/bin/chromium', 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe', 'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe'];
+const findChrome = () => { const c = CHROMES.find((x) => x && existsSync(x)); if (c) return c; try { const b = typeof puppeteer.executablePath === 'function' ? puppeteer.executablePath() : null; if (typeof b === 'string' && existsSync(b)) return b; } catch {} return null; };
+const chrome = findChrome();
+if (!chrome) { console.error('no Chrome or Chromium found; set CHROME_PATH to its executable'); process.exit(1); }
 const browser = await puppeteer.launch({ executablePath: chrome, headless: true });
 const p = await browser.newPage();
 await p.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);

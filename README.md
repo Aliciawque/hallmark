@@ -85,8 +85,10 @@ A full redesign keeps the content and the wiring and changes the system and the 
 ## Install
 
 ```
-npx skills add nutlope/hallmark
+npx skills add nutlope/hallmark -g
 ```
+
+`-g` installs for every project; leave it off to install into the current one. Needs Node 18 or later. The browser checks (`sloplint --render`, screenshots) also need `npm i -g puppeteer-core` and Chrome; without them the static checks still run.
 
 | Harness | Lands in | Invoke |
 | --- | --- | --- |
@@ -94,7 +96,7 @@ npx skills add nutlope/hallmark
 | Codex CLI | `~/.agents/skills/hallmark` | `$hallmark <brief>` or describe a new build |
 | OpenCode | finds the copies above | `/hallmark <brief>` or describe a new build |
 
-- **One harness only:** `npx skills add nutlope/hallmark --agent claude-code` (or `codex`, `opencode`, `cursor`, `github-copilot`).
+- **One harness only:** `npx skills add nutlope/hallmark -g --agent claude-code` (or `codex`, `opencode`, `cursor`, `github-copilot`).
 - **From a clone:** `node skills/hallmark/scripts/install.mjs` validates every theme and reference before it copies; `install-hook.mjs` adds an edit-time Floor check to Claude Code.
 - **Lint any page:** `node skills/hallmark/scripts/sloplint.mjs <file-or-dir> --render`.
 - **If it does not fire on its own,** name it: *use hallmark to build ...*. Worked examples in [`docs/recipes.md`](docs/recipes.md).

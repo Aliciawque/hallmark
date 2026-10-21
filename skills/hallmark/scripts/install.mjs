@@ -31,6 +31,19 @@ const TARGETS = {
 
 const args = process.argv.slice(2);
 const has = (f) => args.includes(f);
+const FLAGS = ["--claude", "--codex", "--opencode", "--copy", "--dry-run", "--force", "--remove", "--help", "-h"];
+const unknown = args.filter((a) => !FLAGS.includes(a));
+if (has("--help") || has("-h") || unknown.length) {
+  if (unknown.length) console.log(`Unknown option: ${unknown.join(" ")}\n`);
+  console.log(`node install.mjs [--claude] [--codex] [--opencode] [--copy] [--dry-run] [--force] [--remove]
+
+  Installs Hallmark for every harness it finds (or only the ones named), after checking every theme and reference.
+  --dry-run  print what would be copied and change nothing
+  --copy     give OpenCode its own copy instead of reading the Claude Code or Codex one
+  --force    install even if the checks find a problem
+  --remove   delete every installed copy`);
+  process.exit(unknown.length ? 2 : 0);
+}
 const DRY = has("--dry-run");
 
 function copyDir(src, dest) {
@@ -121,8 +134,7 @@ for (const key of picked) {
   installTo(t.dir);
 
   if (key === "codex" && fs.existsSync(t.legacy)) {
-    console.log(`  legacy copy found at ${t.legacy} (superseded location); refreshing it too so nothing stale is ever discovered:`);
-    installTo(t.legacy);
+    console.log(`  an older copy sits at ${t.legacy}; Codex may list Hallmark twice. Remove it with: node install.mjs --remove, then install again.`);
   }
 }
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join, dirname, basename, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const WIDTHS = [320, 375, 414, 768, 1024, 1280, 1920];
 const CHROMES = ['/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', '/Applications/Chromium.app/Contents/MacOS/Chromium', '/usr/bin/google-chrome', '/usr/bin/google-chrome-stable', '/usr/bin/chromium', '/usr/bin/chromium-browser', '/snap/bin/chromium', 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'];
@@ -76,7 +76,6 @@ export async function renderCheck(htmlFiles, metaIn) {
   const inventories = {};
   let puppeteer = null;
   const { createRequire } = await import('node:module');
-  const { pathToFileURL } = await import('node:url');
   const tryRoots = async (roots) => {
     for (const root of roots) {
       for (const name of ['puppeteer-core', 'puppeteer']) {
@@ -124,7 +123,7 @@ export async function renderCheck(htmlFiles, metaIn) {
         page.on('requestfailed', (r) => { if (['stylesheet', 'font'].includes(r.resourceType())) lost.add(lostName(r.url())); });
         page.on('response', (r) => { try { if (r.status() >= 400 && ['stylesheet', 'font'].includes(r.request().resourceType())) lost.add(lostName(r.url())); } catch {} });
         await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]).catch(() => {});
-        const nav = await page.goto(isUrl(file) ? file : 'file://' + file, { waitUntil: isUrl(file) ? 'networkidle0' : 'load', timeout: 30000 }).then((r) => ({ r }), (e) => ({ e }));
+        const nav = await page.goto(isUrl(file) ? file : pathToFileURL(file).href, { waitUntil: isUrl(file) ? 'networkidle0' : 'load', timeout: 30000 }).then((r) => ({ r }), (e) => ({ e }));
         if (nav.e && !/timeout/i.test(nav.e.message)) throw nav.e;
         if (nav.r && isUrl(file) && !nav.r.ok() && nav.r.status() !== 304) throw new Error(`HTTP ${nav.r.status()} from ${file}`);
         await page.evaluate(async () => {
@@ -889,7 +888,7 @@ function observeSpace(atLaptop, heroOnly, heroPosture, photoShape, job) {
       const foot = [...document.querySelectorAll('body footer, [role="contentinfo"]')].filter(vis).pop();
       const before = foot ? secs.filter((x) => x !== foot && abs(x).bottom <= abs(foot).top + 2).pop() : secs[secs.length - 1];
       // a form whose submit books, asks or requests is the job's own action, not a mailing list
-      const asks = (f) => /\b(book|enquir|inquir|request|contact|walkthrough|demo|quote|reserve|apply)/i.test([...f.querySelectorAll('button, input[type=submit]')].map((b) => b.innerText || b.value || '').join(' '));
+      const asks = (f) => { const t = [...f.querySelectorAll('button, input[type=submit]')].map((b) => b.innerText || b.value || '').join(' '); return /\b(book|enquir|inquir|request|contact|walkthrough|demo|quote|reserve|apply|start|create|order|buy|download|try)/i.test(t) && !/newsletter|updates|subscribe|the list|mailing/i.test(t); };
       const signup = (box) => box && [...box.querySelectorAll('form, [role="form"]')].find((f) => { if (asks(f)) return false; const fields = [...f.querySelectorAll('input:not([type=hidden]):not([type=submit]):not([type=checkbox]):not([type=radio]), textarea, select')].filter(vis); return fields.length >= 1 && fields.length <= 2 && fields.some((x) => x.type === 'email' || /e-?mail/i.test(`${x.name} ${x.id} ${x.placeholder} ${x.getAttribute('autocomplete') || ''}`)); });
       const hit = signup(before) || signup(foot);
       if (hit) push(85, 'REFLEX', `the page closes on an email sign-up${job ? ` on a ${job} page` : ' and the stamp names no job'}`, 'End on what the visitor came to do (the booking, the buy box, the download, the next date, the latest issue) or on the last strong section; an email close is for a subscribe or join page, and the stamp says job: (anatomy.md)');
@@ -1245,7 +1244,7 @@ async function observeOcclusion() {
   return out;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   const htmls = process.argv.slice(2).filter((p) => p.endsWith('.html'));
   const res = await renderCheck(process.argv.slice(2).filter((p) => isUrl(p)).concat(htmls.map((p) => resolve(process.cwd(), p))));
   console.log(JSON.stringify(res, null, 2));
