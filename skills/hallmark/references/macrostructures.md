@@ -1,6 +1,6 @@
 # Macrostructures
 
-Twenty-one named landing-page shapes. Each is a complete fingerprint (heading placement, body composition, divider language, button voice, image treatment, reveal pattern) bundled under one name. **This is a vocabulary, not a menu.** Design the page the brief asks for, then name the shape you designed so Rotation and gate 32 have something to read; reaching in here first and building whatever comes back is how twenty-one shapes collapse into the same three. When nothing here fits what you designed, say so, describe the shape as a fingerprint (§ The fingerprint, below), and give it a short name for the stamp and the log (*a season page*).
+Twenty-one named landing-page shapes. Each is a complete fingerprint (heading placement, body composition, divider language, button voice, image treatment, reveal pattern) bundled under one name. **This is a vocabulary, not a menu.** Design the page the prompt asks for, then name the shape you designed so Rotation and gate 32 have something to read; reaching in here first and building whatever comes back is how twenty-one shapes collapse into the same three. When nothing here fits what you designed, say so, describe the shape as a fingerprint (§ The fingerprint, below), and give it a short name for the stamp and the log (*a season page*).
 
 ## The 21 macrostructures, index
 
@@ -11,11 +11,11 @@ Twenty-one named landing-page shapes. Each is a complete fingerprint (heading pl
 - **03 · Marquee Hero.** The hero is the page above the fold. A single statement or visual fills the viewport. Below the fold the page becomes something else (a list, a grid, prose). [`macrostructures/03-marquee-hero.md`](macrostructures/03-marquee-hero.md)
 - **04 · Stat-Led.** The hero is a figure the user gave, with the line that says what it means. Everything that follows supports or qualifies it. [`macrostructures/04-stat-led.md`](macrostructures/04-stat-led.md)
 - **05 · Workbench.** Real product captures are the primary content. The page is a guided tour of the app in use, with short captions in place of marketing copy. [`macrostructures/05-workbench.md`](macrostructures/05-workbench.md)
-- **06 · Conversational FAQ.** Bold questions, brief answers. The page reads like an honest interview with the product. Each pair may be a disclosure. [`macrostructures/06-conversational-faq.md`](macrostructures/06-conversational-faq.md)
+- **06 · Conversational FAQ.** Bold questions, prompt answers. The page reads like an honest interview with the product. Each pair may be a disclosure. [`macrostructures/06-conversational-faq.md`](macrostructures/06-conversational-faq.md)
 - **07 · Manifesto.** Polemical large type. The page tells the reader what to believe before it tells them what to buy. [`macrostructures/07-manifesto.md`](macrostructures/07-manifesto.md)
 - **08 · Photographic.** A single huge image dominates each fold. Text is small annotation, not headline. The design says look before it says read. [`macrostructures/08-photographic.md`](macrostructures/08-photographic.md)
 - **09 · Quote-Led.** The hero is a quote the user supplied, with its attribution. The headline is someone else's voice. [`macrostructures/09-quote-led.md`](macrostructures/09-quote-led.md)
-- **10 · Specimen.** Large serif display, asymmetric spans, hairline rules, a typographic CTA, generous whitespace. Only for briefs about type, publishing or writing (a foundry, a journal, a press); the editorial genre alone does not qualify. [`macrostructures/10-specimen.md`](macrostructures/10-specimen.md)
+- **10 · Specimen.** Large serif display, asymmetric spans, hairline rules, a typographic CTA, generous whitespace. Only for prompts about type, publishing or writing (a foundry, a journal, a press); the editorial genre alone does not qualify. [`macrostructures/10-specimen.md`](macrostructures/10-specimen.md)
 - **11 · Catalogue.** Uniform grid of variations of the same thing: typefaces, palettes, SKUs. The page is a visual index of inventory. [`macrostructures/11-catalogue.md`](macrostructures/11-catalogue.md)
 - **12 · Letter.** First-person, written, intimate. Opens with a greeting. Reads as a personal note from the founder. [`macrostructures/12-letter.md`](macrostructures/12-letter.md)
 - **13 · Index-First.** The page is a list of links. No hero image, no narrative flow. Navigation as design. [`macrostructures/13-index-first.md`](macrostructures/13-index-first.md)
@@ -32,7 +32,7 @@ Twenty-one named landing-page shapes. Each is a complete fingerprint (heading pl
 
 ## SaaS section deck: deal it, do not sequence it
 
-When the shape is **Bento Grid, Stat-Led, Workbench or Marquee Hero** and the brief is a B2B SaaS page, build from this deck. Cards have roles, not positions. The base of the deck is made of things the page can show honestly without inventing anything; the top of the deck exists only when the user handed over the material.
+When the shape is **Bento Grid, Stat-Led, Workbench or Marquee Hero** and the prompt is a B2B SaaS page, build from this deck. Cards have roles, not positions. The base of the deck is made of things the page can show honestly without inventing anything; the top of the deck exists only when the user handed over the material.
 
 **Base cards** (always available):
 
@@ -71,13 +71,13 @@ For non-SaaS work (Editorial, Manifesto, Letter, Long Document, Quote-Led) this 
 On a theme build the draw deals the shape (SKILL.md Step 2); these steps are for a swap the material forces, or a run without Node.
 
 0. **Read the material inventory** (SKILL.md Step 2). A shape built on screenshots or figures needs them, real or as slots the user asked for; with neither, pick a shape that carries type and facts.
-1. **Read the brief.** Note any words that strongly signal one shape ("data heavy", "tell a story", "a list of links", "many small features", "personal note").
+1. **Read the prompt.** Note any words that strongly signal one shape ("data heavy", "tell a story", "a list of links", "many small features", "personal note").
 2. **Read `.hallmark/log.json`** (newest first) and the `shape:` field of any Hallmark stamp in the project; the last three shapes are excluded.
-3. **Match the brief to a shape** using the index lines above and § Domain to trio below, then open only the file you land on. Most briefs match two to four; pick the one most distant from the logged shapes, and check the mirror test in SKILL.md Step 2.
+3. **Match the prompt to a shape** using the index lines above and § Domain to trio below, then open only the file you land on. Most prompts match two to four; pick the one most distant from the logged shapes, and check the mirror test in SKILL.md Step 2.
 4. **State the pick once**, in the Picks block's Shape row and the stamp's `shape:` field.
 5. If torn, take the domain's trio (§ Domain to trio) and pick the one most distant from the log.
 
-Two pages Hallmark builds for two different briefs must look like different sites, not colour swaps of one template.
+Two pages Hallmark builds for two different prompts must look like different sites, not colour swaps of one template.
 
 ## The fingerprint: six axes
 
@@ -95,7 +95,7 @@ Two pages Hallmark builds for two different briefs must look like different site
 
 Fingerprint: one choice per axis, written `Hanging|Asymmetric spans|Hairline|Outlined|Margin-aligned|None`. Two rules: coherence (choices from the same world; a justified newspaper body wants a typographic CTA, not an oversized solid) and anti-repetition (no more than three of six axes shared with any of the last three logged entries; a None on Image or Reveal that the theme or the material forces is not a shared choice).
 
-## Domain to trio, when the brief names no shape
+## Domain to trio, when the prompt names no shape
 
 Three shapes from different families (grid-led, document-led, poster-led, product-led) that fit the domain, never three near-twins; the one most distant from the last logged shape is the pick:
 
@@ -116,4 +116,4 @@ Three shapes from different families (grid-led, document-led, poster-led, produc
 | conference, event, speaker | Marquee Hero · Manifesto · Photographic |
 | no signal at all | Bento Grid · Long Document · Manifesto |
 
-Developer docs and developer marketing are different briefs (a walkthrough wants Workbench; the landing wants Bento plus Stat-Led), as are a one-pager and a case-study portfolio; the Step 1 use decides. A vague tone word ("modern", "clean") is read through the genre and stated as an inference, never a second question.
+Developer docs and developer marketing are different prompts (a walkthrough wants Workbench; the landing wants Bento plus Stat-Led), as are a one-pager and a case-study portfolio; the Step 1 use decides. A vague tone word ("modern", "clean") is read through the genre and stated as an inference, never a second question.

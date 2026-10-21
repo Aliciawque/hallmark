@@ -33,7 +33,7 @@ A producer's tool in one pigment: a paper tinted the same hue as the ink, one sa
 }
 ```
 
-Three colourways, set once per page and stated in the stamp (`ultraviolet: lavender`). A nocturnal brief takes `night`, which may carry one band in the `record` colours.
+Three colourways, set once per page and stated in the stamp (`ultraviolet: lavender`). A nocturnal prompt takes `night`, which may carry one band in the `record` colours.
 
 | Colourway | Paper, ink, accent |
 | --- | --- |
@@ -60,7 +60,7 @@ Three colourways, set once per page and stated in the stamp (`ultraviolet: laven
 ## Range
 
 - **Lanes as the picture:** the product's own waveforms across ten or twelve columns, one stem to a row under hairlines, a bar ruler above in the label voice; the played part violet, the rest soft. It carries a section with no photograph and no frame.
-- **Figures in light Outfit:** the brief's real numbers at display size in the 300, parted by hairlines, one of them in the violet, each unit lowercase beside it.
+- **Figures in light Outfit:** the prompt's real numbers at display size in the 300, parted by hairlines, one of them in the violet, each unit lowercase beside it.
 - **A table of uses:** a full-width Table in lowercase, the use at title size, the stems it takes as small pills, one line of what you hear; a price list takes the same rows.
 - **The record field:** one band in the violet holding a working drop zone or a form, the white pill its only fill.
 

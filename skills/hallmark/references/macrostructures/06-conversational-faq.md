@@ -1,6 +1,6 @@
 ## 06 · Conversational FAQ
 
-Bold questions, brief answers. The page reads like an honest interview with the product. Each pair may be a disclosure.
+Bold questions, prompt answers. The page reads like an honest interview with the product. Each pair may be a disclosure.
 
 - **Heading:** each section is a question: a short direct phrase ending in `?`.
 - **Body:** the answer in one or two short paragraphs directly under the question.

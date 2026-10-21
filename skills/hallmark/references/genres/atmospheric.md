@@ -1,6 +1,6 @@
 # Genre: atmospheric
 
-The AI-creative and after-dark product page: generative music, video, image, voice, model playgrounds, anything the brief calls moody, cinematic or nocturnal. A canvas first, then a tool. The deal leans toward this genre's themes, light-paper exceptions included.
+The AI-creative and after-dark product page: generative music, video, image, voice, model playgrounds, anything the prompt calls moody, cinematic or nocturnal. A canvas first, then a tool. The deal leans toward this genre's themes, light-paper exceptions included.
 
 ## Voice
 

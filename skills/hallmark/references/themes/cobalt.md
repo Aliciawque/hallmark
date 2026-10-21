@@ -61,7 +61,7 @@ An exact, technical register: cool near-white paper ruled with hairlines, Familj
 - **A table that is the API:** ruled full width, machine values in mono, one row on the cobalt wash.
 - **A mapping:** two graphite panes, input and output, matched lines joined by hairline elbows.
 - **A timeline as a ruler:** real seconds on one hairline, attempts as notched ticks with their status in Familjen 600 at display size, waits as dimension lines, failure in the error colour.
-- **A working control on the brief's numbers:** its result as one large figure over a meter of fifty mono cells.
+- **A working control on the prompt's numbers:** its result as one large figure over a meter of fifty mono cells.
 
 ## Controls
 
@@ -81,7 +81,7 @@ Declarative and specific, like a good changelog: the event, the endpoint, the st
 
 - Never a warm accent, a pill or a gradient button.
 - Never noise for its own sake: the field maps traffic or state the product has, and no type sits on its densest cells.
-- Never fake code: a snippet compiles or returns; with no host in the brief, call `example.com`.
+- Never fake code: a snippet compiles or returns; with no host in the prompt, call `example.com`.
 
 ## Build hint
 

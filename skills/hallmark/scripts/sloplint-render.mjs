@@ -790,7 +790,7 @@ function observeSpace(atLaptop, heroOnly, heroPosture, photoShape, job) {
       else if (real.length > 2 && new Set(real).size === 1) push(59, 'REFLEX', `every section gap is ${min}px`, 'Vary the rhythm across --section-gap-s, --section-gap and --section-gap-l');
     }
     if (!heroOnly && secs.length > 9) push(59, 'WARN', `${secs.length} sections`, 'Six to nine sections a page, hero and footer included; merge or cut');
-    else if (!heroOnly && secs.length < 5) push(77, 'WARN', `${secs.length} sections, hero and footer included`, 'A landing strip, not a page: six to nine sections, five on a thin brief (layout.md § 3)');
+    else if (!heroOnly && secs.length < 5) push(77, 'WARN', `${secs.length} sections, hero and footer included`, 'A landing strip, not a page: six to nine sections, five on a thin prompt (layout.md § 3)');
     if (!heroOnly) {
       for (const sl of document.querySelectorAll('[data-slot]')) {
         const cs = getComputedStyle(sl);

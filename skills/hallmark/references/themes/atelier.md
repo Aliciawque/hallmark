@@ -52,7 +52,7 @@ The register of a maker's catalogue held in still air: limewash paper with a slo
 
 ## Range
 
-- **Statement:** one sentence of the brief in Sentient 300 across nine or ten columns, the pencilled edition line and a wall-text paragraph opening on a slate drop cap.
+- **Statement:** one sentence of the prompt in Sentient 300 across nine or ten columns, the pencilled edition line and a wall-text paragraph opening on a slate drop cap.
 - **The choice as strips:** the collection as blotters on a rail, each a real tab; the chosen one drops, its picture and wall label beside it.
 - **Timetable:** days or hours as a ruled table under the ink rule, names in Sentient 400, a closed row muted, never struck through.
 - **The booking as a card:** the form as a letterpress card on cotton: the house name pressed, a ringed day picker (a blind impression around the chosen day), engraved time chips, ruled lines to write on, strips tucked behind.

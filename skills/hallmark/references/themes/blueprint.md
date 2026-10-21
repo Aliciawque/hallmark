@@ -56,7 +56,7 @@ Three sheets, stated in the stamp (`blueprint: cyanotype`).
 
 ## Range
 
-- **Figures as dimensions:** the brief's one number in Chakra Petch at display size, set on a dimension string that spans ten or twelve columns between its two real ends (a first year and now, a smallest and largest span), the ends in mono.
+- **Figures as dimensions:** the prompt's one number in Chakra Petch at display size, set on a dimension string that spans ten or twelve columns between its two real ends (a first year and now, a smallest and largest span), the ends in mono.
 - **Tables as drawing registers:** a stage schedule, a deliverables list or a price list as a keylined table, stage numbers in mono in their own column, the row title one weight heavier, a `--rule-heavy` line under the head row; on `--color-paper-2` it reads as the register sheet of a set.
 - **Forms as a title block:** fields set as cells of a keylined block, each label at the cell's top left, the cells sized by what they hold, the submit in the ink fill at the block's foot.
 - **Comparisons and steps as elevations:** two options side by side as columns parted by one heavy line, or stages as a run along one long dimension string with a tick at each stage, each stage a numeral, a title and a line.

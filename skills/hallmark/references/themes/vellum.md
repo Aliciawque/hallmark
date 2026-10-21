@@ -58,7 +58,7 @@ Three colourways, stated in the stamp (`vellum: parchment`).
 ## Range
 
 - **Table as a day book:** the week's list as a full-width ruled table under a double rule, pigment numerals indexing the rows, the name in Hanken 600 at title size, values in tabular figures; a hovered row takes `--color-accent-soft`.
-- **Statement with figures:** one sentence of the brief in Grenze 400 across nine or ten columns on the fibre band, and beneath it, parted by a hairline, the brief's own numbers in Grenze Gotisch at display size in pigment with a plain label under each.
+- **Statement with figures:** one sentence of the prompt in Grenze 400 across nine or ten columns on the fibre band, and beneath it, parted by a hairline, the prompt's own numbers in Grenze Gotisch at display size in pigment with a plain label under each.
 - **Form on the field:** the ultramarine band holding a working choice (a size, a frequency) as square cells joined edge to edge, the running answer in Grenze Gotisch at section size.
 - **Rows as an index:** three to five ruled rows, the title in Grenze Gotisch at section size, one line of Hanken beside it: terms, visits, ways to buy.
 
@@ -74,7 +74,7 @@ Still. A hover underline in pigment, a row's soft wash and the primary deepening
 
 ## Voice
 
-Ledger-plain and dated: the item, the weight, the year, the town, as a clerk would enter them. Never *artisanal*, *curated*, or a story the brief did not give.
+Ledger-plain and dated: the item, the weight, the year, the town, as a clerk would enter them. Never *artisanal*, *curated*, or a story the prompt did not give.
 
 ## Do-nots
 

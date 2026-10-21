@@ -18,7 +18,7 @@ The gates come in tiers. The **Floor** never ships (contrast, focus, reduced mot
 
 - **Forty-eight themes.** Each is a material (paper, type, colour, surfaces, its own components and texture) with a picture of a finished page, and the build lays out its own page in it.
 - **Built from the job.** A booking page books, a shop sells, a newsletter subscribes: the action sits where the category puts it, and the page ends on it.
-- **Custom.** Ask for a custom page and Hallmark designs from your brief alone, under the same rules and checks.
+- **Custom.** Ask for a custom page and Hallmark designs from your prompt alone, under the same rules and checks.
 - **Your real product.** Point it at a URL, a dev server or an app and it captures the screenshots itself.
 - **Real photographs.** 755 openly licensed photos, picked per subject and credited on the page.
 - **Redesign and audit.** `/hallmark redesign <path>` rebuilds a page and keeps its content and wiring; `/hallmark audit <path>` only reports.
@@ -56,16 +56,16 @@ The gates come in tiers. The **Floor** never ships (contrast, focus, reduced mot
   </tr>
 </table>
 
-Ten of the forty-eight. A theme is a material, not a plan: it never says what a page contains or in what order, so two briefs in one theme make two different pages. Each is one file of at most 8 KB in [`references/themes/`](skills/hallmark/references/themes/) with a picture beside it; a build reads exactly one. See them all at [usehallmark.com](https://www.usehallmark.com).
+Ten of the forty-eight. A theme is a material, not a plan: it never says what a page contains or in what order, so two prompts in one theme make two different pages. Each is one file of at most 8 KB in [`references/themes/`](skills/hallmark/references/themes/) with a picture beside it; a build reads exactly one. See them all at [usehallmark.com](https://www.usehallmark.com).
 
 ## Custom
 
-Say **custom** and Hallmark drops the themes: no plan, no components, no palette recipe, only the floor, the gates and a short brief in [`direction.md`](skills/hallmark/references/direction.md) to find one idea that only this client has and let it run the page.
+Say **custom** and Hallmark drops the themes: no plan, no components, no palette recipe, only the floor, the gates and a short direction in [`direction.md`](skills/hallmark/references/direction.md) to find one idea that only this client has and let it run the page.
 
 ## How a build runs
 
 1. Pre-flight reads the project (fonts, palette, framework, a locked `design.md`) and asks once for the material: photos, screenshots, real numbers. Nothing is invented.
-2. `scripts/theme.mjs deal` offers three themes that fit the brief and clear the log; `draw` deals the page's anatomy from its job.
+2. `scripts/theme.mjs deal` offers three themes that fit the prompt and clear the log; `draw` deals the page's anatomy from its job.
 3. The hero is built alone, rendered and reviewed cold before the rest of the page exists.
 4. `scripts/sloplint.mjs --render` checks the page at eight widths, then a subagent reviews it with fresh eyes.
 
@@ -92,9 +92,9 @@ npx skills add nutlope/hallmark -g
 
 | Harness | Lands in | Invoke |
 | --- | --- | --- |
-| Claude Code | `~/.claude/skills/hallmark` | `/hallmark <brief>` or describe a new build |
-| Codex CLI | `~/.agents/skills/hallmark` | `$hallmark <brief>` or describe a new build |
-| OpenCode | finds the copies above | `/hallmark <brief>` or describe a new build |
+| Claude Code | `~/.claude/skills/hallmark` | `/hallmark <prompt>` or describe a new build |
+| Codex CLI | `~/.agents/skills/hallmark` | `$hallmark <prompt>` or describe a new build |
+| OpenCode | finds the copies above | `/hallmark <prompt>` or describe a new build |
 
 - **One harness only:** `npx skills add nutlope/hallmark -g --agent claude-code` (or `codex`, `opencode`, `cursor`, `github-copilot`).
 - **As a Claude Code plugin:** `/plugin marketplace add nutlope/hallmark`, then `/plugin install hallmark@hallmark` (invoked as `/hallmark:hallmark`).

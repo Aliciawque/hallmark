@@ -30,7 +30,7 @@ The scaffold writes these tokens and `base.css` sets them on the elements. A the
 
 - Sections part by the three scaffold steps, `--section-gap-s` 120px, `--section-gap` 144px and `--section-gap-l` 176px, mixed (59). A band (a change of paper) takes `--section-gap-s` of padding top and bottom.
 - Space is earned by mass: a 144px gap frames a 700px section and is a hole under a 200px one. An empty-looking page wants a bigger head, a bigger visual or a fuller section, not a smaller gap.
-- Six to nine sections, hero and footer included; five on a thin brief, never fewer. Height follows content (often 5,000 to 8,000px with pictures and a full brief, 3,000 to 4,000px on a thin one); never pad toward a height.
+- Six to nine sections, hero and footer included; five on a thin prompt, never fewer. Height follows content (often 5,000 to 8,000px with pictures and a full prompt, 3,000 to 4,000px on a thin one); never pad toward a height.
 
 ## 4. A section
 
@@ -38,13 +38,13 @@ A section is one piece of the page's content shown at its best: the menu, the li
 
 - **The head block:** an `h2` of six words or fewer at `--text-section` (a staged shape may head each stage with its one-word name), at most one line at `--text-lead` beneath it, on columns 1 to 6 or 1 to 7, or split (head on 1 to 5, the line on 7 to 12, baselines aligned). Centred only over a symmetric body, and never more centred head blocks than left-aligned ones.
 - **The body fills the width:** its widest row reaches ten of the twelve columns (77). A narrow text block with the right half empty is the sparse page's signature; pair it with a visual, split it, or set it as a statement.
-- **The body has mass:** a visual 360px tall or more; a set of three or four items across the width; a list or table of three or more rows across ten columns; a working control on the brief's own facts; or a statement at `--text-section` or larger. A head and a paragraph are a head block, never a section.
+- **The body has mass:** a visual 360px tall or more; a set of three or four items across the width; a list or table of three or more rows across ten columns; a working control on the prompt's own facts; or a statement at `--text-section` or larger. A head and a paragraph are a head block, never a section.
 - **A split balances:** text and visual centre on each other within 60px, and neither column leaves more than a fifth of the row empty.
 - **Content sets the height:** usually 520 to 900px; under 360px only for a band (a call to action, a logo row, a statement), at most twice a page.
 
 ## 5. Compositions
 
-Layouts, not components: build each in the theme's material and the brief's content. A page uses three to six different ones and never the same one twice in a row, except in a one-composition shape (Split Studio, Feature Stack, Catalogue), where neighbours change ratio and, where the shape allows, side.
+Layouts, not components: build each in the theme's material and the prompt's content. A page uses three to six different ones and never the same one twice in a row, except in a one-composition shape (Split Studio, Feature Stack, Catalogue), where neighbours change ratio and, where the shape allows, side.
 
 1. **Split.** A text block (head, line, two to four short facts or one action) beside a visual on columns 6 to 12 or 7 to 12, 440px tall or more at 4:3 to 4:5 (portrait for a product photograph). Swap the side at most once a page; change the ratio (5 and 7, 4 and 8, 6 and 6) between two splits.
 2. **Showcase.** The head block, then one visual across all twelve columns at 16:9 to 21:9, 560px tall or more; beneath it at most two smaller visuals at 8 and 4 or 7 and 5, never three equal frames.
@@ -60,7 +60,7 @@ Layouts, not components: build each in the theme's material and the brief's cont
 12. **Rail.** A horizontal run past the container's edge (dates, issues, products, rooms, episodes), five or more items with the next one cut by the edge, scrollable by touch and keyboard, snap points, no arrows needed past two.
 13. **Pinned.** One visual held sticky on six or seven columns while three or four short panels scroll past it on the other side, each changing what the visual shows (a state, a crop, a step); static under 60rem.
 14. **Switcher.** One area with two to five states behind a segmented control: the menu by lunch and dinner, the plans by month and year, the app on phone and watch, the schedule by day. Every state real; the first visible without script.
-15. **Index.** A dense, scannable list of the brief's own items with their facts in columns (issues with dates and topics, projects with year and client, episodes with length, lots with estimates), optionally filtered; 6 to 20 rows, the lead row larger.
+15. **Index.** A dense, scannable list of the prompt's own items with their facts in columns (issues with dates and topics, projects with year and client, episodes with length, lots with estimates), optionally filtered; 6 to 20 rows, the lead row larger.
 16. **Schedule.** Time against place or day: a two-day festival as two columns of acts and times, a week of classes, opening hours as a strip; the current or next slot marked.
 17. **Offer.** The thing for sale with what a buyer needs at the moment of buying: the photograph or screen, the options (size, scent, plan), the price, the action and one line of delivery or terms. On a buy page it is often the hero.
 
@@ -68,7 +68,7 @@ Under 60rem every composition stacks in reading order: the head block, then the 
 
 ## 6. The hero
 
-The first screen at 1440 x 900 and 1920 x 1080, and only the first screen (44c). Pick a posture at Step 2 from the job (`anatomy.md`), stamp it, and vary it run to run; text beside a picture (Settled, Stage) is the most common generated hero, so take it only when the picture is the strongest thing the brief has.
+The first screen at 1440 x 900 and 1920 x 1080, and only the first screen (44c). Pick a posture at Step 2 from the job (`anatomy.md`), stamp it, and vary it run to run; text beside a picture (Settled, Stage) is the most common generated hero, so take it only when the picture is the strongest thing the prompt has.
 
 | Posture | Height | Content |
 | --- | --- | --- |
@@ -90,7 +90,7 @@ The first screen at 1440 x 900 and 1920 x 1080, and only the first screen (44c).
 
 - **The job decides the anatomy** (`anatomy.md`): where the action lives (in the hero, sticky, repeated beside the content, at the close), and which category-native sections the page is built around. A newsletter puts the subscribe field in the hero and shows the issues; a restaurant shows the menu and the booking; a band shows the record and the dates. The theme dresses that anatomy; it never replaces it.
 - **Order follows the argument the shape makes** (`macrostructures.md`), never hero, three features, a call to action and a footer (8). Lead with the strongest real thing after the hero; put each fact where it does work.
-- **Not every page has steps or figures.** Steps only for a process the visitor really goes through (booking, joining, getting a festival ticket); a figure row only for three numbers the brief states outright, never one derived from it (365 mornings from "every day"). Together they appear on most generated pages; on a made page they are a choice.
+- **Not every page has steps or figures.** Steps only for a process the visitor really goes through (booking, joining, getting a festival ticket); a figure row only for three numbers the prompt states outright, never one derived from it (365 mornings from "every day"). Together they appear on most generated pages; on a made page they are a choice.
 - **Variety:** never the same composition in neighbouring sections (a one-composition shape aside); mirror a split once at most, never a zigzag; one full-width visual at least on a product page; one or two bands. Read the log's `sections`: a Statement, Steps, Figures and a closing Band are the easiest reaches, so when the last build used one, make that beat another way.
 - **Balance:** photographs take a quarter to a third of the page below the hero (83), and never lead two sections in a row; the sections between are built from the theme's material (its Range: type, figures, rules, the product, a table, a form). `imagery.md` § 5 has the counts.
 - **Pace:** a dense section (a grid, a table, a bento, an index) is followed by a quiet one (a statement, a showcase); the page ends on a real close.

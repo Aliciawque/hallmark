@@ -1,6 +1,6 @@
 # Brand truth: never theme a real brand from memory
 
-Loaded when the brief names a real company or brand to build for ("a page for Stripe's docs team", "our site, we're Arc", a company URL as the subject). It is narrow: capture the brand's actual colour and type facts before theming, because model-memory hex values are confidently wrong. **A brand colour recalled from training data is a named failure: memory hex = fail.**
+Loaded when the prompt names a real company or brand to build for ("a page for Stripe's docs team", "our site, we're Arc", a company URL as the subject). It is narrow: capture the brand's actual colour and type facts before theming, because model-memory hex values are confidently wrong. **A brand colour recalled from training data is a named failure: memory hex = fail.**
 
 ## The protocol
 

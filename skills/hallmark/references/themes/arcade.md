@@ -52,7 +52,7 @@ Two dials, each stated in the stamp (`arcade: ember/grille`). Colourway, lead ov
 
 ## Range
 
-- **Figures as a score line:** the brief's real numbers in Silkscreen at `--text-display-s` and up, ember and acid alternating, parted by `--rule-bar` verticals across the twelve columns.
+- **Figures as a score line:** the prompt's real numbers in Silkscreen at `--text-display-s` and up, ember and acid alternating, parted by `--rule-bar` verticals across the twelve columns.
 - **Two-player comparison:** two wells side by side, one keyed ember and one acid (a top bar and the figure ink), rows matched across them for two audiences or two choices; the inks are the players, nothing is drawn.
 - **A timetable or price list as a menu:** Rows of Silkscreen times or prices against Chivo 900 titles on hairlines, one cursor row lit ember.
 - **Statement and working control:** one Bungee line at display size on the ember field; or the press surface as a stepper with a running total in Silkscreen at display size.

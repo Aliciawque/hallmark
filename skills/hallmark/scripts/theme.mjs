@@ -13,7 +13,7 @@ const args = process.argv.slice(2);
 const cmd = args[0];
 const flag = (k, d = null) => { const i = args.indexOf('--' + k); const v = i >= 0 ? args[i + 1] : undefined; return v !== undefined && !String(v).startsWith('--') ? v : d; };
 const has = (k) => args.includes('--' + k);
-const VALUED = new Set(['genre', 'brief', 'log', 'n', 'reroll', 'dealt', 'dir', 'axes', 'face', 'hue', 'entry', 'redesign', 'theme', 'orient', 'save', 'avoid', 'material', 'seed', 'job']);
+const VALUED = new Set(['genre', 'prompt', 'brief', 'log', 'n', 'reroll', 'dealt', 'dir', 'axes', 'face', 'hue', 'entry', 'redesign', 'theme', 'orient', 'save', 'avoid', 'material', 'seed', 'job']);
 const positional = () => { const out = []; for (let i = 1; i < args.length; i++) { const a = args[i]; if (a.startsWith('--')) { if (VALUED.has(a.slice(2))) i++; continue; } out.push(a); } return out; };
 const GENRES = ['editorial', 'modern-minimal', 'atmospheric', 'playful'];
 // A theme slug names a file in references/themes, so it is a plain name, never a path.
@@ -21,7 +21,7 @@ const isSlug = (s) => /^[a-z0-9][a-z0-9-]*$/.test(s);
 
 function usage() {
   console.error(`usage:
-  node theme.mjs deal --genre <g> --brief "<brief>" [--log .hallmark/log.json] [--n 3] [--reroll 0] [--json]
+  node theme.mjs deal --genre <g> --prompt "<prompt>" [--log .hallmark/log.json] [--n 3] [--reroll 0] [--json]
   node theme.mjs scaffold <slug> [--dealt "<n>/3, seed <seed>"] [--redesign polish|restyle|full] [--scope app] [--dir <beside the stylesheet>] [--force]
   node theme.mjs scaffold --custom | --brand [--redesign polish|restyle|full] [--scope app] [--dir <beside the stylesheet>] [--force]
   node theme.mjs check [--axes "<paper>/<display>/<accent>"] [--face "<display face>"] [--hue <accent hue>] [--log .hallmark/log.json]
@@ -89,7 +89,8 @@ function addLog() {
   if (entry.mode === 'redesign' && !['polish', 'restyle', 'full'].includes(entry.depth)) { console.error('a redesign entry names its depth: polish, restyle or full'); process.exit(2); }
   const composed = entry.scope !== 'app' && (entry.mode === 'build' || entry.depth === 'full');
   if (!entry.imagery && entry.enrichment) entry.imagery = entry.enrichment;
-  const missing = [...(composed ? ['shape', 'axes', 'hero', 'nav', 'footer', 'imagery', 'entry', 'fingerprint', 'sections', 'signature'] : []), ...(entry.depth === 'polish' ? [] : ['theme']), 'brief'].filter((k) => !entry[k]);
+  if (!entry.prompt && entry.brief) { entry.prompt = entry.brief; delete entry.brief; }
+  const missing = [...(composed ? ['shape', 'axes', 'hero', 'nav', 'footer', 'imagery', 'entry', 'fingerprint', 'sections', 'signature'] : []), ...(entry.depth === 'polish' ? [] : ['theme']), 'prompt'].filter((k) => !entry[k]);
   if (entry.photos && !Array.isArray(entry.photos)) { console.error('photos is the list of photo ids the page used'); process.exit(2); }
   if (existsSync(file)) { try { JSON.parse(readFileSync(file, 'utf8')); } catch { console.error(`${file} is not valid JSON; fix it or move it aside, nothing was written`); process.exit(1); } }
   const next = [entry, ...readLog(file)].slice(0, 20);
@@ -115,7 +116,7 @@ function contrastOf(f, b) {
 const triple = (t) => `${t.paper.band}/${t.display.class}/${t.accent.band}`;
 const words = (s) => (s || '').toLowerCase().replace(/[^a-z0-9\s-]/g, ' ').split(/\s+/).filter((w) => w.length > 2);
 const ASK = new Set(['build', 'make', 'create', 'design', 'need', 'want', 'please', 'page', 'site', 'website', 'landing', 'called', 'for', 'and', 'the', 'with', 'that', 'this', 'our', 'your']);
-const briefWords = (s) => words(s).filter((w) => !ASK.has(w));
+const promptWords = (s) => words(s).filter((w) => !ASK.has(w));
 const stem = (w) => { let x = w.replace(/(?:ing|ed)$/, ''); if (x.length < 3) x = w; return x.endsWith('ss') ? x : x.replace(/s$/, ''); };
 const hueGap = (a, b) => { const d = Math.abs(((a - b) % 360 + 360) % 360); return Math.min(d, 360 - d); };
 
@@ -144,7 +145,7 @@ function pickFrom(pool, n, exclude) {
   return picked;
 }
 
-// A project's own salt, so two projects dealing the same brief on the same day get different hands;
+// A project's own salt, so two projects dealing the same prompt on the same day get different hands;
 // one project still gets the same deal back (reroll moves it on).
 function projectSalt() {
   const f = resolve(dirname(resolve(flag('log', '.hallmark/log.json'))), 'salt');
@@ -152,8 +153,8 @@ function projectSalt() {
 }
 
 // The draw: the structural decisions a model converges on when left alone, dealt fresh for every build
-// against the log and the theme's own picture, so two builds of one brief in one theme come out as
-// different pages. The model takes it unless the brief's material refuses a pick, and says so.
+// against the log and the theme's own picture, so two builds of one prompt in one theme come out as
+// different pages. The model takes it unless the prompt's material refuses a pick, and says so.
 const DRAW = {
   shapes: {
     photo: ['Photographic', 'Marquee Hero', 'Split Studio', 'Catalogue', 'Narrative Workflow', 'Bento Grid', 'Conversational FAQ', 'Letter', 'Feature Stack'],
@@ -207,16 +208,16 @@ function draw() {
   if (has('json')) { console.log(JSON.stringify({ seed, material, job: jobName || null, shapes, hero, nav, footer, opener, skip, lead, action, native, close })); return; }
   console.log(`draw ${seed} (fresh each build; --seed ${seed} repeats it)${pictured.length ? ` · clear of the theme picture's ${pictured.join(' and ')}` : ''}`);
   console.log(`shape: ${shapes[0]} · hero: ${hero} · nav: ${nav} · footer: ${footer}`);
-  console.log(`${job ? '' : `first section after the hero: ${opener} · `}leave out this time: ${skip.join(' and ')} · the hero leads with ${lead}, if the brief has it`);
+  console.log(`${job ? '' : `first section after the hero: ${opener} · `}leave out this time: ${skip.join(' and ')} · the hero leads with ${lead}, if the prompt has it`);
   console.log(job ? `job: ${jobName} · the action: ${action}\nbuild these, in the order the shape suits (the first right after the hero): ${native.join('; ')} · close on: ${close} (anatomy.md § ${jobName})` : 'no --job given: name the page\'s job (subscribe, book, visit, attend, buy, try, sign up, hire, join, listen) and draw again with --job');
   console.log(`photos: pass --seed ${seed} to every theme.mjs photos call, so this build's picks are its own, and take its first fitting pick for the hero rather than hunting for the library's single best frame`);
-  console.log('take the draw unless the brief\'s material refuses a pick; name any swap in the Picks block, and stamp draw: ' + seed);
+  console.log('take the draw unless the prompt\'s material refuses a pick; name any swap in the Picks block, and stamp draw: ' + seed);
 }
 
 function deal() {
   const genre = flag('genre', 'editorial');
   if (!GENRES.includes(genre)) { console.error(`unknown genre "${genre}" (valid: ${GENRES.join(', ')})`); process.exit(2); }
-  const brief = flag('brief', '');
+  const prompt = flag('prompt', flag('brief', '')); // --brief is the older name
   const n = Number(flag('n', 3));
   const reroll = Number(flag('reroll', 0));
   const log = readLog(flag('log', '.hallmark/log.json'));
@@ -225,8 +226,8 @@ function deal() {
   const recentNames = new Set(recent.map((r) => String(r.theme || '').toLowerCase()));
   const lastAxes = recent[0] && recent[0].axes ? String(recent[0].axes) : null;
   const occupiedAxes = new Set(recent.map((r) => r.axes).filter(Boolean));
-  const bw = new Set(briefWords(brief).map(stem));
-  const slug = `${briefWords(brief).slice(0, 4).join('-') || 'brief'}-${createHash('sha1').update(brief.trim().toLowerCase()).digest('hex').slice(0, 4)}`;
+  const bw = new Set(promptWords(prompt).map(stem));
+  const slug = `${promptWords(prompt).slice(0, 4).join('-') || 'prompt'}-${createHash('sha1').update(prompt.trim().toLowerCase()).digest('hex').slice(0, 4)}`;
   const seedBase = `${slug}·${projectSalt()}·${new Date().toISOString().slice(0, 10)}`;
   const seedKey = `${seedBase}·r${reroll}`;
   const rand = seededRand(seedBase);
@@ -255,7 +256,7 @@ function deal() {
     console.log(`${i + 1}. ${s.t.name} (${s.t.slug}) · ${triple(s.t)} · ${s.t.material} · ${why}${s.t.picture ? ` · ${s.t.picture}` : ''}${s.t.pictured ? `, pictured as ${s.t.pictured}` : ''}`);
   });
   if (recent.length) console.log(`avoid: ${recent.map((r) => `${r.theme || '?'} (${r.axes || 'no axes'})`).join(' · ')}`);
-  console.log(`next: look at the pictures, pick the material this brief wants, read references/themes/<slug>.md, then theme.mjs scaffold <slug> --dealt "<n>/${picked.length}, seed ${seedKey}"`);
+  console.log(`next: look at the pictures, pick the material this prompt wants, read references/themes/<slug>.md, then theme.mjs scaffold <slug> --dealt "<n>/${picked.length}, seed ${seedKey}"`);
 }
 
 const PAPER_BANDS = new Set(['light', 'mid', 'dark']);
@@ -366,7 +367,7 @@ async function photos() {
   const used = new Set();
   const result = [];
   for (const subject of subjects) {
-    const q = [...new Set(briefWords(subject).map(stem))].filter((w) => !PHOTO_STOP.has(w));
+    const q = [...new Set(promptWords(subject).map(stem))].filter((w) => !PHOTO_STOP.has(w));
     const total = q.reduce((a, w) => a + idf(w), 0) || 1;
     const wantFace = /\b(portrait|face|person|people)\b/i.test(subject);
     const scored = lib.map((p, i) => {
@@ -592,7 +593,7 @@ function validate(files) {
       else { const t = treatmentOf(/^photo:\s*(.*)$/m.exec(src)[1], tokensOf(src, f)); if (t.bad.length) problems.push(`photo: ${t.bad.join('; ')}`); }
       if (/\b(?:hand-built|hand-drawn|drawn) (?:svg|illustration|object|figure)|\bsvg (?:illustration|drawing|figure)/i.test(src)) problems.push('prescribes a drawn illustration (imagery.md § 7, gate 80)');
       for (const m of src.matchAll(/https:\/\/api\.fontshare\.com\/v2\/css\?[^"'\s>]*/g)) if ((m[0].match(/f\[\]=/g) || []).length > 1) problems.push('a Fontshare link loading more than one family (Fontshare may drop all but the first; use one link per family)');
-      if (/^signature:/m.test(src)) problems.push('a signature: line in the header (a theme is a material; the page finds its signature in the brief)');
+      if (/^signature:/m.test(src)) problems.push('a signature: line in the header (a theme is a material; the page finds its signature in the prompt)');
       if (/object family|the one object|signature object|signature move/i.test(src)) problems.push('names an object or a signature move (a theme carries no components)');
       if (/\b(?:generous|plenty of) (?:air|whitespace|white space)|(?:air|whitespace|white space|space) (?:carr(?:y|ies)|doing|does) (?:the|every)/i.test(src)) problems.push('a rule about space (layout.md owns room and density)');
       if (/--tracking-label/.test(src)) problems.push('declares --tracking-label (labels are untracked, gate 67)');

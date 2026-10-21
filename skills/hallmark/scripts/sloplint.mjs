@@ -873,7 +873,7 @@ const WAIVER_FILLER = /\b(a|an|the|is|it|this|that|was|are|and|but|so|very|just|
 const WAIVER_BOILERPLATE_PHRASES = [
   'design choice', 'design decision', 'intentionally', 'intentional', 'by design',
   'looks better', 'for the aesthetic', 'aesthetic', 'necessary here', 'necessary',
-  'the brief requires it', 'brief requires', 'on purpose', 'deliberate', 'deliberately',
+  'the prompt requires it', 'prompt requires', 'the brief requires it', 'brief requires', 'on purpose', 'deliberate', 'deliberately',
   'it works', 'works better', 'needed', 'required', 'fine', 'ok', 'okay',
 ];
 function reasonIsBoilerplate(reason) {

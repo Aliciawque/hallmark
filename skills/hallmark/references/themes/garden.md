@@ -49,7 +49,7 @@ A grower's voice: warm oat paper, a near-black green ink, Vollkorn heads and old
 
 ## Range
 
-- **Figures in old-style numerals:** the brief's acreage, varieties or jars in Vollkorn 600 at 160px and over, three across on hairlines, a Hanken line beneath each.
+- **Figures in old-style numerals:** the prompt's acreage, varieties or jars in Vollkorn 600 at 160px and over, three across on hairlines, a Hanken line beneath each.
 - **The season as a ruled strip:** the twelve months in one hairline row, the open ones on the moss tint with what happens in them, the rest left as paper; under it the hours and the place as two-column rows.
 - **A price list or produce list:** hairline rows on paper-2 or the green ink, the name in Vollkorn at item size, a Newsreader note, the price in lining figures at the right edge; a missing fact stays a labelled placeholder.
 - **A statement on green ink:** one sentence in Vollkorn at section size and over in oat, the action in pale leaf beneath.
@@ -66,7 +66,7 @@ State only, `--dur-short` on `--ease-out`: a pill darkens one step, an underline
 
 ## Voice
 
-Warm, honest, seasonal, unhurried. Say the field, the variety, the month, the acreage, the number of jars, only as the brief gives them; never artisanal, curated or small-batch as a hollow badge.
+Warm, honest, seasonal, unhurried. Say the field, the variety, the month, the acreage, the number of jars, only as the prompt gives them; never artisanal, curated or small-batch as a hollow badge.
 
 ## Do-nots
 

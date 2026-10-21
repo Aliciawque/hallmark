@@ -51,7 +51,7 @@ The fluorescent is a paper, not an ink: it carries toner type and is never type 
 
 ## Range
 
-- **The facts as a wall of flyers:** the brief's date, count, price and deadline each on its own sheet in League Gothic at poster size, mixed spans and heights, overlapping by a few pixels, two or three tilted, one on the fluorescent; no photograph among them.
+- **The facts as a wall of flyers:** the prompt's date, count, price and deadline each on its own sheet in League Gothic at poster size, mixed spans and heights, overlapping by a few pixels, two or three tilted, one on the fluorescent; no photograph among them.
 - **A typed sheet:** a timetable, a price list or the where-and-when as a ruled table on one copy sheet at a slight tilt, the left column in League Gothic, the rest in Newsreader.
 - **The toner band:** one line in League Gothic at `--text-display` or larger, board-coloured on toner, across ten columns.
 - **The form as a sheet:** fields on copy paper, square, on a hard offset, beside its head and the deadline set big on the board.

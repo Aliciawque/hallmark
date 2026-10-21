@@ -1,6 +1,6 @@
 # Recipes
 
-Nine briefs you can paste into Claude Code, Codex CLI or OpenCode with Hallmark installed. Each is the prompt verbatim and what the skill is expected to infer; the picks are not fixed, because the theme deal rotates against the project's log and two runs of the same brief should not land on the same shape or theme.
+Nine prompts you can paste into Claude Code, Codex CLI or OpenCode with Hallmark installed. Each is the prompt verbatim and what the skill is expected to infer; the picks are not fixed, because the theme deal rotates against the project's log and two runs of the same prompt should not land on the same shape or theme.
 
 The first recipe is the one to try in a fresh project to see the flow before reading anything else.
 
@@ -26,7 +26,7 @@ A theme named by the user is built as asked (stamp `theme: Terminal (by request)
 
 > Build a landing page for Maple Street Bread, a small artisan bakery in Lisbon. Sourdough, slow, by hand. We open at seven, thirty loaves, gone by noon, no online orders. Audience: locals. Use: see what we bake, find us. Tone: warm, hand-set.
 
-Expect a catalogue of the breads in library photographs (each a stand-in for the bakery's own), hours and a map link, and no call to action beyond visiting, because the brief has none.
+Expect a catalogue of the breads in library photographs (each a stand-in for the bakery's own), hours and a map link, and no call to action beyond visiting, because the prompt has none.
 
 ## 04. Meridian, a studio manifesto
 
@@ -50,13 +50,13 @@ The user opted out. Expect an index-style page: a short bio, a tabular work hist
 
 > Build me a landing page for Foundry, SOC 2 and ISO 27001 compliance automation for B2B SaaS. Show how many companies got compliant, what it costs, who uses it. Audience: founders and CTOs. Tone: technical but trustworthy.
 
-The brief asks for counts and logos the user has not supplied: Hallmark asks for them once at Step 1 and otherwise leaves them out (gate 46a). Expect a bento or stat-led shape with one real number if one is given.
+The prompt asks for counts and logos the user has not supplied: Hallmark asks for them once at Step 1 and otherwise leaves them out (gate 46a). Expect a bento or stat-led shape with one real number if one is given.
 
 ## 08. Cohort, cohort-based courses
 
 > Build a landing page for Cohort, the platform for cohort-based courses. Run live courses with 30 to 500 students. Built for educators, not LMS sales teams. Audience: course operators and indie creators. Tone: warm, salon-room, editorial.
 
-The brief's own range is the hero. Expect the figures set in tabular numerals, one sentence under them, and no marquee or card stack.
+The prompt's own range is the hero. Expect the figures set in tabular numerals, one sentence under them, and no marquee or card stack.
 
 ## Redesigning what exists
 

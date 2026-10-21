@@ -58,7 +58,7 @@ Three colourways, set once per page and stated in the stamp (`werkstatt: putty`)
 
 ## Range
 
-- **Figures in boxed cells:** the brief's real numbers in Jost 700 at display size, each in its own `--rule-box` cell across the twelve columns, the label in Karla beneath; no primary, since a set of one kind takes no colour.
+- **Figures in boxed cells:** the prompt's real numbers in Jost 700 at display size, each in its own `--rule-box` cell across the twelve columns, the label in Karla beneath; no primary, since a set of one kind takes no colour.
 - **Dates as a ruled schedule:** the deadline and the term set as rows of capitals as large as a section head, the day left, what happens right, a `--rule-bar` over the first row.
 - **The categories as a coded grid:** each shop, track or room in its primary cell, flush with its neighbours, with a black and white photograph or a list of what it covers above the fill.
 - **Forms as a ruled sheet:** fields boxed in a grid of cells like an entry form, the category choice in its primaries, the submit an ink block at the foot.

@@ -35,7 +35,7 @@ One filled primary a page (F4); the quiet one goes somewhere else. Error and suc
 .caption { margin-top: var(--space-sm); font-size: var(--text-sm); color: var(--color-ink-2); }
 ```
 
-The `<img>` comes from `theme.mjs photos`; `base.css` supplies the cover fit, the loading wash and the theme's treatment. The credit goes in the footer's *Photographs* line; the caption is a fact from the brief, outside the frame. A product sample takes the same kind of slot with no `<img>`: the interface built at full size (`imagery.md` § 4).
+The `<img>` comes from `theme.mjs photos`; `base.css` supplies the cover fit, the loading wash and the theme's treatment. The credit goes in the footer's *Photographs* line; the caption is a fact from the prompt, outside the frame. A product sample takes the same kind of slot with no `<img>`: the interface built at full size (`imagery.md` § 4).
 
 ## A choice between a few
 
@@ -77,7 +77,7 @@ The radios stay in the flow at one pixel (53); the label carries the state and t
 
 The rail scrolls by touch, wheel and arrow keys once focused, and sits outside the container's padding so its edge cuts the next item. The switcher's tabs move with the arrow keys (a few lines of script set `aria-selected`, `tabindex` and `hidden`); without script every panel shows in order. A pinned pair is `position: sticky; top: var(--space-2xl)` on the visual's column, released under 60rem.
 
-## A fact the brief did not give
+## A fact the prompt did not give
 
 ```html
 <p>Doors at <span class="fill" data-fill="time">time to be announced</span>, at <a href="#venue">the venue</a>.</p>

@@ -51,7 +51,7 @@ Committed: cobalt is `--color-field` and may fill a band; on controls and links 
 
 ## Range
 
-- **A figure row as a lift board:** the brief's numbers in the condensed face at up to twice `--text-display`, cobalt on snow, under a `--rule-bar` ink rule and parted by hairlines, each with one Barlow line.
+- **A figure row as a lift board:** the prompt's numbers in the condensed face at up to twice `--text-display`, cobalt on snow, under a `--rule-bar` ink rule and parted by hairlines, each with one Barlow line.
 - **Statement on the field:** one short line in condensed capitals at display size and beyond, paper on cobalt edge to edge, the line the morning report would shout.
 - **Steps or a timetable:** an `<ol>` with each numeral in the condensed face at `--text-display` in cobalt over a 2px ink rule, a capital title and one line; or a ruled table of times and groups with the head rule in ink.
 - **Forms as a ticket desk:** square 52px inputs and ink steppers on paper-2, the cobalt primary the only colour on the band.

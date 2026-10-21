@@ -60,7 +60,7 @@ Three colourways, stated in the stamp (`loom: ecru`).
 
 - **The specification as ruled rows:** fibre, width, weight, lead time and price as a pattern-book sheet, the label on the left in Hanken, the value in Caslon at title size and up, the price row set largest; an ink rule above the first row.
 - **The price as a figure:** the price a metre in Caslon at display size beside the sum worked out in rows (metres, rate, total), on a sand well or on the indigo band where the order is placed.
-- **Time as a ruled scale:** a lead time drawn as weeks on a hairline scale in DM Mono, the span the cloth is on the loom as a sand bar and the window it lands in as an indigo line; a chart of the brief's own weeks, never a drawn thread.
+- **Time as a ruled scale:** a lead time drawn as weeks on a hairline scale in DM Mono, the span the cloth is on the loom as a sand bar and the window it lands in as an indigo line; a chart of the prompt's own weeks, never a drawn thread.
 - **A comparison in two columns:** linen beside wool, parted by one ink rule, rows aligned.
 
 ## Controls

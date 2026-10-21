@@ -57,9 +57,9 @@ Cut paper made by hand, cheerful without turning childish: cream paper with a vi
 ## Range
 
 - **The product as card stock:** the app's own moment built large, words as card-stock tiles on a torn kraft strip, each pressed one popping into its accent.
-- **Growth set in type:** a bed of plants made of Chillax glyphs (stems of l, bracket leaves, letter heads) on torn soil, filling as the brief's numbers say, shown in states a row of pills switches.
-- **Figures on the pear field:** three or four of the brief's numbers at display size in ink on one pear sheet, each unit beneath in 500.
-- **A choice as card-stock pills:** a working control on the brief's facts, the result a sentence with its key value in a pear highlighter band.
+- **Growth set in type:** a bed of plants made of Chillax glyphs (stems of l, bracket leaves, letter heads) on torn soil, filling as the prompt's numbers say, shown in states a row of pills switches.
+- **Figures on the pear field:** three or four of the prompt's numbers at display size in ink on one pear sheet, each unit beneath in 500.
+- **A choice as card-stock pills:** a working control on the prompt's facts, the result a sentence with its key value in a pear highlighter band.
 
 ## Controls
 

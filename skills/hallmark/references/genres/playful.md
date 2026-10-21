@@ -1,6 +1,6 @@
 # Genre: playful
 
-Pages that should feel alive rather than tidy: a brief that asks for playful, fun, friendly or soft, or one for kids, games or a community. A consumer or family brief without that ask stays editorial. The deal leans toward this genre's themes, which run from soft and warm to loud and retro.
+Pages that should feel alive rather than tidy: a prompt that asks for playful, fun, friendly or soft, or one for kids, games or a community. A consumer or family prompt without that ask stays editorial. The deal leans toward this genre's themes, which run from soft and warm to loud and retro.
 
 ## Voice
 

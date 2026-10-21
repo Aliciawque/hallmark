@@ -51,7 +51,7 @@ A results-sheet material: cool concrete paper, blue-black ink, Saira Condensed 8
 
 ## Range
 
-- **The race in figures:** three or four of the brief's numbers in condensed caps at display size under the bar rule, parted by hairlines, one at most sitting on a volt fill.
+- **The race in figures:** three or four of the prompt's numbers in condensed caps at display size under the bar rule, parted by hairlines, one at most sitting on a volt fill.
 - **A working control on the race's facts:** a pace or time planner on the ink band, the chosen time in mono at display size, every mile in a ruled grid that changes in place, the finish cell in volt.
 - **Results as a sheet:** the bar rule opening and closing a table of bibs and times in mono, the followed runner's row lifted a paper step and its latest split in volt.
 - **The course as stages:** start to finish as numbered stages on one bar rule, a condensed-cap title and one line each, the live stage on volt.

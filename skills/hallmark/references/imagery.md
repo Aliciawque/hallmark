@@ -11,9 +11,9 @@ In order, the first that fits:
 3. **The product built,** only when there is no product to capture yet (§ 4).
 4. **Photographs from the library**, picked by script and treated in the theme's way (§ 2, § 5).
 5. **Generated stills**, only when `TOGETHER_API_KEY` is set and the user asked for them (§ 6).
-6. **Type at full scale**, when the brief is about words.
+6. **Type at full scale**, when the prompt is about words.
 
-Which briefs want which:
+Which prompts want which:
 
 - **A place, a material, food or drink, an object, a craft, the outdoors, an event, people at work** (a bakery, a ski school, a gin, a weaving studio, a venue, a tailor, a farm): photographs lead. The hero's photograph is the largest thing on the first screen (full-bleed behind the head, or beside it at 60 to 75% of the screen tall). After it, two to four more carry the page, one of them large, each on its subject (an off-subject picture is cut, never kept to fill a count), with sections of the material alone between them (a menu or price list as rows, the hours and the place as a table, a statement, a form), so pictures take a quarter to a third of the page (§ 5, 83).
 - **Software** (SaaS, an app, a developer tool): the product leads, and the hero visual is its interface. One or two photographs may set the scene (where it is used, the material it handles, hands at the work it serves) when each passes the deletion test: take it away and the page loses a fact. A city at night, a laptop on a desk or an office building fails it.
@@ -50,7 +50,7 @@ A slot is any picture the user will replace: `data-slot="<name>"` (`hero`, `demo
 
 ## 4. The product: captured first, built only when it cannot be
 
-**Capture it.** When the product exists, the page shows it, not a mock of it. Find it at Step 0: a URL in the brief, a dev server already running, a `package.json` with a `dev` or `start` script, a built app on the machine, or a path the user names. Start it if it needs starting (install, run, wait for the port), put it in the state that tells the page's story (sample data, a real project open, the one screen that does the job), then:
+**Capture it.** When the product exists, the page shows it, not a mock of it. Find it at Step 0: a URL in the prompt, a dev server already running, a `package.json` with a `dev` or `start` script, a built app on the machine, or a path the user names. Start it if it needs starting (install, run, wait for the port), put it in the state that tells the page's story (sample data, a real project open, the one screen that does the job), then:
 
 ```
 node <skill-dir>/scripts/capture.mjs http://localhost:3000 --routes /,/settings --sizes desktop,phone [--selector ".editor"] [--full] [--out images/screens]
@@ -60,7 +60,7 @@ It writes 2x PNGs at 1440 x 900 and 390 x 844 (or one element with `--selector`)
 
 **Frame it in the theme.** A capture sits in a `data-slot` with the theme's radius and the inset outline (§ 5), never inside a drawn browser bar, device frame, traffic lights or notch (47a, 47b). Crop to the part that sells (`object-position`, or `--selector`), keep text in it legible at its displayed size (scale 2, never upscaled), and never retouch what the product shows. Captures are product pictures: mark their slots `data-kind="product"`, so they do not count toward the photo balance (83).
 
-**Build it only when it cannot be captured** (an idea, a product not built yet, nothing reachable): the hero visual is the product's main screen built in HTML and CSS: real controls, at least eight elements, the brief's nouns, the theme's surfaces and type, at the size `layout.md` § 6 gives the visual. Sample values read as samples (`example.com`, *Example Kitchen*, round plausible amounts), never a figure a visitor could take as a claim (46a). It sits in a `data-slot` so the real screenshot replaces it, and the handoff says which screens to capture once the product runs. Never build a mock of a product the build could have captured (84).
+**Build it only when it cannot be captured** (an idea, a product not built yet, nothing reachable): the hero visual is the product's main screen built in HTML and CSS: real controls, at least eight elements, the prompt's nouns, the theme's surfaces and type, at the size `layout.md` § 6 gives the visual. Sample values read as samples (`example.com`, *Example Kitchen*, round plausible amounts), never a figure a visitor could take as a claim (46a). It sits in a `data-slot` so the real screenshot replaces it, and the handoff says which screens to capture once the product runs. Never build a mock of a product the build could have captured (84).
 
 A working control (a calculator on the user's prices, a booking form) is a fine section and a fine close, once a page; it is not the default hero.
 
@@ -70,7 +70,7 @@ A working control (a calculator on the user's prices, a booking form) is a fine 
 - **One subject a frame, cropped tight,** its weight leaning toward the text. Vary the ratio (4:5 beside text, 16:9 or 21:9 across, 1:1 in a pair) and the size (8 and 4 columns; three equal frames only for a true set: three dishes, three rooms).
 - **Balance.** Below the hero, photographs take at most a third of the page at 1440 (pictures inside the built product, marked `data-kind="product"`, do not count), up to 45% on a Photographic or Portfolio Grid shape; past that the page reads as a stock gallery and the theme never speaks (83). Never two photograph-led sections in a row: follow a picture with a section the theme's type, rules, colour or the product carry alone (the theme file's Range). A software page alternates the product with type-led sections and takes one or two photographs; a word-led page takes one at most. When in doubt, cut the weakest picture and set its fact large.
 - **Text over a photograph** sits on its calmest part over a scrim from the theme's ink (a gradient from the text's edge, 35 to 65%), behind the text's side only, at 4.5:1 or better against the image under it; never centred white type over a busy frame. A theme that refuses gradients uses a solid ink plate.
-- **Facts on the pictures:** captions are facts from the brief in the label style, beside or under the picture (the dish and its price, the room and its hours, the date, the place). Never a credit line there, and never a caption that claims a stand-in as the user's own person, place or product.
+- **Facts on the pictures:** captions are facts from the prompt in the label style, beside or under the picture (the dish and its price, the room and its hours, the date, the place). Never a credit line there, and never a caption that claims a stand-in as the user's own person, place or product.
 - **The theme's treatment, on every photo.** The theme's `photo:` header sets it and the scaffold writes it into `base.css` as CSS on every image in a slot, the user's own included: `natural`, `warm`, `muted`, `mono`, `duotone` in two of the theme's tokens, or `tint` in one, with adjustments (`con=`, `sat=`, `exp=`). A duotone or tint flattens a pale subject (snow, a white wall) into an empty field: choose frames with tonal range and look at each through the treatment. A duotone or tint takes the slot's `::before`, so draw a keyline or scrim with `::after` or a sibling. A photo inside a built product takes the treatment only if the page adds it.
 - **The frame is the theme's:** its radius, an inset outline of ink at 6 to 10% (`outline: 1px solid ...; outline-offset: -1px`), its texture if it has one. Never a border and a wide shadow together (F24).
 

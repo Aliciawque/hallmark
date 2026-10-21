@@ -54,7 +54,7 @@ Both passes are fills under ink type, never type, and the moss is what the multi
 
 ## Range
 
-- **Figures as a bill:** the brief's own times, capacity or price set at poster scale in wide Anybody, each figure on its own pass field; two fields cross by a column so the overlap prints moss, and no letter stands in it.
+- **Figures as a bill:** the prompt's own times, capacity or price set at poster scale in wide Anybody, each figure on its own pass field; two fields cross by a column so the overlap prints moss, and no letter stands in it.
 - **The listing as a ruled table:** under the 4px bar, heads in Archivo Narrow, the act in wide capitals at title size, nights and prices in tabular figures; an on-sale cell takes pass 1, a sold-out cell pass 2.
 - **Steps as numbered bills:** a process as three or four cells under the bar, each numeral wide and heavy, each cell flooded in one pass, alternating.
 - **A band of ink:** the black field with stock type and grain, holding one statement in wide capitals or a form with a pass-1 control.

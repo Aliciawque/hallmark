@@ -58,16 +58,16 @@ Size, posture and composition are `layout.md` § 6; what it shows is `imagery.md
 
 ## 6. Copy
 
-Write as the owner would say it across a counter: the brief's own nouns, a real place, a number the user gave, the verb a customer would use.
+Write as the owner would say it across a counter: the prompt's own nouns, a real place, a number the user gave, the verb a customer would use.
 
-- **The swap test:** a head that would work on a competitor's page is rewritten with a noun only this brief has. *Software that works for you* fits anyone; *Invoices that chase themselves* fits one product.
+- **The swap test:** a head that would work on a competitor's page is rewritten with a noun only this prompt has. *Software that works for you* fits anyone; *Invoices that chase themselves* fits one product.
 - **Three tests a line:** can the reader picture it, could it be proven false, could only this business say it. Specific beats clever: the place, the hour, the material, the result (*Sourdough at four, gone by ten*); a pun is a second-draft move, once a page at most.
 - **The subhead** says what it is, for whom and the one difference, in twelve words or fewer. **Section heads** say what the visitor will see or get (*Three loaves a morning*), never a category label (*Features*, *Our story*, *Why us*); a staged shape's one-word stage names are the exception.
 - **Rhythm:** a short line beside a longer one; verbs over adjectives; one idea a sentence; no triads of adjectives (*fast, simple, powerful*).
 - **Budget** (58): headlines seven words or fewer, section heads six or fewer; section intros one line; paragraphs two short sentences; lists four items of a three-word label and a ten-word line (five for steps that cannot merge; past that, a table); tables five rows; a set the user gave keeps its true count; 450 visible words a page at most. Read only the headings and the hero: if they tell the story, the rest is the right length.
 - **Refuse the generated voice:** everything gate 19 names, plus *Reimagine*, *Whether you're X or Y*, *It's not just X, it's Y*, *Say goodbye to*, *game-changer*, *journey*, a colon title (*Focus: the app for*), *Click here*, *Enter your email below*, a version string in marketing copy.
 - **Buttons:** the verb of the action (*Book a fitting*); *Continue* only as a flow's second step. **Errors:** what happened, why if known, what to do; no *Oops*, no exclamation marks. **Empty states:** what is empty, why it matters, one action. **Loading:** a spinner after 150 to 300ms, shown at least 300ms, beside the label; *Loading…* past 2s.
-- **Sample data** inside a built product uses `example.com`, the brief's field names and values that read as samples (*Example Kitchen*, round amounts), never a figure a visitor could take as a claim (46a).
+- **Sample data** inside a built product uses `example.com`, the prompt's field names and values that read as samples (*Example Kitchen*, round amounts), never a figure a visitor could take as a claim (46a).
 - **Punctuation:** curly quotes, `…`, a true apostrophe, no `--` and no em or en dash (a comma, a colon, a full stop or parentheses instead), a non-breaking space before units. A full stop on every standalone sentence, none on list items.
 
 ## 7. Opening a section
@@ -93,11 +93,11 @@ Two moves may share a section; three is noise. Use one opening, or two alternati
 
 Pictures, slots and the built product are `imagery.md` § 1 to § 4.
 
-- **A missing fact** (a venue, a date, a price) is a text slot, never an invented value: `<span class="fill" data-fill="venue">Venue to be announced</span>` in `--color-muted` inside a dashed outline (`patterns.md` § A fact the brief did not give), so it reads as a blank to fill, never as a link or selected text; two a page at most, each in the handoff. When the job's anatomy asks for more facts than the brief gave (hours, an address, dates, prices), slot the two a visitor needs to act and let the rest wait in the handoff. Only a fact the page cannot do without takes a slot: a row, a column or a line that would hold nothing but a missing fact is cut, never announced.
+- **A missing fact** (a venue, a date, a price) is a text slot, never an invented value: `<span class="fill" data-fill="venue">Venue to be announced</span>` in `--color-muted` inside a dashed outline (`patterns.md` § A fact the prompt did not give), so it reads as a blank to fill, never as a link or selected text; two a page at most, each in the handoff. When the job's anatomy asks for more facts than the prompt gave (hours, an address, dates, prices), slot the two a visitor needs to act and let the rest wait in the handoff. Only a fact the page cannot do without takes a slot: a row, a column or a line that would hold nothing but a missing fact is cut, never announced.
 - **A face the page is about** that the user has not supplied is a font slot: the display token names it first, a free face of the same build stands in and says so in one caption (stamp `waive 37`), and the handoff asks for the files.
 - **A section the user named but gave nothing for** is its heading, one line on what will go there and one text slot, or it merges into a neighbour; never a block of pending rows.
-- **A link whose URL the brief does not give** points at the section of this page that does the most of it (`#lookbook`); the handoff names the URL it needs. Never an invented route.
-- **A form whose endpoint the brief does not give** carries an empty `data-endpoint`, says plainly that nothing was sent, and never prints a success state (70; `patterns.md` § A form that posts nowhere yet).
+- **A link whose URL the prompt does not give** points at the section of this page that does the most of it (`#lookbook`); the handoff names the URL it needs. Never an invented route.
+- **A form whose endpoint the prompt does not give** carries an empty `data-endpoint`, says plainly that nothing was sent, and never prints a success state (70; `patterns.md` § A form that posts nowhere yet).
 
 ## 9. Finish
 

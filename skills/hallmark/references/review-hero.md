@@ -13,7 +13,7 @@ Then at most five findings, one line each, worst first. Ask:
 - Does the type carry the theme at this size?
 - With the theme's picture: is this first screen as finished as its first screen, in a composition of its own?
 
-On a custom run (`theme: custom`) the composition is free: skip the centred, beside-the-text and 60% questions, and ask instead whether this screen is one you would expect a model to make for this brief. If it is, say what gives it away.
+On a custom run (`theme: custom`) the composition is free: skip the centred, beside-the-text and 60% questions, and ask instead whether this screen is one you would expect a model to make for this prompt. If it is, say what gives it away.
 
 On a redesign the page's content is fixed and what sits below the first screen is the old page, not yet rebuilt: neither is a finding. Never ask for copy, an action or a visual the page does not have; say in one line what the owner could supply.
 

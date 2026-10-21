@@ -27,7 +27,7 @@ photo: muted
 - `display`: class, then the face. Classes: `roman-serif`, `high-contrast-serif`, `slab-serif`, `grotesk-sans`, `grotesk-heavy`, `geometric-sans`, `rounded-sans`, `display-condensed`, `display-heavy`, `mono`, `pixel`, `handwritten`, `blackletter`.
 - `accent`: band (`warm` 10 to 60°, `cool` 200 to 300°, `neutral` chroma under 0.05, or `chromatic-<name>` for anything else), then the hue.
 - `posture`: `restrained`, `committed`, `full-palette` or `drenched`.
-- `keywords`: the words in a brief that route here, lowercase, comma-separated, ten to twenty-five.
+- `keywords`: the words in a prompt that route here, lowercase, comma-separated, ten to twenty-five.
 - `material`: one line, the deal prints it: paper, ink, faces, surface, signal. Materials only, no objects.
 - `photo`: the treatment every photograph on a page takes, written into `base.css` by the scaffold as CSS on every image in a slot: `natural`, `warm`, `muted`, `mono`, `duotone <dark> <light>` or `tint <colour>` (token names without `--color-`, so `duotone ink paper`), optionally followed by `con=`, `sat=`, `vib=`, `exp=`, `sepia=`, `high=` or `shad=` with a whole number. Pick what the material would do to a photograph: a newsprint prints it black, a riso pulls it in two inks, a warm studio keeps it natural.
 - `pictured`: written by `scripts/picture.mjs`, the shape and hero posture of the page in the theme's picture, so a build knows which composition is already taken.

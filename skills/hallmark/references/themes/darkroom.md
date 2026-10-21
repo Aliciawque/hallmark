@@ -55,7 +55,7 @@ Three colourways, stated in the stamp (`darkroom: amber`).
 
 ## Range
 
-- **Figures as an edition:** the brief's real numbers (plates, prints of each, the run) in the 200 hairline at 12rem and over on a grained well, vertical hairlines between them, each with a muted Barlow line beneath; the size is the drama, the colour stays ink.
+- **Figures as an edition:** the prompt's real numbers (plates, prints of each, the run) in the 200 hairline at 12rem and over on a grained well, vertical hairlines between them, each with a muted Barlow line beneath; the size is the drama, the colour stays ink.
 - **A collector's sheet:** Rows under full-width hairlines, the label in muted Barlow on the left and the value in display capitals at title size on the right: series, subject, negative, paper, edition, sizes.
 - **A process as a contact strip:** Steps across the twelve columns, each stage a hairline numeral at section size over a short line (exposed, developed, printed, editioned), parted by verticals; nothing drawn.
 - **A choice set as numerals:** a working picker of plates or sizes in 1px rule cells, each a display numeral at title size, the chosen one lit by the safelight, beside a plain form on the ground.

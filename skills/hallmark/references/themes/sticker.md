@@ -60,7 +60,7 @@ Two colourways, stated in the stamp (`sticker: sheet`).
 
 - **Facts as die-cut fills:** a Bento whose tiles are pink, lime, ink and white fills, each one fact in Bowlby with one Sofia line, edged white on the hard shadow and tilted a degree or two in alternate directions; the lead tile carries the lone figure.
 - **Steps as stuck-down cards:** three or four `<ol>` cards in a row, the numeral in Bowlby on a lime disc, the cards tilted against each other and overlapping the dashed rule they sit on.
-- **A working control on the lime field:** a stepper, a running total in Bowlby and a bar that fills toward a threshold the brief gave, on a white die-cut card beside a dashed price ladder.
+- **A working control on the lime field:** a stepper, a running total in Bowlby and a bar that fills toward a threshold the prompt gave, on a white die-cut card beside a dashed price ladder.
 - **A statement in Bowlby on the ink band**, ten columns wide, with one pink or lime tag stuck across its corner carrying the fact it argues.
 
 ## Controls

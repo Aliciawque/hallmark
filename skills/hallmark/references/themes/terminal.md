@@ -51,7 +51,7 @@ The page is the terminal surface, and its pictures are printed in type. A near-b
 ## Range
 
 - **A comparison as a diff:** a unified diff across ten or twelve columns, a `--- a/` and `+++ b/` header over a `--color-rule-2` line, removed lines in `--color-muted` behind `-`, added lines in ink on `--color-accent-wash` behind a green `+`, a gutter of line numbers in `--color-rule-2`.
-- **Figures as a tool's output:** three or four of the brief's numbers at display size, wide and light, parted by vertical rules, each labelled by a `# comment` beneath, as `wc` or `du` would print them.
+- **Figures as a tool's output:** three or four of the prompt's numbers at display size, wide and light, parted by vertical rules, each labelled by a `# comment` beneath, as `wc` or `du` would print them.
 - **The session at size:** a session in a `--color-paper-2` well across eight columns or more, typed once, its output lighting a `+ - |` diagram beside it.
 - **A reference as rows:** a command per row at `--text-title`, wide, its arguments in the accent, its line on the right, like a man page's synopsis; or a table of hosts, flags or exit codes.
 

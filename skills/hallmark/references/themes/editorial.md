@@ -49,7 +49,7 @@ A contemporary magazine voice: warm white uncoated stock, a printed black with a
 
 - **Contents as rows:** under the heavy rule, three to six hairline rows, a title in the condensed head at about 40px on the left, its standfirst in the serif on the right, a page or date in the display face at the far edge.
 - **The standfirst as a statement:** one or two sentences in Source Serif at `--text-display-s`, ink across ten columns under the heavy rule; the serif at size is as much this theme as the head.
-- **Figures reversed out:** on the ink band, three or four of the brief's numbers in the condensed head at `--text-display`, parted by hairlines, labels beneath.
+- **Figures reversed out:** on the ink band, three or four of the prompt's numbers in the condensed head at `--text-display`, parted by hairlines, labels beneath.
 - **The order as a spec sheet:** a form on the paper-2 well, its facts in a ruled table beside the fields, the total in the display face, updated as the quantity changes.
 
 ## Controls

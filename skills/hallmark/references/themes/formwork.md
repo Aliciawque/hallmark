@@ -61,7 +61,7 @@ Three pours, stated in the stamp (`formwork: cast`). Muted sits on paper and pap
 
 ## Range
 
-- **A figure cast as a plate:** the brief's one real count in Oswald at 14 to 20rem on a plate with the hard shadow, its unit and what it counts in Archivo beside it.
+- **A figure cast as a plate:** the prompt's one real count in Oswald at 14 to 20rem on a plate with the hard shadow, its unit and what it counts in Archivo beside it.
 - **Steps as a pour sequence:** three or four stages across the twelve columns under a `--rule-bar`, each an Oswald numeral at `--text-display-s`, a one-word stage and one plain line, verticals in `--color-paper-3` between.
 - **Comparison as two plates:** two audiences or two jobs side by side, each a plate with its rows on hairlines; orange only on the one action.
 - **Statement on the ink band:** one line of Oswald capitals at display size in `--color-plate-ink` on `--color-ink`, grain screened.

@@ -1,6 +1,6 @@
 # Data viz: charts that read as set, not generated
 
-Loaded when the brief involves charts, data or dashboards, or the shape is Stat-Led or Workbench: a tabular spine, hairline grids, one series that argues, and no decorative dashboards (no donut walls, gauge rows or confetti of KPIs).
+Loaded when the prompt involves charts, data or dashboards, or the shape is Stat-Led or Workbench: a tabular spine, hairline grids, one series that argues, and no decorative dashboards (no donut walls, gauge rows or confetti of KPIs).
 
 ## Form first (before any drawing)
 

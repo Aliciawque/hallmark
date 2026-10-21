@@ -54,7 +54,7 @@ One dial, the colourway, stated in the stamp (`ribbon: two-in-the-morning`). The
 
 ## Surfaces
 
-- The hero ground is the hour drawn as light on one generated canvas (in dawn, on `--color-band`): fine slow streaks for rain, long soft lines for wind, a far row of lit points on a low horizon, whatever the brief's sounds are, over a CSS sky-to-land gradient. Never a photograph behind the head, never a star or a moon.
+- The hero ground is the hour drawn as light on one generated canvas (in dawn, on `--color-band`): fine slow streaks for rain, long soft lines for wind, a far row of lit points on a low horizon, whatever the prompt's sounds are, over a CSS sky-to-land gradient. Never a photograph behind the head, never a star or a moon.
 - Machined parts lit from above: panels in a top-to-bottom gradient with `--edge-light` and `--shadow-panel`; a recessed bed (inset shadow) holding vertical faders with knurled caps (`--metal-hi` to `--metal-lo`, fine striped grip, a lit accent index line), a sunk slot whose glow fills to the level, tick scales either side; a draggable curve for anything timed, with a metal handle.
 - Texture is generated: a 160px canvas noise tile set as `--grain` by script, `soft-light` at 0.35 to 0.55, on the night and in panels only.
 - Rules, not boxes, in reading sections: 1px `--color-rule` hairlines. Radius: controls pill, parts `--radius-part`, panels `--radius-card`.

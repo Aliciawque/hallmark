@@ -71,7 +71,7 @@ Still. State only, over `--dur-short` on `--ease-out`: the primary lightens, an 
 
 ## Voice
 
-A field guide's: the plant and where it grows, then how far and when, only where the brief knows; never invent a distance or a month. Provenance as a sentence, never a badge.
+A field guide's: the plant and where it grows, then how far and when, only where the prompt knows; never invent a distance or a month. Provenance as a sentence, never a badge.
 
 ## Do-nots
 

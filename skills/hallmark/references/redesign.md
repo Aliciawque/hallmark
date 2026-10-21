@@ -6,7 +6,7 @@ Loaded only when the user names Hallmark with `redesign` or `audit` (`/hallmark 
 
 - **The content.** Every fact, claim, name, price, date and quote the page states. Figures, quotes and logos already there are the user's material: carried over as found and listed in the handoff to verify, one a gate doubts (a trend nobody measured, 46a) included. Nothing is added: no action, section, claim or picture the page did not have, beyond what the user hands over and what a gate requires (a pause on a loop, 18; a focus ring). A drawing made from the page's own facts (its channels, its steps, a figure) is composition, and full depth may make one.
 - **The wiring.** Every link, form, field, handler, route, id and test hook; every script, data call and analytics call. Edit markup inside the component that owns it. Never move logic, rename a prop, or drop a `name`, an `id`, a `key`, a `type`, an `href` or a `data-testid` that a script or a test reads. A prop the Floor empties (an emoji passed as an icon) may go with it, named in the handoff. A state the screen has no logic for (a failed load, an undo) is listed for the owner, never built.
-- **The files.** No file deleted, no route removed and no component tree replaced without a file-level plan the user approved, and no test edited to make the redesign pass. Documents in the repo (a README, a brief, a deck) explain the product; they are not page copy. In a git project, start from a clean tree, `.hallmark/` aside (ask the user to commit or stash; never do it for them), so the redesign is one diff they can read and revert. The stylesheet is the redesign's to edit: the append-only rule guards it from a build, not from its own redesign.
+- **The files.** No file deleted, no route removed and no component tree replaced without a file-level plan the user approved, and no test edited to make the redesign pass. Documents in the repo (a README, a prompt, a deck) explain the product; they are not page copy. In a git project, start from a clean tree, `.hallmark/` aside (ask the user to commit or stash; never do it for them), so the redesign is one diff they can read and revert. The stylesheet is the redesign's to edit: the append-only rule guards it from a build, not from its own redesign.
 - **The brand,** when there is one. A brand is chosen: a logo, a colour or a face the project names (a brand file, a logo asset, named tokens, a font file of its own) or the user states. It stays at every depth, its values read from the project's files, never from memory. A framework default or a look the gates name (the purple-to-blue gradient, Inter as the display, a stock swatch) is not a brand: restyle and full replace it, and the Picks block says so in case it was. A locked `design.md` is the system at every depth.
 - **The words,** unless a gate names them. Wording that fails a copy gate (19, 54, 58, 63, 69) is tightened from the facts already on the page, and the handoff lists every changed line, before and after. An eyebrow is never just deleted: where its heading is figurative, the plain label becomes the heading (*Opening hours* over *When to find us* becomes *Opening hours*). Terms, disclaimers and consent text are never reworded. When the user says to keep every word, stamp `copy: verbatim`: 19, 58 and 69 then report as notes.
 
@@ -28,7 +28,7 @@ The depths do not blend: a polish that finds the concept wrong says so and recom
 
 ## Before
 
-1. Run the pre-flight (Step 0), then list the pages in the target: route, file, and whether each is a page or an app screen (`flow.md` § App screens). In a framework project start the dev server and record through `--url`; the linter does not render the empty shell `index.html` from disk. An unstamped page has no genre: infer it from the page as Step 1 would from a brief, and say so.
+1. Run the pre-flight (Step 0), then list the pages in the target: route, file, and whether each is a page or an app screen (`flow.md` § App screens). In a framework project start the dev server and record through `--url`; the linter does not render the empty shell `index.html` from disk. An unstamped page has no genre: infer it from the page as Step 1 would from a prompt, and say so.
 2. Record the page as it stands:
 
 ```
@@ -58,7 +58,7 @@ The Picks block opens with four rows of its own, and nothing is deleted until th
 - **Files** · edit: app/page.tsx, app/pricing/page.tsx, app/globals.css · create: app/tokens.css, app/base.css · delete: none
 ```
 
-Then the build rows the depth reaches: Theme at restyle and full (dealt, `brand` or locked); Shape, Chrome, Hero, Signature and Sections at full only, where Step 2 runs with the page's own content as its inventory. At polish the block stops after Files. The deal's `--brief` is the read's first line (what the page is for, in plain nouns), never the page's own copy, which is what the redesign is leaving behind.
+Then the build rows the depth reaches: Theme at restyle and full (dealt, `brand` or locked); Shape, Chrome, Hero, Signature and Sections at full only, where Step 2 runs with the page's own content as its inventory. At polish the block stops after Files. The deal's `--prompt` is the read's first line (what the page is for, in plain nouns), never the page's own copy, which is what the redesign is leaving behind.
 
 ## Build
 
