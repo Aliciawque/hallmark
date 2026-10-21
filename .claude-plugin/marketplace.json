@@ -1,0 +1,18 @@
+{
+  "name": "hallmark",
+  "owner": {
+    "name": "Nutlope",
+    "url": "https://github.com/Nutlope"
+  },
+  "metadata": {
+    "description": "Hallmark, the design skill that ends AI slop."
+  },
+  "plugins": [
+    {
+      "name": "hallmark",
+      "source": "./",
+      "description": "A design skill for Claude Code, Codex CLI and OpenCode that refuses to look AI-generated. Powered by Together AI.",
+      "version": "2.0.0"
+    }
+  ]
+}
