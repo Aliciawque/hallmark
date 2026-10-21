@@ -19,4 +19,17 @@
   --shadow-card: 0 1px 2px oklch(20% 0.01 35 / 0.05);
   --shadow-lift: 0 1px 2px oklch(20% 0.01 35 / 0.05), 0 18px 40px -22px oklch(20% 0.01 35 / 0.22);
   --tracking-display: -0.03em; --display-weight: 600;
+
+  /* The stationery. Warm white stocks, a felt blotter desk, one light from the left, shadows falling right */
+  --color-cotton: oklch(98.8% 0.0045 80); --color-cotton-env: oklch(97.7% 0.006 76); --color-desk: oklch(94.3% 0.008 64);
+  --color-print: oklch(23% 0.012 38); --color-board: oklch(22% 0.011 40); --color-paid: oklch(55.5% 0.15 33); --color-paid-deep: oklch(35% 0.12 30 / 0.45);
+  --shade: 32% 0.03 50; --lit: 100% 0.005 80; --deep: 7% 0.01 40;
+  --color-board-type: oklch(96.5% 0.006 70); --color-daylight: oklch(99% 0.006 80 / 0.7); --color-gum: oklch(80% 0.04 80 / 0.2);
+  --color-env-inside: oklch(94.5% 0.008 70); --color-glassine: oklch(97.5% 0.008 80 / 0.5); --color-ppi: oklch(23% 0.012 38 / 0.7);
+  --tex-cotton: url("cotton.svg"); --tex-desk: url("blotter.svg");
+  --radius-stock: 8px;
+  --edge-stock: inset 0 1px 0 oklch(var(--lit) / 0.9), inset 0 -1px 0 oklch(var(--shade) / 0.07), 0 0 0 0.5px oklch(var(--shade) / 0.22), 0 1px 0 oklch(var(--shade) / 0.12);
+  --cast-stock: 6px 5px 10px -6px oklch(var(--shade) / 0.3);
+  --cast-stock-lift: 12px 10px 18px -8px oklch(var(--shade) / 0.3);
+  --press-groove: inset 1px 1.5px 2px oklch(var(--shade) / 0.16), inset -1px -1px 0 oklch(var(--lit) / 0.9), 0 0 0 0.5px oklch(var(--shade) / 0.2);
 }

@@ -16,5 +16,5 @@
   --font-display: "Sentient", Georgia, serif; --font-body: "Hanken Grotesk", system-ui, sans-serif;
   --font-outlier: var(--font-body);
   --radius-card: 0; --radius-pill: 3px; --rule-hair: 1px; --rule-head: 1px; --shadow-card: none;
-  --tracking-display: -0.018em; --tracking-statement: -0.022em; --display-weight: 700; --statement-weight: 400;
+  --tracking-display: -0.018em; --tracking-statement: -0.022em; --display-weight: 300; --statement-weight: 300;
 }

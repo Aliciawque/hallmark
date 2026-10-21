@@ -7,14 +7,14 @@ display: grotesk-sans General Sans
 accent: warm 30
 posture: restrained
 keywords: saas, platform, billing, payments, invoicing, dashboard, b2b, startup, product, pricing, analytics, fintech, workflow, team, onboarding, trust, warm, human, calm
-material: warm grey paper, warm charcoal ink, General Sans throughout with Geist Mono figures, soft pills, the product built on paper wells, one coral signal in two strengths
+material: warm grey paper and a felt desk, cotton stationery lit from the left, General Sans throughout with Geist Mono figures, letterpress card controls, coral pressed into the stock for the one settled state
 photo: muted sepia=8
-pictured: Conversational FAQ, Stage hero
+pictured: Conversational FAQ, Desk hero
 ---
 
 # Coral
 
-A warm, plain product voice: warm grey paper, warm charcoal ink, General Sans from the head to the smallest label, soft pills and one coral signal, a true coral fill under ink with a deeper coral for the lines it draws. It reads as calm and human because the warmth sits in the paper, the muted photographs and the single colour, not in decoration, and the product itself, built in the same type and pills, does most of the showing. It is not a cream editorial page, not a red alert and not a blue SaaS template.
+A warm, plain product voice made physical: fine stationery on a felt desk, seen from above in one daylight from the left. Records are cotton sheets, envelopes and index cards with real edges; controls are letterpress cards; one coral ink is pressed in where something is settled. General Sans throughout. Not a cream editorial page, not a skeuomorphic toy, not a blue SaaS template.
 
 ## Tokens
 
@@ -24,60 +24,64 @@ A warm, plain product voice: warm grey paper, warm charcoal ink, General Sans fr
   --color-ink: oklch(21% 0.012 38); --color-ink-2: oklch(29% 0.013 40); --color-muted: oklch(47% 0.013 45);
   --color-rule: oklch(87% 0.009 55); --color-rule-2: oklch(81% 0.011 55);
   --color-accent: oklch(74% 0.125 30); --color-accent-ink: oklch(21% 0.012 38); --color-accent-2: oklch(54% 0.165 29); --color-focus: oklch(54% 0.17 30);
+  --color-cotton: oklch(98.8% 0.0045 80); --color-desk: oklch(94.3% 0.008 64); --color-print: oklch(23% 0.012 38);
+  --color-board: oklch(22% 0.011 40); --color-board-type: oklch(96.5% 0.006 70); --color-paid: oklch(55.5% 0.15 33);
+  --tex-cotton: url("cotton.svg"); --tex-desk: url("felt.svg");
+  --shade: 32% 0.03 50; --lit: 100% 0.005 80; --deep: 7% 0.01 40;
   --font-display: "General Sans", ui-sans-serif, system-ui, sans-serif; --font-body: var(--font-display);
   --font-outlier: "Geist Mono", ui-monospace, monospace;
-  --radius-card: 8px; --radius-input: 6px; --radius-pill: 999px; --rule-hair: 1px;
+  --radius-card: 8px; --radius-input: 6px; --radius-pill: 999px; --radius-stock: 8px; --rule-hair: 1px;
   --shadow-card: 0 1px 2px oklch(20% 0.01 35 / 0.05);
-  --shadow-lift: 0 1px 2px oklch(20% 0.01 35 / 0.05), 0 18px 40px -22px oklch(20% 0.01 35 / 0.22);
+  --edge-stock: inset 0 1px 0 oklch(var(--lit) / 0.9), inset 0 -1px 0 oklch(var(--shade) / 0.07), 0 0 0 0.5px oklch(var(--shade) / 0.22), 0 1px 0 oklch(var(--shade) / 0.12);
+  --cast-stock: 6px 5px 10px -6px oklch(var(--shade) / 0.3); --cast-stock-lift: 12px 10px 18px -8px oklch(var(--shade) / 0.3);
+  --press-groove: inset 1px 1.5px 2px oklch(var(--shade) / 0.16), inset -1px -1px 0 oklch(var(--lit) / 0.9), 0 0 0 0.5px oklch(var(--shade) / 0.2);
   --tracking-display: -0.03em; --display-weight: 600;
 }
 ```
 
 ## Type
 
-- **Display:** General Sans 600, `--tracking-display`, line-height 1.02 to 1.08, sentence case, roman. Section heads take the same face and weight at `--text-section`; a page built on questions asks them in the heads, one per section.
-- **A lone price:** the one figure a page is about sets in General Sans 600 at two to three times `--text-display`, tracked to -0.05em, line-height 0.85, its unit beside it at `--text-title` in 500.
-- **Body:** General Sans 400 and 500 at 16 to 18px. One family on purpose: the warmth comes from paper and signal, never from a second face.
-- **Labels, captions, table heads:** General Sans 500 a step smaller, sentence case, `--color-muted`.
-- **Figures in a column:** General Sans has no tabular figures, so amounts, invoice numbers and dates that line up set in Geist Mono 400 at the size of the text beside them. A price in a sentence or a head stays General Sans.
+- **Display:** General Sans 600, `--tracking-display`, line-height 1.02 to 1.08, sentence case, roman. A lone price sets at two to three times `--text-display`, tracked -0.05em, line-height 0.85, its unit beside it at `--text-title` in 500.
+- **Body:** General Sans 400 and 500. On stock, `--color-print`; on board, `--color-board-type`.
+- **Labels:** General Sans 500 a step smaller, sentence case, `--color-muted`.
+- **Figures in a column:** Geist Mono 400 (General Sans has no tabular figures). A price in a sentence or a head stays General Sans.
 
 ## Surfaces
 
-- 1px `--color-rule` hairlines between rows and around wells; radius 8px on surfaces, 6px on inputs, pills on controls and status. Concentric radii inside a well.
-- Depth is the whisper `--shadow-card` on an interactive surface and a paper step on a well. A product window built on the page takes the one lift, `--shadow-lift`, with an inset ink ring at 8%; never a wide soft shadow on a card.
-- Bands: a `--color-paper-2` band behind the product's other angles so the built screens lift off it, and one `--color-ink` band with paper text, where the price or the close lives. Two bands a page at most.
-- Photographs: work seen at arm's length in daylight, hands on the tools of one trade; never a face to camera or a team at a laptop. Muted so the coral stays the only colour; the card radius, an inset ink ring at 6%, a caption beneath.
-- No texture, no mesh, no blur.
+- One light, from the left: each paper object takes a lit edge top and left, a shade edge bottom and right, and a cast falling right (`--edge-stock`, `--cast-stock`).
+- The hero ground is a desk: `--color-desk` under a daylight radial from the left and a generated felt texture. Records the product handles are built as stationery on it: invoices, letters and statements on cotton sheets, a window envelope with glassine showing the address, replies as correspondence index cards, a groove pressed into a card. Each is CSS on `--color-cotton`, sized from one unit so it scales whole.
+- Texture is generated, never a picture: the build writes `cotton.svg`, a 360px tile of two stitched feTurbulence layers (cloud 0.011, grain 0.92, warm and faint) with short fibre strokes, under a lit-to-shade gradient on every paper object; `felt.svg` the same at 0.018. Sections stay plain.
+- The settled state (paid, signed, booked) is pressed into the stock: the word in General Sans 600 in `--color-paid`, through an SVG filter that offsets a shade wall into the letterforms and lets a noise mask leave the ink uneven, tilted a few degrees.
+- One `--color-ink` band, the board; stationery on it casts from `--deep`.
+- Photographs are rare: work at arm's length in daylight, muted; built stationery answers first.
 
 ## Range
 
-- **The comparison:** a Table of the job done by hand against the job done by the product, the subject column in General Sans 500, the hand column in muted sentences, the product column in status pills; hairlines only, no ticks, no scores.
-- **One record's life as Rows:** an invoice from sent to paid, dates in Geist Mono on the left, the event at `--text-title`, its status pill flush right, a 1px ink rule over the first row.
-- **The price on the ink band:** the lone figure huge in paper, beside a ruled list of what it pays for and the inline form; the coral stays off the band.
-- **The product from another angle:** what the other party sees (an email, a receipt, a document) built at full fidelity on a `--color-paper-2` well, two surfaces overlapping by a column, a caption beneath.
+- **The job played as paperwork:** the product's task told in its own documents on the desk (a sheet into an envelope, a reply card tucked under, the outcome pressed in), built in the hero and reused below.
+- **Records as an index:** replies, bookings or clients as cotton index cards stacked with offset tabs, beside their record on a full sheet.
+- **The price on the board:** the lone figure huge in paper beside a ruled list of what it pays for; the action sits on stationery laid on the band (an envelope flap, a card).
+- **The other side:** what the recipient sees, built on cotton, a groove control rewriting it live.
 
 ## Controls
 
-- An ink-filled pill (`--color-paper` text on `--color-ink`) beside a 1px `--color-rule-2` outlined pill. When the coral is spent on a fill, it is `--color-accent` with `--color-accent-ink` text.
-- Links underline on hover in `--color-accent-2`; inputs 48px tall at 6px radius with a 1px `--color-muted` border and the deep coral focus ring.
-- Status is a soft pill: an outline for in progress, the coral fill with ink for what is late or being chased, an ink fill for done. The coral stays under 5% of a screen: status, a link's underline, the focus ring, one figure.
+- Letterpress cards, not pills: 8px radius, 48px tall, cotton stock with `--edge-stock` and `--cast-stock` and the label pressed in (a lit text shadow below it); the primary is ink board with the label pressed the other way. Hover lifts 1px into `--cast-stock-lift`; active presses 1px down.
+- A choice of two to four is a groove pressed into cotton (`--press-groove`, 12px radius) with a cotton card riding in it to the chosen stop.
+- Inputs 48px, 6px radius, 1px `--color-muted` border, deep coral focus. Status is an ink outline; coral is spent only on the pressed settled state, link underlines and focus.
 
 ## Motion
 
-State only: an underline grows under a link, a border lifts to `--color-rule-2` on a focusable surface, a pill darkens one step. No reveal, nothing autoplays.
+Once, after fonts load and in view: the job plays on the desk in about six seconds, transforms and opacity only, paused off screen, then still. Reduced motion and no script show the finished state.
 
 ## Voice
 
-Plain, warm sentences in the second person about the work and the money: the client, the amount, the date, what the product did. Kind to the person who pays late, never cute, never hype.
+Plain, warm second-person sentences about the work and the money: who, how much, when, what the product did. Never cute.
 
 ## Do-nots
 
-- Never cool paper or a blue signal; warm grey and coral, or it is not this theme.
-- Never a second text face: no serif, no other sans; Geist Mono only for figures in a column.
-- Never square 4px controls on the primary action; Coral is pills.
-- Never coral as a band, a gradient or a head; the deep coral draws lines and one figure, the coral fill marks a status.
-- Never a photograph in full colour or of people posing at work; one or two pictures a page, muted, showing the work itself.
-- Never a product window as decoration in a corner; built screens stand 520px tall or more and carry the brief's nouns.
+- Never cool paper, a blue signal or a second light; every shadow falls right.
+- Never a pill button or a flat square button; controls are pressed cards.
+- Never a photograph of paper; stationery is built in CSS.
+- Never coral as a band, a fill behind text or a head; it is the pressed ink of one settled state.
 
 ## Build hint
 
@@ -87,13 +91,12 @@ Plain, warm sentences in the second person about the work and the money: the cli
 
 ```css
 h1, h2, h3 { font-weight: var(--display-weight); }
-.btn { border: 1px solid transparent; border-radius: var(--radius-pill); padding: var(--space-sm) var(--space-lg); font-weight: 500; }
-.btn--primary { background: var(--color-ink); color: var(--color-paper); }
-.btn--secondary { border-color: var(--color-rule-2); color: var(--color-ink); }
-.status { border: 1px solid var(--color-rule-2); border-radius: var(--radius-pill); font-weight: 500; } .status--late { background: var(--color-accent); border-color: var(--color-accent); color: var(--color-accent-ink); }
-.well { background: var(--color-paper-2); border-radius: var(--radius-card); }
-.lifted { background: var(--color-paper); border-radius: var(--radius-card); box-shadow: var(--shadow-lift); outline: 1px solid color-mix(in oklab, var(--color-ink) 8%, transparent); outline-offset: -1px; }
+.desk { background-color: var(--color-desk); background-image: radial-gradient(90% 120% at 0% 30%, var(--color-cotton), transparent 62%), var(--tex-desk); }
+.stock { background-color: var(--color-cotton); background-image: linear-gradient(100deg, var(--color-cotton), transparent 45%), var(--tex-cotton); color: var(--color-print); box-shadow: var(--edge-stock), var(--cast-stock); }
+.btn { min-height: 48px; padding: 0 var(--space-lg); border: 0; border-radius: var(--radius-stock); font-weight: 500; transition: transform var(--dur-short) var(--ease-out); }
+.btn--card { background-color: var(--color-cotton); background-image: var(--tex-cotton); color: var(--color-print); text-shadow: 0.5px 0.75px 0 var(--color-cotton); box-shadow: var(--edge-stock), var(--cast-stock); }
+.btn--ink { background: var(--color-board); color: var(--color-board-type); text-shadow: 0 -0.75px 0 var(--color-ink); box-shadow: var(--cast-stock); }
+.btn:hover { transform: translateY(-1px); box-shadow: var(--edge-stock), var(--cast-stock-lift); } .btn:active { transform: translateY(1px); }
 .fig { font-family: var(--font-outlier); font-variant-numeric: tabular-nums; }
-a { text-underline-offset: 0.2em; } a:hover { text-decoration-color: var(--color-accent-2); }
-::selection { background: color-mix(in oklab, var(--color-accent) 35%, transparent); }
+a:hover { text-decoration-color: var(--color-accent-2); }
 ```

@@ -5,7 +5,7 @@
   const items = [...grid.querySelectorAll('.th')];
   const filter = document.querySelector('[data-th-filter]');
   const more = document.querySelector('[data-th-more]');
-  if (more) more.addEventListener('click', () => { grid.classList.add('is-all'); const next = grid.querySelector(`.th:nth-child(${innerWidth <= 560 ? 13 : 17}) .th__link`); if (next) next.focus(); });
+  if (more) more.addEventListener('click', () => { grid.classList.add('is-all'); const next = grid.querySelector('.th:nth-child(11) .th__link'); if (next) next.focus(); });
 
   filter.addEventListener('click', (e) => {
     const b = e.target.closest('button'); if (!b) return;

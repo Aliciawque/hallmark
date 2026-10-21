@@ -11,9 +11,39 @@
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js'); if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'animate' in Element.prototype) document.documentElement.classList.add('story');</script>
 </head>
 <body id="top">
 <a class="skip" href="#main">Skip to content</a>
+<svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <filter id="deboss" x="-10%" y="-20%" width="120%" height="140%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.22" numOctaves="3" seed="6" result="n"/>
+    <feColorMatrix in="n" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -0.9 1.38" result="cover"/>
+    <feComposite in="SourceGraphic" in2="cover" operator="in" result="ink"/>
+    <feOffset in="SourceAlpha" dx="1.1" dy="1.3" result="o1"/>
+    <feComposite in="SourceAlpha" in2="o1" operator="out" result="wall"/>
+    <feGaussianBlur in="wall" stdDeviation="0.45" result="wallb"/>
+    <feFlood flood-color="#4a1d12" flood-opacity="0.7"/>
+    <feComposite in2="wallb" operator="in"/>
+    <feComposite in2="SourceAlpha" operator="in" result="shade"/>
+    <feOffset in="SourceAlpha" dx="-0.7" dy="-0.8" result="o2"/>
+    <feComposite in="SourceAlpha" in2="o2" operator="out" result="floor"/>
+    <feGaussianBlur in="floor" stdDeviation="0.35" result="floorb"/>
+    <feFlood flood-color="#fff6ef" flood-opacity="0.55"/>
+    <feComposite in2="floorb" operator="in"/>
+    <feComposite in2="SourceAlpha" operator="in" result="light"/>
+    <feOffset in="SourceAlpha" dx="0.6" dy="0.7" result="o3"/>
+    <feComposite in="o3" in2="SourceAlpha" operator="out" result="lip"/>
+    <feFlood flood-color="#ffffff" flood-opacity="0.9"/>
+    <feComposite in2="lip" operator="in" result="lipw"/>
+    <feOffset in="SourceAlpha" dx="-0.5" dy="-0.6" result="o4"/>
+    <feComposite in="o4" in2="SourceAlpha" operator="out" result="edge"/>
+    <feGaussianBlur in="edge" stdDeviation="0.3" result="edgeb"/>
+    <feFlood flood-color="#3a2a1e" flood-opacity="0.22"/>
+    <feComposite in2="edgeb" operator="in" result="edgew"/>
+    <feMerge><feMergeNode in="lipw"/><feMergeNode in="edgew"/><feMergeNode in="ink"/><feMergeNode in="shade"/><feMergeNode in="light"/></feMerge>
+  </filter>
+</svg>
 
 <header class="site">
   <div class="container site__in">
@@ -21,54 +51,59 @@
     <nav class="site__nav" aria-label="Page">
       <a class="site__link" href="#chase">How it chases</a>
       <a class="site__link" href="#cost">Pricing</a>
-      <a class="btn btn--secondary btn--sm" href="#start">Sign up</a>
+      <a class="btn btn--card btn--sm" href="#start">Sign up</a>
     </nav>
   </div>
 </header>
 
 <main id="main">
-  <section class="hero" aria-labelledby="hero-head">
+  <section class="hero desk" aria-labelledby="hero-head">
     <div class="container hero__grid">
       <div class="hero__text">
         <h1 id="hero-head">Never write<br><span class="hang">“</span>following&nbsp;up”<br>again.</h1>
         <p class="lead">Invoicing for freelancers that sends reminders, logs replies and marks invoices paid.</p>
         <div class="actions">
-          <a class="btn btn--primary" href="#start">Start invoicing</a>
-          <a class="btn btn--secondary" href="#chase">See how it chases</a>
+          <a class="btn btn--ink" href="#start">Start invoicing</a>
+          <a class="btn btn--card" href="#chase">See how it chases</a>
         </div>
         <p class="hero__terms">£8 a month, one plan.</p>
       </div>
 
-      <figure class="slot app app--hero lifted" data-slot="hero" data-alt="Your invoices screen, with one late invoice being chased" role="img" aria-label="The Tilly invoices screen: invoice 0042 for Example Kitchen, 380 pounds, due on 2 October, is being chased; its first reminder went on 5 October and the second this morning.">
-        <div class="ui" aria-hidden="true">
-          <div class="ui__bar">
-            <span class="ui__mark">Tilly</span>
-            <span class="ui__chips"><span class="ui__chip is-on">Invoices</span><span class="ui__chip">Clients</span><span class="ui__chip">Replies<b class="ui__badge">2</b></span></span>
-            <span class="ui__input"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>Search invoices</span>
-            <span class="ui__control"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg>New invoice</span>
+      <figure class="scene" data-slot="hero" data-scene data-alt="Invoice 0042 on the desk: its reminder sealed in a window envelope, the client's reply tucked under it, and the invoice pressed Paid" role="img" aria-label="An overhead desk: invoice 0042 for Example Kitchen, 380 pounds, printed on cotton paper. A copy has gone out in a window envelope as reminder 2, the client's reply card is tucked under the invoice, and the invoice is pressed Paid in coral.">
+        <div class="scene__in" aria-hidden="true">
+          <div class="sheet reply">
+            <p class="reply__text">Sorry, this slipped through. Paying today.</p>
+            <p class="reply__who">accounts@example.com</p>
           </div>
-          <div class="ui__head">
-            <span class="ui__title">Invoices</span>
-            <span class="ui__tags"><span class="ui__tag is-on">All</span><span class="ui__tag">Chasing</span><span class="ui__tag">Paid</span></span>
-            <span class="ui__owed">Outstanding<b class="fig">£4,520.00</b></span>
+
+          <div class="sheet inv inv--file" data-file>
+            <span class="inv__from">Example Studio</span>
+            <span class="mono" aria-hidden="true">T</span>
+            <span class="inv__addr"><b>Example Kitchen</b>1 Example Street<br>Example Town</span>
+            <span class="inv__no">Invoice <span class="fig">0042</span></span>
+            <span class="inv__dates"><span>Issued <span class="fig">18 Sep</span></span><span>Due <span class="fig">2 Oct</span></span></span>
+            <span class="inv__lines">
+              <span>Menu illustrations</span><span class="fig">£300.00</span>
+              <span>Two rounds of changes</span><span class="fig">£80.00</span>
+              <span class="inv__total">Total</span><span class="fig inv__total">£380.00</span>
+            </span>
+            <span class="inv__pay">Pay by bank transfer, quoting 0042.</span>
+            <span class="paid" data-paid>Paid</span>
           </div>
-          <div class="ledger">
-            <div class="ledger__row ledger__row--head"><span>No.</span><span>Client</span><span>Due</span><span class="r">Amount</span><span>Status</span></div>
-            <div class="ledger__row"><span class="fig">0045</span><span>Example Press</span><span class="fig">23 Oct</span><span class="fig r">£1,450.00</span><span><i class="status">Sent</i></span></div>
-            <div class="ledger__row"><span class="fig">0044</span><span>Example Films</span><span class="fig">30 Sep</span><span class="fig r">£2,150.00</span><span><i class="status">Reply logged</i></span></div>
-            <div class="ledger__row"><span class="fig">0043</span><span>Example Florist</span><span class="fig">16 Oct</span><span class="fig r">£540.00</span><span><i class="status">Sent</i></span></div>
-            <div class="ledger__row is-open">
-              <span class="fig">0042</span><span>Example Kitchen</span><span class="fig late">2 Oct</span><span class="fig r">£380.00</span><span><i class="status status--late">Chasing</i></span>
-              <div class="chase">
-                <span class="chase__status is-done is-late"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Due<b class="fig">2 Oct</b></span>
-                <span class="chase__status is-done"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Reminder 1<b class="fig">5 Oct</b></span>
-                <span class="chase__status is-now"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>Reminder 2<b class="fig">Today, 09:00</b></span>
-                <span class="chase__note">No reply yet</span>
-              </div>
+
+          <div class="env">
+            <div class="env__flapwrap"><div class="env__flap"><i class="env__gum"></i></div></div>
+            <div class="env__back"></div>
+            <div class="sheet letter" data-letter>
+              <i class="sheet__lift" data-lift></i>
+              <span class="letter__from">Example Studio</span>
+              <span class="letter__addr"><b>Example Kitchen</b>1 Example Street<br>Example Town</span>
             </div>
-            <div class="ledger__row"><span class="fig">0041</span><span>Example Bakery</span><span class="fig">26 Sep</span><span class="fig r">£960.00</span><span><i class="status status--done">Paid</i></span></div>
-            <div class="ledger__row"><span class="fig">0040</span><span>Example Gallery</span><span class="fig">19 Sep</span><span class="fig r">£1,200.00</span><span><i class="status status--done">Paid</i></span></div>
-            <div class="ledger__row"><span class="fig">0039</span><span>Example Theatre</span><span class="fig">12 Sep</span><span class="fig r">£640.00</span><span><i class="status status--done">Paid</i></span></div>
+            <div class="env__glass"></div>
+            <div class="env__front">
+              <div class="env__paper"></div>
+              <span class="env__ppi" data-ppi><b>Reminder 2</b>Sent by Tilly</span>
+            </div>
           </div>
         </div>
       </figure>
@@ -82,35 +117,31 @@
         <p class="lead">No. Here is one late invoice, from the first reminder to paid.</p>
       </div>
       <div class="pin" data-pin>
-        <figure class="slot app app--thread lifted pin__visual" data-slot="demo-3" data-alt="One invoice's history in Tilly, from the first reminder to paid" data-step="3" role="img" aria-label="Invoice 0044 for Example Films, 2,150 pounds, in Tilly: due on 30 September, reminder 1 sent on 3 October, the client's reply logged the same morning, then marked paid on 10 October.">
-          <div class="ui" aria-hidden="true">
-            <div class="ui__bar">
-              <span class="ui__mark">Tilly</span>
-              <span class="ui__chips"><span class="ui__chip is-on">Invoices</span><span class="ui__chip">Clients</span><span class="ui__chip">Replies</span></span>
-              <span class="ui__input"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>Search invoices</span>
-            </div>
-            <div class="inbox">
-              <div class="inbox__list">
-                <div class="inbox__item is-on"><b>Example Films</b><span class="fig">0044</span><span class="inbox__state"><i class="status status--late" data-at="1">Chasing</i><i class="status" data-at="2">Reply logged</i><i class="status status--done" data-at="3">Paid</i></span></div>
-                <div class="inbox__item"><b>Example Press</b><span class="fig">0045</span><span class="inbox__state"><i class="status">Sent</i></span></div>
-                <div class="inbox__item"><b>Example Kitchen</b><span class="fig">0042</span><span class="inbox__state"><i class="status status--late">Chasing</i></span></div>
-                <div class="inbox__item"><b>Example Bakery</b><span class="fig">0041</span><span class="inbox__state"><i class="status status--done">Paid</i></span></div>
-                <div class="inbox__item"><b>Example Gallery</b><span class="fig">0040</span><span class="inbox__state"><i class="status status--done">Paid</i></span></div>
+        <figure class="slot folio pin__visual" data-slot="demo-3" data-alt="One invoice's record in Tilly, with the replies filed as cards" data-step="3" role="img" aria-label="Invoice 0044 for Example Films, 2,150 pounds, in Tilly: due on 30 September, reminder 1 sent on 3 October, the client's reply logged the same morning and filed with the other replies, then marked paid on 10 October.">
+          <div class="folio__in" aria-hidden="true">
+            <div class="sheet record">
+              <div class="record__bar"><span class="record__mark">Tilly</span><span class="record__tabs"><span class="is-on">Invoices</span><span>Clients</span><span>Replies</span></span></div>
+              <div class="record__head">
+                <span class="record__who">Example Films</span>
+                <span class="record__what">Invoice <span class="fig">0044</span><span class="fig">£2,150.00</span></span>
               </div>
-              <div class="thread">
-                <div class="thread__head">
-                  <span class="thread__who">Example Films</span>
-                  <span class="thread__what">Invoice <b class="fig">0044</b><b class="fig">£2,150.00</b></span>
-                </div>
-                <ol class="thread__steps">
-                  <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg><span>Sent</span><b class="fig">16 Sep</b></li>
-                  <li><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg><span>Due</span><b class="fig late">30 Sep</b></li>
-                  <li data-at="1"><svg viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg><span>Reminder 1 sent by Tilly</span><b class="fig">3 Oct, 09:00</b></li>
-                  <li data-at="2" class="is-reply"><svg viewBox="0 0 24 24"><polyline points="9 17 4 12 9 7"/><path d="M20 18v-2a4 4 0 0 0-4-4H4"/></svg><span>Reply logged</span><b class="fig">3 Oct, 11:42</b>
-                    <blockquote class="thread__quote"><p>Sorry, this slipped through. We’ll pay on Friday.</p><cite>finance@example.com</cite></blockquote>
-                  </li>
-                  <li data-at="3" class="is-paid"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg><span>Marked paid, reminders stopped</span><b class="fig">10 Oct</b></li>
-                </ol>
+              <ol class="record__steps">
+                <li><span>Sent</span><span class="fig">16 Sep</span></li>
+                <li><span>Due</span><span class="fig">30 Sep</span></li>
+                <li data-at="1"><span>Reminder 1 sent by Tilly</span><span class="fig">3 Oct, 09:00</span></li>
+                <li data-at="2"><span>Reply logged</span><span class="fig">3 Oct, 11:42</span></li>
+                <li data-at="3"><span>Marked paid, reminders stopped</span><span class="fig">10 Oct</span></li>
+              </ol>
+              <span class="paid paid--record" data-at="3">Paid</span>
+            </div>
+            <div class="cards">
+              <div class="card"><span class="card__tab"><span>Example Theatre</span><span class="fig">0039</span></span></div>
+              <div class="card"><span class="card__tab"><span>Example Gallery</span><span class="fig">0040</span></span></div>
+              <div class="card"><span class="card__tab"><span>Example Bakery</span><span class="fig">0041</span></span><p class="card__who">Filed with 0041</p></div>
+              <div class="card card--front" data-at="2">
+                <span class="card__tab"><span>Example Films</span><span class="fig">0044</span></span>
+                <p class="card__text">Sorry, this slipped through. We’ll pay on Friday.</p>
+                <p class="card__who">finance@example.com, filed with 0044</p>
               </div>
             </div>
           </div>
@@ -138,12 +169,24 @@
 
   <section class="q q--receive well-band" id="receive" aria-labelledby="q2">
     <div class="container">
-      <div class="q__head">
-        <h2 id="q2">What does my client receive?</h2>
-        <p class="lead">A short, polite reminder, with the invoice one click away.</p>
+      <div class="q__head q__head--split">
+        <div class="q__words">
+          <h2 id="q2">What does my client receive?</h2>
+          <p class="lead">A short, polite reminder, with the invoice one click away.</p>
+        </div>
+        <fieldset class="tone">
+          <legend class="tone__legend">Tone of the reminder</legend>
+          <div class="tone__track">
+            <label class="tone__stop"><input type="radio" name="tone" value="friendly"><span>Friendly</span></label>
+            <label class="tone__stop"><input type="radio" name="tone" value="plain" checked><span>Plain</span></label>
+            <label class="tone__stop"><input type="radio" name="tone" value="firm"><span>Firm</span></label>
+            <i class="tone__thumb" aria-hidden="true"></i>
+          </div>
+          <p class="visually-hidden" aria-live="polite" data-tone-say></p>
+        </fieldset>
       </div>
       <figure class="showcase">
-        <div class="slot client" data-slot="demo-2" data-alt="A reminder as your client receives it, beside the invoice it links to" role="img" aria-label="The second reminder for invoice 0042 as Example Kitchen receives it: a short email saying the 380 pounds was due on 2 October, with a link to the invoice, beside the invoice itself marked overdue.">
+        <div class="slot client" data-slot="demo-2" data-alt="A reminder as your client receives it, beside the invoice it links to" role="img" aria-label="The second reminder for invoice 0042 as Example Kitchen receives it: a short email saying the 380 pounds was due on 2 October, with a link to the invoice, beside the invoice itself on cotton paper, marked overdue.">
           <div class="client__in" aria-hidden="true">
             <div class="doc mail">
               <div class="mail__head">
@@ -156,22 +199,27 @@
               </div>
               <div class="mail__body">
                 <p>Hello,</p>
-                <p>A quick reminder that invoice 0042 for £380.00 was due on 2 October. You can see it in full from the link below.</p>
+                <div class="mail__tone">
+                  <p data-tone="friendly">Hope the week is going well. A gentle nudge that invoice 0042 for £380.00 was due on 2 October.</p>
+                  <p data-tone="plain">A quick reminder that invoice 0042 for £380.00 was due on 2 October. You can see it in full below.</p>
+                  <p data-tone="firm">Invoice 0042 for £380.00 was due on 2 October and is now overdue. Please arrange payment this week.</p>
+                </div>
                 <p>Thank you,<br>Example Studio</p>
-                <span class="mail__link"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>View invoice 0042</span>
+                <span class="mail__link">View invoice 0042</span>
               </div>
               <p class="mail__foot"><span>Sent by Tilly for Example Studio</span></p>
             </div>
-            <div class="doc inv">
-              <div class="inv__top"><span class="inv__title">Invoice <b class="fig">0042</b></span><i class="status status--late">Overdue</i></div>
-              <div class="inv__parties"><span>From<b>Example Studio</b></span><span>To<b>Example Kitchen</b></span></div>
-              <div class="inv__dates"><span>Issued<b class="fig">18 Sep 2026</b></span><span>Due<b class="fig late">2 Oct 2026</b></span></div>
-              <div class="inv__lines">
+            <div class="sheet bill">
+              <span class="mono">T</span>
+              <span class="bill__top"><span class="bill__title">Invoice <span class="fig">0042</span></span><i class="status">Overdue</i></span>
+              <span class="bill__parties"><span>From<b>Example Studio</b></span><span>To<b>Example Kitchen</b></span></span>
+              <span class="bill__meta"><span>Issued<b class="fig">18 Sep 2026</b></span><span>Due<b class="fig">2 Oct 2026</b></span></span>
+              <span class="bill__lines">
                 <span>Menu illustrations, six dishes</span><span class="fig">£300.00</span>
                 <span>Two rounds of changes</span><span class="fig">£80.00</span>
-                <span class="inv__total">Total</span><span class="fig inv__total">£380.00</span>
-              </div>
-              <p class="inv__pay">Pay by bank transfer, quoting 0042.</p>
+                <span class="bill__total">Total</span><span class="fig bill__total">£380.00</span>
+              </span>
+              <span class="bill__pay">Pay by bank transfer, quoting 0042.</span>
             </div>
           </div>
         </div>
@@ -182,11 +230,7 @@
 
   <section class="band offer" id="cost" aria-labelledby="q5">
     <div class="container offer__grid">
-      <figure class="photo photo--offer" data-slot="photo-1" data-alt="Your own work in progress: the desk, bench or studio you invoice from">
-        <img src="photos/florist-working-1920.jpg" width="1920" height="1280" loading="lazy" decoding="async"
-             style="object-position: 62% 50%" alt="Hands gathering green stems into a bouquet at a flower shop counter">
-      </figure>
-      <div class="offer__box" id="start">
+      <div class="offer__text">
         <h2 id="q5">What does it cost?</h2>
         <p class="price"><span class="price__fig">£8</span><span class="price__unit">a month</span></p>
         <ul class="inc" role="list" aria-label="What the £8 pays for">
@@ -195,9 +239,17 @@
           <li>Replies filed with their invoice</li>
           <li>Paid invoices marked and closed</li>
         </ul>
-        <div class="offer__act">
-          <a class="btn btn--invert" href="#start" data-needs-url="signup">Start for £8 a month</a>
-          <p class="offer__terms">Start with your next invoice.</p>
+      </div>
+      <div class="post" id="start">
+        <div class="post__env">
+          <i class="post__side post__side--l" aria-hidden="true"></i>
+          <i class="post__side post__side--r" aria-hidden="true"></i>
+          <i class="post__bottom" aria-hidden="true"></i>
+          <span class="post__flapwrap" aria-hidden="true"><i class="post__flap"></i></span>
+          <div class="post__act">
+            <a class="btn btn--ink" href="#start" data-needs-url="signup">Start for £8 a month</a>
+            <p class="post__terms">Start with your next invoice.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -216,24 +268,9 @@
       </nav>
       <p class="close__legal">© 2026 Tilly. Invoicing for freelancers.</p>
     </div>
-    <p class="close__credit" data-credits>Photograph: <a href="https://commons.wikimedia.org/wiki/File:Florist_working.jpg">direct2Florist</a>, CC&nbsp;BY&nbsp;2.0, on Wikimedia Commons.</p>
   </div>
 </footer>
 
-<script>
-window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
-document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });
-document.documentElement.classList.add('js');
-/* The pinned run: the panel nearest the middle of the screen sets the invoice's state */
-document.querySelectorAll('[data-pin]').forEach((pin) => {
-  const fig = pin.querySelector('.pin__visual'), panels = [...pin.querySelectorAll('.pin__panel')];
-  const wide = matchMedia('(min-width: 60rem)');
-  const set = (n) => { fig.dataset.step = n; panels.forEach((p) => p.classList.toggle('is-on', p.dataset.step === String(n))); };
-  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting && wide.matches) set(e.target.dataset.step); }), { rootMargin: '-45% 0px -45% 0px' });
-  panels.forEach((p) => io.observe(p));
-  const sync = () => set(wide.matches ? (panels.find((p) => p.classList.contains('is-on')) || panels[0]).dataset.step : 3);
-  wide.addEventListener('change', sync); sync();
-});
-</script>
+<script src="scene.js" defer></script>
 </body>
 </html>

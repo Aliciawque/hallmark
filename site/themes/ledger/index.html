@@ -7,8 +7,9 @@
 <meta name="description" content="Closewise checks every bank account against your ledger every night and flags every mismatch before month end, for finance teams of 3 to 30.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script src="scene.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -21,44 +22,60 @@
       <a href="#ways">Two ways</a>
       <a href="#close">October</a>
     </nav>
-    <a class="btn btn--line btn--nav" href="#walkthrough">Book a walkthrough</a>
+    <a class="btn btn--plate btn--nav" href="#walkthrough">Book a walkthrough</a>
   </div>
 </header>
 
 <main id="main">
 
 <section class="hero" id="top" aria-labelledby="hero-head">
-  <div class="container">
-    <div class="hero__head">
-      <div class="hero__text">
-        <h1 id="hero-head">Month end, already reconciled.</h1>
-        <p class="lead">Closewise checks every bank account against your ledger, every night.</p>
-      </div>
+  <div class="hero__ground" aria-hidden="true">
+    <canvas class="hero__engraving"></canvas>
+    <div class="hero__sheen"></div>
+  </div>
+  <div class="micro-frame hero__frame" aria-hidden="true"><span class="micro micro--t"></span><span class="micro micro--r"></span><span class="micro micro--b"></span><span class="micro micro--l"></span></div>
+  <div class="container hero__grid">
+    <div class="hero__text">
+      <h1 id="hero-head">Month end, already reconciled.</h1>
+      <p class="lead">Closewise checks every bank account against your ledger, every night.</p>
       <div class="actions">
-        <a class="btn btn--bone" href="#walkthrough">Book a walkthrough</a>
-        <a class="btn btn--line" href="#flag">See a flag</a>
+        <a class="btn btn--plate" href="#walkthrough">Book a walkthrough</a>
+        <a class="btn btn--hair" href="#flag">See a flag</a>
       </div>
     </div>
-    <div class="page" data-slot="hero" data-alt="Your last night's run: each bank line set against its ledger entry, with the totals and the one flag">
-      <div class="page__head">
-        <p class="page__title">Last night’s run</p>
-        <p class="page__accts"><span class="is-on">Current account</span><span>Card</span><span>Savings</span></p>
-        <p class="page__when"><span>Wednesday 14 October, run at <span class="num">02:00</span></span><span class="page__tally"><span class="num">6</span> matched, <b><span class="num">1</span> flagged</b></span></p>
+
+    <div class="run" data-slot="hero" data-alt="Your last night's run: each bank line zipped to its ledger entry, the one that did not match left open with its difference">
+      <div class="run__head">
+        <p class="run__title">Last night’s run <span class="run__tally"><span class="num">6</span> matched, <span class="num">1</span> open</span></p>
+        <p class="run__meta">Current account, Wednesday 14 October, <span class="num">02:00</span></p>
+        <button class="btn btn--hair btn--sm run__again" type="button" hidden>Run again</button>
       </div>
-        <table class="run">
-          <caption class="visually-hidden">Last night’s run on the current account, sample</caption>
-          <thead><tr><th scope="col" class="d">Date</th><th scope="col">Bank line</th><th scope="col">Ledger entry</th><th scope="col" class="r">In</th><th scope="col" class="r">Out</th><th scope="col">Status</th></tr></thead>
-          <tbody>
-            <tr><td class="d">12 Oct</td><th scope="row">Example Client</th><td>Invoice 2041</td><td class="num cr" data-label="In">3,200.00</td><td class="num"></td><td>Matched</td></tr>
-            <tr><td class="d">12 Oct</td><th scope="row">Example Payroll</th><td>Wages, October</td><td class="num"></td><td class="num dr" data-label="Out">8,450.00</td><td>Matched</td></tr>
-            <tr class="is-flag"><td class="d">13 Oct</td><th scope="row">Example Hosting</th><td>Hosting, October</td><td class="num"></td><td class="num dr" data-label="Out">1,200.00</td><td><b>Flagged</b> <span class="num">180.00</span></td></tr>
-            <tr><td class="d">13 Oct</td><th scope="row">Example Bank</th><td>Bank fee</td><td class="num"></td><td class="num dr" data-label="Out">12.00</td><td>Matched</td></tr>
-            <tr><td class="d">13 Oct</td><th scope="row">Example Client Co</th><td>Invoice 2043</td><td class="num cr" data-label="In">900.00</td><td class="num"></td><td>Matched</td></tr>
-            <tr><td class="d">14 Oct</td><th scope="row">Example Insurance</th><td>Insurance, October</td><td class="num"></td><td class="num dr" data-label="Out">300.00</td><td>Matched</td></tr>
-            <tr><td class="d">14 Oct</td><th scope="row">Example Supplies</th><td>Office supplies</td><td class="num"></td><td class="num dr" data-label="Out">64.00</td><td>Matched</td></tr>
-          </tbody>
-          <tfoot><tr><td class="d"></td><th scope="row">Totals</th><td></td><td class="num cr" data-label="In">4,100.00</td><td class="num dr" data-label="Out">10,026.00</td><td></td></tr></tfoot>
-        </table>
+      <p class="run__cols" aria-hidden="true"><span>Bank</span><span>Ledger</span></p>
+      <ol class="zip" aria-label="Last night’s run on the current account, sample">
+        <li class="pair"><span class="slip slip--bank"><span class="slip__d">12 Oct</span><span class="slip__n">Example Client</span><span class="slip__f num cr">3,200.00</span></span><span class="seam"><span class="tick"></span><span class="visually-hidden">matches</span></span><span class="slip slip--ledger"><span class="slip__f num cr">3,200.00</span><span class="slip__n">Invoice 2041</span></span></li>
+        <li class="pair"><span class="slip slip--bank"><span class="slip__d">12 Oct</span><span class="slip__n">Example Payroll</span><span class="slip__f num dr">8,450.00</span></span><span class="seam"><span class="tick"></span><span class="visually-hidden">matches</span></span><span class="slip slip--ledger"><span class="slip__f num dr">8,450.00</span><span class="slip__n">Wages, October</span></span></li>
+        <li class="pair is-open"><span class="slip slip--bank"><span class="slip__d">13 Oct</span><span class="slip__n">Example Hosting</span><span class="slip__f num dr">1,200.00</span></span><span class="seam"><span class="seam__diff num dr"><span class="visually-hidden">does not match, difference </span>180.00</span></span><span class="slip slip--ledger"><span class="slip__f num dr">1,020.00</span><span class="slip__n">Hosting, October</span></span></li>
+        <li class="pair"><span class="slip slip--bank"><span class="slip__d">13 Oct</span><span class="slip__n">Example Bank</span><span class="slip__f num dr">12.00</span></span><span class="seam"><span class="tick"></span><span class="visually-hidden">matches</span></span><span class="slip slip--ledger"><span class="slip__f num dr">12.00</span><span class="slip__n">Bank fee</span></span></li>
+        <li class="pair"><span class="slip slip--bank"><span class="slip__d">13 Oct</span><span class="slip__n">Example Client Co</span><span class="slip__f num cr">900.00</span></span><span class="seam"><span class="tick"></span><span class="visually-hidden">matches</span></span><span class="slip slip--ledger"><span class="slip__f num cr">900.00</span><span class="slip__n">Invoice 2043</span></span></li>
+        <li class="pair"><span class="slip slip--bank"><span class="slip__d">14 Oct</span><span class="slip__n">Example Insurance</span><span class="slip__f num dr">300.00</span></span><span class="seam"><span class="tick"></span><span class="visually-hidden">matches</span></span><span class="slip slip--ledger"><span class="slip__f num dr">300.00</span><span class="slip__n">Insurance, October</span></span></li>
+        <li class="pair"><span class="slip slip--bank"><span class="slip__d">14 Oct</span><span class="slip__n">Example Supplies</span><span class="slip__f num dr">64.00</span></span><span class="seam"><span class="tick"></span><span class="visually-hidden">matches</span></span><span class="slip slip--ledger"><span class="slip__f num dr">64.00</span><span class="slip__n">Office supplies</span></span></li>
+      </ol>
+      <div class="footing">
+        <div class="footing__side">
+          <p class="footing__title">Bank total</p>
+          <p class="footing__line"><span>In</span><span class="num cr">4,100.00</span></p>
+          <p class="footing__line"><span>Out</span><span class="num dr">10,026.00</span></p>
+        </div>
+        <div class="footing__diff">
+          <p class="footing__title">Difference</p>
+          <p class="num dr">180.00</p>
+        </div>
+        <div class="footing__side">
+          <p class="footing__title">Ledger total</p>
+          <p class="footing__line"><span>In</span><span class="num cr">4,100.00</span></p>
+          <p class="footing__line"><span>Out</span><span class="num dr">9,846.00</span></p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -70,24 +87,30 @@
       <p class="lead">Both sides and the difference, nothing to hunt for.</p>
     </div>
     <figure class="proof">
-      <div class="well" data-slot="flag" data-alt="One flagged mismatch from your own run: the bank line, the ledger entry and the difference between them">
-        <div class="well__head"><span class="well__title">Flagged on 14 October</span><span class="well__state">Waiting for you</span></div>
-        <div class="sides">
-          <div class="side">
-            <p class="side__label">Bank</p>
-            <p class="side__name">Example Hosting</p>
-            <p class="side__meta">Card payment, 13 October</p>
-            <p class="side__fig num dr">1,200.00</p>
+      <div class="run run--flag" data-slot="flag" data-alt="One flagged mismatch from your own run: the bank line, the ledger entry and the difference between them">
+        <div class="run__head">
+          <p class="run__title">Flagged on 14 October</p>
+          <p class="run__meta">Waiting for you</p>
+        </div>
+        <div class="pair pair--lg is-open">
+          <div class="slip slip--bank">
+            <p class="slip__label">Bank</p>
+            <p class="slip__n">Example Hosting</p>
+            <p class="slip__meta">Card payment, 13 October</p>
+            <p class="slip__f num dr">1,200.00</p>
           </div>
-          <div class="side">
-            <p class="side__label">Ledger</p>
-            <p class="side__name">Hosting, October</p>
-            <p class="side__meta">Posted 13 October</p>
-            <p class="side__fig num dr">1,020.00</p>
+          <div class="seam">
+            <p class="seam__label">Difference</p>
+            <p class="seam__diff num dr">180.00</p>
+          </div>
+          <div class="slip slip--ledger">
+            <p class="slip__label">Ledger</p>
+            <p class="slip__n">Hosting, October</p>
+            <p class="slip__meta">Posted 13 October</p>
+            <p class="slip__f num dr">1,020.00</p>
           </div>
         </div>
-        <div class="diff"><span>Difference</span><span class="num">180.00</span></div>
-        <dl class="well__facts">
+        <dl class="facts">
           <div><dt>Account</dt><dd>Current account</dd></div>
           <div><dt>Month end</dt><dd>In <span class="num">17</span> days</dd></div>
         </dl>
@@ -113,6 +136,7 @@
 </section>
 
 <section class="month" id="close" aria-labelledby="month-head">
+  <div class="month__band" aria-hidden="true"></div>
   <div class="container">
     <div class="month__head">
       <h2 id="month-head">October, night by night.</h2>
@@ -132,44 +156,65 @@
           </tbody>
         </table>
       </div>
-      <figure class="proof">
-        <div class="well" data-slot="close" data-alt="Your month-end list: every open flag across your accounts and what they add up to">
-          <div class="well__head"><span class="well__title">Open on 29 October</span><span class="well__state">All accounts</span></div>
-        <table class="flags">
-          <caption class="visually-hidden">Open flags before the October close, sample</caption>
-          <thead><tr><th scope="col">Flagged</th><th scope="col">Bank line</th><th scope="col" class="r">Difference</th><th scope="col" class="r">Running</th></tr></thead>
-          <tbody>
-            <tr><td class="d num">03 Oct</td><th scope="row">Example Bank fee</th><td class="num">24.00</td><td class="num run-t">24.00</td></tr>
-            <tr><td class="d num">14 Oct</td><th scope="row">Example Hosting</th><td class="num">180.00</td><td class="num run-t">204.00</td></tr>
-            <tr><td class="d num">22 Oct</td><th scope="row">Example Client Co</th><td class="num">90.00</td><td class="num run-t">294.00</td></tr>
-          </tbody>
-          <tfoot><tr><td></td><th scope="row">Three flags to clear</th><td class="num">294.00</td><td></td></tr></tfoot>
-        </table>
+      <figure class="proof proof--sheet">
+        <div class="sheet" data-slot="close" data-alt="Your month-end list: every open flag across your accounts and what they add up to">
+          <div class="sheet__head"><p class="sheet__title">Statement of open flags</p><p class="sheet__meta">All accounts, <span class="num">29</span> October</p></div>
+          <table class="flags">
+            <caption class="visually-hidden">Open flags before the October close, sample</caption>
+            <thead><tr><th scope="col">Flagged</th><th scope="col">Bank line</th><th scope="col" class="r">Difference</th><th scope="col" class="r">Running</th></tr></thead>
+            <tbody>
+              <tr><td class="d num">3 Oct</td><th scope="row">Example Bank fee</th><td class="num">24.00</td><td class="num run-t">24.00</td></tr>
+              <tr><td class="d num">14 Oct</td><th scope="row">Example Hosting</th><td class="num">180.00</td><td class="num run-t">204.00</td></tr>
+              <tr><td class="d num">22 Oct</td><th scope="row">Example Client Co</th><td class="num">90.00</td><td class="num run-t">294.00</td></tr>
+            </tbody>
+          </table>
+          <div class="sheet__stub">
+            <p class="sheet__total"><span>Three flags to clear</span><span class="num">294.00</span></p>
+          </div>
         </div>
       </figure>
     </div>
   </div>
 </section>
 
-<section class="closeband" id="walkthrough" aria-labelledby="book-head">
-  <div class="container closeband__grid">
-    <p class="team__fig" aria-hidden="true"><span class="num">3</span><span class="team__to">to</span><span class="num">30</span></p>
-    <div class="closeband__text">
-      <h2 id="book-head">See one month, start to close.</h2>
-      <p class="lead">For finance teams of 3 to 30: a walkthrough of the runs, the flags and the short list they leave.</p>
-      <div class="actions">
-        <a class="btn btn--bone" href="#walkthrough" data-needs-url="walkthrough booking">Book a walkthrough</a>
-      </div>
-    </div>
-  </div>
-</section>
-
 </main>
 
-<footer class="foot">
+<footer class="foot" id="walkthrough">
   <div class="container">
-    <p class="foot__mark">Closewise</p>
+    <div class="cert">
+      <div class="micro-frame cert__frame" aria-hidden="true"><span class="micro micro--t"></span><span class="micro micro--r"></span><span class="micro micro--b"></span><span class="micro micro--l"></span></div>
+      <div class="cert__body">
+        <div class="cert__text">
+          <h2 id="book-head">See one month, start to close.</h2>
+          <p class="lead">A walkthrough of the runs, the flags and the short list they leave, for teams of 3 to 30.</p>
+          <form class="book" data-endpoint="" aria-labelledby="book-head" novalidate>
+            <div class="field">
+              <label for="book-email">Work email</label>
+              <input id="book-email" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+            </div>
+            <div class="field">
+              <label for="book-company">Company</label>
+              <input id="book-company" name="company" type="text" autocomplete="organization" placeholder="Example Ltd">
+            </div>
+            <div class="field">
+              <label for="book-team">Team size</label>
+              <select id="book-team" name="team">
+                <option value="3-10">3 to 10 people</option>
+                <option value="11-20">11 to 20 people</option>
+                <option value="21-30">21 to 30 people</option>
+              </select>
+            </div>
+            <button class="btn btn--plate book__go" type="submit">Book a walkthrough</button>
+          </form>
+        </div>
+        <div class="seal" aria-hidden="true">
+          <div class="seal__ring"><i style="--a:1.21deg">r</i><i style="--a:4.16deg">e</i><i style="--a:7.62deg">c</i><i style="--a:11.20deg">o</i><i style="--a:14.97deg">n</i><i style="--a:18.60deg">c</i><i style="--a:21.08deg">i</i><i style="--a:22.64deg">l</i><i style="--a:25.21deg">e</i><i style="--a:28.95deg">d</i><i style="--a:33.92deg">e</i><i style="--a:37.34deg">v</i><i style="--a:40.71deg">e</i><i style="--a:43.67deg">r</i><i style="--a:46.57deg">y</i><i style="--a:51.41deg">n</i><i style="--a:54.11deg">i</i><i style="--a:56.81deg">g</i><i style="--a:60.65deg">h</i><i style="--a:63.74deg">t</i><i class="seal__sep" style="--a:69.13deg"></i><i style="--a:75.27deg">b</i><i style="--a:78.83deg">y</i><i style="--a:84.04deg">C</i><i style="--a:87.18deg">l</i><i style="--a:89.83deg">o</i><i style="--a:93.22deg">s</i><i style="--a:96.59deg">e</i><i style="--a:100.88deg">w</i><i style="--a:104.08deg">i</i><i style="--a:106.38deg">s</i><i style="--a:109.74deg">e</i><i class="seal__sep" style="--a:115.79deg"></i><i style="--a:121.21deg">r</i><i style="--a:124.16deg">e</i><i style="--a:127.62deg">c</i><i style="--a:131.20deg">o</i><i style="--a:134.97deg">n</i><i style="--a:138.60deg">c</i><i style="--a:141.08deg">i</i><i style="--a:142.64deg">l</i><i style="--a:145.21deg">e</i><i style="--a:148.95deg">d</i><i style="--a:153.92deg">e</i><i style="--a:157.34deg">v</i><i style="--a:160.71deg">e</i><i style="--a:163.67deg">r</i><i style="--a:166.57deg">y</i><i style="--a:171.41deg">n</i><i style="--a:174.11deg">i</i><i style="--a:176.81deg">g</i><i style="--a:180.65deg">h</i><i style="--a:183.74deg">t</i><i class="seal__sep" style="--a:189.13deg"></i><i style="--a:195.27deg">b</i><i style="--a:198.83deg">y</i><i style="--a:204.04deg">C</i><i style="--a:207.18deg">l</i><i style="--a:209.83deg">o</i><i style="--a:213.22deg">s</i><i style="--a:216.59deg">e</i><i style="--a:220.88deg">w</i><i style="--a:224.08deg">i</i><i style="--a:226.38deg">s</i><i style="--a:229.74deg">e</i><i class="seal__sep" style="--a:235.79deg"></i><i style="--a:241.21deg">r</i><i style="--a:244.16deg">e</i><i style="--a:247.62deg">c</i><i style="--a:251.20deg">o</i><i style="--a:254.97deg">n</i><i style="--a:258.60deg">c</i><i style="--a:261.08deg">i</i><i style="--a:262.64deg">l</i><i style="--a:265.21deg">e</i><i style="--a:268.95deg">d</i><i style="--a:273.92deg">e</i><i style="--a:277.34deg">v</i><i style="--a:280.71deg">e</i><i style="--a:283.67deg">r</i><i style="--a:286.57deg">y</i><i style="--a:291.41deg">n</i><i style="--a:294.11deg">i</i><i style="--a:296.81deg">g</i><i style="--a:300.65deg">h</i><i style="--a:303.74deg">t</i><i class="seal__sep" style="--a:309.13deg"></i><i style="--a:315.27deg">b</i><i style="--a:318.83deg">y</i><i style="--a:324.04deg">C</i><i style="--a:327.18deg">l</i><i style="--a:329.83deg">o</i><i style="--a:333.22deg">s</i><i style="--a:336.59deg">e</i><i style="--a:340.88deg">w</i><i style="--a:344.08deg">i</i><i style="--a:346.38deg">s</i><i style="--a:349.74deg">e</i><i class="seal__sep" style="--a:355.79deg"></i></div>
+          <div class="seal__core"><span class="seal__word">Reconciled</span><span class="seal__sub">every night</span></div>
+        </div>
+      </div>
+    </div>
     <div class="foot__base">
+      <p class="foot__mark">Closewise</p>
       <p class="foot__line">Every bank account against the ledger, every night.</p>
       <nav class="foot__links" aria-label="Footer"><a href="#top">Last night</a><a href="#flag">The flag</a><a href="#ways">Two ways</a><a href="#close">October</a><a href="#walkthrough">Walkthrough</a></nav>
       <p class="foot__legal">&copy; 2026 Closewise</p>

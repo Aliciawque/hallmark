@@ -134,10 +134,10 @@
     "hospitality",
     "stay"
    ],
-   "material": "limewash paper, deep umber ink, Sentient in two weights over Hanken Grotesk, hairlines with an ink head rule, square corners, still photographs in warm daylight, one cool slate signal",
+   "material": "limewash paper under a slow luminous air, deep umber ink, Sentient light over Hanken Grotesk, cotton card stock with fibre and pressed type, hairlines, matted prints in warm daylight, one cool slate signal",
    "file": "references/themes/atelier.md",
    "photo": "warm con=-6 vib=-10",
-   "pictured": "Gallery Hang, Stage hero",
+   "pictured": "Gallery Hang, Diffusion hero",
    "picture": "references/themes/atelier.jpg"
   },
   {
@@ -184,7 +184,7 @@
     "selfie",
     "retouch"
    ],
-   "material": "warm off-white paper lit by two terracotta blooms, warm umber ink, Ranade throughout with one roman Gambarino figure or line, raised warm surfaces, one terracotta signal over a soft clay wash",
+   "material": "warm off-white paper with grain and a generated working grid, two quiet terracotta blooms, warm umber ink, Ranade with one roman Gambarino figure, rubber and cased parts lit from above, part tones on rounded clips",
    "file": "references/themes/bloom.md",
    "photo": "warm exp=4",
    "pictured": "Workbench, Stage hero",
@@ -410,10 +410,10 @@
     "developer experience",
     "technical"
    ],
-   "material": "cool near-white paper, blue-grey ink and hairlines, Familjen Grotesk over IBM Plex Sans, JetBrains Mono on a graphite surface in three tones, one electric cobalt signal",
+   "material": "cool near-white paper, blue-grey ink and hairlines, Familjen Grotesk over IBM Plex Sans, a generated ASCII field on an 8 by 16 cell, keycaps and cut-corner panels, JetBrains Mono on graphite, one electric cobalt signal",
    "file": "references/themes/cobalt.md",
    "photo": "duotone graphite paper",
-   "pictured": "Feature Ledger, Stage hero",
+   "pictured": "Feature Ledger, Field hero",
    "picture": "references/themes/cobalt.jpg"
   },
   {
@@ -502,10 +502,10 @@
     "human",
     "calm"
    ],
-   "material": "warm grey paper, warm charcoal ink, General Sans throughout with Geist Mono figures, soft pills, the product built on paper wells, one coral signal in two strengths",
+   "material": "warm grey paper and a felt desk, cotton stationery lit from the left, General Sans throughout with Geist Mono figures, letterpress card controls, coral pressed into the stock for the one settled state",
    "file": "references/themes/coral.md",
    "photo": "muted sepia=8",
-   "pictured": "Conversational FAQ, Stage hero",
+   "pictured": "Conversational FAQ, Desk hero",
    "picture": "references/themes/coral.jpg"
   },
   {
@@ -566,8 +566,8 @@
    "posture": "committed",
    "paper": {
     "band": "light",
-    "L": 99,
-    "hue": 160
+    "L": 97.6,
+    "hue": 88
    },
    "display": {
     "class": "grotesk-sans",
@@ -599,10 +599,10 @@
     "elderly",
     "parents"
    ],
-   "material": "near-white paper with pale green tint bands and one green-black ink band, green-black ink, Schibsted Grotesk over Instrument Sans with DM Mono for times and doses, soft app radii, one pharmacy green with a mint second strength",
+   "material": "warm morning paper with a fibre grain and window light, translucent tinted plastic, green-black ink, Schibsted Grotesk over Instrument Sans with DM Mono pharmacy labels, moulded controls, one pharmacy green",
    "file": "references/themes/dose.md",
    "photo": "natural sat=-15 con=-6",
-   "pictured": "Care Register, Settled hero",
+   "pictured": "Care Register, Organiser hero",
    "picture": "references/themes/dose.jpg"
   },
   {
@@ -736,10 +736,10 @@
     "working",
     "units"
    ],
-   "material": "warm manila office paper, near-black ink in rules and hairlines, Red Hat Display 600 over Red Hat Text with Red Hat Mono figures, flat 6px controls, one white sheet that lifts, one tangerine signal and a grass green for what is in date",
+   "material": "warm manila paper, near-black ink in rules, a generated survey map in sienna contours and slate water, Red Hat Display 600 over Red Hat Text with Red Hat Mono figures, moulded 6px keys, a waterproof notebook card, one tangerine signal and a grass green for what is in date",
    "file": "references/themes/furrow.md",
    "photo": "natural con=8 sat=-6",
-   "pictured": "Field Record, Stage hero",
+   "pictured": "Field Record, Map hero",
    "picture": "references/themes/furrow.jpg"
   },
   {
@@ -968,7 +968,7 @@
     "playful",
     "alive"
    ],
-   "material": "cream paper pulled toward pear-yellow, blue-black ink, Chillax throughout, round corners and a press you can feel, three accents that never blend and a mint for growth",
+   "material": "grained cream paper pulled toward pear-yellow, torn paper edges with a pale fibre core, card-stock controls that press down, blue-black ink, Chillax throughout, three accents that never blend and a mint for growth",
    "file": "references/themes/hum.md",
    "photo": "natural vib=12 exp=4",
    "pictured": "Workbench, Settled hero",
@@ -1102,7 +1102,7 @@
     "invoicing",
     "payroll"
    ],
-   "material": "oxblood binding for a ground, bone ink, Instrument Sans with tabular IBM Plex Mono figures, ruled rows and double-ruled totals, two inks with one job each",
+   "material": "oxblood binding engraved like a share certificate, bone ink, Instrument Sans with old-style Cormorant Garamond figures, ruled rows and double-ruled totals, foil-stamped bone plates, two inks with one job each",
    "file": "references/themes/ledger.md",
    "photo": "duotone paper ink",
    "pictured": "Narrative Workflow, Stage hero",
@@ -1512,10 +1512,10 @@
     "app",
     "subscription"
    ],
-   "material": "warm off-white paper, soft near-black ink, Newsreader light italic over Figtree, pills on hairline rules, a teal signal and a copper wash",
+   "material": "warm off-white or blue-black night, Newsreader light italic over Figtree, machined parts lit from above, the hour drawn as light on a generated canvas, one signal",
    "file": "references/themes/ribbon.md",
    "photo": "muted sepia=14",
-   "pictured": "Night Notes, Stage hero",
+   "pictured": "Night Notes, Stage hero, in the two-in-the-morning colourway",
    "picture": "references/themes/ribbon.jpg"
   },
   {
@@ -1904,10 +1904,10 @@
     "considered",
     "curatorial"
    ],
-   "material": "cool studio-white paper, blue-black ink, Hedvig Letters Serif heads over Geist, hairlines with an ink rule at the head of a set, the work photographed in true colour, one cadmium-orange signal",
+   "material": "cool studio-white proof paper with an ink dot grid and grain, blue-black ink, Hedvig Letters Serif heads over Geist, crop marks on every printed piece, orange construction guides, the work photographed in true colour, one cadmium-orange signal",
    "file": "references/themes/studio.md",
    "photo": "natural",
-   "pictured": "Portfolio Index, Stage hero",
+   "pictured": "Portfolio Index, Ledge hero",
    "picture": "references/themes/studio.jpg"
   },
   {

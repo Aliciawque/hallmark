@@ -38,7 +38,9 @@ await p.setViewport({ width: 1440, height: 900, deviceScaleFactor: 1 });
 await p.goto(pathToFileURL(page).href, { waitUntil: 'networkidle0', timeout: 45000 }).catch(() => {});
 await p.evaluate(async () => { document.documentElement.classList.add('hallmark-shot'); await document.fonts.ready; for (const i of document.querySelectorAll('img[loading="lazy"]')) i.loading = 'eager'; for (let y = 0; y < document.documentElement.scrollHeight; y += 700) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 40)); } window.scrollTo(0, 0); const waiting = [...document.images].filter((i) => !i.complete); await Promise.race([Promise.all(waiting.map((i) => new Promise((r) => { i.addEventListener('load', r, { once: true }); i.addEventListener('error', r, { once: true }); }))), new Promise((r) => setTimeout(r, 15000))]); await Promise.all([...document.images].map((i) => (i.complete && i.naturalWidth && i.decode ? i.decode().catch(() => {}) : null))); });
 await new Promise((r) => setTimeout(r, 800));
-const first = await p.screenshot({ type: 'png', clip: { x: 0, y: 0, width: 1440, height: 900 } });
+// the viewport itself, not a clip: a clipped capture re-lays the page out and drops content sized in container units
+await p.bringToFront();
+const first = await p.screenshot({ type: 'png' });
 let y = Number(yArg);
 if (!yArg || Number.isNaN(y)) y = await p.evaluate(() => { const s = [...document.querySelectorAll('section')].map((e) => e.getBoundingClientRect().top + scrollY).filter((t) => t > 700); return s.length ? Math.round(s[0] - 40) : 1800; });
 await p.evaluate((v) => { window.scrollTo(0, v); for (const el of document.querySelectorAll('body *')) { const cs = getComputedStyle(el); if (/fixed|sticky/.test(cs.position) && el.getBoundingClientRect().top < 120) el.style.visibility = 'hidden'; } }, y);

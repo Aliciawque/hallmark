@@ -7,14 +7,14 @@ display: grotesk-sans Instrument Sans
 accent: chromatic-teal 182
 posture: committed
 keywords: treasury, banking, fintech, payments, reconciliation, ledger, accounting, close, month end, audit, balance, cash management, payouts, settlement, compliance, controller, bookkeeping, finance team, invoicing, payroll
-material: oxblood binding for a ground, bone ink, Instrument Sans with tabular IBM Plex Mono figures, ruled rows and double-ruled totals, two inks with one job each
+material: oxblood binding engraved like a share certificate, bone ink, Instrument Sans with old-style Cormorant Garamond figures, ruled rows and double-ruled totals, foil-stamped bone plates, two inks with one job each
 photo: duotone paper ink
 pictured: Narrative Workflow, Stage hero
 ---
 
 # Ledger
 
-A page of a book, never a console: a ground the colour of an oxblood binding, bone ink, Instrument Sans for words and tabular IBM Plex Mono for every figure, rows ruled like an account book, and two inks with one job each, credit and debit. It reads as audited and calm: figures align digit for digit, a total closes on a double rule, nothing glows. It is not a dashboard of tiles, a neon trading screen or a wine list.
+Security printing on an account book: a ground the colour of an oxblood binding, engraved like a share certificate with guilloche lines generated from math, bone ink, Instrument Sans for words and old-style Cormorant Garamond for every figure, rows ruled like a ledger, and two inks with one job each, credit and debit. It reads as audited and valuable: figures align digit for digit, light falls from the top left. It is not a dashboard of tiles, a neon trading screen or a wine list.
 
 ## Tokens
 
@@ -22,85 +22,86 @@ A page of a book, never a console: a ground the colour of an oxblood binding, bo
 :root {
   --color-paper: oklch(19% 0.040 18); --color-paper-2: oklch(23.5% 0.044 18); --color-paper-3: oklch(21% 0.042 18);
   --color-ink: oklch(94% 0.014 75); --color-ink-2: oklch(85% 0.018 60); --color-muted: oklch(72% 0.024 45);
-  --color-rule: oklch(33% 0.042 18);
+  --color-rule: oklch(33% 0.042 18); --color-shade: oklch(12% 0.032 18);
   --color-accent: oklch(80% 0.11 182); --color-accent-2: oklch(81% 0.11 88); --color-accent-ink: oklch(19% 0.040 18);
   --color-focus: oklch(80% 0.11 182);
+  --color-plate-hi: oklch(98% 0.01 80); --color-plate-lo: oklch(84% 0.022 70);
+  --color-sheet: oklch(93% 0.02 80); --color-sheet-ink: oklch(25% 0.05 18); --color-sheet-muted: oklch(44% 0.04 32); --color-sheet-rule: oklch(78% 0.03 60);
+  --color-sheet-cr: oklch(45% 0.085 182); --color-sheet-dr: oklch(47% 0.09 75);
   --font-display: "Instrument Sans", ui-sans-serif, system-ui, sans-serif; --font-body: var(--font-display);
-  --font-outlier: "IBM Plex Mono", ui-monospace, monospace;
-  --radius-card: 10px; --radius-input: 6px; --radius-pill: 0; --rule-hair: 1px; --rule-total: 3px;
-  --shadow-card: 0 12px 32px -16px oklch(8% 0.03 18 / 0.6);
+  --font-outlier: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
+  --radius-card: 4px; --radius-input: 4px; --radius-pill: 0; --rule-hair: 1px; --rule-total: 3px;
+  --shadow-card: 14px 22px 44px -18px oklch(8% 0.03 18 / 0.75);
+  --shadow-plate: inset 0 1px 0 oklch(98% 0.01 80 / 0.5), inset 0 -1px 0 oklch(70% 0.03 60 / 0.6), 2px 3px 0 -1px oklch(10% 0.03 18 / 0.7), 0 0 0 1px var(--color-shade);
   --tracking-display: -0.025em; --display-weight: 600;
 }
 ```
 
-Three dials, each stated in the stamp (`ledger: bordeaux/teal-brass/banded`); two Ledger pages in one run differ on two of them.
+Three dials, each stated in the stamp (`ledger: bordeaux/teal-brass/columnar`); two Ledger pages in one run differ on two.
 
 | Dial | Options |
 | --- | --- |
-| **Binding** (the neutrals take its hue) | `bordeaux` (default) as above. `navy`: `oklch(20% 0.025 255)`. `cloth`: `oklch(19% 0.024 168)` |
+| **Binding** (neutrals take its hue) | `bordeaux` (default). `navy`: `oklch(20% 0.025 255)`. `cloth`: `oklch(19% 0.024 168)` |
 | **Inks** (credit, then debit) | `teal-brass` (default). `ice-oxide`: `oklch(82% 0.085 215)` and `oklch(64% 0.14 38)`; cloth takes ice-oxide |
-| **Ruling** | `banded` (default): rows in `--color-paper-3` at 28 to 34px. `columnar`: 1px columns in `--color-rule` the full height of a band |
+| **Ruling** | `banded`: rows in `--color-paper-3`. `columnar`: 1px columns in `--color-rule` the full height of a band |
 
 ## Type
 
-- **Display:** Instrument Sans 600, `--tracking-display`, line-height 1.02, sentence case; no thin weight.
-- **Body:** Instrument Sans 400 and 500 at 1.0625rem, line-height 1.55.
-- **Figures:** IBM Plex Mono 400 and 500, tabular, on every number; mono is this theme's material. A figure set as a statement is mono 500 at `--text-display` or larger, tracked -0.03em, in its side's ink or in `--color-ink`. A column head over figures may be mono; over words it is the body face a step smaller, untracked.
-- **Captions, field labels, status words, meta:** Instrument Sans 500 a step smaller, sentence case, `--color-muted`.
+- **Display:** Instrument Sans 600, `--tracking-display`, line-height 1.02, sentence case.
+- **Body:** Instrument Sans 400 and 500, line-height 1.55.
+- **Figures:** Cormorant Garamond 600, `oldstyle-nums tabular-nums`, about 1.24em beside the sans, on every number in the page. A figure set as a statement is the same at display size, in its side's ink or `--color-ink`. Never on words.
+- **Labels, column heads, status, meta:** Instrument Sans 500 a step smaller, sentence case, `--color-muted`.
 
 ## Surfaces
 
-- 1px `--color-rule` on every edge and between rows. A total sits under a 1px ink rule and closes on a `--rule-total` double rule in `--color-ink`; the nav may close the same way.
-- Radius 10px on wells, 6px on controls; never a pill.
-- Depth: a raised well in `--color-paper-2` under `--shadow-card`; everything else lies flat.
-- The ruling is the one texture, on a band or a well, never behind running text; it never brightens, moves or carries chroma.
-- Bands: a `--color-paper-2` band or a ruled band; never a light band and never a field of either ink. Two a page at most.
-- Photographs: rare and quiet, the work behind the figures (paper, a pen over a column, a desk at the day's end), no faces, printed duotone paper to ink at 10px with a `--color-rule` edge; a caption states the date or account; text never sits on one.
+- 1px `--color-rule` between rows. A total sits under a 1px ink rule and closes on a `--rule-total` double rule.
+- Radius 4px everywhere, never a pill. Light comes from the top left: shadows fall down and right, edges catch a highlight on the top and a `--color-shade` line below.
+- The engraving is the texture, generated by script, never a picture: a guilloche rosette of epitrochoid curves stroked on a canvas behind the hero's head, its lines clearing a halo round each letter; a sine lattice (`--tex-lattice`) and a rope tile computed once as masks in `--color-accent-2` at 11 to 20% opacity on one band and the close. Never behind running text.
+- A microtext border frames an engraved field: two hairlines in brass with one true sentence about the product running round between them at 6.5px.
+- A light surface is a sheet, never a band: bone `--color-sheet` with a fibre of fractal noise, a perforated tear, a deckled foot, tilted under 1 degree, its figures in the sheet inks.
+- Photographs: rare, the work behind the figures, no faces, in the duotone with a rule edge; text never sits on one.
 
 ## Range
 
-- A comparison as a T-account: two sides under one ruled head, a single vertical rule between them, rows aligned across, each side closing on its own double-ruled line.
-- A figure set as a statement: a real number from the brief in Plex Mono at display size, aligned to its unit, a double rule under it and its one line beside it.
-- A sequence as a day book: stages on a ruled band, mono numerals at the section step, a time or a date in the margin where the brief gives one.
-- A list as a statement of account: dates in mono on the left, the entry in words, the amount right-aligned, a running total in the last column footing on a double rule.
+- **A match as a seam:** two slips side by side whose inner edges carry combs of teeth that interlock when the pair agrees, each sealed by an embossed tick; a pair that disagrees stays open with its difference in brass, the sides footing under their own columns.
+- **A comparison as a T-account:** two sides under one ruled head, a single vertical rule, rows aligned, each closing on its own double rule.
+- **A month as a ruled calendar:** dates in Cormorant on a guilloche band, a flagged day boxed in brass rule with its amount, beside a statement sheet carrying the running total in a torn stub.
+- **A close as a certificate:** the form on paper-2 inside a microtext border, cheque-line fields, and a debossed seal of concentric type and rules when it states a fact.
 
 ## Controls
 
-- The pair: a solid bone button (`--color-ink` with `--color-paper` text) at 6px beside a hairline button outlined in `--color-muted`.
-- Two inks, two jobs: credit (`--color-accent`, money in) takes credit figures, a matched mark and the focus ring; debit (`--color-accent-2`, money out) only ever colours a figure. A figure with no side takes `--color-ink`; a third meaning takes a word, not a hue.
-- Inputs: 6px radius, a 1px `--color-muted` edge on `--color-paper`, figures in mono; links underline in the credit ink.
+- The pair: a foil-stamped bone plate (a `--color-plate-hi` to `--color-plate-lo` gradient, an inset hairline, `--shadow-plate`, a foil glint that crosses on hover) beside a hairline button outlined in `--color-muted`.
+- Two inks, two jobs: credit (`--color-accent`) takes credit figures, a matched tick and the focus ring; debit (`--color-accent-2`) colours debit figures and the engraving. A third meaning takes a word, not a hue.
+- Inputs: cheque lines, a 1px `--color-muted` underline on the ground, figures in Cormorant.
 
 ## Motion
 
-Near-still, like a printed page: a linked row shifts one paper step on hover, a button dips 1px on active. Nothing counts up, nothing reveals, nothing pulses.
+Pairs zip shut once in view, staggered, with a control to run it again; a sheen follows the pointer across the engraved lines. Reduced motion and no script: everything shut, the open pair open, the engraving still.
 
 ## Voice
 
-Declarative, numeric, audited: the figure, its date, the run time, what is not yet reconciled. A balance states its moment; a figure without a date is an assertion, not a record.
+Declarative, numeric, audited: the figure, its date, what is not yet reconciled.
 
 ## Do-nots
 
-- Never a proportional numeral on a figure, and never mono on words.
-- Never a red debit and never a third hue; two inks, two jobs.
+- Never a lining or proportional numeral on a figure, and never a red debit or a third hue.
 - Never a total that does not foot.
+- Never engraving as a pasted image or a rainbow; one ink, low opacity, lines a press could print.
 - Never a grid of tiles with a number in each; figures live in rows, sides and totals.
 
 ## Build hint
 
 ```html
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Cormorant+Garamond:wght@500;600&display=swap" rel="stylesheet">
 ```
 
 ```css
 h1, h2, h3 { font-weight: 600; line-height: 1.02; }
-.num, .figure, td.num { font-family: var(--font-outlier); font-variant-numeric: tabular-nums; }
-.figure { font-size: var(--text-display); font-weight: 500; letter-spacing: -0.03em; }
+.num { font: 600 1.24em/1 var(--font-outlier); font-variant-numeric: oldstyle-nums tabular-nums; }
 .cr { color: var(--color-accent); } .dr { color: var(--color-accent-2); }
-.btn { border: var(--rule-hair) solid var(--color-muted); border-radius: var(--radius-input); padding: var(--space-sm) var(--space-lg); font-weight: 500; background: transparent; color: var(--color-ink); transition: transform var(--dur-micro) var(--ease-out); }
-.btn--primary { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-paper); }
-.btn:active { transform: translateY(1px); }
-.well { background: var(--color-paper-2); border: var(--rule-hair) solid var(--color-rule); border-radius: var(--radius-card); box-shadow: var(--shadow-card); }
+.btn { position: relative; border: var(--rule-hair) solid var(--color-muted); border-radius: var(--radius-input); padding: var(--space-sm) var(--space-lg); font-weight: 500; background: transparent; color: var(--color-ink); }
+.btn--plate { border: 0; color: var(--color-paper); background: linear-gradient(var(--color-plate-hi), var(--color-ink) 42%, var(--color-plate-lo)); box-shadow: var(--shadow-plate); }
+.btn--plate::before { content: ""; position: absolute; inset: 3px; border: var(--rule-hair) solid var(--color-plate-lo); border-radius: 2px; }
 .total { border-top: var(--rule-hair) solid var(--color-ink); border-bottom: var(--rule-total) double var(--color-ink); }
-.ruled { background-image: repeating-linear-gradient(to bottom, transparent 0 31px, var(--color-paper-3) 31px 62px); }
-::selection { background: color-mix(in oklab, var(--color-accent) 30%, transparent); }
+.engraved::before { content: ""; position: absolute; inset: 0; background: var(--color-accent-2); opacity: 0.16; mask: var(--tex-lattice) 0 0 / 160px 84px repeat; }
 ```

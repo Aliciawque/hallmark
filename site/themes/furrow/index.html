@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@600&amp;family=Red+Hat+Text:wght@400;500&amp;family=Red+Hat+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<script>document.documentElement.classList.add('js'); let tick = 0; addEventListener('resize', () => document.documentElement.style.setProperty('--tick', String(tick ^= 1)));</script>
+<script>document.documentElement.classList.add('js'); if (!matchMedia('(prefers-reduced-motion: reduce)').matches) { document.documentElement.classList.add('stage'); setTimeout(() => { if (!window.__fieldbookMap) document.documentElement.classList.remove('stage'); }, 2500); } let tick = 0; addEventListener('resize', () => document.documentElement.style.setProperty('--tick', String(tick ^= 1)));</script>
 </head>
 <body id="top">
 <a class="skip" href="#main">Skip to content</a>
@@ -27,6 +27,8 @@
 
 <main id="main">
   <section class="hero" aria-labelledby="hero-head">
+    <div class="hero__ground" aria-hidden="true"><canvas class="hero__canvas"></canvas></div>
+    <canvas class="loupe" aria-hidden="true"></canvas>
     <div class="container hero__grid">
       <div class="hero__text">
         <h1 id="hero-head">Farm records, kept at the gate.</h1>
@@ -37,25 +39,49 @@
         </div>
         <p class="hero__terms"><span class="num">£12</span> a month per farm.</p>
       </div>
-      <div class="hero__visual">
-        <figure class="hero__photo" data-slot="hero" data-alt="Your own stock, on your own ground">
-          <img src="photos/swaledale-sheep-lake-district-england-june-2009-1920.jpg" width="1920" height="1580" fetchpriority="high" decoding="async" alt="A horned, black-faced ewe in a shaggy fleece on a green fell, a raddle mark on her back" style="object-position: 70% 50%">
-        </figure>
-        <div class="slot phone hero__phone" data-slot="demo-1" data-alt="The log screen, with a movement being entered" role="img" aria-label="The Fieldbook log screen on Thursday 8 October: a movement of 24 ewes from Hill field to Home paddock at 07:40 being saved, with a field job and another movement already logged today.">
-          <div class="ui ph" aria-hidden="true">
-            <div class="ph__top"><span class="ph__title">Log</span><span class="num ph__date">Thu 8 Oct</span></div>
-            <div class="ph__seg"><span class="is-on">Movement</span><span>Medicine</span><span>Field work</span></div>
-            <div class="ph__form">
-              <span class="ph__field"><span>Animals</span><b class="num">24 ewes</b></span>
-              <span class="ph__pair"><span class="ph__field"><span>From</span><b>Hill field</b></span><span class="ph__field"><span>To</span><b>Home paddock</b></span></span>
-              <span class="ph__pair"><span class="ph__field"><span>Date</span><b class="num">08/10/2026</b></span><span class="ph__field"><span>Time</span><b class="num">07:40</b></span></span>
-            </div>
-            <span class="ph__save">Save to the book</span>
-            <div class="ph__today">
-              <span class="ph__today-label">Today</span>
-              <span class="ph__entry"><b class="num">06:10</b><span>Field work<small>Long acre, rolled</small></span><b class="num">3.6 ha</b></span>
-              <span class="ph__entry"><b class="num">05:40</b><span>Movement<small>Home paddock to the yard</small></span><b class="num">2 tups</b></span>
-            </div>
+      <div class="hero__map" role="group" aria-label="Today’s entries on a sample farm map">
+        <div class="farm">
+          <svg class="route" viewBox="0 0 1250 1000" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <defs><mask id="route-draw" maskUnits="userSpaceOnUse" x="0" y="0" width="1250" height="1000"><path class="route__reveal" pathLength="1" d="M525 170 C 470 210 330 280 262 346 S 180 440 162 480"/></mask></defs>
+            <path class="route__line" mask="url(#route-draw)" d="M525 170 C 470 210 330 280 262 346 S 180 440 162 480"/>
+            <circle class="route__start" cx="525" cy="170" r="6"/>
+          </svg>
+          <button class="pin" type="button" data-entry="fld" style="--u: 0.47; --v: 0.44" aria-controls="entry" aria-pressed="false"><span class="pin__dot" aria-hidden="true"></span><span class="pin__tag"><span class="num">06:10</span> Field work</span></button>
+          <button class="pin" type="button" data-entry="med" style="--u: 0.31; --v: 0.69" aria-controls="entry" aria-pressed="false"><span class="pin__dot" aria-hidden="true"></span><span class="pin__tag"><span class="num">06:55</span> Medicine</span></button>
+          <button class="pin is-on" type="button" data-entry="mov" style="--u: 0.13; --v: 0.48" aria-controls="entry" aria-pressed="true"><span class="pin__dot" aria-hidden="true"></span><span class="pin__tag"><span class="num">07:40</span> Movement</span></button>
+        </div>
+        <div class="entry hero__entry" id="entry" data-slot="demo-1" data-alt="An entry from the log, opened from its pin on the farm map" data-keep>
+          <article class="entry__page" data-entry="mov" aria-label="Movement at 07:40, sample">
+            <header class="entry__head"><span class="entry__kind"><i class="mark" data-kind="mov" aria-hidden="true"></i>Movement</span><span class="entry__date num">Thu 8 Oct</span><time class="entry__time num" datetime="2026-10-08T07:40">07:40</time></header>
+            <dl class="entry__cells">
+              <div><dt>Animals</dt><dd><span class="num">24</span> ewes</dd></div>
+              <div><dt>By</dt><dd>You</dd></div>
+              <div><dt>From</dt><dd>Hill field</dd></div>
+              <div><dt>To</dt><dd>Home paddock</dd></div>
+            </dl>
+          </article>
+          <article class="entry__page" data-entry="med" aria-label="Medicine at 06:55, sample" hidden>
+            <header class="entry__head"><span class="entry__kind"><i class="mark" data-kind="med" aria-hidden="true"></i>Medicine</span><span class="entry__date num">Thu 8 Oct</span><time class="entry__time num" datetime="2026-10-08T06:55">06:55</time></header>
+            <dl class="entry__cells">
+              <div><dt>Animal</dt><dd>Ewe <span class="num">0417</span></dd></div>
+              <div><dt>Dose</dt><dd><span class="num">10</span> ml</dd></div>
+              <div><dt>Medicine</dt><dd>Wormer</dd></div>
+              <div><dt>Batch</dt><dd class="num">B2241</dd></div>
+            </dl>
+          </article>
+          <article class="entry__page" data-entry="fld" aria-label="Field work at 06:10, sample" hidden>
+            <header class="entry__head"><span class="entry__kind"><i class="mark" data-kind="fld" aria-hidden="true"></i>Field work</span><span class="entry__date num">Thu 8 Oct</span><time class="entry__time num" datetime="2026-10-08T06:10">06:10</time></header>
+            <dl class="entry__cells">
+              <div><dt>Field</dt><dd>Long acre</dd></div>
+              <div><dt>Area</dt><dd><span class="num">3.6</span> ha</dd></div>
+              <div><dt>Job</dt><dd>Rolled</dd></div>
+              <div><dt>By</dt><dd>You</dd></div>
+            </dl>
+          </article>
+          <div class="entry__foot">
+            <button class="entry__step entry__step--prev" type="button" aria-label="Earlier entry" disabled></button>
+            <p class="entry__state"><i class="chip chip--ok" data-entry="mov">In the book</i><i class="chip chip--held" data-entry="med" hidden>Withdrawal to <span class="num">5 Nov</span></i><i class="chip chip--ok" data-entry="fld" hidden>In the book</i></p>
+            <button class="entry__step entry__step--next" type="button" aria-label="Later entry" disabled></button>
           </div>
         </div>
       </div>
@@ -81,15 +107,13 @@
           <caption class="visually-hidden">The farm book, newest first, sample entries</caption>
           <thead><tr><th scope="col">Date</th><th scope="col">Log</th><th scope="col">Entry</th><th scope="col" class="r">Amount</th><th scope="col">Withdrawal</th><th scope="col">By</th></tr></thead>
           <tbody>
-            <tr data-log="mov" class="is-lead"><td class="num">08 Oct <span class="t">07:40</span></td><td><i class="chip">Movement</i></td><th scope="row">Ewes, Hill field to Home paddock</th><td class="num r">24 head</td><td></td><td>You</td></tr>
-            <tr data-log="fld"><td class="num">08 Oct <span class="t">06:10</span></td><td><i class="chip">Field work</i></td><th scope="row">Long acre, rolled</th><td class="num r">3.6 ha</td><td></td><td>You</td></tr>
-            <tr data-log="mov"><td class="num">08 Oct <span class="t">05:40</span></td><td><i class="chip">Movement</i></td><th scope="row">Tups, Home paddock to the yard</th><td class="num r">2 head</td><td></td><td>You</td></tr>
-            <tr data-log="med"><td class="num">06 Oct <span class="t">16:20</span></td><td><i class="chip chip--held">Medicine</i></td><th scope="row">Ewe <span class="num">0417</span>, wormer, batch <span class="num">B2241</span></th><td class="num r">10 ml</td><td><i class="chip chip--held">To <span class="num">03 Nov</span></i></td><td>You</td></tr>
-            <tr data-log="fld"><td class="num">06 Oct <span class="t">10:00</span></td><td><i class="chip">Field work</i></td><th scope="row">Hill field, topped</th><td class="num r">5.2 ha</td><td></td><td>Contractor</td></tr>
-            <tr data-log="mov"><td class="num">05 Oct <span class="t">14:15</span></td><td><i class="chip">Movement</i></td><th scope="row">Lambs, off the holding to market</th><td class="num r">30 head</td><td></td><td>Farm hand</td></tr>
-            <tr data-log="fld"><td class="num">03 Oct <span class="t">09:30</span></td><td><i class="chip">Field work</i></td><th scope="row">Home paddock, fertiliser at <span class="num">125 kg/ha</span></th><td class="num r">2.1 ha</td><td></td><td>You</td></tr>
-            <tr data-log="med"><td class="num">01 Oct <span class="t">08:45</span></td><td><i class="chip chip--held">Medicine</i></td><th scope="row">Lambs, vaccine, batch <span class="num">V0918</span></th><td class="num r">2 ml each</td><td><i class="chip chip--ok">Clear</i></td><td>Farm hand</td></tr>
-            <tr data-log="med"><td class="num">24 Sep <span class="t">17:05</span></td><td><i class="chip chip--held">Medicine</i></td><th scope="row">Tup <span class="num">0033</span>, antibiotic, batch <span class="num">A7730</span></th><td class="num r">5 ml</td><td><i class="chip chip--held">To <span class="num">22 Oct</span></i></td><td>Vet</td></tr>
+            <tr data-log="mov" class="is-lead"><td class="num">08 Oct <span class="t">07:40</span></td><td><i class="chip chip--kind" data-kind="mov">Movement</i></td><th scope="row">Ewes, Hill field to Home paddock</th><td class="num r">24 head</td><td></td><td>You</td></tr>
+            <tr data-log="med"><td class="num">08 Oct <span class="t">06:55</span></td><td><i class="chip chip--kind" data-kind="med">Medicine</i></td><th scope="row">Ewe <span class="num">0417</span>, wormer, batch <span class="num">B2241</span></th><td class="num r">10 ml</td><td><i class="chip chip--held">To <span class="num">05 Nov</span></i></td><td>You</td></tr>
+            <tr data-log="fld"><td class="num">08 Oct <span class="t">06:10</span></td><td><i class="chip chip--kind" data-kind="fld">Field work</i></td><th scope="row">Long acre, rolled</th><td class="num r">3.6 ha</td><td></td><td>You</td></tr>
+            <tr data-log="fld"><td class="num">06 Oct <span class="t">10:00</span></td><td><i class="chip chip--kind" data-kind="fld">Field work</i></td><th scope="row">Hill field, topped</th><td class="num r">5.2 ha</td><td></td><td>Contractor</td></tr>
+            <tr data-log="mov"><td class="num">05 Oct <span class="t">14:15</span></td><td><i class="chip chip--kind" data-kind="mov">Movement</i></td><th scope="row">Lambs, off the holding to market</th><td class="num r">30 head</td><td></td><td>Farm hand</td></tr>
+            <tr data-log="med"><td class="num">01 Oct <span class="t">08:45</span></td><td><i class="chip chip--kind" data-kind="med">Medicine</i></td><th scope="row">Lambs, vaccine, batch <span class="num">V0918</span></th><td class="num r">2 ml each</td><td><i class="chip chip--ok">Clear</i></td><td>Farm hand</td></tr>
+            <tr data-log="med"><td class="num">24 Sep <span class="t">17:05</span></td><td><i class="chip chip--kind" data-kind="med">Medicine</i></td><th scope="row">Tup <span class="num">0033</span>, antibiotic, batch <span class="num">A7730</span></th><td class="num r">5 ml</td><td><i class="chip chip--held">To <span class="num">22 Oct</span></i></td><td>Vet</td></tr>
           </tbody>
         </table>
       </div>
@@ -118,21 +142,20 @@
         <div class="sched__row" role="row">
           <span class="sched__name" role="rowheader">Movements</span>
           <span class="sched__track" role="cell">
-            <span class="ev" style="--t:0.67"><time class="num" datetime="2026-10-08T05:40">05:40</time><b>Tups to the yard</b><small class="num">2 head</small></span>
-            <span class="ev" style="--t:2.67"><time class="num" datetime="2026-10-08T07:40">07:40</time><b>Ewes to Home paddock</b><small class="num">24 head</small></span>
+            <span data-kind="mov" class="ev" style="--t:2.67"><time class="num" datetime="2026-10-08T07:40">07:40</time><b>Ewes to Home paddock</b><small class="num">24 head</small></span>
           </span>
         </div>
         <div class="sched__row" role="row">
           <span class="sched__name" role="rowheader">Medicines</span>
           <span class="sched__track" role="cell">
-            <span class="ev ev--med" style="--t:6.33"><time class="num" datetime="2026-10-08T11:20">11:20</time><b>Ewe <span class="num">0421</span>, foot spray</b><small class="num">Batch S0457</small></span>
+            <span data-kind="med" class="ev ev--med" style="--t:1.92"><time class="num" datetime="2026-10-08T06:55">06:55</time><b>Ewe <span class="num">0417</span>, wormer</b><small class="num">10 ml</small></span>
           </span>
         </div>
         <div class="sched__row" role="row">
           <span class="sched__name" role="rowheader">Field work</span>
           <span class="sched__track" role="cell">
-            <span class="ev" style="--t:1.17"><time class="num" datetime="2026-10-08T06:10">06:10</time><b>Long acre, rolled</b><small class="num">3.6 ha</small></span>
-            <span class="ev ev--last ev--end" style="--t:10.5"><time class="num" datetime="2026-10-08T15:30">15:30</time><b>Top meadow, harrowed</b><small class="num">4.0 ha</small></span>
+            <span data-kind="fld" class="ev" style="--t:1.17"><time class="num" datetime="2026-10-08T06:10">06:10</time><b>Long acre, rolled</b><small class="num">3.6 ha</small></span>
+            <span data-kind="fld" class="ev ev--last ev--end" style="--t:10.5"><time class="num" datetime="2026-10-08T15:30">15:30</time><b>Top meadow, harrowed</b><small class="num">4.0 ha</small></span>
           </span>
         </div>
       </div>
@@ -145,40 +168,75 @@
         <h2 id="inspect-head">Ready when the inspector calls</h2>
         <p class="lead">The three records an inspection reads, kept as you go.</p>
         <dl class="logs">
-          <div><dt>Movements</dt><dd>Every move on or off, with the count.</dd></div>
-          <div><dt>Medicines</dt><dd>Every dose, its batch and withdrawal.</dd></div>
-          <div><dt>Field work</dt><dd>Every job by field, in hectares.</dd></div>
+          <div><dt><i class="mark" data-kind="mov" aria-hidden="true"></i>Movements</dt><dd>Every move on or off, with the count.</dd></div>
+          <div><dt><i class="mark" data-kind="med" aria-hidden="true"></i>Medicines</dt><dd>Every dose, its batch and withdrawal.</dd></div>
+          <div><dt><i class="mark" data-kind="fld" aria-hidden="true"></i>Field work</dt><dd>Every job by field, in hectares.</dd></div>
         </dl>
       </div>
-      <div class="inspect__well">
-        <div class="slot phone inspect__phone" data-slot="demo-3" data-alt="A medicine entry with its batch and withdrawal" role="img" aria-label="A medicine entry for 6 October: ewe 0417 given wormer, 10 ml, batch B2241, a 28 day withdrawal running until 3 November, given by you.">
-          <div class="ui ph" aria-hidden="true">
-            <div class="ph__top"><span class="ph__title">Medicine</span><span class="num ph__date">06 Oct</span></div>
-            <dl class="ph__dl">
-              <dt>Animal</dt><dd class="num">Ewe 0417</dd>
-              <dt>Medicine</dt><dd>Wormer</dd>
-              <dt>Dose</dt><dd class="num">10 ml</dd>
-              <dt>Batch</dt><dd class="num">B2241</dd>
-              <dt>Withdrawal</dt><dd><span class="num">28 days</span><i class="ph__chip">Until <span class="num">3 Nov</span></i></dd>
-              <dt>Given by</dt><dd>You</dd>
+      <div class="grid-page">
+        <div class="entry entry--still inspect__entry" data-slot="demo-3" data-alt="A medicine entry with its batch and withdrawal" data-keep>
+          <article class="entry__page" aria-label="Medicine entry at 17:05 on 24 September, sample">
+            <header class="entry__head"><span class="entry__kind"><i class="mark" data-kind="med" aria-hidden="true"></i>Medicine</span><span class="entry__date num">Wed 24 Sep</span><time class="entry__time num" datetime="2026-09-24T17:05">17:05</time></header>
+            <dl class="entry__cells entry__cells--six">
+              <div><dt>Animal</dt><dd>Tup <span class="num">0033</span></dd></div>
+              <div><dt>Dose</dt><dd><span class="num">5</span> ml</dd></div>
+              <div><dt>Medicine</dt><dd>Antibiotic</dd></div>
+              <div><dt>Batch</dt><dd class="num">A7730</dd></div>
+              <div><dt>Withdrawal</dt><dd><span class="num">28</span> days</dd></div>
+              <div><dt>Given by</dt><dd>Vet</dd></div>
             </dl>
-            <span class="ph__save">Save to the book</span>
-            <div class="ph__today">
-              <span class="ph__today-label">Earlier for ewe <span class="num">0417</span></span>
-              <span class="ph__entry"><b class="num">17 Sep</b><span>Fly treatment<small>Batch <span class="num">F1105</span></small></span><b class="num">20 ml</b></span>
-            </div>
-          </div>
+            <p class="entry__state"><i class="chip chip--held">Withdrawal to <span class="num">22 Oct</span></i></p>
+          </article>
+          <div class="entry__foot entry__foot--save"><span class="entry__save">Save to the book</span></div>
         </div>
+        <figure class="doc" data-slot="demo-4" data-alt="The inspection record, exported and folded" data-keep>
+          <div class="doc__sheet">
+            <span class="doc__crease" style="top: 33.33%" aria-hidden="true"></span><span class="doc__crease" style="top: 66.67%" aria-hidden="true"></span>
+            <div class="doc__top">
+              <p class="doc__title">Inspection record</p>
+              <p class="doc__farm">Example Farm, holding <span class="num">12/345/6789</span></p>
+            </div>
+            <p class="doc__sub">Medicines</p>
+            <table class="doc__tbl">
+              <caption class="visually-hidden">Medicines given, sample</caption>
+              <thead><tr><th scope="col">Date</th><th scope="col">Animal</th><th scope="col">Dose</th><th scope="col">Batch</th><th scope="col">Clear</th></tr></thead>
+              <tbody>
+                <tr><td class="num">08 Oct</td><td class="num">Ewe 0417</td><td class="num">10 ml</td><td class="num">B2241</td><td class="num">05 Nov</td></tr>
+                <tr><td class="num">01 Oct</td><td>Lambs</td><td class="num">2 ml</td><td class="num">V0918</td><td class="num">01 Oct</td></tr>
+                <tr><td class="num">24 Sep</td><td class="num">Tup 0033</td><td class="num">5 ml</td><td class="num">A7730</td><td class="num">22 Oct</td></tr>
+              </tbody>
+            </table>
+            <p class="doc__sub">Movements</p>
+            <table class="doc__tbl">
+              <caption class="visually-hidden">Movements, sample</caption>
+              <tbody>
+                <tr><td class="num">08 Oct</td><td>Ewes, Hill field to Home paddock</td><td class="num r">24</td></tr>
+              </tbody>
+            </table>
+            <p class="doc__sub">Field work</p>
+            <table class="doc__tbl">
+              <caption class="visually-hidden">Field work, sample</caption>
+              <tbody>
+                <tr><td class="num">08 Oct</td><td>Long acre, rolled</td><td class="num r">3.6 ha</td></tr>
+                <tr><td class="num">06 Oct</td><td>Hill field, topped</td><td class="num r">5.2 ha</td></tr>
+              </tbody>
+            </table>
+            <p class="doc__foot"><i class="chip chip--ok">Inspection ready</i><span class="num">08 Oct 08:02</span></p>
+          </div>
+          <figcaption class="visually-hidden">The inspection record as exported: medicines and movements for Example Farm, sample entries.</figcaption>
+        </figure>
       </div>
     </div>
   </section>
 
   <section class="band offer" id="start" aria-labelledby="start-head">
+    <canvas class="band__map" aria-hidden="true"></canvas>
     <div class="container band__grid">
       <div class="band__text">
         <h2 id="start-head">One price, the whole book</h2>
         <p class="lead">For one farm, from the first job of the day.</p>
       </div>
+      <p class="band__pin" aria-hidden="true"><span class="pin__dot"></span><span class="pin__tag">Your first entry</span></p>
       <div class="sheet offer__sheet">
         <div class="offer__bill">
         <ol class="bill">
@@ -215,6 +273,7 @@
   </div>
 </footer>
 
+<script src="map.js" defer></script>
 <script>
 window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
 document.querySelectorAll('[data-slot] img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });
