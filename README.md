@@ -2,7 +2,7 @@
 
 **A design skill for Claude Code, Codex CLI and OpenCode that refuses to look AI-generated.**
 
-[Live demo](https://www.usehallmark.com) &nbsp;·&nbsp; forty-eight themes, dealt three at a time &nbsp;·&nbsp; a custom world on request &nbsp;·&nbsp; press `T` to cycle.
+[usehallmark.com](https://www.usehallmark.com) &nbsp;·&nbsp; forty-eight themes &nbsp;·&nbsp; custom on request &nbsp;·&nbsp; redesign and audit by name
 
 Made by Together AI.
 
@@ -15,6 +15,15 @@ Hallmark holds a hard floor and then gets out of the way. It deals three themes 
 The gates come in tiers. The **Floor** never ships: contrast, focus, reduced motion, invented metrics, layout that breaks on a phone, a hero that misses the first screen, the eyebrow. **Reflex** gates are the defaults a language model falls into rather than laws, and a build with an argument may overrule one on the record, with the reason in the CSS stamp and the guard re-derived by the checker. **Finish** checks are craft detail that never blocks a ship. A fresh-context reviewer with no memory of the build gets the last word.
 
 Two pages by Hallmark for two different briefs feel like different sites, not colour-swaps of the same template. The skill is built to stop a model looking generic, not to stop it being good.
+
+## New in v2
+
+- **Forty-eight themes.** Each is a material (paper, type, colour, surfaces, a way with photographs) with a picture of a finished page, and the build lays out its own page in it.
+- **Custom.** Ask for a custom page and Hallmark designs from your brief alone, under the same rules and checks.
+- **Your real product.** Point it at a URL, a dev server or an app folder and it runs the product and captures the screenshots itself.
+- **Real photographs.** A library of 755 openly licensed photos, picked per subject, treated in the theme's way and credited on the page.
+- **Redesign and audit.** `/hallmark redesign <path>` rebuilds an existing page and keeps its content and wiring; `/hallmark audit <path>` only reports.
+- **A linter that looks.** `sloplint --render` opens the page at eight widths and measures the fold, contrast, spacing, photo balance and line breaks.
 
 ---
 

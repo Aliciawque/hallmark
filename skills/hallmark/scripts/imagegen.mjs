@@ -64,6 +64,7 @@ try {
     method: "POST",
     headers: { "content-type": "application/json", authorization: `Bearer ${key}` },
     body: JSON.stringify({ model, prompt, width: w, height: h, steps, n, response_format: "b64_json" }),
+    signal: AbortSignal.timeout(180000),
   });
   if (!res.ok) {
     const detail = (await res.text()).slice(0, 300);

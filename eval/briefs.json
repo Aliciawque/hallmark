@@ -295,5 +295,32 @@
       "scope": "page",
       "notes": "Opus 5.5 at medium effort; the product exists and should be captured, not mocked."
     }
+  },
+  {
+    "id": "b33",
+    "name": "custom",
+    "brief": "Make me a custom landing page for a late-night ramen counter.",
+    "expect": {
+      "scope": "page",
+      "notes": "Custom route, small prompt, Opus 5.5 at medium effort."
+    }
+  },
+  {
+    "id": "b34",
+    "name": "custom",
+    "brief": "Custom site for a small type foundry.",
+    "expect": {
+      "scope": "page",
+      "notes": "Custom route, small prompt, Opus 5.5 at medium effort."
+    }
+  },
+  {
+    "id": "b35",
+    "name": "custom",
+    "brief": "A custom landing page for a habit tracker app.",
+    "expect": {
+      "scope": "page",
+      "notes": "Custom route, small prompt, Opus 5.5 at medium effort."
+    }
   }
 ]

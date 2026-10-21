@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, existsSync, renameSync, realpathSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { homedir } from "node:os";
@@ -17,7 +17,7 @@ const settingsPath = has("--global")
 
 const hookEntry = {
   matcher: MATCHER,
-  hooks: [{ type: "command", command: HOOK_CMD, timeout: 5000 }],
+  hooks: [{ type: "command", command: HOOK_CMD, timeout: 10 }],
 };
 
 function readSettings() {
@@ -28,7 +28,7 @@ function readSettings() {
   }
 }
 
-const ourHook = (h) => typeof h?.command === "string" && h.command.includes("lint-hook.mjs");
+const ourHook = (h) => typeof h?.command === "string" && /hallmark[\\/]scripts[\\/]lint-hook\.mjs/.test(h.command);
 const withoutOurs = (list) => list.flatMap((e) => {
   if (!Array.isArray(e?.hooks) || !e.hooks.some(ourHook)) return [e];
   const rest = e.hooks.filter((h) => !ourHook(h));
@@ -41,20 +41,30 @@ if (has("--print")) {
   process.exit(0);
 }
 
+if (has("--remove") && !existsSync(settingsPath)) {
+  console.log(`no ${settingsPath}; nothing to remove`);
+  process.exit(0);
+}
+
 const settings = readSettings();
+if (!settings || typeof settings !== "object" || Array.isArray(settings)) { console.error(`refusing to rewrite ${settingsPath}: it is not a JSON object`); process.exit(1); }
 settings.hooks ??= {};
 settings.hooks.PostToolUse ??= [];
+if (!Array.isArray(settings.hooks.PostToolUse)) { console.error(`refusing to rewrite ${settingsPath}: hooks.PostToolUse is not a list`); process.exit(1); }
+// Write beside the file and rename over it, so a crash never leaves settings.json half written.
+// A symlinked settings.json (a dotfiles repo) keeps its link: the write lands on the file it points at.
+const save = () => { const dest = existsSync(settingsPath) ? realpathSync(settingsPath) : settingsPath; const tmp = `${dest}.hallmark-tmp`; writeFileSync(tmp, JSON.stringify(settings, null, 2) + "\n"); renameSync(tmp, dest); };
 
 settings.hooks.PostToolUse = withoutOurs(settings.hooks.PostToolUse);
 
 if (has("--remove")) {
-  writeFileSync(settingsPath, JSON.stringify(settings, null, 2) + "\n");
+  save();
   console.log(`removed the Hallmark lint hook from ${settingsPath}`);
   process.exit(0);
 }
 
 settings.hooks.PostToolUse.push(hookEntry);
 mkdirSync(dirname(settingsPath), { recursive: true });
-writeFileSync(settingsPath, JSON.stringify(settings, null, 2) + "\n");
+save();
 console.log(`installed the Hallmark edit-time lint hook into ${settingsPath}`);
 console.log(`it lints Hallmark .html and .css files, and .jsx, .tsx, .vue, .svelte and .astro files inside a project with a .hallmark folder, on write; it advises and never blocks. Remove with --remove.`);

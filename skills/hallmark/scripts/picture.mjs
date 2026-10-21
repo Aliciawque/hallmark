@@ -11,6 +11,7 @@ if (!slug || !pageArg) {
   console.error('usage: node picture.mjs <theme slug> <page index.html> [y of the lower screen at 1440x900]');
   process.exit(2);
 }
+if (!/^[a-z0-9][a-z0-9-]*$/.test(slug)) { console.error(`not a theme slug: ${slug}`); process.exit(2); }
 const page = resolve(pageArg);
 const themeFile = join(THEMES, `${slug}.md`);
 if (!existsSync(themeFile)) { console.error(`no theme at ${themeFile}`); process.exit(1); }

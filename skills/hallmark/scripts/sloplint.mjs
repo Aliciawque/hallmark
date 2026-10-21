@@ -771,6 +771,8 @@ function resolveVars(value, tokens, local = null, depth = 0) {
   return resolveVars(out, tokens, local, depth + 1);
 }
 
+// A family's identity ignores spaces, hyphens and underscores, so "GeistSans" and "Geist Sans" are one face
+const famKey = (f) => String(f || '').replace(/[\s_-]+/g, '');
 function firstFamily(value) {
   const first = value.split(',')[0].trim().replace(/^['"]|['"]$/g, '').toLowerCase();
   return first;
@@ -829,7 +831,7 @@ function tierOf(gate) {
 function fontFamilyCount(ctx) {
   const fams = new Set();
   for (const [prop, val] of Object.entries(ctx.tokens || {})) {
-    if (/^--font-/.test(prop)) fams.add(firstFamily(resolveVars(val, ctx.tokens)));
+    if (/^--font-/.test(prop)) fams.add(famKey(firstFamily(resolveVars(val, ctx.tokens))));
   }
   return fams.size;
 }
@@ -1100,7 +1102,7 @@ function check1(ctx) {
   const banned = new Set(['inter', 'roboto', 'open sans', 'poppins', 'lato', 'system-ui', '-apple-system', 'arial', 'helvetica', 'helvetica neue', 'segoe ui']);
   const seen = new Set();
   const flag = (fam, file, line, where) => {
-    if (banned.has(fam) && !seen.has(fam + where)) {
+    if ([...banned].some((b) => famKey(b) === famKey(fam)) && !seen.has(fam + where)) {
       seen.add(fam + where);
       report(1, 'FAIL', file, line, `display font "${fam}" (${where})`, 'Pick a display face from the typography catalog');
     }
@@ -1802,7 +1804,7 @@ function check37(ctx) {
       if (/^--font-/.test(d.prop) && !isTokenRule(r)) continue;
       const fam = firstFamily(resolveVars(d.value, ctx.tokens));
       if (!fam || generic.has(fam) || fam.startsWith('var(')) continue;
-      if (!families.has(fam)) families.set(fam, { file: r.file, line: d.line });
+      if (![...families.keys()].some((k) => famKey(k) === famKey(fam))) families.set(fam, { file: r.file, line: d.line });
     }
   }
   if (families.size > 3) {
@@ -2608,7 +2610,7 @@ function checkF3(ctx) {
       && r.decls.some((d) => d.prop === 'font-size' && (maxPxIn(resolveVars(d.value, ctx.tokens)) ?? 0) >= 40);
     if (!isH12 && !isDisplayClass) continue;
     targets.push(r);
-    if (r.decls.some((d) => /^text-wrap(-style)?$/.test(d.prop) && /balance|pretty/.test(d.value))) satisfied = true;
+    if (r.decls.some((d) => /^text-wrap(-style)?$/.test(d.prop) && /balance/.test(d.value))) satisfied = true;
   }
   if (targets.length && !satisfied) {
     report('F3', 'WARN', targets[0].file, targets[0].line,

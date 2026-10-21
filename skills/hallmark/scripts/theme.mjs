@@ -7,7 +7,7 @@ import { createHash, randomBytes } from 'node:crypto';
 const HERE = dirname(fileURLToPath(import.meta.url));
 const THEMES = join(HERE, '..', 'references', 'themes');
 const INDEX = join(THEMES, 'index.json');
-const VERSION = '2.8.0';
+const VERSION = '2.0.0';
 const PHOTOS = join(HERE, 'photos.json');
 const args = process.argv.slice(2);
 const cmd = args[0];
@@ -16,6 +16,8 @@ const has = (k) => args.includes('--' + k);
 const VALUED = new Set(['genre', 'brief', 'log', 'n', 'reroll', 'dealt', 'dir', 'axes', 'face', 'hue', 'entry', 'redesign', 'theme', 'orient', 'save', 'avoid', 'material', 'seed']);
 const positional = () => { const out = []; for (let i = 1; i < args.length; i++) { const a = args[i]; if (a.startsWith('--')) { if (VALUED.has(a.slice(2))) i++; continue; } out.push(a); } return out; };
 const GENRES = ['editorial', 'modern-minimal', 'atmospheric', 'playful'];
+// A theme slug names a file in references/themes, so it is a plain name, never a path.
+const isSlug = (s) => /^[a-z0-9][a-z0-9-]*$/.test(s);
 
 function usage() {
   console.error(`usage:
@@ -171,7 +173,7 @@ function draw() {
   const low = (x) => String(x || '').toLowerCase();
   let pictured = [];
   const slug = flag('theme', '');
-  if (slug && existsSync(join(THEMES, `${slug}.md`))) pictured = low(parseHeader(readFileSync(join(THEMES, `${slug}.md`), 'utf8'), slug).pictured).split(/,\s*/).map((x) => x.replace(/ hero$/, ''));
+  if (slug && isSlug(slug) && existsSync(join(THEMES, `${slug}.md`))) pictured = low(parseHeader(readFileSync(join(THEMES, `${slug}.md`), 'utf8'), slug).pictured).split(/,\s*/).map((x) => x.replace(/ hero$/, ''));
   const recent = (k, n) => log.slice(0, n).map((r) => low(r[k]));
   const near = (opts, n, k, extra = []) => { const bad = new Set([...recent(k, n), ...extra]); const ok = opts.filter((o) => ![...bad].some((b) => b && b.includes(low(o)))); return ok.length ? ok : opts; };
   const take = (opts, m = 1) => { const pool = [...new Set(opts)]; const out = []; while (out.length < m && pool.length) out.push(pool.splice(Math.floor(rand() * pool.length), 1)[0]); return out; };
@@ -323,7 +325,7 @@ async function photos() {
   let header = null, treat = { css: '', bad: [] };
   if (slug) {
     const file = join(THEMES, `${slug}.md`);
-    if (!existsSync(file)) { console.error(`no theme at ${file}`); process.exit(1); }
+    if (!isSlug(slug) || !existsSync(file)) { console.error(`no theme at ${file}`); process.exit(1); }
     const src = readFileSync(file, 'utf8');
     header = parseHeader(src, file);
     treat = treatmentOf(header.photo, tokensOf(src, file));
@@ -376,9 +378,12 @@ async function photos() {
       const w = p.sizes[p.sizes.length - 1];
       const file = join(resolve(saveDir), `${savedName(p.id)}-${w}.jpg`);
       try {
+        const url = thumbOf(p, w);
+        if (!url.startsWith('https://upload.wikimedia.org/')) throw new Error('not a Wikimedia Commons file');
         let res;
-        for (let t = 0; t < 4; t++) { res = await fetch(thumbOf(p, w), { headers: { 'User-Agent': 'Hallmark/2.8 (https://github.com/Nutlope/hallmark; theme.mjs photos --save)' } }); if (res.status !== 429) break; await new Promise((ok) => setTimeout(ok, 10000 * (t + 1))); }
+        for (let t = 0; t < 4; t++) { res = await fetch(url, { headers: { 'User-Agent': 'Hallmark/2.0 (https://github.com/Nutlope/hallmark; theme.mjs photos --save)' }, signal: AbortSignal.timeout(60000) }); if (res.status !== 429) break; await new Promise((ok) => setTimeout(ok, 10000 * (t + 1))); }
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        if (!/^image\//.test(res.headers.get('content-type') || '')) throw new Error(`not an image (${res.headers.get('content-type') || 'no content-type'})`);
         writeFileSync(file, Buffer.from(await res.arrayBuffer())); p.saved = file;
       } catch (e) { p.saved = null; p.error = String(e.message || e); }
     }
@@ -482,7 +487,7 @@ function scaffold() {
   let header = null;
   if (!custom) {
     const file = join(THEMES, `${slug}.md`);
-    if (!existsSync(file)) { console.error(`no theme at ${file}; run \`theme.mjs list\` for the slugs`); process.exit(1); }
+    if (!isSlug(slug) || !existsSync(file)) { console.error(`no theme at ${file}; run \`theme.mjs list\` for the slugs`); process.exit(1); }
     const src = readFileSync(file, 'utf8');
     header = parseHeader(src, file);
     name = header.name;

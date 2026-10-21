@@ -2,7 +2,7 @@
 name: hallmark
 description: "Design skill for new pages, sites, app screens and components that look made, not generated: deals a theme or designs from scratch, builds on a hard floor, lints and reviews. Use when the user asks to build or design something new, or names Hallmark. Never use it to change an existing design (a restyle, new colours or theme, a polish, a redesign, a small edit) unless the user names Hallmark: `/hallmark redesign <path>` is the explicit full redesign, keeping content and wiring; `/hallmark audit <path>` only reports."
 argument-hint: "<brief> | redesign <path> | audit <path>"
-version: 2.8.0
+version: 2.0.0
 ---
 
 # Hallmark
@@ -108,7 +108,7 @@ Only when needed, in `references/`: one macrostructure file · `microinteraction
 The run's only recital of its decisions, and the user's redirect window:
 
 ```markdown
-**Hallmark · v2.8.0**
+**Hallmark · v2.0.0**
 
 - **Shape** · Workbench, from draw 7f3a2c · genre modern-minimal
 - **Theme** · Coral, dealt 2/3 (warm grey, one coral signal, General Sans, soft pills) · clears Cobalt on paper band

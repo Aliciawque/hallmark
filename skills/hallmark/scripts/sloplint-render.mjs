@@ -153,6 +153,7 @@ export async function renderCheck(htmlFiles, metaIn) {
           if (width === 1280) await shoot(page, file, `${prefix}1280x800`, false);
           if (width === 375 && !heroOnly) { await settleImages(page); await frames(page); }
           if (width === 375) await shoot(page, file, heroOnly ? 'hero-375x812' : '375', !heroOnly);
+          if (!heroOnly && (width === 375 || width === 1280)) for (const f of await page.evaluate(lineBreaks).catch(() => [])) findings.push({ ...f, file, line: 1 });
           const res = await page.evaluate(observe, width === 1280, pageMeta);
           const measured = new Map();
           for (const f of res) {
@@ -666,6 +667,41 @@ function observe(checkFold, meta) {
     }
   }
 
+  return out;
+}
+
+// F26: a paragraph whose last line is one short word (a straggler), or a head of two or three lines whose last line is a stub
+function lineBreaks() {
+  const out = [];
+  const vis = (el) => { const s = getComputedStyle(el); if (s.display === 'none' || s.visibility === 'hidden' || parseFloat(s.opacity) === 0) return false; const r = el.getBoundingClientRect(); return r.width > 1 && r.height > 1; };
+  const lines = (el) => {
+    const rows = [];
+    const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    for (let t = w.nextNode(); t; t = w.nextNode()) {
+      if (!t.textContent.trim() || t.parentElement.closest('svg, [aria-hidden="true"]')) continue;
+      const rg = document.createRange(); rg.selectNodeContents(t);
+      for (const q of rg.getClientRects()) {
+        if (!q.width || !q.height) continue;
+        const row = rows.find((x) => Math.abs(x.mid - (q.top + q.height / 2)) < q.height / 3);
+        if (row) { row.l = Math.min(row.l, q.left); row.r = Math.max(row.r, q.right); } else rows.push({ mid: q.top + q.height / 2, l: q.left, r: q.right });
+      }
+    }
+    return rows.sort((a, b) => a.mid - b.mid).map((x) => x.r - x.l);
+  };
+  const bad = [];
+  for (const e of document.querySelectorAll('p, li, blockquote, h1, h2, h3')) {
+    if (bad.length >= 3 || !vis(e) || e.closest('nav, footer, svg, pre, code, table, [aria-hidden="true"], [data-slot]') || e.querySelector('br')) continue;
+    const text = (e.innerText || '').trim(); const words = text.split(/\s+/).length;
+    if (words < 4 || e.getBoundingClientRect().width < 200) continue;
+    const cs = getComputedStyle(e); const wrap = `${cs.textWrap || ''} ${cs.textWrapStyle || ''}`;
+    if (/flex|grid|table/.test(cs.display) || [...e.children].some((c) => /flex|grid|block|table/.test(getComputedStyle(c).display))) continue;
+    const ls = lines(e); if (ls.length < 2) continue;
+    const last = ls[ls.length - 1], widest = Math.max(...ls), prev = ls[ls.length - 2];
+    const head = /^H[123]$/.test(e.tagName);
+    if (head && ls.length <= 3 && !/balance/.test(wrap) && last < prev * 0.35) bad.push(`${e.tagName.toLowerCase()} "${text.replace(/\s+/g, ' ').slice(0, 32)}" ends on a stub`);
+    else if (!head && !/pretty|balance/.test(wrap) && !/\s/.test(text.split(/\s+/).slice(-1)[0]) && last < widest * 0.3 && ls.length >= 2 && (e.innerText || '').trim().split('\n').pop().trim().split(/\s+/).length === 1) bad.push(`"${text.replace(/\s+/g, ' ').slice(0, 32)}" leaves one word on its last line`);
+  }
+  if (bad.length) out.push({ gate: 'F26', grade: 'WARN', evidence: `[${innerWidth}px] ${bad.join('; ')}`, fix: 'text-wrap: balance on heads and pretty on body copy, or rewrite the line; a <br> goes only between phrases and is checked at 375' });
   return out;
 }
 
