@@ -112,6 +112,7 @@ One line each. `a`/`b` clauses share a number and carry their own tier. Genre no
 | 82 | Reflex | R | The counting device: 24 or more identical marks (ticks, dots, bars, squares) standing for a quantity, one for each bottle, identity or day. Guard: a chart whose marks differ in value or colour | set the number in type |
 | 83 | Reflex | R | The photo wall: below the hero, photographs cover more than about a third of the page at 1440 (45% on a Photographic or Portfolio Grid shape), so it reads as a stock gallery. Guard: a gallery or portfolio of the user's own work | keep the strongest pictures, set big; carry the rest in the theme's material: type, figures, the product, a table (`imagery.md` § 5) |
 | 84 | Reflex | J | The fake product: the page shows a built mock of a product that exists and could be reached (a URL, a running dev server, a project in the folder, an app on the machine), or a drawn interface where a screenshot belonged. Guard: the product does not run yet, or capturing it would show private data | run it, put it in a telling state and capture it with `scripts/capture.mjs` or the OS; frame the captures in the theme (`imagery.md` § 4) |
+| 85 | Reflex | R | The stock close: the last section before the footer, or the footer, is an email sign-up (a form of one or two fields, one an email) on a page whose job is not one where a mailing list is native (subscribe, join, attend, listen, visit), or whose stamp names no `job:`. Guard: the user asked for a sign-up | end on what the visitor came to do, in the form the job takes (the booking, the buy box, the download, the next date and the address, the latest issue), or on the last strong section (`anatomy.md`) |
 
 ### Chrome and copy
 
@@ -230,6 +231,8 @@ The gates above that a script cannot settle, with enough to judge them well.
 **83, the photo wall.** The opposite failure: a page that is all photographs, one after another, reads as a stock gallery, and the theme never gets to speak. Keep the pictures that carry a fact, set them big, and build the sections between them from the theme's material (its Range).
 
 **84, the fake product.** Ask where the product is before building one. A brief that names an app, a site or a tool that exists, a folder holding its code, or a URL means the page shows captures of it: the main screen, a detail, a second screen, the phone view. A built mock is right only for a product not built yet, and its handoff names the screens to capture later.
+
+**85 and the stock anatomy.** The close is the visible part of a deeper habit: hero beside a picture, a figure row, three steps, a split, a showcase, an email band. Judge the whole page against `anatomy.md`: is the job's action where real sites in the category put it, are the category's own sections here (the menu, the lineup, the issues, the record), and could this exact sequence of sections sit under a different business's name? If it could, the page has no anatomy of its own yet.
 
 ## 6. The reviews, in fresh context
 

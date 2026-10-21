@@ -55,6 +55,28 @@ The `<img>` comes from `theme.mjs photos`; `base.css` supplies the cover fit, th
 
 The radios stay in the flow at one pixel (53); the label carries the state and the ring, in the body face, sentence case.
 
+## A rail and a switcher
+
+```html
+<ul class="rail" tabindex="0" aria-label="Upcoming dates">
+  <li><time datetime="2027-06-12">12 June</time> Whitby</li>
+  <!-- five or more items; the next one cut by the edge -->
+</ul>
+<div class="switch" data-switch>
+  <div class="seg" role="tablist" aria-label="Menu"><button role="tab" aria-selected="true" aria-controls="m1" id="t1">Lunch</button><button role="tab" aria-selected="false" aria-controls="m2" id="t2" tabindex="-1">Dinner</button></div>
+  <section role="tabpanel" id="m1" aria-labelledby="t1">...</section>
+  <section role="tabpanel" id="m2" aria-labelledby="t2" hidden>...</section>
+</div>
+```
+
+```css
+.rail { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(16rem, 22%); gap: var(--gap-columns); overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); padding-inline: var(--gutter); overscroll-behavior-x: contain; }
+.rail > * { scroll-snap-align: start; }
+.rail:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 4px; }
+```
+
+The rail scrolls by touch, wheel and arrow keys once focused, and sits outside the container's padding so its edge cuts the next item. The switcher's tabs move with the arrow keys (a few lines of script set `aria-selected`, `tabindex` and `hidden`); without script every panel shows in order. A pinned pair is `position: sticky; top: var(--space-2xl)` on the visual's column, released under 60rem.
+
 ## A fact the brief did not give
 
 ```html

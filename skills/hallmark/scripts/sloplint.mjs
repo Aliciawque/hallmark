@@ -791,7 +791,7 @@ const trunc = (s, n = 72) => (s.length > n ? s.slice(0, n - 1) + '…' : s);
 const PAGE_ONLY = new Set(['3', '8', '9', '25', '28', '32', '34', '42', '44', '46b', '47b', '47c', '49', '50', '54', '55', '56', '58', '59', '65', '66', '68', '69', '71', '77', '78', '79', '80', '81', '82', '83', 'F7', 'F8', 'F15', 'F16', 'F20']);
 const gateNumber = (id) => (/^(\d{1,2})/.exec(String(id)) || [])[1] || null;
 const pageOnly = (id) => PAGE_ONLY.has(String(id)) || PAGE_ONLY.has(gateNumber(id));
-const APP_SKIP = new Set(['1', '6', '8', '9', '32', '42', '44', '46b', '58', '59', '66', '68', '77', '78', '79', '81', '82', '83', 'F8', 'F15', 'F20']);
+const APP_SKIP = new Set(['1', '6', '8', '9', '32', '42', '44', '46b', '58', '59', '66', '68', '77', '78', '79', '81', '82', '83', '85', 'F8', 'F15', 'F20']);
 const appSkip = (id) => APP_SKIP.has(String(id)) || APP_SKIP.has(gateNumber(id));
 
 const TIERS = new Map(Object.entries({
@@ -810,7 +810,7 @@ const TIERS = new Map(Object.entries({
   '39a': 'floor', '39b': 'reflex', '44a': 'reflex', '44b': 'floor', '44c': 'reflex', '44d': 'floor',
   '46a': 'floor', '46b': 'reflex', '47a': 'floor', '47b': 'reflex', '47c': 'reflex', '49a': 'floor', '49b': 'reflex',
   '55a': 'floor', '55b': 'reflex', '71': 'reflex', '72': 'reflex', '73': 'floor', '74': 'reflex', '75': 'reflex', '76': 'floor',
-  '77': 'reflex', '78': 'reflex', '79': 'reflex', '80': 'reflex', '81': 'reflex', '82': 'reflex', '83': 'reflex', '84': 'reflex',
+  '77': 'reflex', '78': 'reflex', '79': 'reflex', '80': 'reflex', '81': 'reflex', '82': 'reflex', '83': 'reflex', '84': 'reflex', '85': 'reflex',
 }));
 
 const HERO_SKIP = new Set(['8', '9', '32', '59', '77', '78', 'F8', 'F15']);
@@ -4045,6 +4045,7 @@ const waiversByKey = new Map();
 const postureByFile = {};
 const heroPostureByFile = {};
 const photoShapeByFile = {};
+const jobByFile = {};
 const contexts = [];
 const parsedDocs = new Map();
 const docOf = (f) => {
@@ -4093,9 +4094,10 @@ function buildContext(key, cssList, docList) {
   ].join('\n');
   const posture = (/posture:\s*(restrained|committed|full-palette|drenched)/i.exec(stampText)?.[1] || 'restrained').toLowerCase();
   // a custom page designs its own hero: 44a and 44c read it as free
-  const heroPosture = /theme:\s*custom\b/i.test(stampText) ? 'custom' : (/hero:\s*(settled|banner|poster|ledge|corridor|stage)\b/i.exec(stampText)?.[1] || '').toLowerCase();
+  const heroPosture = /theme:\s*custom\b/i.test(stampText) ? 'custom' : (/hero:\s*(settled|banner|poster|ledge|corridor|stage|counter|index)\b/i.exec(stampText)?.[1] || '').toLowerCase();
   const photoShape = /shape:\s*(photographic|portfolio)/i.test(stampText);
-  for (const d of docs) { postureByFile[d.file] = posture; heroPostureByFile[d.file] = heroPosture; photoShapeByFile[d.file] = photoShape; }
+  const job = ((/\bjob:\s*([a-z][a-z /-]*)/i.exec(stampText) || [])[1] || '').trim().toLowerCase();
+  for (const d of docs) { postureByFile[d.file] = posture; heroPostureByFile[d.file] = heroPosture; photoShapeByFile[d.file] = photoShape; jobByFile[d.file] = job; }
   const allCss = cssFiles.map((c) => c.raw).join('\n') + '\n'
     + docs.map((d) => d.styles.map((st) => st.css).join('\n')).join('\n');
   const tokensOnly = !docs.length && rules.length > 0 && rules.every(isTokenRule);
@@ -4144,7 +4146,7 @@ if (opts.render) {
   if (!htmlFiles.length && !opts.urls.length) renderNotRun = 'no HTML page to render; pass --url for a running dev server';
   else try {
     const mod = await import(new URL('./sloplint-render.mjs', import.meta.url).href);
-    const extra = await mod.renderCheck([...htmlFiles, ...opts.urls], { genre: opts.genre, postureByFile, heroPostureByFile, photoShapeByFile, stage: opts.stage, selectors: opts.before || opts.kept ? Object.fromEntries([...new Set(contexts.flatMap(([, c]) => c.docs))].filter((d) => d.kind === 'html').map((d) => [d.file, scriptSelectors(d)])) : {}, scope: opts.scope === 'app' || [...waiversByKey.values()].some((x) => x.APPSCREEN) ? 'app' : opts.scope, before: opts.before });
+    const extra = await mod.renderCheck([...htmlFiles, ...opts.urls], { genre: opts.genre, postureByFile, heroPostureByFile, photoShapeByFile, jobByFile, stage: opts.stage, selectors: opts.before || opts.kept ? Object.fromEntries([...new Set(contexts.flatMap(([, c]) => c.docs))].filter((d) => d.kind === 'html').map((d) => [d.file, scriptSelectors(d)])) : {}, scope: opts.scope === 'app' || [...waiversByKey.values()].some((x) => x.APPSCREEN) ? 'app' : opts.scope, before: opts.before });
     domInventories = extra.inventories || {};
     const allWaivers = { WAIVED: new Set([...waiversByKey.values()].flatMap((x) => [...x.WAIVED])), ANSWERED: new Set([...waiversByKey.values()].flatMap((x) => [...x.ANSWERED])), DISMISSED: new Set([...waiversByKey.values()].flatMap((x) => [...(x.DISMISSED || [])])), VERBATIM: [...waiversByKey.values()].some((x) => x.VERBATIM), APPSCREEN: [...waiversByKey.values()].some((x) => x.APPSCREEN), LAYOUT_KEPT: [...waiversByKey.values()].map((x) => x.LAYOUT_KEPT).find(Boolean) || false };
     for (const f of extra) {

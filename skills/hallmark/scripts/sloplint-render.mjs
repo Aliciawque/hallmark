@@ -70,7 +70,7 @@ async function shoot(page, file, tag, fullPage) {
 
 export async function renderCheck(htmlFiles, metaIn) {
   const failed = [];
-  const meta = { genre: null, postureByFile: {}, heroPostureByFile: {}, photoShapeByFile: {}, stage: 'page', scope: 'page', before: false, ...(metaIn || {}) };
+  const meta = { genre: null, postureByFile: {}, heroPostureByFile: {}, photoShapeByFile: {}, jobByFile: {}, stage: 'page', scope: 'page', before: false, ...(metaIn || {}) };
   const heroOnly = meta.stage === 'hero';
   SHOT_DIR = meta.before ? 'before' : 'shots';
   const inventories = {};
@@ -140,9 +140,10 @@ export async function renderCheck(htmlFiles, metaIn) {
           meta.postureByFile[file] = (/posture:\s*(restrained|committed|full-palette|drenched)/i.exec(stamp)?.[1] || 'restrained').toLowerCase();
           const field = (/hero:\s*([^·*\n]+)/i.exec(stamp) || [])[1] || '';
           let route = ''; try { route = new URL(file).pathname.replace(/\/$/, '') || '/'; } catch {}
-          const own = new RegExp(`(settled|banner|poster|ledge|corridor|stage)\\s*\\(${route.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\)`, 'i').exec(field);
+          const own = new RegExp(`(settled|banner|poster|ledge|corridor|stage|counter|index)\\s*\\(${route.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\)`, 'i').exec(field);
           meta.photoShapeByFile[file] = /shape:\s*(photographic|portfolio)/i.test(stamp);
-          meta.heroPostureByFile[file] = /theme:\s*custom\b/i.test(stamp) ? 'custom' : ((own || /(settled|banner|poster|ledge|corridor|stage)\b/i.exec(field) || [])[1] || '').toLowerCase();
+          meta.jobByFile[file] = ((/\bjob:\s*([a-z][a-z /-]*)/i.exec(stamp) || [])[1] || '').trim().toLowerCase();
+          meta.heroPostureByFile[file] = /theme:\s*custom\b/i.test(stamp) ? 'custom' : ((own || /(settled|banner|poster|ledge|corridor|stage|counter|index)\b/i.exec(field) || [])[1] || '').toLowerCase();
         }
         const pageMeta = { genre: meta.genre, posture: meta.postureByFile[file] || 'restrained' };
         const prefix = heroOnly ? 'hero-' : '';
@@ -177,7 +178,7 @@ export async function renderCheck(htmlFiles, metaIn) {
             await shoot(page, file, '1440-full', true);
           }
           await frames(page);
-          const res = await page.evaluate(observeSpace, w === 1440, heroOnly, meta.heroPostureByFile[file] || '', !!meta.photoShapeByFile[file]);
+          const res = await page.evaluate(observeSpace, w === 1440, heroOnly, meta.heroPostureByFile[file] || '', !!meta.photoShapeByFile[file], meta.jobByFile[file] || '');
           for (const f of res) findings.push({ ...f, file, line: 1, evidence: `[${w}px] ${f.evidence}` });
         }
         if (!heroOnly) {
@@ -705,7 +706,7 @@ function lineBreaks() {
   return out;
 }
 
-function observeSpace(atLaptop, heroOnly, heroPosture, photoShape) {
+function observeSpace(atLaptop, heroOnly, heroPosture, photoShape, job) {
   const freeFold = /^(poster|ledge|banner|custom)$/.test(heroPosture || '');
   const out = [];
   const push = (gate, grade, evidence, fix) => out.push({ gate: String(gate), grade, evidence, fix });
@@ -882,6 +883,13 @@ function observeSpace(atLaptop, heroOnly, heroPosture, photoShape) {
       for (const e of document.querySelectorAll('section *, main *')) { const bi = getComputedStyle(e).backgroundImage; if (/url\(/.test(bi) && !/svg|data:image\/svg/i.test(bi)) add(e); }
       const share = area / Math.max(1, (docH - from) * cw);
       if (share > (photoShape ? 0.45 : 0.36) && n >= 3) push(83, 'REFLEX', `photographs cover ${Math.round(share * 100)}% of the page below the hero (${n} pictures${photoShape ? ', a photograph-led shape' : ''})`, 'Balance the page: cut or shrink pictures until they cover a quarter to a third of it, and carry the freed sections in type, figures, the product or a list (imagery.md § 5)');
+    }
+    if (heroEnd != null && !/subscribe|join|attend|listen|visit|newsletter|waitlist/.test(job || '')) {
+      const foot = [...document.querySelectorAll('body footer, [role="contentinfo"]')].filter(vis).pop();
+      const before = foot ? secs.filter((x) => x !== foot && abs(x).bottom <= abs(foot).top + 2).pop() : secs[secs.length - 1];
+      const signup = (box) => box && [...box.querySelectorAll('form, [role="form"]')].find((f) => { const fields = [...f.querySelectorAll('input:not([type=hidden]):not([type=submit]):not([type=checkbox]):not([type=radio]), textarea, select')].filter(vis); return fields.length >= 1 && fields.length <= 2 && fields.some((x) => x.type === 'email' || /e-?mail/i.test(`${x.name} ${x.id} ${x.placeholder} ${x.getAttribute('autocomplete') || ''}`)); });
+      const hit = signup(before) || signup(foot);
+      if (hit) push(85, 'REFLEX', `the page closes on an email sign-up${job ? ` on a ${job} page` : ' and the stamp names no job'}`, 'End on what the visitor came to do (the booking, the buy box, the download, the next date, the latest issue) or on the last strong section; an email close is for a subscribe or join page, and the stamp says job: (anatomy.md)');
     }
 
     let heroFoot = null;

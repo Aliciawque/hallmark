@@ -13,7 +13,7 @@ const args = process.argv.slice(2);
 const cmd = args[0];
 const flag = (k, d = null) => { const i = args.indexOf('--' + k); const v = i >= 0 ? args[i + 1] : undefined; return v !== undefined && !String(v).startsWith('--') ? v : d; };
 const has = (k) => args.includes('--' + k);
-const VALUED = new Set(['genre', 'brief', 'log', 'n', 'reroll', 'dealt', 'dir', 'axes', 'face', 'hue', 'entry', 'redesign', 'theme', 'orient', 'save', 'avoid', 'material', 'seed']);
+const VALUED = new Set(['genre', 'brief', 'log', 'n', 'reroll', 'dealt', 'dir', 'axes', 'face', 'hue', 'entry', 'redesign', 'theme', 'orient', 'save', 'avoid', 'material', 'seed', 'job']);
 const positional = () => { const out = []; for (let i = 1; i < args.length; i++) { const a = args[i]; if (a.startsWith('--')) { if (VALUED.has(a.slice(2))) i++; continue; } out.push(a); } return out; };
 const GENRES = ['editorial', 'modern-minimal', 'atmospheric', 'playful'];
 // A theme slug names a file in references/themes, so it is a plain name, never a path.
@@ -25,7 +25,7 @@ function usage() {
   node theme.mjs scaffold <slug> [--dealt "<n>/3, seed <seed>"] [--redesign polish|restyle|full] [--scope app] [--dir <beside the stylesheet>] [--force]
   node theme.mjs scaffold --custom | --brand [--redesign polish|restyle|full] [--scope app] [--dir <beside the stylesheet>] [--force]
   node theme.mjs check [--axes "<paper>/<display>/<accent>"] [--face "<display face>"] [--hue <accent hue>] [--log .hallmark/log.json]
-  node theme.mjs draw --material photo|product|words [--theme <slug>] [--log .hallmark/log.json] [--seed <hex>]
+  node theme.mjs draw --material photo|product|words --job <subscribe|book|visit|attend|buy|try|sign up|hire|join|listen> [--theme <slug>] [--log .hallmark/log.json] [--seed <hex>]
   node theme.mjs photos "<subject>" ["<subject>" ...] [--theme <slug>] [--n 3] [--orient landscape|portrait|square] [--log .hallmark/log.json] [--avoid <file naming photos>] [--save <dir>] [--json]
   node theme.mjs log --entry '<one JSON object>' [--log .hallmark/log.json]
   node theme.mjs index
@@ -161,7 +161,19 @@ const DRAW = {
   heroes: { photo: ['Poster', 'Stage', 'Ledge', 'Settled', 'Poster', 'Stage'], product: ['Stage', 'Settled', 'Banner', 'Corridor', 'Stage'], words: ['Corridor', 'Ledge', 'Banner', 'Settled'] },
   navs: ['edge-aligned', 'floating pill', 'masthead', 'slab', 'search-led bar', 'banner over a retracting bar'],
   footers: ['mast', 'statement', 'colophon block', 'newsletter-first', 'letter close', 'index columns'],
-  openers: ['Split', 'Showcase', 'Grid', 'Bento', 'Rows', 'Table', 'Steps', 'Statement'],
+  openers: ['Split', 'Showcase', 'Grid', 'Bento', 'Rows', 'Table', 'Steps', 'Statement', 'Rail', 'Pinned', 'Switcher', 'Index', 'Schedule', 'Offer'],
+  jobs: {
+    subscribe: { sections: ['an example issue set as it arrives (a sample)', 'the archive as an Index of past issues (sample titles)', 'who writes it, with a picture slot', 'the contents of one issue, as rows'], close: ['a second subscribe field under the archive', 'the archive itself, ending on the latest issue'], open: ['Index', 'Rail', 'Statement', 'Split'], heroes: ['Counter', 'Corridor', 'Index', 'Banner'], action: ['the subscribe field in the hero, beside the latest issue', 'the subscribe field in the hero and once more under the issues'] },
+    book: { sections: ['the menu as a Switcher by lunch and dinner (sample dishes, no prices unless given)', 'the room as a full-bleed photograph with no head', 'hours and the address as a section of their own', 'the next free times as buttons'], close: ['hours, the address and the booking again', 'the booking beside one last photograph'], open: ['Switcher', 'Index', 'Schedule', 'Split', 'Showcase'], heroes: ['Counter', 'Poster', 'Stage', 'Index'], action: ['a sticky booking bar', 'the booking times in the hero', 'the booking beside the menu or the rooms'] },
+    visit: { sections: ['what is on now as the lead picture', 'what is coming as dated rows', 'the shelves or the rooms as a Rail', 'getting there, with the hours'], close: ['visit information and the address', 'what is on next'], open: ['Showcase', 'Schedule', 'Rail', 'Split'], heroes: ['Poster', 'Ledge', 'Stage'], action: ['hours and the address in the hero', 'hours, the map and the way in at the close', 'a sticky bar with today\'s hours'] },
+    attend: { sections: ['the days as a Schedule', 'the lineup as an Index, set large', 'ticket tiers as rows', 'the place and how to get there', 'questions as rows'], close: ['tickets again', 'the questions', 'the mailing list for the next edition'], open: ['Schedule', 'Index', 'Rail', 'Showcase'], heroes: ['Index', 'Poster', 'Counter', 'Ledge'], action: ['tickets in the hero', 'tickets beside the lineup', 'a sticky ticket bar'] },
+    buy: { sections: ['the range as an Offer or a Rail (sample names; no prices unless given)', 'the thing in use, close and large', 'how it is made, as a Pinned run', 'delivery and care as plain facts'], close: ['the offer again', 'delivery and the guarantee as plain facts'], open: ['Offer', 'Rail', 'Showcase', 'Switcher'], heroes: ['Counter', 'Stage', 'Poster'], action: ['the offer as the hero', 'a sticky buy bar', 'the offer after the product close up'] },
+    try: { sections: ['features as named moments in screens (Pinned or Switcher)', 'a before and after', 'the platforms and what it needs'], close: ['the download beside one last screen'], open: ['Pinned', 'Switcher', 'Showcase', 'Rail'], heroes: ['Counter', 'Stage', 'Settled'], action: ['the download beside the screen in the hero', 'the download in the hero and at the close'] },
+    'sign up': { sections: ['the product at work as a Pinned run', 'a code sample or the integration', 'pricing as a table with its period switch', 'questions as rows'], close: ['the hero\'s action in a short band', 'the code sample'], open: ['Pinned', 'Switcher', 'Showcase', 'Bento', 'Table'], heroes: ['Stage', 'Settled', 'Banner', 'Counter'], action: ['sign up in the hero', 'sign up in the hero and beside the price'] },
+    hire: { sections: ['the work as an Index of projects with pictures', 'one project opened as a case', 'what the studio does, as a short list', 'where it is'], close: ['contact details per office', 'a plain email and phone'], open: ['Index', 'Rail', 'Showcase', 'Statement'], heroes: ['Index', 'Poster', 'Corridor', 'Ledge'], action: ['the enquiry after the work', 'a contact line in the nav and at the close'] },
+    join: { sections: ['what a session is like, shown', 'when and where as a Schedule', 'membership options as rows', 'first-visit guidance'], close: ['the first visit', 'the membership options'], open: ['Schedule', 'Grid', 'Split', 'Showcase'], heroes: ['Counter', 'Poster', 'Corridor'], action: ['join in the hero', 'join beside the schedule'] },
+    listen: { sections: ['the record with its tracks as an Index (sample titles unless given)', 'dates as rows with ticket links', 'earlier work as covers in a Rail', 'a live photograph or the video'], close: ['the dates', 'more of the catalogue', 'the mailing list'], open: ['Index', 'Rail', 'Showcase', 'Schedule'], heroes: ['Poster', 'Index', 'Counter', 'Ledge'], action: ['the player or the record in the hero', 'listen in the hero and the dates beside it'] },
+  },
   leads: { photo: ['the place', 'the thing itself, close', 'the making', 'the offer and its price', 'the season or the date', 'the people at work'], product: ['the job it does', 'the screen at work', 'the speed or the limit', 'the material it handles', 'the price', 'the before and after'], words: ['the claim', 'the question', 'the first line of the argument', 'the date and the place', 'the list itself'] },
 };
 function draw() {
@@ -178,17 +190,23 @@ function draw() {
   const near = (opts, n, k, extra = []) => { const bad = new Set([...recent(k, n), ...extra]); const ok = opts.filter((o) => ![...bad].some((b) => b && b.includes(low(o)))); return ok.length ? ok : opts; };
   const take = (opts, m = 1) => { const pool = [...new Set(opts)]; const out = []; while (out.length < m && pool.length) out.push(pool.splice(Math.floor(rand() * pool.length), 1)[0]); return out; };
   const shapes = take(near(DRAW.shapes[material], 3, 'shape', pictured), 1);
-  const [hero] = take(near(DRAW.heroes[material], 1, 'hero', pictured));
+  const jobName = low(flag('job', '')).replace(/download|app/, 'try').replace(/software|saas/, 'sign up').replace(/newsletter|waitlist/, 'subscribe').replace(/watch|read/, 'listen');
+  const job = DRAW.jobs[jobName] || null;
+  const [hero] = take(near(job ? [...job.heroes, ...job.heroes, ...DRAW.heroes[material].filter((h) => !/settled|stage/i.test(h) || job.heroes.includes(h))] : DRAW.heroes[material], 1, 'hero', pictured));
   const [nav] = take(near(DRAW.navs, 3, 'nav'));
-  const [footer] = take(near(DRAW.footers, 3, 'footer'));
+  const [footer] = take(near(DRAW.footers.filter((f) => f !== 'newsletter-first' || /subscribe/.test(jobName)), 3, 'footer'));
+  const [action] = job ? take(job.action) : [null];
+  const native = job ? take(job.sections, 3) : [];
+  const [close] = job ? take(job.close) : [null];
   const lastOpen = low((log[0] && (Array.isArray(log[0].sections) ? log[0].sections[0] : String(log[0].sections || '').split(/[,>·]/)[0])) || '');
-  const [opener] = take(DRAW.openers.filter((o) => !lastOpen.includes(low(o))));
-  const skip = take(['Split', 'Grid', 'Band', 'Statement', 'Steps'].filter((o) => o !== opener), 2);
+  const [opener] = take((job ? job.open : DRAW.openers).filter((o) => !lastOpen.includes(low(o))));
+  const skip = take(['Split', 'Grid', 'Band', 'Statement', 'Steps', 'Figures'].filter((o) => o !== opener), 2);
   const [lead] = take(DRAW.leads[material]);
-  if (has('json')) { console.log(JSON.stringify({ seed, material, shapes, hero, nav, footer, opener, skip, lead })); return; }
+  if (has('json')) { console.log(JSON.stringify({ seed, material, job: jobName || null, shapes, hero, nav, footer, opener, skip, lead, action, native, close })); return; }
   console.log(`draw ${seed} (fresh each build; --seed ${seed} repeats it)${pictured.length ? ` · clear of the theme picture's ${pictured.join(' and ')}` : ''}`);
   console.log(`shape: ${shapes[0]} · hero: ${hero} · nav: ${nav} · footer: ${footer}`);
-  console.log(`first section after the hero: ${opener} · leave out this time: ${skip.join(' and ')} · the hero leads with ${lead}, if the brief has it`);
+  console.log(`${job ? '' : `first section after the hero: ${opener} · `}leave out this time: ${skip.join(' and ')} · the hero leads with ${lead}, if the brief has it`);
+  console.log(job ? `job: ${jobName} · the action: ${action}\nbuild these, in the order the shape suits (the first right after the hero): ${native.join('; ')} · close on: ${close} (anatomy.md § ${jobName})` : 'no --job given: name the page\'s job (subscribe, book, visit, attend, buy, try, sign up, hire, join, listen) and draw again with --job');
   console.log(`photos: pass --seed ${seed} to every theme.mjs photos call, so this build's picks are its own, and take its first fitting pick for the hero rather than hunting for the library's single best frame`);
   console.log('take the draw unless the brief\'s material refuses a pick; name any swap in the Picks block, and stamp draw: ' + seed);
 }
@@ -527,8 +545,8 @@ function scaffold() {
     : brand
     ? `/* Hallmark · shape: <shape, or kept> · genre: <genre> · theme: brand${tail}${made} · hero: <posture, or kept> · nav: <shape, or kept> · footer: <shape, or kept> · signature: <the one move, or kept>\n * axes: ${axes} · contrast: pass · fold: pass · v${VERSION} */`
     : custom
-    ? `/* Hallmark · shape: <your name for the structure> · genre: <genre> · theme: custom${tail} · idea: "<one sentence>" · vibe: "<4 to 8 words>"${made} · hero: <in your own words> · nav: <shape> · footer: <shape> · imagery: <photographs, the product, or none> · signature: <the one thing a visitor remembers>\n * axes: ${axes} · contrast: pass · fold: pass · v${VERSION} */`
-    : `/* Hallmark · shape: <shape${kept}> · genre: ${header.genre} · theme: ${theme}${tail}${depth ? '' : ' · draw: <seed>'}\n * hero: <posture${kept}> · nav: <shape${kept}> · footer: <shape${kept}> · imagery: <photographs, the product, or none> · signature: <the one move>${dial ? ` · ${dial[1]}: <the dials>` : ''}\n * axes: ${axes} · contrast: pass · fold: pass · v${VERSION} */`;
+    ? `/* Hallmark · shape: <your name for the structure> · genre: <genre> · theme: custom${tail} · job: <subscribe|book|visit|attend|buy|try|sign up|hire|join|listen> · idea: "<one sentence>" · vibe: "<4 to 8 words>"${made} · hero: <in your own words> · nav: <shape> · footer: <shape> · imagery: <photographs, the product, or none> · signature: <the one thing a visitor remembers>\n * axes: ${axes} · contrast: pass · fold: pass · v${VERSION} */`
+    : `/* Hallmark · shape: <shape${kept}> · genre: ${header.genre} · theme: ${theme}${tail}${depth ? '' : ' · job: <subscribe|book|visit|attend|buy|try|sign up|hire|join|listen> · draw: <seed>'}\n * hero: <posture${kept}> · nav: <shape${kept}> · footer: <shape${kept}> · imagery: <photographs, the product, or none> · signature: <the one move>${dial ? ` · ${dial[1]}: <the dials>` : ''}\n * axes: ${axes} · contrast: pass · fold: pass · v${VERSION} */`;
   console.log(`wrote ${out} (${brand ? 'the shared scale; fill every --color-* and --font-* from the palette and faces the pre-flight found' : custom ? 'a starting scale, yours to rewrite; fill every --color-* and --font-* before building' : `${name} tokens plus the shared scale`}) and ${baseOut} (the base rules the Floor already decided)${sheet && !flag('dir', '') ? `, beside ${sheet}` : ''}`);
   if (!custom && !flag('dealt', '')) {
     const pic = join(THEMES, `${slug}.jpg`);
