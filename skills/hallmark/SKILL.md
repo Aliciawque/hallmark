@@ -1,7 +1,7 @@
 ---
 name: hallmark
-description: "Design skill for new pages, sites, app screens and components that look made, not generated: deals a theme or designs from scratch, builds on a hard floor, lints and reviews. Use when the user asks to build or design something new, or names Hallmark. Never use it to change an existing design (a restyle, new colours or theme, a polish, a redesign, a small edit) unless the user names Hallmark: `/hallmark redesign <path>` is the explicit full redesign, keeping content and wiring; `/hallmark audit <path>` only reports."
-argument-hint: "<brief> | redesign <path> | audit <path>"
+description: "Design skill for websites and new pages that look designed, not generated. Use when the user asks to build or design something new, or names Hallmark. Never use it on an existing design unless the user names Hallmark, as in `/hallmark redesign <path>`."
+argument-hint: "<brief> | redesign <path>"
 version: 2.0.0
 metadata:
   opencode/slash: "true"
