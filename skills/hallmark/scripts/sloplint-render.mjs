@@ -949,7 +949,8 @@ function observeSpace(atLaptop, heroOnly, heroPosture, photoShape, job) {
         }
         return out;
       };
-      const span = (ls) => ls.reduce((a, b) => ({ left: Math.min(a.left, b.left), right: Math.max(a.right, b.right) }), { left: Infinity, right: -Infinity });
+      // content a rail scrolls past the screen's edge does not widen the page's measure
+      const span = (ls) => ls.filter((b) => b.right > 0 && b.left < vw).reduce((a, b) => ({ left: Math.min(a.left, Math.max(0, b.left)), right: Math.max(a.right, Math.min(vw, b.right)) }), { left: Infinity, right: -Infinity });
       const all = span([...(hero ? [hero] : []), ...below].flatMap(leavesOf));
       const W = all.right - all.left;
       const h1fs = h1 ? parseFloat(getComputedStyle(h1).fontSize) : 0;

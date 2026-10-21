@@ -17,8 +17,9 @@
   <div class="container mast__inner">
     <p class="mast__date">Issue 9, out 3 October</p>
     <a class="wordmark" href="#top" aria-label="Margin Notes, back to the top">Margin Notes</a>
-    <nav class="mast__nav" aria-label="Pre-order">
-      <a href="#preorder">Pre-order</a>
+    <nav class="mast__nav" aria-label="Page">
+      <a href="#contents">Contents</a>
+      <a class="btn btn--primary btn--sm" href="#preorder">Pre-order</a>
     </nav>
   </div>
 </header>
@@ -28,15 +29,24 @@
     <div class="container cover__grid">
       <div class="cover__text">
         <h1 id="cover-h">Repair</h1>
-        <p class="cover__lead">Issue 9 of the independent quarterly on design, out 3&nbsp;October.</p>
+        <p class="cover__lead">The independent quarterly on design and the people behind it.</p>
+        <dl class="cover__spec">
+          <div><dt>Pages</dt><dd>164</dd></div>
+          <div><dt>A copy</dt><dd>£18</dd></div>
+          <div><dt>On sale</dt><dd>3 October</dd></div>
+        </dl>
         <div class="actions">
           <a class="btn btn--primary" href="#preorder">Pre-order, £18</a>
-          <a class="textlink" href="#issue">Inside the issue</a>
+          <a class="btn" href="#contents">Inside the issue</a>
         </div>
       </div>
-      <figure class="photo cover__photo" data-slot="cover" data-alt="The cover photograph of Issue 9, Repair">
-        <img src="photos/bike-repair-is-taking-place-in-a-workshop-with-focus-on-fixi-1920.jpg" width="1920" height="1277" fetchpriority="high" sizes="60vw"
-             alt="Hands tightening the stem of a red bicycle in a dark workshop">
+      <figure class="issue-cover" aria-label="The cover of Issue 9">
+        <div class="photo issue-cover__photo" data-slot="cover" data-alt="The cover photograph of Issue 9, Repair">
+          <img src="photos/bike-repair-is-taking-place-in-a-workshop-with-focus-on-fixi-1920.jpg" width="1920" height="1277" fetchpriority="high" sizes="(min-width: 60rem) 34vw, 90vw"
+               alt="Hands tightening the stem of a red bicycle in a dark workshop">
+        </div>
+        <p class="issue-cover__mast" aria-hidden="true">Margin Notes</p>
+        <p class="issue-cover__line" aria-hidden="true"><span>Issue 9</span>Repair</p>
       </figure>
     </div>
   </section>
@@ -49,85 +59,79 @@
     </div>
   </section>
 
-  <section class="issue" id="issue" aria-labelledby="issue-h">
+  <section class="contents" id="contents" aria-labelledby="contents-h">
     <div class="container">
       <div class="headblock opens">
-        <h2 id="issue-h">164 pages on mending things</h2>
-        <p class="lead">Three questions run through the whole issue.</p>
+        <h2 id="contents-h">Inside Issue 9</h2>
+        <p class="lead">Sample titles, to show the shape. The full contents run with the issue.</p>
       </div>
-      <ol class="contents">
-        <li><h3>What gets fixed</h3><p>The objects, rooms and systems that designers are asked to keep going.</p></li>
-        <li><h3>Who fixes it</h3><p>The people who do the patient work, and how they learned it.</p></li>
-        <li><h3>Why it is worth it</h3><p>What a repair costs, what it saves, and what it says about the thing.</p></li>
+      <ol class="index">
+        <li class="index__lead">
+          <p class="index__kind">Report</p>
+          <div class="index__body"><h3>The workshops keeping chairs in use</h3><p>A long visit to the benches where furniture comes back.</p></div>
+          <figure class="photo index__photo" data-slot="report" data-alt="An opening photograph from the issue's report">
+            <img src="photos/wooden-chairs-in-workshop-awaiting-restoration-and-repair-in-1920.jpg" width="1920" height="2876" loading="lazy" sizes="(min-width: 60rem) 30vw, 100vw"
+                 alt="Wooden chairs part way through restoration, stacked on benches in a furniture workshop">
+          </figure>
+        </li>
+        <li><p class="index__kind">Essay</p><h3>What a mend says about the thing</h3><p>On keeping, and what it costs.</p></li>
+        <li><p class="index__kind">Interview</p><h3>A bicycle mechanic on learning by hand</h3><p>Apprenticeship, without the word.</p></li>
+        <li><p class="index__kind">Portfolio</p><h3>Tools worn to the shape of a hand</h3><p>Photographed flat, at actual size.</p></li>
+        <li><p class="index__kind">Notes</p><h3>Readers’ repairs, sent in</h3><p>Small fixes, and why they mattered.</p></li>
       </ol>
     </div>
   </section>
 
   <section class="spread" aria-labelledby="spread-h">
     <div class="container">
-      <div class="spread__frame">
-        <figure class="photo spread__photo" data-slot="spread" data-alt="An opening spread from Issue 9, photographed flat">
+      <div class="spread__head">
+        <h2 id="spread-h">Printed to be kept</h2>
+        <p class="lead">164 pages on uncoated stock, made to be read twice.</p>
+      </div>
+      <figure class="spread__figure">
+        <div class="photo spread__photo" data-slot="spread" data-alt="An opening spread from Issue 9, photographed flat">
           <img src="photos/traditional-hand-plane-china-1920.jpg" width="1920" height="1172" loading="lazy" sizes="(min-width: 1440px) 1312px, 100vw"
                alt="A worn wooden plane resting in curled shavings on an old workbench">
-        </figure>
-        <h2 class="spread__line" id="spread-h">Some things are worth keeping</h2>
-      </div>
-    </div>
-  </section>
-
-  <section class="figures" aria-labelledby="figures-h">
-    <div class="container">
-      <div class="headblock">
-        <h2 id="figures-h">The issue in hand</h2>
-        <p class="lead">Four times a year, each one a single subject.</p>
-      </div>
-      <dl class="figures__row">
-        <div><dt>Pages</dt><dd>164</dd></div>
-        <div><dt>A copy</dt><dd>£18</dd></div>
-        <div><dt>On sale</dt><dd>3 Oct</dd></div>
-        <div><dt>Issues a year</dt><dd>4</dd></div>
-      </dl>
+        </div>
+        <figcaption>From the portfolio: a plane, worn where the hand goes.</figcaption>
+      </figure>
     </div>
   </section>
 
   <section class="preorder" id="preorder" aria-labelledby="preorder-h">
     <div class="container preorder__grid">
-      <figure class="photo preorder__photo" data-slot="issue" data-alt="Issue 9 itself, open on a table">
-        <img src="photos/wooden-chairs-in-workshop-awaiting-restoration-and-repair-in-1920.jpg" width="1920" height="2876" loading="lazy" sizes="(min-width: 60rem) 40vw, 100vw"
-             alt="Wooden chairs part way through restoration, stacked on benches in a furniture workshop">
-      </figure>
-      <div class="preorder__text">
-        <div class="preorder__head">
-          <h2 id="preorder-h">Pre-order Issue 9</h2>
-          <p class="tag">Out 3 October</p>
-        </div>
-        <form class="order" data-endpoint="" novalidate>
-          <table class="spec">
-            <tbody>
-              <tr><th scope="row">Issue</th><td>9, Repair</td></tr>
-              <tr><th scope="row">Pages</th><td>164</td></tr>
-              <tr><th scope="row">Price</th><td>£18 a copy</td></tr>
-            </tbody>
-          </table>
-          <div class="order__row">
-            <div class="field field--copies">
-              <label for="copies">Copies</label>
-              <select id="copies" name="copies">
-                <option value="1" selected>1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="email">Email address</label>
-              <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required>
-            </div>
-          </div>
-          <div class="order__foot">
-            <p class="total"><span class="total__label">Total</span> <output class="total__sum" for="copies" id="total">£18</output></p>
-            <button class="btn btn--primary" type="submit">Pre-order</button>
-          </div>
-          <p class="help" id="order-help" aria-live="polite"></p>
-        </form>
+      <div class="preorder__facts">
+        <h2 id="preorder-h">Pre-order Issue 9</h2>
+        <table class="spec">
+          <tbody>
+            <tr><th scope="row">Issue</th><td>9, Repair</td></tr>
+            <tr><th scope="row">Pages</th><td>164</td></tr>
+            <tr><th scope="row">On sale</th><td>3 October</td></tr>
+            <tr><th scope="row">Price</th><td>£18 a copy</td></tr>
+          </tbody>
+        </table>
       </div>
+      <form class="order" data-endpoint="" novalidate>
+        <fieldset class="copies">
+          <legend>Copies</legend>
+          <div class="copies__set">
+            <input type="radio" name="copies" id="c1" value="1" checked><label for="c1">1</label>
+            <input type="radio" name="copies" id="c2" value="2"><label for="c2">2</label>
+            <input type="radio" name="copies" id="c3" value="3"><label for="c3">3</label>
+            <input type="radio" name="copies" id="c4" value="4"><label for="c4">4</label>
+            <input type="radio" name="copies" id="c5" value="5"><label for="c5">5</label>
+          </div>
+        </fieldset>
+        <div class="field">
+          <label for="email">Email address, for the receipt</label>
+          <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required>
+        </div>
+        <div class="order__foot">
+          <p class="total"><span class="total__label">Total</span> <output class="total__sum" id="total">£18</output></p>
+          <button class="btn btn--primary btn--lg" type="submit">Pre-order</button>
+        </div>
+        <p class="help" id="order-help" aria-live="polite"></p>
+      </form>
     </div>
   </section>
 </main>
@@ -136,12 +140,19 @@
   <div class="container">
     <div class="foot__close">
       <p class="foot__line">Repair is out on 3&nbsp;October.</p>
-      <a class="btn btn--primary" href="#preorder">Pre-order Issue 9</a>
+      <form class="next" data-endpoint="" data-done="We will write to {email} when the next issue is out." novalidate>
+        <label for="next-email">Hear when the next issue is out</label>
+        <div class="next__row">
+          <input id="next-email" name="email" type="email" autocomplete="email" inputmode="email" required>
+          <button class="btn" type="submit">Tell me</button>
+        </div>
+        <p class="help" id="next-help" aria-live="polite"></p>
+      </form>
     </div>
     <div class="foot__row">
       <p class="foot__text"><span class="foot__mark">Margin Notes</span> is an independent quarterly about design and the people behind it. Set in Bricolage Grotesque and Source Serif&nbsp;4.</p>
       <nav class="foot__nav" aria-label="Footer">
-        <a href="#issue">Issue 9</a>
+        <a href="#contents">Inside Issue 9</a>
         <a href="#preorder">Pre-order</a>
         <a href="#top">Back to the top</a>
       </nav>
@@ -154,11 +165,10 @@
 <script>
 window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
 document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });
+const total = document.getElementById('total');
+document.querySelectorAll('input[name="copies"]').forEach((r) => r.addEventListener('change', () => { total.value = '£' + (18 * Number(r.value)); }));
 document.querySelectorAll('form[data-endpoint]').forEach((form) => {
   const help = form.querySelector('[aria-live]'), email = form.querySelector('input[type=email]');
-  const copies = form.querySelector('#copies'), total = form.querySelector('#total');
-  const sum = () => { total.value = '£' + (18 * Number(copies.value)); };
-  copies.addEventListener('change', sum); sum();
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const ok = email.checkValidity();
@@ -167,7 +177,7 @@ document.querySelectorAll('form[data-endpoint]').forEach((form) => {
     email.removeAttribute('aria-describedby');
     if (!form.dataset.endpoint) { help.textContent = 'Nothing was sent: this form is not connected yet.'; return; }
     fetch(form.dataset.endpoint, { method: 'POST', body: new FormData(form) })
-      .then((r) => { help.textContent = r.ok ? 'Your pre-order is in. The receipt goes to ' + email.value.trim() + '.' : 'That did not go through. Try again in a minute.'; })
+      .then((r) => { help.textContent = r.ok ? (form.dataset.done || 'Your pre-order is in. The receipt goes to {email}.').replace('{email}', email.value.trim()) : 'That did not go through. Try again in a minute.'; })
       .catch(() => { help.textContent = 'That did not go through. Try again in a minute.'; });
   });
 });

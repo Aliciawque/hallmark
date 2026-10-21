@@ -1,4 +1,4 @@
-// quarry: the answer streams in once, a sample day of traffic under one flat price line, code tabs and copy, the key form.
+// quarry: the answer streams in once, a sample day of traffic under one flat price line, code tabs and copy.
 (() => {
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -47,22 +47,4 @@
     try { await navigator.clipboard.writeText(pre.textContent); copy.classList.add('is-done'); copy.setAttribute('aria-label', 'Copied'); setTimeout(() => { copy.classList.remove('is-done'); copy.setAttribute('aria-label', 'Copy the request'); }, 1400); } catch (e) {}
   });
 
-  // the key form: honest until it is wired
-  document.querySelectorAll('form[data-endpoint]').forEach((form) => {
-    const help = form.querySelector('[aria-live]');
-    const input = form.querySelector('input[type="email"]');
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const ok = input.checkValidity();
-      input.setAttribute('aria-invalid', String(!ok));
-      if (!ok) { help.textContent = 'That address looks incomplete. Write it as you@example.com.'; input.focus(); return; }
-      if (!form.dataset.endpoint) { help.textContent = 'Nothing was sent: this form is not connected yet.'; return; }
-      const btn = form.querySelector('[type="submit"]');
-      btn.setAttribute('aria-busy', 'true');
-      fetch(form.dataset.endpoint, { method: 'POST', body: new FormData(form) })
-        .then((r) => { help.textContent = r.ok ? 'Request received for ' + input.value + '.' : 'That did not go through. Try again in a minute.'; })
-        .catch(() => { help.textContent = 'That did not go through. Try again in a minute.'; })
-        .finally(() => btn.removeAttribute('aria-busy'));
-    });
-  });
 })();

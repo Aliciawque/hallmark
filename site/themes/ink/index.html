@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -18,110 +19,86 @@
     <a class="wordmark" href="#top" aria-label="Barton Road Library of Things, home">Barton Road Library of Things</a>
     <div class="bar__end">
       <span class="tag tag--neutral" id="state" role="status">Open Saturdays, 10 to 2</span>
-      <a class="bar__link" href="#join">Join</a>
+      <a class="bar__link" href="#first">First visit</a>
+      <a class="btn btn--primary btn--sm" href="#join">Join</a>
     </div>
   </div>
 </header>
 
 <main id="main">
-  <section class="hero" id="top">
+  <section class="hero" id="top" aria-labelledby="hero-h">
     <div class="container hero__grid">
-      <figure class="hero__photo photo" data-slot="hero" data-alt="The library's own shelves or tool wall on a Saturday">
-        <img src="photos/various-tools-hanging-on-a-pegboard-in-a-workshop-setting-wi-1920.jpg" width="1920" height="1282" fetchpriority="high"
-               style="object-position: 55% 50%" alt="Pliers, spanners and screwdrivers hung in rows on a pegboard wall">
-      </figure>
       <div class="hero__text">
-        <h1>410 things to borrow on Barton Road.</h1>
-        <p class="lead">A lending library of tools and equipment for the street.</p>
+        <h1 id="hero-h">410 things to borrow on Barton Road.</h1>
+        <p class="lead">Tools and equipment, lent to the street.</p>
         <div class="actions">
-          <a class="btn btn--primary" href="#join">Become a member</a>
-          <a class="btn" href="#shelf">See what’s in</a>
+          <a class="btn btn--primary" href="#join">Join for £15 a year</a>
+          <a class="btn" href="#first">Your first Saturday</a>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="shelf" id="shelf" aria-labelledby="shelf-h">
-    <div class="container shelf__grid">
-      <div class="shelf__head">
-        <h2 id="shelf-h">What’s on the shelves</h2>
-        <p class="lead">Type a thing; the list narrows as you go.</p>
+      <div class="shelf" aria-label="What is on the shelves">
         <div class="find">
           <label for="find">Find a thing</label>
           <input id="find" type="search" autocomplete="off" spellcheck="false" placeholder="Drill, ladder, tent">
         </div>
-      </div>
-      <div class="shelf__list">
-        <ul class="items" id="things">
-          <li class="item" data-words="hand tool set tools hammer pliers screwdriver spanner"><h3>Hand tool set</h3><p>Hammer, pliers, spanners, a tester.</p><span class="tag tag--in">In</span></li>
-          <li class="item" data-words="tent camping dome"><h3>Tent for two</h3><p>A dome tent that sleeps two.</p><span class="tag tag--out">Out until Saturday</span></li>
-          <li class="item" data-words="drill hammer drill masonry bits"><h3>Drill and bits</h3><p>Hammer drill, bits for brick.</p><span class="tag tag--in">In</span></li>
-          <li class="item" data-words="bicycle bike cycle"><h3>Bicycle</h3><p>A town bike while yours is mended.</p><span class="tag tag--in">In</span></li>
-          <li class="item" data-words="ladder step ladder extension"><h3>Ladder</h3><p>Reaches a first floor gutter.</p><span class="tag tag--out">Out until Saturday</span></li>
-          <li class="item" data-words="paint brushes decorating brush"><h3>Paint brushes</h3><p>Flat and round, for walls.</p><span class="tag tag--in">In</span></li>
-        </ul>
-        <p class="things__none" id="none" hidden>Nothing called that on the list yet. Ask at the desk on Saturday.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="shared" aria-labelledby="shared-h">
-    <div class="container">
-      <div class="head-split">
-        <h2 id="shared-h">Things the street shares</h2>
-        <p class="lead">Use it, bring it back, pass it on.</p>
-      </div>
-      <div class="bento">
-        <figure class="tile tile--lead">
-          <div class="photo" data-slot="shared-lead" data-alt="The library's own hand tool set, laid out on the desk">
-            <img src="photos/diy-means-choosing-the-right-tool-for-the-purpose-a-watchmak-1920.jpg" width="1920" height="1280" loading="lazy" style="object-position: 50% 50%" alt="A hammer, pliers, spanners, screwdrivers and a tester laid in a ring on white">
-          </div>
-          <figcaption><span>Hand tool set</span><span class="tag tag--in">In</span></figcaption>
-        </figure>
-        <div class="tile tile--ink">
-          <p>The things you need twice a year belong to the whole street.</p>
-        </div>
-        <div class="tile tile--well">
-          <dl class="nums">
-            <div><dt>things on the shelves</dt><dd>410</dd></div>
-            <div><dt>a year to borrow any of them</dt><dd>£15</dd></div>
-          </dl>
-        </div>
-        <figure class="tile">
-          <div class="photo" data-slot="shared-tent" data-alt="The library's own tent, pitched or packed">
-            <img src="photos/zagedan-ridge-camping-tent-caucasus-mountains-1920.jpg" width="1920" height="1276" loading="lazy" style="object-position: 45% 62%" alt="A small dome tent pitched on a grassy hillside in low sun">
-          </div>
-          <figcaption><span>Tent for two</span><span class="tag tag--out">Out until Saturday</span></figcaption>
-        </figure>
-        <figure class="tile tile--wide">
-          <div class="photo" data-slot="shared-bike" data-alt="The library's own bicycle against a wall on Barton Road">
-            <img src="photos/raleigh-lady-s-loop-frame-bicycle-1930s-1920.jpg" width="1920" height="1210" loading="lazy" style="object-position: 50% 60%" alt="An old black town bicycle leaning on a stone wall">
-          </div>
-          <figcaption><span>Bicycle</span><span class="tag tag--in">In</span></figcaption>
-        </figure>
+        <table class="items" id="things">
+          <caption class="visually-hidden">A sample of the things on the shelves, with whether each is in</caption>
+          <tbody>
+            <tr class="item" data-words="hand tool set tools hammer pliers screwdriver spanner tester"><th scope="row">Hand tool set</th><td>Hammer, pliers, spanners.</td><td><span class="tag tag--in">In</span></td></tr>
+            <tr class="item" data-words="drill hammer drill masonry bits"><th scope="row">Drill and bits</th><td>Bits for brick.</td><td><span class="tag tag--in">In</span></td></tr>
+            <tr class="item" data-words="ladder step ladder extension gutter"><th scope="row">Ladder</th><td>Reaches a first floor.</td><td><span class="tag tag--out">Out</span></td></tr>
+            <tr class="item" data-words="tent camping dome"><th scope="row">Tent for two</th><td>A dome that sleeps two.</td><td><span class="tag tag--out">Out</span></td></tr>
+            <tr class="item" data-words="bicycle bike cycle"><th scope="row">Bicycle</th><td>While yours is mended.</td><td><span class="tag tag--in">In</span></td></tr>
+            <tr class="item" data-words="paint brushes decorating brush walls"><th scope="row">Paint brushes</th><td>Flat and round.</td><td><span class="tag tag--in">In</span></td></tr>
+          </tbody>
+        </table>
+        <p class="things__none" id="none" hidden>Nothing called that on this list. Ask at the desk on Saturday.</p>
+        <p class="shelf__note">A sample. All 410 are at the desk.</p>
       </div>
     </div>
   </section>
 
-  <section class="how" id="how" aria-labelledby="how-h">
+  <section class="first" id="first" aria-labelledby="first-h">
     <div class="container">
       <div class="head-split">
-        <h2 id="how-h">How borrowing works</h2>
-        <p class="lead">Four steps, and a Saturday at each end.</p>
+        <h2 id="first-h">Your first Saturday</h2>
+        <p class="lead">From the door to your own front door, in four moves.</p>
       </div>
-      <ol class="steps">
-        <li><h3>Join</h3><p>One membership covers the whole year.</p></li>
-        <li><h3>Come on a Saturday</h3><p>Pick things up while the doors are open.</p></li>
-        <li><h3>Take home what’s in</h3><p>Anything tagged <span class="tag tag--in">In</span> can go home with you.</p></li>
-        <li><h3>Bring it back</h3><p>Return it on a Saturday for the next neighbour.</p></li>
-      </ol>
+      <div class="pin">
+        <div class="pin__stage" aria-hidden="true">
+          <figure class="pin__shot photo is-on" data-shot="1" data-slot="first-door" data-alt="The library's own shelves on a Saturday morning">
+            <img src="photos/various-tools-hanging-on-a-pegboard-in-a-workshop-setting-wi-1920.jpg" width="1920" height="1282" loading="lazy" style="object-position: 55% 50%" alt="">
+          </figure>
+          <figure class="pin__shot photo" data-shot="2" data-slot="first-desk" data-alt="The library's own hand tool set, laid out on the desk">
+            <img src="photos/diy-means-choosing-the-right-tool-for-the-purpose-a-watchmak-1920.jpg" width="1920" height="1280" loading="lazy" alt="">
+          </figure>
+          <figure class="pin__shot photo" data-shot="3" data-slot="first-in" data-alt="A thing tagged In, ready to go home">
+            <img src="photos/ladder-in-gyumri-1920.jpg" width="1920" height="2896" loading="lazy" style="object-position: 50% 22%" alt="">
+          </figure>
+          <figure class="pin__shot photo" data-shot="4" data-slot="first-back" data-alt="The library's own bicycle, back against the wall on Barton Road">
+            <img src="photos/raleigh-lady-s-loop-frame-bicycle-1930s-1920.jpg" width="1920" height="1210" loading="lazy" style="object-position: 50% 60%" alt="">
+          </figure>
+        </div>
+        <ol class="pin__steps">
+          <li data-step="1"><h3>Come between 10 and 2</h3><p>The doors on Barton Road open every Saturday.</p></li>
+          <li data-step="2"><h3>Join at the desk</h3><p>One membership covers the year and every thing on the shelves.</p></li>
+          <li data-step="3"><h3>Take home what’s in</h3><p>Anything tagged <span class="tag tag--in">In</span> goes home with you that day.</p></li>
+          <li data-step="4"><h3>Bring it back on a Saturday</h3><p>It goes straight back on the shelf for the next neighbour.</p></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="say" aria-label="Why it exists">
+    <div class="container">
+      <p class="say__line">The things you need twice a year belong to the whole street.</p>
     </div>
   </section>
 
   <section class="days" id="days" aria-labelledby="days-h">
     <div class="container days__grid">
       <div class="days__head">
-        <h2 id="days-h">Saturdays,<br>10 to 2</h2>
+        <h2 id="days-h">Saturdays, 10 to 2</h2>
         <p class="lead">At the library on Barton Road, <span class="fill" data-fill="address">street number to come</span>.</p>
       </div>
       <ol class="days__list" id="saturdays">
@@ -137,7 +114,12 @@
     <div class="container join-band__grid">
       <div class="join-band__head">
         <h2 id="join-h">£15 covers a whole year</h2>
-        <p class="lead">Leave your name and email, and the desk will have your card on Saturday.</p>
+        <p class="lead">Leave your name, and your card waits at the desk on Saturday.</p>
+      </div>
+      <div class="card" aria-hidden="true">
+        <p class="card__org">Barton Road Library of Things</p>
+        <p class="card__name" id="card-name">Your name</p>
+        <div class="card__foot"><span>Member for a year</span><span class="tag tag--in">Valid</span></div>
       </div>
       <form class="join" data-endpoint="" novalidate>
         <div class="f">
@@ -161,12 +143,12 @@
   <div class="container foot__grid">
     <p class="foot__colophon"><strong>Barton Road Library of Things</strong> is a community lending library of tools and equipment on Barton Road, open Saturdays from 10 to 2. Membership is £15 a year.</p>
     <nav class="foot__links" aria-label="This page">
-      <a href="#shelf">What’s in</a>
-      <a href="#how">How it works</a>
+      <a href="#top">What’s in</a>
+      <a href="#first">First visit</a>
       <a href="#days">Saturdays</a>
       <a href="#join">Join</a>
     </nav>
-    <p class="foot__credit" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Various_tools_hanging_on_a_pegboard_in_a_workshop_setting_with_natural_light_filtering_in.jpg">Shixart1985</a>, CC&nbsp;BY&nbsp;2.0; <a href="https://commons.wikimedia.org/wiki/File:DIY_means_choosing_the_right_tool_for_the_purpose_-_a_watchmaker%27s_nightmare.jpg">Franz van Duns</a>, CC&nbsp;BY-SA&nbsp;4.0; <a href="https://commons.wikimedia.org/wiki/File:Zagedan_Ridge,_Camping_tent,_Caucasus_Mountains.jpg">Vyacheslav Argenberg</a>, CC&nbsp;BY&nbsp;4.0; <a href="https://commons.wikimedia.org/wiki/File:Raleigh_lady%27s_loop_frame_bicycle_1930s.jpg">DeFacto</a>, CC&nbsp;BY-SA&nbsp;4.0, all on Wikimedia Commons. © 2026</p>
+    <p class="foot__credit" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Various_tools_hanging_on_a_pegboard_in_a_workshop_setting_with_natural_light_filtering_in.jpg">Shixart1985</a>, CC&nbsp;BY&nbsp;2.0; <a href="https://commons.wikimedia.org/wiki/File:DIY_means_choosing_the_right_tool_for_the_purpose_-_a_watchmaker%27s_nightmare.jpg">Franz van Duns</a>, CC&nbsp;BY-SA&nbsp;4.0; <a href="https://commons.wikimedia.org/wiki/File:Ladder_in_Gyumri.jpg">Araqangaraq</a>, CC&nbsp;BY-SA&nbsp;4.0; <a href="https://commons.wikimedia.org/wiki/File:Raleigh_lady%27s_loop_frame_bicycle_1930s.jpg">DeFacto</a>, CC&nbsp;BY-SA&nbsp;4.0, all on Wikimedia Commons. © 2026</p>
   </div>
 </footer>
 
@@ -207,6 +189,15 @@
     none.hidden = shown > 0;
   });
 
+  // your first Saturday: the picture follows the step in view
+  const shots = [...document.querySelectorAll('.pin__shot')];
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { const n = e.target.dataset.step; shots.forEach((s) => s.classList.toggle('is-on', s.dataset.shot === n)); document.querySelectorAll('.pin__steps li').forEach((l) => l.classList.toggle('is-on', l === e.target)); } }), { rootMargin: '-45% 0px -45% 0px' });
+  document.querySelectorAll('.pin__steps li').forEach((l) => io.observe(l));
+
+  // the card takes the name as it is typed
+  const cardName = document.getElementById('card-name');
+  document.getElementById('j-name').addEventListener('input', (e) => { cardName.textContent = e.target.value.trim() || 'Your name'; });
+
   // the join form posts nowhere yet
   const form = document.querySelector('.join');
   const help = document.getElementById('join-help');
@@ -217,6 +208,7 @@
     const bad = fields.find((i) => !i.checkValidity());
     if (bad) { bad.setAttribute('aria-invalid', 'true'); bad.setAttribute('aria-describedby', 'join-help'); help.textContent = bad.type === 'email' ? 'That email looks incomplete. Write it as name@example.com.' : 'Write your name so the desk knows who joined.'; bad.focus(); return; }
     if (!form.dataset.endpoint) { help.textContent = 'Nothing was sent: this form is not connected yet.'; return; }
+    fetch(form.dataset.endpoint, { method: 'POST', body: new FormData(form) }).then((r) => { help.textContent = r.ok ? 'Your card will be at the desk on Saturday.' : 'That did not go through. Try again in a minute.'; }).catch(() => { help.textContent = 'That did not go through. Try again in a minute.'; });
   });
 })();
 </script>

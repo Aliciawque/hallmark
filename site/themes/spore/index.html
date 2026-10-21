@@ -18,11 +18,11 @@
   <nav class="nav__pill" aria-label="Main">
     <a class="wordmark" href="#top" aria-label="Night Cellar, home">Night Cellar</a>
     <ul class="nav__links" role="list">
-      <li><a href="#list">The list</a></li>
-      <li><a href="#week">Hours</a></li>
+      <li><a href="#shelf">The shelf</a></li>
       <li><a href="#tastings">Tastings</a></li>
+      <li><a href="#find">Find us</a></li>
     </ul>
-    <p class="nav__door" role="status" id="door">Open Thursday to Sunday</p>
+    <a class="nav__door" href="#find" id="door"><span id="door-text">Open Thursday to Sunday</span></a>
   </nav>
 </header>
 
@@ -31,10 +31,10 @@
     <div class="hero__grid">
       <div class="hero__text">
         <h1 id="hero-title">Natural wine after five.</h1>
-        <p class="lead">A natural wine shop and bar with 140 bottles on the list.</p>
+        <p class="lead">A natural wine shop and bar, open Thursday to Sunday from 5pm.</p>
         <div class="actions">
-          <a class="btn btn--primary" href="#tastings">Get the tasting date</a>
-          <a class="btn btn--secondary" href="#list">How the list works</a>
+          <a class="btn btn--primary" href="#find">Find us</a>
+          <a class="btn btn--secondary" href="#shelf">See the shelf</a>
         </div>
       </div>
       <figure class="photo hero__photo" data-slot="hero" data-alt="A bottle poured at the bar after five">
@@ -43,19 +43,19 @@
     </div>
   </section>
 
-  <section class="list" id="list" aria-labelledby="list-title">
-    <div class="container">
-      <div class="list__well grained">
-        <p class="list__figure"><span class="figure">140</span><span class="list__unit">bottles on the list</span></p>
-        <div class="list__side">
-          <h2 id="list-title">One list, two ways.</h2>
-          <dl class="ways">
-            <div><dt>At the bar</dt><dd>Choose from the shelf and we open it here.</dd></div>
-            <div><dt>From the shop</dt><dd>The same bottles, to take home tonight.</dd></div>
-          </dl>
-        </div>
-      </div>
+  <section class="shelf" id="shelf" aria-labelledby="shelf-title">
+    <div class="container shelf__head">
+      <h2 id="shelf-title" class="shelf__title"><span class="figure shelf__figure">140</span><span class="shelf__unit">bottles on the list</span></h2>
+      <p class="lead shelf__line">Natural wine only, set out on the shelf by style.</p>
     </div>
+    <ul class="rail" tabindex="0" aria-label="The shelf, by style" role="list">
+      <li class="label grained"><h3>Pét-nat</h3><p class="label__second">pétillant naturel</p><p class="label__line">Bottled early, so it sparkles.</p></li>
+      <li class="label grained"><h3>Skin contact</h3><p class="label__second">orange wine</p><p class="label__line">White grapes left on their skins.</p></li>
+      <li class="label grained"><h3>Fresh white</h3><p class="label__second">pressed straight off</p><p class="label__line">Bright and lean, for the first glass.</p></li>
+      <li class="label grained"><h3>Rosé</h3><p class="label__second">a night on the skins</p><p class="label__line">Pale, dry, and gone by closing.</p></li>
+      <li class="label grained"><h3>Light red</h3><p class="label__second">served cool</p><p class="label__line">Juicy, poured from the fridge.</p></li>
+      <li class="label grained"><h3>Deep red</h3><p class="label__second">for the late hours</p><p class="label__line">Darker fruit, for a slower glass.</p></li>
+    </ul>
   </section>
 
   <section class="racks" aria-labelledby="racks-title">
@@ -64,61 +64,64 @@
     </figure>
     <div class="racks__over">
       <div class="container">
-        <h2 id="racks-title" class="statement">Every bottle on the shelf is natural.</h2>
+        <h2 id="racks-title" class="statement">Open a bottle here, or take it home.</h2>
       </div>
     </div>
   </section>
 
-  <section class="week" id="week" aria-labelledby="week-title">
-    <div class="container week__grid">
-      <div class="week__head">
-        <h2 id="week-title">Four nights a week.</h2>
-        <p class="lead">The shop and the bar open together.</p>
+  <section class="tastings" id="tastings" aria-labelledby="tastings-title">
+    <div class="container">
+      <div class="tastings__well grained">
+        <p class="price"><span class="price__figure figure">£25</span><span class="price__unit">a place at the monthly tasting</span></p>
+        <div class="tastings__text">
+          <h2 id="tastings-title">A tasting, once a month.</h2>
+          <p class="tastings__next">Next tasting: <span class="fill" data-fill="date">date to be announced</span></p>
+          <form class="signup" data-endpoint="" novalidate>
+            <label for="email">Your email, for the date</label>
+            <div class="signup__row">
+              <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required>
+              <button class="btn btn--secondary" type="submit">Send me the date</button>
+            </div>
+            <p class="signup__help" id="email-help" aria-live="polite"></p>
+          </form>
+        </div>
       </div>
-      <table class="days">
-        <caption class="visually-hidden">Opening days</caption>
-        <tbody>
-          <tr data-day="1" class="is-closed"><th scope="row">Monday</th><td>Closed</td><td class="days__now"></td></tr>
-          <tr data-day="2" class="is-closed"><th scope="row">Tuesday</th><td>Closed</td><td class="days__now"></td></tr>
-          <tr data-day="3" class="is-closed"><th scope="row">Wednesday</th><td>Closed</td><td class="days__now"></td></tr>
-          <tr data-day="4"><th scope="row">Thursday</th><td>From 5pm</td><td class="days__now"></td></tr>
-          <tr data-day="5"><th scope="row">Friday</th><td>From 5pm</td><td class="days__now"></td></tr>
-          <tr data-day="6"><th scope="row">Saturday</th><td>From 5pm</td><td class="days__now"></td></tr>
-          <tr data-day="0"><th scope="row">Sunday</th><td>From 5pm</td><td class="days__now"></td></tr>
-        </tbody>
-      </table>
     </div>
   </section>
 
-  <section class="tastings grained" id="tastings" aria-labelledby="tastings-title">
-    <div class="container tastings__grid">
-      <figure class="photo tastings__photo" data-slot="photo-2" data-alt="The bar laid for a tasting">
-        <img src="photos/paris-a-waiter-lighting-candles-in-a-bar-3418-1920.jpg" width="4368" height="2912" loading="lazy" sizes="(max-width: 60rem) 100vw, 45vw" alt="Candles in red glass lit along a dark bar counter" style="object-position: 34% 70%">
-      </figure>
-      <div class="tastings__text">
-        <h2 id="tastings-title">A tasting, once a month.</h2>
-        <p class="price"><span class="price__figure figure">£25</span><span>a place</span></p>
-        <form class="signup" data-endpoint="" novalidate>
-          <label for="email">Your email, for the next date</label>
-          <div class="signup__row">
-            <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required>
-            <button class="btn btn--primary" type="submit">Send me the date</button>
-          </div>
-          <p class="signup__help" id="email-help" aria-live="polite"></p>
-        </form>
+  <section class="find grained" id="find" aria-labelledby="find-title">
+    <div class="container">
+      <div class="find__head">
+        <div class="find__text">
+          <h2 id="find-title">Find us.</h2>
+          <p class="find__where"><span class="fill" data-fill="address">Address to come</span></p>
+          <p class="find__note">The shop and the bar open together.</p>
+        </div>
+        <figure class="photo find__photo" data-slot="photo-2" data-alt="The bar after dark, candles lit">
+          <img src="photos/paris-a-waiter-lighting-candles-in-a-bar-3418-1920.jpg" width="4368" height="2912" loading="lazy" sizes="(max-width: 60rem) 100vw, 55vw" alt="Candles in red glass lit along a dark bar counter" style="object-position: 40% 66%">
+        </figure>
       </div>
+      <ol class="week" role="list" aria-label="Opening days">
+        <li data-day="1" class="is-closed"><span class="week__day">Monday</span><span class="week__time">Closed</span></li>
+        <li data-day="2" class="is-closed"><span class="week__day">Tuesday</span><span class="week__time">Closed</span></li>
+        <li data-day="3" class="is-closed"><span class="week__day">Wednesday</span><span class="week__time">Closed</span></li>
+        <li data-day="4"><span class="week__day">Thursday</span><span class="week__time"><small>From</small> 5pm</span></li>
+        <li data-day="5"><span class="week__day">Friday</span><span class="week__time"><small>From</small> 5pm</span></li>
+        <li data-day="6"><span class="week__day">Saturday</span><span class="week__time"><small>From</small> 5pm</span></li>
+        <li data-day="0"><span class="week__day">Sunday</span><span class="week__time"><small>From</small> 5pm</span></li>
+      </ol>
     </div>
   </section>
 </main>
 
-<footer class="footer" id="find">
+<footer class="footer">
   <div class="container">
     <div class="footer__top">
-      <p class="footer__where"><span class="fill" data-fill="address">Address to come</span></p>
+      <p class="footer__line">Natural wine, after dark.</p>
       <ul class="footer__links" role="list">
-        <li><a href="#list">The list</a></li>
-        <li><a href="#week">Hours</a></li>
+        <li><a href="#shelf">The shelf</a></li>
         <li><a href="#tastings">Tastings</a></li>
+        <li><a href="#find">Find us</a></li>
       </ul>
     </div>
     <p class="footer__mast" aria-hidden="true">Night Cellar</p>
@@ -135,10 +138,10 @@ document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete &
   (() => {
     const day = new Date().getDay();
     const open = [4, 5, 6, 0].includes(day);
-    const door = document.getElementById('door');
-    if (door) door.textContent = open ? 'Open tonight from 5pm' : 'Opens Thursday at 5pm';
-    const row = document.querySelector(`.days tr[data-day="${day}"]`);
-    if (row) { row.classList.add('is-today'); row.querySelector('.days__now').innerHTML = `<span class="chip">${open ? 'Tonight' : 'Today'}</span>`; }
+    const door = document.getElementById('door-text');
+    if (door) { door.textContent = open ? 'Open tonight from 5pm' : 'Opens Thursday at 5pm'; door.parentElement.classList.toggle('is-open', open); }
+    const cell = document.querySelector(`.week li[data-day="${day}"]`);
+    if (cell) { cell.classList.add('is-today'); cell.setAttribute('aria-current', 'date'); cell.insertAdjacentHTML('afterbegin', `<span class="chip">${open ? 'Tonight' : 'Today'}</span>`); }
     document.querySelectorAll('form[data-endpoint]').forEach((form) => {
       const input = form.querySelector('input'), help = form.querySelector('[aria-live]');
       form.addEventListener('submit', (e) => {

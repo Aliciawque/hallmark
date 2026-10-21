@@ -14,13 +14,14 @@
 <body>
 <a class="skip" href="#main">Skip to content</a>
 
-<div class="banner"><div class="container"><p>14 November, Leeds, 7pm to midnight.</p></div></div>
+<div class="banner"><div class="container"><p>One night only: 22 indie games you can play before they ship.</p></div></div>
 <header class="bar">
   <div class="container bar__in">
     <a class="bar__mark" href="#top" aria-label="Pixel Picnic, back to the top">Pixel Picnic</a>
     <nav class="bar__links" aria-label="Sections">
       <a href="#night">The night</a>
-      <a href="#tickets">Tickets</a>
+      <a href="#questions">Questions</a>
+      <a class="btn btn--small" href="#tickets">Tickets</a>
     </nav>
   </div>
 </header>
@@ -29,8 +30,12 @@
 
 <section class="hero" id="top" aria-labelledby="hero-head">
   <div class="hero__text">
-    <h1 id="hero-head">Play it<br>before it<br>ships</h1>
-    <p class="lead">22 indie games, mid-build and playable, for one night only.</p>
+    <h1 id="hero-head"><span class="hero__date">14 Nov</span> <span class="hero__place">Leeds</span></h1>
+    <p class="lead"><b>Pixel Picnic.</b> 22 indie games, playable before they ship.</p>
+    <dl class="stub">
+      <div><dt>Doors</dt><dd><span class="figure">7PM</span><span class="stub__to">to midnight</span></dd></div>
+      <div><dt>On the door</dt><dd><span class="figure figure--ember">£6</span><span class="stub__to">by ticket</span></dd></div>
+    </dl>
     <div class="hero__acts">
       <a class="btn" href="#tickets">Get a ticket</a>
       <a class="btn btn--open" href="#night">See the night</a>
@@ -41,47 +46,22 @@
   </figure>
 </section>
 
-<section class="score" aria-labelledby="score-head">
+<section class="night" id="night" aria-labelledby="night-head">
   <div class="container">
     <div class="split-head">
-      <h2 id="score-head">One night, then they ship.</h2>
-      <p class="lead">Come early: every game is gone by midnight.</p>
+      <h2 id="night-head">One night, two sides of the screen.</h2>
+      <p class="lead">Half the room plays. Half made the games.</p>
     </div>
-    <dl class="score__line">
-      <div><dt>games to play</dt><dd class="figure">22</dd></div>
-      <div><dt>hours, seven to midnight</dt><dd class="figure figure--ember">5</dd></div>
-      <div><dt>on the door</dt><dd class="figure">£6</dd></div>
-    </dl>
-  </div>
-</section>
-
-<section class="games" id="night" aria-labelledby="games-head">
-  <div class="container">
-    <div class="split-head">
-      <h2 id="games-head">None of them are finished.</h2>
-      <p class="lead">Every one is a demo, set up on a screen and ready for your hands.</p>
-    </div>
-    <figure class="pic crt games__wide" data-slot="games" data-alt="The room at Pixel Picnic: games set up and playable, wide">
-      <img src="photos/asus-rog-strix-g15-g513qy-hq012t-top-keyboard-wasd-pnr-0888-1920.jpg" width="3216" height="2173" alt="The W, A, S and D keys lit from below on a black keyboard, close" style="object-position: 50% 62%" loading="lazy">
-    </figure>
-  </div>
-</section>
-
-<section class="sides" aria-labelledby="sides-head">
-  <div class="container">
-    <div class="split-head">
-      <h2 id="sides-head">Pick a side of the screen.</h2>
-      <p class="lead">Half the room plays. The other half made what they are playing.</p>
-    </div>
-    <table class="duel">
-      <caption class="visually-hidden">What the night is for players and for developers</caption>
+    <table class="sched">
+      <caption class="visually-hidden">The night hour by hour, for players and for developers</caption>
       <thead>
-        <tr><td></td><th scope="col" class="duel__one">You came to play</th><th scope="col" class="duel__two">You made one</th></tr>
+        <tr><td></td><th scope="col" class="sched__p1">You came to play</th><th scope="col" class="sched__p2">You made one</th></tr>
       </thead>
       <tbody>
-        <tr><th scope="row">Arrive</th><td>Walk up to any screen and pick up the pad</td><td>Set your build up and step back</td></tr>
-        <tr><th scope="row">Play</th><td>Play what nobody outside the studio has seen</td><td>Watch strangers find what you never tested</td></tr>
-        <tr><th scope="row">Leave</th><td>Having played it before it ships</td><td>With notes from real hands, not a review</td></tr>
+        <tr><th scope="row"><span class="sched__when">Before doors</span></th><td><span class="sched__quiet">Have your ticket ready</span></td><td>Set your build up</td></tr>
+        <tr class="is-next"><th scope="row"><span class="figure">7PM</span><span class="sched__tag">Next up</span></th><td>Doors open. Walk up and pick up any pad</td><td>Step back and let strangers play</td></tr>
+        <tr><th scope="row"><span class="sched__when">All night</span></th><td>Play what nobody outside the studio has seen</td><td>Watch them find what you never tested</td></tr>
+        <tr><th scope="row"><span class="figure">12AM</span></th><td>The screens go dark</td><td>Pack up with notes from real hands</td></tr>
       </tbody>
     </table>
   </div>
@@ -94,19 +74,28 @@
   </div>
 </section>
 
-<section class="clock" aria-labelledby="clock-head">
-  <div class="container clock__grid">
-    <div class="clock__text">
-      <h2 id="clock-head">Seven till the screens go dark.</h2>
-      <ol class="menu">
-        <li class="menu__row" aria-current="true"><span class="figure">7PM</span><span class="menu__what">Doors open, every demo switched on</span></li>
-        <li class="menu__row"><span class="figure">12AM</span><span class="menu__what">Screens off, builds packed up</span></li>
-        <li class="menu__row menu__row--place"><span class="menu__where">Leeds</span><span class="menu__what"><span class="fill" data-fill="venue">Venue to be announced</span></span></li>
-      </ol>
-    </div>
-    <figure class="pic crt clock__photo" data-slot="night" data-alt="A developer at Pixel Picnic watching someone play their game, over the shoulder">
+<section class="ask" id="questions" aria-labelledby="ask-head">
+  <div class="container ask__grid">
+    <figure class="pic crt ask__photo" data-slot="night" data-alt="A developer at Pixel Picnic watching someone play their game, over the shoulder">
       <img src="photos/backlit-keyboard-1920.jpg" width="4357" height="2451" alt="Fingers on a backlit keyboard in the dark" style="object-position: 46% 60%" loading="lazy">
     </figure>
+    <div class="ask__text">
+      <h2 id="ask-head">Before you come.</h2>
+      <div class="qs">
+        <details open>
+          <summary>Do I need a ticket?</summary>
+          <p>Yes, entry is by ticket. Request yours below and pay on the door.</p>
+        </details>
+        <details>
+          <summary>Where in Leeds?</summary>
+          <p>The venue is <span class="fill" data-fill="venue">to be announced</span>.</p>
+        </details>
+        <details>
+          <summary>I made a game. Can I show it?</summary>
+          <p>The night is for developers showing work in progress. <span class="fill" data-fill="apply">How to apply, to be announced</span>.</p>
+        </details>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -114,9 +103,10 @@
   <div class="container tickets__grid">
     <div class="tickets__text">
       <h2 id="tickets-head">Entry is by ticket.</h2>
-      <p class="lead">Six pounds a head on the door. Bring the crew and count them in.</p>
+      <p class="lead">£6 a head on the door. Count your crew in.</p>
+      <p class="tickets__when">14 November, Leeds</p>
     </div>
-    <form class="ticket well" data-endpoint="" novalidate aria-label="Request tickets">
+    <form class="ticket" data-endpoint="" novalidate aria-label="Request tickets">
       <div class="ticket__count">
         <span class="ticket__label" id="count-label">Tickets</span>
         <div class="count" role="group" aria-labelledby="count-label">
@@ -125,9 +115,9 @@
           <button type="button" class="count__btn" data-step="1" aria-label="One ticket more">+</button>
         </div>
       </div>
-      <p class="ticket__total"><span class="ticket__label">On the door</span><output class="figure" id="total" for="count" aria-live="polite">£12</output></p>
+      <p class="ticket__total"><span class="ticket__label">Pay on the door</span><output class="figure" id="total" for="count" aria-live="polite">£12</output></p>
       <div class="ticket__mail">
-        <label for="mail">Email address</label>
+        <label for="mail">Email address, for the tickets</label>
         <input id="mail" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="ticket-help">
       </div>
       <div class="ticket__go">
@@ -147,10 +137,11 @@
       <p class="foot__line">See you in Leeds on the 14th.</p>
       <nav class="foot__links" aria-label="Footer">
         <a href="#night">The night</a>
+        <a href="#questions">Questions</a>
         <a href="#tickets">Tickets</a>
       </nav>
     </div>
-    <p class="foot__credit" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Arcade_(8409657650).jpg">Faruk Ateş from Vancouver &amp; SF</a> (CC&nbsp;BY&nbsp;2.0), <a href="https://commons.wikimedia.org/wiki/File:ASUS_ROG_Strix_G15_(G513QY-HQ012T)-top_keyboard_WASD_PNr%C2%B00888.jpg">D-Kuru</a> (CC&nbsp;BY-SA&nbsp;4.0), <a href="https://commons.wikimedia.org/wiki/File:Backlit_keyboard.jpg">Colin</a> (CC&nbsp;BY-SA&nbsp;4.0), all on Wikimedia Commons.</p>
+    <p class="foot__credit" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Arcade_(8409657650).jpg">Faruk Ateş from Vancouver &amp; SF</a> (CC&nbsp;BY&nbsp;2.0), <a href="https://commons.wikimedia.org/wiki/File:Backlit_keyboard.jpg">Colin</a> (CC&nbsp;BY-SA&nbsp;4.0), both on Wikimedia Commons.</p>
   </div>
 </footer>
 

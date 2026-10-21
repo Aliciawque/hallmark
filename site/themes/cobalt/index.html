@@ -23,29 +23,33 @@
       <kbd>⌘&nbsp;K</kbd>
     </button>
     <div class="jump__menu" id="jump" popover aria-label="Sections">
-      <a href="#in">Sources</a>
-      <a href="#typed">Types</a>
-      <a href="#retry">Retries</a>
-      <a href="#replay">Replay</a>
-      <a href="#start">Pricing</a>
+      <a href="#stream">The console</a>
+      <a href="#does">What it does</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#start">Your handler</a>
     </div>
-    <a class="btn btn--sm" href="#start">Start free</a>
+    <a class="btn btn--sm" href="#pricing">Start free</a>
   </div>
 </header>
 
 <main id="main">
   <section class="hero" aria-labelledby="hero-head">
     <div class="container hero__grid">
-      <div class="hero__text">
-        <h1 id="hero-head">Webhooks,<br>typed and replayable.</h1>
-        <p class="lead">Relay streams any webhook as typed events and retries failed deliveries.</p>
+      <h1 id="hero-head">Webhooks, typed and replayable.</h1>
+      <div class="hero__side">
+        <p class="lead">Relay streams any webhook as typed events, with retries and replay.</p>
         <div class="actions">
-          <a class="btn btn--primary" href="#start">Start free</a>
-          <a class="btn" href="#retry">See a retry</a>
+          <a class="btn btn--primary" href="#pricing">Start free</a>
+          <a class="btn" href="#does">See what it does</a>
         </div>
+        <p class="hero__terms">Free up to 100,000 events a month.</p>
       </div>
+    </div>
+  </section>
 
-      <figure class="slot app console" data-slot="hero" data-alt="Your events console, with one delivery retrying and its type open" role="img" aria-label="The Relay events console: six recent events from three providers; invoice.paid from billing.example.com is retrying on its second attempt, and its inferred type is open below.">
+  <section class="live" id="stream" aria-label="The events console">
+    <div class="container">
+      <figure class="slot app console" data-slot="hero" data-alt="Your events console, with one delivery retrying and its type open" role="img" aria-label="The Relay events console: nine recent events from four providers; invoice.paid from billing.example.com is retrying on its second attempt, and its inferred type is open beside it.">
         <div class="ui" aria-hidden="true">
           <div class="ui__bar">
             <span class="ui__mark">Relay</span>
@@ -57,6 +61,7 @@
             <span class="ui__tag">All sources</span>
             <span class="ui__tag">Last hour</span>
           </div>
+          <div class="console__body">
           <div class="stream">
             <div class="stream__row stream__row--head"><span>Time</span><span>Event</span><span>Source</span><span>Status</span></div>
             <div class="stream__row"><code>09:42:31</code><code>order.shipped</code><span>shop.example.com</span><span class="state"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Delivered</span></div>
@@ -65,6 +70,9 @@
             <div class="stream__row"><code>09:41:40</code><code>order.created</code><span>shop.example.com</span><span class="state"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Delivered</span></div>
             <div class="stream__row"><code>09:41:12</code><code>refund.issued</code><span>billing.example.com</span><span class="state"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Delivered, attempt 3</span></div>
             <div class="stream__row"><code>09:40:57</code><code>contact.merged</code><span>crm.example.com</span><span class="state state--failed"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>Failed, 410</span></div>
+            <div class="stream__row"><code>09:40:31</code><code>order.created</code><span>shop.example.com</span><span class="state"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Delivered</span></div>
+            <div class="stream__row"><code>09:40:12</code><code>invoice.paid</code><span>billing.example.com</span><span class="state"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Delivered</span></div>
+            <div class="stream__row"><code>09:39:40</code><code>form.submitted</code><span>forms.example.com</span><span class="state"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>Delivered</span></div>
           </div>
           <div class="inspect">
             <div class="inspect__head">
@@ -87,17 +95,28 @@
               </div>
             </div>
           </div>
+          </div>
         </div>
       </figure>
+      <p class="live__cap">The events console, with one delivery retrying.</p>
     </div>
   </section>
 
-  <section class="sources" id="in" aria-labelledby="s1">
+  <section class="does" id="does" aria-labelledby="s1">
     <div class="container">
       <div class="head">
-        <h2 id="s1">One address for each provider</h2>
-        <p class="lead">Every webhook lands in one stream, whoever sent it.</p>
+        <h2 id="s1">Four jobs, one stream</h2>
+        <p class="lead">What Relay does between your providers and your endpoint.</p>
       </div>
+      <div class="switch" data-switch>
+        <div class="tabs" role="tablist" aria-label="What Relay does">
+          <button role="tab" id="t-in" aria-controls="p-in" aria-selected="true">Sources</button>
+          <button role="tab" id="t-typed" aria-controls="p-typed" aria-selected="false" tabindex="-1">Types</button>
+          <button role="tab" id="t-retry" aria-controls="p-retry" aria-selected="false" tabindex="-1">Retries</button>
+          <button role="tab" id="t-replay" aria-controls="p-replay" aria-selected="false" tabindex="-1">Replay</button>
+        </div>
+        <div class="panel" role="tabpanel" id="p-in" aria-labelledby="t-in" tabindex="0">
+          <p class="panel__say">One address for each provider. Every webhook lands in one stream, whoever sent it.</p>
       <div class="table-wrap" role="region" aria-labelledby="s1" tabindex="0">
         <table class="src">
           <thead><tr><th scope="col">Source</th><th scope="col">Posts to</th><th scope="col">Event types seen</th><th scope="col" class="r">Last event</th></tr></thead>
@@ -109,17 +128,11 @@
           </tbody>
         </table>
       </div>
-      <p class="src__out">All four deliver to <code>https://example.com/hooks</code></p>
-    </div>
-  </section>
-
-  <section class="typed" id="typed" aria-labelledby="s2">
-    <div class="container">
-      <div class="head">
-        <h2 id="s2">It arrives already typed</h2>
-        <p class="lead">Relay reads each payload and gives every field a type.</p>
-      </div>
-      <figure class="pair" data-reveal>
+          <p class="src__out">All four deliver to <code>https://example.com/hooks</code></p>
+        </div>
+        <div class="panel" role="tabpanel" id="p-typed" aria-labelledby="t-typed" tabindex="0">
+          <p class="panel__say">Relay reads each payload and gives every field a type.</p>
+      <figure class="pair">
         <div class="pair__pane">
           <p class="pair__file"><code>evt_1042.json</code><span>Received from billing.example.com</span></p>
 <pre class="code code--lg"><code><span class="p">{</span>
@@ -142,29 +155,17 @@
 };</code></pre>
         </div>
       </figure>
-    </div>
-  </section>
-
-  <section class="retry" id="retry" aria-labelledby="s3">
-    <div class="container">
-      <div class="head">
-        <h2 id="s3">503, a timeout, then 200 OK</h2>
-        <p class="lead">When your endpoint is down, Relay holds <code>evt_1042</code> and tries again.</p>
-      </div>
+        </div>
+        <div class="panel" role="tabpanel" id="p-retry" aria-labelledby="t-retry" tabindex="0">
+          <p class="panel__say">When your endpoint is down, Relay holds <code>evt_1042</code> and tries again: a 503, a timeout, then 200 OK.</p>
       <ol class="axis" aria-label="Delivery attempts of evt_1042 to example.com/hooks/billing, spaced by time">
         <li class="axis__at axis__at--bad" style="--at: 0"><span class="axis__fig">503</span><span class="axis__what">Service Unavailable in 2.1 s</span><code>Attempt 1, 09:42:18</code></li>
         <li class="axis__at axis__at--bad" style="--at: 0.3333"><span class="axis__fig">10.0 s</span><span class="axis__what">No answer, timed out</span><code>Attempt 2, 09:42:48</code></li>
         <li class="axis__at axis__at--good" style="--at: 1"><span class="axis__fig">200</span><span class="axis__what">OK in 182 ms</span><code>Attempt 3, 09:43:48</code></li>
       </ol>
-    </div>
-  </section>
-
-  <section class="band" id="replay" aria-labelledby="s4">
-    <div class="container split split--even">
-      <div class="split__text">
-        <h2 id="s4">Replayed to billing at 09:58</h2>
-        <p class="lead">Send any past event to your endpoint again, from the stream.</p>
-      </div>
+        </div>
+        <div class="panel panel--replay" role="tabpanel" id="p-replay" aria-labelledby="t-replay" tabindex="0">
+          <p class="panel__say">Send any past event to your endpoint again, straight from the stream.</p>
       <figure class="slot replay" data-slot="demo-4" data-alt="The replay panel, sending one past event to your endpoint again" role="img" aria-label="The Relay replay panel: event evt_1042, invoice.paid, sent again to example.com/hooks/billing at 09:58:14 and answered 200 OK in 164 milliseconds.">
         <div class="ui" aria-hidden="true">
           <div class="rp__head"><span class="rp__title">Replay</span><code>invoice.paid</code><code class="rp__id">evt_1042</code></div>
@@ -180,13 +181,18 @@
           </div>
         </div>
       </figure>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="close" id="start" aria-labelledby="s5">
-    <div class="container close__grid">
-      <div class="close__head">
-        <h2 class="close__offer" id="s5">100,000 events a month, free.</h2>
+  <section class="offer" id="pricing" aria-labelledby="s5">
+    <div class="container offer__grid">
+      <div class="offer__head">
+        <h2 class="offer__fig" id="s5">100,000 events a month, free.</h2>
+        <div class="actions">
+          <a class="btn btn--primary" href="#top" data-needs-url="signup">Start free</a>
+        </div>
       </div>
       <form class="calc" aria-labelledby="calc-label" onsubmit="return false">
         <label id="calc-label" for="per-day">Webhooks your providers send a day</label>
@@ -196,15 +202,26 @@
         <span class="calc__meter" aria-hidden="true"><i id="calc-bar" style="--fill: 0.36"></i></span>
         <p class="calc__say" id="calc-say" aria-live="polite">Inside the free 100,000.</p>
       </form>
-      <form class="signup" data-endpoint="" novalidate>
-        <p class="lead signup__lead">Point your first webhook at Relay today.</p>
-        <label for="email">Work email</label>
-        <div class="signup__row">
-          <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="email-help">
-          <button class="btn btn--primary" type="submit">Start free</button>
-        </div>
-        <p class="signup__help" id="email-help" aria-live="polite"></p>
-      </form>
+    </div>
+  </section>
+
+  <section class="band" id="start" aria-labelledby="s6">
+    <div class="container code-close">
+      <div class="code-close__text">
+        <h2 id="s6">Your handler gets a type</h2>
+        <p class="lead">Answer 200 and the event is delivered. Anything else, and Relay tries again.</p>
+      </div>
+      <figure class="pane" data-reveal>
+        <p class="pair__file"><code>app/hooks/billing/route.ts</code><span>Your endpoint</span></p>
+<pre class="code code--lg" tabindex="0" aria-label="The handler, in TypeScript"><code><span class="k">import type</span> { <span class="t">InvoicePaid</span> } <span class="k">from</span> <span class="s">"./invoice-paid"</span>;
+
+<span class="k">export async function</span> POST(req: <span class="t">Request</span>) {
+  <span class="k">const</span> event = (<span class="k">await</span> req.json()) <span class="k">as</span> <span class="t">InvoicePaid</span>;
+<span class="hl">  console.log(event.id, event.amount, event.currency);</span>
+  <span class="k">return new</span> <span class="t">Response</span>(<span class="k">null</span>, { status: <span class="s">200</span> });
+}</code></pre>
+        <figcaption>The type file is the one Relay inferred from <code>evt_1042</code>.</figcaption>
+      </figure>
     </div>
   </section>
 </main>
@@ -214,11 +231,10 @@
     <p class="colophon__mark">Relay</p>
     <p class="colophon__text">Relay is an API for backend developers.</p>
     <nav class="colophon__links" aria-label="Footer">
-      <a href="#in">Sources</a>
-      <a href="#typed">Types</a>
-      <a href="#retry">Retries</a>
-      <a href="#replay">Replay</a>
-      <a href="#start">Pricing</a>
+      <a href="#stream">The console</a>
+      <a href="#does">What it does</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#start">Your handler</a>
     </nav>
     <p class="colophon__legal">© 2026 Relay</p>
   </div>
@@ -241,20 +257,15 @@ if (perDay) {
   const run = () => { const n = Math.max(0, Math.round(Number(perDay.value) || 0)) * 30; out.textContent = fmt.format(n); bar.style.setProperty('--fill', String(Math.min(1, n / 100000))); bar.parentElement.classList.toggle('is-over', n > 100000); say.textContent = n <= 100000 ? 'Inside the free 100,000, with ' + fmt.format(100000 - n) + ' to spare.' : fmt.format(n - 100000) + ' over the free 100,000 a month.'; };
   perDay.addEventListener('input', run); run();
 }
-document.querySelectorAll('form[data-endpoint]').forEach((form) => {
-  const input = form.querySelector('input'), help = form.querySelector('[aria-live]'), button = form.querySelector('button');
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const ok = input.checkValidity();
-    input.toggleAttribute('aria-invalid', !ok);
-    if (!ok) { help.textContent = 'That address looks incomplete. Write it as name@example.com.'; input.focus(); return; }
-    if (!form.dataset.endpoint) { help.textContent = 'Nothing was sent: this form is not connected yet.'; return; }
-    button.setAttribute('aria-busy', 'true');
-    fetch(form.dataset.endpoint, { method: 'POST', body: new FormData(form) })
-      .then((r) => { help.textContent = r.ok ? 'Thanks. Relay will write to ' + input.value.trim() + '.' : 'That did not go through. Try again in a minute.'; })
-      .catch(() => { help.textContent = 'That did not go through. Try again in a minute.'; })
-      .finally(() => button.removeAttribute('aria-busy'));
+/* The switcher: four real panels; arrow keys move between tabs; without script every panel shows in order */
+document.querySelectorAll('[data-switch]').forEach((sw) => {
+  const tabs = [...sw.querySelectorAll('[role="tab"]')];
+  const pick = (t, focus) => { tabs.forEach((x) => { const on = x === t; x.setAttribute('aria-selected', String(on)); x.tabIndex = on ? 0 : -1; document.getElementById(x.getAttribute('aria-controls')).hidden = !on; }); if (focus) t.focus(); };
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => pick(t));
+    t.addEventListener('keydown', (e) => { const d = { ArrowRight: 1, ArrowLeft: -1 }[e.key]; if (d) { e.preventDefault(); pick(tabs[(i + d + tabs.length) % tabs.length], true); } if (e.key === 'Home') { e.preventDefault(); pick(tabs[0], true); } if (e.key === 'End') { e.preventDefault(); pick(tabs[tabs.length - 1], true); } });
   });
+  pick(tabs[0]);
 });
 </script>
 </body>

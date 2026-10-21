@@ -9,7 +9,7 @@ posture: full-palette
 keywords: daily, habit, streak, practice, learning, reading, curiosity, mood, energy, friendship, community, kids, family, parents, school, game, puzzle, creative, playful, alive
 material: cream paper pulled toward pear-yellow, blue-black ink, Chillax throughout, round corners and a press you can feel, three accents that never blend and a mint for growth
 photo: natural vib=12 exp=4
-pictured: Bento Grid, Settled hero
+pictured: Workbench, Settled hero
 ---
 
 # Hum

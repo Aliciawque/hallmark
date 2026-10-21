@@ -88,17 +88,25 @@
   }));
 })();
 
-document.querySelectorAll('form[data-endpoint]').forEach((form) => {
-  const help = form.querySelector('[aria-live]');
-  const input = form.querySelector('input[type="email"]');
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const ok = input.checkValidity();
-    input.toggleAttribute('aria-invalid', !ok);
-    if (!ok) { input.setAttribute('aria-describedby', help.id); help.textContent = 'That address looks incomplete. Write it as name@example.com.'; input.focus(); return; }
-    if (!form.dataset.endpoint) { help.textContent = 'Nothing was sent: this form is not connected yet.'; return; }
-    fetch(form.dataset.endpoint, { method: 'POST', body: new FormData(form) })
-      .then((r) => { help.textContent = r.ok ? 'The link is on its way to your inbox.' : 'That did not go through. Try again in a minute.'; })
-      .catch(() => { help.textContent = 'That did not go through. Try again in a minute.'; });
+// From hum to band: the pinned desk shows the stage of the panel in view; it stays complete without script or under 60rem
+(() => {
+  const desk = document.querySelector('[data-stage]');
+  const beats = [...document.querySelectorAll('[data-beat]')];
+  if (!desk || !beats.length || !('IntersectionObserver' in window)) return;
+  const wide = matchMedia('(min-width: 60rem)');
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting && wide.matches) desk.dataset.stage = e.target.dataset.beat; }), { rootMargin: '-45% 0px -45% 0px' });
+  beats.forEach((b) => io.observe(b));
+  wide.addEventListener('change', () => { if (!wide.matches) desk.dataset.stage = '4'; });
+})();
+
+// The close: the app link is not wired yet, so the button says so; the second plays the hero's song again
+(() => {
+  const get = document.querySelector('[data-get]'), again = document.querySelector('[data-again]'), help = document.getElementById('start-help');
+  if (get) get.addEventListener('click', () => { help.textContent = 'Nothing opens yet: the link to the app is not connected.'; });
+  if (again) again.addEventListener('click', () => {
+    const play = document.querySelector('[data-player] [data-play]');
+    if (!play) return;
+    document.getElementById('top').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    if (!document.querySelector('[data-player]').classList.contains('is-playing')) play.click();
   });
-});
+})();

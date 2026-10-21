@@ -19,9 +19,9 @@
   <div class="bar__pill">
     <a class="bar__mark" href="#top">quarry</a>
     <nav class="bar__links" aria-label="Sections">
-      <a href="#path">the path</a>
+      <a href="#warm">the console</a>
       <a href="#rate">the rate</a>
-      <a href="#request">a request</a>
+      <a href="#key">a request</a>
     </nav>
     <a class="btn btn--primary btn--sm" href="#key">get an api key</a>
   </div>
@@ -29,16 +29,47 @@
 
 <main id="main">
   <section class="hero" id="top" aria-labelledby="hero-title">
-    <div class="container hero__grid">
-      <div class="hero__text">
+    <div class="container hero__in">
+      <figure class="diagram well blueprint hero__field" aria-label="Diagram of a request on two paths: scaled to zero, and reserved on Quarry">
+        <div class="track track--slow">
+          <p class="track__name">scaled to zero</p>
+          <ol class="track__nodes">
+            <li>request</li>
+            <li>find a free gpu</li>
+            <li>load the weights</li>
+            <li>warm up</li>
+            <li class="track__end">first token</li>
+          </ol>
+        </div>
+        <div class="track track--fast">
+          <p class="track__name">quarry, reserved</p>
+          <ol class="track__nodes">
+            <li>request</li>
+            <li class="track__skip" aria-label="no wait: the model is already loaded on your gpus"><span>already loaded on your gpus</span></li>
+            <li class="track__end">first token</li>
+          </ol>
+        </div>
+        <figcaption><span>scaled to zero against reserved:</span> each box is a step the request waits on. The reserved path has&nbsp;two.</figcaption>
+      </figure>
+      <div class="hero__foot">
         <h1 id="hero-title">the model <span class="nb"><span class="verb">waits</span>,</span> not&nbsp;you.</h1>
-        <p class="lead">Open models on reserved GPUs, at one fixed price per million&nbsp;tokens.</p>
-        <div class="actions">
-          <a class="btn btn--primary" href="#key">get an api key</a>
-          <a class="btn btn--secondary" href="#request">read a request</a>
+        <div class="hero__side">
+          <p class="lead">Open models on reserved GPUs, at one fixed price per million&nbsp;tokens.</p>
+          <div class="actions">
+            <a class="btn btn--primary" href="#key">get an api key</a>
+            <a class="btn btn--secondary" href="#warm">see the console</a>
+          </div>
         </div>
       </div>
+    </div>
+  </section>
 
+  <section class="warm" id="warm" aria-labelledby="warm-title">
+    <div class="container warm__grid">
+      <div class="warm__text">
+        <h2 id="warm-title">already warm, every&nbsp;call.</h2>
+        <p class="lead">Each deployment keeps its model loaded on its own reserved GPUs, so the first request answers like the&nbsp;hundredth.</p>
+      </div>
       <div class="console" data-slot="console" data-kind="product" data-alt="The Quarry console: one deployment, its model, its reserved GPUs and its live requests">
         <div class="console__bar">
           <span class="readout">example-project / deployments</span>
@@ -81,79 +112,44 @@
     </div>
   </section>
 
-  <section class="path" id="path" aria-labelledby="path-title">
-    <div class="container">
-      <div class="head">
-        <h2 id="path-title">two paths to a first&nbsp;token</h2>
-        <p class="lead">A model scaled to zero loads before it answers. A reserved one is already&nbsp;loaded.</p>
-      </div>
-      <figure class="diagram well blueprint" aria-label="Diagram of a request on two paths: scaled to zero, and reserved on Quarry">
-        <div class="track track--slow">
-          <p class="track__name">scaled to zero</p>
-          <ol class="track__nodes">
-            <li>request</li>
-            <li>find a free gpu</li>
-            <li>load the weights</li>
-            <li>warm up</li>
-            <li class="track__end">first token</li>
-          </ol>
-        </div>
-        <div class="track track--fast">
-          <p class="track__name">quarry, reserved</p>
-          <ol class="track__nodes">
-            <li>request</li>
-            <li class="track__skip" aria-label="no wait: the model is already loaded on your gpus"><span>already loaded on your gpus</span></li>
-            <li class="track__end">first token</li>
-          </ol>
-        </div>
-        <figcaption>Each box is a step the request waits on. The reserved path has&nbsp;two.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section class="aisle" aria-labelledby="aisle-title">
-    <div class="container">
-      <div class="head">
-        <h2 id="aisle-title">reserved, never&nbsp;shared.</h2>
-        <p class="lead">The GPUs hold your model and nobody else’s, so it stays loaded between&nbsp;calls.</p>
-      </div>
-      <figure class="aisle__fig">
-        <div class="aisle__photo" data-slot="aisle" data-alt="The racks where Quarry's reserved GPUs run">
-          <img src="photos/virginia-tech-data-center-1920.jpg" width="1920" height="1440" loading="lazy" decoding="async" style="object-position: 50% 62%"
-               alt="A long aisle between black server racks under a white ceiling in a data centre">
-        </div>
-        <figcaption>Server racks in a data centre aisle, the kind of hardware a reservation holds for&nbsp;you.</figcaption>
-      </figure>
-    </div>
-  </section>
-
   <section class="rate" id="rate" aria-labelledby="rate-title">
-    <div class="container rate__grid">
-      <div class="rate__text">
+    <div class="container">
+      <div class="head">
         <h2 id="rate-title">the rate holds at 3&nbsp;a.m.</h2>
-        <p class="lead">One price per million tokens. Traffic moves; the price&nbsp;doesn’t.</p>
-        <table class="card">
-          <caption class="visually-hidden">What moves and what holds</caption>
-          <tbody>
-            <tr><th scope="row">requests a minute</th><td>move with your users</td></tr>
-            <tr><th scope="row">price per million tokens</th><td class="is-brass">holds</td></tr>
-            <tr><th scope="row">cold starts</th><td>none</td></tr>
-          </tbody>
-        </table>
+        <p class="lead">Traffic moves. The price per million tokens doesn’t.</p>
       </div>
-      <figure class="chart well blueprint" aria-label="Chart of a sample day: traffic rises and falls under a flat price line">
-        <div class="chart__plot" data-day></div>
-        <div class="chart__axis readout" aria-hidden="true"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div>
-        <figcaption><span class="legend"><span class="key key--load"></span>a sample day of traffic</span><span class="legend"><span class="key key--rate"></span>your price per million tokens</span></figcaption>
-      </figure>
+      <div class="bento">
+        <figure class="tile tile--chart well blueprint" aria-label="Chart of a sample day: traffic rises and falls under a flat price line">
+          <div class="chart__plot" data-day></div>
+          <div class="chart__axis readout" aria-hidden="true"><span>00:00</span><span>06:00</span><span>12:00</span><span>18:00</span><span>24:00</span></div>
+          <figcaption><span class="legend"><span class="key key--load"></span>a sample day of traffic</span><span class="legend"><span class="key key--rate"></span>your price per million tokens</span></figcaption>
+        </figure>
+        <div class="tile tile--fig well">
+          <p class="tile__label readout">cold start</p>
+          <p class="tile__fig">0<span class="tile__unit">s</span></p>
+          <p class="tile__line">The weights stay loaded between calls, so no request waits for a&nbsp;GPU.</p>
+        </div>
+        <div class="tile tile--fig well">
+          <p class="tile__label readout">price per million tokens</p>
+          <p class="tile__fig">fixed</p>
+          <p class="tile__line">One figure for every token, whatever the traffic&nbsp;did.</p>
+        </div>
+        <figure class="tile tile--photo">
+          <div class="aisle__photo" data-slot="aisle" data-alt="The racks where Quarry's reserved GPUs run">
+            <img src="photos/virginia-tech-data-center-1920.jpg" width="1920" height="1440" loading="lazy" decoding="async" style="object-position: 50% 58%"
+                 alt="A long aisle between black server racks under a white ceiling in a data centre">
+          </div>
+          <figcaption>Reserved, never shared: the GPUs hold your model and nobody&nbsp;else’s.</figcaption>
+        </figure>
+      </div>
     </div>
   </section>
 
-  <section class="request" id="request" aria-labelledby="req-title">
+  <section class="request" id="key" aria-labelledby="req-title">
     <div class="container">
       <div class="head">
         <h2 id="req-title">one request, plain&nbsp;https.</h2>
-        <p class="lead">To your own deployment, already warm. No client library to&nbsp;install.</p>
+        <p class="lead">To your own warm deployment. No client library to&nbsp;install.</p>
       </div>
       <div class="code well">
         <div class="code__tabs" role="tablist" aria-label="Language">
@@ -190,23 +186,10 @@ console.log((<i>await</i> r.json()).output);</code></pre>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="getkey blueprint" id="key" aria-labelledby="key-title">
-    <div class="container getkey__grid">
-      <div class="getkey__head">
-        <h2 id="key-title">start with one key.</h2>
-        <p class="lead">Leave a work address and the key comes back to&nbsp;it.</p>
+      <div class="request__go">
+        <a class="btn btn--primary" href="#key" data-needs-url="signup">get an api key</a>
+        <a class="btn btn--secondary" href="#top">back to the path</a>
       </div>
-      <form class="getkey__form" data-endpoint="" novalidate>
-        <label for="email">work email</label>
-        <div class="getkey__row">
-          <input id="email" name="email" type="email" autocomplete="email" inputmode="email" placeholder="you@example.com" required aria-required="true" aria-describedby="key-help">
-          <button class="btn btn--primary" type="submit">get an api key</button>
-        </div>
-        <p class="help" id="key-help" aria-live="polite"></p>
-      </form>
     </div>
   </section>
 </main>
@@ -215,7 +198,7 @@ console.log((<i>await</i> r.json()).output);</code></pre>
   <div class="container foot__in">
     <p class="foot__mark">quarry</p>
     <p class="foot__line">An inference API for open models on reserved GPUs, at a fixed price per million tokens.</p>
-    <nav aria-label="Footer"><a href="#path">the path</a><a href="#rate">the rate</a><a href="#request">a request</a><a href="#key">get an api key</a></nav>
+    <nav aria-label="Footer"><a href="#top">the path</a><a href="#warm">the console</a><a href="#rate">the rate</a><a href="#key">a request</a></nav>
     <p class="foot__legal">© 2026 quarry</p>
     <p class="foot__credits" data-credits>Photograph: <a href="https://commons.wikimedia.org/wiki/File:Virginia_Tech_-_data_center.jpg">Christopher Bowns</a> (CC BY-SA 2.0), via Wikimedia Commons.</p>
   </div>

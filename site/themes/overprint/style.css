@@ -1,6 +1,8 @@
-/* Hallmark · shape: Marquee Hero · genre: playful · theme: Overprint (v2.8 launch pass)
- * hero: Poster · nav: slab, the ink bar with the wordmark in stock colour, three links and a pass-1 on-sale control · footer: mast, the wordmark across the container over the bar rule · imagery: photographs, library 3, mono pulled through one pass each · signature: the bill printed on an orange pass field, and three ticket steps flooded teal, orange, teal whose overlaps print moss · overprint: newsprint
- * axes: light/grotesk-heavy/cool · posture: full-palette · contrast: pass · fold: pass · v2.8.0 */
+/* Hallmark · shape: Marquee Hero · genre: playful · theme: Overprint · job: visit
+ * hero: Poster, the hours as the head · nav: slab, the ink bar with the wordmark in stock colour, two links and a pass-1 tickets control · footer: mast, the wordmark across the container over the bar rule · imagery: photographs, library 2, mono pulled through one pass each · signature: the month's bill printed on an orange pass field, and the ticket itself in two passes whose stub crosses the body at the tear and prints moss · overprint: newsprint
+ * sections: Poster hero, Index (the month's bill on the orange pass, the month named from the visitor's date), Showcase (the room through the teal pass), Offer (the ticket, built, beside its head), Band (find us in Hull beside the on-sale field, on the ink) · samples: the ticket's act name and night are placeholders of its shape · fills: the line-up, the address
+ * job: visit, a venue whose next dates recur, so the page ends on the address and the on-sale list for what is on next
+ * axes: light/grotesk-heavy/cool · posture: full-palette · contrast: pass · fold: pass · layout fix */
 @import url("./tokens.css");
 @import url("./base.css");
 
@@ -62,12 +64,13 @@ h1, h2, h3 { font-weight: 900; font-stretch: var(--display-stretch); text-transf
 /* the bill: this month printed on the orange pass, the times in wide figures */
 .bill { padding-block: var(--section-gap-s); mix-blend-mode: normal; }
 .bill__head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: end; }
-.bill__head h2 { grid-column: 1 / 9; max-width: none; font-size: var(--text-bill); line-height: 1; }
-.bill__head .lead { grid-column: 9 / 13; color: var(--color-ink); }
+.bill__head h2 { grid-column: 1 / -1; max-width: none; font-size: clamp(2rem, 9.6vw, 8rem); line-height: 0.92; white-space: nowrap; }
+.bill__head .lead { grid-column: 1 / span 6; margin-top: var(--space-lg); color: var(--color-ink); }
 .bill__table { width: 100%; margin-top: var(--space-2xl); border-collapse: collapse; border-top: var(--rule-bar) solid var(--color-ink); border-bottom: var(--rule-bar) solid var(--color-ink); font-variant-numeric: tabular-nums; }
 .bill__table th { padding: var(--space-md) var(--space-lg) var(--space-md) 0; border-bottom: var(--rule-hair) solid var(--color-ink); font: 600 var(--text-sm)/1.2 var(--font-outlier); text-align: left; white-space: nowrap; }
 .bill__table td { padding: var(--space-xl) var(--space-lg) var(--space-xl) 0; vertical-align: middle; }
-.bill__table th:first-child, .bill__act { width: 46%; }
+.bill__table th:nth-child(2), .bill__act { width: 52%; }
+.bill__night { font: 900 var(--text-title)/1.1 var(--font-display); font-stretch: 130%; text-transform: uppercase; white-space: nowrap; }
 .bill__act .fill { font-size: var(--text-lead); color: var(--color-ink-2); background: color-mix(in oklch, var(--color-ink) 12%, transparent); }
 .bill__time { font: 900 var(--text-section)/1 var(--font-display); font-stretch: 150%; text-transform: uppercase; letter-spacing: var(--tracking-display); white-space: nowrap; }
 .bill__tix { padding-right: 0; }
@@ -82,47 +85,44 @@ h1, h2, h3 { font-weight: 900; font-stretch: var(--display-stretch); text-transf
 .room__head .lead { grid-column: 8 / 13; }
 .photo { position: relative; margin: 0; }
 .photo--wide { aspect-ratio: 2 / 1; width: 100%; }
-.photo--hull { aspect-ratio: 4 / 5; }
 
-/* tickets: three numbered bills, flooded teal, orange, teal; where two cross the stock prints moss */
-.steps { padding-top: var(--section-gap); isolation: isolate; }
-.steps__head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: end; padding-top: var(--space-lg); border-top: var(--rule-bar) solid var(--color-ink); }
-.steps__head h2 { grid-column: 1 / 8; }
-.steps__head .lead { grid-column: 8 / 13; }
-.steps__list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: var(--space-2xl) 0 0; padding: 0; list-style: none; counter-reset: step; isolation: isolate; }
-.steps__cell { position: relative; display: grid; grid-template-rows: auto auto; align-content: space-between; gap: var(--space-xl); min-height: 30rem; padding: var(--space-xl) calc(var(--overlap) + var(--space-lg)) var(--space-xl) var(--space-xl); counter-increment: step; }
-.steps__cell + .steps__cell { margin-left: calc(-1 * var(--overlap)); padding-left: calc(var(--overlap) + var(--space-xl)); }
-.steps__cell:last-child { padding-right: var(--space-xl); }
-.steps__cell::before { content: counter(step); font: 900 var(--text-figure)/0.8 var(--font-display); font-stretch: 150%; letter-spacing: var(--tracking-display); }
-.steps__cell h3 { font-size: var(--text-section); max-width: none; line-height: 1; }
-.steps__cell p { margin-top: var(--space-sm); max-width: 30ch; font-size: var(--text-md); }
+/* tickets: the ticket itself, printed in two passes; the stub's teal crosses the body's orange at the tear and prints moss */
+.tix { padding-top: var(--section-gap); }
+.tix__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: center; padding-top: var(--space-xl); border-top: var(--rule-bar) solid var(--color-ink); }
+.tix__text { grid-column: 1 / span 5; display: grid; justify-items: start; gap: var(--space-lg); }
+.tix__text .btn { margin-top: var(--space-sm); }
+.ticket { grid-column: 6 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 12rem); margin: 0; isolation: isolate; background: none; overflow: visible; }
+.ticket__body { display: grid; align-content: space-between; gap: var(--space-xl); min-height: 30rem; padding: var(--space-xl) calc(var(--overlap) + var(--space-xl)) var(--space-xl) var(--space-xl); }
+.ticket__stub { display: grid; align-content: space-between; margin-left: calc(-1 * var(--overlap)); padding: var(--space-xl) var(--space-xl) var(--space-xl) calc(var(--overlap) + var(--space-lg)); }
+.ticket p { margin: 0; }
+.ticket__venue, .ticket__night, .ticket__times span { font: 600 var(--text-sm)/1.2 var(--font-outlier); }
+.ticket__act { font: 900 clamp(2.25rem, 4.2vw, 4rem)/0.98 var(--font-display); font-stretch: 150%; text-transform: uppercase; letter-spacing: var(--tracking-display); max-width: 8ch; }
+.ticket__times { display: grid; grid-template-columns: repeat(2, minmax(0, max-content)); gap: var(--space-2xl); padding-top: var(--space-md); border-top: var(--rule-bar) solid var(--color-ink); }
+.ticket__times p { display: grid; gap: var(--space-xs); }
+.ticket__times b { font: 900 clamp(2rem, 3.4vw, 3.25rem)/1 var(--font-display); font-stretch: 150%; font-variant-numeric: tabular-nums; }
+.ticket__admit { font: 900 var(--text-2xl)/1 var(--font-display); font-stretch: 140%; text-transform: uppercase; writing-mode: vertical-rl; transform: rotate(180deg); justify-self: start; }
 
-/* hull: the photograph on the other side, the facts as rows under the bar */
-.hull { padding-block: var(--section-gap) var(--section-gap); }
-.hull__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: center; }
-.hull__grid > .photo { grid-column: 1 / 7; }
-.hull__text { grid-column: 8 / 13; }
-.facts { margin: var(--space-2xl) 0 0; border-top: var(--rule-bar) solid var(--color-ink); }
-.facts > div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr); gap: var(--space-md); align-items: baseline; padding-block: var(--space-lg); border-bottom: var(--rule-hair) solid var(--color-rule); }
-.facts dt { font: 600 var(--text-sm)/1.5 var(--font-outlier); }
-.facts dd { margin: 0; font: 900 var(--text-xl)/1.15 var(--font-display); font-stretch: 115%; text-transform: uppercase; }
-.facts dd .fill { font-size: var(--text-md); }
-
-/* on-sales: the ink band, stock type, the on-sale field */
-.onsales { padding-block: var(--section-gap-s); background: var(--color-ink); color: var(--color-paper); }
-.onsales__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); align-items: end; }
-.onsales__text { grid-column: 1 / 7; }
-.onsales__text h2 { line-height: 1; }
-.onsales__text .lead { margin-top: var(--space-lg); max-width: 40ch; }
-.onsale { grid-column: 8 / 13; }
+/* find us: the ink band, the facts under a stock bar beside the on-sale field */
+.visit { margin-top: var(--section-gap-l); padding-block: var(--section-gap-s); background: var(--color-ink); color: var(--color-paper); }
+.visit h2 { color: var(--color-paper); }
+.visit__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); row-gap: var(--space-2xl); align-items: end; }
+.visit__text { grid-column: 1 / span 6; }
+.facts { margin: var(--space-2xl) 0 0; border-top: var(--rule-bar) solid var(--color-paper); }
+.facts > div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.6fr); gap: var(--space-md); align-items: baseline; padding-block: var(--space-lg); border-bottom: var(--rule-hair) solid color-mix(in oklab, var(--color-paper) 28%, var(--color-ink)); }
+.facts dt { font: 600 var(--text-sm)/1.5 var(--font-outlier); color: var(--color-paper-3); }
+.facts dd { margin: 0; font: 900 var(--text-xl)/1.15 var(--font-display); font-stretch: 120%; text-transform: uppercase; }
+.facts dd .fill { font-size: var(--text-md); color: var(--color-paper-3); background: color-mix(in oklch, var(--color-paper) 16%, transparent); }
+.onsale { grid-column: 8 / -1; }
+.onsale__head { margin-bottom: var(--space-lg); font-size: var(--text-xl); font-stretch: 120%; color: var(--color-paper); max-width: 18ch; }
 .onsale label { display: block; margin-bottom: var(--space-xs); font: 600 var(--text-sm)/1.2 var(--font-outlier); }
 .onsale__row { display: flex; gap: var(--space-xs); }
 .onsale input { flex: 1; min-width: 0; min-height: 52px; padding: 0 var(--space-md); border: 0; border-radius: 0; background: var(--color-ink); color: var(--color-paper); box-shadow: inset 0 0 0 2px var(--color-paper); font: 400 var(--text-md) var(--font-body); outline: 2px solid transparent; outline-offset: 2px; }
+.onsale input:hover { box-shadow: inset 0 0 0 2px var(--color-accent); }
 .onsale .btn { min-height: 52px; }
 .onsale input:focus-visible { outline-color: var(--color-accent); }
 .onsale input[aria-invalid] { box-shadow: inset 0 0 0 2px var(--color-error); }
 .onsale__help { min-height: 1lh; margin-top: var(--space-xs); font-size: var(--text-sm); color: var(--color-paper-3); }
-.onsales :focus-visible { outline-color: var(--color-accent); }
+.visit :focus-visible { outline-color: var(--color-accent); }
 
 /* footer: the mast */
 .mast { padding-block: var(--section-gap-s) var(--space-2xl); }
@@ -140,20 +140,10 @@ h1, h2, h3 { font-weight: 900; font-stretch: var(--display-stretch); text-transf
 @media (max-width: 60rem) {
   .slab__links { display: none; }
   .hero { min-height: calc(92dvh - var(--nav-h)); }
-  .bill__head h2, .bill__head .lead, .room__head h2, .room__head .lead, .steps__head h2, .steps__head .lead, .hull__grid > .photo, .hull__text, .onsales__text, .onsale { grid-column: 1 / -1; }
-  .bill__head .lead, .room__head .lead, .steps__head .lead, .onsale { margin-top: var(--space-lg); }
-  .hull__text { margin-top: var(--space-2xl); }
-  .photo--hull { aspect-ratio: 4 / 3; }
+  .bill__head h2, .bill__head .lead, .room__head h2, .room__head .lead, .tix__text, .ticket, .visit__text, .onsale { grid-column: 1 / -1; }
+  .ticket { margin-top: var(--space-2xl); }
+  .bill__head .lead, .room__head .lead { margin-top: var(--space-lg); }
   .photo--wide { aspect-ratio: 4 / 3; }
-  .steps__list { grid-template-columns: minmax(0, 1fr); }
-  .steps__cell { min-height: 0; padding: var(--space-xl) var(--space-xl) calc(var(--overlap) + var(--space-lg)); }
-  .steps__cell + .steps__cell { margin: calc(-1 * var(--overlap)) 0 0; padding: calc(var(--overlap) + var(--space-lg)) var(--space-xl) calc(var(--overlap) + var(--space-lg)); }
-  .steps__cell:last-child { padding-bottom: var(--space-xl); }
-  .steps__cell { grid-template-columns: auto 1fr; align-items: end; column-gap: var(--space-xl); }
-  .steps__cell::before { grid-row: span 2; font-size: clamp(4.5rem, 18vw, 7rem); }
-  .steps__cell .steps__text { grid-column: 2; }
-  .steps__cell h3 { font-size: var(--text-xl); }
-  .steps__cell { gap: var(--space-xs) var(--space-xl); }
 }
 @media (max-width: 40rem) {
   .wordmark { font-size: 1rem; }
@@ -165,10 +155,17 @@ h1, h2, h3 { font-weight: 900; font-stretch: var(--display-stretch); text-transf
   .bill__table td.bill__time::before { content: attr(data-label); display: block; margin-bottom: var(--space-xs); font: 600 var(--text-sm)/1.2 var(--font-outlier); text-transform: none; }
   .bill__table td:last-child { border-bottom: 0; }
   .bill__act { width: auto; }
-  .steps__cell { grid-template-columns: minmax(0, 1fr); }
-  .steps__cell::before { grid-row: auto; }
-  .steps__cell .steps__text { grid-column: 1; }
+  .bill__table td.bill__night { border-bottom: 0; padding-bottom: 0; }
+  .ticket { grid-template-columns: minmax(0, 1fr); }
+  .ticket__body { min-height: 0; padding: var(--space-lg) var(--space-lg) calc(var(--overlap) + var(--space-lg)); }
+  .ticket__stub { margin: calc(-1 * var(--overlap)) 0 0; padding: calc(var(--overlap) + var(--space-md)) var(--space-lg) var(--space-lg); display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-md); }
+  .ticket__admit { writing-mode: horizontal-tb; transform: none; font-size: var(--text-lg); }
+  .ticket__times { gap: var(--space-xl); }
   .facts dd { font-size: var(--text-lg); }
   .facts > div { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xs); }
   .onsale__row { flex-direction: column; }
+}
+@media (max-width: 75rem) and (min-width: 60.001rem) {
+  .tix__text, .ticket { grid-column: 1 / -1; }
+  .ticket { margin-top: var(--space-2xl); }
 }

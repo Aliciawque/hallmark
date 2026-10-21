@@ -18,10 +18,9 @@
     <a class="wordmark" href="#top" aria-label="Peachy, home">Peachy</a>
     <nav aria-label="Main">
       <ul class="knobs" role="list">
-        <li><a class="knob" href="#sizes">Sizes</a></li>
         <li><a class="knob" href="#fruit">The fruit</a></li>
         <li><a class="knob" href="#thursdays">Thursdays</a></li>
-        <li><a class="knob knob--action" href="#start">Start a box</a></li>
+        <li><a class="knob knob--action" href="#box">Start a box</a></li>
       </ul>
     </nav>
   </div>
@@ -33,10 +32,29 @@
       <div class="hero__text">
         <h1 id="hero-title">Whatever&rsquo;s ripest, every Thursday.</h1>
         <p class="lead">A weekly fruit box for London families.</p>
-        <div class="actions">
-          <a class="btn btn--primary" href="#start">Start a box</a>
-          <a class="btn btn--secondary" href="#sizes">See the sizes</a>
-        </div>
+        <form class="card box" id="box" data-endpoint="" novalidate aria-labelledby="box-title">
+          <h2 id="box-title" class="visually-hidden">Start your box</h2>
+          <fieldset class="seg seg--4">
+            <legend>Box size</legend>
+            <input type="radio" name="size" id="size-0" value="Small" checked><label for="size-0">Small</label>
+            <input type="radio" name="size" id="size-1" value="Medium"><label for="size-1">Medium</label>
+            <input type="radio" name="size" id="size-2" value="Large"><label for="size-2">Large</label>
+            <input type="radio" name="size" id="size-3" value="Extra large"><label for="size-3">Extra large</label>
+          </fieldset>
+          <fieldset class="seg seg--4">
+            <legend>First Thursday</legend>
+            <input type="radio" name="first" id="first-0" value="" checked><label for="first-0"><span class="chip__wd">Thu</span> <span class="chip__date" data-week="0">22 Oct</span></label>
+            <input type="radio" name="first" id="first-1" value=""><label for="first-1"><span class="chip__wd">Thu</span> <span class="chip__date" data-week="1">29 Oct</span></label>
+            <input type="radio" name="first" id="first-2" value=""><label for="first-2"><span class="chip__wd">Thu</span> <span class="chip__date" data-week="2">5 Nov</span></label>
+            <input type="radio" name="first" id="first-3" value=""><label for="first-3"><span class="chip__wd">Thu</span> <span class="chip__date" data-week="3">12 Nov</span></label>
+          </fieldset>
+          <div class="box__foot">
+            <p class="box__price"><span class="box__from">from</span> <span class="box__figure">&pound;12</span></p>
+            <button class="btn btn--primary" type="submit">Start my box</button>
+          </div>
+          <p class="box__sum" aria-live="polite"><span data-sum-size>Small</span> box, first one on <span data-sum-day>Thursday 22 October</span>.</p>
+          <p class="box__help" id="box-help" aria-live="polite"></p>
+        </form>
       </div>
       <figure class="photo hero__photo" data-slot="hero" data-alt="A handful of this week's ripest fruit, held out">
         <img src="photos/javier-shows-part-of-the-grape-harvest-in-his-lysekil-vineya-1920.jpg" width="3948" height="2534" fetchpriority="high" alt="Two hands holding out fresh-cut bunches of green grapes" style="object-position: 42% 50%">
@@ -44,20 +62,12 @@
     </div>
   </section>
 
-  <section class="sizes" id="sizes" aria-labelledby="sizes-title">
-    <div class="container sizes__grid">
-      <p class="sizes__figure" aria-hidden="true"><span class="sizes__from">from</span>&pound;12</p>
-      <div class="sizes__text">
-        <h2 id="sizes-title">Four sizes, starting small.</h2>
-        <p class="lead">The smallest box is twelve pounds. You pick the size that fits your fruit bowl when you start.</p>
-        <a class="btn btn--primary" href="#start">Pick a size</a>
-      </div>
-    </div>
-  </section>
-
   <section class="fruit" id="fruit" aria-labelledby="fruit-title">
     <div class="container">
-      <h2 id="fruit-title">No fixed list, just ripe fruit.</h2>
+      <div class="fruit__head">
+        <h2 id="fruit-title">No fixed list, just ripe fruit.</h2>
+        <p class="lead">The box changes with the season, week by week.</p>
+      </div>
       <div class="bento">
         <figure class="photo tile tile--lead" data-slot="photo-1" data-alt="A week's fruit, heaped close">
           <img src="photos/alaska-wild-berries-1920.jpg" width="2401" height="1563" loading="lazy" alt="Blueberries and red cloudberries heaped together, close up" style="object-position: 50% 50%">
@@ -66,69 +76,55 @@
           <img src="photos/winterswijk-nl-wochenmarkt-2016-4139-1920.jpg" width="5472" height="3648" loading="lazy" alt="Market crates heaped with bright oranges" style="object-position: 50% 40%">
         </figure>
         <div class="tile tile--type">
-          <h3>Ripe goes in.</h3>
-          <p>If it isn&rsquo;t ready this week, it waits for the next box.</p>
+          <p class="tile__figure">4</p>
+          <p class="tile__line">sizes, so the box fits your fruit bowl.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="days" id="thursdays" aria-labelledby="days-title">
-    <div class="container days__grid">
-      <div class="days__head">
-        <h2 id="days-title">Pick your first Thursday.</h2>
-        <p class="lead">We deliver across the city, once a week from then on.</p>
-      </div>
-      <fieldset class="days__list">
-        <legend class="visually-hidden">Your first delivery Thursday</legend>
-        <label class="day"><input type="radio" name="first" value="2026-10-22" checked><span class="day__wd">Thursday</span><span class="day__date">22 October</span><span class="day__pick">First box</span></label>
-        <label class="day"><input type="radio" name="first" value="2026-10-29"><span class="day__wd">Thursday</span><span class="day__date">29 October</span><span class="day__pick">First box</span></label>
-        <label class="day"><input type="radio" name="first" value="2026-11-05"><span class="day__wd">Thursday</span><span class="day__date">5 November</span><span class="day__pick">First box</span></label>
-        <label class="day"><input type="radio" name="first" value="2026-11-12"><span class="day__wd">Thursday</span><span class="day__date">12 November</span><span class="day__pick">First box</span></label>
-      </fieldset>
+  <section class="promise" aria-labelledby="promise-title">
+    <div class="container">
+      <h2 id="promise-title" class="promise__line">If it isn&rsquo;t ripe this week, it waits for the next box.</h2>
     </div>
   </section>
 
-  <section class="season" aria-labelledby="season-title">
-    <div class="container">
-      <div class="season__head">
-        <h2 id="season-title">The season packs the box.</h2>
-        <p class="lead">What&rsquo;s ripe changes week to week, so the box does too.</p>
+  <section class="terms" id="thursdays" aria-labelledby="terms-title">
+    <div class="container terms__grid">
+      <h2 id="terms-title" class="terms__head">How Thursdays work.</h2>
+      <dl class="terms__rows">
+        <div><dt>When it comes</dt><dd>Every Thursday, starting on the one you pick.</dd></div>
+        <div><dt>Where we deliver</dt><dd>Across London.</dd></div>
+        <div><dt>What&rsquo;s inside</dt><dd>Whatever is ripest that week.</dd></div>
+        <div><dt>Which size</dt><dd>One of four, chosen when you start.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="again" aria-labelledby="again-title">
+    <div class="container again__grid">
+      <p class="again__figure" aria-hidden="true"><span class="again__from">from</span>&pound;12</p>
+      <div class="again__text">
+        <h2 id="again-title">Start with the next Thursday.</h2>
+        <p class="lead" data-again>That is <span data-next>22 October</span>, and every Thursday after.</p>
+        <a class="btn btn--primary" href="#box">Start a box</a>
       </div>
-      <figure class="photo season__photo" data-slot="photo-3" data-alt="The week's fruit in crates, straight from the grower">
-        <img src="photos/crates-of-peaches-in-the-orchard-delta-county-colo-lccn20178-1920.jpg" width="1920" height="1352" loading="lazy" alt="Crates of ripe peaches packed in rows in an orchard shed" style="object-position: 50% 55%">
-      </figure>
     </div>
   </section>
 </main>
 
-<footer class="foot" id="start" aria-labelledby="start-title">
+<footer class="foot">
   <div class="container foot__grid">
-    <div class="card">
-      <h2 id="start-title">Start your box.</h2>
-      <p class="card__line">Your first box comes on <strong data-first>Thursday 22 October</strong>.</p>
-      <form class="signup" data-endpoint="" novalidate>
-        <input type="hidden" name="first" value="2026-10-22" data-first-input>
-        <label for="email">Email address</label>
-        <div class="signup__row">
-          <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required>
-          <button class="btn btn--primary" type="submit">Start my box</button>
-        </div>
-        <p class="signup__help" id="email-help" aria-live="polite"></p>
-      </form>
-    </div>
-    <div class="foot__side">
-      <p class="foot__mark">Peachy</p>
-      <ul class="foot__links" role="list">
-        <li><a href="#sizes">Sizes</a></li>
-        <li><a href="#fruit">The fruit</a></li>
-        <li><a href="#thursdays">Thursdays</a></li>
-      </ul>
-    </div>
+    <p class="foot__mark">Peachy</p>
+    <ul class="foot__links" role="list">
+      <li><a href="#fruit">The fruit</a></li>
+      <li><a href="#thursdays">Thursdays</a></li>
+      <li><a href="#box">Start a box</a></li>
+    </ul>
   </div>
   <div class="container">
     <p class="legal">&copy; 2026 Peachy, London</p>
-    <p class="credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Javier_shows_part_of_the_grape_harvest_in_his_Lysekil_vineyard_1_-_cropped.jpg">W.carter</a> (CC0), <a href="https://commons.wikimedia.org/wiki/File:Alaska_wild_berries.jpg">U.S. Fish and Wildlife Service</a> (public domain), <a href="https://commons.wikimedia.org/wiki/File:Winterswijk_(NL),_Wochenmarkt_--_2016_--_4139.jpg">Dietmar Rabich</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Crates_of_peaches_in_the_orchard,_Delta_County,_Colo._LCCN2017877605.jpg">Russell Lee</a> (public domain), all via Wikimedia Commons.</p>
+    <p class="credits" data-credits>Photographs: <a href="https://commons.wikimedia.org/wiki/File:Javier_shows_part_of_the_grape_harvest_in_his_Lysekil_vineyard_1_-_cropped.jpg">W.carter</a> (CC0), <a href="https://commons.wikimedia.org/wiki/File:Alaska_wild_berries.jpg">U.S. Fish and Wildlife Service</a> (public domain), <a href="https://commons.wikimedia.org/wiki/File:Winterswijk_(NL),_Wochenmarkt_--_2016_--_4139.jpg">Dietmar Rabich</a> (CC BY-SA 4.0), all via Wikimedia Commons.</p>
   </div>
 </footer>
 
@@ -137,32 +133,34 @@ document.querySelectorAll('[data-slot] > img').forEach((i) => { if (i.complete &
 <script>
   (() => {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-    const radios = [...document.querySelectorAll('input[name="first"][type="radio"]')];
-    const shown = document.querySelector('[data-first]'), hidden = document.querySelector('[data-first-input]');
+    const form = document.getElementById('box');
     const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() + ((4 - d.getDay() + 7) % 7 || 7));
-    radios.forEach((r, i) => {
+    const days = [...form.querySelectorAll('input[name="first"]')];
+    days.forEach((r, i) => {
       const t = new Date(d); t.setDate(d.getDate() + i * 7);
       r.value = `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`;
       r.dataset.label = `${t.getDate()} ${months[t.getMonth()]}`;
-      r.parentElement.querySelector('.day__date').textContent = r.dataset.label;
+      form.querySelector(`[data-week="${i}"]`).textContent = `${t.getDate()} ${months[t.getMonth()].slice(0, 3)}`;
     });
-    const sync = () => { const r = radios.find((x) => x.checked) || radios[0]; shown.textContent = `Thursday ${r.dataset.label}`; hidden.value = r.value; };
-    radios.forEach((r) => r.addEventListener('change', sync));
+    const sizeOut = form.querySelector('[data-sum-size]'), dayOut = form.querySelector('[data-sum-day]');
+    const sync = () => {
+      const r = days.find((x) => x.checked) || days[0];
+      sizeOut.textContent = form.elements.size.value;
+      dayOut.textContent = `Thursday ${r.dataset.label}`;
+    };
+    form.addEventListener('change', sync);
     sync();
-  })();
-  document.querySelectorAll('form[data-endpoint]').forEach((form) => {
-    const input = form.querySelector('input[type="email"]'), help = form.querySelector('[aria-live]');
+    const next = document.querySelector('[data-next]');
+    if (next) next.textContent = days[0].dataset.label;
+    const help = form.querySelector('#box-help');
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      const ok = input.checkValidity();
-      input.toggleAttribute('aria-invalid', !ok);
-      if (!ok) { input.setAttribute('aria-describedby', help.id); help.textContent = 'That address looks incomplete. Write it as name@example.com.'; input.focus(); return; }
-      if (!form.dataset.endpoint) { help.textContent = 'Nothing was sent: this form is not connected yet.'; return; }
+      if (!form.dataset.endpoint) { help.textContent = 'Nothing was sent: the box is not connected to a checkout yet.'; return; }
       fetch(form.dataset.endpoint, { method: 'POST', body: new FormData(form) })
-        .then((r) => { help.textContent = r.ok ? 'The next step is on its way to ' + input.value.trim() + '.' : 'That did not go through. Try again in a minute.'; })
+        .then((r) => { help.textContent = r.ok ? 'Your box is started.' : 'That did not go through. Try again in a minute.'; })
         .catch(() => { help.textContent = 'That did not go through. Try again in a minute.'; });
     });
-  });
+  })();
 </script>
 </body>
 </html>

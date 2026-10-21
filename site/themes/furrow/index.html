@@ -35,6 +35,7 @@
           <a class="btn btn--primary" href="#start">Open a farm book</a>
           <a class="btn" href="#book">See the book</a>
         </div>
+        <p class="hero__terms"><span class="num">£12</span> a month per farm.</p>
       </div>
       <div class="hero__visual">
         <figure class="hero__photo" data-slot="hero" data-alt="Your own stock, on your own ground">
@@ -63,59 +64,34 @@
 
   <section class="book" id="book" aria-labelledby="book-head">
     <div class="container">
-      <div class="book__head">
-        <h2 id="book-head">Three logs, one book</h2>
-        <p class="lead">Filed by date and ruled the way an inspector reads it.</p>
-      </div>
-      <div class="sheet record" data-slot="demo-2" data-alt="Your farm book: the movement, medicine and field work records">
-        <div class="record__top">
-          <span class="record__title">Example Farm</span>
-          <span class="record__farm">Holding <span class="num">12/345/6789</span></span>
-          <div class="seg" role="tablist" aria-label="Logs">
-            <button class="seg__tab" type="button" role="tab" id="t-mov" aria-controls="p-mov" aria-selected="false" tabindex="-1">Movements</button>
-            <button class="seg__tab" type="button" role="tab" id="t-med" aria-controls="p-med" aria-selected="true">Medicines</button>
-            <button class="seg__tab" type="button" role="tab" id="t-fld" aria-controls="p-fld" aria-selected="false" tabindex="-1">Field work</button>
+      <div class="sheet index" data-slot="demo-2" data-alt="Your farm book: every movement, medicine and field job, newest first">
+        <div class="index__top">
+          <div class="index__title">
+            <h2 id="book-head">The book</h2>
+            <p class="index__farm">Example Farm, holding <span class="num">12/345/6789</span></p>
+          </div>
+          <div class="seg" role="group" aria-label="Show entries from">
+            <button class="seg__tab" type="button" aria-pressed="true" data-log="all">All logs</button>
+            <button class="seg__tab" type="button" aria-pressed="false" data-log="mov">Movements</button>
+            <button class="seg__tab" type="button" aria-pressed="false" data-log="med">Medicines</button>
+            <button class="seg__tab" type="button" aria-pressed="false" data-log="fld">Field work</button>
           </div>
         </div>
-
-        <div class="panel" role="tabpanel" id="p-mov" aria-labelledby="t-mov" data-panel>
-          <table class="tbl tbl--mov">
-            <caption class="visually-hidden">Movement record, sample</caption>
-            <thead><tr><th scope="col">Date</th><th scope="col">Time</th><th scope="col">Animals</th><th scope="col">From</th><th scope="col">To</th><th scope="col">Logged by</th></tr></thead>
-            <tbody>
-              <tr><td class="num">08 Oct</td><td class="num">07:40</td><td><span class="num">24</span> ewes</td><td>Hill field</td><td>Home paddock</td><td>You</td></tr>
-              <tr><td class="num">08 Oct</td><td class="num">05:40</td><td><span class="num">2</span> tups</td><td>Home paddock</td><td>The yard</td><td>You</td></tr>
-              <tr><td class="num">05 Oct</td><td class="num">14:15</td><td><span class="num">30</span> lambs</td><td>Home paddock</td><td>Off the holding, to market</td><td>Farm hand</td></tr>
-              <tr><td class="num">29 Sep</td><td class="num">08:05</td><td><span class="num">40</span> ewes</td><td>Top meadow</td><td>Hill field</td><td>You</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="panel" role="tabpanel" id="p-med" aria-labelledby="t-med" data-panel>
-          <table class="tbl tbl--med">
-            <caption class="visually-hidden">Medicine record, sample</caption>
-            <thead><tr><th scope="col">Date</th><th scope="col">Animal or group</th><th scope="col">Medicine</th><th scope="col" class="r">Dose</th><th scope="col">Batch</th><th scope="col">Withdrawal ends</th><th scope="col">Given by</th></tr></thead>
-            <tbody>
-              <tr><td class="num">06 Oct</td><td>Ewe <span class="num">0417</span></td><td>Wormer</td><td class="num r">10 ml</td><td class="num">B2241</td><td><span class="num">03 Nov</span> <i class="chip chip--held">In withdrawal</i></td><td>You</td></tr>
-              <tr><td class="num">06 Oct</td><td>Ewe <span class="num">0412</span></td><td>Wormer</td><td class="num r">10 ml</td><td class="num">B2241</td><td><span class="num">03 Nov</span> <i class="chip chip--held">In withdrawal</i></td><td>You</td></tr>
-              <tr><td class="num">01 Oct</td><td><span class="num">12</span> lambs</td><td>Vaccine</td><td class="num r">2 ml each</td><td class="num">V0918</td><td><span class="num">01 Oct</span> <i class="chip chip--ok">Clear</i></td><td>Farm hand</td></tr>
-              <tr><td class="num">24 Sep</td><td>Tup <span class="num">0033</span></td><td>Antibiotic</td><td class="num r">5 ml</td><td class="num">A7730</td><td><span class="num">22 Oct</span> <i class="chip chip--held">In withdrawal</i></td><td>Vet</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="panel" role="tabpanel" id="p-fld" aria-labelledby="t-fld" data-panel>
-          <table class="tbl tbl--fld">
-            <caption class="visually-hidden">Field work record, sample</caption>
-            <thead><tr><th scope="col">Date</th><th scope="col">Field</th><th scope="col">Job</th><th scope="col">Rate</th><th scope="col" class="r">Area</th><th scope="col">Done by</th></tr></thead>
-            <tbody>
-              <tr><td class="num">08 Oct</td><td>Long acre</td><td>Rolled</td><td></td><td class="num r">3.6 ha</td><td>You</td></tr>
-              <tr><td class="num">06 Oct</td><td>Hill field</td><td>Topped</td><td></td><td class="num r">5.2 ha</td><td>Contractor</td></tr>
-              <tr><td class="num">03 Oct</td><td>Home paddock</td><td>Fertiliser</td><td class="num">125 kg/ha</td><td class="num r">2.1 ha</td><td>You</td></tr>
-              <tr><td class="num">30 Sep</td><td>Top meadow</td><td>Harrowed</td><td></td><td class="num r">4.0 ha</td><td>You</td></tr>
-            </tbody>
-          </table>
-        </div>
+        <table class="tbl">
+          <caption class="visually-hidden">The farm book, newest first, sample entries</caption>
+          <thead><tr><th scope="col">Date</th><th scope="col">Log</th><th scope="col">Entry</th><th scope="col" class="r">Amount</th><th scope="col">Withdrawal</th><th scope="col">By</th></tr></thead>
+          <tbody>
+            <tr data-log="mov" class="is-lead"><td class="num">08 Oct <span class="t">07:40</span></td><td><i class="chip">Movement</i></td><th scope="row">Ewes, Hill field to Home paddock</th><td class="num r">24 head</td><td></td><td>You</td></tr>
+            <tr data-log="fld"><td class="num">08 Oct <span class="t">06:10</span></td><td><i class="chip">Field work</i></td><th scope="row">Long acre, rolled</th><td class="num r">3.6 ha</td><td></td><td>You</td></tr>
+            <tr data-log="mov"><td class="num">08 Oct <span class="t">05:40</span></td><td><i class="chip">Movement</i></td><th scope="row">Tups, Home paddock to the yard</th><td class="num r">2 head</td><td></td><td>You</td></tr>
+            <tr data-log="med"><td class="num">06 Oct <span class="t">16:20</span></td><td><i class="chip chip--held">Medicine</i></td><th scope="row">Ewe <span class="num">0417</span>, wormer, batch <span class="num">B2241</span></th><td class="num r">10 ml</td><td><i class="chip chip--held">To <span class="num">03 Nov</span></i></td><td>You</td></tr>
+            <tr data-log="fld"><td class="num">06 Oct <span class="t">10:00</span></td><td><i class="chip">Field work</i></td><th scope="row">Hill field, topped</th><td class="num r">5.2 ha</td><td></td><td>Contractor</td></tr>
+            <tr data-log="mov"><td class="num">05 Oct <span class="t">14:15</span></td><td><i class="chip">Movement</i></td><th scope="row">Lambs, off the holding to market</th><td class="num r">30 head</td><td></td><td>Farm hand</td></tr>
+            <tr data-log="fld"><td class="num">03 Oct <span class="t">09:30</span></td><td><i class="chip">Field work</i></td><th scope="row">Home paddock, fertiliser at <span class="num">125 kg/ha</span></th><td class="num r">2.1 ha</td><td></td><td>You</td></tr>
+            <tr data-log="med"><td class="num">01 Oct <span class="t">08:45</span></td><td><i class="chip chip--held">Medicine</i></td><th scope="row">Lambs, vaccine, batch <span class="num">V0918</span></th><td class="num r">2 ml each</td><td><i class="chip chip--ok">Clear</i></td><td>Farm hand</td></tr>
+            <tr data-log="med"><td class="num">24 Sep <span class="t">17:05</span></td><td><i class="chip chip--held">Medicine</i></td><th scope="row">Tup <span class="num">0033</span>, antibiotic, batch <span class="num">A7730</span></th><td class="num r">5 ml</td><td><i class="chip chip--held">To <span class="num">22 Oct</span></i></td><td>Vet</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </section>
@@ -129,29 +105,37 @@
         <h2 id="field-head">Logged in the field, not later</h2>
       </div>
     </div>
-    <div class="container">
-      <ol class="places">
-        <li><b>At the gate</b><span><span class="num">24</span> ewes counted through</span></li>
-        <li><b>At the pen</b><span>Wormer, <span class="num">10 ml</span>, batch <span class="num">B2241</span></span></li>
-        <li><b>From the cab</b><span>Long acre rolled, <span class="num">3.6 ha</span></span></li>
-      </ol>
-    </div>
   </section>
 
   <section class="day" id="day" aria-labelledby="day-head">
-    <div class="container day__grid">
+    <div class="container">
       <div class="day__head">
-        <h2 id="day-head">One day, as it was logged</h2>
-        <p class="lead">Every entry keeps the minute it was made.</p>
+        <h2 id="day-head">One day, by the hour</h2>
         <p class="day__date">Thursday <span class="num">8 Oct</span>, Example Farm</p>
       </div>
-      <ol class="times">
-        <li><time class="num" datetime="05:40">05:40</time><i class="chip">Movement</i><span>Two tups, Home paddock to the yard</span><b class="num">2 head</b></li>
-        <li><time class="num" datetime="06:10">06:10</time><i class="chip">Field work</i><span>Long acre, rolled</span><b class="num">3.6 ha</b></li>
-        <li><time class="num" datetime="07:40">07:40</time><i class="chip">Movement</i><span>Ewes, Hill field to Home paddock</span><b class="num">24 head</b></li>
-        <li><time class="num" datetime="11:20">11:20</time><i class="chip chip--held">Medicine</i><span>Ewe <span class="num">0421</span>, foot spray, batch <span class="num">S0457</span></span><b class="num">1 spray</b></li>
-        <li><time class="num" datetime="15:30">15:30</time><i class="chip">Field work</i><span>Top meadow, harrowed</span><b class="num">4.0 ha</b></li>
-      </ol>
+      <div class="sched" role="table" aria-label="Thursday 8 October, entries by log and time, sample">
+        <div class="sched__scale" role="row" aria-hidden="true"><span class="sched__name"></span><span class="sched__hours"><span class="num" style="--t:0">05:00</span><span class="num" style="--t:2">07:00</span><span class="num" style="--t:4">09:00</span><span class="num" style="--t:6">11:00</span><span class="num" style="--t:8">13:00</span><span class="num" style="--t:10">15:00</span><span class="num" style="--t:12">17:00</span></span></div>
+        <div class="sched__row" role="row">
+          <span class="sched__name" role="rowheader">Movements</span>
+          <span class="sched__track" role="cell">
+            <span class="ev" style="--t:0.67"><time class="num" datetime="2026-10-08T05:40">05:40</time><b>Tups to the yard</b><small class="num">2 head</small></span>
+            <span class="ev" style="--t:2.67"><time class="num" datetime="2026-10-08T07:40">07:40</time><b>Ewes to Home paddock</b><small class="num">24 head</small></span>
+          </span>
+        </div>
+        <div class="sched__row" role="row">
+          <span class="sched__name" role="rowheader">Medicines</span>
+          <span class="sched__track" role="cell">
+            <span class="ev ev--med" style="--t:6.33"><time class="num" datetime="2026-10-08T11:20">11:20</time><b>Ewe <span class="num">0421</span>, foot spray</b><small class="num">Batch S0457</small></span>
+          </span>
+        </div>
+        <div class="sched__row" role="row">
+          <span class="sched__name" role="rowheader">Field work</span>
+          <span class="sched__track" role="cell">
+            <span class="ev" style="--t:1.17"><time class="num" datetime="2026-10-08T06:10">06:10</time><b>Long acre, rolled</b><small class="num">3.6 ha</small></span>
+            <span class="ev ev--last ev--end" style="--t:10.5"><time class="num" datetime="2026-10-08T15:30">15:30</time><b>Top meadow, harrowed</b><small class="num">4.0 ha</small></span>
+          </span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -189,26 +173,33 @@
     </div>
   </section>
 
-  <section class="band" id="start" aria-labelledby="start-head">
+  <section class="band offer" id="start" aria-labelledby="start-head">
     <div class="container band__grid">
       <div class="band__text">
         <h2 id="start-head">One price, the whole book</h2>
+        <p class="lead">For one farm, from the first job of the day.</p>
+      </div>
+      <div class="sheet offer__sheet">
+        <div class="offer__bill">
         <ol class="bill">
           <li><span>Movement log</span><span>Included</span></li>
           <li><span>Medicine log</span><span>Included</span></li>
           <li><span>Field work log</span><span>Included</span></li>
-          <li class="bill__total"><span>A month, per farm</span><b>£12</b></li>
+          <li><span>Ready for inspection</span><span>Included</span></li>
         </ol>
-      </div>
-      <form class="sheet signup" data-endpoint="" novalidate>
-        <p class="signup__lead">Start the book with today’s first job.</p>
-        <label for="email">Email address</label>
-        <div class="signup__row">
-          <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="email-help">
-          <button class="btn btn--primary" type="submit">Open a farm book</button>
+        <div class="offer__foot">
+          <p class="offer__price"><b>£12</b><span>a month, per farm</span></p>
         </div>
-        <p class="signup__help" id="email-help" aria-live="polite"></p>
+        </div>
+      <form class="open" data-endpoint="" novalidate aria-labelledby="open-head">
+        <p class="open__head" id="open-head">Your farm’s book</p>
+        <div class="field"><label for="farm">Farm name</label><input id="farm" name="farm" type="text" autocomplete="organization" required></div>
+        <div class="field"><label for="cph">Holding number</label><input class="num" id="cph" name="cph" type="text" inputmode="numeric" placeholder="12/345/6789" pattern="[0-9]{2}/[0-9]{3}/[0-9]{4}" required></div>
+        <div class="field"><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+        <button class="btn btn--primary" type="submit">Open a farm book</button>
+        <p class="open__help" id="open-help" aria-live="polite"></p>
       </form>
+      </div>
     </div>
   </section>
 </main>
@@ -227,29 +218,24 @@
 <script>
 window.hallmarkSlots = (m) => { for (const [k, v] of Object.entries(m)) { const s = document.querySelector(`[data-slot="${k}"]`); if (!s) continue; const im = new Image(); im.src = typeof v === 'string' ? v : v.src; im.alt = (typeof v === 'object' && v.alt) || s.dataset.alt || ''; s.querySelectorAll(':scope > img').forEach((o) => o.remove()); s.prepend(im); } };
 document.querySelectorAll('[data-slot] img').forEach((i) => { if (i.complete && !i.naturalWidth) i.remove(); else i.addEventListener('error', () => i.remove(), { once: true }); });
-(() => {
-  const tabs = [...document.querySelectorAll('[role="tab"]')];
-  const show = (tab, focus) => {
-    tabs.forEach((t) => { const on = t === tab; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; document.getElementById(t.getAttribute('aria-controls')).hidden = !on; });
-    if (focus) tab.focus();
-  };
-  tabs.forEach((t, i) => {
-    t.addEventListener('click', () => show(t));
-    t.addEventListener('keydown', (e) => { const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0; if (d) { e.preventDefault(); show(tabs[(i + d + tabs.length) % tabs.length], true); } });
-  });
-  const start = tabs.find((t) => t.getAttribute('aria-selected') === 'true');
-  if (start) show(start);
-})();
 document.querySelectorAll('form[data-endpoint]').forEach((form) => {
-  const input = form.querySelector('input'), help = form.querySelector('[aria-live]');
+  const help = form.querySelector('[aria-live]');
+  const say = { farm: 'Add the name of your farm.', cph: 'Write the holding number as 12/345/6789.', email: 'That address looks incomplete. Write it as name@example.com.' };
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const ok = input.checkValidity();
-    input.toggleAttribute('aria-invalid', !ok);
-    if (!ok) { help.textContent = 'That address looks incomplete. Write it as name@example.com.'; input.focus(); return; }
+    const bad = [...form.querySelectorAll('input')].filter((i) => { const ok = i.checkValidity(); i.toggleAttribute('aria-invalid', !ok); if (!ok) i.setAttribute('aria-describedby', help.id); else i.removeAttribute('aria-describedby'); return !ok; });
+    if (bad.length) { help.textContent = say[bad[0].name]; bad[0].focus(); return; }
     if (!form.dataset.endpoint) { help.textContent = 'Nothing was sent: this form is not connected yet.'; return; }
   });
 });
+(() => {
+  const btns = [...document.querySelectorAll('[data-log][aria-pressed]')];
+  const rows = [...document.querySelectorAll('tr[data-log]')];
+  btns.forEach((b) => b.addEventListener('click', () => {
+    btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+    rows.forEach((r) => { r.hidden = b.dataset.log !== 'all' && r.dataset.log !== b.dataset.log; });
+  }));
+})();
 </script>
 </body>
 </html>

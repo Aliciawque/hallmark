@@ -75,72 +75,47 @@
     </div>
   </section>
 
-  <section class="where" id="how" aria-labelledby="where-title">
-    <div class="container where__grid">
-      <figure class="where__fig">
-        <div class="photo" data-slot="room" data-alt="Your own room or instrument in daylight, where a tune turns up">
-          <img src="photos/brac-and-celo-on-the-sofa-2019-04-20-16-48-01-by-marko-miliv-1920.jpg" width="1920" height="2880" sizes="(min-width: 60rem) 42vw, 100vw" loading="lazy" alt="Two old acoustic guitars resting in a velvet armchair by a sunny window" style="object-position: 50% 62%">
-        </div>
-      </figure>
-      <div class="where__text">
-        <h2 id="where-title">Hum it the moment it arrives</h2>
-        <p class="lead">No instrument to hand, no words yet. Your phone and the tune are enough.</p>
-        <ol class="how">
-          <li><h3>Hum into your phone</h3><p>A verse, a chorus, the riff that keeps coming back.</p></li>
-          <li><h3>Driftsong writes the parts</h3><p>Keys, bass, drums and strings, fitted to your key and tempo.</p></li>
-          <li><h3>Your melody stays on top</h3><p>Every part is written around the hum, never over it.</p></li>
+  <section class="build" id="how" aria-labelledby="build-title">
+    <div class="container build__grid">
+      <div class="build__steps">
+        <h2 id="build-title">From hum to band</h2>
+        <ol class="beats">
+          <li class="beat" data-beat="1"><h3>You hum</h3><p>A verse, a chorus, the riff that keeps coming back. Your phone is enough.</p></li>
+          <li class="beat" data-beat="2"><h3>Driftsong listens</h3><p>It finds the notes, the key and the tempo in your hum.</p></li>
+          <li class="beat" data-beat="3"><h3>The band arrives</h3><p>Keys, bass, drums and strings, written around your melody, never over it.</p></li>
+          <li class="beat beat--last" data-beat="4"><p class="beat__fig"><span class="serif-figure">40</span><span class="beat__unit">seconds, more or less, from your hum to a finished song.</span></p></li>
         </ol>
       </div>
-    </div>
-  </section>
-
-  <section class="clock" aria-labelledby="clock-title">
-    <div class="container">
-      <h2 id="clock-title">Back before the kettle boils</h2>
-      <div class="clock__grid">
-        <p class="clock__fig"><span class="serif-figure">40</span><span class="clock__unit">seconds, more or less, from your hum to a finished song.</span></p>
-        <div class="surface work" aria-label="An arrangement in progress, shown as a sample">
-          <div class="work__head"><p class="player__name">Arranging Walk home</p><span class="code work__t">0:26</span></div>
-          <div class="work__bar" aria-hidden="true"><i style="--p: 0.66"></i></div>
-          <ol class="work__steps">
-            <li class="is-done"><span class="tick" aria-hidden="true"></span>Hearing the melody</li>
-            <li class="is-done"><span class="tick" aria-hidden="true"></span>Finding the key and tempo</li>
-            <li class="is-now"><span class="tick" aria-hidden="true"></span>Writing keys, bass, drums and strings</li>
-            <li><span class="tick" aria-hidden="true"></span>Mixing the song</li>
+      <div class="build__stage">
+        <div class="surface surface--lead desk" data-stage="4" data-slot="build" data-alt="A screenshot of Driftsong arranging one of your songs, part by part">
+          <div class="player__head">
+            <div><p class="player__name">Walk home</p><p class="player__sub">Hummed on the way back, 0:14</p></div>
+            <span class="player__tag desk__tag"><span class="desk__t1">Listening</span><span class="desk__t2">Hearing it</span><span class="desk__t3">Arranging</span><span class="desk__t4">Arranged</span></span>
+          </div>
+          <p class="desk__keys"><span class="desk__chip code">D major</span><span class="desk__chip code">92 bpm</span></p>
+          <ol class="lanes">
+            <li class="lane lane--hum"><span>Your hum</span><div class="lane__track"><i data-hum></i></div></li>
+            <li class="lane lane--keys"><span>Keys</span><div class="lane__track"><b style="--a:0;--b:25"></b><b style="--a:25;--b:50"></b><b style="--a:50;--b:75"></b><b style="--a:75;--b:100"></b></div></li>
+            <li class="lane lane--bass"><span>Bass</span><div class="lane__track"><b style="--a:0;--b:11"></b><b style="--a:12.5;--b:23"></b><b style="--a:25;--b:36"></b><b style="--a:37.5;--b:48"></b><b style="--a:50;--b:61"></b><b style="--a:62.5;--b:73"></b><b style="--a:75;--b:86"></b><b style="--a:87.5;--b:98"></b></div></li>
+            <li class="lane lane--drums"><span>Drums</span><div class="lane__track"><b style="--a:25;--b:100"></b></div></li>
+            <li class="lane lane--strings"><span>Strings</span><div class="lane__track"><b style="--a:50;--b:100"></b></div></li>
           </ol>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="pair" aria-labelledby="pair-title">
+  <section class="room" aria-labelledby="room-title">
     <div class="container">
       <div class="head-split">
-        <h2 id="pair-title">One voice in, a band out</h2>
-        <p class="lead">The same ten seconds, before and after.</p>
+        <h2 id="room-title">Hum it the moment it arrives</h2>
+        <p class="lead">No instrument to hand, no words yet. The tune is enough.</p>
       </div>
-      <div class="pair__grid">
-        <figure class="pair__in">
-          <figcaption>What you hum</figcaption>
-          <ol class="mini">
-            <li class="mini__hum"><span>Your hum</span><div class="mini__track"><i data-hum></i></div></li>
-            <li><span>Keys</span><div class="mini__track"></div></li>
-            <li><span>Bass</span><div class="mini__track"></div></li>
-            <li><span>Drums</span><div class="mini__track"></div></li>
-            <li><span>Strings</span><div class="mini__track"></div></li>
-          </ol>
-        </figure>
-        <figure class="pair__out surface surface--lead">
-          <figcaption>What Driftsong plays back</figcaption>
-          <ol class="mini mini--full">
-            <li class="mini__hum"><span>Your hum</span><div class="mini__track"><i data-hum></i></div></li>
-            <li class="lane--keys"><span>Keys</span><div class="mini__track"><b style="--a:0;--b:25"></b><b style="--a:25;--b:50"></b><b style="--a:50;--b:75"></b><b style="--a:75;--b:100"></b></div></li>
-            <li class="lane--bass"><span>Bass</span><div class="mini__track"><b style="--a:0;--b:11"></b><b style="--a:12.5;--b:23"></b><b style="--a:25;--b:36"></b><b style="--a:37.5;--b:48"></b><b style="--a:50;--b:61"></b><b style="--a:62.5;--b:73"></b><b style="--a:75;--b:86"></b><b style="--a:87.5;--b:98"></b></div></li>
-            <li class="lane--drums"><span>Drums</span><div class="mini__track"><b style="--a:25;--b:100"></b></div></li>
-            <li class="lane--strings"><span>Strings</span><div class="mini__track"><b style="--a:50;--b:100"></b></div></li>
-          </ol>
-        </figure>
-      </div>
+      <figure class="room__fig">
+        <div class="photo" data-slot="room" data-alt="Your own room or instrument in daylight, where a tune turns up">
+          <img src="photos/brac-and-celo-on-the-sofa-2019-04-20-16-48-01-by-marko-miliv-1920.jpg" width="1920" height="2880" sizes="(min-width: 60rem) 92vw, 100vw" loading="lazy" alt="Two old acoustic guitars resting in a velvet armchair by a sunny window" style="object-position: 50% 74%">
+        </div>
+      </figure>
     </div>
   </section>
 
@@ -161,15 +136,12 @@
     <div class="container start__grid">
       <div class="start__head">
         <h2 id="start-title">Hum your first song tonight</h2>
-        <p class="lead">Leave your email and we&rsquo;ll send the link to your phone.</p>
-        <form class="start__form" data-endpoint="" novalidate>
-          <label for="f-email">Email</label>
-          <div class="start__row">
-            <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required placeholder="you@example.com">
-            <button class="btn btn--clay" type="submit">Send the link</button>
-          </div>
-          <p class="start__help" id="start-help" aria-live="polite">Free, with no card.</p>
-        </form>
+        <p class="lead">Free for 10 songs a month. Bring a tune.</p>
+        <div class="start__acts">
+          <button class="btn btn--clay" type="button" data-get>Hum your first song</button>
+          <button class="btn btn--line" type="button" data-again>Play the kitchen tune again</button>
+        </div>
+        <p class="start__help" id="start-help" aria-live="polite"></p>
       </div>
       <div class="rec surface surface--lead" data-slot="record" data-alt="A screenshot of Driftsong listening to a hum">
         <div class="rec__head"><p class="player__name">New song</p><span class="player__tag">Listening</span></div>
