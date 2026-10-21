@@ -813,7 +813,7 @@ const TIERS = new Map(Object.entries({
   '77': 'reflex', '78': 'reflex', '79': 'reflex', '80': 'reflex', '81': 'reflex', '82': 'reflex', '83': 'reflex', '84': 'reflex', '85': 'reflex',
 }));
 
-const HERO_SKIP = new Set(['8', '9', '32', '59', '77', '78', 'F8', 'F15']);
+const HERO_SKIP = new Set(['8', '9', '32', '59', '76', '77', '78', 'F8', 'F15']);
 function baseGate(id) {
   const s = String(id).trim();
   if (/^F\d+$/i.test(s)) return s.toUpperCase();

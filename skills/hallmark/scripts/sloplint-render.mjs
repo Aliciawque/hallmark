@@ -779,7 +779,8 @@ function observeSpace(atLaptop, heroOnly, heroPosture, photoShape, job) {
 
     const clipAbs = (el, stop) => { const r0 = el.getBoundingClientRect(); let T = r0.top, B = r0.bottom; for (let q = el.parentElement; q && q !== document.body; q = q.parentElement) { const cs = getComputedStyle(q); if (/hidden|clip/.test(`${cs.overflow} ${cs.overflowY}`)) { const qr = q.getBoundingClientRect(); T = Math.max(T, qr.top); B = Math.min(B, qr.bottom); } if (q === stop) break; } return { top: T + scrollY, bottom: B + scrollY }; };
     const content = (s) => { let top = Infinity, bottom = -Infinity; for (const c of s.querySelectorAll('*')) { if (!vis(c)) continue; if (!(c.innerText || '').trim() && !/^(SVG|IMG|CANVAS|VIDEO)$/.test(c.tagName) && getComputedStyle(c).backgroundColor === 'rgba(0, 0, 0, 0)') continue; if (c.children.length && ![...c.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()) && !/^(SVG)$/.test(c.tagName) && getComputedStyle(c).backgroundColor === 'rgba(0, 0, 0, 0)') continue; const b = clipAbs(c, s); if (b.bottom <= b.top) continue; top = Math.min(top, b.top); bottom = Math.max(bottom, b.bottom); } if (top === Infinity) { const b = abs(s); return b; } return { top, bottom }; };
-    const paperOf = (el) => { for (let q = el; q; q = q.parentElement) { const c = getComputedStyle(q).backgroundColor; if (!/^(transparent|rgba\(0, 0, 0, 0\))$/.test(c)) return c; } return 'none'; };
+    // a paper is a colour or a painted image (a gradient, a split ground), whichever the nearest box sets
+    const paperOf = (el) => { for (let q = el; q; q = q.parentElement) { const cs = getComputedStyle(q), c = cs.backgroundColor; if (/gradient|url\(/.test(cs.backgroundImage)) return `${c}|${cs.backgroundImage}`; if (!/^(transparent|rgba\(0, 0, 0, 0\))$/.test(c)) return c; } return 'none'; };
     const gaps = [], shifts = [];
     for (let i = 0; !heroOnly && i < secs.length - 1; i++) { gaps.push(Math.round(content(secs[i + 1]).top - content(secs[i]).bottom)); shifts.push(paperOf(secs[i]) !== paperOf(secs[i + 1])); }
     const real = gaps.filter((g) => g > -50);
@@ -887,7 +888,9 @@ function observeSpace(atLaptop, heroOnly, heroPosture, photoShape, job) {
     if (heroEnd != null && !/subscribe|join|attend|listen|visit|newsletter|waitlist/.test(job || '')) {
       const foot = [...document.querySelectorAll('body footer, [role="contentinfo"]')].filter(vis).pop();
       const before = foot ? secs.filter((x) => x !== foot && abs(x).bottom <= abs(foot).top + 2).pop() : secs[secs.length - 1];
-      const signup = (box) => box && [...box.querySelectorAll('form, [role="form"]')].find((f) => { const fields = [...f.querySelectorAll('input:not([type=hidden]):not([type=submit]):not([type=checkbox]):not([type=radio]), textarea, select')].filter(vis); return fields.length >= 1 && fields.length <= 2 && fields.some((x) => x.type === 'email' || /e-?mail/i.test(`${x.name} ${x.id} ${x.placeholder} ${x.getAttribute('autocomplete') || ''}`)); });
+      // a form whose submit books, asks or requests is the job's own action, not a mailing list
+      const asks = (f) => /\b(book|enquir|inquir|request|contact|walkthrough|demo|quote|reserve|apply)/i.test([...f.querySelectorAll('button, input[type=submit]')].map((b) => b.innerText || b.value || '').join(' '));
+      const signup = (box) => box && [...box.querySelectorAll('form, [role="form"]')].find((f) => { if (asks(f)) return false; const fields = [...f.querySelectorAll('input:not([type=hidden]):not([type=submit]):not([type=checkbox]):not([type=radio]), textarea, select')].filter(vis); return fields.length >= 1 && fields.length <= 2 && fields.some((x) => x.type === 'email' || /e-?mail/i.test(`${x.name} ${x.id} ${x.placeholder} ${x.getAttribute('autocomplete') || ''}`)); });
       const hit = signup(before) || signup(foot);
       if (hit) push(85, 'REFLEX', `the page closes on an email sign-up${job ? ` on a ${job} page` : ' and the stamp names no job'}`, 'End on what the visitor came to do (the booking, the buy box, the download, the next date, the latest issue) or on the last strong section; an email close is for a subscribe or join page, and the stamp says job: (anatomy.md)');
     }
@@ -897,7 +900,9 @@ function observeSpace(atLaptop, heroOnly, heroPosture, photoShape, job) {
       const hb = abs(hero);
       let cTop = Infinity, cBottom = -Infinity;
       for (const c of hero.querySelectorAll('*')) {
-        if (!vis(c) || c.closest('nav, header > nav') || c === hero) continue;
+        // the site nav is not hero content; a nav lower in the hero (a band of section links) is
+        const nv = c.closest('nav');
+        if (!vis(c) || (nv && abs(nv).top <= hb.top + 220) || c === hero) continue;
         const cs = getComputedStyle(c);
         const painted = (c.innerText || '').trim() || /^(SVG|IMG|CANVAS|VIDEO|PICTURE)$/.test(c.tagName) || cs.backgroundColor !== 'rgba(0, 0, 0, 0)' || cs.backgroundImage !== 'none' || parseFloat(cs.borderTopWidth) > 0;
         if (!painted || /fixed|sticky/.test(cs.position)) continue;

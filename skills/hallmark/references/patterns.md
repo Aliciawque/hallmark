@@ -84,7 +84,7 @@ The rail scrolls by touch, wheel and arrow keys once focused, and sits outside t
 ```
 
 ```css
-.fill { padding: 0 0.2em; border-radius: 2px; color: var(--color-muted); background: color-mix(in oklch, var(--color-muted) 14%, transparent); }
+.fill { padding: 0 0.25em; border: 1px dashed color-mix(in oklch, var(--color-muted) 70%, transparent); border-radius: 3px; color: var(--color-muted); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 ```
 
 Two a page at most, each named in the handoff (`craft.md` § 8).

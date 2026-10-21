@@ -25,6 +25,8 @@ function usage() {
   node theme.mjs scaffold <slug> [--dealt "<n>/3, seed <seed>"] [--redesign polish|restyle|full] [--scope app] [--dir <beside the stylesheet>] [--force]
   node theme.mjs scaffold --custom | --brand [--redesign polish|restyle|full] [--scope app] [--dir <beside the stylesheet>] [--force]
   node theme.mjs check [--axes "<paper>/<display>/<accent>"] [--face "<display face>"] [--hue <accent hue>] [--log .hallmark/log.json]
+      paper: light | mid | dark · accent: warm | cool | neutral | chromatic-<hue name>
+      display: roman-serif | high-contrast-serif | slab-serif | grotesk-sans | grotesk-heavy | geometric-sans | rounded-sans | display-condensed | display-heavy | mono | pixel | handwritten | blackletter
   node theme.mjs draw --material photo|product|words --job <subscribe|book|visit|attend|buy|try|sign up|hire|join|listen> [--theme <slug>] [--log .hallmark/log.json] [--seed <hex>]
   node theme.mjs photos "<subject>" ["<subject>" ...] [--theme <slug>] [--n 3] [--orient landscape|portrait|square] [--log .hallmark/log.json] [--avoid <file naming photos>] [--save <dir>] [--json]
   node theme.mjs log --entry '<one JSON object>' [--log .hallmark/log.json]
@@ -263,8 +265,7 @@ const listOf = (set) => [...set].join(', ');
 
 function check() {
   const axes = flag('axes');
-  if (!axes && !flag('face')) { usage(); process.exit(2); }
-  if (!axes && flag('hue') != null) { console.error('--hue needs --axes (the hue is checked against themes on the same paper band and display class)'); process.exit(2); }
+  if (!axes && !flag('face') && flag('hue') == null) { usage(); process.exit(2); }
   const [pb, dc, ab] = (axes || '//').split('/').map((s) => s.trim());
   const unknown = !axes ? null : !PAPER_BANDS.has(pb) ? `paper band "${pb}" (valid: ${listOf(PAPER_BANDS)})`
     : !DISPLAY_CLASSES.has(dc) ? `display class "${dc}" (valid: ${listOf(DISPLAY_CLASSES)})`
@@ -275,9 +276,10 @@ function check() {
   const themes = loadIndex();
   const log = readLog(flag('log', '.hallmark/log.json'));
   let bad = 0, near = 0;
+  const named = new Set();
   const look = (t) => `look at references/themes/${t.slug}.jpg beside your plan and move an axis only if the two would read alike`;
   if (axes) for (const t of themes) {
-    if (t.paper.band === pb && t.display.class === dc && t.accent.band === ab) { near++; console.log(`near: ${t.name} sits on ${triple(t)} · ${look(t)}`); }
+    if (t.paper.band === pb && t.display.class === dc && t.accent.band === ab) { near++; named.add(t.slug); console.log(`near: ${t.name} sits on ${triple(t)} · ${look(t)}`); }
   }
   const toks = (x) => x.split(/[\s-]+/).filter(Boolean);
   const sameFamily = (a, b) => { const A = toks(a), B = toks(b), n = Math.min(A.length, B.length); return n > 0 && A.slice(0, n).join(' ') === B.slice(0, n).join(' '); };
@@ -286,11 +288,13 @@ function check() {
     if (sameFamily(tf, face)) { bad++; console.log(`collision: ${t.name} already sets its display in ${t.display.face} · pick a face no theme uses (fonts.md)`); }
   }
   if (hue != null) for (const t of themes) {
-    if (t.paper.band === pb && t.display.class === dc && hueGap(t.accent.hue, hue) <= 20) { near++; console.log(`near: ${t.name} is ${triple(t)} at hue ${t.accent.hue} · ${look(t)}`); }
+    // with axes: themes on the same paper and display class within 20 degrees; hue alone: any theme within 10
+    if (named.has(t.slug)) continue;
+    if (axes ? t.paper.band === pb && t.display.class === dc && hueGap(t.accent.hue, hue) <= 20 : hueGap(t.accent.hue, hue) <= 10) { near++; console.log(`near: ${t.name} is ${triple(t)} at hue ${t.accent.hue} · ${look(t)}`); }
   }
   const recent = axes ? log.slice(0, 3).filter((r) => r.axes === axes) : [];
   for (const r of recent) { near++; console.log(`recent: ${r.theme || 'a build'} on ${r.date || '?'} used ${axes} · vary another decision (the shape, the pictures, the type scale)`); }
-  if (!bad && !near) { console.log(axes ? `clear: ${axes}${face ? ` in ${face}` : ''}${hue != null ? ` at hue ${hue}` : ''} lands on no catalog theme and no recent build` : `clear: no catalog theme sets its display in ${flag('face')}`); return; }
+  if (!bad && !near) { console.log(axes ? `clear: ${axes}${face ? ` in ${face}` : ''}${hue != null ? ` at hue ${hue}` : ''} lands on no catalog theme and no recent build` : [face && `clear: no catalog theme sets its display in ${flag('face')}`, hue != null && `clear: no catalog theme's accent sits within 10 degrees of hue ${hue}`].filter(Boolean).join('\n')); return; }
   if (bad) process.exitCode = 1;
 }
 

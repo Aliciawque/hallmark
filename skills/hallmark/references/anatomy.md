@@ -2,7 +2,7 @@
 
 What a page is built around, by the visitor's job. Read the one job the brief names at Step 2, before the shape: it sets where the action lives, which sections are the category's own, and how the page ends. The theme dresses this anatomy; the shape orders it; neither replaces it. Drawn from the homepages of about fifty real independent sites across these jobs; the pattern Hallmark slipped into (text beside a picture, a figure row, three steps, an email band) is how software pages look and almost nothing else.
 
-**When the brief gives none of a section's content,** build it as a sample the user replaces, the way the product is built when it cannot be captured (`imagery.md` § 4): an example issue with its parts, dishes typical of the cuisine, three candles named plainly, track titles as placeholders, each marked in the handoff. A sample shows the shape of the real thing; it never states a fact a visitor could take as true (a price, a date, a person's name, a count, a review). A section whose whole content would be facts nobody gave (a lineup, a tour) is one line and a text slot, or it waits.
+**When the brief gives none of a section's content,** build it as a sample the user replaces, the way the product is built when it cannot be captured (`imagery.md` § 4): an example issue with its parts, dishes typical of the cuisine, three candles named plainly, track titles as placeholders, each marked in the handoff. A sample shows the shape of the real thing; it never states a fact a visitor could take as true (a price, a date, a person's name, a count, a review). A section whose whole content would be facts nobody gave (a lineup, a tour) is one line and a text slot, or it waits. Practical facts the job wants and the brief lacks (hours, an address, dates) share the page's two missing-fact slots (`craft.md` § 8): slot the two a visitor needs to act.
 
 Every job: the nav carries the job's own action word (Book, Tickets, Shop, Listen, Start free), the hero shows the thing itself (the room, the cover, the dates, the screen), and proof comes in the category's own form, never a generic band of numbers.
 
@@ -64,7 +64,7 @@ Every job: the nav carries the job's own action word (Book, Tickets, Shop, Liste
 
 - **Action:** the new release or current issue with its listen, watch or order buttons side by side.
 - **Sections:** the record, film or issue (its cover, its tracks or contents as an Index); dates (tour, screenings) as rows with ticket links; earlier work as covers in a Rail or Grid; videos.
-- **Ends:** the dates, more of the catalogue, or the mailing list. Artist pages can be very short: one picture, the release, the dates.
+- **Ends:** the dates, more of the catalogue, or the mailing list. Artist pages can be very short: one picture, the release, the dates. With no release in the brief, the act leads instead (the players, how it sounds described plainly, where it plays) and the page's job is booking them: the close is the enquiry.
 
 ## How pages end
 
