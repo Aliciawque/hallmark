@@ -192,7 +192,8 @@ svg path, svg rect { vector-effect: non-scaling-stroke; }
 .hero__sub { margin-top: var(--s-5); font-size: clamp(1.0625rem, 0.95rem + 0.35vw, 1.25rem); color: var(--muted); }
 .install { display: inline-flex; align-items: center; gap: var(--s-3); margin-top: var(--s-6); height: 52px; padding: 0 var(--s-2) 0 var(--s-5); border-radius: var(--r-pill); background: var(--paper); box-shadow: var(--shadow-2); font-family: var(--font-mono); font-size: 0.9375rem; }
 .install__caret { color: var(--accent); }
-.install__cmd { font-size: inherit; color: var(--ink); white-space: nowrap; }
+.install__cmd { min-width: 0; overflow-x: auto; scrollbar-width: none; font-size: inherit; color: var(--ink); white-space: nowrap; }
+.install__cmd::-webkit-scrollbar { display: none; }
 .install .copy { width: 38px; height: 38px; }
 .hero__for { margin-top: var(--s-4); font-size: var(--text-small); color: var(--muted); }
 
@@ -201,10 +202,11 @@ svg path, svg rect { vector-effect: non-scaling-stroke; }
 .fan__hand { position: absolute; left: 50%; top: 0; width: 0; height: 0; transition: transform 600ms var(--ease-out); }
 .card { position: absolute; top: var(--s-7); left: 0; display: block; text-decoration: none; transform-origin: 50% 100%; transform: var(--t); transition: transform 720ms var(--ease-spring), box-shadow var(--dur) var(--ease); will-change: transform; }
 .card--desk { width: var(--dw); aspect-ratio: 8 / 5; margin-left: calc(var(--dw) / -2); border-radius: var(--r); background: var(--paper-2); box-shadow: var(--shadow-card); }
-.card--phone { width: calc(var(--dw) * 0.3); aspect-ratio: 360 / 780; margin-left: calc(var(--dw) * -0.15); margin-top: calc(var(--dw) * -0.02); padding: 4px; border-radius: calc(var(--dw) * 0.06); background: var(--ink); color: var(--paper); box-shadow: 0 2px 4px var(--sh-a12), 0 34px 60px -26px var(--sh-a55), inset 0 0 0 1px var(--white-18); }
-.card--phone::before { content: ""; position: absolute; left: 50%; top: 9px; z-index: 2; width: 28%; height: 9px; border-radius: var(--r-pill); background: var(--ink); transform: translateX(-50%); }
+/* a slim device: thin graphite bezel, modest corners, the island sits in the screen's own status bar (the shot leaves room for it) */
+.card--phone { width: calc(var(--dw) * 0.3); aspect-ratio: 360 / 780; margin-left: calc(var(--dw) * -0.15); margin-top: calc(var(--dw) * -0.02); padding: 3px; border-radius: calc(var(--dw) * 0.036); background: oklch(24% 0.004 260); color: var(--paper); box-shadow: 0 1px 2px var(--sh-a12), 0 30px 56px -26px var(--sh-a45), inset 0 0 0 1px var(--white-18); }
+.card--phone::before { content: ""; position: absolute; left: 50%; top: 1.6%; z-index: 2; width: 24%; height: 2.3%; border-radius: var(--r-pill); background: oklch(14% 0.004 260); transform: translateX(-50%); }
 .card img { width: 100%; height: 100%; object-fit: cover; object-position: top center; border-radius: inherit; pointer-events: none; }
-.card--phone img { border-radius: calc(var(--dw) * 0.06 - 4px); }
+.card--phone img { border-radius: calc(var(--dw) * 0.036 - 3px); }
 .card--desk::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 0 0 1px var(--sh-a08); pointer-events: none; }
 /* without the script the hand still sits on its arc; the script deals it and takes over */
 .card--desk { --t: translate(calc((var(--i) - 2) * var(--dw) * 1.45), calc((var(--i) - 2) * (var(--i) - 2) * var(--dw) * 0.12)) rotate(calc((var(--i) - 2) * 4.2deg)); }
@@ -511,4 +513,7 @@ svg path, svg rect { vector-effect: non-scaling-stroke; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+@media (max-width: 400px) {
+  .install { gap: var(--s-2); padding-left: var(--s-3); font-size: 0.75rem; letter-spacing: -0.02em; }
 }
