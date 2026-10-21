@@ -17,9 +17,9 @@ const TARGETS = {
     detect: () => fs.existsSync(path.join(HOME, ".claude")),
   },
   codex: {
-    label: "Codex CLI",
+    label: "Codex CLI and Cursor",
     dir: path.join(HOME, ".agents", "skills", "hallmark"),
-    detect: () => fs.existsSync(path.join(HOME, ".codex")) || fs.existsSync(path.join(HOME, ".agents")),
+    detect: () => [".codex", ".agents", ".cursor"].some((d) => fs.existsSync(path.join(HOME, d))),
     legacy: path.join(HOME, ".codex", "skills", "hallmark"),
   },
   opencode: {
@@ -31,11 +31,11 @@ const TARGETS = {
 
 const args = process.argv.slice(2);
 const has = (f) => args.includes(f);
-const FLAGS = ["--claude", "--codex", "--opencode", "--copy", "--dry-run", "--force", "--remove", "--help", "-h"];
+const FLAGS = ["--claude", "--codex", "--opencode", "--cursor", "--copy", "--dry-run", "--force", "--remove", "--help", "-h"];
 const unknown = args.filter((a) => !FLAGS.includes(a));
 if (has("--help") || has("-h") || unknown.length) {
   if (unknown.length) console.log(`Unknown option: ${unknown.join(" ")}\n`);
-  console.log(`node install.mjs [--claude] [--codex] [--opencode] [--copy] [--dry-run] [--force] [--remove]
+  console.log(`node install.mjs [--claude] [--codex] [--cursor] [--opencode] [--copy] [--dry-run] [--force] [--remove]
 
   Installs Hallmark for every harness it finds (or only the ones named), after checking every theme and reference.
   --dry-run  print what would be copied and change nothing
@@ -90,11 +90,11 @@ if (has("--remove")) {
   process.exit(0);
 }
 
-const explicit = ["claude", "codex", "opencode"].filter((k) => has("--" + k));
+const explicit = ["claude", "codex", "opencode"].filter((k) => has("--" + k) || (k === "codex" && has("--cursor")));
 const picked = explicit.length ? explicit : Object.keys(TARGETS).filter((k) => TARGETS[k].detect());
 
 if (!picked.length) {
-  console.log("No harness detected (~/.claude, ~/.codex, ~/.agents, ~/.config/opencode all absent).");
+  console.log("No harness detected (~/.claude, ~/.codex, ~/.agents, ~/.cursor, ~/.config/opencode all absent).");
   console.log("Pick explicitly: node install.mjs --claude --codex --opencode");
   process.exit(1);
 }
@@ -138,4 +138,4 @@ for (const key of picked) {
   }
 }
 
-console.log(`\nDone. Invoke as: /hallmark (Claude Code) · $hallmark (Codex) · /hallmark (OpenCode).`);
+console.log(`\nDone. Invoke as: /hallmark (Claude Code) · $hallmark (Codex) · /hallmark (Cursor, OpenCode).`);

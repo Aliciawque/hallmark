@@ -1,6 +1,6 @@
 # Hallmark
 
-**A design skill for Claude Code, Codex CLI and OpenCode that refuses to look AI-generated.**
+**A design skill for Claude Code, Codex, Cursor and OpenCode that refuses to look AI-generated.**
 
 [usehallmark.com](https://www.usehallmark.com) &nbsp;·&nbsp; forty-eight themes &nbsp;·&nbsp; custom on request &nbsp;·&nbsp; redesign and audit by name
 
@@ -94,6 +94,7 @@ npx skills add nutlope/hallmark -g
 | --- | --- | --- |
 | Claude Code | `~/.claude/skills/hallmark` | `/hallmark <prompt>` or describe a new build |
 | Codex CLI | `~/.agents/skills/hallmark` | `$hallmark <prompt>` or describe a new build |
+| Cursor | finds the copies above | `/hallmark <prompt>` or describe a new build |
 | OpenCode | finds the copies above | `/hallmark <prompt>` or describe a new build |
 
 - **One harness only:** `npx skills add nutlope/hallmark -g --agent claude-code` (or `codex`, `opencode`, `cursor`, `github-copilot`).

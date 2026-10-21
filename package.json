@@ -28,6 +28,7 @@
     "harnesses": [
       "claude-code",
       "codex",
+      "cursor",
       "opencode"
     ]
   },
