@@ -139,7 +139,7 @@ A custom run's rows are in `direction.md`. Then one quiet line, skipped in compo
 
 1. `node <skill-dir>/scripts/sloplint.mjs <files> --genre <genre> --render` (`--scope component` or `--scope app` where it applies; in a framework project, `--url http://localhost:<port>/<route>` with the dev server running). Fix every FAIL and re-run until clean. The render tier writes the screenshots; never drive a browser by hand.
 2. Load [`references/gates.md`](references/gates.md) § 5 and walk the J and R/J gates. Confirm or dismiss every WARN. Fix every open Floor finding; fix or waive every Reflex one; answer every Finish one.
-3. The finish review in fresh context (`gates.md` § 6): act on its first word (`recapture`, `rebuild`, `fix`, `ship`) and score the fixes yourself.
+3. The finish review in fresh context (`gates.md` § 6; the reviewer reads its brief, you never open `review-*.md`): act on its first word (`recapture`, `rebuild`, `fix`, `ship`) and score the fixes yourself.
 4. Close with the material ask: every slot, its size and what belongs there, then the one piece of material that would most improve the page.
 5. Update the Picks block: any row the build changed, and the last row with the outcome (`Floor 0 FAIL · Reflex 2 (1 waived: 47b) · finish-review: subagent, 3 resolved`). A fabricated pass is itself slop.
 

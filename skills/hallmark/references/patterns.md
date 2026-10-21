@@ -65,7 +65,7 @@ The radios stay in the flow at one pixel (53); the label carries the state and t
 .fill { padding: 0 0.2em; border-radius: 2px; color: var(--color-muted); background: color-mix(in oklch, var(--color-muted) 14%, transparent); }
 ```
 
-Three a page at most, each named in the handoff (`craft.md` § 8).
+Two a page at most, each named in the handoff (`craft.md` § 8).
 
 ## A form that posts nowhere yet
 
