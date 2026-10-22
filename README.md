@@ -27,14 +27,14 @@ The gates come in tiers. The **Floor** never ships (contrast, focus, reduced mot
 
 <table>
   <tr>
-    <td width="20%"><a href="https://www.usehallmark.com/themes/ledger/"><img src="docs/screenshots/ledger.jpg" alt="Ledger theme: Closewise, bank reconciliation" /></a></td>
+    <td width="20%"><a href="https://www.usehallmark.com/themes/dusk/"><img src="docs/screenshots/dusk.jpg" alt="Dusk theme: Closewise, bank reconciliation" /></a></td>
     <td width="20%"><a href="https://www.usehallmark.com/themes/cobalt/"><img src="docs/screenshots/cobalt.jpg" alt="Cobalt theme: Relay, a webhook API" /></a></td>
     <td width="20%"><a href="https://www.usehallmark.com/themes/studio/"><img src="docs/screenshots/studio.jpg" alt="Studio theme: Field Office, an identity studio" /></a></td>
     <td width="20%"><a href="https://www.usehallmark.com/themes/atelier/"><img src="docs/screenshots/atelier.jpg" alt="Atelier theme: Maison Orla, a fragrance atelier" /></a></td>
     <td width="20%"><a href="https://www.usehallmark.com/themes/ribbon/"><img src="docs/screenshots/ribbon.jpg" alt="Ribbon theme: Lull, a sleep sounds app" /></a></td>
   </tr>
   <tr>
-    <td><b>Ledger</b><br/><sub>Closewise, bank reconciliation</sub></td>
+    <td><b>Dusk</b><br/><sub>Closewise, bank reconciliation</sub></td>
     <td><b>Cobalt</b><br/><sub>Relay, a webhook API</sub></td>
     <td><b>Studio</b><br/><sub>Field Office, an identity studio</sub></td>
     <td><b>Atelier</b><br/><sub>Maison Orla, a fragrance atelier</sub></td>
