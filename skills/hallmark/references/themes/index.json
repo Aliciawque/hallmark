@@ -1486,8 +1486,8 @@
     "hue": 85
    },
    "display": {
-    "class": "high-contrast-serif",
-    "face": "Newsreader italic"
+    "class": "grotesk-sans",
+    "face": "Instrument Sans"
    },
    "accent": {
     "band": "chromatic-teal",
@@ -1514,7 +1514,7 @@
     "app",
     "subscription"
    ],
-   "material": "warm off-white or blue-black night, Newsreader light italic over Figtree, machined parts lit from above, the hour drawn as light on a generated canvas, one signal",
+   "material": "warm off-white or blue-black night, Instrument Sans at a quiet weight over Figtree, machined parts lit from above, the hour drawn as light on a generated canvas, one signal",
    "file": "references/themes/ribbon.md",
    "photo": "muted sepia=14",
    "pictured": "Night Notes, Stage hero, in the two-in-the-morning colourway",
