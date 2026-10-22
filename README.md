@@ -7,7 +7,7 @@
 Made by Together AI.
 
 <p align="center">
-  <img src="site/OG-hallmark.png" alt="Hallmark, a design skill that refuses to look AI-generated" />
+  <img src="site/OG-hallmark.png" alt="Hallmark, the design skill that ends AI slop" />
 </p>
 
 Hallmark holds a hard floor and then gets out of the way. It deals three themes from a catalog of forty-eight materials, builds the page around what the visitor came to do, and lints the result in a real browser against the tells that read as machine-made: the eyebrow above every heading, tracked-capital labels, one coloured word in a headline, a page of empty frames or nothing but photographs, a hero that misses its screen, an email sign-up at the end of every page, a form that says thanks without sending anything. A fresh-context reviewer gets the last word.
