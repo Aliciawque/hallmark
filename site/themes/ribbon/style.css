@@ -1,7 +1,6 @@
 /* Hallmark · shape: Night Notes (named here: the night mixed on one canvas behind a machined three-fader mixer that really plays, the app's own faders beside the three sounds, a far train photograph, the fade drawn as three levels falling together, the price under the same horizon) · genre: atmospheric · theme: Ribbon (by request) · ribbon: two-in-the-morning, deepened
  * hero: Stage, full-bleed night · nav: edge-aligned over the night · footer: letter close on the land · imagery: generated night (canvas), product built live, one photograph, library 1, muted sepia=14 · product sample in hero, in the app and in the fade
- * axes: dark/high-contrast-serif/warm-amber · posture: committed · contrast: pass · fold: pass · v2.8.0 */
-/* Hallmark · waive 38ii · every head on --font-display is true italic 300 with font-synthesis none, declared in the theme · the light italic is Ribbon's whole display voice */
+ * axes: dark/grotesk-sans/warm-amber · posture: committed · contrast: pass · fold: pass · v2.8.0 */
 @import url("./tokens.css");
 @import url("./base.css");
 
@@ -9,7 +8,7 @@
 
 html { background: var(--color-paper); }
 body { color: var(--color-muted); line-height: 1.6; background: var(--color-paper); font-feature-settings: "kern" 1; }
-h1, h2, h3 { font-style: italic; font-weight: 300; font-variation-settings: "opsz" 72; font-synthesis: none; line-height: 1.02; color: var(--color-ink); }
+h1, h2, h3 { font-weight: 400; font-synthesis: none; line-height: 1.04; color: var(--color-ink); }
 ::selection { background: var(--amber-82-a3-c095h68); color: var(--color-ink); }
 :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
 
@@ -48,7 +47,7 @@ h1, h2, h3 { font-style: italic; font-weight: 300; font-variation-settings: "ops
 .nav__links { display: flex; gap: var(--space-xl); margin: 0; padding: 0; list-style: none; }
 .nav__links a { font-size: var(--text-sm); font-weight: 500; color: var(--color-ink-2); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 0.4em; transition: color var(--dur-short) var(--ease-out), text-decoration-color var(--dur-short) var(--ease-out); }
 .nav__links a:hover { color: var(--color-ink); text-decoration-color: var(--color-accent); }
-.wordmark { font: italic 300 1.875rem/1 var(--font-display); font-variation-settings: "opsz" 72; letter-spacing: var(--tracking-display); color: var(--color-ink); text-decoration: none; transition: color var(--dur-short) var(--ease-out); }
+.wordmark { font: 500 1.375rem/1 var(--font-display); letter-spacing: var(--tracking-display); color: var(--color-ink); text-decoration: none; transition: color var(--dur-short) var(--ease-out); }
 .wordmark:hover { color: var(--color-accent); }
 
 /* ---------- The night: sky and land in CSS, rain, wind and the train on one canvas ---------- */
@@ -95,7 +94,7 @@ h1, h2, h3 { font-style: italic; font-weight: 300; font-variation-settings: "ops
 }
 .mixer::before { content: ""; position: absolute; inset: 0; border-radius: inherit; background-image: var(--grain, none); background-size: 160px 160px; opacity: 0.35; mix-blend-mode: soft-light; pointer-events: none; }
 .mixer__head { display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-md); padding-inline: var(--space-2xs); }
-.mixer__title { font: italic 300 1.75rem/1 var(--font-display); font-variation-settings: "opsz" 72; letter-spacing: var(--tracking-display); color: var(--color-ink); }
+.mixer__title { font: 500 1.375rem/1.1 var(--font-display); letter-spacing: var(--tracking-display); color: var(--color-ink); }
 .mixer__status { display: inline-flex; align-items: center; gap: var(--space-xs); font: 500 var(--text-xs)/1 var(--font-body); color: var(--color-muted); font-variant-numeric: tabular-nums; }
 .led { width: 6px; height: 6px; border-radius: 50%; background: var(--night-38-c012h258); box-shadow: inset 0 1px 1px var(--black-a6); transition: background-color var(--dur-long) var(--ease-out), box-shadow var(--dur-long) var(--ease-out); }
 .is-playing .led { background: var(--color-accent); box-shadow: 0 0 0 3px var(--amber-82-a12-c095h68), 0 0 10px var(--amber-82-a7-c095h68); animation: breathe 3.2s var(--ease-in-out) infinite alternate; }
@@ -188,7 +187,7 @@ h1, h2, h3 { font-style: italic; font-weight: 300; font-variation-settings: "ops
 .sound-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "name level" "line level"; column-gap: var(--space-xl); row-gap: var(--space-2xs); padding-block: var(--space-lg); border-bottom: var(--rule-hair) solid var(--color-rule); }
 .sound-list h3 { grid-area: name; font-size: var(--text-title); }
 .sound-list p { grid-area: line; }
-.sound-list__level { grid-area: level; align-self: center; min-width: 2ch; text-align: right; font: italic 300 var(--text-3xl)/1 var(--font-display); font-variation-settings: "opsz" 72; font-variant-numeric: lining-nums tabular-nums; color: var(--color-ink); }
+.sound-list__level { grid-area: level; align-self: center; min-width: 2ch; text-align: right; font: 400 var(--text-3xl)/1 var(--font-display); font-variant-numeric: lining-nums tabular-nums; color: var(--color-ink); }
 
 .mix__app { grid-column: 8 / -1; justify-self: center; display: grid; justify-items: center; gap: var(--space-md); }
 .phone { box-sizing: border-box; width: min(100%, 340px); margin: 0; padding: 28px 20px var(--space-lg); border-radius: 44px;
@@ -253,8 +252,8 @@ h1, h2, h3 { font-style: italic; font-weight: 300; font-variation-settings: "ops
 .close__text { grid-column: 1 / span 6; }
 .close__text .lead { margin-top: var(--space-lg); max-width: 34ch; color: var(--color-ink-2); }
 .close__figure { grid-column: 8 / -1; justify-self: end; display: flex; align-items: baseline; gap: var(--space-md); margin: 0; color: var(--color-ink); }
-.close__num { font: italic 300 clamp(6rem, 11vw, 11rem)/0.85 var(--font-display); font-variation-settings: "opsz" 72; letter-spacing: -0.03em; font-variant-numeric: lining-nums; }
-.close__per { font: italic 300 var(--text-2xl)/1 var(--font-display); font-variation-settings: "opsz" 72; color: var(--color-muted); }
+.close__num { font: 400 clamp(6rem, 11vw, 11rem)/0.85 var(--font-display); letter-spacing: -0.05em; font-variant-numeric: lining-nums; }
+.close__per { font: 400 var(--text-2xl)/1 var(--font-display); color: var(--color-muted); }
 .horizon { position: relative; --land: 0px; height: 1px; background: linear-gradient(to right, transparent, var(--night-78-a22-c03h245) 18%, var(--night-78-a22-c03h245) 82%, transparent); }
 .horizon .train { bottom: 3px; animation: cross 52s linear infinite; animation-delay: -14s; will-change: transform; }
 .horizon:not(.is-near) .train { animation-play-state: paused; }
@@ -263,7 +262,7 @@ h1, h2, h3 { font-style: italic; font-weight: 300; font-variation-settings: "ops
 /* ---------- Footer: a letter close on the land ---------- */
 .footer { padding-block: var(--space-3xl) var(--space-xl); background: linear-gradient(to bottom, var(--color-band), var(--night-8_5-c016h258)); }
 .footer__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap-columns); row-gap: var(--space-2xl); align-items: end; }
-.footer__signoff { grid-column: 1 / 8; font: italic 300 var(--text-section)/1.05 var(--font-display); font-variation-settings: "opsz" 72; letter-spacing: var(--tracking-display); color: var(--color-ink); }
+.footer__signoff { grid-column: 1 / 8; font: 400 var(--text-section)/1.05 var(--font-display); letter-spacing: var(--tracking-display); color: var(--color-ink); }
 .footer__links { grid-column: 8 / -1; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--space-xl); }
 .footer__links a { font-size: var(--text-sm); font-weight: 500; color: var(--color-ink-2); text-decoration: underline; text-decoration-color: var(--white-a2); text-underline-offset: 0.4em; transition: color var(--dur-short) var(--ease-out), text-decoration-color var(--dur-short) var(--ease-out); }
 .footer__links a:hover { color: var(--color-ink); text-decoration-color: var(--color-accent); }
